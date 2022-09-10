@@ -1,0 +1,141 @@
+{
+  "main": {
+    "id": "5ef8acde36117349",
+    "type": "split",
+    "children": [
+      {
+        "id": "5baaf65d54d83bca",
+        "type": "leaf",
+        "state": {
+          "type": "markdown",
+          "state": {
+            "file": "experimental/Testovací stránka.md",
+            "mode": "source",
+            "source": false
+          }
+        }
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "90f01da75e541920",
+    "type": "split",
+    "children": [
+      {
+        "id": "397367b2692c211b",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "b612cf7b20467353",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {}
+            }
+          },
+          {
+            "id": "ed4981d094417b34",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "5873576f3fe3530e",
+            "type": "leaf",
+            "state": {
+              "type": "starred",
+              "state": {}
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "3fc4d58860d392f3",
+    "type": "split",
+    "children": [
+      {
+        "id": "91f4ea6f7b1cca78",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "c6b5c7d1f06ae776",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "experimental/Testovací stránka.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "ef321aeba6dc0b00",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "experimental/Testovací stránka.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "f4a9c9b71e15be3b",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true
+              }
+            }
+          },
+          {
+            "id": "9e369e452425d24c",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "experimental/Testovací stránka.md"
+              }
+            }
+          }
+        ],
+        "currentTab": 3
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "active": "9e369e452425d24c",
+  "lastOpenFiles": [
+    "experimental/Testovací stránka.md",
+    "projects/markdown/syntax.text.md",
+    "Zkušební soubor.md",
+    "Zkušební soubor.pdf",
+    "x/Zkušební soubor.md",
+    "hello.md",
+    "2022-09-10.md"
+  ]
+}
