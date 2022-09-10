@@ -28,7 +28,7 @@ can [see the source for it by adding '.text' to the URL](/projects/markdown/synt
 
 ## Overview
 
-### Philosophy
+### Philosophy :)
 
 Markdown is intended to be as easy-to-read and easy-to-write as is feasible.
 

@@ -120,15 +120,23 @@
                 "file": "experimental/Testovací stránka.md"
               }
             }
+          },
+          {
+            "id": "1ee4416efbbd5c9f",
+            "type": "leaf",
+            "state": {
+              "type": "git-view",
+              "state": {}
+            }
           }
         ],
-        "currentTab": 3
+        "currentTab": 4
       }
     ],
     "direction": "horizontal",
     "width": 300
   },
-  "active": "9e369e452425d24c",
+  "active": "1ee4416efbbd5c9f",
   "lastOpenFiles": [
     "experimental/Testovací stránka.md",
     "projects/markdown/syntax.text.md",
