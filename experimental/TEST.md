@@ -1,26 +1,24 @@
-# Markdown: Syntax
+# Markdown: syntax
 
-*   [Overview](#overview)
-    *   [Philosophy](#philosophy)
-    *   [Inline HTML](#html)
-    *   [Automatic Escaping for Special Characters](#autoescape)
-	    * dkfj
-*   [Block Elements](#block)
-    *   [Paragraphs and Line Breaks](#p)
-    *   [Headers](#header)
-    *   [Blockquotes](#blockquote)
-    *   [Lists](#list)
-    *   [Code Blocks](#precode)
-    *   [Horizontal Rules](#hr)
-*   [Span Elements](#span)
-    *   [Links](#link)
-    *   [Emphasis](#em)
-    *   [Code](#code)
-    *   [Images](#img)
-*   [Miscellaneous](#misc)
-    *   [Backslash Escapes](#backslash)
-    *   [Automatic Links](#autolink)
-
+* [Overview](#overview)
+    * [Philosophy](#philosophy)
+    * [Inline HTML](#html)
+    * [Automatic Escaping for Special Characters](#autoescape)
+* [Block Elements](#block)
+    * [Paragraphs and Line Breaks](#p)
+    * [Headers](#header)
+    * [Blockquotes](#blockquote)
+    * [Lists](#list)
+    * [Code Blocks](#precode)
+    * [Horizontal Rules](#hr)
+* [Span Elements](#span)
+    * [Links](#link)
+    * [Emphasis](#em)
+    * [Code](#code)
+    * [Images](#img)
+* [Miscellaneous](#misc)
+    * [Backslash Escapes](#backslash)
+    * [Automatic Links](#autolink)
 
 **Note:** This document is itself written using Markdown; you
 can [see the source for it by adding '.text' to the URL](/projects/markdown/syntax.text).
@@ -33,8 +31,6 @@ can [see the source for it by adding '.text' to the URL](/projects/markdown/synt
 
 Markdown is intended to be as easy-to-read and easy-to-write as is feasible.
 
-Hello 
-$$x=\frac{1}{2}$$
 Readability, however, is emphasized above all else. A Markdown-formatted
 document should be publishable as-is, as plain text, without looking
 like it's been marked up with tags or formatting instructions. While
@@ -43,11 +39,9 @@ filters -- including [Setext](http://docutils.sourceforge.net/mirror/setext.html
 [Grutatext](http://www.triptico.com/software/grutatxt.html), and [EtText](http://ettext.taint.org/doc/) -- the single biggest source of
 inspiration for Markdown's syntax is the format of plain text email.
 
-nice $a+b=c$ isn't it – hah
+## Block elements
 
-## Block Elements
-
-### Paragraphs and Line Breaks
+### Paragraphs and line breaks
 
 A paragraph is simply one or more consecutive lines of text, separated
 by one or more blank lines. (A blank line is any line that looks like a
@@ -60,7 +54,7 @@ significantly from most other text-to-HTML formatters (including Movable
 Type's "Convert Line Breaks" option) which translate every line break
 character in a paragraph into a `<br />` tag.
 
-When you *do* want to insert a `<br />` break tag using Markdown, you
+When you _do_ want to insert a `<br />` break tag using Markdown, you
 end a line with two or more spaces, then type return.
 
 ### Headers
@@ -73,7 +67,6 @@ closing hashes don't even need to match the number of hashes
 used to open the header. (The number of opening hashes
 determines the header level.)
 
-
 ### Blockquotes
 
 Markdown uses email-style `>` characters for blockquoting. If you're
@@ -84,7 +77,7 @@ wrap the text and put a `>` before every line:
 > This is a blockquote with two paragraphs. Lorem ipsum dolor sit amet,
 > consectetuer adipiscing elit. Aliquam hendrerit mi posuere lectus.
 > Vestibulum enim wisi, viverra nec, fringilla in, laoreet vitae, risus.
-> 
+>
 > Donec sit amet nisl. Aliquam semper ipsum sit amet velit. Suspendisse
 > id sem consectetuer libero luctus adipiscing.
 
@@ -111,18 +104,17 @@ Blockquotes can contain other Markdown elements, including headers, lists,
 and code blocks:
 
 > ## This is a header.
-> 
-> 1.   This is the first list item.
-> 2.   This is the second list item.
-> 
+>
+> 1. This is the first list item.
+> 2. This is the second list item.
+>
 > Here's some example code:
-> 
+>
 >     return shell_exec("echo $input | $markdown_script");
 
 Any decent text editor should make email-style quoting easy. For
 example, with BBEdit, you can make a selection and choose Increase
 Quote Level from the Text menu.
-
 
 ### Lists
 
@@ -131,27 +123,27 @@ Markdown supports ordered (numbered) and unordered (bulleted) lists.
 Unordered lists use asterisks, pluses, and hyphens -- interchangably
 -- as list markers:
 
-*   Red
-*   Green
-*   Blue
+* Red
+* Green
+* Blue
 
 is equivalent to:
 
-+   Red
-+   Green
-+   Blue
++ Red
++ Green
++ Blue
 
 and:
 
--   Red
--   Green
--   Blue
+- Red
+- Green
+- Blue
 
 Ordered lists use numbers followed by periods:
 
-1.  Bird
-2.  McHale
-3.  Parish
+1. Bird
+2. McHale
+3. Parish
 
 It's important to note that the actual numbers you use to mark the
 list have no effect on the HTML output Markdown produces. The HTML
@@ -159,9 +151,9 @@ Markdown produces from the above list is:
 
 If you instead wrote the list in Markdown like this:
 
-1.  Bird
-1.  McHale
-1.  Parish
+1. Bird
+1. McHale
+1. Parish
 
 or even:
 
@@ -176,25 +168,25 @@ But if you want to be lazy, you don't have to.
 
 To make lists look nice, you can wrap items with hanging indents:
 
-*   Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
+* Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
     Aliquam hendrerit mi posuere lectus. Vestibulum enim wisi,
     viverra nec, fringilla in, laoreet vitae, risus.
-*   Donec sit amet nisl. Aliquam semper ipsum sit amet velit.
+* Donec sit amet nisl. Aliquam semper ipsum sit amet velit.
     Suspendisse id sem consectetuer libero luctus adipiscing.
 
 But if you want to be lazy, you don't have to:
 
-*   Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
+* Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
 Aliquam hendrerit mi posuere lectus. Vestibulum enim wisi,
 viverra nec, fringilla in, laoreet vitae, risus.
-*   Donec sit amet nisl. Aliquam semper ipsum sit amet velit.
+* Donec sit amet nisl. Aliquam semper ipsum sit amet velit.
 Suspendisse id sem consectetuer libero luctus adipiscing.
 
 List items may consist of multiple paragraphs. Each subsequent
 paragraph in a list item must be indented by either 4 spaces
 or one tab:
 
-1.  This is a list item with two paragraphs. Lorem ipsum dolor
+1. This is a list item with two paragraphs. Lorem ipsum dolor
     sit amet, consectetuer adipiscing elit. Aliquam hendrerit
     mi posuere lectus.
 
@@ -202,36 +194,36 @@ or one tab:
     vitae, risus. Donec sit amet nisl. Aliquam semper ipsum
     sit amet velit.
 
-2.  Suspendisse id sem consectetuer libero luctus adipiscing.
+2. Suspendisse id sem consectetuer libero luctus adipiscing.
 
 It looks nice if you indent every line of the subsequent
 paragraphs, but here again, Markdown will allow you to be
 lazy:
 
-*   This is a list item with two paragraphs.
+* This is a list item with two paragraphs.
 
     This is the second paragraph in the list item. You're
 only required to indent the first line. Lorem ipsum dolor
 sit amet, consectetuer adipiscing elit.
 
-*   Another item in the same list.
+* Another item in the same list.
 
 To put a blockquote within a list item, the blockquote's `>`
 delimiters need to be indented:
 
-*   A list item with a blockquote:
+* A list item with a blockquote:
 
     > This is a blockquote
     > inside a list item.
 
 To put a code block within a list item, the code block needs
-to be indented *twice* -- 8 spaces or two tabs:
+to be indented _twice_ -- 8 spaces or two tabs:
 
-*   A list item with a code block:
+* A list item with a code block:
 
         <code goes here>
 
-### Code Blocks
+### Code blocks
 
 Pre-formatted code blocks are used for writing about programming or
 markup source code. Rather than forming normal paragraphs, the lines
@@ -274,17 +266,17 @@ tell application "Foo"
 end tell
 ```
 
-## Span Elements
+## Span elements
 
 ### Links
 
-Markdown supports two style of links: *inline* and *reference*.
+Markdown supports two style of links: _inline_ and _reference_.
 
 In both styles, the link text is delimited by [square brackets].
 
 To create an inline link, use a set of regular parentheses immediately
 after the link text's closing square bracket. Inside the parentheses,
-put the URL where you want the link to point, along with an *optional*
+put the URL where you want the link to point, along with an _optional_
 title for the link, surrounded in quotes. For example:
 
 This is [an example](http://example.com/) inline link.
@@ -298,13 +290,13 @@ emphasis. Text wrapped with one `*` or `_` will be wrapped with an
 HTML `<em>` tag; double `*`'s or `_`'s will be wrapped with an HTML
 `<strong>` tag. E.g., this input:
 
-*single asterisks*
+_single asterisks_
 
 _single underscores_
 
 **double asterisks**
 
-__double underscores__
+**double underscores**
 
 ### Code
 
