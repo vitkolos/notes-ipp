@@ -37,5 +37,13 @@
       ],
       "key": "ArrowUp"
     }
+  ],
+  "switcher:open": [
+    {
+      "modifiers": [
+        "Mod"
+      ],
+      "key": "P"
+    }
   ]
 }
