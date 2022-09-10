@@ -1,3 +1,6 @@
 {
-  "translucency": false
+  "translucency": false,
+  "enabledCssSnippets": [
+    "math"
+  ]
 }
