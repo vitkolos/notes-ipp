@@ -1,0 +1,15 @@
+- příklady z první hodiny
+	- 1b – hledáme nejtěžší minci
+		- dolní odhad???
+	- 1c – hledáme druhou nejtěžší minci
+		- vážení po dvojicích, najdeme nejtěžší, mince, které jsme s ní porovnávali, si dáme stranou a hledáme nejtěžší mezi nimi
+	- 1e – nejtěžší poštou
+		- vážení každého s každým → $\frac{n^2-n}{2}$
+	- 2 – průchod tunelu (12 minut)
+		- 2 otec s matkou
+		- 1 otec
+		- 5 syn s dcerou
+		- 2 matka
+		- 2 otec s matkou
+	- 3 – kelímkomat
+		- ![[kelímkomat.png]]
