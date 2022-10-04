@@ -12,4 +12,4 @@
 		- 2 matka
 		- 2 otec s matkou
 	- 3 – kelímkomat
-		- ![[kelímkomat.png]]
+		- ![](kelímkomat.png)
