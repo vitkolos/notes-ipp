@@ -22,5 +22,6 @@
   "showFrontmatter": false,
   "attachmentFolderPath": "./přílohy",
   "foldHeading": false,
-  "useMarkdownLinks": true
+  "useMarkdownLinks": true,
+  "newLinkFormat": "relative"
 }
