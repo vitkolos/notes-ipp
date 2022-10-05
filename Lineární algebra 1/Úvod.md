@@ -47,7 +47,7 @@ $$ ...
 	- od j-tého odečtu j-tý (na j-tém je nyní $-$i-tý)
 	- j-tý řádek vynásobím $-1$
 - odstupňovaný tvar matice (REF)
-	- ![[ref.jpg]]
+	- ![ref](přílohy/ref.jpg)
 	- řádky 1, ..., r jsou nenulové
 	- řádky r + 1, ..., m jsou nulové
 	- pod každým pivotem (tečka na obrázku) jsou samé nuly
@@ -77,7 +77,7 @@ $$ ...
 				- nebázické proměnné jsou ty zbývající... parametry...
 - řešitelnost soustavy a hodnost matice
 	- hodnost matice (A | b) udává řešitelnost a počet významných rovnic v soustavě
-	- Frobeniova věta:\
+	- Frobeniova věta:  
 	  Soustava (A | b) má alespoň jedno řešení právě tehdy, když $rank(A) = rank(A | b)$.
 
 ## Cvičení
