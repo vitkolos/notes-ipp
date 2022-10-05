@@ -13,3 +13,32 @@
 		- 2 otec s matkou
 	- 3 – kelímkomat
 		- ![](přílohy/kelímkomat.png)
+
+## Přednáška
+
+- prezentaci budeme mít k dispozici online, často bude rozšířená oproti přednášce, budou tam ukázkové programy
+- kurz v Moodlu
+- zkouška
+	- společné pořadavky a zkušební termíny pro obě paralelky
+	- přihlašování přes SIS
+	- je nutné mít zápočet
+	- povinná písemná část, nepovinná ústní
+- materiály
+	- Pavel Töpfer: Algoritmy a programovací techniky
+	- programátorské kuchařky KSP
+	- https://pruvodce.ucw.cz
+
+### Algoritmus
+
+- Konečná posloupnost elementárních příkazů, jejichž provádění umožňuje pro každá přípustná vstupní data mechanickým způsobem získat po konečném počtu kroků příslušná výstupní data.
+- vlastnosti algoritmu – konečnost, hromadnost, resultativnost, jednoznačnost, determinismus (nebude na zkoušce :)
+	- determinismus – po provedení každého kroku je jednoznačně určeno, který krok se bude provádět dále
+- formální modely algoritmu – rekurzivní funkce, Turingův stroj, lambda kalkul, RAM počítač
+- popis a zápis algoritmu – slovní popis v přirozeném jazyce, pseudokód, program (zjednodušená konstrukce programovacího jazyka)
+- největší společný dělitel
+- správnost Eukleidova algoritmu
+	1. konečnost = výpočet pro jakákoliv vstupní data skončí
+		- na začátku výpočtu i stále v jeho průběhu je x > 0, y > 0
+		- v každém kroku výpočtu se hodnota x+y sníží alespoň o 1 -> nejpozději po x+y krocích výpočet skončí, je tedy konečný
+	2. parciální správnost
+- problém stabilních manželství
