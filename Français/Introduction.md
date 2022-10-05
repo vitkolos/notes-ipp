@@ -38,3 +38,9 @@
 	- en comparaison
 	- par ailleurs
 	- en ce qui me concerne
+	- d'après mon expérience
+	- premièrement, deuxièment, finalement
+	- je fais référence à
+	- je suppose
+- les mots
+	- les valeurs
