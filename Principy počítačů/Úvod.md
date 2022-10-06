@@ -35,7 +35,7 @@
 	- stanovíme hranici napětí, všechny hodnoty nad ní budeme interpretovat jako jedničku, hodnoty pod ní jako nulu
 	- digitální přenos – přenos číslic
 
-![timing-diagram](přílohy/timing-diagram.png)
+![timing-diagram](přílohy/timing%20diagram.png)
 
 - sériový digitální přenos
 	- záleží na pořadí číslic – přijímající a vysílající se musí dohodnout
@@ -52,17 +52,16 @@
 	- cca 16 000 000 = 2^24
 	- cca 4 200 000 000 = 2^32
 
-![](přílohy/Pasted%20image%2020221006151451.png)
+![](přílohy/obvod.png)
 
-![](přílohy/Pasted%20image%2020221006151438.png)
+![](přílohy/diferenciální%20přenos.png)
 
 - diferenciální přenos
 	- data 1 – data 2
-	- >0 = 1
-	- <0 = 0
+	- \>0 = 1
+	- \<0 = 0
 - řešení problému se dvěma jedničkama / dlouhou jedničkou
 	- pevná délka bitu
 		- definuje se přenosová rychlost
 			- v bitech za sekundu (bits per second, bps)
-			- jednotka baud (symbol za sekundu) – obvykle budeme uvažovat x baud = x bps, ale jeden symbol může obsahovat více bitů
-			- 
+			- jednotka baud \[bód\] (symbol za sekundu) – obvykle budeme uvažovat x baud = x bps, ale jeden symbol může obsahovat více bitů
