@@ -2,5 +2,6 @@
   "translucency": false,
   "enabledCssSnippets": [
     "math"
-  ]
+  ],
+  "baseFontSize": 19
 }
