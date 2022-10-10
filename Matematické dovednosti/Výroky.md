@@ -34,3 +34,23 @@
 
 ## Negace spojek
 
+- $\neg (A \land B) \equiv \neg A \lor \neg B$
+- $\neg (A \lor B) \equiv \neg A \land \neg B$
+- $\neg (A \implies B) \equiv A \land \neg B$
+
+| A | B | C | V(A,B,C) |
+|---|---|---|---|
+| 0 | 0 | 0 | 0 |
+| 0 | 0 | 1 | 1 |
+| 0 | 1 | 0 | 1 |
+| 0 | 1 | 1 | 0 |
+|1|0|0|1|
+|1|0|1|0|
+|1|1|0|1|
+|1|1|1|0|
+
+- jak to řešit?
+	- najít řádky s jedničkou v posledním sloupci
+	- vyjádřit každý takový řádek pomocí výroku (např. druhý řádek $\neg A \land \neg B \land C$)
+	- tyto čtyři výroky spojím pomocí disjunkce
+
