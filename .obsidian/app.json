@@ -23,5 +23,6 @@
   "attachmentFolderPath": "./přílohy",
   "foldHeading": false,
   "useMarkdownLinks": true,
-  "newLinkFormat": "relative"
+  "newLinkFormat": "relative",
+  "promptDelete": false
 }
