@@ -17,7 +17,8 @@
   "legacyEditor": false,
   "spellcheckLanguages": [
     "cs",
-    "en-GB"
+    "en-GB",
+    "fr-FR"
   ],
   "showFrontmatter": false,
   "attachmentFolderPath": "./přílohy",
