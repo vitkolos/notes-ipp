@@ -84,3 +84,53 @@ $definice \rightarrow tvrzení \xrightarrow{důkaz} věta$
 - příklad
 	- $R \subseteq X×Y, \Delta_Y$
 	- $R\circ \Delta_Y = R$
+
+### Funkce
+
+- funkce jsou relace, které ke každému vstupu přiřazují pouze jeden výstup
+- Df: Funkce (zobrazení) z X do Y je relace f mezi X, Y taková, že $\forall x \in X\  \exists! y \in Y: xfy$
+- Značení: $f: X → Y$
+	- pro $x \in X: f(x)=y \equiv xfy$
+	- pro $A \subseteq X: f[A]:=\{f(a)|a \in A\}$
+- příklady
+	- $x \mapsto x$ **identita** $\Delta_X$
+	- $sin: \mathbb{R} → [-1,1]$
+		- lze zapsat větší množinu než definiční obor?
+	- $sgn: \mathbb{R} → \{-1,0,+1\}$
+		- $x \mapsto -1$ pro $x<0$
+		- $x \mapsto 0$ pro $x=0$
+		- $x \mapsto +1$ pro $x>0$
+	- mohutnost množiny
+		- $|\_|: 2^\mathbb{N} → \mathbb{N} \cup \{\infty\}$
+	- $f(a,b) = a+b$
+		- $f: \mathbb{R}×\mathbb{R} → \mathbb{R}$
+- skládání funkcí
+	- $f \circ g$
+	- dva způsoby značení
+	- $(f \circ g)(x)=g(f(x))$
+- Df: Funkce $f:x→y$ je
+	- prostá (injektivní) $\equiv \forall x_1, x_2 \in X: X \neq x_2 \Rightarrow f(x_1) \neq f(x_2)$
+	- na Y (surjektivní, francouzská výslovnost) $\forall y \in Y : \exists x \in X : f(x)=y$
+	- 1–1 (bijektivní) $\equiv \forall y \in Y : \exists! x \in X: f(x) = y$
+- pro funkci $f$ je $f^{-1}$ funkce $\iff f$ je bijektivní
+- pro $f$ prostou: $f^{-1}$ je funkce z Y' do X
+	- přičemž Y' je množina všech obrazů, tedy všech $f[X]$
+- Df: relace R na X je
+	- reflexivní $\equiv \forall x \in X: xRx$
+		- $\Delta_X \subseteq R$
+	- symetrická $\equiv \forall x,y \in X: xRy \iff yRx$
+		- $R = R^{-1}$
+	- antisymetrická $\equiv \forall x,y \in X, x\neq y: (xRy \Rightarrow \neg yRx)$
+		- pokud x a y jsou různé prvky a x je v relaci s y, tak není pravda, že y je v relaci s x
+	- tranzitivní $\equiv \forall x,y,z \in X: xRy \& yRz \Rightarrow xRz$
+		- $R \circ R \subseteq R$
+	- Df: Relace R je ekvivalence $\equiv$ R je reflexivní & symetrická & tranzitivní
+		- příklady
+			- rovnost na reálných číslech
+			- mod K na Z
+				- $x \equiv y \iff K \backslash x-y$
+			- geometrická shodnost
+			- geometrická podobnost
+		- pro R ekvivalenci na X
+			- Df: ekvivalenční třída prvku $x \in X$: $R[x] := \{y\in X | xRy\}$
+				- viz sešit

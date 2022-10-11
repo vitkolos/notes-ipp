@@ -80,6 +80,12 @@ $$ ...
 	- Frobeniova věta:  
 	  Soustava (A | b) má alespoň jedno řešení právě tehdy, když $rank(A) = rank(A | b)$.
 
+- důkaz komutativity
+	- A + B = B + A
+	- (A + B)ij = aij + bij
+	- (B + A)ij = bij + aij
+	- aij + bij = bij + aij, neboť aij, bij jsou reálná čísla, mezi nimiž platí při sčítání komutativita
+
 ## Cvičení
 
 - http://elif.cz/LA_2223_2.html
