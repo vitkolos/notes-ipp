@@ -85,6 +85,13 @@ $$ ...
 	- (A + B)ij = aij + bij
 	- (B + A)ij = bij + aij
 	- aij + bij = bij + aij, neboť aij, bij jsou reálná čísla, mezi nimiž platí při sčítání komutativita
+- i-tý jednotkový vektor
+	- na pozici i má jedničku, všude jinde nuly
+	- jednotková matice se skládá z jednotkových vektorů
+- matice a lineární zobrazení $f: x \mapsto Ax$
+	- $A \in R^{m×n}$
+	- $f: R^n→R^m$
+	- $f(x)=Ax$
 
 ## Cvičení
 
