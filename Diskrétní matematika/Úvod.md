@@ -56,3 +56,31 @@ $definice \rightarrow tvrzení \xrightarrow{důkaz} věta$
 		- **Dk:** indukcí podle n
 			1) zákl. případ: $n=0$ ......... 1=1
 			2) krok: IP: 
+
+### Relace
+
+- vztahy mezi dvojicemi objektů
+- např. rovnost přirozených čísel
+- "krabička" se dvěma vstupy (na pořadí záleží) → vrátí nám ano nebo ne
+- můžeme vyjmenovat všechny dvojice, pro které nám krabička vrátí ano
+- kartézský součin $X × Y := \{(x,y) | x \in X, y \in Y\}$
+- Df: Relace mezi množinami X, Y je libovolná podmnožina X × Y.
+- Relace na množině X ... mezi X, X.
+
+- příklad – pro X = {1, 2, 3, 4, 5}
+	- $(x,y) \in R$ zkrátíme na xRy
+	- rovnost
+		- R = {(1,1), (2,2), (3,3), (4,4), (5,5)}
+		- diagonální relace – $\Delta_X := \{(x,x) | x \in X\}$
+	- dělitelnost x \\ y
+	- $x+y \leq 5$
+	- $\emptyset$ prázdná relace
+	- X × Y univerzální relace
+
+- Df: pro relace $R \subseteq X × Y$ definujeme inverzní relaci $R^{-1} \subseteq Y × X$
+	- $\forall x \in X, \forall  \in Y: yR^{-1}x \equiv xRy$
+- Df: pro relace $R \subseteq X×Y$ a $S \subseteq Y×Z$ definujeme jejich složení $R \circ S \subseteq X×Z:$
+	- $\forall x \in X, \forall z \in Z: x(R \circ S)z \equiv (\exists y \in Y: xRy \& ySz)$
+- příklad
+	- $R \subseteq X×Y, \Delta_Y$
+	- $R\circ \Delta_Y = R$
