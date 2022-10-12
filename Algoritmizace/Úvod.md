@@ -50,6 +50,7 @@
 	2. parciální správnost
 - problém stabilních manželství
 - složitost – časová a prostorová
+- efektivita algoritmu – funkce velikosti vstupních dat
 
 ## Cviko
 
