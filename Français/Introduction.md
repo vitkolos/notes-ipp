@@ -39,5 +39,5 @@
 	- négation
 		- il est peu probable
 	- constructions du type *il est rare* ou *il est normal*
-	- la question formelle – Est-ce que vous pensez que... Pensez-vous que...
+	- la question formelle – Pensez-vous que...
 - 
