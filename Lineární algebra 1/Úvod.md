@@ -125,9 +125,13 @@ $$ ...
 		- $(u_1,u_2,u_3)\neq (0,0,0)$
 		- $(v_1,v_2,v_3)\neq (0,0,0)$
 		- jeden vektor se nesmí rovnat k-násobku druhého
+	- převod z parametrického popisu na obecnou rovnici se provádí nalezením vektoru kolmého (normálového) k oběma známým vektorům
+	- převod z obecné rovnice na parametrický popis se provádí nalezením libovolného bodu v rovině a dále nalezením dvou libovolných (různých) vektorů kolmých na normálový vektor
 - přímka v prostoru
 	- parametricky pomocí jednoho nenulového vektoru
-	- rovnicový popis (jako průnik dvou rovin) – neobjeví se teďka na písemce, viz sešit
+	- rovnicový popis (jako průnik dvou rovin) – neobjeví se teďka na písemce
+		- každá rovina obecnou rovnicí
+		- normálové vektory rovin nesmějí být nulové, jeden nesmí být k-násobkem druhého
 - kolmost vektorů – jejich skalární součin je nulový
 
 - 1.2 najděte rovnicové vyjádření roviny popsané bodem (3,2,1) a směrovými vektory (1,1,1) a (2,-1,0)
