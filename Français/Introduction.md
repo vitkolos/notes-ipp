@@ -25,17 +25,19 @@
 	- déclaration
 	- sens
 	- probabilité
-	- expoir
+	- espoir
 - le subjonctif – expressions/verbes du cœur
 	- incertitude
 	- doute
 	- sentiments
+		- mais *j'ai le sentiment que* est utilisé avec l'indicatif
 	- nécessité
 	- volonté
 	- désir
 	- souhait
 	- possibilité
 	- négation
+		- il est peu probable
 	- constructions du type *il est rare* ou *il est normal*
-	- la question formal – Est-ce que vous pensez que... Pensez-vous que... (?)
+	- la question formelle – Est-ce que vous pensez que... Pensez-vous que...
 - 
