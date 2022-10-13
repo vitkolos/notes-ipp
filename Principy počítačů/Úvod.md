@@ -111,6 +111,7 @@
 	- ke každé kombinaci osmi bitů bychom mohli namapovat kombinaci 10 bitů, které jsou dostatečně "hezké" – dostatečně často se tam střídají jedničky a nuly
 	- přijímač i vysílač má mapovací tabulku
 	- tento způsob synchronizace se nazývá clock recovery, používá se např. v USB
+		- vodiče v USB: 5 V, GND (tyto dva slouží k napájení připojeného zařízení), data+, data– (tyto dva zajišťují přenos dat)
 		- zbylé dva způsoby synchronizace přenosu používají linky I²C (pomocí hodinového signálu) a RS-252 (pomocí start a stop bitů)
 - linky simplex a duplex
 	- přenos jedním směrem – simplex
