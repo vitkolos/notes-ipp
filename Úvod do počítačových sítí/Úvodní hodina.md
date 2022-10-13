@@ -60,3 +60,12 @@ Libor Forst, SISAL MFF UK
 	- certifikát
 		- klíč doplněný o identifikaci vlastníka a podepsaný vydavatelem
 		- řetěz certifikačních autorit – alespoň nejvýše postavené autoritě bych měl věřit
+	- SSL, TLS – mezivrstva mezi transportní a aplikační vrstvou umožňující autentikaci a šifrování
+	- aplikační vrstva TCP/IP
+		- spojuje funkce OSI 5, 6 a 7 – pravidla komunikace mezi klientem a serverem, stav dialogu, interpretaci dat
+		- na aplikační vrstvě definuje formát zpráv, průběh dialogu atd.
+	- DNS
+		- překlad jmen na adresy a naopak
+		- protokol nad UDP (obvykle) i TCP (větší dotazy)
+		- nameservery
+		- jednotkou dat je záznam – SOA (info o doméně), NS (nameserver), A (IPv4 adresa počítače), AAAA (IPv6 adresa počítače), PTR (doménové jméno počítače), CNAME (kanonické jméno počítače – k aliasu), MX (poštovní server)
