@@ -25,5 +25,6 @@
   "foldHeading": false,
   "useMarkdownLinks": true,
   "newLinkFormat": "relative",
-  "promptDelete": false
+  "promptDelete": false,
+  "showInlineTitle": false
 }

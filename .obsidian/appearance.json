@@ -4,5 +4,6 @@
     "math"
   ],
   "baseFontSize": 17,
-  "accentColor": ""
+  "accentColor": "",
+  "showViewHeader": true
 }
