@@ -1,0 +1,164 @@
+{
+  "main": {
+    "id": "5ef8acde36117349",
+    "type": "split",
+    "children": [
+      {
+        "id": "a19a0b45d09280f6",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "a948ab897cc9bb09",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Úvod do počítačových sítí/Úvodní hodina.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "90f01da75e541920",
+    "type": "split",
+    "children": [
+      {
+        "id": "397367b2692c211b",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "b612cf7b20467353",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "ed4981d094417b34",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "tag:#SI$G",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "5873576f3fe3530e",
+            "type": "leaf",
+            "state": {
+              "type": "starred",
+              "state": {}
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "3fc4d58860d392f3",
+    "type": "split",
+    "children": [
+      {
+        "id": "91f4ea6f7b1cca78",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "9e369e452425d24c",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "Úvod do počítačových sítí/Úvodní hodina.md"
+              }
+            }
+          },
+          {
+            "id": "1ee4416efbbd5c9f",
+            "type": "leaf",
+            "state": {
+              "type": "git-view",
+              "state": {}
+            }
+          },
+          {
+            "id": "c6b5c7d1f06ae776",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "Úvod do počítačových sítí/Úvodní hodina.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "ef321aeba6dc0b00",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "Úvod do počítačových sítí/Úvodní hodina.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "f4a9c9b71e15be3b",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true
+              }
+            }
+          }
+        ],
+        "currentTab": 2
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "ribbon": {
+    "mostRecentAction": ""
+  },
+  "active": "c6b5c7d1f06ae776",
+  "lastOpenFiles": [
+    "Principy počítačů/Úvod.md",
+    "Principy počítačů/přílohy/timing diagram.png",
+    "Programování 1/Úvod.md",
+    "Principy počítačů/přílohy/diferenciální přenos.png",
+    "Algoritmizace/Úvod.md",
+    "Diskrétní matematika/Úvod.md",
+    "Français/Introduction.md",
+    "Matematické dovednosti/Výroky.md",
+    "Lineární algebra 1/hladik_skripta_new.pdf",
+    "Lineární algebra 1/hladik_skripta.pdf"
+  ]
+}

@@ -27,3 +27,36 @@ Libor Forst, SISAL MFF UK
 	- na linkové vrstvě se používají fyzické, MAC adresy
 - adresování služeb
 	- v URI není protokol, ale schéma (které je někdy totožné s názvem protokolu)
+
+- souhrn 1
+	- o přidělování IP adres rozhoduje správa sítě
+	- router zajišťuje směrování požadavků a odpovědí
+- kryptografie
+	- symetrické šifrování
+		- pro zašifrování a dešifrování se používá stejný klíč
+		- rychlé, vhodné na velká data
+		- neřeší problém přenosu klíče
+	- asymetrické šifrování
+		- veřejný a tajný klíč
+		- netřeba přenášet tajný klíč, veřejný klíč naopak netřeba tajit
+		- pomalé algoritmy
+		- problém autenticity veřejného klíče – je potřeba ověřit, že daný veřejný klíč opravdu patří danému člověku
+	- hashovací funkce
+		- vytvoření otisku dat
+		- není možné data z hashe zpětně odvodit
+		- nalezení dat se shodným hashem je obtížné
+		- kryptografické hashovací funkce mají dodatečné bezpečnostní mechanismy
+	- šifrování dat v praxi
+		- data se šifrují symetricky pomocí náhodného klíče
+		- symetrický klíč se šifruje asymetricky
+	- elektronický podpis
+		- hash dat se zašifruje tajným klíčem odesilatele
+		- příjemce hash dešifruje pomocí veřejného klíče odesílatele a porovná ho s vlastnoručně spočítaným hashem
+	- Diffie-Hellmanův algoritmus – výměnou informací veřejným kanálem lze získat sdílenou tajnou informaci
+	- autenticita veřejných klíčů
+		- lze ověřit z více nezávislých zdrojů
+		- klíč mi ověří někdo, jehož klíč mám ověřený
+		- veřejně uznávaná certifikační autorita
+	- certifikát
+		- klíč doplněný o identifikaci vlastníka a podepsaný vydavatelem
+		- řetěz certifikačních autorit – alespoň nejvýše postavené autoritě bych měl věřit
