@@ -104,14 +104,14 @@
 	- cyklus (cycle/takt) hodinového signálu definuje přenosovou rychlost
 	- lépe se detekují hrany signálu – můžeme si definovat, že rostoucí hrany hodinového signálu definují momenty čtení
 	- abychom zrychlili přenos, můžeme používat obě hrany hodinového signálu (rostoucí i klesající) – označení DDR (double data rate)
-	- co když je hodinový vodič kratší než datový vodič?
-		- můžeme se vykašlat na hodiny a synchronizovat se jiným způsobem – vždy jen v určitých (delších) intervalech
-		- mohli bychom se synchronizovat pomocí hran, ale museli bychom mít jistotu, že se v datech dostatečně často střídají jedničky a nuly – to ale nemusí vždy platit
-		- na každých osm bitů bychom mohli poslat 10 bitů
-		- ke každé kombinaci osmi bitů bychom mohli namapovat kombinaci 10 bitů, které jsou dostatečně "hezké" – dostatečně často se tam střídají jedničky a nuly
-		- přijímač i vysílač má mapovací tabulku
-		- tento způsob synchronizace se nazývá clock recovery, používá se např. v USB
-			- zbylé dva způsoby synchronizace přenosu používají linky I²C (pomocí idle) a RS-252 (pomocí délky bytu)
+- co když je hodinový vodič kratší než datový vodič?
+	- můžeme se vykašlat na hodiny a synchronizovat se jiným způsobem – vždy jen v určitých (delších) intervalech
+	- mohli bychom se synchronizovat pomocí hran, ale museli bychom mít jistotu, že se v datech dostatečně často střídají jedničky a nuly – to ale nemusí vždy platit
+	- na každých osm bitů bychom mohli poslat 10 bitů
+	- ke každé kombinaci osmi bitů bychom mohli namapovat kombinaci 10 bitů, které jsou dostatečně "hezké" – dostatečně často se tam střídají jedničky a nuly
+	- přijímač i vysílač má mapovací tabulku
+	- tento způsob synchronizace se nazývá clock recovery, používá se např. v USB
+		- zbylé dva způsoby synchronizace přenosu používají linky I²C (pomocí hodinového signálu) a RS-252 (pomocí start a stop bitů)
 - linky simplex a duplex
 	- přenos jedním směrem – simplex
 	- přenos oběma směry – duplex
