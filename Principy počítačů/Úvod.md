@@ -103,3 +103,43 @@
 	- hodinový signál může generovat centrální oscilátor
 	- cyklus (cycle/takt) hodinového signálu definuje přenosovou rychlost
 	- lépe se detekují hrany signálu – můžeme si definovat, že rostoucí hrany hodinového signálu definují momenty čtení
+	- abychom zrychlili přenos, můžeme používat obě hrany hodinového signálu (rostoucí i klesající) – označení DDR (double data rate)
+	- co když je hodinový vodič kratší než datový vodič?
+		- můžeme se vykašlat na hodiny a synchronizovat se jiným způsobem – vždy jen v určitých (delších) intervalech
+		- mohli bychom se synchronizovat pomocí hran, ale museli bychom mít jistotu, že se v datech dostatečně často střídají jedničky a nuly – to ale nemusí vždy platit
+		- na každých osm bitů bychom mohli poslat 10 bitů
+		- ke každé kombinaci osmi bitů bychom mohli namapovat kombinaci 10 bitů, které jsou dostatečně "hezké" – dostatečně často se tam střídají jedničky a nuly
+		- přijímač i vysílač má mapovací tabulku
+		- tento způsob synchronizace se nazývá clock recovery, používá se např. v USB
+			- zbylé dva způsoby synchronizace přenosu používají linky I²C (pomocí idle) a RS-252 (pomocí délky bytu)
+- linky simplex a duplex
+	- přenos jedním směrem – simplex
+	- přenos oběma směry – duplex
+		- half-duplex – strany se musejí domlouvat, kdo zrovna posílá
+		- full-duplex – nezávisle data přenášíme oběma směry → řešení pomocí dvou zcela nezávislých simplexních linek
+			- např. RS-232
+				- Rx – přijímající vodič (receiver)
+				- Tx – vysílající vodič (transmitter)
+				- dále se definují out-of-band signály
+					- přenášejí se tam informace nezávisle
+					- obvykle přenášejí konstatní nulu nebo jedničku – signál platí/neplatí
+- běžné kódování – 0 = nepravda, 1 = pravda
+	- power-out signál
+		- někdy dává smysl to definovat obráceně – 0 = platí, 1 = neplatí → inverzní logika
+			- obvyklá značení inverzní logiky na signálu SIG: SIG (s čárou nad textem), \#SIG, /SIG, !SIG, SIG (bílé písmo na černém pozadí)
+- hodiny reálného času – RTC
+	- chceme, aby nám zařízení poslalo tři informace – den, měsíc a rok
+		- třeba 9 bitů na den, 5 bitů na měsíc, 7 bitů na rok
+	- musíme si definovat, jak bude která informace dlouhá
+	- komunikační protokol/formát
+	- jeden logický blok dat = packet (tento packet by měl 21 bitů)
+	- musíme se dohodnout na MSb-first / LSb-first
+	- délka packetu nemusí být pevná, délka packetu může být definovaná uvnitř packetu
+- řadič (controller) – zařízení, které zajišťuje ovládání linky (procesor → linka → řadič → linka → myš)
+	- uvnitř je registr daného zařízení – data register
+	- komunikace s řadičem z programu – musím mu říct, jak má interpretovat změny na datovém vodiči, který jde z myši
+		- pomocí pyserial → serial → Serial
+		- nastavení řadiče (config register)
+		- status register – ukládá informaci, v jakém stavu je datový registr (např. 0 = no change, 1 = new byte in data register)
+			- operace přečtení data registru zaznamená do status registru nulu
+	- funkce, které komunikují se zařízeními, mají často nějaký timeout, aby čekání na data nebylo nekonečné
