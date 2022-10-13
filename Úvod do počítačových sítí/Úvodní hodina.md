@@ -69,3 +69,15 @@ Libor Forst, SISAL MFF UK
 		- protokol nad UDP (obvykle) i TCP (větší dotazy)
 		- nameservery
 		- jednotkou dat je záznam – SOA (info o doméně), NS (nameserver), A (IPv4 adresa počítače), AAAA (IPv6 adresa počítače), PTR (doménové jméno počítače), CNAME (kanonické jméno počítače – k aliasu), MX (poštovní server)
+	- servery DNS
+		- typy – primární (záznamy o doméně), sekundární (kopie dat o doméně), caching-only (jen nevyřešené dotazy)
+		- každá doména musí mít alespoň jeden nameserver
+		- aktualizaci zónové databáze vyvolává sekundární server, je ale možné z primárního serveru signalizovat její potřebu
+	- vyřizování DNS dotazu
+		- klient se zeptá lokálního nameserveru, ten se následně ptá několika serverů, každému posílá celou doménu a dostává dílčí odpovědi odkazující na další nameserver (NS) nebo na konkrétní počítač (A)
+		- klient pokládá rekurzivní dotaz, lokální nameserver pokládá nerekurzivní dotazy
+		- součástí doménového jména může být tečka (nelze sekat domény podle teček)
+	- zabezpečení DNS spočívá v tom, že si klient volí náhodný zdrojový port, náhodné ID a že je těžké dostat se ke komunikaci nameserverů
+	- možné napadnutí DNS – cache-poisoning (server útočníka se označí za nameserver pro doménu vyššího řádu)
+	- zabezpečení DNS = DNSSEC – informace o doménách jsou podepsané
+	- diagnostika DNS – nslookup, dig
