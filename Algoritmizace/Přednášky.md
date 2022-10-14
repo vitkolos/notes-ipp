@@ -71,4 +71,3 @@
 - operace po cifrách jako na základní škole
 - lze ukládat cifry po trojicích apod.
 - desetinné číslo – evidujeme polohu desetinné čárky
-/
