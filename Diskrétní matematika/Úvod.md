@@ -2,7 +2,7 @@
 
 ## Cvičení
 
-- kam.mff.cuni.cz/~tancer
+- https://kam.mff.cuni.cz/~tancer/Diskretka/
 - Kapitoly z diskrétní matematiky
 - https://matematika.reseneulohy.cz
 - https://stream.cuni.cz, nahrávka na YouTube (Diskrétní matematika Nešetřil)
