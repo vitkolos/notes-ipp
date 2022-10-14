@@ -12,6 +12,7 @@
 	- Pavel Töpfer: Algoritmy a programovací techniky
 	- programátorské kuchařky KSP
 	- https://pruvodce.ucw.cz
+	- https://www.algovision.org
 
 ## Algoritmus
 
