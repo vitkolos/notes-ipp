@@ -26,5 +26,7 @@
   "useMarkdownLinks": true,
   "newLinkFormat": "relative",
   "promptDelete": false,
-  "showInlineTitle": false
+  "showInlineTitle": false,
+  "showUnsupportedFiles": true,
+  "newFileLocation": "current"
 }

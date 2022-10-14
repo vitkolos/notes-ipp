@@ -1,4 +1,4 @@
-# Úvodní hodina
+# Principy počítačů
 
 - písemná zkouška, 10 otázek, každá za jeden bod, potřebujeme polovinu na úspěšné složení zkoušky, časový limit 4 hodiny, zkouší se s toho, co se probere na přednáškách, dostaneme ukázku (loňskou písemku)
 - self-assessment úlohy – dostaneme ke každé přednášce sadu

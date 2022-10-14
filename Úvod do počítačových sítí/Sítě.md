@@ -1,4 +1,4 @@
-# Úvod do počítačových sítí
+# Úvod do počítačových sítí: síťová část
 
 Libor Forst, SISAL MFF UK
 <https://www.ksi.mff.cuni.cz/teaching/nswi141-web/pages/>

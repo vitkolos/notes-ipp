@@ -45,3 +45,7 @@
 	- logaritmus o základu dva – kolikrát musím rozpůlit hromádku věcí, aby mi zbyla jedna věc
 	- dolní odhad – tu nejtěžší chci vážit s co nejméně mincemi
 - doma rozmyslet 3d, 3e, 1e (proč nemůže chybět jeden)
+	- 1e – chybějící informace o vztahu dvou mincí by mohla zapříčinit, že bychom věděli o dvou nejtěžších mincích, ale nevěděli bychom, která z nich je těžší
+	- 3d – neexistuje "souměrné" rozložení kelímků, při kterém by nezáviselo na otočení kelímkomatu, tedy neexistuje poslední krok
+	- 3e – poslední krok existuje, je to situace, kdy se stavy kelímků střídají (každý je otočený jinak než ty vedle něj)
+		- uděláme 3 kroky, které zajistí, že právě jeden kelímek je otočený špatně
