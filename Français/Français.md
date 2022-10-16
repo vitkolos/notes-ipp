@@ -1,4 +1,4 @@
-# Introduction
+# Français
 
 - Édito B2 (seulement le livre)
 - https://didierfle-edito.com/exercices-et-ressources-b2/
