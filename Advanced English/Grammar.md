@@ -27,3 +27,22 @@
 - lacking in
 - nervous about
 - to the delight of
+
+## Tenses
+
+- present perfect
+	1. unfinished time – today, this week
+	2. already, yet
+	3. recently, just *
+	4. ever, never (in your life) *
+	5. for, since – how long, since when
+	- \* sometimes it's used without those words (I've read the book. I've spoken to the president and we are all invited to the party.)
+- past simple
+	1. finished time – yesterday
+	2. (ad 4) ever, never – for dead people
+- present perfect progressive
+	- for, since (usually for shorter periods of time) + study, work, live
+	- temporary / new habit (lately, recently)
+	- observation + finished action (\[It seems\] it has been raining.)
+- past perfect – before, had done
+- past perfect progressive – had been -ing
