@@ -134,3 +134,32 @@ $definice \rightarrow tvrzení \xrightarrow{důkaz} věta$
 		- pro R ekvivalenci na X
 			- Df: ekvivalenční třída prvku $x \in X$: $R[x] := \{y\in X | xRy\}$
 				- viz sešit
+
+- Df: (částečné) **Uspořádání** na množině X je relace R na X, která je reflexivní, antisymetrická a tranzitivní
+	- např. porovnávání reálných čísel
+	- Df: (částečně) Uspořádaná množina (X,R): X je množina, R uspořádání na X
+	- Značení $\leq$ (nebo různé varianty tohoto znaku)
+	- Df: $x,y \in X$ jsou porovnatelné $\equiv xRy \lor yRx$
+	- Df: Uspořádání je lineární (úplné) $\equiv$ každé 2 prvky jsou porovnatelné
+	- částečné uspořádání – může (ale nemusí) mít neporovnatelné prvky
+	- ostré uspořádání – každému uspořádání $\leq$ na X přiřadíme relaci $<$ na X: $a < b \equiv a \leq b \land a \neq b$ 
+		- pozor – ostré uspořádání není speciálním případem uspořádání (protože není reflexivní)
+		- vlastnosti ostrého uspořádání – ireflexivní, antisymetrické, tranzitivní
+	- příklady
+		- $(\mathbb{N}, \leq)$ lineární
+		- $(\mathbb{Q}, \leq)$ lineární
+		- $\Delta_X$
+		- $(\mathbb{N}^+, \backslash)$
+		- $(2^X, \subseteq)$ inkluze
+		- lexikografické
+			- abeceda: $(X, \leq)$
+			- Df: $(X^2,\leq_{lex})$
+			- $(a_1, a_2) \leq_{lex} (b_1, b_2) \equiv a_1<b_1 \lor (a_1=b_1 \land a2\leq b_2)$
+			- $(X^k, \leq_{lex})$
+			- $(X^*, \leq_{lex})$
+				- X* – konečné posloupnosti prvků z X
+			- pokud je slovo krátké, doplníme ho mezerami ze začátku abecedy
+- Df: relace bezprostředního předchůdce
+	- $a \triangleleft b \equiv a < b \land \nexists c: a<c \land c<b$
+	- Hasseův diagram – pro konečné částečně uspořádané množiny (viz sešit)
+	- 
