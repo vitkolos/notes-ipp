@@ -72,3 +72,13 @@
 - operace po cifrách jako na základní škole
 - lze ukládat cifry po trojicích apod.
 - desetinné číslo – evidujeme polohu desetinné čárky
+
+## Vyhodnocení polynomu v bodě
+
+- úloha: vyhodnocení polynomu v bodě x (dosazení konkrétního x do polynomu)
+	- přímý výpočet podle uvedeného předpisu – kvadratická složitost (cca n^2 násobení, n sčítání)
+	- Hornerovo schéma – n násobení, n sčítání → lineární složitost
+		- příklad použití algoritmu – vstup čísla po znacích, konverze číselného stringu na integer
+- operace s polynomy
+	- nejdříve polynom uložíme do pole – index v poli odpovídá mocnině (první prvek v poli je absolutní člen)
+- 
