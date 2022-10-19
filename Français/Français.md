@@ -41,6 +41,9 @@
 	- possibilité
 	- négation
 		- il est peu probable
-	- constructions du type *il est rare* ou *il est normal*
+	- constructions du type *il est rare* ou *il est normal*, *il est utile*
 	- la question formelle – Pensez-vous que…
-- 
+- les mots
+	- grigri – amulet, talisman
+	- flipper sa race = avoir peur
+	- 

@@ -26,6 +26,7 @@
 	- nemusíme si pamatovat důkazy z přednášek
 	- je potřeba, abychom na zkoušce předvedli cokoliv, co funguje
 - https://mj.ucw.cz/vyuka/dm/
+- https://mj.ucw.cz/vyuka/2021/dm/
 
 ### Definice
 
@@ -161,5 +162,26 @@ $definice \rightarrow tvrzení \xrightarrow{důkaz} věta$
 			- pokud je slovo krátké, doplníme ho mezerami ze začátku abecedy
 - Df: relace bezprostředního předchůdce
 	- $a \triangleleft b \equiv a < b \land \nexists c: a<c \land c<b$
-	- Hasseův diagram – pro konečné částečně uspořádané množiny (viz sešit)
-	- 
+	- Hasseův diagram – pro konečné ČUM (částečně uspořádané množiny) – viz sešit
+- Df: pro ČUM $(X,\leq)$ je $x \in X$:
+	- minimální $\equiv \nexists y\in X:y<x$
+	- nejmenší $\equiv \forall y \in X: x \leq y$
+	- maximální
+	- největší
+- Větička: Každá konečná neprázdná částečně uspořádaná množina $(X,\leq)$ má minimální prvek.
+- Dk: zvolíme $x_1 \in X$ libovolně
+	- Buď $x_1$ je minimální,
+	- nebo $\exists x_2 < x_1$, s ním pokračuji
+	- $x_1>x_2>x_3>\dots >x_t$
+	- Pokud t > |x|, pak $\exists i,j; i\neq j: x_i = x_j$
+	- to lze pomocí tranzitivity dovést ke sporu
+- Df: $A \subseteq X$ pro ČUM $(X, \leq)$ je
+	- řetězec $\equiv (A,\leq)$ je lineární UM
+	- antiřetězec $\equiv \forall(a,b) \in A, a \neq b$ jsou neporovnatelné
+
+## Kombinatorika
+
+- Df: $[n] := \{1, \dots, n\}$
+	- n-prvková množina od 1 do n
+- $\#f: [n] → [m] = m^n$
+- 
