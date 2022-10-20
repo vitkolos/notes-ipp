@@ -156,3 +156,68 @@
 	- v řadiči je control register (modem control register) – pro každý out of band signál je tam jeden bit, který má hodnotu 0 (false) nebo 1 (true)
 	- jak resetovat myš? stačí nastavit signály RTS a DTR na nulu → myš se po chvíli vypne → můžeme myš opět zapnout
 	- (nemusíme si pamatovat, že to jsou zrovna RTS a DTR)
+- po zapnutí myš pošle inicializační packet (init packet) – není přesně definován
+	- po zapnutí myši tedy čekáme na X (třeba 1024) bajtů
+	- čekáme pomocí funkce .read(n), tato funkce je ale blokující
+	- ideální by byla neblokující funkce
+	- řešením je nastavení timeoutu
+- potřebujeme být schopni stisknout klávesu na klávesnici a začít dělat něco jiného
+	- input() – blokující funkce
+	- keyboard.is_pressed('\<key\>') → True/False – neblokující funkce
+- přijímání dat z myši
+	- bity jsou zprava doleva seřazeny 0–7 (podle zápisu čísla ve dvojkové soustavě)
+	- myš posílá 7 bitů, takže MSb je pro ni bit č. 7
+	- stisknutí levého tlačítka → packet 96 0 0 0
+		- 96 = 64 + 32 = 2^6 + 2^5 → 01 10 00 00 (01 LR YY XX)
+- co dělat s informací 738201600
+	- šestnáctková/hexadecimální/hexa/hex soustava
+	- značení čísla v šestnáctkové soustavě: $23, 23h, 0x23, $23_{16}$, $23_{hex}$
+	- značení čísla v desítkové soustavě: $23_{10}, 23_{dec}$
+	- pro uložení jedné číslice v šestnáctkové soustavě využijeme 4 bity
+	- 1 bajt zaberou dvě šestnáctkové číslice
+	- nuly na začátku čísla = leading zeros
+	- $738201600_{10} =$ $2C001000 → 2C 00 10 00 → nenulové bity jsou pouze na některých místech
+		- bity 29, 27, 26 a 12 jsou jedna
+- čísla zadané v Pythonu v desítkové soustavě se ukládají ve dvojkové soustavě
+- proměnou lze uložit v šestnáctkové soustavě, Python ji opět uloží ve dvojkové soustavě → není rozdíl mezi 35 a 0x23
+- funkce print(a) vezme dvojkovou proměnnou a převede ji na string
+- znaky stringu jsou uloženy pomocí osmibitových čísel
+- funkce hex(a) vrací zápis čísla v šestnáctkové soustavě
+- funkce format(a, '04X') doplní číslo o leading zeros na 4 číslice
+- modifikovaný kód
+	- packet 60 00 00 00 → první byte 01 10 00 00
+- proč má první byte v 6. bitu jedničku?
+	- abychom ho poznali od ostatních tří bytů a nedošlo ke špatné synchronizaci snímání komunikace myši
+- bitové operace – obvykle dva argumenty (binární operace)
+	- n-bitová operace (např. osmibitová – podle délky každého ze dvou vstupů a délky výstupu)
+	- 8-bit operace – na vstupu dvě osmibitová čísla, na výstupu jedno osmibitové číslo
+	- operace vždy vezme dva bity na stejné pozici, nějakým mechanismem je zkombinuje a výsledek uloží do bitu na téže pozici
+	- operace or: 1010 | 1100 = 1110
+		- můžeme kombinovat hodnotu a příkaz – jednička v příkazu znamená natvrdo nastavit výsledek na jedna, nula v příkazu znamená zkopírovat hodnotu do výsledku
+		- nastavení bitu (na jedna) se označuje jako set
+	- operace and: 1010 & 1100 = 1000
+		- když je příkaz nula → nastav natvrdo nulu
+		- když je příkaz jedna → zachovej hodnotu
+		- vymazání bitu – clear (to 0)
+	- bitová negace not ~
+		- ~ 1010 = 0101
+		- v Pythonu funguje jinak
+	- operace xor (eor)
+		- exkluzivní or
+		- 1010 ^ 1100 = 0110
+		- selektivní flip (not)
+			- když je jednička, převrať hodnotu
+			- když je nula, zkopíruj hodnotu
+- jak zjistit, jestli je levé tlačítko stisknuté
+	- použijeme bitovou masku
+	- na ?? L? ?? ?? použijeme masku 00 10 00 00 a operaci and
+	- dostaneme buď 00 00 00 00 → tlačítko není stisknuté, nebo 00 10 00 00 → tlačítko je stisknuté
+	- B1 (byte 1) & 0x20 = 0x20 → levé tlačítko je stisknuté
+- pohyb myši
+	- kvůli přesnosti chceme použít 8 bitů, v jednom bytu je ale jenom 6 volných míst (máme 7bitový byte a bit č. 6 určuje pořadí bytu)
+	- informaci tedy rozdělíme 1. a 2. bytu
+		- B1 & 0x03
+		- B2 & 0x3F
+		- chceme ze dvou čísel 000000XX a 00XXXXXX dostat XXXXXXXX
+			- použijeme magii a převedeme 000000XX → XX000000
+			- XX000000 | 00XXXXXX = XXXXXXXX
