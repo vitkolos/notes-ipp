@@ -7,3 +7,9 @@
 	- zápočtový program (domácí práce)
 	- aktivní účast (body v ReCodExu)
 - Visual Studio 2022, Python, v létě C#
+- 20. října
+	- bubble sort – fáze prohazování
+		- každý jeden průchod dotlačí největší prvek na své místo
+		- důkaz dolního odhadu
+			- tvrzení: každý třídící algoritmus, který prohazuje jen sousedy má alespoň kvadratickou složitost
+			- důkaz: na sestupné posloupnosti je každá dvojice (n nad dvěma) špatně, abychom je prohodili, musíme udělat kvadratický počet kroků
