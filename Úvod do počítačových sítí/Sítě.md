@@ -81,3 +81,5 @@ Libor Forst, SISAL MFF UK
 	- možné napadnutí DNS – cache-poisoning (server útočníka se označí za nameserver pro doménu vyššího řádu)
 	- zabezpečení DNS = DNSSEC – informace o doménách jsou podepsané
 	- diagnostika DNS – nslookup, dig
+- e-mail
+	- open relay servery umožňují komukoliv odesílat poštu
