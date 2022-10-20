@@ -144,3 +144,15 @@
 		- status register – ukládá informaci, v jakém stavu je datový registr (např. 0 = no change, 1 = new byte in data register)
 			- operace přečtení data registru zaznamená do status registru nulu
 	- funkce, které komunikují se zařízeními, mají často nějaký timeout, aby čekání na data nebylo nekonečné
+
+## 3. přednáška
+
+- řadič řeší komunikaci programu s myší a překlad ze sedmibitových na osmibitové bajty
+- sériovou myš také potřebujeme nějak napájet
+	- běžně v USB konektoru jsou 4 piny, z toho dvoje data, zem a napájení
+	- kvůli kompatibilitě se sériová myš připojovala pomocí RS-232 linky
+	- RS-232 nemá napájecí konektor, ale pouze out of band signály
+	- sériová myš je tedy napájená pomocí out of band signálů RTS a DTR nastavených na hodnotu 1
+	- v řadiči je control register (modem control register) – pro každý out of band signál je tam jeden bit, který má hodnotu 0 (false) nebo 1 (true)
+	- jak resetovat myš? stačí nastavit signály RTS a DTR na nulu → myš se po chvíli vypne → můžeme myš opět zapnout
+	- (nemusíme si pamatovat, že to jsou zrovna RTS a DTR)
