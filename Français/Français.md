@@ -43,7 +43,8 @@
 		- il est peu probable
 	- constructions du type *il est rare* ou *il est normal*, *il est utile*
 	- la question formelle – Pensez-vous que…
+	- avant que…
+	- jusqu'à ce que… (quand on veut marquer le but de l'action)
 - les mots
 	- grigri – amulet, talisman
 	- flipper sa race = avoir peur
-	- 
