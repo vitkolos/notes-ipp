@@ -27,6 +27,7 @@
 	- je potřeba, abychom na zkoušce předvedli cokoliv, co funguje
 - https://mj.ucw.cz/vyuka/dm/
 - https://mj.ucw.cz/vyuka/2021/dm/
+- https://iuuk.mff.cuni.cz/~rakdver/index.php?which=uceni&subject=dm
 
 ### Definice
 
