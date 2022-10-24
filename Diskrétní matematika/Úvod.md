@@ -113,7 +113,7 @@ $definice \rightarrow tvrzení \xrightarrow{důkaz} věta$
 - Df: Funkce $f:x→y$ je
 	- prostá (injektivní) $\equiv \forall x_1, x_2 \in X: X \neq x_2 \Rightarrow f(x_1) \neq f(x_2)$
 	- na Y (surjektivní, francouzská výslovnost) $\forall y \in Y : \exists x \in X : f(x)=y$
-	- 1–1 (bijektivní) $\equiv \forall y \in Y : \exists! x \in X: f(x) = y$
+	- vzájemně jednoznačná (1–1, bijektivní) $\equiv \forall y \in Y : \exists! x \in X: f(x) = y$
 - pro funkci $f$ je $f^{-1}$ funkce $\iff f$ je bijektivní
 - pro $f$ prostou: $f^{-1}$ je funkce z Y' do X
 	- přičemž Y' je množina všech obrazů, tedy všech $f[X]$
