@@ -108,3 +108,8 @@
 - u merge sortu má smysl slučovat tři nebo čtyři úseky
 - použitím vnitřního třídění k prvotnímu roztřídění pole snížím počet vstupně výstupních operací
 - tim sort – kombinuje insertion sort a merge sort (merge sort se používá až na větší úseky)
+
+## Ukládání dat
+
+- int – ve dvojkové soustavě
+- 32bit nebo 64bit
