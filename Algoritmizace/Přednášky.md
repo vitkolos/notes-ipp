@@ -81,4 +81,30 @@
 		- příklad použití algoritmu – vstup čísla po znacích, konverze číselného stringu na integer
 - operace s polynomy
 	- nejdříve polynom uložíme do pole – index v poli odpovídá mocnině (první prvek v poli je absolutní člen)
-- 
+
+## Řadicí algoritmy
+
+- třídění sléváním (merge sort)
+	- časová složitost $\Theta(n \log_2 n)$
+	- prostorová složitost – potřebuju další pole délky $n$
+- k dokázání přesného odhadu složitosti lze dokázat, že to jde udělat s danou složitostí a že to nejde lépe
+- problém třídění n dat – musíme udělat $\log_2 n!$ porovnání
+	- https://www.itnetwork.cz/algoritmy/razeni/dolni-odhad-casove-slozitosti-problemu-trideni
+	- $\log n! = n \log n$
+		- Stirlingova formule
+		- $(\frac{n}{2})^\frac{n}{2} < n! < n^n$ (logaritmujeme)
+- třídění počítáním (counting sort)
+	- O(n + R)
+		- R … rozsah hodnot
+- přihrádkové třídění (bucket sort)
+	- pythonovský i klasický způsob
+	- u klasického způsobu mám v poli uložené indexy, kam umístit prvek s danou hodnotou
+	- je stabilní – zachovává pořadí prvků se stejnou hodnotou klíče
+- víceprůchodové přihrádkové třídění (radix sort)
+	- u velkého R (rozsahu hodnot)
+	- rozdělíme klíč na části – nejprve třídíme podle dolní (méně významné) části klíče, poté podle horní (významnější) části
+	- díky stabilitě třídění se zachová uspořádání z předchozích fází třídění
+- merge sort funguje při zapisování do souboru
+- u merge sortu má smysl slučovat tři nebo čtyři úseky
+- použitím vnitřního třídění k prvotnímu roztřídění pole snížím počet vstupně výstupních operací
+- tim sort – kombinuje insertion sort a merge sort (merge sort se používá až na větší úseky)

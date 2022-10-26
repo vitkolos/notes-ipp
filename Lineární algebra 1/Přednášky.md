@@ -92,3 +92,24 @@ $$ ...
 	- $A \in R^{m×n}$
 	- $f: R^n→R^m$
 	- $f(x)=Ax$
+- numerická stabilita při řešení soustav – pozor na zaokrouhlení!
+- Hilbertova matice
+- řešení nestability – pomocí parciální pivotizace
+- interpolace polynomem
+
+## Grupy
+
+- algebraická struktura tvořená množinou spolu s binární operací, která je asociativní, má neutrální prvek a každý prvek má svou inverzi
+- Abelova grupa – je komutativní
+- konečná grupa $Z_5$ kde $3+4=2$ protože $7\mod 5=2$
+- neabelovské grupy
+- negrupy – sčítání na přirozených číslech (chybí inverze), odčítání (není asociativní)
+- důkaz jedné z vlastností
+	- $a \circ c = b \circ c \quad /\circ c^{-1}$
+	- $a \circ c \circ c^{-1} = b \circ c \circ c^{-1}$
+	- $a \circ e = b \circ e$
+	- $a = b$
+- permutace
+- symetrická grupa
+- tělesa – mají dvě operace
+- 0a = 0a + 0 = 0a + 0a – 0a = (0 + 0)a – 0a = 0a – 0a = 0

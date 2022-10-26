@@ -185,4 +185,25 @@ $definice \rightarrow tvrzení \xrightarrow{důkaz} věta$
 - Df: $[n] := \{1, \dots, n\}$
 	- n-prvková množina od 1 do n
 - $\#f: [n] → [m] = m^n$
-- 
+- počet k-prvkových podmnožin – n-prvkové množiny
+- kolik má n-prvková množina prázdných podmnožin? prázdná množina existuje pouze jedna
+- základní vlastnosti kombinačních čísel
+- symetrie kombinačních čísel – bijekce mezi podmnožinami a jejich doplňky do původní množiny
+- součet kombinačních čísel v n-tém řádku je 2^n – je to potence množiny
+- kombinační číslo rozložíme na součet počtu množin obsahující konkrétní prvek a množin, které tento prvek neobsahují → kombinační číslo se rovná součtu dvou čísel nad ním (v Pascalově trojúhelníku)
+- binom – dvojčlen
+- binomické koeficienty, binomická věta
+	- jeden člen výsledného součtu – součin n věcí, z nichž každá bude x nebo y
+		- z každé závorky vyberu x nebo y
+		- výsledkem je člen $x^{n-k}y^k$
+		- takových členů tam bude $n \choose k$
+- když zvolíme x = 1, y = -1 a dosadíme do binomické věty, tak zjistíme, že sudých podmnožin je stejně jako lichých (kromě prázdné množiny, ta má jednu sudou a žádnou lichou)
+- n kuliček do k přihrádek
+	- kolik existuje způsobů, jak číslo n zapsat jako k sčítanců
+	- kuličky nejsou rozlišitelné, přihrádky ano
+	- máme stroj na plnění přihrádek, ten se nad nimi pohybuje a sype do nich kuličky
+	- umí operace – pohni se o přihrádku doprava (P), přidej kuličku (K)
+	- v programu je právě k-krát příkaz na pohyb a právě n-krát příkaz na přidání kuličky, musí končit p
+	- tudíž (k-1)-krát příkaz na pohyb a n-krát příkaz na přidání kuličky
+	- ${n+k-1}\choose n$ možností
+- kluby (spolky), princip inkluze a exkluze

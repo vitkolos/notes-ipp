@@ -46,3 +46,15 @@
 	- observation + finished action (\[It seems\] it has been raining.)
 - past perfect – before, had done
 - past perfect progressive – had been -ing
+
+## Subjunctive
+
+- recommend (that) someone do…
+	- I recommend you read this book.
+	- I really recommend that she study now.
+	- I recommended that he go to the doctor.
+- recommend, suggest, …
+
+- I am looking forward to – informal
+- I look forward to – formal
+A
