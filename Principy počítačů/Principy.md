@@ -1,5 +1,6 @@
 # Principy počítačů
 
+- https://slama.dev/poznamky/principy-pocitacu/
 - písemná zkouška, 10 otázek, každá za jeden bod, potřebujeme polovinu na úspěšné složení zkoušky, časový limit 4 hodiny, zkouší se s toho, co se probere na přednáškách, dostaneme ukázku (loňskou písemku)
 - self-assessment úlohy – dostaneme ke každé přednášce sadu
 	- za nějaké odevzdané úlohy můžeme dostat desetinu bodu ke zkoušce, až něco přes dva body budeme moci získat, týdenní deadliny
@@ -223,3 +224,67 @@
 			- XX000000 | 00XXXXXX = XXXXXXXX
 
 ## 4. přednáška
+
+- potřebujeme magickou operaci, která nám umožní posunout bity
+	- = bitové posuny (bitwise shifts)
+	- posun doleva (shift left) – SHL (<<)
+		- a << x → b
+		- a – hodnota, se kterou chceme pracovat (n-bitové číslo)
+		- b – výsledek operace (n-bitové číslo)
+		- x – o kolik bitů se má posunout (celé číslo)
+		- **posun k MSb!**
+		- příklad
+			- 4-bit 1101 (vlevo MSb, vpravo LSb)
+			- SHL 1 → výsledek: 1010
+				- o jedničku úplně vlevo jsme přišli, vpravo přibyla nula
+			- SHL 3 → výsledek: 1000
+			- SHL n → výsledek: 0000
+	- posun doprava (shift right) – SHR (>>)
+		- a >> x → b
+		- funguje podobně jako SHL, akorát opačně
+		- posun k LSb
+	- rotace doleva (rotate left) – ROL
+		- 1101 ROL 3 → 1110 (vysunuté bity nerušíme, ale ve stejném pořadí zasuneme z druhé strany)
+		- výsledkem ROL n je identita
+	- rotace doprava – ROR
+		- 1101 ROR 2 → 0111
+	- rotace Python nepodporuje
+- potřebujeme rozlišit posun myši nahoru a doleva → záporná čísla ve formě jedniček a nul
+	- bezznaménková čísla (unsigned)
+	- znaménková čísla (singed)
+		- signed magnitude – 1 bit určuje znaménko, ostatní bity hodnotu čísla
+			- z hlediska kompatibility je výhodné umístit znaménkový bit na místo MSb, přičemž 1 určuje záporné číslo, 0 kladné
+			- při počítání pouze s nezápornými čísly ztrácíme polovinu rozsahu, takže se v takovém případě může hodit použít bezznaménková čísla
+		- každý procesor podporuje operace pro bezznaménková čísla
+			- můžeme libovolně přecházet mezi interpretací čísla jako znaménkového a bezznaménkového
+			- nefunguje nám bezznaménkové porovnání na porovnávání záporných čísel (ani sčítání apod.)
+		- jedničkový doplněk (ones' complement)
+			- kladná čísla jsou zaznamenaná stejně jako unsigned
+			- záporná jsou zaznamenaná znegovaně
+		- jak udělat z kladného čísla záporné?
+			- u signed magnitude pomocí operace XOR
+			- u jedničkového doplňku negací
+		- problém s nulou
+			- máme dvě nuly – kladnou a zápornou
+			- u jedničkového doplňku můžeme negovat a přičíst jedničku → dostaneme zpátky nulu
+		- dvojkový doplněk (two's complement)
+			- kladná čísla jako unsigned
+			- záporná čísla jsou negace absolutní hodnoty plus 1
+			- rozsah –128 až 127
+			- nefunguje porovnání mezi kladnými a zápornými čísly – procesor musí podporovat znaménkové porovnání
+			- MSb určuje znaménko
+			- nejběžněji používaná implementace záporných čísel
+- Python ke každému číslu ukládá počet platných bitů, ukládá je jako znaménková čísla
+	- jejich rozsah je prakticky neomezený
+	- při posunech (<< a >>) nikdy nepřijdu o číslice – Python si čísla před operací zvětší odpovídajícím způsobem
+	- funkce bit_length() vrací bitovou délku čísla (bez znaménkového bitu)
+	- knihovna numpy nám umožní vyrábět proměnné pevně daných typů (uint8, uint16, int8, …)
+		- čísla intX jsou znaménková, takže tam mj. funguje porovnání
+	- funkce type(x) nám vrátí typ čísla
+- převod 8-bit čísla na 4-bit
+	- operace truncation, přebytečné bity se zahodí – v podstatě $x \mod 2^n$
+	- u čísel blízko nuly funguje dobře, u vzdálenějších čísel získáváme modulo
+- převod 4-bit čísla na 8-bit
+	- bezznaménkové rozšíření (zero extension) – na začátek se přidají čtyři nuly, nefunguje pro znaménková čísla
+	- znaménkové rozšíření (signed extension) – rozkopíruje znaménkovou číslici do nových bitů, nefunguje pro bezznaménková čísla
+	- v Pythonu se bezznaménkové rozšíření používá jenom při převodu mezi dvěma bezznaménkovými čísly, jinak se používá znaménkové rozšíření

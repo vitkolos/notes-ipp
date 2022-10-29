@@ -25,6 +25,7 @@
 	- teorie z přednášek – umět definovat, formulovat tvrzení, dokázat je
 	- nemusíme si pamatovat důkazy z přednášek
 	- je potřeba, abychom na zkoušce předvedli cokoliv, co funguje
+- https://slama.dev/poznamky/diskretni-matematika/
 - https://mj.ucw.cz/vyuka/dm/
 - https://mj.ucw.cz/vyuka/2021/dm/
 - https://iuuk.mff.cuni.cz/~rakdver/index.php?which=uceni&subject=dm
