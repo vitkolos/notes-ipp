@@ -124,7 +124,7 @@ $definice \rightarrow tvrzení \xrightarrow{důkaz} věta$
 		- $R = R^{-1}$
 	- antisymetrická $\equiv \forall x,y \in X, x\neq y: (xRy \Rightarrow \neg yRx)$
 		- pokud x a y jsou různé prvky a x je v relaci s y, tak není pravda, že y je v relaci s x
-	- tranzitivní $\equiv \forall x,y,z \in X: xRy \& yRz \Rightarrow xRz$
+	- tranzitivní $\equiv \forall x,y,z \in X: xRy \land yRz \Rightarrow xRz$
 		- $R \circ R \subseteq R$
 	- Df: Relace R je ekvivalence $\equiv$ R je reflexivní & symetrická & tranzitivní
 		- příklady
@@ -156,16 +156,16 @@ $definice \rightarrow tvrzení \xrightarrow{důkaz} věta$
 		- lexikografické
 			- abeceda: $(X, \leq)$
 			- Df: $(X^2,\leq_{lex})$
-			- $(a_1, a_2) \leq_{lex} (b_1, b_2) \equiv a_1<b_1 \lor (a_1=b_1 \land a2\leq b_2)$
+			- $(a_1, a_2) \leq_{lex} (b_1, b_2) \equiv a_1 \lt b_1 \lor (a_1=b_1 \land a2\leq b_2)$
 			- $(X^k, \leq_{lex})$
 			- $(X^*, \leq_{lex})$
 				- X* – konečné posloupnosti prvků z X
 			- pokud je slovo krátké, doplníme ho mezerami ze začátku abecedy
 - Df: relace bezprostředního předchůdce
-	- $a \triangleleft b \equiv a < b \land \nexists c: a<c \land c<b$
+	- $a \triangleleft b \equiv a \lt b \land \nexists c: a \lt c \land c \lt b$
 	- Hasseův diagram – pro konečné ČUM (částečně uspořádané množiny) – viz sešit
 - Df: pro ČUM $(X,\leq)$ je $x \in X$:
-	- minimální $\equiv \nexists y\in X:y<x$
+	- minimální $\equiv \nexists y\in X:y \lt x$
 	- nejmenší $\equiv \forall y \in X: x \leq y$
 	- maximální
 	- největší
@@ -184,7 +184,7 @@ $definice \rightarrow tvrzení \xrightarrow{důkaz} věta$
 
 - Df: $[n] := \{1, \dots, n\}$
 	- n-prvková množina od 1 do n
-- $\#f: [n] → [m] = m^n$
+- #$f: [n] → [m] = m^n$
 - počet k-prvkových podmnožin – n-prvkové množiny
 - kolik má n-prvková množina prázdných podmnožin? prázdná množina existuje pouze jedna
 - základní vlastnosti kombinačních čísel
