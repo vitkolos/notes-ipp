@@ -184,7 +184,7 @@ $definice \rightarrow tvrzení \xrightarrow{důkaz} věta$
 
 - Df: $[n] := \{1, \dots, n\}$
 	- n-prvková množina od 1 do n
-- #$f: [n] → [m] = m^n$
+- \# $f: [n] → [m] = m^n$
 - počet k-prvkových podmnožin – n-prvkové množiny
 - kolik má n-prvková množina prázdných podmnožin? prázdná množina existuje pouze jedna
 - základní vlastnosti kombinačních čísel

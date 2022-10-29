@@ -1,8 +1,12 @@
 # Seznam předmětů
 
 - [Advanced English](https://github.com/vitkolos/notes-ipp/blob/main/Advanced%20English/Grammar.md)
-- [Diskrétní matematika](https://github.com/vitkolos/notes-ipp/blob/main/Diskr%C3%A9tn%C3%AD%20matematika/%C3%9Avod.md)
-- 
+- [Diskrétní matematika](https://github.com/vitkolos/notes-ipp/blob/main/Diskr%C3%A9tn%C3%AD%20matematika/Diskr%C3%A9tn%C3%AD%20matematika.md)
+- [Lineární algebra 1](https://github.com/vitkolos/notes-ipp/blob/main/Line%C3%A1rn%C3%AD%20algebra%201/P%C5%99edn%C3%A1%C5%A1ky.md)
+- [Français](https://github.com/vitkolos/notes-ipp/blob/main/Fran%C3%A7ais/Fran%C3%A7ais.md)
+- [Algoritmizace](https://github.com/vitkolos/notes-ipp/tree/main/Algoritmizace)
+- [Principy počítačů](https://github.com/vitkolos/notes-ipp/blob/main/Principy%20po%C4%8D%C3%ADta%C4%8D%C5%AF/Principy.md)
+- [Úvod do počítačových sítí](https://github.com/vitkolos/notes-ipp/blob/main/%C3%9Avod%20do%20po%C4%8D%C3%ADta%C4%8Dov%C3%BDch%20s%C3%ADt%C3%AD/S%C3%ADt%C4%9B.md)
 
 ---
 
