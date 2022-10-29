@@ -1,4 +1,4 @@
-# Úvod
+# Diskrétní matematika
 
 ## Cvičení
 
@@ -82,7 +82,7 @@ $definice \rightarrow tvrzení \xrightarrow{důkaz} věta$
 - Df: pro relace $R \subseteq X × Y$ definujeme inverzní relaci $R^{-1} \subseteq Y × X$
 	- $\forall x \in X, \forall  \in Y: yR^{-1}x \equiv xRy$
 - Df: pro relace $R \subseteq X×Y$ a $S \subseteq Y×Z$ definujeme jejich složení $R \circ S \subseteq X×Z:$
-	- $\forall x \in X, \forall z \in Z: x(R \circ S)z \equiv (\exists y \in Y: xRy \& ySz)$
+	- $\forall x \in X, \forall z \in Z: x(R \circ S)z \equiv (\exists y \in Y: xRy \land ySz)$
 - příklad
 	- $R \subseteq X×Y, \Delta_Y$
 	- $R\circ \Delta_Y = R$

@@ -10,8 +10,8 @@
 	- don't have to write the exercises
 	- can miss up to 3 classes (50% attendance necessary to get the credits)
 	- MFF 2013+ (from October 24)
-	- 7. 11. test, essay (no preparation)
-	- 12. 12. ESP – date might change
+	- 7\. 11. test, essay (no preparation)
+	- 12\. 12. ESP – date might change
 	- \[19. 12. test 2\] – Moodle
 
 - opt for (opt into)

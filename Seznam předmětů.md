@@ -1,5 +1,11 @@
 # Seznam předmětů
 
+- [Advanced English](https://github.com/vitkolos/notes-ipp/blob/main/Advanced%20English/Grammar.md)
+- [Diskrétní matematika](https://github.com/vitkolos/notes-ipp/blob/main/Diskr%C3%A9tn%C3%AD%20matematika/%C3%9Avod.md)
+- 
+
+---
+
 - [Advanced English](https://github.com/vitkolos/notes-ipp/tree/main/Advanced%20English "Advanced English")
 - [Algoritmizace](https://github.com/vitkolos/notes-ipp/tree/main/Algoritmizace "Algoritmizace")
 - [Diskrétní matematika](https://github.com/vitkolos/notes-ipp/tree/main/Diskr%C3%A9tn%C3%AD%20matematika "Diskrétní matematika")

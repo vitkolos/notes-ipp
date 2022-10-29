@@ -221,3 +221,5 @@
 		- chceme ze dvou čísel 000000XX a 00XXXXXX dostat XXXXXXXX
 			- použijeme magii a převedeme 000000XX → XX000000
 			- XX000000 | 00XXXXXX = XXXXXXXX
+
+## 4. přednáška
