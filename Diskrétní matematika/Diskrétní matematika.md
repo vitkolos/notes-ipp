@@ -244,4 +244,19 @@ $definice \rightarrow tvrzení \xrightarrow{důkaz} věta$
 		- délka cesty se měří v počtu hran
 	- kružnice/cyklus $C_n$
 		- $n\geq 3$
-		- 
+		- $V(C_n):=\{0\dots n–1\}$
+		- $E(C_n):=\{\{i,i+1\mod n\}|0\leq i \lt n\}$
+	- úplný bipartitní $K_{m,n}$
+		- každý prvek nalevo je spojený s každým napravo
+		- prvky na jedné straně mezi sebou nejsou spojeny
+	- bipartitní graf
+		- partity grafu – jednotlivé „strany“
+		- Df: Graf (V, E) je bipartitní $\equiv \exists L,P\subseteq V$ t. ž.:
+			- $L \cup P = V$
+			- $L \cap P = \emptyset$
+			- $\forall e \in E: |e \cap L| = 1\quad (\land\ |e \cap P| = 1)$
+- izomorfismus grafů
+	- existuje bijekce, která zachovává vlastnost být spojen hranou
+	- značení $\cong$
+	- $\cong$ je ekvivalence na libovolné množině grafů
+		- neexistuje množina všech grafů (protože neexistuje množina všech množin)
