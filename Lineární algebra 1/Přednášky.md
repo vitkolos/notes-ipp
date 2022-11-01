@@ -149,4 +149,12 @@ $$ ...
 	- $\mathcal P^n \Subset \mathcal P \Subset \mathcal C \Subset \mathcal F$
 	- podprostory musí být nad stejným tělesem
 	- vlastnost „býti podprostorem“ je tranzitivní
-	- 
+	- průnik podprostorů je podprostor
+	- sjednocení podprostorů nemusí být podprostor
+- lineární obal množiny W … span(W)
+	- průnik všech podprostorů, které obsahují množinu W → nejmenší možný podprostor obsahující množinu W
+	- pokud W je podprostorem prostoru V, pak W = span(W)
+- generátory
+	- span(W) = U → W generuje prostor U, prvky množiny W jsou generátory prostoru U
+	- prostor U se nazývá konečně generovaný, jestliže je generovaný nějakou konečnou množinou vektorů
+	- hledáme co nejmenší počet generátorů
