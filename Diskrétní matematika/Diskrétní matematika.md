@@ -181,7 +181,7 @@ $definice \rightarrow tvrzení \xrightarrow{důkaz} věta$
 	- řetězec $\equiv (A,\leq)$ je lineární UM
 	- antiřetězec $\equiv \forall(a,b) \in A, a \neq b$ jsou neporovnatelné
 
-## Kombinatorika
+### Kombinatorika
 
 - Df: $[n] := \{1, \dots, n\}$
 	- n-prvková množina od 1 do n
@@ -208,3 +208,40 @@ $definice \rightarrow tvrzení \xrightarrow{důkaz} věta$
 	- tudíž (k-1)-krát příkaz na pohyb a n-krát příkaz na přidání kuličky
 	- ${n+k-1}\choose n$ možností
 - kluby (spolky), princip inkluze a exkluze
+- šatnářka
+	- bijekce z množiny klobouků do množiny pánů
+	- $\pi(i)=i$ … pevný bod
+	- velikost průniku je $(n-k)!$
+	- nezáleží na výběru podmnožiny z indexové množiny, takže stačí vynásobit n nad k
+- odhady faktoriálu
+	- triviální: $2^{n-1} \leq n! \leq n^n$
+	- $n^{\frac{n}{2}} \leq n! \leq (\frac{n+1}{2})^n$
+	- důkaz AG nerovnosti
+- odhad kombinačního čísla
+
+### Grafy
+
+- Df: Graf je (V, E), kde V je konečná neprázdná množina vrcholů a $E \subseteq {V \choose 2}$ je množina hran.
+- značení
+	- G = (V, E)
+	- množina vrcholů … V(G)
+	- množina hran … E(G)
+- rozšíření grafů
+	- orientované – hrany mají šipky
+	- se smyčkami – jako u relací
+	- multigrafy – dva vrcholy spojené více než jednou hranou
+	- nekonečné grafy
+- příklady
+	- úplný graf $K_n$
+		- $V(K_n):=[n]$
+		- $E(K_n):={V(K_n)\choose 2}$
+	- prázdný graf $E_n$
+		- $V(E_n):=[n]$
+		- $E(E_n) =\emptyset$
+	- cesta $P_n$
+		- $V(P_n):=\{0\dots n\}$
+		- $E(P_n):=\{\{i,i+1\}|0\leq i \lt n\}$
+		- délka cesty se měří v počtu hran
+	- kružnice/cyklus $C_n$
+		- $n\geq 3$
+		- 
