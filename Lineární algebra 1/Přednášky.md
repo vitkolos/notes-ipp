@@ -113,3 +113,40 @@ $$ ...
 - symetrická grupa
 - tělesa – mají dvě operace
 - 0a = 0a + 0 = 0a + 0a – 0a = (0 + 0)a – 0a = 0a – 0a = 0
+- $Z_n$ je těleso $\iff n$ je prvočíslo
+- jak sestrojit těleso o velikosti $p^n$?
+	- prvky jsou polynomy
+	- GF
+
+## Vektorové prostory
+
+- vektorový prostor nad tělesem T je množina V s operacemi sčítání vektorů a násobení vektoru skalárem
+	- těleso T má neutrální prvky 0 pro sčítání a 1 pro násobení
+	- (V, +) je Abelova brupa, neutrální prvek značíme o, inverzní k v značíme –v
+	- platí asociativita, distributivita (pro skaláry i vektory), jednička je neutrální u násobení vektoru skalárem
+- značení
+	- vektory = prvky vektorového prostoru V, značíme latinkou (bez šipek)
+	- skaláry = prvky tělesa T, značíme řeckými písmeny
+- příklady
+	- artimetický prostor $\mathbb{R}^n$ nad $\mathbb{R}$
+	- obecněji $\mathbb{T}^n$ nad $\mathbb{T}$ (axiomy vektorového prostoru pak vyplývají z vlastností tělesa)
+	- prostor matic
+	- prostor P reálných polynomů proměnné x
+	- prostor $\mathcal{P}^n$ polynomů z P stupně nanejvýš n (nemůže být vždycky n, aby tam byl neutrální prvek při sčítání)
+- vektorový prostor $\mathcal{F}$
+	- prvky – reálné funkce $f:\mathbb R → \mathbb R$
+	- součet vektorů – (f + g)(x)
+	- vynásobení vektoru skalárem – 3f(x)
+- tvrzení (základní vlastnosti vektorových prostorů
+	- 0v = o
+	- $\alpha$o = o
+	- …
+- podprostor
+	- buď V vektorový prostor nad T – pak U je podprostorem V, pokud tvoří vektorový prostor nad T se stejně vektorovými operacemi
+	- značení $\Subset$
+	- dva triviální podprostory prostoru V jsou V a $\{o\}$
+	- libovolná přímka v rovině procházející počátkem je podprostorem $\mathbb R^2$, jiná ne
+	- $\mathcal P^n \Subset \mathcal P \Subset \mathcal C \Subset \mathcal F$
+	- podprostory musí být nad stejným tělesem
+	- vlastnost „býti podprostorem“ je tranzitivní
+	- 
