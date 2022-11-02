@@ -127,7 +127,7 @@
 		- takhle to Python nedělá, ale je to názorné
 		- pro 1000 appendů 9 realokací
 		- amortizovaná složitost konstantní
-- spojové seznamy – poměrně pracné pro programátora, někdy fungují rychleji, v Pythonu se implementuje ručně (v programu mám uložený odkaz na první prvek seznamu, ten odkazuje na další prvek atd.)
+- spojové seznamy – poměrně pracné pro programátora, někdy fungují rychleji, v Pythonu se implementuje ručně (v programu mám uložený odkaz na první prvek seznamu, ten odkazuje na další prvek atd., na konci je uzemnění – v Pythonu None)
 - abstraktní datové typy
 	- zásobník (stack)
 		- řada dat, na jedné straně dno, na druhé vrchol
@@ -148,4 +148,12 @@
 		- odebírá se nejmenší prvek
 		- typické operace – přidat prvek, určit hodnotu minimálního prvku, odebrat minimální prvek
 		- požadujeme časovou složitost všech operací $O(\log N)$
-		- haldu si představujeme jako binární strom, který ovšem typicky implementujeme v poli
+		- haldu si představujeme jako binární strom, který ovšem typicky implementujeme v poli (pokud nultý prvek pole necháme prázdný, tak bude počítání indexů trochu jednodušší)
+		- pro každý uzel musí platit, že jeho hodnota je menší (nebo rovna) než hodnota obou synů
+		- výška binárního stromu
+			- pro nevyvážený (degenerovaný) strom – až $n$
+			- pro vyvážený strom – $\log_2 n$
+			- průměrně $2\log_{2?} n$
+		- výška haldy = horní celá část z $\log_2 N$
+		- při přidávání prvku přidáváme na konec a bubláme nahoru
+		- při odebírání prvku odebereme nejmenší (ze začátku), poslední přesuneme místo něj a bubláme dolů (prohazujeme s menším ze synů)
