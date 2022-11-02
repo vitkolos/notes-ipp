@@ -113,3 +113,39 @@
 
 - int – ve dvojkové soustavě
 - 32bit nebo 64bit
+
+### Datové struktury
+
+- seznam vs. pole
+	- rychlejší je práce s polem, seznamy mají více možností (i když často zbytečných)
+	- pole v Pythonu – knihovny array, numpy
+	- operace na seznamu
+		- úpravy středu seznamu – lineární složitost
+		- úpravy konce – lineární (pokud chybí paměť), ale průměrně konstantní časová složitost
+	- pokud na konci seznamu chybí paměť, tak není možné provést append – Python tedy seznam přesune jinam (realokuje), přidá mu víc místa (aby se tam vešlo ještě x dalších prvků)
+	- realokace s přidělením dvojnásobku paměti
+		- takhle to Python nedělá, ale je to názorné
+		- pro 1000 appendů 9 realokací
+		- amortizovaná složitost konstantní
+- spojové seznamy – poměrně pracné pro programátora, někdy fungují rychleji, v Pythonu se implementuje ručně (v programu mám uložený odkaz na první prvek seznamu, ten odkazuje na další prvek atd.)
+- abstraktní datové typy
+	- zásobník (stack)
+		- řada dat, na jedné straně dno, na druhé vrchol
+		- data se přidávají na vrchol a odebírají se také jediné z vrcholu
+		- v Pythonu lze implementovat na seznamu nebo na spojovém seznamu
+	- fronta (queue)
+		- z jedné strany se prvky přidávají, z druhé odebírají
+		- jak řešit odebírání prvků z paměti
+			- při odebrání posouvám prvky – lineární složitost
+			- při odebrání většího množství prvků posouvám prkvy
+			- posouvám až ve chvíli, kdy nemám volné místo
+			- kruhová fronta – při přetečení se přidává na začátek paměti (v programu ukládám začátek a konec fronty, ty modulím kapacitou)
+		- deque – knihovní implementace fronty (double-ended queue), umožňuje přidávat i odebírat zprava i zleva
+		- při implementaci fronty pomocí spojového seznamu je na konci seznamu příchod, na začátku odchod, ukládám dvojici odkazů (na první a poslední prvek)
+	- halda (heap)
+		- nepamatuje si pořadí příchodu prvků
+		- prvky musí být porovnatelné (definováno vzájemné uspořádání)
+		- odebírá se nejmenší prvek
+		- typické operace – přidat prvek, určit hodnotu minimálního prvku, odebrat minimální prvek
+		- požadujeme časovou složitost všech operací $O(\log N)$
+		- haldu si představujeme jako binární strom, který ovšem typicky implementujeme v poli
