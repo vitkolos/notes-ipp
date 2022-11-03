@@ -49,3 +49,17 @@
 	- 3d – neexistuje "souměrné" rozložení kelímků, při kterém by nezáviselo na otočení kelímkomatu, tedy neexistuje poslední krok
 	- 3e – poslední krok existuje, je to situace, kdy se stavy kelímků střídají (každý je otočený jinak než ty vedle něj)
 		- uděláme 3 kroky, které zajistí, že právě jeden kelímek je otočený špatně
+
+## Teorie
+
+- složitost problému třídní porovnáním
+	- rozhodovací strom bude mít nějaký počet hladin, což bude výsledná složitost algoritmu
+	- těchto hladin bude nejméně log n!, protože listů musí být nejméně n!
+	- n! se dá odhadnout
+- třídění haldou
+	- halda → binární (minimová) leftist halda
+		- strom
+		- binární
+		- rodič má klíč menší nebo roven než jeho syny
+		- všechny hladiny jsou zaplněné kromě té poslední, ta se vycpává zleva
+		- reprezentuje se v poli

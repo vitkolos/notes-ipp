@@ -86,6 +86,8 @@
 
 - třídění sléváním (merge sort)
 	- časová složitost $\Theta(n \log_2 n)$
+		- počet porovnání v každé hladině – n
+		- počet hladin – log n
 	- prostorová složitost – potřebuju další pole délky $n$
 - k dokázání přesného odhadu složitosti lze dokázat, že to jde udělat s danou složitostí a že to nejde lépe
 - problém třídění n dat – musíme udělat $\log_2 n!$ porovnání
