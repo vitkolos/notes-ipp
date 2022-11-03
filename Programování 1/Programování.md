@@ -17,4 +17,4 @@
 	- sys.stdin.readline()
 	- konec vstupu poznáme podle prázdného vstupu
 	- při debuggování tam budeme mít \\n
-	- řešit pomocí spojáku
+	- řešit pomocí spojáku (nemusíme dělat třídu spojs, ale bude to hezčí)
