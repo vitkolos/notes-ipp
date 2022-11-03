@@ -83,3 +83,7 @@ Libor Forst, SISAL MFF UK
 	- diagnostika DNS – nslookup, dig
 - e-mail
 	- open relay servery umožňují komukoliv odesílat poštu
+- souhrn
+	- problémy FTP – nešifrovaný přenos, přenos probíhá přes pomocné spojení, aktivní spojení je rizikem
+	- MTA vs. MX
+- POP vs. IMAP
