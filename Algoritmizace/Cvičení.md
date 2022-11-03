@@ -58,7 +58,7 @@
 	- n! se dá odhadnout
 - třídění haldou
 	- halda → binární (minimová) leftist halda
-		- strom
+		- strom (má kořen, listy)
 		- binární
 		- rodič má klíč menší nebo roven než jeho syny
 		- všechny hladiny jsou zaplněné kromě té poslední, ta se vycpává zleva
