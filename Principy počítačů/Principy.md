@@ -288,3 +288,51 @@
 	- bezznaménkové rozšíření (zero extension) – na začátek se přidají čtyři nuly, nefunguje pro znaménková čísla
 	- znaménkové rozšíření (signed extension) – rozkopíruje znaménkovou číslici do nových bitů, nefunguje pro bezznaménková čísla
 	- v Pythonu se bezznaménkové rozšíření používá jenom při převodu mezi dvěma bezznaménkovými čísly, jinak se používá znaménkové rozšíření
+- Harvardská architektura – CPU čte z kódové paměti, čte z datové paměti a zapisuje do datové paměti
+	- datové paměti můžeme říkat operační paměť (operating memory)
+	- periferie komunikují s CPU jednosměrně nebo oběma směry (monitor posílá informace o rozlišení, klávesnice přijímá informace o rozsvícení diod)
+- zařízení
+	- master – řídí přenos (řídící – řídí komunikaci)
+	- slave – poslouchá (řízený)
+	- při komunikaci procesoru s pamětí je procesor master, paměť je slave
+	- když data proudí směrem master → slave, tak jde o zápis, opačným směrem je to čtení
+	- typický procesor funguje jenom jako master – abychom toto pravidlo neporušili, používáme řadič
+		- řadič je potřeba u myši, u klávesnice tato potřeba obvykle není, protože se chová jako slave (uvnitř má vlastní registr)
+- komunikační linka point-to-point – z procesoru by muselo vést mnoho vstupů/výstupů
+- chceme komunikační linku, která umožňuje více vstupů/výstupů – multidrop/bus/sběrnice (linka se sběrnicovou topologií)
+- nákres – z CPU vedou dvě sběrnice, na jedné jsou připojené paměti, na druhé perfiferie (myš za řadičem), CPU je master, všechno ostatní slave
+- adresa (address) zařízení na sběrnici (typicky 0 až n)
+	- v příkazu v programu pro procesor budou dvě informace – chci komunikovat se zařízením X na sběrnici Y
+	- adresy zařízení musí být unikátní v rámci jedné sběrnice
+	- rozsah adres (address space)
+	- máme X bitový adresový prostor → platné adresy jsou $0$ až $2^x-1$
+	- někdy i master musí mít vlastní adresu?
+- zařízení je připojené na sběrnici
+	- má Rx a Tx – může přijímat i vysílat data
+	- je tam víc zařízení, zkusíme se obejít bez floating stavu
+	- k lince připojíme 5 voltů přes rezistor s velkým odporem (pull-up rezistor, kdyby tam byla nula voltů, tak by to bylo pull-down rezistor)
+	- když není žádné zařízení připojené k lince, tak je stav linky 1 (protože je tam těch pět voltů za rezistorem)
+	- zařízení je připojené, ale nedělá nic → nepřipojí se ke sběrnici´→ stav linky je 1
+	- zařízení je připojené a vysílá jedničku → nepřipojí se ke sběrnici → stav linky je 1
+	- zařízení je připojené a vysílá nulu → připojí se (na malém rezistoru v zařízení na Tx je 0 V) → stav linky je 0
+
+| D1 | D2 | bus |
+|---|---|---|
+| x | x | 1 |
+| x | 1 | 1 |
+| x | 0 | 0 |
+| 1 | 1 | 1 |
+| 1 | 0 | 0 |
+| 0 | 1 | 0 |
+| 0 | 0 | 0 |
+
+- spodní čtyři řádky implementují AND
+- $I^2C$ – Inter Integrated Circuit
+	- vodič SDA – sériová data
+	- vodič SCL – sériové hodiny
+	- oba vodiče posílají digitální signál
+	- oba vodiče jsou připojené na pull-up rezistor
+	- napájecí napětí se označuje jako $V_{DD}$ nebo $V_{CC}$
+	- pod 30 % $V_{DD}$ se považuje za nulu, nad 70 % za jedničku
+	- multimaster – různá zařízení můžou být master
+		- existují i singlemaster sběrnice – např. USB
