@@ -249,6 +249,9 @@
 	- rotace doprava – ROR
 		- 1101 ROR 2 → 0111
 	- rotace Python nepodporuje
+
+## 5. přednáška
+
 - potřebujeme rozlišit posun myši nahoru a doleva → záporná čísla ve formě jedniček a nul
 	- bezznaménková čísla (unsigned)
 	- znaménková čísla (singed)
@@ -288,6 +291,9 @@
 	- bezznaménkové rozšíření (zero extension) – na začátek se přidají čtyři nuly, nefunguje pro znaménková čísla
 	- znaménkové rozšíření (signed extension) – rozkopíruje znaménkovou číslici do nových bitů, nefunguje pro bezznaménková čísla
 	- v Pythonu se bezznaménkové rozšíření používá jenom při převodu mezi dvěma bezznaménkovými čísly, jinak se používá znaménkové rozšíření
+
+## 6. přednáška
+
 - Harvardská architektura – CPU čte z kódové paměti, čte z datové paměti a zapisuje do datové paměti
 	- datové paměti můžeme říkat operační paměť (operating memory)
 	- periferie komunikují s CPU jednosměrně nebo oběma směry (monitor posílá informace o rozlišení, klávesnice přijímá informace o rozsvícení diod)
@@ -336,3 +342,49 @@
 	- pod 30 % $V_{DD}$ se považuje za nulu, nad 70 % za jedničku
 	- multimaster – různá zařízení můžou být master
 		- existují i singlemaster sběrnice – např. USB
+	- musíme rozeznat idle stav od přenosu
+		- SCL tiká jenom během přenosu, generuje ho master
+		- dvě jedničky (na SDA i SCL) znamenají idle stav
+		- na lince existují nepovolené stavy – např. změna stavu na SDA při jedničce na SCL – toho využijeme jako START a STOP condition
+			- START condition = sestupná hrana na SDA při jedničce na SCL
+			- STOP condition = vzestupná hrana na SDA při jedničce na SCL
+	- sběrnice má 9-bitové byty: 8 data bit + 1 control bit
+		- kontrolní bit (acknowledgement/potvrzovací/ACK bit)
+			- (acknowledgement = ACK × negative acknowledgement = NACK/NAK)
+		- první byte vždycky posílá master, slave ho potvrzuje kontrolním bitem
+		- další byty posílá vysílající a přijímající potvrzuje (pokud přijímající přestane potvrzovat, vyhodnotí se to jako NAK)
+
+|  | B1 | a1 | B2 | a2 | B3 | a3 |  |
+|---|---|---|---|---|---|---|---|
+| write | M | S | M | S | M | S | NAK |
+| read | M | S | S | M | S | M | NAK |
+
+- MSb-first komunikace
+- série bytů tvoří packet, ten se dělí na overhead ($I^2C$ control) a payload (device specific – požadovaná data)
+- $I^2C$ sestává ze slave address (7-bit) a bitu určujícího směr přenosu $R/\bar W$
+	- read = 1, write = 0
+	- devátý control bit má obrácenou logiku – 0 = ACK, 1 = NAK (typicky pokud tam slave není)
+- když slave nestíhá, tak může v hodinovém signálu generovat nulu → master ví, že nemůže posílat další data – tomu se říká clock stretching / hold clock low
+
+### Ambient Light Sensor (ALS)
+
+- ve smartphonu určuje intenzitu okolního světla a podle toho se určuje intenzita podsvícení
+- v datasheetu najdeme informace o fungování
+- zařízení má čtyři piny – VDD (napájení), GND (zem), SDA (data), SCL (hodiny)
+- v zařízení bude senzor a logika
+- součástí logiky je counter register – zajišťuje počítání intenzity světla
+- měření v intervalech (na začátku měření se counter vynuluje)
+- příkazy start integration a stop integration
+	- command register (cmd reg)
+- při extrémních hodnotách lze softwarově prodloužit/zkrátit dobu měření, abychom vůbec něco naměřili (to zajišťuje procesor zařízení)
+- counter register = ADC register (analog digital converter)
+	- existuje také DAC (digital analog converter) – opačný proces, z digitálního signálu se generuje např. analogová intenzita světla
+	- v ALS má 2 byty – z toho 15 datových bitů a jeden valid bit
+- připojení na sběrnici zajišťuje bus interface – skrze něj máme jako programátoři přístup k registrům
+	- write-only register (W/O)
+	- read-only register (R/O)
+	- read-write register (R/W) – v ALS nenajdeme
+	- v případě ALS bude „zápis“ znamenat zápis do W/O cmd registru a „čtení“ bude znamenat čtení z R/O counter registru
+	- adresa zařízení na sběrnici je pevně daná výrobcem – hardwired/zadrátovaná, v tomto případě je to $29 – na jednu sběrnici tedy nemůžu připojit dvě stejná zařízení, protože by měla stejnou adresu
+- u vícebytových čísel se rozlišuje LSB (byte s LSb) a MSB (byte s MSb)
+- kromě bit order se určuje byte order
