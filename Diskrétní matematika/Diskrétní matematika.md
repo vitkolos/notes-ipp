@@ -257,6 +257,10 @@ $definice \rightarrow tvrzení \xrightarrow{důkaz} věta$
 			- $\forall e \in E: |e \cap L| = 1\quad (\land\ |e \cap P| = 1)$
 - izomorfismus grafů
 	- existuje bijekce, která zachovává vlastnost být spojen hranou
+	- v podstatě stačí přejmenovat vrcholy a dostaneme dva stejné grafy
 	- značení $\cong$
 	- $\cong$ je ekvivalence na libovolné množině grafů
 		- neexistuje množina všech grafů (protože neexistuje množina všech množin)
+- pokud vezmeme n vrcholů, kolik existuje grafů s touto množinou vrcholů?
+	- \# grafů na n vrcholech
+	- každá dvojice vrcholů buď je hranou, nebo ne
