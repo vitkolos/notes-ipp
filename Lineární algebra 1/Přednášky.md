@@ -158,3 +158,13 @@ $$ ...
 	- span(W) = U → W generuje prostor U, prvky množiny W jsou generátory prostoru U
 	- prostor U se nazývá konečně generovaný, jestliže je generovaný nějakou konečnou množinou vektorů
 	- hledáme co nejmenší počet generátorů
+	- existují množiny, které nejsou konečně generované – např. množina funkcí
+- lineární kombinace
+	- je to kombinace konečně mnoha vektorů (pro jednoduchost)
+- pomocí lineárních kombinací můžeme vygenerovat celý lineární obal konečné množiny vektorů
+- řešení rovnic, nadroviny
+- matice
+- lineární nezávislost – pokud součet nějakých násobků vektorů je nulový vektor pouze tehdy, když jsou všechny koeficienty nulové
+	- nenulový vektor je lineárně nezávislý
+	- nulový vektor je lineárně závislý
+	- prázdná množina je lineárně nezávislá

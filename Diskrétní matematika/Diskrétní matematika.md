@@ -264,3 +264,23 @@ $definice \rightarrow tvrzení \xrightarrow{důkaz} věta$
 - pokud vezmeme n vrcholů, kolik existuje grafů s touto množinou vrcholů?
 	- \# grafů na n vrcholech
 	- každá dvojice vrcholů buď je hranou, nebo ne
+	- některé grafy jsou izomorfní, ale dokázali jsme, že se počet neizomorfních grafů blíží počtu všech grafů
+- stupeň vrcholu v grafu – počet hran, kterých se účastní daný vrchol
+- graf je k-regulární, pokud je stupeň všech vrcholů grafu roven k (z čehož vyplývá, že nemůže existovat více takových k)
+- skóre grafu – posloupnost stupňů vrcholů (až na pořadí) → jakmile dvěma grafům vyjde jiné skóre, nemohou být izomorfní
+- ale existují např. dva neizomorfní grafy se skórem 2,2,2,2,3,3
+- nemůže existovat graf 3,3,3
+- součet skóre je roven dvojnásobku počtu hran → součet skóre je vždy sudý
+- počet vrcholů lichého stupně je sudý
+- jednoprvková posloupnost je skóre grafu, když je to nula
+- graf může mít u některých vrcholů nulu
+- věta o skóre :)
+- podgraf
+- indukovaný podgraf – vyberu si vrcholy z původního grafu a do nového grafu zdědím všechny hrany mezi nimi
+	- „podgraf indukovaný množinou vrcholů“
+	- $G[A] := (A, E(G) \cap {A \choose 2})$
+- cesta v grafu
+	- v grafu existuje podgraf izomorfní s Pn
+	- v grafu existuje určitá posloupnost
+- kružnice v grafu
+- souvislost grafu
