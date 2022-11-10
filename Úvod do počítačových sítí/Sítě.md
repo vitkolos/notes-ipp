@@ -87,3 +87,6 @@ Libor Forst, SISAL MFF UK
 	- problémy FTP – nešifrovaný přenos, přenos probíhá přes pomocné spojení, aktivní spojení je rizikem
 	- MTA vs. MX
 - POP vs. IMAP
+- IMAP neumí odesílat e-maily, potřebujeme ještě SMTP
+- na každý dokument v HTTP/1 musí klient poslat požadavek
+- protokol HTTP je bezstavový, stavovost zajišťují cookies

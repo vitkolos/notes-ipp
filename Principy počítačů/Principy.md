@@ -388,3 +388,71 @@
 	- adresa zařízení na sběrnici je pevně daná výrobcem – hardwired/zadrátovaná, v tomto případě je to $29 – na jednu sběrnici tedy nemůžu připojit dvě stejná zařízení, protože by měla stejnou adresu
 - u vícebytových čísel se rozlišuje LSB (byte s LSb) a MSB (byte s MSb)
 - kromě bit order se určuje byte order
+
+## 7. přednáška
+
+- nechceme pokaždé přenášet celý obsah paměti
+- každému bytu přiřadíme adresu (n-bit unsigned), definujeme si paměťový adresový prostor
+- u 256 bytové paměti budeme mít 8-bitový adresový prostor (0 až 255 $\dots 2^8-1$)
+- můžeme mít 200 bytovou paměť s 8-bitovým adresovým prostorem (podobně můžeme mít 256 bytovou paměť s 16-bitovým adresovým prostorem)
+- použití většího prostoru znamená možnost budoucího rozšiřování paměti
+- nechceme pracovat s velkými čísly – místo bajtů použijeme kilobajty
+- 1 kB = 1024 B, 1 MB = 1024 kB, … (pro přehlednost se používají zkratky KiB, MiB, GiB → kibibyte, …)
+	- výrobci disků používají 1 kB = 1 000 B
+- pro uložení adresy bytu v KiB potřebujeme 10-bitovou adresu, pro adresování KiB v MiB také 10-bit, takže u GiB adresujeme konkrétní byte pomocí 30-bitové adresy
+- u adres bytů v KiB potřebujeme 10-bitovou adresu, ale binárně to vychází na 16-bit, takže takto můžeme adresovat 64kB médium
+- u 24-bitového prostoru 16 MB
+- u 32-bitového prostoru 4 GB
+- bity v registru řadiče: 1 bit → 1 latch (4–6 tranzistorů)
+	- nejrychlejší způsob uložení do paměti
+	- SRAM (Random Access Memory)
+		- charakteristické vlastnosti
+			1. umožňuje volbu adresy
+			2. jednotná rychlost (uniform speed)
+				- dnešní paměti RAM tohle většinou nemají
+		- nejrychlejší přístup – sekvenční (postupný přístup k rostoucím adresám)
+		- nejpomalejší – random (nelze předvídat, kam budeme přistupovat)
+		- sekvenční přístup ke klesajícím adresám – záleží na konkrétní paměti
+		- další vlastnost tohoto typu paměti je schopnost čtení a zápisu
+		- typická vlastnost pamětí RAM – jsou volatile (po vypnutí napájení se ztrácí obsah)
+			- kódová paměť počítače by tedy měla být non-volatile
+		- kapacita – v jednotkách B, kB, MB
+		- nevýhody – cena, rozměry
+- paměti DRAM
+	- základní vlastnosti odpovídají SRAM
+	- bit se ukládá pomocí 1 tranzistoru a 1 kondenzátoru
+	- D v názvu znamená dynamic
+	- nabité kondenzátory se postupně vybíjejí do vybitých
+		- cca po milisekundě se náboje vyrovnávají
+	- refresh paměti – součástka se podívá na náboje a obnovuje jejich původní hodnoty (v tuto chvíli do paměti nemůže nikdo přistupovat)
+	- DRAM je tedy pomalejší než SRAM
+- přenosová rychlost – nejvíce ovlivňuje sekvenční přenosy, u SRAM 10 až 100 GB/s, u DRAM 1 až 10 GB/s
+- access time – u SRAM jednotky ns, u DRAM desítky ns
+- u naší 256 bytové paměti kódujeme adresu na I2C pomocí tří proměnlivých bitů
+	- pevný začátek adresy, za něj se přidávají hodnoty tří bitů
+- 1 slovo (1 word) – jednotka přenosu/zpracování
+	- je pro nás důležitá velikost slova
+	- čím větší slovo, tím rychlejší přenos
+	- n-bit device (paměť)
+	- n-bit CPU (procesor umí pracovat s n-bitovými čísly)
+- adresa z pohledu CPU – adresa bajtu
+- u 16-bitové paměti tvoří dva bajty jedno slovo – používá adresy slov
+- podobně u 32-bitové paměti
+- adresy tedy musíme překládat
+- nesprávný význam slova: slovo = 16 bitů
+- dvojslovo (double word / DWORD / DW) – dvojnásobek slova (často 32 bitů)
+- čtyřslovo (quad word / QWORD / QW) – čtyřnásobek slova (v praxi často 64 bitů)
+- obsah naší paměti
+	- bus interface – I2C sběrnice, tři připojené vodiče určují adresu paměti
+	- adresový registr – velikost odpovídá velikosti adresového prostoru
+		- ovládá logiku paměti
+	- datový registr – velikost odpovídá velikosti slova
+	- na I2C: 100 kHz → 100 000 b/s → 12 500 B/s
+		- na jeden bajt se přenese 3×9 bitů
+		- → 3 708 B/s
+	- můžeme předpokládat, že po zapsání bytu budeme chtít zapsat na ten za ním, tedy adresový registr inkrementujeme o 1
+		- takhle dostaneme (u nekonečného přenosu) rychlost 11 109 B/s
+	- 1 write tx (transakce) = 1 I2C tx
+	- 1 read tx = 2 I2C tx (1 write do addr reg + 1 read z data reg)
+	- obecně jsou ale typické paměti RAM rychlejší na čtení než zápis
+- registrový adresový prostor zařízení – když má zařízení více registrů, ke kterým chceme přistupovat
