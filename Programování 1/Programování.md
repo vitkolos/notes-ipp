@@ -14,7 +14,7 @@
 			- tvrzení: každý třídící algoritmus, který prohazuje jen sousedy má alespoň kvadratickou složitost
 			- důkaz: na sestupné posloupnosti je každá dvojice (n nad dvěma) špatně, abychom je prohodili, musíme udělat kvadratický počet kroků
 - 3. listopadu
-	- sys.stdin.readline()
+	- `sys.stdin.readline()`
 	- konec vstupu poznáme podle prázdného vstupu
-	- při debuggování tam budeme mít \\n
+	- při debuggování tam budeme mít `\\n`
 	- řešit pomocí spojáku (nemusíme dělat třídu spojs, ale bude to hezčí)

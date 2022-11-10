@@ -168,3 +168,14 @@ $$ ...
 	- nenulový vektor je lineárně nezávislý
 	- nulový vektor je lineárně závislý
 	- prázdná množina je lineárně nezávislá
+	- příklad
+		- sloupce regulární matice ($Ax=0 \implies x=0$)
+- vektory jsou lineárně závislé právě tehdy, když se jeden z nich dá vyjádřit jako lineární kombinace ostatních
+- vektory jsou lineárně závislé $\iff$ můžu z nich jeden vyloučit a pořád mi to bude generovat stejný vektorový podprostor
+- báze = lineárně nezávislý systém generátorů
+	- báze prostoru V je tedy minimální systém generátorů prostoru V
+	- systém vektorů = uspořádaná množina vektorů
+	- v $\mathbb{R}^n$ kanonická báze $e_1, e_2, \dots, e_n$
+- každý vektor prostoru se dá vyjádřit jako jednoznačná lineární kombinace bazických vektorů
+- souřadnice vektoru vzhledem k bázi
+- 
