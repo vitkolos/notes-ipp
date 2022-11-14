@@ -57,4 +57,10 @@
 
 - I am looking forward to – informal
 - I look forward to – formal
-A
+
+## ESP
+
+- a = b = c … a equals b **which** equals c / a equals b **and that** equals c
+- (n – k)! … the factorial of the difference of n and k
+- $a\geq b$ … a is greater **than** or equal to b
+- 
