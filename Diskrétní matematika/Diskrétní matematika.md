@@ -283,4 +283,41 @@ $definice \rightarrow tvrzení \xrightarrow{důkaz} věta$
 	- v grafu existuje podgraf izomorfní s Pn
 	- v grafu existuje určitá posloupnost
 - kružnice v grafu
-- souvislost grafu
+- souvislost grafu – pro každé dva vrcholy existuje cesta mezi nimi
+- komponenty souvislosti
+- relace dosažitelnosti – relace na vrcholech popisující existenci cesty
+- důkaz tranzitivity dosažitelnosti
+- sled (walk) – cesta s možným opakováním vrcholů i hran
+- tah – hrany se neopakují, vrcholy mohou
+- mezi vrcholy u,v vede sled $\iff$ mezi u,v vede cesta
+- ze sledu lze udělat cestu vystřižením úseků mezi opakujícími se vrcholy
+- komponenty souvislosti jsou podgrafy indukované ekvivalenčními třídami relace dosažitelnosti
+- graf je souvislý $\iff$ # komponent souvislosti grafu = 1
+
+#### Operace s grafy
+
+- přidání vrcholu, přidání hrany, smazání hrany – vždy pouze úprava odpovídající množiny
+- odebrání vrcholu – musím odebrat odpovídající hrany
+	- výsledný graf je podgraf indukovaný množinou všech vrcholů bez toho odebíraného
+		- $G-v=G[V\setminus\{v\}]$
+- dělení hrany (pomocí nového vrcholu): G % e
+- kontrakce hrany: G.e
+- eulerovský tah obsahuje všechny vrcholy i hrany grafu
+- tah může být uzavřený (končí, kde začal), nebo otevřený
+- graf je eulerovský (má uzavřený eulerovský tah) $\iff$ je souvislý a každý jeho vrchol má sudý stupeň
+
+#### Orientované grafy
+
+- $(V,E): E \subseteq V^2 \setminus \{(x,x)|x\in V\}$
+	- nepovolíme smyčky (v podstatě zakážeme diagonálu na relaci)
+- vstupní stupeň, výstupní stupeň
+- součet všech vstupních stupňů, součet všech výstupních stupňů a počet hran se rovnají
+- dva druhy souvislosti
+	- silná souvislost – existuje cesta z každého vrcholu do každého vrcholu
+	- slabá souvislost – graf „drží pohromadě“, podkladový graf je souvislý (podkladový graf je neorientovaný graf založený na tom původním orientovaném)
+	- silná souvislost $\implies$ slabá souvislost
+	- pro vyvážené grafy platí silná souvislost právě tehdy, když platí slabá
+- relace obousměrné dosažitelnosti
+- komponenty silné souvislosti
+- graf je vyvážený, pokud u každého vrcholu platí, že má stejný vstupní a výstupní stupeň
+- vyvážený a slabě souvislý $\iff$ eulerovský $\iff$ vyvážený a silně souvislý
