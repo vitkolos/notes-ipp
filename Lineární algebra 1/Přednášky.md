@@ -178,4 +178,9 @@ $$ ...
 	- v $\mathbb{R}^n$ kanonická báze $e_1, e_2, \dots, e_n$
 - každý vektor prostoru se dá vyjádřit jako jednoznačná lineární kombinace bazických vektorů
 - souřadnice vektoru vzhledem k bázi
-- 
+- dimenze
+- lineárně nezávislých vektorů musí být méně (nebo stejně), než jaká je dimenze prostoru
+	- pokud je jich stejně, tak tvoří bázi
+- dimenze podprostoru je menší nebo rovna dimenzi prostoru (pokud se dimenze rovnají, tak se podprostor rovná prostoru)
+- všechny možné podprostory podle dimenzí, Haasův diagram
+- spojení podprostorů
