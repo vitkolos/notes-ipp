@@ -48,3 +48,8 @@
 - les mots
 	- grigri – amulet, talisman
 	- flipper sa race = avoir peur
+- les périphrases
+	- la vieille dame
+	- les forces d'ordre
+	- dame de fer
+	- 

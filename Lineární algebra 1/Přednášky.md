@@ -184,3 +184,10 @@ $$ ...
 - dimenze podprostoru je menší nebo rovna dimenzi prostoru (pokud se dimenze rovnají, tak se podprostor rovná prostoru)
 - všechny možné podprostory podle dimenzí, Haasův diagram
 - spojení podprostorů
+	- pro dimenze platí princip inkluze a exkluze  
+	  dim(U + V) + dim(U $\cap$ V) = dim U + dim V
+- direktní součet podprostorů (spojení, pokud jejich průnik je počátek) – nemusíme umět
+
+### Maticové prostory
+
+- v matici definujeme sloupcový prostor (generovaný sloupci matice), řádkový prostor (generovaný řádky matice) a jádro (množina řešení Ax = o)
