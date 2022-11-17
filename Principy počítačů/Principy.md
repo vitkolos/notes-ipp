@@ -249,9 +249,6 @@
 	- rotace doprava – ROR
 		- 1101 ROR 2 → 0111
 	- rotace Python nepodporuje
-
-## 5. přednáška
-
 - potřebujeme rozlišit posun myši nahoru a doleva → záporná čísla ve formě jedniček a nul
 	- bezznaménková čísla (unsigned)
 	- znaménková čísla (singed)
@@ -292,7 +289,7 @@
 	- znaménkové rozšíření (signed extension) – rozkopíruje znaménkovou číslici do nových bitů, nefunguje pro bezznaménková čísla
 	- v Pythonu se bezznaménkové rozšíření používá jenom při převodu mezi dvěma bezznaménkovými čísly, jinak se používá znaménkové rozšíření
 
-## 6. přednáška
+## 5. přednáška
 
 - Harvardská architektura – CPU čte z kódové paměti, čte z datové paměti a zapisuje do datové paměti
 	- datové paměti můžeme říkat operační paměť (operating memory)
@@ -389,7 +386,7 @@
 - u vícebytových čísel se rozlišuje LSB (byte s LSb) a MSB (byte s MSb)
 - kromě bit order se určuje byte order
 
-## 7. přednáška
+## 6. přednáška
 
 - nechceme pokaždé přenášet celý obsah paměti
 - každému bytu přiřadíme adresu (n-bit unsigned), definujeme si paměťový adresový prostor

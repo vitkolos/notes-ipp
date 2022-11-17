@@ -155,7 +155,35 @@
 		- výška binárního stromu
 			- pro nevyvážený (degenerovaný) strom – až $n$
 			- pro vyvážený strom – $\log_2 n$
-			- průměrně $2\log_{2?} n$
+			- průměrně $2\log_{2} n$
 		- výška haldy = horní celá část z $\log_2 N$
 		- při přidávání prvku přidáváme na konec a bubláme nahoru
 		- při odebírání prvku odebereme nejmenší (ze začátku), poslední přesuneme místo něj a bubláme dolů (prohazujeme s menším ze synů)
+		- haldování v lineárním čase
+			- vytvářím malé haldy na konci seznamu, postupuju nahoru a probublávám prvky směrem dolů
+			- idea spočívá v tom, že u původního postupu má před sebou hodně prvků dlouhou bublací cestu (halduje se shora), zatímco u tohoto rychlého postupu má před sebou málo prvků dlouhou bublací cestu (halduje se zespoda)
+	- prioritní fronta
+		- prvky se předbíhají podle priority
+		- typická je implementace pomocí haldy
+		- pokud záleží na pořadí prvků téže priority, řeší se pomocí front uvnitř haldy
+	- slovník
+		- dvojice klíč – hodnota
+		- operace: vyhledej, vlož, vymaž
+		- někdy se označuje jako asociativní pole nebo mapa
+		- typicky implementace pomocí hešování
+		- časová složitost přístupu k prvku je v průměru konstantní, ale v nejhorším případě lineární vzhledem k počtu prvků
+
+## Rekurze
+
+- objekt je definován pomocí sebe sama
+- rekurzivní algoritmus
+- rekurzivní volání funkce
+- implementace rekurzivního algoritmu bez použití rekurzivní funkce může být výhodnější
+- ukončení rekurze
+	- v Pythonu maximální povolená hloubka rekurze 1012
+	- v jiných jazycích může nastat chyba stack overflow (přetečení zásobníku volání funkcí)
+- Fibonacciho posloupnost
+	- řešení pomocí čisté rekurze je neefektivní (exponenciální složitost)
+	- chytrá rekurze
+		- kešování hodnot, memoizace – mezivýsledky ukládám do pole
+		- dynamické programování – jdu zespodu
