@@ -453,3 +453,114 @@
 	- 1 read tx = 2 I2C tx (1 write do addr reg + 1 read z data reg)
 	- obecně jsou ale typické paměti RAM rychlejší na čtení než zápis
 - registrový adresový prostor zařízení – když má zařízení více registrů, ke kterým chceme přistupovat
+
+## 7. přednáška
+
+- Harvardská architektura
+	- CPU
+	- data memory – implementujeme pomocí RAM (y-bit)
+	- code memory – sice problém s volatilitou, ale taky implemementujeme pomocí RAM (x-bit)
+	- sběrnice s připojenými řadiči a zařízeními
+- packety pro komunikaci s paměťmi generuje procesor
+- instrukce procesoru
+	- každý procesor má od výroby definovanou instrukční sadu (instruction set), kterou podporuje
+	- jedna instrukce je posloupnost N bajtů v kódové paměti (délky se můžou, ale nemusí lišit – podle procesoru)
+	- v paměti jsou uloženy za sebou, procesor je vykonává směrem k vyšším adresám
+	- procesor si musí pamatovat, kterou instrukci právě vykonává
+		- k tomu slouží registry procesoru
+		- nejzákladnější registr obsahuje adresu instrukce, která se právě vykonává – obvykle se mu říká program counter (PC) nebo instruction pointer (IP; přičemž pointer = ukazatel = adresa)
+	- vícebytová instrukce
+		- instruction pointer ukazuje na base address (nejnižší adresa z toho rozsahu bytů)
+		- dává smysl určovat u bajtů, jak jsou daleko od base address – říká se tomu offset (0 u bytu s base address, u dalších bytů 1, 2, 3, …)
+	- po vykonání instrukce se k IP přičte délka instrukce
+	- instrukce se obvykle skládá z několika částí
+		- jednoznačný identifikátor instrukce – opcode (operační kód)
+			- např. 105 = ADD (+), 106 = SUB (–)
+		- zbytek tvoří argumenty instrukce
+			- argumenty můžou být implicitní – např. přičti jedničku, je to napevno dané typem instrukce
+	- IP je x-bitový, ukazuje do kódové paměti
+	- proměnné (argumenty) u instrukcí jsou y-bitové, ukazují do datové paměti
+	- posloupnosti instrukcí se říká strojový kód (machine code)
+- program v Pythonu
+	- uložený jako text – posloupnost bytů (1 byte = 1 znak)
+	- můžeme mít program – překladač (compiler), který jako vstup přijímá text pythonového programu a jako výstup generuje posloupnost bytů (strojový kód)
+	- magicky přesuneme výsledek z data memory do code memory a zařídíme, aby ho procesor začal vykonávat
+	- vytvořit překladač je těžké
+	- může existovat také interpret (interpreter)
+		- prochází text programu a zpracovává ho podle sady podmínek ve strojovém kódu
+	- interpret se píše snáz než překladač
+- v programovacím jazyce je proměnná identifikovaná jménem, kdežto ve strojovém kódu adresou
+	- překladač musí zařídit, aby proměnné alokoval na volných pozicích
+- jak do paměti uložit vícebytovou hodnotu
+	- endianita (endianness)
+	- viz Gulliverovy cesty
+	- little endian (LE) – na nejnižší adresu ukládám LSB
+		- pravidlo LLL (least significant byte, lowest address, little endian)
+	- big endien (BE) – na nejnižší adresu ukládám MSB
+	- je důležité ujasnit si endianitu – má ji danou procesor, dnes je nejběžnější LE (některé mobilní procesory jsou BE)
+		- problém nastává, když použijeme externí zdroj dat – tam musíme endianitu řešit a případně přeházet pořadí bytů
+		- po síti se data většinou posílají v BE pořadí
+- code memory by měla být non-volatile
+	- nevýhody non-volatile pamětí
+		- jsou pomalejší
+		- mají omezený počet zápisů (opotřebovávají se)
+	- → proto nemůžeme non-volatile paměť použít pro data memory
+- je těžké zařídit přemístění programu z data memory do code memory, interpretovat veškerý kód by bylo zase neoptimální → řešením je jiná architektura
+- von Neumannova architektura
+	- operační paměť, kde je obojí – v jedné části kód programu, v jiné části data programu
+		- zajistíme, aby IP obsahoval adresy z určitého rozsahu a aby adresy proměnných byly zase z jiného rozsahu
+		- je to hardwarově komplikovanější na implementaci, ale přináší to spoustu výhod
+		- lze zařídit, aby IP ukazoval na začátek přeloženého programu
+		- potenciální zranitelnost, pokud útočník do dat určených ke čtení uloží spustitelné byty a zařídí jejich spuštění
+		- operační paměť bude volatile – RAM
+			- potřebujeme jiné magické zařízení, které do RAM zkopíruje počáteční program z non-volatile paměti
+- historie počítačů (prezentace) – všechny architektury jsou von Neumannovské
+	- UNIVAC – drahý, pro velké firmy na počítání mezd (byl to sálový počítač, prodalo se jich cca 100)
+	- Altair 8800 – první malý počítač, pro „matfyzáky“
+		- Bill Gates a Paul Allen napsali překladač Microsoft BASICu, aby Altair mohla používat širší veřejnost
+	- Apple I – Steve Wozniak, skvělá architektura
+		- Steve Jobs mu pomohl marketingově
+		- někdo vytvořil aplikaci VisiCalc (počítání daní) – killer app
+	- Atari – hraní her, připojovalo se k televizi, tyto počítače se dostaly do tehdejšího Československa přes železnou oponu
+		- procesor 6502 (díky ukradení plánů na výrobu procesoru vznikaly československé kopie počítačů)
+	- všechny procesory do té doby měly von Neumannovu architekturu, byly 8bitové a používaly 16bitový adresový prostor
+		- 8bitový procesor umožňuje pracovat s 8bitovými čísly
+	- IBM PC – procesor 8088
+		- procesor typu x86-16
+		- 16bitový procesor (uměl zpracovat dvě 16bitová čísla najednou)
+		- 20bitový adresový prostor – zvládl adresovat 1 MB
+		- 64 kB RAM
+		- při zvýšení paměti (koupi nového počítače) se daly používat původní programy – díky tomuto triku se počítače ujaly
+	- Intel – architektura x86 / IA-32
+		- 32-bit procesor, 32-bit adresový prostor → až 4 GB
+		- 2 instrukční sady – jedna 16-bit, druhá 32-bit, dá se mezi nimi přepínat
+	- AMD – architektura Intel 64 / x64
+		- 64-bit, 64-bit
+		- 3 instrukční sady
+- základní instrukce – srovnání 6502 a x86
+- instrukce skoku – nastavím IP na konkrétní hodnotu (nepodmíněný skok – unconditional jump)
+	- podmíněný skok (conditional jump) – potřebujeme u *if*
+	- řídící struktury (podmínky a cykly) se dají implementovat pomocí těchto dvou skoků
+- je těžké pamatovat si instrukce procesoru a psát přímo strojový kód → pro každý procesor se vymyslí tzv. assembler (assembly code)
+	- je důležité chápat rozdíl mezi textovým zápisem assembleru a samotným strojovým kódem
+- při překladu je potřeba složité příkazy rozdělit do jednoduchých
+- procesory typicky vyžadují, aby maximálně jeden argument instrukce byl adresa, ostatní argumenty tedy musíme uložit do registru
+- registry procesoru
+	- speciální registr (PC/IP)
+	- obecné registry – tam uložíme proměnné, abychom je mohli použít jako argumenty instrukce
+- a = b + c
+	- LOAD addr(b) → R1
+	- ADD R1 + addr(c) → R2
+	- STORE R2 → addr(a)
+- procesory s load/store architekturou jsou omezené tak, že všechny argumenty musí být v registrech (např. architektura MIPS)
+- dva typy LOAD
+	- nahrání konstanty (immediate) – přímá hodnota jako součást instrukce
+	- nahrání pomocí adresy
+- např. pro registr A jsou to instrukce LDA, STA
+- instrukce kopírování mezi registry (transfer)
+	- např. kopírování X → A by se zapsalo jako TXA
+- kopírování hodnot mezi bajty v paměti – postupně LDA, STA (pro každý bajt dané hodnoty)
+
+## 8. přednáška
+
+- 
