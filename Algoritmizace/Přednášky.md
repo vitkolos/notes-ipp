@@ -187,3 +187,42 @@
 	- chytrá rekurze
 		- kešování hodnot, memoizace – mezivýsledky ukládám do pole
 		- dynamické programování – jdu zespodu
+- doplnění znamének
+	- rekurzivně generujeme binární strom
+	- ořezávání stromu se může vyplatit – u téhle konkrétní úlohy nelze (jednoduše) určit algoritmus ořezávání
+- rozklad čísla na součet kladných celých sčítanců
+	- vybereme z nich ty nerostoucí, abychom tam neměli několik permutací jednoho rozkladu
+	- není to binární strom, ale je prořezaný, jak se dá
+
+## Binární stromy
+
+- hodí se nám „spojákové“ ukládání (tedy pomocí pointerů v objektu)
+- „haldové“ ukládání v poli je neefektivní, protože nám můžou vznikat prázdná místa
+- průchod do hloubky
+	- v každém vrcholu provedeme zvolenou akci
+	- varianty průchodu
+		- preorder – nejprve zpracuje vrchol, pak jde postupně do obou jeho podstromů
+		- inorder – nejprve jde do levého podstromu, pak zpracuje vrchol, nakonec jde do pravého podstromu
+		- postorder – nejprve jde postupně do obou podstromů vrcholu, pak zpracuje vrchol samotný
+	- lze procházet bez rekurze pomocí zásobníku
+- průchod do šířky
+	- stačí použít algoritmus se zásobníkem a místo zásobníku v něm použít frontu
+	- složitost (viz prezentace)
+	- binární strom bude u zkoušky
+- binární vyhledávací strom
+	- datová struktura pro ukládání a vyhledávání dat podle klíče
+	- pro každý vrchol platí
+		- všechny záznamy uložené v levém podstromu mají menší klíč
+		- všechny záznamy uložené v pravém podstromu mají větší klíč
+	- musí platit pro všechny záznamy v podstromu – nestačí bezprostředně mezi uzly
+	- časová složitost algoritmu vyhledávání je v nejhorším případě určena výškou stromu (u degenerovaného stromu až N)
+	- v průměrném případě výška O(log N)
+	- vyvažování stromu – je algoritmicky náročné
+	- přidávání hodnoty – algoritmem vyhledávání dojdu k odkazu None a tam hodnotu přidám
+	- odebrání hodnoty
+		- pokud nemá syny – triviální
+		- pokud má jednoho syna – triviální
+		- pokud má dva syny – najdu maximum v levém podstromu nebo minimum v pravém podstromu
+	- existuje binární vyhledávací strom se zarážkou
+		- používali jsme seznam se zarážkou – hledané x jsme dali na konec, takže jsme nemuseli řešit vytečení ze seznamu
+		- u stromu se zarážkou nasměrujeme všechny listy (které by normálně směřovaly na None) na zarážku
