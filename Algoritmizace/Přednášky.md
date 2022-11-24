@@ -223,6 +223,20 @@
 		- pokud nemá syny – triviální
 		- pokud má jednoho syna – triviální
 		- pokud má dva syny – najdu maximum v levém podstromu nebo minimum v pravém podstromu
+			- tohle maximum/minimum má nejvýše jednoho syna, takže ho umíme smazat
 	- existuje binární vyhledávací strom se zarážkou
 		- používali jsme seznam se zarážkou – hledané x jsme dali na konec, takže jsme nemuseli řešit vytečení ze seznamu
 		- u stromu se zarážkou nasměrujeme všechny listy (které by normálně směřovaly na None) na zarážku
+	- vyvážené stromy
+		- dokonale vyvážený binární strom
+			- pro každý uzel platí, že počet uzlů v jeho levém a pravém podstromu se liší nejvýše o 1
+			- nejlepší možné vyvážený, výška stromu s N uzly je $\lceil\log{N}\rceil$
+			- lze snadno postavit z předem známé množiny hodnot
+			- je obtížné ho udržovat
+			- proto se používají slabší definice vyváženosti
+		- výškově vyvážený strom (AVL)
+		- na začátku sestavím dokonale vyvážený, poté ho udržuju ve stavu výškové vyváženosti
+		- stavění stromu – viz prezentace
+		- balance
+		- rotace pro zajímavost v prezentaci, ale nebude zkoušeno
+ 
