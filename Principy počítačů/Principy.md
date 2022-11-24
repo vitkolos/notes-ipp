@@ -563,4 +563,56 @@
 
 ## 8. přednáška
 
-- 
+- registry
+	- A, X, Y – pomocné registry pro účely programu (u 8-bit procesoru budou 8-bit)
+	- PC – u 16-bit adresového prostoru bude 16-bit
+	- P – příznakový registr (flags register)
+		- příznak (flag) = 1 bit informace
+		- typické příznaky
+			- zero – byl výsledek poslední operace roven nule?  
+			  (1 = ano, byla nula; 0 = ne, nebyla nula)
+			- sign/negative – označuje znaménko výsledku poslední operace  
+			  (1 = –, 0 = +), čísla se typicky zaznamenávají ve dvojkovém doplňku
+			- carry – pokud potřebujeme u nějaké operace uložit jeden bit navíc
+				- instrukce CLC (nastavuje na 0), SEC/STC (nastavuje na 1)
+		- instrukce můžou mít side-effect – mění určité příznaky
+		- ke čtení příznaků se typicky používají podmíněné skoky
+- dva typy registrové architektury
+	- obecná registrová architektura … x86
+	- akumulátorová architektura … 6502
+		- akumulátor A, většina instrukcí umí pracovat jenom s tím akumulátorem
+- místo instrukce NOT se dá použít XOR \#\$FF (respektive EOR \#\$FF)
+- 8bitové sčítání
+	- 8-bit vstup A
+	- 8-bit vstup B
+	- 1-bit vstup Cin (carry in)
+	- 8-bit výstup R
+	- 1-bit výstup Cout (carry out)
+- instrukce ADC (add with carry)
+	- ke carry vstupu a výstupu používá carry příznak
+	- před začátkem výpočtu je potřeba vynulovat carry příznak
+- odčítání
+	- v 7-bit přesnosti pomocí negace a přičtení jedničky (viz dvojkový doplněk)
+	- 8-bit rozdíl/subtract – subtract with borrow (SBB) – na x86
+	- subtract with carry (SBC) – na 6502
+		- chceme A – X – B
+		- trik: A – X – B + 256
+		- borrow je negace carry
+		- A – X – (1 – C) + 256
+		- A – X – 1 + C + 256
+		- A – X + C + 255
+		- A + (255 – X) + C
+		- A + NOT(X) + C
+		- $\alpha$ = NOT X
+		- A + $\alpha$ + C
+		- ADC $\alpha$
+	- registry x86
+		- 32-bit: EAX, EBX, ECX, EDX, ESI, EDI, EBP
+		- 8bitové/16bitové „virtuální“ registry – např. AX, AH, AL
+	- instrukce x86
+		- MOV na přesouvání
+		- ADD (nepřičítá hodnotu carry, jako CLC + ADC)
+		- SUB
+	- výpočet $r=a+b+e-(c+d)$
+		- na 6502 můžu používat pouze akumulátor, k tomu musím ukládat mezi výpočty do paměti
+		- na x86 si vystačím s registry
