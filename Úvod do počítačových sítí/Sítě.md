@@ -90,3 +90,27 @@ Libor Forst, SISAL MFF UK
 - IMAP neumí odesílat e-maily, potřebujeme ještě SMTP
 - na každý dokument v HTTP/1 musí klient poslat požadavek
 - protokol HTTP je bezstavový, stavovost zajišťují cookies
+
+---
+
+- principy směrování
+	- směrování by měla umět každá stanice v TCP/IP síti
+	- směrovací tabulka – každý záznam má položky cíl, maska, gateway
+	- direct/indirect/default záznamy
+- ICMP
+	- řídicí zprávy pro IP
+	- time to live (TTL) – počet „hopů“, které smí packet přeskočit
+- redirekce
+- dynamické řízení směrovacích tabulek
+	- matfyzácký protokol BIRD
+	- https://bird.network.cz/
+- distance vector protokoly
+- hledání nejkratší cesty v grafu
+- autonomní systémy
+- IP filtrování
+	- nepracuje na IP vrstvě, ale v TCP/IP
+	- specifikujeme, jaký typ provozu chceme povolit
+	- nejpřísnější – z vnitřní sítě do vnější povolíme jenom určité porty
+	- obvyklá konfigurace – ven cokoliv, dovnitř nic (problém u FTP s aktivním přenosem a u protokolů s mnoha kanály, např. SIP)
+	- problém se servery uvnitř sítě – řešilo se pomocí odděleného segmentu (DMZ, demilitarizovaná zóna)
+- proxy server
