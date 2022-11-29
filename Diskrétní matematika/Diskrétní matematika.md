@@ -321,3 +321,17 @@ $definice \rightarrow tvrzení \xrightarrow{důkaz} věta$
 - komponenty silné souvislosti
 - graf je vyvážený, pokud u každého vrcholu platí, že má stejný vstupní a výstupní stupeň
 - vyvážený a slabě souvislý $\iff$ eulerovský $\iff$ vyvážený a silně souvislý
+- indikátor $[\psi]$ je 0/1 podle platnosti výroku $\psi$
+- popis grafů pomocí matic
+	- matice sousednosti (A)
+		- pro graf s n vrcholy má n řádků a n sloupců
+		- jednoznačně určuje graf až na pojmenování vrcholů (tedy všechny izomorfní grafy)
+		- matice sousednosti je symetrická s nulami na hlavní diagonále
+		- druhá mocnina matice sousednosti nám určí, kolik je mezi dvěma vrcholy sledů délky 2
+		- věta o k-té mocnině matice sousednosti + důkaz
+- pro souvislý graf definujeme vzdálenost mezi dvěma vrcholy = počet hran v nejkratší cestě mezi dvěma vrcholy
+	- vzdálenost bude vždy nezáporná
+	- $d_G(u,v) = 0 \iff u=v$
+	- platí trojúhelníková nerovnost $d_G(u,w) \leq d_G(u,w) + d_G(w,v)$
+	- $d_G(v,u)=d_G(u,v)$
+- tedy $d_G$ je metrika
