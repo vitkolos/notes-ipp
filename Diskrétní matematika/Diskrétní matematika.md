@@ -335,3 +335,23 @@ $definice \rightarrow tvrzení \xrightarrow{důkaz} věta$
 	- platí trojúhelníková nerovnost $d_G(u,w) \leq d_G(u,w) + d_G(w,v)$
 	- $d_G(v,u)=d_G(u,v)$
 - tedy $d_G$ je metrika
+
+#### Stromy
+
+- strom $\equiv$ souvislý acyklický graf (nejsou v něm kružnice)
+- les $\equiv$ acyklický graf (graf, jehož komponenty jsou stromy)
+- list je vrchol stupně jedna
+- nejméně listů (0) má strom o jednom vrcholu
+- obecně stromy s nejméně listy jsou cesty
+- lemma (o listu): každý strom s aspoň 2 vrcholy má aspoň 1 list + důkaz
+- lemma: pro graf G s listem l platí, že G je strom $\iff G-l$ je strom
+- důkaz Eulerovy formule (strom má o jeden vrchol víc než hran)
+	- nejdřív musíme otrhat listy a potom je zpátky přidat – nestačí dokázat, že můžeme přidávat listy k grafu o jednom vrcholu a bude to platit stále
+- věta o charakterizaci stromů – pro graf G jsou tato tvrzení ekvivalentní
+	- G je souvislý a acyklický (strom)
+	- mezi vrcholy $u, v$ existuje právě jedna cesta (jednoznačně souvislý)
+	- G je souvislý a po smazání libovolné jedné hrany už nebude souvislý (minimální souvislý)
+	- G je acyklický a po přidání libovolné jedné hrany vznikne cyklus (maximální acyklický)
+	- G je souvislý a platí pro něj Eulerova formule
+- kostra grafu – je podgraf, který obsahuje všechny vrcholy původního grafu a je to strom
+- G má kostru $\iff$ G je souvislý
