@@ -191,3 +191,20 @@ $$ ...
 ### Maticové prostory
 
 - v matici definujeme sloupcový prostor (generovaný sloupci matice), řádkový prostor (generovaný řádky matice) a jádro (množina řešení Ax = o)
+- násobení regulární maticí zleva
+- věta o maticových prostorech a RREF
+- Frobeniova věta
+- věta o dimenzi jádra a hodnosti matice $\dim Ker(A) + rank(A) = n$
+- funkční zobrazení Tn do Tm
+
+## Lineární zobrazení
+
+- Buďte U, V vektorové prostory nad tělesem $\mathbb{T}$. Zobrazení $f: U → V$ je lineární, pokud pro každé $x,y \in U$ a $\alpha \in \mathbb{T}$ platí:
+	- $f(x+y)=f(x)+f(y)$
+	- $f(\alpha x) = \alpha f(x)$ … kvůli tomu musí být nad tělesem $\mathbb T$
+- lineární zobrazení se též nazývá homomorfismus
+- tvrzení o vlastnostech lineárních zobrazení
+- $f(o)=o$, protože $f(o_U)=f(0\cdot o_U) = 0 \cdot f(o_U) = o_V$
+- posunutí není lineární zobrazení
+- lineární zobrazení zobrazují přímku na přímku nebo na bod
+- definice obrazu a jádra
