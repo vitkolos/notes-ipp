@@ -239,4 +239,30 @@
 		- stavění stromu – viz prezentace
 		- balance
 		- rotace pro zajímavost v prezentaci, ale nebude zkoušeno
+
+
+## Prohledávání stavového prostoru
+
+- hledání pokladu v bludišti
+	- zkouším postupně všechny cesty
+	- bludiště obecně není strom (procházím typicky nějaký spojitý graf)
+		- může vzniknout situace, že dojdu na křižovatku, na které už jsem byl
+	- název algoritmu
+		- prohledávání do hloubky, prohledávání s návratem
+		- DFS (depth-first search), backtracking
+- proskákání šachovnice koněm – příliš časově náročné
+- urychlení prohledávání do hloubky
+	- ořezávání – v průběhu vyhodnocuji, jestli má smysl postupovat ve stromu dál
+		- osm dam na šachovnici (aby se dvě navzájem neohrožovaly)
+			- bez ořezávání – zkoušet všechny výběry 8 polí z 64
+			- základní ořezávání – na každém řádku právě jedna dáma, po umístění všech osmi dam otestovat kolize
+			- lepší ořezávání – hned při umišťování každé dámy testovat kolize s dámami umístěnými na předchozích řádcích
+		- magické čtverce
+	- heuristika – odhad, kde je asi větší šance na nalezení řešení (u úloh, kde hledám jedno řešení) → podle toho určím pořadí procházení variant možných pokračování
+		- u koně volím ty umístění, z nichž mám nejmenší počet možných dalších kroků
+- prohledávání stavového prostoru do šířky – breadth-first search (BFS), algoritmus „vlny“
+	- souběžně zkoušíme všechny možné varianty pokračování výpočtu až do nalezení řešení úlohy – v každé vrstvě zkoušíme všechny možnosti zleva doprava
+	- může být paměťově velmi náročné, až nepoužitelné
+	- vždy najde nejkratší možné řešení co do počtu kroků
+	- k nalezení samotné cesty je potřeba „zpětný chod“
  
