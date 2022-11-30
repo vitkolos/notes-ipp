@@ -265,4 +265,16 @@
 	- může být paměťově velmi náročné, až nepoužitelné
 	- vždy najde nejkratší možné řešení co do počtu kroků
 	- k nalezení samotné cesty je potřeba „zpětný chod“
+- zkouška
+	- ve zkouškovém období
+	- informace na moodlu, ukázka úloh z minulého ročníku
+	- velká písemka každý týden ve zkouškovém v pondělí dopoledne, termíny společné pro obě paralelky v N1
+	- potřebujeme zápočet
+	- termíny budou vypsány kolem Vánoc
+	- povinná písemná a nepovinná ústní část
+	- v písemné části asi 4 příklady
+	- úlohy vyřešíme, součástí některých úloh je i napsat funkci v Pythonu, ale není naší povinností ji odladit, nebudou se kontrolovat detaily syntaxe, jde hlavně o princip
+	- zkoušku budeme řešit v Moodlu, budeme moct používat vlastní notebook s Moodlem (takže můžeme používat prezentace z přednášek)
+	- je možná i papírová varianta
+	- kdo dostane 2 nebo 3 a bude si chtít zlepšit známku, bude moct přijít na ústní část zkoušky – výsledná známka se bude skládat ze dvou známek (může být lepší nebo i horší)
  
