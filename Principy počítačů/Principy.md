@@ -616,3 +616,35 @@
 	- výpočet $r=a+b+e-(c+d)$
 		- na 6502 můžu používat pouze akumulátor, k tomu musím ukládat mezi výpočty do paměti
 		- na x86 si vystačím s registry
+
+## 9. přednáška
+
+- taktovací frekvence (clock rate) – dnes v řádu GHz
+	- 1 takt/cycle
+	- nejrychlejší instrukce (fast) – procesor je stihne za jeden takt, všechny tyto operace pracují s hodnotami v registrech
+		- bitové operace (AND, SHL, …)
+		- ADC/SBB
+	- pomalé operace (slow) – práce s pamětí
+		- LOAD/STORE
+		- operace s implicit load (např. ADC počítající s číslem z paměti)
+	- pozn.: pokud sčítám 64-bit čísla na 8-bit procesoru, musím provést 8 operací sčítání + nějaké operace load a store
+	- 6502 má cca 1 MHz
+	- x86 cca 33 MHz
+	- procesor má cache, která urychluje přístup k paměti
+- sign extension – při rozšíření čísla na víc bytů zachováváme jeho znaménko – u záporných čísel přidáváme jedničky, u kladných nuly
+- v Pythonu každé číslo zabírá 4 byty, protože počítače bývají 32-bit (a více)
+- v Pythonu ukládám pointer (ukazatel/reference) na objekt s hodnotou, typem, garbage collector ref countem, délkou…
+- garbage collector – udržuje si informaci o počtu odkazů na daný objekt, pokud je nula, tak objekt smaže
+- v jazycích C/C# může nastat aritmetické přetečení (arithmetic overflow)
+	- uint8: 255 + 1 = 0
+	- int8: 127 + 1 = –128
+	- podtečení … při odčítání
+- procesory x86 a x64 mají operace násobení a dělení
+	- násobení: 1–10 taktů
+	- dělení: cca 50–100 taktů
+	- u 6502 je potřeba SW implementace
+- shift left funguje jako násobení mocninou dvojky
+	- $x\text{ SHL } n = (x \cdot 2^n) \mod 2^z$
+- shift right funguje jako celočíselné dělení mocninou dvojky
+- arithmetic shift right – u záporných čísel doplňuje jedničky místo nul
+- programovací jazyky implementují různě, v Pythonu SHL + SAR, v C# SHL + SHR (uint) / SAR (int), v Javě SHL (<<) + SAR (>>) + SHR (>>>)

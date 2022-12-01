@@ -19,3 +19,14 @@
 	- při debuggování tam budeme mít `\\n`
 	- řešit pomocí spojáku (nemusíme dělat třídu spojs, ale bude to hezčí)
 - 2 typy chyb – syntaktické a běhové (výjimky)
+- finally se pustí i pokud jsem tu konkrétní výjimku neodchytil
+- Lynx? :D
+- zápočťák
+	- ideálně si vymyslet své, jinak můžeme vybírat od Medvěda
+	- mít vybráno do Vánoc – musíme napsat e-mail
+	- termín pro odevzdání definitivní verze je koncem března
+	- průměrný počet iterací do úspěšného odevzdání je 2
+	- přijdu s programem, dostanu připomínky
+	- nenosit plagiát
+	- dokumentaci psát podle https://ksvi.mff.cuni.cz/~kryl/dokumentace.htm
+		- mít dvě až deset stran
