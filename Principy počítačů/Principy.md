@@ -648,3 +648,9 @@
 - shift right funguje jako celočíselné dělení mocninou dvojky
 - arithmetic shift right – u záporných čísel doplňuje jedničky místo nul
 - programovací jazyky implementují různě, v Pythonu SHL + SAR, v C# SHL + SHR (uint) / SAR (int), v Javě SHL (<<) + SAR (>>) + SHR (>>>)
+- reprezentace reálných čísel
+	- 20,625
+	- fixed-point 8bit
+		- 20 + 0,625
+		- 10100,101
+		- 5.3 nebo 5+3

@@ -100,9 +100,10 @@ Libor Forst, SISAL MFF UK
 - ICMP
 	- řídicí zprávy pro IP
 	- time to live (TTL) – počet „hopů“, které smí packet přeskočit
+		- TTL u DNS opravdu znamená čas (jak dlouho záznam platí), ale na IP vrstvě nikoliv
 - redirekce
 - dynamické řízení směrovacích tabulek
-	- matfyzácký protokol BIRD
+	- matfyzácký BIRD
 	- https://bird.network.cz/
 - distance vector protokoly
 - hledání nejkratší cesty v grafu
@@ -114,3 +115,39 @@ Libor Forst, SISAL MFF UK
 	- obvyklá konfigurace – ven cokoliv, dovnitř nic (problém u FTP s aktivním přenosem a u protokolů s mnoha kanály, např. SIP)
 	- problém se servery uvnitř sítě – řešilo se pomocí odděleného segmentu (DMZ, demilitarizovaná zóna)
 - proxy server
+
+---
+
+- address resolution protocol (ARP)
+	- konverze MAC a IP adres
+	- neznámé adresy se zjišťují broadcastovou výzvou
+	- výsledky se na konkrétním uzlu ukládají do ARP cache
+	- unicastová odpověď
+	- nelze ověřit správnost odpovědi
+	- pouze na konkrétní lince – mezi routery OSI 3
+	- proxy ARP – router zjišťuje, jestli na sebe zařízení vidí, pokud ne, tak dělá ARP prostředníka
+- linková vrstva OSI 2
+	- dělí se na dvě podvrstvy
+		- logical link control (LLC) – umožňuje různým protokolům přistupovat ke stejnému médiu (multiplexing)
+		- media access control (MAC) – řídí adresaci uzlů a přístup k médiu
+	- TCP/IP se touto vrstvou nezabývá
+	- síťový segment (fyzická síť) – množina uzlů sdílející stejné médium
+	- PDU na linkové …
+	- topologie
+		- multipoint
+			- sběrnice, hvězda, kruh
+			- …
+	- virtuální sítě (VLAN)
+		- prostředek jak na jedné fyzické síti provozovat více lokálních sítí
+		- technicky se řeší tak, že se do rámce vloží 32 bitů VLAN tagu
+		- tagovat může koncová stanice nebo switch (pro koncovou stanici transparentně)
+		- protiklad VPN – VPN vytváří z více sítí jednu, VLAN z jedné sítě několik
+	- WiFi (WLAN)
+- fyzická vrstva OSI 1
+	- analogový vs. digitální přenos
+		- reálný svět je analogový
+	- nestíněná kroucená dvojlinka (UTP)
+		- 4 páry měděných vodičů
+		- 100Mb Ethernet používá jen dva páry
+		- kabel může být přímý nebo křížený – ale dnes už obvykle autodetekce MDI/MDIX
+		- alternativa – kabel s kovovým stíněním
