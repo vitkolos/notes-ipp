@@ -355,3 +355,80 @@ $definice \rightarrow tvrzení \xrightarrow{důkaz} věta$
 	- G je souvislý a platí pro něj Eulerova formule
 - kostra grafu – je podgraf, který obsahuje všechny vrcholy původního grafu a je to strom
 - G má kostru $\iff$ G je souvislý
+
+#### Rovinné grafy
+
+- kreslení grafu, aby se hrany nekřížily
+- definice křivky
+	- $f:[0,1]→\mathbb R$
+	- spojitá, prostá
+	- = oblouk
+- vrcholy = body v rovině, hrany = křivky, které se neprotínají a jejich společnými body jsou jejich společné vrcholy
+- topologický graf je uspořádaná dvojice (graf, nakreslení)
+- graf je rovinný, pokud má alespoň jedno rovinné nakreslení
+- stěny nakreslení
+	- části, na které nakreslení grafu rozděluje rovinu
+	- stěnou je i vnější stěna (zbytek roviny)
+	- hranice stěny – skládá se z hran
+	- hranice stěny je nakreslení uzavřeného sledu
+- je-li graf rovinný, všechny jeho podgrafy jsou také rovinné
+- které grafy jsou rovinné
+	- cesty
+	- kružnice
+	- stromy
+	- $K_1, K_2, K_3, K_4$
+- věta (Jordanova): každá uzavřená křivka v rovině dělí rovinu na dvě části
+- příklad: $K_5$ není rovinný, podobně $K_{3,3}$
+- kreslení na sféru
+	- stereografická projekce
+	- střílím polopřímku ze severního pólu, promítám na rovinu, na které leží jižní pól
+	- spojitá bijekce mezi sférou bez severního pólu a rovinou
+	- sféru můžeme libovolně pootočit
+	- $\implies$vnější stěnu lze zvolit libovolně
+- operace pro G rovinný
+	- odebrání vrcholu či hrany je v pořádku
+	- přidání vrcholu je v pořádku
+	- přidání hrany může být problém
+	- dělení hrany je v pořádku
+	- kontrakce hrany je v pořádku (podle geometrické intuice)
+- Kuratowského věta
+	- G je nerovinný$\iff$G obsahuje podgraf izomorfní s dělením $K_5$ nebo $K_{3,3}$
+- testování rovinnosti v $O(|V|+|E|)$
+- Eulerova formule: Nechť G je souvislý graf nakreslený do roviny, $v:=|V(G)|, e:=|E(G)|, f:=$ \# stěn nakreslení, potom $v+f=e+2$.
+- Dk: Zvolíme $v$ pevně, pak indukcí podle $e$.
+	- základní příklad
+		- G je strom, $e = v-1$
+		- f = 1
+		- chceme: $v+1=v-1+2 \space\checkmark$
+	- $e -1→ e$
+		- mějme graf G s $e$ hranami
+		- nechť x je hrana na kružnici v G
+		- $G' := G–x$
+		- $v'=v$
+		- $e'=e-1$
+		- $f'=f-1$
+		- z IP: $v' + f' = e'+2$
+		- $v+f-1=e-1+2 \space \checkmark$
+- Df: G je maximální rovinný, pokud mu nemůžeme bez ztráty rovinnosti přidat hranu
+- je-li G maximální rovinný s aspoň 3 vrcholy, ve všech jeho nakresleních jsou všechny stěny trojúhelníky (říká se jim **rovinné triangulace**)
+	- G je souvislý (u nesouvislých se komponenty dají spojit, což je spor s maximální souvislostí)
+	- je-li hranicí stěny kružnice$\implies$je to $\Delta$ (kdyby to nebyl trojúhelník, dá se najít úhlopříčka, což je spor)
+	- hranicí stěny není $C_n$
+- počet hran pro triangulace
+	- každá stěna přispěje třemi hranami
+	- každá hrana patří ke dvěma stěnám
+	- $3f=2e → f=\frac{2}{3}e$
+	- $v+\frac{2}{3}e=e+2$
+	- $v-2=\frac{1}{3}e$
+	- $e=3v-6$
+- věta: v každém rovinném grafu s aspoň 3 vrcholy je $|E|\leq 3|V|-6$
+- dk: doplníme do G hrany, až získáme maximální rovinný G'
+	- $v'=v,\ e'\geq e,\ e'=3v'-6,\ e\leq 3v-6$
+- důsledky
+	- průměrný stupeň vrcholu v rovinném grafu < 6
+		- součet stupňů / v = 2e/v $\leq$ 6v-12 / v < 6
+	- v každém rovinném grafu existuje vrchol stupně $\leq$ 5
+- rovinný graf bez trojúhelníků
+	- max. grafy mají stěny čtverec, pěticyklus, hvězda o pěti paprscích
+	- podle eulerovy formule…
+	- 

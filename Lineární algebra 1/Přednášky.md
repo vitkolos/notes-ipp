@@ -208,3 +208,13 @@ $$ ...
 - posunutí není lineární zobrazení
 - lineární zobrazení zobrazují přímku na přímku nebo na bod
 - definice obrazu a jádra
+- vlastnosti lineárních zobrazení – prosté a na
+- obraz lineární kombinace se dá zapsat jako lineární kombinace obrazů
+- reprezentace lineárního zobrazení
+	- vzorečkem
+	- obrazy báze – stačí mi obraz báze a podle toho zvládnu dopočítat zbytek
+- matice lineárního zobrazení
+	- i-tý jednotkový vektor se zobrazí na i-tý sloupec „zobrazovací“ matice
+	- abstrakce pomocí souřadnic
+	- matice zobrazení $_{B_V}[f]_{B_U}$
+	- matice přechodu

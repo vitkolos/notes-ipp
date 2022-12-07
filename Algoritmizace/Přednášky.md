@@ -277,4 +277,33 @@
 	- zkoušku budeme řešit v Moodlu, budeme moct používat vlastní notebook s Moodlem (takže můžeme používat prezentace z přednášek)
 	- je možná i papírová varianta
 	- kdo dostane 2 nebo 3 a bude si chtít zlepšit známku, bude moct přijít na ústní část zkoušky – výsledná známka se bude skládat ze dvou známek (může být lepší nebo i horší)
- 
+
+- minimax
+	- na tahu bílého se hledá maximum, na tahu černého minimum
+	- u malých her se dá postavit celý strom
+	- řeší se průchodem do hloubky (klasický backtracking), v listech se výsledek ohodnotí (výhra = 1, prohra = 0, remíza = –1)
+	- někdy se používá negamax – prohazuje se znaménko, protože $\text{min}(a,b) = -\text{max}(-a,-b)$
+	- u velkých her rozvíjím hru do určité hloubky, pak to zaříznu (čím větší hloubka, tím chytřejší tahy)
+		- v té hloubce se na pozice zavolá statická ohodnocovací funkce, která každou z nich ohodnotí
+		- často se ohodnocení vylepšuje tak, že pokud je koncová pozice „živá“ (nastávají výrazné změny na herním poli), tak se strom počítá ještě o úroveň níž
+	- ořezávání stromu
+		- ztrátové
+			- provedu statické ohodnocení po několika málo vrstvách
+			- část nejhorších pozic odmítnu, zbytek rozvíjím dál
+		- bezztrátové – alfa-beta-prořezávání
+			- využívá principu minimaxu – jeden hráč hledá minimum, druhý maximum, tedy v některých situacích není potřeba dopočítávat další varianty hry
+			- dá se přidat heuristika – procházím postupně do uzlů, které mají lepší (nebo naopak horší) výsledek statického ohodnocení
+- rozděl a panuj (divide et impera)
+	- metoda rekurzivního návrhu algoritmu (programu)
+	- problém se rozdělí na dva podproblémy, které se obvykle řeší lépe, z jejich řešení se dá sestavit řešení původního problému
+	- je problematické použít tuto metodu u úloh, kdy jednotlivé podúlohy jsou na sobě závislé (mají společné části) – viz Fibonacci
+	- vyhodnocení aritmetického výrazu
+	- hanojské věže
+		- abych přenesl celou věž z A na B, musím nejdřív dostat horní část na C, potom přesunout spodní kotouč z A na B a pak na něj přenést horní část
+	- mergesort
+		- rozdělujeme na půl
+		- sléváme
+	- quicksort
+		- vyberu číslo (pivot) – typicky náhodně nebo uprostřed pole
+		- prvky rozdělím na menší, rovné a větší než pivot
+		- dá se třídit na místě – jdu zleva a zprava, hledám větší/menší, až najdu, tak prohodím a jedu dál

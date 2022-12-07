@@ -52,4 +52,8 @@
 	- la vieille dame
 	- les forces d'ordre
 	- dame de fer
-	- 
+- concordance
+	- si + présent … futur s.
+	- si + impf. … cond. prés.
+	-                  X
+	- si + plsqpf … cond. passé
