@@ -307,3 +307,11 @@
 		- vyberu číslo (pivot) – typicky náhodně nebo uprostřed pole
 		- prvky rozdělím na menší, rovné a větší než pivot
 		- dá se třídit na místě – jdu zleva a zprava, hledám větší/menší, až najdu, tak prohodím a jedu dál
+		- v průměru počítá nejrychleji ze všech algoritmů – O(N log N)
+		- v nejhorším případě kvadratický (když volím špatné pivoty)
+		- pokud chci garantovanou složitost, tak quicksort není dobrá volba
+		- volba pivota
+			- jeden náhodně vybraný prvek
+			- vzorkování – medián ze tří náhodně zvolených prvků
+			- náhodný výběr + ověření, zda je alespoň 1/4 prvků menších a 1/4 prvků větších
+			- nalezení mediánu tříděného úseku (existuje algoritmus, který hledá v lineárním čase) – zajistí složitost O(N log N), ale v průměru bude pomalejší, protože vzroste multiplikativní konstanta
