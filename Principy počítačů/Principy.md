@@ -654,3 +654,25 @@
 		- 20 + 0,625
 		- 10100,101
 		- 5.3 nebo 5+3
+	- není problém s aritmetickými operacemi
+	- problém u velkých a malých čísel, problém s přesností u nebinárních zlomků
+	- reálné číslo reprezentované jako fixed-point na float převedu vydělením n-tou mocninou dvojky
+
+## 10. přednáška
+
+- floating-point
+	- 1 číslice před desetinnou čárkou
+	- žádné leading zeros
+	- bez nuly
+	- uložíme mantisu (significand) a exponent
+	- exponent uložíme na stranu MSb, mantisu na stranu LSb
+	- floating-point se skrytou jedna – využijeme toho, že každé číslo začíná jedničkou (zakázali jsme leading zeros), takže ukládáme až číslice za desetinnou čárkou
+	- celá signed čísla: reprezentace s posunem (bias)
+		- např. 8-bit → rozsah 0 až 255
+		- 255 = nejvyšší kladná hodnota (128)
+		- 127 = 0
+		- 0 = nejnižší záporná hodnota (–127)
+		-  ale pokud bychom chtěli víc kladných a míň záporných hodnot, tak se to dá posunout
+	- pomocí posunu se vyjadřuje znaménko exponentu
+	- znaménko mantisy se vyjadřuje pomocí znaménkového bitu (MSb)
+	- 
