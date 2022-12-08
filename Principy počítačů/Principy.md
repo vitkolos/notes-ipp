@@ -655,15 +655,16 @@
 		- 10100,101
 		- 5.3 nebo 5+3
 	- není problém s aritmetickými operacemi
-	- problém u velkých a malých čísel, problém s přesností u nebinárních zlomků
+	- problém u velkých a malých čísel
 	- reálné číslo reprezentované jako fixed-point na float převedu vydělením n-tou mocninou dvojky
 
 ## 10. přednáška
 
 - floating-point
-	- 1 číslice před desetinnou čárkou
-	- žádné leading zeros
-	- bez nuly
+	- normalizovaná
+		- 1 číslice před desetinnou čárkou
+		- žádné leading zeros
+		- bez nuly
 	- uložíme mantisu (significand) a exponent
 	- exponent uložíme na stranu MSb, mantisu na stranu LSb
 	- floating-point se skrytou jedna – využijeme toho, že každé číslo začíná jedničkou (zakázali jsme leading zeros), takže ukládáme až číslice za desetinnou čárkou
@@ -675,4 +676,24 @@
 		-  ale pokud bychom chtěli víc kladných a míň záporných hodnot, tak se to dá posunout
 	- pomocí posunu se vyjadřuje znaménko exponentu
 	- znaménko mantisy se vyjadřuje pomocí znaménkového bitu (MSb)
-	- 
+	- taková čísla se nedají sčítat (ale dají se porovnávat) → je potřeba SW nebo HW implementace
+	- některé procesory mají speciální registry a operace s floating-point čísly
+	- x86/x64 a dražší ARMy mají podporu, levnější ARMy, 6502 nemají
+	- standard pro floatová čísla IEEE 754
+		- single 32-bit – v numpy float32, v C# float
+		- double 64-bit – v Pythonu float, v numpy float64, v C# double
+	- během aritmetiky musí dojít k denormalizaci
+	- 0.1 se nedá zapsat s ukončeným desetinným rozvojem
+	- nula = samé nuly (až na znaménko) – standard definuje, že se kladná nula rovná záporné nule
+	- samé jedničky v exponentu a nulová mantisa → kladné/záporné nekonečno
+		- funguje dělení nulou
+	- samé jedničky v exponentu a nenulová mantisa → not a number (NaN)
+		- $\infty/\infty =$ NaN
+		- jsou dva typy NaN
+- jednočip/microcontroller/$\micro$C/MCU
+	- SRAM data memory – 256 B, volatile
+	- CPU + registry
+	- code memory – non-volatile
+		- ROM (Read Only Memory)
+		- PROM (Programmable ROM) – jeden zápis, nekonečno čtení; funguje na základě spálení diod
+		- EPROM (Erasable PROM) – nekonečno zápisů, nekonečno čtení
