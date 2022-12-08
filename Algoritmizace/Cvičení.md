@@ -63,3 +63,4 @@
 		- rodič má klíč menší nebo roven než jeho syny
 		- všechny hladiny jsou zaplněné kromě té poslední, ta se vycpává zleva
 		- reprezentuje se v poli
+- AVL stromy!
