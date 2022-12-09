@@ -91,20 +91,65 @@
 	- jinak má těleso $\mathbb K$ charakteristiku 0
 	- značí se $\text{char}(\mathbb K)$
 - vektorový prostor
+	- vektorový prostor $(V,+,\cdot)$ nad tělesem $(\mathbb K, +,\cdot)$ je množina spolu s binární operací $+$ na $V$ a binární operací skalárního násobku $\cdot: \mathbb K \times V \rightarrow V$
+	- $(V,+)$ je Abelovská grupa
+	- $\forall \alpha,\beta \in \mathbb K, \forall u,v \in V$
+		- asociativita … $(\alpha \cdot \beta) \cdot u = \alpha \cdot (\beta \cdot u)$
+		- neutrální prvek (skalár) vůči násobení skalárem … $1 \cdot u = u$
+		- distributivita … $(\alpha + \beta) \cdot u = (\alpha \cdot u) + (\beta \cdot u)$
+		- distributivita … $\alpha \cdot (u+v)=(\alpha \cdot u)+(\alpha \cdot v)$
+	- prvky $\mathbb K$ se nazývají skaláry, prvky $V$ vektory
+	- rozlišujeme nulový skalár $0$ a nulový vektor $o$
 - podprostor vektorového prostoru
+	- nechť V je vektorový prostor na $\mathbb K$, potom podprostor U je neprázdná podmnožina V splňující uzavřenost na součet vektorů a uzavřenost na násobení skalárem (z $\mathbb K$) – z toho nutně vyplývá $o \in U$
 - lineární kombinace
+	- lineární kombinace vektorů $v_1,\dots,v_k \in V$ nad $\mathbb K$ je libovolný vektor $u = \alpha_1v_1+\dots+\alpha_kv_k$, kde $\alpha_1,\dots,\alpha_k \in \mathbb K$
 - lineární obal (podprostor generovaný množinou)
-- řádkový a sloupcový prostor matice
-- jádro matice
+	- lineární obal $\mathcal L(X)$ podmnožiny X vektorového prostoru V je průnik všech podprostorů U z V, které obsahují X
+	- alternativní značení: span(X)
+	- pro $X \subseteq V$ platí $\text{span}(X)=\bigcap U:U\Subset V, X\subseteq U$
+	- jde o podprostor generovaný X, vektory v množině X se označují jako generátory podprostoru
+- řádkový a sloupcový prostor matice $A \in \mathbb K^{m\times n}$
+	- sloupcový prostor $\mathcal S(A) \subseteq \mathbb K^m$ je lineární obal sloupců $A$
+	- řádkový prostor $\mathcal R(A) \subseteq \mathbb K^n$ je lineární obal řádků $A$
+	- $\mathcal S(A)=\lbrace u \in \mathbb K^m:u=Ax,x\in \mathbb K^n \rbrace$
+	- $\mathcal R(A)=\lbrace v \in \mathbb K^n:v=A^Ty,y\in \mathbb K^m \rbrace$
+- jádro matice $A \in \mathbb K^{m\times n}$
+	- $\text{ker}(A) = \lbrace x \in \mathbb K^n: Ax=0\rbrace$
 - lineárně nezávislé vektory
+	- množina vektorů X je lineárně nezávislá, pokud nulový vektor nelze získat netriviální lineární kombinací vektorů z X; v ostatních případech je množina X lineárně závislá
+	- vektory $v_1,\dots,v_n$ jsou lineárně nezávislé $\equiv$ $\sum_{i=1}^n \alpha_iv_i=o \iff \alpha_1=\dots=\alpha_n=0$
 - báze vektorového prostoru
+	- báze vektorového prostoru V je lineárně nezávislá množina X, která generuje V (tedy $\text{span}(X)=V$)
 - dimenze vektorového prostoru
+	- dimenze konečně generovaného vektorového prostoru V je mohutnost kterékoli z jeho bází; značí se dim(V)
 - vektor souřadnic
+	- nechť $X=(v_1,\dots,v_n)$ je uspořádaná báze vektorového prostoru V nad $\mathbb K$, potom vektor souřadnic $u \in V$ vzhledem k bázi $X$ je $[u]_x=(\alpha_1,\dots,\alpha_n)^T \in \mathbb K^n$, kde $u=\sum_{i=1}^n\alpha_iv_i$
 - lineární zobrazení
+	- nechť U a V jsou vektorové prostory nad stejným tělesem $\mathbb K$
+	- zobrazení $f:U\rightarrow V$ nazveme lineární, pokud splňuje $\forall u,v \in U, \forall \alpha \in \mathbb K:$
+		- $f(u+v)=f(u)+f(v)$
+		- $f(\alpha\cdot u)=\alpha \cdot f(u)$
+			- z toho vyplývá, že pro lineární zobrazení obecně platí $f(o) = o$
 - matice lineárního zobrazení
+	- nechť U a V jsou vektorové prostory nad stejným tělesem $\mathbb K$ s bázemi $X=(u_1,\dots,u_n)$ a $Y=(v_1,\dots,v_m)$
+	- matice lineárního zobrazení $f:U\rightarrow V$ vzhledem k bázím X a Y je $[f]_{X,Y} \in \mathbb K^{m\times n}$, jejíž sloupce jsou vektory souřadnic obrazů vektorů báze X vzhledem k bázi Y, tedy $[f(u_1)]_Y,\dots,[f(u_n)]_Y$
+	- pro $w \in U$ tedy platí, že $[f(w)]_Y=[f]_{X,Y}[w]_X$
 - matice přechodu
-- izomorfismus vektorových prostorů
+	- nechť X a Y jsou dvě konečné báze vektorového prostoru U
+	- matice přechodu od X k Y je $[id]_{X,Y}$
+	- pro $u \in U$ tedy platí, že $[u]_Y=[id(u)]_Y=[id]_{X,Y}[u]_X$
+	- matice přechodu je regulární, platí $[id]_{Y,X}=([id]_{X,Y})^{-1}$
+	- výpočet: $[id]_{X,Y}=Y^{-1}X$ nebo také $(Y|X)\sim\sim(I_n|[id]_{X,Y})$
+- isomorfismus vektorových prostorů
+	- vektorové prostory jsou isomorfní, pokud mezi nimi existuje isomorfismus, tedy bijektivní (vzájemně jednoznačné) lineární zobrazení
+	- pro isomorfismus $f$ platí, že existuje $f^{-1}$ a je také isomorfismem
+	- isomorfní prostory mají shodné dimenze
 - afinní prostor a jeho dimenze
+	- nechť $W$ je podprostor vektorového prostoru $U$ a $u \in U$
+	- afinní podprostor $u+W$ je množina $\lbrace u+w:w \in W\rbrace$
+	- dimenze afinního prostoru $u+W$ je $\text{dim}(u+W)=\text{dim}(W)$
+	- prvky afinního prostoru se nazývají body
 
 ## Věty a důkazy (15)
 
@@ -128,7 +173,7 @@
 - věta o ekvivalentních definicích lineárního obalu
 - Steinitzova věta o výměně (včetně lemmatu, pokud jej potřebujete)
 - věta o jedinečnosti lineárního zobrazení
-- věta o charakterizaci izomorfismu mezi vektorovými prostory
+- věta o charakterizaci isomorfismu mezi vektorovými prostory
 - věta o vektorových prostorech souvisejících s maticí A
 
 ## Přehledy (13)
