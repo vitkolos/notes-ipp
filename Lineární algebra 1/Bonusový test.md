@@ -55,19 +55,41 @@
 	- pro $A \in \mathbb R^{m\times n},B\in \mathbb R^{n\times p}$ je součin $(AB) \in \mathbb R^{m×p}$ definován $(AB)_{i,j}=\sum^{n}_{k=1}a_{i,k}b_{k,j}$
 - inverzní matice
 	- pokud pro čtvercovou matici $A \in \mathbb R^{n\times n}$ existuje $B \in \mathbb R^{n\times n}$ taková, že $AB=I_n$, pak se $B$ nazývá inverzní matice a značí se $A^{-1}$
-	- pokud má $A$ inverzi, pak se nazývá regulární, jinak je singulární
+	- výpočet: $(A|I_n)\sim\sim (I_n|A^{-1})$
 - regulární matice
-- definujte binární operaci
-- definujte komutativní a asociativní binární operace
+	- pokud má matice $A$ inverzi, pak se nazývá regulární, jinak je singulární
+- binární operace
+	- binární operace na množině X je zobrazení X × X → X
+	- tedy např. podíl na $\mathbb R$ ani rozdíl na $\mathbb N$ nejsou reální operace
+- komutativní a asociativní binární operace
+	- asociativní bin. operace na množině G: $\forall a,b,c\in G: (a \circ b)\circ c = a \circ(b\circ c)$
+	- komutativní bin. operace na množině G: $\forall a,b \in G: a \circ b = b \circ a$
 - neutrální prvek
+	- $(\exists e \in G)(\forall a \in G): a\circ e = e\circ a = a$
 - inverzní prvek
+	- $(\forall a \in G)(\exists b \in G): a\circ b = b\circ a = e$
+	- inverzní prvek se obvykle značí $a^{-1}$ (u aditivních grup jako $-a$)
 - grupa
+	- grupa $(G,\circ)$ je množina G spolu s binární operací $\circ$ na G splňující asociativitu operace $\circ$, existenci neutrálního prvku a existenci inverzních prvků
+	- pokud je navíc operace $\circ$ komutativní, pak se jedná o abelovskou grupu
 - permutace
+	- permutace na množině $\{1,2,\dots,n\}$ je bijektivní zobrazení $p:\{1,2,\dots,n\}\rightarrow \{1,2,\dots,n\}$
 - transpozice
+	- transpozice je permutace, která má pouze jeden netriviální cyklus o délce 2
+	- jakoukoliv permutaci lze rozložit na transpozice
+		- cyklus $(1,2,3,4)$ lze rozložit na $(1,4)\circ(1,3)\circ(1,2)$ nebo na $(1,2)\circ(2,3)\circ(3,4)$
 - inverze v permutaci
+	- inverze v $p$ je dvojice prvků $(i,j):i<j \land p(i)>p(j)$
 - znaménko permutace
+	- znaménko permutace $p$ je $\text{sgn}(p)=(-1)^{\text{\# inverzí}\ p}$
+	- permutace s kladným znaménkem jsou sudé, se záporným liché
+	- $\text{sgn}(p)=(-1)^\text{\# inverzí p}=(-1)^\text{\# transpozic}=(-1)^\text{\# sudých cyklů}=(-1)^{n-\text{\# cyklů}}$
 - těleso
+	- těleso je množina $\mathbb K$ spolu se dvěma komutativními binárními operacemi $+$ a $\cdot$, kde $(\mathbb K, +)$ a $(\mathbb K \setminus \{0\}, \cdot)$ jsou abelovské grupy a navíc platí distributivita $\forall a,b,c \in \mathbb K : a\cdot (b+c)=(a\cdot b)+(a\cdot c)$
 - charakteristika tělesa
+	- v tělese $\mathbb K$, pokud $\exists n \in \mathbb N: \underbrace{1+1+\dots+1}_{n}=0$, pak nejmenší takové $n$ je charakteristika tělesa $\mathbb K$
+	- jinak má těleso $\mathbb K$ charakteristiku 0
+	- značí se $\text{char}(\mathbb K)$
 - vektorový prostor
 - podprostor vektorového prostoru
 - lineární kombinace
@@ -94,6 +116,11 @@
 - věta o vztahu mezi řešeními Ax = b a Ax = 0
 - věta popistující všechna řešení Ax = b
 - věta o ekvivalentních definicích regulárních matic
+	- pro čtvercovou matici $A \in \mathbb R^{n\times n}$ jsou následující podmínky ekvivalentní
+		- matice A je regulární, tedy k ní existuje inverzní matice
+		- rank(A) = n
+		- $A\sim\sim I_n$
+		- systém Ax = 0 má pouze triviální řešení x = 0
 - věta o znaménku složené permutace
 - věta charakterizující, kdy $\mathbb{Z}_n$ je těleso
 - malá Fermatova věta
