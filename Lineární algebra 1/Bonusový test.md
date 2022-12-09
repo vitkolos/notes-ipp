@@ -81,9 +81,9 @@
 - inverze v permutaci
 	- inverze v $p$ je dvojice prvků $(i,j):i<j \land p(i)>p(j)$
 - znaménko permutace
-	- znaménko permutace $p$ je $\text{sgn}(p)=(-1)^{\text{\# inverzí}\ p}$
+	- znaménko permutace $p$ je $\text{sgn}(p)=(-1)^{\text{počet inverzí}\ p}$
 	- permutace s kladným znaménkem jsou sudé, se záporným liché
-	- $\text{sgn}(p)=(-1)^\text{\# inverzí p}=(-1)^\text{\# transpozic}=(-1)^\text{\# sudých cyklů}=(-1)^{n-\text{\# cyklů}}$
+	- v exponentu může být \# inverzí, \# transpozic, \# sudých cyklů, $n-$\# cyklů
 - těleso
 	- těleso je množina $\mathbb K$ spolu se dvěma komutativními binárními operacemi $+$ a $\cdot$, kde $(\mathbb K, +)$ a $(\mathbb K \setminus \{0\}, \cdot)$ jsou abelovské grupy a navíc platí distributivita $\forall a,b,c \in \mathbb K : a\cdot (b+c)=(a\cdot b)+(a\cdot c)$
 - charakteristika tělesa
