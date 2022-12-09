@@ -14,10 +14,10 @@
 	- soustavy Ax = 0 se nazývají homogenní a vždy umožňují x = 0
 - elementární řádkové operace
 	- definujeme základní dvě elementární řádkové úpravy
-		- vynásobení i-tého řádku nenulovým $t \in R \setminus \lbrace0\rbrace$
+		- vynásobení i-tého řádku nenulovým $t \in \mathbb R \setminus \lbrace0\rbrace$
 		- přičtení j-tého řádku k i-tému řádku
 	- z těch lze odvodit další dvě úpravy
-		- přičtení t-násobku ($t \in R$) j-tého řádku k i-tému řádku
+		- přičtení t-násobku j-tého řádku k i-tému řádku (t může být i nulové)
 		- záměna dvou řádků
 	- provedení jedné elementární úpravy značíme $A\sim A'$
 	- provedení posloupnosti úprav značíme $A\sim\sim A'$
@@ -47,8 +47,8 @@
 	- hodnost matice A, značená jako rank(A), je počet pivotů v libovolné A' v REF takové, že $A\sim\sim A'$
 - jednotková matice
 	- pro $n \in \mathbb{N}$ je jednotková matice $I_n \in \mathbb{R}^{n×n}$ definovaná tak, že $(I_n)_{i,j} = 1 \iff i=j$, ostatní prvky jsou nulové 
-- transponovaná matice
-	- transponovaná matice k matici $A \in \mathbb{R}^{m×n}$ je matice $A^T \in \mathbb R^{n×m}$ splňující $(A^T)_{i,j}=a_{j,i}$
+- transponovaná matice $\def\sb{_}$
+	- transponovaná matice k matici $A \in \mathbb{R}^{m×n}$ je matice $A^T \in \mathbb R^{n×m}$ splňující $(A^T)\sb{i,j}=a_{j,i}$
 - symetrická matice
 	- čtvercová matice A je symetrická, pokud $A^T =A$, tedy $a_{i,j}=a_{j,i}$
 - maticový součin
@@ -79,7 +79,7 @@
 	- jakoukoliv permutaci lze rozložit na transpozice
 		- cyklus $(1,2,3,4)$ lze rozložit na $(1,4)\circ(1,3)\circ(1,2)$ nebo na $(1,2)\circ(2,3)\circ(3,4)$
 - inverze v permutaci
-	- inverze v $p$ je dvojice prvků $(i,j):i<j \land p(i)>p(j)$
+	- inverze v $p$ je dvojice prvků $(i,j):i \lt j \land p(i) \gt p(j)$
 - znaménko permutace
 	- znaménko permutace $p$ je $\text{sgn}(p)=(-1)^{\text{počet inverzí}\ p}$
 	- permutace s kladným znaménkem jsou sudé, se záporným liché
@@ -92,7 +92,7 @@
 	- značí se $\text{char}(\mathbb K)$
 - vektorový prostor
 	- vektorový prostor $(V,+,\cdot)$ nad tělesem $(\mathbb K, +,\cdot)$ je množina spolu s binární operací $+$ na $V$ a binární operací skalárního násobku $\cdot: \mathbb K \times V \rightarrow V$
-	- $(V,+)$ je Abelovská grupa
+	- $(V,+)$ je abelovská grupa
 	- $\forall \alpha,\beta \in \mathbb K, \forall u,v \in V$
 		- asociativita … $(\alpha \cdot \beta) \cdot u = \alpha \cdot (\beta \cdot u)$
 		- neutrální prvek (skalár) vůči násobení skalárem … $1 \cdot u = u$
