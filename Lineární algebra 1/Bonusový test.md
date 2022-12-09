@@ -52,7 +52,10 @@
 - symetrická matice
 	- čtvercová matice A je symetrická, pokud $A^T =A$, tedy $a_{i,j}=a_{j,i}$
 - maticový součin
+	- pro $A \in \mathbb R^{m\times n},B\in \mathbb R^{n\times p}$ je součin $(AB) \in \mathbb R^{m×p}$ definován $(AB)_{i,j}=\sum^{n}_{k=1}a_{i,k}b_{k,j}$
 - inverzní matice
+	- pokud pro čtvercovou matici $A \in \mathbb R^{n\times n}$ existuje $B \in \mathbb R^{n\times n}$ taková, že $AB=I_n$, pak se $B$ nazývá inverzní matice a značí se $A^{-1}$
+	- pokud má $A$ inverzi, pak se nazývá regulární, jinak je singulární
 - regulární matice
 - definujte binární operaci
 - definujte komutativní a asociativní binární operace
