@@ -14,7 +14,7 @@
 	- soustavy Ax = 0 se nazývají homogenní a vždy umožňují x = 0
 - elementární řádkové operace
 	- definujeme základní dvě elementární řádkové úpravy
-		- vynásobení i-tého řádku nenulovým $t \in R \setminus \{0\}$
+		- vynásobení i-tého řádku nenulovým $t \in R \setminus \lbrace0\rbrace$
 		- přičtení j-tého řádku k i-tému řádku
 	- z těch lze odvodit další dvě úpravy
 		- přičtení t-násobku ($t \in R$) j-tého řádku k i-tému řádku
@@ -28,7 +28,7 @@
 	- // input: matice A
 	- // output: matice A v REF
 	- foreach i do určete j(i)
-		- // j(i) = sloupec s pivotem daného řádku, $j(i) = min\{j: a_{i,j}\neq 0\}$
+		- // j(i) = sloupec s pivotem daného řádku, $j(i) = min\lbrace j: a_{i,j}\neq 0\rbrace$
 		- // prázdný řádek má j(i) = $\infty$
 	- seřaďte řádky A podle j(i)
 	- forever
@@ -73,7 +73,7 @@
 	- grupa $(G,\circ)$ je množina G spolu s binární operací $\circ$ na G splňující asociativitu operace $\circ$, existenci neutrálního prvku a existenci inverzních prvků
 	- pokud je navíc operace $\circ$ komutativní, pak se jedná o abelovskou grupu
 - permutace
-	- permutace na množině $\{1,2,\dots,n\}$ je bijektivní zobrazení $p:\{1,2,\dots,n\}\rightarrow \{1,2,\dots,n\}$
+	- permutace na množině $\lbrace1,2,\dots,n\rbrace$ je bijektivní zobrazení $p:\lbrace1,2,\dots,n\rbrace\rightarrow \lbrace1,2,\dots,n\rbrace$
 - transpozice
 	- transpozice je permutace, která má pouze jeden netriviální cyklus o délce 2
 	- jakoukoliv permutaci lze rozložit na transpozice
@@ -85,7 +85,7 @@
 	- permutace s kladným znaménkem jsou sudé, se záporným liché
 	- v exponentu může být \# inverzí, \# transpozic, \# sudých cyklů, $n-$\# cyklů
 - těleso
-	- těleso je množina $\mathbb K$ spolu se dvěma komutativními binárními operacemi $+$ a $\cdot$, kde $(\mathbb K, +)$ a $(\mathbb K \setminus \{0\}, \cdot)$ jsou abelovské grupy a navíc platí distributivita $\forall a,b,c \in \mathbb K : a\cdot (b+c)=(a\cdot b)+(a\cdot c)$
+	- těleso je množina $\mathbb K$ spolu se dvěma komutativními binárními operacemi $+$ a $\cdot$, kde $(\mathbb K, +)$ a $(\mathbb K \setminus \lbrace0\rbrace, \cdot)$ jsou abelovské grupy a navíc platí distributivita $\forall a,b,c \in \mathbb K : a\cdot (b+c)=(a\cdot b)+(a\cdot c)$
 - charakteristika tělesa
 	- v tělese $\mathbb K$, pokud $\exists n \in \mathbb N: \underbrace{1+1+\dots+1}_{n}=0$, pak nejmenší takové $n$ je charakteristika tělesa $\mathbb K$
 	- jinak má těleso $\mathbb K$ charakteristiku 0
