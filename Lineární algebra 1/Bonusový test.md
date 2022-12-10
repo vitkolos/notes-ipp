@@ -48,11 +48,11 @@
 - jednotková matice
 	- pro $n \in \mathbb{N}$ je jednotková matice $I_n \in \mathbb{R}^{n×n}$ definovaná tak, že $(I_n)_{i,j} = 1 \iff i=j$, ostatní prvky jsou nulové 
 - transponovaná matice
-	- transponovaná matice k matici $A \in \mathbb{R}^{m×n}$ je matice $A^T \in \mathbb R^{n×m}$ splňující $$(A^T)_{i,j}=a_{j,i}$$
+	- transponovaná matice k matici $A \in \mathbb{R}^{m×n}$ je matice $A^T \in \mathbb R^{n×m}$ splňující $(A^T)_{i,j}=a_{j,i}$
 - symetrická matice
 	- čtvercová matice A je symetrická, pokud $A^T =A$, tedy $a_{i,j}=a_{j,i}$
 - maticový součin
-	- pro $A \in \mathbb R^{m\times n},B\in \mathbb R^{n\times p}$ je součin $(AB) \in \mathbb R^{m×p}$ definován $$(AB)_{i,j}=\sum^{n}_{k=1}a_{i,k}b_{k,j}$$
+	- pro $A \in \mathbb R^{m\times n},B\in \mathbb R^{n\times p}$ je součin $(AB) \in \mathbb R^{m×p}$ definován $(AB)_{i,j}=\sum^{n}_{k=1}a_{i,k}b_{k,j}$
 - inverzní matice
 	- pokud pro čtvercovou matici $A \in \mathbb R^{n\times n}$ existuje $B \in \mathbb R^{n\times n}$ taková, že $AB=I_n$, pak se $B$ nazývá inverzní matice a značí se $A^{-1}$
 	- výpočet: $(A|I_n)\sim\sim (I_n|A^{-1})$
@@ -156,18 +156,99 @@
 *vyslovte a dokažte… / uveďte a dokažte…*
 
 - vztah mezi elementárními řádkovými operacemi a soustavami rovnic
-	- věta: Nechť $Ax = b$ a $A'x = b'$ jsou dvě soustavy splňující $(A|b) \sim \sim (A'|b')$. Pak obě soustavy mají totožné množiny řešení.
+	- věta
+		- Nechť $Ax = b$ a $A'x = b'$ jsou dvě soustavy splňující $(A|b) \sim \sim (A'|b')$.
+		- Pak obě soustavy mají totožné množiny řešení.
+	- důkaz
+		- dokážeme, že množina řešení je zachována, pokud je provedena jediná úprava prvního nebo druhého typu (1. typ = vynásobení řádku, 2. typ = přičtení jiného řádku)
+		- ukazujeme rovnost $\lbrace x \in \mathbb R^n : Ax=b\rbrace = \lbrace x \in \mathbb R^n : A'x=b' \rbrace$
+		- rovnost plyne ze dvou inkluzí, které převedeme na implikace
+			- $Ax=b \implies A'x=b'$
+			- $A'x=b' \implies Ax=b$
+		- elementární úpravou se vždy mění jenom i-tý řádek matice, ostatní zůstávají zachovány, tedy ověříme dvakrát dvě implikace pro i-tý řádek
+		- násobení
+			- $Ax=b \implies A'x=b'$
+				- předpoklad: $a_{i,1}x_1+\dots+a_{i,n}x_n=b_i$
+				- chceme: $a'_{i,1}x_1+\dots+a'_{i,n}x_n=b_i'$
+				- víme: $\forall k \in \lbrace 1,\dots,n\rbrace: a'_{i,k}=ta_{i,k},b'_i=tb_i$
+				- důkaz: $a'_{i,1}x_1+\dots+a'_{i,n}x_n=ta_{i,1}x_1+\dots+ta_{i,n}x_n$ $=t(a_{i,1}x_1+\dots+a_{i,n}x_n)=tb_i=b'_i$
+			- $a_{i,1}x_1+\dots+a_{i,n}x_n=\frac{1}{t}(ta_{i,1}x_1+\dots+ta_{i,n}x_n)$ $=\frac{1}{t}(a'_{i,1}x_1+\dots+a'_{i,n}x_n)=\frac{1}{t}b'_i=\frac{1}{t}tb_i=b_i$
+		- přičtení
+			- $a'_{i,1}x_1+\dots+a'_{i,n}x_n=(a_{i,1}+a_{j,1})x_1+\dots+(a_{i,n}+a_{j,n})x_n$ $=(a_{i,1}x_1+\dots+a_{i,n}x_n)+(a_{j,1}x_1+\dots+a_{j,n}x_n)=b_i+b_j=b'_i$
+			- $a_{i,1}x_1+\dots+a_{i,n}x_n=a_{i,1}x_1+\dots+a_{i,n}x_n+b_j-b_j$ $= (a_{i,1}x_1+\dots+a_{i,n}x_n)+(a_{j,1}x_1+\dots+a_{j,n}x_n) - b_j$ $=(a_{i,1}+a_{j,1})x_1+\dots+(a_{i,n}+a_{j,n})x_n-b_j$ $=(a'_{i,1}x_1+\dots+a'_{i,n}x_n)-b_j=b'_i-b_j=b_i+b_j-b_j=b_i$
+			- pozor, druhá implikace se dokazuje pomocí $+b_j-b_j$
 - věta o jednoznačnosti volných a bázických proměnných
+	- věta: Pro libovolnou matici $A$ a libovolnou $A'$ v REF takovou, že $A\sim\sim A'$, jsou indexy sloupců s pivoty v $A'$ určeny jednoznačně podle $A$.
+	- důkaz
+		- Předpokládejme pro spor, že $A \sim\sim A' \sim\sim A''$.
+		- Nechť $i$ je nejvyšší index, kde se charakter proměnných v $A'$ a $A''$ liší.
+		- Předpokládejme BÚNO, že $x_i$ je bázická v $A'$ a volná v $A''$.
+		- Pro libovolnou volbu proměnných $A'$ určuje soustava $A'x=0$ jednoznačnou hodnotu $x_i$ (protože $x_i$ je v $A'$ bázická).
+		- Protože proměnná $x_i$ je volná v $A''$, můžeme její hodnotu zvolit odlišně. Všechny ostatní volné proměnné zvolíme u obou matic stejně.
+		- Získáme řešení $A''x=0$, které není řešením $A'x=0$, což je spor.
 - Frobeniova věta
-- věta o vztahu mezi řešeními Ax = b a Ax = 0
-- věta popistující všechna řešení Ax = b
+	- věta: Soustava $Ax=b$ má řešení právě tehdy, když se hodnost matice $A$ rovná hodnosti rozšířené matice $(A|b)$.
+	- důkaz
+		- zvolíme libovolné $(A'|b')$ v REF takové, že $(A|b)\sim\sim (A'|b')$
+		- řešení $x$ existuje $\iff b'$ nemá žádný pivot $\iff$ počet pivotů $A'$ se shoduje s počtem pivotů $(A'|b') \iff \text{rank}(A)=\text{rank}(A|b)$
+		- protože převod $A\sim\sim A'$ lze provést stejnými elementárními úpravami jako $(A|b)\sim\sim (A'|b')$
+- věta o vztahu mezi řešeními $Ax = b$ a $Ax = 0$
+	- věta: Nechť $x^0$ splňuje $Ax^0=b$. Poté zobrazení $\bar x \mapsto \bar x + x^0$ je bijekce mezi množinami $\lbrace \bar x: A\bar x=0\rbrace$ a $\lbrace x: Ax=b\rbrace$.
+	- důkaz
+		- $U=\lbrace \bar x: A\bar x=0\rbrace,\quad V=\lbrace x: Ax=b\rbrace$
+		- $f:U\to V,\quad\bar x \mapsto \bar x+x^0$
+		- $g:V\to U,\quad x \mapsto x-x^0$
+		- $f$ je bijekce, neboť
+			- $g\circ f$ je identita na $U\implies f$ je prosté
+			- $f\circ g$ je identita na $V\implies f$ je „na“
+		- jiný mechanismus důkazu
+			- $f$ je zobrazení: $A\bar x=0\implies A(\bar x+x_0)=A\bar x+Ax_0=0+b=b$
+			- $f$ je prosté: $x\neq x' \implies x+x^0 \neq x'+x^0$, což zjevně platí
+			- $f$ je na: $(\forall x \in V)(\exists \bar x\in U):x=\bar x + x^0$, takové $\bar x$ lze určit jako $\bar x = x - x^0$
+- věta popisující všechna řešení $Ax = b$
+	- věta
+		- Nechť soustava $Ax=b$ má neprázdnou množinu řešení, kde $A \in \mathbb R^{m\times n}$ je matice hodnosti $r$.
+		- Pak všechna řešení $Ax=b$ lze popsat jako $x=x^0+p_1\bar x^1+\dots+p_{n-r}\bar x^{n-r}$.
+			- $p$ jsou libovolné reálné parametry
+			- $\bar x$ jsou vhodná řešení soustavy $A\bar x=0$
+			- $x^0$ je libovolné řešení soustavy $Ax=b$
+		- Soustava $A\bar x=0$ má pouze triviální řešení $\bar x=o\iff \text{rank}(A)=n$.
+	- důkaz
+		- pro $A\bar x=0$
+			- přejmenujeme volné proměnné na $p_1,\dots\,p_{n-r}$
+			- zpětnou substitucí můžeme vyjádřit každou složku řešení jako lineární funkci volných proměnných
+				- $\bar x_1=\alpha_{1,1}p_1+\dots+\alpha_{1,n-r}p_{n-r}$
+				- …
+				- $\bar x_n=\alpha_{n,1}p_1+\dots+\alpha_{n,n-r}p_{n-r}$
+			- zvolíme $\bar x^1=(\alpha_{1,1},\dots,\alpha_{n,1})^T,\dots,\bar x^{n-r}=(\alpha_{1,n-r},\dots,\alpha_{n,n-r})^T$
+			- ty řeší $A\bar x=0$, což lze ověřit tak, že pro každý z nich vynulujeme všechny volné proměnné (tedy parametry $p$) kromě toho s odpovídajícím indexem, který nastavíme jako 1
+			- je-li $\text{rank}(A)=n$, proměnné jsou jen bázické a $o$ je jediné řešení
+		- pro $Ax=b$ vztah plyne z přechozí věty a důkazu této věty pro $Ax=0$
+			- ale lze dokázat také pomocí $x_1=\beta_1+\alpha_{1,1}p_1+\dots+\alpha_{1,n-r}p_{n-r}$
 - věta o ekvivalentních definicích regulárních matic
-	- pro čtvercovou matici $A \in \mathbb R^{n\times n}$ jsou následující podmínky ekvivalentní
-		- matice A je regulární, tedy k ní existuje inverzní matice
-		- rank(A) = n
-		- $A\sim\sim I_n$
-		- systém Ax = 0 má pouze triviální řešení x = 0
+	- věta: pro čtvercovou matici $A \in \mathbb R^{n\times n}$ jsou následující podmínky ekvivalentní
+		1. matice A je regulární, tedy k ní existuje inverzní matice … $\exists B: AB=I_n$
+		2. $\text{rank}(A) = n$
+		3. $A\sim\sim I_n$
+		4. systém $Ax = 0$ má pouze triviální řešení $x = 0$
+	- důkaz
+		- $2.\iff 4.$ vyplývá z předchozí věty
+			- $\implies$ lze také dokázat tak, že do rovnic dosazujeme zespodu
+			- $\impliedby$ lze dokázat sporem (matice s $\text{rank}(A)<n$ musí mít nutně více řešení, protože do volné proměnné lze dosadit libovolnou hodnotu)
+		- $2.\implies 3.$ podle Gauss-Jordanovy eliminace, $2.\impliedby3.$ triviálně
+		- $2.\implies1.$
+			- označme $I_n=(e^1|\dots|e^n)$
+			- pro $i\in\lbrace 1,\dots,n\rbrace$ uvažme soustavy $Ax^i=e^i$
+			- z $\text{rank}(A)=n$ dostaneme $B=(x^1|\dots|x^n)$
+		- $1.\implies2.$
+			- pokud $\text{rank}(A)<n$, tak pro jedno (či více) $i$ bude i-tý řádek matice $A$ eliminován ostatními řádky
+			- konkrétní rovnice $Ax^i=e^i$ tedy nebude mít žádné řešení, protože onu jedinou jedničku v $e^i$ není možné eliminovat nulami
 - věta o znaménku složené permutace
+	- věta: Pro libovolné $p,q \in S_n: \text{sgn}(q\circ p)=\text{sgn}(p)\cdot\text{sgn}(q)$.
+	- důkaz
+		- \# inverzí $(q\circ p)=$ \# inverzí $p\ +$ \# inverzí $q$ $-\ 2|\lbrace(i,j):i\lt j \land p(i) \gt p(j) \land q(p(i)) \lt q(p(j))\rbrace|$
+		- od součtu odečítáme dvojité inverze – ty se totiž ve složené permutaci „rozmotají“ (každou takovou inverzi odečítáme dvakrát – jednou za každou permutaci)
+		- protože od součtu odečítáme sudé číslo, sudost/lichost součtu je zachována – tedy postačí součin znamének obou permutací (exponenty se sčítají)
 - věta charakterizující, kdy $\mathbb{Z}_n$ je těleso
 - malá Fermatova věta
 - věta o průniku vektorových prostorů
