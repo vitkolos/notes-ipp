@@ -48,11 +48,11 @@
 - jednotková matice
 	- pro $n \in \mathbb{N}$ je jednotková matice $I_n \in \mathbb{R}^{n×n}$ definovaná tak, že $(I_n)_{i,j} = 1 \iff i=j$, ostatní prvky jsou nulové 
 - transponovaná matice
-	- transponovaná matice k matici $A \in \mathbb{R}^{m×n}$ je matice $A^T \in \mathbb R^{n×m}$ splňující $(A^T)_{i,j}=a_{j,i}$
+	- transponovaná matice k matici $A \in \mathbb{R}^{m×n}$ je matice $A^T \in \mathbb R^{n×m}$ splňující $$(A^T)_{i,j}=a_{j,i}$$
 - symetrická matice
 	- čtvercová matice A je symetrická, pokud $A^T =A$, tedy $a_{i,j}=a_{j,i}$
 - maticový součin
-	- pro $A \in \mathbb R^{m\times n},B\in \mathbb R^{n\times p}$ je součin $(AB) \in \mathbb R^{m×p}$ definován $(AB)_{i,j}=\sum^{n}_{k=1}a_{i,k}b_{k,j}$
+	- pro $A \in \mathbb R^{m\times n},B\in \mathbb R^{n\times p}$ je součin $(AB) \in \mathbb R^{m×p}$ definován $$(AB)_{i,j}=\sum^{n}_{k=1}a_{i,k}b_{k,j}$$
 - inverzní matice
 	- pokud pro čtvercovou matici $A \in \mathbb R^{n\times n}$ existuje $B \in \mathbb R^{n\times n}$ taková, že $AB=I_n$, pak se $B$ nazývá inverzní matice a značí se $A^{-1}$
 	- výpočet: $(A|I_n)\sim\sim (I_n|A^{-1})$
@@ -156,6 +156,7 @@
 *vyslovte a dokažte… / uveďte a dokažte…*
 
 - vztah mezi elementárními řádkovými operacemi a soustavami rovnic
+	- věta: Nechť $Ax = b$ a $A'x = b'$ jsou dvě soustavy splňující $(A|b) \sim \sim (A'|b')$. Pak obě soustavy mají totožné množiny řešení.
 - věta o jednoznačnosti volných a bázických proměnných
 - Frobeniova věta
 - věta o vztahu mezi řešeními Ax = b a Ax = 0
