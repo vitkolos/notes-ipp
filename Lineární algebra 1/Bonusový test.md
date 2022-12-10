@@ -250,10 +250,74 @@
 		- od součtu odečítáme dvojité inverze – ty se totiž ve složené permutaci „rozmotají“ (každou takovou inverzi odečítáme dvakrát – jednou za každou permutaci)
 		- protože od součtu odečítáme sudé číslo, sudost/lichost součtu je zachována – tedy postačí součin znamének obou permutací (exponenty se sčítají)
 - věta charakterizující, kdy $\mathbb{Z}_n$ je těleso
+	- věta: $\mathbb Z_p$ je těleso, právě když je $p$ prvočíslo.
+	- důkaz
+		- $\implies$ pokud by $p$ bylo složené $p=ab$, pak $ab\equiv 0 \mod p$, což je spor s pozorováním, že pokud $ab=0$, pak $a=0$ nebo $b=0$
+			- důkaz pozorování (sporem)
+				- pro nenulová $a,b$ by existovaly inverzní prvky $a^{-1},b^{-1}$
+				- $1=aa^{-1}bb^{-1}=aba^{-1}b^{-1}=0a^{-1}b^{-1}=0$
+		- $\impliedby$
+			- většina axiomů plyne z vlastností $+$ a $\cdot$ na $\mathbb Z$, kromě existence inverzních prvků $a^{-1}$, protože $\mathbb Z$ není uzavřená na dělení
+			- $A = \lbrace 1, \dots, p-1 \rbrace$
+			- chceme: $(\forall a \in A)(\exists a^{-1} \in A): aa^{-1} \equiv 1 \mod p$
+			- nechť $f_a:A\to A,\quad x\mapsto ax \mod p$
+			- hledané $a^{-1}$ splňuje $f_a(a^{-1})=1$
+			- tedy stačí ukázat, že 1 je v oboru hodnot $f_a$
+			- dokážeme dokonce, že $f_a$ je surjektivní („na“)
+			- protože $f_a$ zobrazuje konečnou množinu na sebe samu, pak platí, že je surjektivní, právě když je prosté
+			- pokud by pro spor $f_a$ nebylo prosté, pak $\exists b,c: b\gt c \land f_a(b)=f_a(c)$ $\implies 0=f_a(b)-f_a(c)=ab-ac=a(b-c) \mod p$
+			- což je spor, neboť $a,(b-c)\in A$
 - malá Fermatova věta
+	- věta: Pro prvočíslo $p$ a každé $a \in \lbrace 1, \dots, p-1 \rbrace :a^{p-1}\equiv 1 \mod p$.
+	- důkaz
+		- zobrazení $f_a:x\mapsto ax$ je v $\mathbb Z_p$ bijekcí na $\lbrace 1, \dots, p-1 \rbrace$ (viz výše)
+		- proto v $\mathbb Z_p$ platí $\prod_{x=1}^{p-1}x=\prod_{x=1}^{p-1}f_a(x)=\prod_{x=1}^{p-1}ax=a^{p-1}\prod_{x=1}^{p-1}x$
+		- a po zkrácení $\prod_{x=1}^{p-1}x$ dostaneme $1=a^{p-1}$
+	- důsledek: $a=a^p$ (v tělese $\mathbb Z_p$)
 - věta o průniku vektorových prostorů
+	- věta
+		- Nechť $(U_i,i\in I)$ je libovolný systém podprostorů prostoru $V$
+		- Průnik tohoto systému $\bigcap_{i\in I}U_i$ je také podprostorem $V$.
+	- důkaz
+		- nechť $W=\bigcap_{i\in I}U_i$, ukážeme, že $W$ je uzavřen na $+$ a $\cdot$
+		- $\forall u,v \in W: u,v \in W \implies \forall i \in I: u,v \in U_i$ $\implies \forall i \in I: u+v \in U_i \implies u+v \in W$
+		- $\forall \alpha \in \mathbb K, v \in W: v \in W \implies \forall i \in I: v\in U_i$ $\implies \forall i \in I: \alpha v \in U_i \implies \alpha v \in W$
+		- věta platí i pro $I=\emptyset$, neboť prázdný průnik $\equiv V\Subset V$
 - věta o ekvivalentních definicích lineárního obalu
+	- věta
+		- Nechť $V$ je vektorový prostor nad $\mathbb K$ a $X$ je podmnožina $V$.
+		- Potom $\mathcal L(X)$ je množina všech lineárních kombinací vektorů z $X$.
+	- důkaz
+		- $W_1=\bigcap U:U\Subset V, X\subseteq U$
+		- $W_2=\lbrace\sum_{i=1}^{k}\alpha_iv_i:k\in \mathbb N,\alpha_i \in \mathbb K,v_i\in X\rbrace$
+		- chceme ukázat $W_1=\mathcal L(X)=W_2$
+		- $W_2$ je podprostor, protože je uzavřen na skalární násobky $u\in W_2 \implies u = \sum_{i=1}^{k}\alpha_iv_i$ $\implies \alpha u = \beta \sum_{i=1}^{k}\alpha_iv_i = \sum_{i=1}^{k}(\beta\alpha_i)v_i \implies \alpha u \in W_2$
+		- a analogicky také na součty
+		- protože $X \subseteq W_2$, máme $W_2$ mezi protínajícími se podprostory $U_i$
+		- z toho plyne $W_1 \subseteq W_2$
+		- každý $U_i$ obsahuje $X$ a je uzavřen na sčítání a skalární násobky
+		- každý $U_i$ tedy obsahuje všechny lineární kombinace vektorů $X$
+		- proto $\forall U_i: W_2 \subseteq U_i \implies W_2 \subseteq W_1$
 - Steinitzova věta o výměně (včetně lemmatu, pokud jej potřebujete)
+	- lemma o výměně
+		- Buď $y_1,\dots,y_n$ systém generátorů vektorového prostoru $V$ a nechť vektor $x \in V$ má vyjádření $x = \sum_{i=1}^n\alpha_iy_i$.
+		- Pak pro libovolné $k$ takové, že $\alpha_k \neq 0$, je $y_1,\dots,y_{k-1},x,y_{k+1},\dots,y_n$ systém generátorů prostoru $V$.
+	- důkaz lemmatu
+		- $x = \sum_i\alpha_iy_i = \sum_{i\neq k}\alpha_iy_i + \alpha_ky_k$
+		- $y_k=\frac{1}{\alpha_k}(x-\sum_{i\neq k}\alpha_iy_i)$
+		- libovolný vektor $z \in V$ lze vyjádřit jako $z = \sum_i\beta_iy_i=\sum_{i\neq k}\beta_iy_i + \beta_ky_k=\sum_{i\neq k}\beta_iy_i + \frac{\beta_k}{\alpha_k}(x-\sum_{i\neq k}\alpha_iy_i)$ $=\frac{\beta_k}{\alpha_k}x+\sum_{i\neq k}(\beta_i-\frac{\beta_k}{\alpha_k}\alpha_i)y_i$
+	- S. věta
+		- Buď $V$ vektorový prostor, buď $x_1,\dots,x_m$ lineárně nezávislý systém ve $V$ a nechť $y_1,\dots,y_n$ je systém generátorů $V$.
+		- Pak platí $m\leq n$ a existují navzájem různé indexy $k_1,\dots,k_{n-m}$ takové, že $x_1,\dots,x_m,y_{k_1},\dots,y_{k_{n-m}}$ tvoří systém generátorů $V$.
+	- důkaz věty *matematickou indukcí podle* $m$
+		- je-li $m=0$, tvrzení platí triviálně
+		- předpokládejme, že tvrzení platí pro $m-1$ a ukážeme, že platí i pro $m$
+		- kdyby $m-1=n$, pak by vektory $x_1,\dots,x_{m-1}$ byly generátory prostoru $V$, což by byl spor s lineární nezávislostí $x_1,\dots,x_{m}$
+			- $\implies m-1\lt n \implies m \leq n\quad\square_1$
+		- během indukce vektory postupně nahrazujeme pomocí lemmatu o výměně
+		- vycházíme z toho, že věta platí pro $m-1$ vektorů z LN množiny a $n-m+1$ vektorů z množiny generátorů
+		- takže m-tý vektor z LN množiny vyjádříme z ostatních a pomocí lemmatu o výměně jím nahradíme (n-m+1)-tý vektor z množiny generátorů
+		- lemma o výměně bude možné uplatnit, protože alespoň u jednoho z $n-m+1$ vektorů z množiny generátorů bude ve vyjádření doplňovaného vektoru nenulový koeficient (jinak by to bylo ve sporu s LN) – viz skripta
 - věta o jedinečnosti lineárního zobrazení
 - věta o charakterizaci isomorfismu mezi vektorovými prostory
 - věta o vektorových prostorech souvisejících s maticí A
