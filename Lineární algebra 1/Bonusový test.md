@@ -319,8 +319,42 @@
 		- takže m-tý vektor z LN množiny vyjádříme z ostatních a pomocí lemmatu o výměně jím nahradíme (n-m+1)-tý vektor z množiny generátorů
 		- lemma o výměně bude možné uplatnit, protože alespoň u jednoho z $n-m+1$ vektorů z množiny generátorů bude ve vyjádření doplňovaného vektoru nenulový koeficient (jinak by to bylo ve sporu s LN) – viz skripta
 - věta o jedinečnosti lineárního zobrazení
+	- věta
+		- Nechť $U$ a $V$ jsou prostory nad $\mathbb K$ a $X$ je báze $U$.
+		- Pak pro jakékoliv zobrazení $f_0:X\to V$ existuje jediné lineární zobrazení $f:U\to V$ rozšiřující $f_0$, tj. $\forall u \in X: f(u)=f_0(u)$.
+		- (Jinými slovy: To, kam se zobrazí vektory báze, jednoznačně definuje lineární zobrazení jako celek – tedy i zobrazení všech ostatních vektorů daného prostoru.)
+	- důkaz
+		- vektor $w\in U$ lze jednoznačně vyjádřit jako lineární kombinaci bázických vektorů, tedy $w=\sum_i\alpha_iu_i$
+		- potom $f(w)=f(\sum_i\alpha_iu_i)=\sum_i\alpha_if(u_i)=\sum_i\alpha_if_0(u_i)$
+	- důsledek: pokud je $f:U\to V$ lineární, pak $\text{dim}(U) \geq \text{dim}(f(U))$, protože obraz $f(X)$ báze $X$ prostoru $U$ generuje $f(U)$
 - věta o charakterizaci isomorfismu mezi vektorovými prostory
+	- věta: Lineární zobrazení $f:U\to V$ je isomorfismus prostorů $U$ a $V$ s konečnými bázemi $X$ a $Y$ právě tehdy, když $[f]_{X,Y}$ je regulární.
+	- důkaz
+		- $\impliedby$ uvažme $g:V\to U$ takové, že $[g]_{Y,X}=[f]^{-1}_{X,Y}$, pak
+			- $[g \circ f]_{X,X}=[f]^{-1}_{X,Y}[f]_{X,Y}=I_{|X|}=[id]_{X,X}\implies f$ je prosté
+			- $[f \circ g]_{Y,Y}=[f]_{X,Y}[f]^{-1}_{X,Y}=I_{|Y|}=[id]_{Y,Y}\implies f$ je „na“
+		- $\implies$
+			- $[f^{-1}]_{Y,X}[f]_{X,Y}=[id]_{X,X}=I_{|X|}\implies|Y|\geq|X|$
+			- $[f]_{X,Y}[f^{-1}]_{Y,X}=[id]_{Y,Y}=I_{|Y|}\implies|X|\geq|Y|$
+			- $\implies|X|=|Y|$
+			- matice jsou navzájem inverzní (a čtvercové), takže jejich součinem získáváme jednotkovou matici – lze tedy říci, že jsou regulární
+	- důsledek: když $f$ je isomorfismus, pak platí $[f^{-1}]_{Y,X}=[f]^{-1}_{X,Y}$
 - věta o vektorových prostorech souvisejících s maticí A
+	- lemma: Pokud $A'=BA$, pak $\text{dim}(\mathcal S(A'))\leq\text{dim}(\mathcal S(A))$.
+	- zkrácený důkaz lemmatu
+		- BÚNO předpokládejme, že bázi $\mathcal S(A)$ tvoří $d$ prvních sloupcových vektorů $u$
+		- $w \in A, w' \in A'$
+		- $w'=Bw=B\sum_{i=1}^d\alpha_iu_i=\sum_{i=1}^d\alpha_iBu_i=\sum_{i=1}^d\alpha_iu'_i$
+		- bázi $\mathcal S(A')$ tedy tvoří nejvýše $d$ prvních sloupcových vektorů $u'$
+	- věta: Jakákoli $A \in \mathbb K^{m\times n}$ splňuje $\text{dim}(\mathcal R(A))=\text{dim}(\mathcal S(A))$.
+	- důkaz věty
+		- nechť $A \sim \sim A'$ v odstupňovaném tvaru, neboli existuje regulární $R$ taková, že $A'=RA$
+		- podle lemmatu $\text{dim}(\mathcal S(A'))\leq\text{dim}(\mathcal S(A))$
+		- z $A=R^{-1}A'$ dostaneme $\text{dim}(\mathcal S(A'))\geq\text{dim}(\mathcal S(A))$, a tudíž i rovnost dimenzí
+		- pro matice $A'$ v odstupňovaném tvaru platí věta přímo
+			- $\text{dim}(\mathcal R(A'))=$ \# pivotů $=\text{rank}(A')=\text{dim}(\mathcal S(A'))$
+		- protože $\mathcal R(A)=\mathcal R(A')$, dostaneme
+		- $\text{dim}(\mathcal R(A))=\text{dim}(\mathcal R(A'))=\text{dim}(\mathcal S(A'))=\text{dim}(\mathcal S(A))$
 
 ## Přehledy (13)
 
