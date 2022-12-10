@@ -362,15 +362,80 @@
 
 *uveďte definice, tvrzení, věty, příklady a souvislosti – důkazy nejsou vyžadovány*
 
-- elementární řádkové operace a Gaussova eliminaci
+- elementární řádkové operace a Gaussova eliminace
+	- rozšířená matice soustavy
+	- 4 typy elementárních řádkových úprav
+		- elementární matice
+	- odstupňovaný tvar matice
+	- věta o totožnosti řešení
+	- Gaussova eliminace
+	- zpětná substituce
+	- věta o libovolné volbě volných proměnných (jakoukoli volbu volných proměnných lze jednoznačně rozšířit na řešení)
+	- věta o jednoznačnosti sloupců s pivoty (o jednoznačnosti volných a bázických proměnných)
+	- bázické a volné proměnné
+	- hodnost matice
+	- Frobeniova věta
 - řešení homogenních a nehomogenních soustav lineárních rovnic
+	- homogenní × nehomogenní soustava rovnic
+	- věta o vztahu mezi řešeními $Ax = b$ a $Ax = 0$
+	- věta popisující všechna řešení $Ax = b$
+	- homogenní soustava má triviální řešení $x = 0$, když $\text{rank}(A) = n$
+	- provedení zkoušky (dosazení řešení včetně parametrů do původní soustavy)
+	- redukovaný odstupňovaný tvar
 - maticové operace
+	- nulová matice, jednotková matice, hlavní diagonála
+	- transponovaná matice, symetrická matice
+	- součet matic, α-násobek matice
+	- součin matic, jeho asociativita
+	- elementární matice
+	- inverzní matice
+	- maticové rovnice (viz níže)
 - regulární a singulární matice
+	- inverzní matice, její jednoznačnost
+	- regulární × singulární matice
+	- věta o ekvivalentních definicích regulárních matic
+	- výpočet inverzní matice
+	- vlastnosti regulárních matic
+		- pro $R$ regulární: $A=B \iff AR=BR \iff RA=RB$
+		- pro $A,B$ regulární (stejného řádu)
+			- $(A^{-1})^{-1}=A$
+			- $AB$ je regulární
+			- $(AB)^{-1}=B^{-1}A^{-1}$
+			- $(A^T)^{-1}=(A^{-1})^T$
+	- maticové rovnice (viz prezentace)
+		- $A+X=B \implies X=B-A$
+		- $\alpha X=B \implies X=\frac{1}{\alpha}B$
+		- $AX=B \implies X=A^{-1}B$ pro regulární A
+		- $XA=B \implies X=BA^{-1}$ pro regulární A
 - binární operace a jejich vlastnosti
+	- binární operace jako zobrazení
+	- komutativita, asociativita
+	- neutrální prvek, inverzní prvek
 - (obecné) grupy
+	- definice grupy
+	- binární operace a jejich vlastnosti
+	- aditivní a multiplikativní grupy
+	- vlastnosti grup (jednoznačnost neutrálního prvku, jednoznačnost inverzního prvku, ekvivalentní úpravy, jednoznačnost řešení rovnic)
 - permutační grupy
+	- permutace jako zobrazení (bijekce)
+	- způsob popisu permutace (tabulkou, jejím druhým řádkem, pomocí bipartitního grafu, podle grafu cyklů, seznamem cyklů, pomocí permutační matice P)
+	- množina $S_n$ všech permutací na $n$ prvcích s operací skládání tvoří symetrickou grupu
+		- identita je neutrální prvek
+	- pevný bod, transpozice, inverze
+	- znaménko permutace (sudé/liché permutace)
+	- věta o znaménku složené permutace
 - tělesa
+	- definice tělesa
+	- distributivita
+	- konečná tělesa – zbytkové třídy modulo prvočíslo $p$, Galoisovo těleso (těleso o velikosti $n$ existuje $\iff n$ je mocninou prvočísla)
+	- metavěta – tvrzení o soustavách rovnic, maticích a výpočtech nad reálnými čísly platí i v libovolném tělese
+	- vlastnosti tělesa (jednoznačnost neutrálních a inverzních prvků, korektnost ekvivalentních úprav, řešitelnost rovnic)
+	- pokud $ab = 0$, pak $a = 0$ nebo $b = 0$
+	- charakteristika tělesa
+	- věta charakterizující, kdy $\mathbb Z_n$ je těleso
+	- malá Fermatova věta
 - vektorové prostory a jejich podprostory
+	- 
 - vektorové prostory určené maticí A
 - lineární závislost
 - báze vektorových prostorů
