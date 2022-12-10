@@ -435,8 +435,45 @@
 	- věta charakterizující, kdy $\mathbb Z_n$ je těleso
 	- malá Fermatova věta
 - vektorové prostory a jejich podprostory
-	- 
+	- definice vektorového prostoru nad tělesem
+	- binární operace ve vektorovém prostoru
+	- aritmetický vektorový prostor, vektorový prostor matic, triviální vektorový prostor (pouze nulový vektor)
+	- vlastnosti vektorových prostorů (jednoznačnost nulového a opačného vektoru, korektnost ekvivalentních úprav, řešitelnost rovnic)
+	- definice podprostoru
+	- věta o průniku podprostorů
+	- lineární obal, generátory podprostoru
+	- lineární kombinace
+	- věta o ekvivalentních definicích lineárního obalu
 - vektorové prostory určené maticí A
+	- jádro, řádkový prostor, sloupcový prostor
+	- elementární úpravy nemění jádro ani řádkový prostor
+	- (technické) lemma o dimenzích sloupcového prostoru
+	- věta o dimenzích sloupcového a řádkového prostoru matice
+	- počet řádků matice je roven součtu dimenze jádra a hodnosti matice (tedy dimenzi sloupcového/řádkového prostoru)
 - lineární závislost
+	- definice lineární nezávislosti (LN)
+	- lineární nezávislost řádků matice v odstupňovaném tvaru
+	- lineární nezávislost podmnožin (podmnožina lineárně nezávislé množiny bude rovněž nezávislá apod.)
+	- báze vektorového prostoru
 - báze vektorových prostorů
+	- definice báze
+	- lineární nezávislost
+	- vektor souřadnic
+	- kanonická báze v aritmetickém vektorovém prostoru
+	- věta o existenci báze (každý vektorový prostor má bázi)
+	- lemma o výměně
+	- Steinitzova věta o výměně
+	- jakoukoliv LN množinu lze rozšířit na bázi
+	- všechny báze konečně generovaného prostoru mají stejnou mohutnost
+	- dimenze vektorového prostoru
 - lineární zobrazení a jejich matice
+	- definice lineárního zobrazení
+	- triviální lineární zobrazení (na nulový vektor), identita
+	- geometrická lineární zobrazení (rotace, osová souměrnost podle osy procházející počátkem, stejnolehlost se středem v počátku)
+	- skládání lineárních zobrazení, existence inverze pro bijektivní zobrazení (isomorfismus)
+	- transformace na vektor souřadnic
+	- věta o rozšiřitelnosti (jedinečnosti) lineárního zobrazení
+	- afinní prostor a jeho dimenze
+	- matice lineárního zobrazení
+	- matice přechodu
+	- isomorfismus vektorových prostorů
