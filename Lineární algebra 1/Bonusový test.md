@@ -60,7 +60,7 @@
 	- pokud má matice $A$ inverzi, pak se nazývá regulární, jinak je singulární
 - binární operace
 	- binární operace na množině X je zobrazení X × X → X
-	- tedy např. podíl na $\mathbb R$ ani rozdíl na $\mathbb N$ nejsou binární operace
+	- tedy např. podíl není binární operace na $\mathbb R$, rozdíl není binární operace na $\mathbb N$
 - komutativní a asociativní binární operace
 	- asociativní bin. operace na množině G: $\forall a,b,c\in G: (a \circ b)\circ c = a \circ(b\circ c)$
 	- komutativní bin. operace na množině G: $\forall a,b \in G: a \circ b = b \circ a$
