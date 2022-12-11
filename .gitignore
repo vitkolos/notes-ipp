@@ -2,3 +2,4 @@
 *.pdf
 domácí úkoly
 soukromé materiály
+!*/materiály/*.pdf
