@@ -291,7 +291,7 @@
 		- $W_1=\bigcap U:U\Subset V, X\subseteq U$
 		- $W_2=\lbrace\sum_{i=1}^{k}\alpha_iv_i:k\in \mathbb N,\alpha_i \in \mathbb K,v_i\in X\rbrace$
 		- chceme ukázat $W_1=\mathcal L(X)=W_2$
-		- $W_2$ je podprostor, protože je uzavřen na skalární násobky $u\in W_2 \implies u = \sum_{i=1}^{k}\alpha_iv_i$ $\implies \alpha u = \beta \sum_{i=1}^{k}\alpha_iv_i = \sum_{i=1}^{k}(\beta\alpha_i)v_i \implies \alpha u \in W_2$
+		- $W_2$ je podprostor, protože je uzavřen na skalární násobky $u\in W_2 \implies u = \sum_{i=1}^{k}\alpha_iv_i$ $\implies \beta u = \beta \sum_{i=1}^{k}\alpha_iv_i = \sum_{i=1}^{k}(\beta\alpha_i)v_i \implies \beta u \in W_2$
 		- a analogicky také na součty
 		- protože $X \subseteq W_2$, máme $W_2$ mezi protínajícími se podprostory $U_i$
 		- z toho plyne $W_1 \subseteq W_2$
