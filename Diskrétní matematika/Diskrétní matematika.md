@@ -431,4 +431,63 @@ $definice \rightarrow tvrzení \xrightarrow{důkaz} věta$
 - rovinný graf bez trojúhelníků
 	- max. grafy mají stěny čtverec, pěticyklus, hvězda o pěti paprscích
 	- podle eulerovy formule…
-	- 
+
+#### Barvení
+
+- dualita grafu: rovinná mapa → rovinný graf
+- Df: obarvení grafu G k barvami je funkce $c:V(G)\to \lbrace1,\dots,k\rbrace$ t. ž. $\forall \lbrace x,y\rbrace \in E(G): c(x) \neq c(y)$
+- nemusím použít všechny barvy
+- Df: barevnost (chromatické číslo) grafu G: $\chi(G):=\text{min } k$ t. ž. G má obarvení k barvami (tedy nejmenší počet barev, kterými lze graf obarvit)
+- příklady
+	- $\chi(E_n)=1$
+	- $\chi(K_n)=n$
+	- $\chi(P_n)=2$ pro $n\geq 1$
+	- pro $n$ sudé $\chi(C_n)=2$, pro $n$ liché $\chi(C_n)=3$
+- pozorování: $\chi(G)\leq 2 \iff G$ je bipartitní
+- barvení stromu
+	- strom rozdělíme do vrstev podle vzdálenosti od kořenu
+	- $c(x)=(d(v,x) \mod 2)+1$
+- tvrzení: každý strom je 2-obarvitelný
+- dk: indukcí podle počtu vrcholů (základní případ pro 1 vrchol), postupně přidáváme (odebrané) listy, listu dáváme opačnou barvu než má vrchol, kam ho připojujeme, tedy $c(l)=3-c'(s)$
+- pozorování: kdykoli $H\subseteq G$, pak $\chi(H)\leq \chi(G)$
+- věta: graf má barevnost nejvýše dva $\iff$ neobsahuje lichou kružnici
+	- tedy bipartitní grafy jsou ty, které neobsahují liché kružnice
+- dk:
+	- $\implies$ máme dokázáno obměnou (když má lichou kružnici, nejde obarvit dvěma barvami)
+	- $\impliedby$ 
+		- kdyby G byl nesouvislý: obarvíme po komponentách
+		- jinak: nechť T je kostra grafu G, pak existuje obarvení kostry (dvěma barvami)
+			- sporem: kdyby existovala hrana, které tohle obarvení přiřklo stejné barvy koncových vrcholů, pak v grafu existuje lichá kružnice
+			- mezi stejnobarevnými vrcholy bude cesta sudé délky, protože mají stejnou barvu a jsou ve stromě
+			- tedy spojením stejnobarevných vrcholů vznikne lichá kružnice
+- odtrhávání vrcholů v rovinném grafu
+- graf G je k-degenerovaný $\equiv \exists \leq$ lineární uspořádání na $V(G)$ t. ž. $\forall v \in V(G) |\lbrace u<v | \lbrace u,v \rbrace \in E(G) \rbrace| \leq k$
+	- vrcholy lze uspořádat tak, že z každého vrcholu doleva vede nejvýše k hran
+	- vrcholy skládám zprava doleva tak, jak je odtrhávám
+- stromy 1-deg., rovinné 5-deg., rovinné bez trojúhelníků 3-deg.
+- pro $\Delta := \text{max deg}(v)$: $\Delta\text{-degen.}$
+- k-deg. → $\chi \leq k+1$
+- takže pro rovinné grafy stačí 6 barev
+- pojďme dokázat, že jich stačí 5
+- věta (o 5 barvách): pro G rovinný je $\chi(G)\leq 5$
+- dk \#1:  indukcí podle $|V|$
+	- pro $|V|\leq 5$ triviální
+	- $n-1\to n$
+		- nechť $v$ je vrchol s minimálním stupněm (nejvýše pět)
+		- G' := G–v, podle IP existuje 5-obarvení c' grafu G'
+		- pokud na sousedech $v$ v obarvení c' jsou použity max. 4 barvy, tak tu pátou můžeme použít na vrchol $v$
+		- co když má každý soused jinou barvu
+			- A je podgraf indukovaný vrholy, do kterých existuje cesta ze souseda $a$ přes áčkové a céčkové barvy
+			- pokud soused $c \notin A$
+				- prohodíme barvy v A
+				- tím pádem áčková barva se uvolní pro $v$
+			- pokud soused $c \in A$
+				- použiju stejný trik pro b a d
+				- soused $b$ je obalený kružnicí mezi $a$ a $c$, takže nehrozí, že by byl spojený s $d$
+		- tzv. Kempeho řetězce
+- dk \#2:
+	- máme vrchol stupně 5
+	- musí existovat dva sousedi toho grafu, kteří nejsou spojeni hranou (jinak bychom dostali K5)
+	- můžu vytvořit rovinný G'=G–v+{x,y} (přidání hrany)
+	- můžu vytvořit rovinný G''=G'.{x,y} (kontrakce hrany)
+	- G'' obarvíme indukcí → dostaneme obarvení c'' → c obarvení G–v (v němž se barvy x a y rovnají) → existuje volná barva pro v
