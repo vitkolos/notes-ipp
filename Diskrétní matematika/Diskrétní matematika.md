@@ -491,3 +491,28 @@ $definice \rightarrow tvrzení \xrightarrow{důkaz} věta$
 	- můžu vytvořit rovinný G'=G–v+{x,y} (přidání hrany)
 	- můžu vytvořit rovinný G''=G'.{x,y} (kontrakce hrany)
 	- G'' obarvíme indukcí → dostaneme obarvení c'' → c obarvení G–v (v němž se barvy x a y rovnají) → existuje volná barva pro v
+- příklady barvení z praxe
+	- síť vysílačů – vysílačům přiřazuju frekvence
+	- dělení přednášek do poslucháren
+- pro obecné grafy nelze určit obecný algoritmus
+
+### Pravděpodobnost
+
+- pravděpodobnostní prostor
+	- $\Omega$ = množina elementárních jevů
+	- $\mathcal F \subseteq 2^\Omega$ = množina jevů
+	- $P:\mathcal F \to [0,1]$ = pravděpodobnost
+- diskrétní pravděpodobnostní prostor
+	- $\Omega$ konečná nebo spočetná (tedy spočetně nekonečná, existuje bijekce do $\mathbb N$)
+	- $\mathcal F = 2^\Omega$
+	- $P(J)=\sum_{x\in J}P(\lbrace x\rbrace)$
+		- stačí určit pravděpodobnosti elementárních jevů
+		- tedy jev nastává, když nastane kterýkoli z jeho elementárních jevů
+	- $P(\emptyset)=0$
+	- $P(\Omega)=1$
+	- náš diskrétní pravděpodobnostní prostor je konečný a klasický
+	- klasický … $P(J)=\frac{|J|}{|\Omega|}$
+- mince
+- kostka
+- elementární jev … padla šestka
+- neelementární jev … padlo sudé číslo
