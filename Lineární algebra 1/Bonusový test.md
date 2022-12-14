@@ -138,7 +138,7 @@
 		- $f(\alpha\cdot u)=\alpha \cdot f(u)$
 			- z toho vyplývá, že pro lineární zobrazení obecně platí $f(o) = o$
 - jádro lineárního zobrazení
-	- $\text{ker}(f)=\lbrace w \in U:f(w)=0\rbrace$
+	- $\text{ker}(f)=\lbrace w \in U:f(w)=o\rbrace$
 - matice lineárního zobrazení
 	- nechť U a V jsou vektorové prostory nad stejným tělesem $\mathbb K$ s bázemi $X=(u_1,\dots,u_n)$ a $Y=(v_1,\dots,v_m)$
 	- matice lineárního zobrazení $f:U\rightarrow V$ vzhledem k bázím X a Y je $[f]_{X,Y} \in \mathbb K^{m\times n}$, jejíž sloupce jsou vektory souřadnic obrazů vektorů báze X vzhledem k bázi Y, tedy $[f(u_1)]_Y,\dots,[f(u_n)]_Y$
@@ -363,6 +363,76 @@
 			- $\text{dim}(\mathcal R(A'))=$ \# pivotů $=\text{rank}(A')=\text{dim}(\mathcal S(A'))$
 		- protože $\mathcal R(A)=\mathcal R(A')$, dostaneme
 		- $\text{dim}(\mathcal R(A))=\text{dim}(\mathcal R(A'))=\text{dim}(\mathcal S(A'))=\text{dim}(\mathcal S(A))$
+
+- tvrzení o mohutnostech lineárně nezávislé množiny a generující množiny
+	- tvrzení: Jestliže $Y$ je konečná generující množina prostoru $V$ a $X$ je lineárně nezávislá ve $V$, potom $|X|\leq |Y|$.
+	- důkaz (sporem)
+		- předpokládejme, že $Y=\lbrace v_1,\dots,v_n \rbrace$ a že z $X$ lze vybrat různá $u_1,\dots,u_{n+1}$
+		- každé $u_i$ vyjádříme jako $u_i=\sum_{j=1}^n a_{i,j}v_j$, přičemž $a_{i,j}\in A$
+		- matice $A$ má $n+1$ řádků a $n$ sloupců, z čehož po Gaussově eliminaci nutně plyne nulový řádek, tedy je některý řádek lineární kombinací ostatních
+		- to je spor s lineární nezávislostí vektorů $u_1,\dots,u_{n+1}$
+- věta o dimenzi průniku vektorových prostorů
+	- věta: Jsou-li $U,V$ podprostory konečné generovaného prostoru $W$, pak $\text{dim}(U)+\text{dim}(V)=\text{dim}(U\cap V)+\text{dim}(\mathcal L(U\cup V))$.
+	- důkaz: rozšíříme bázi $X$ průniku $U\cap V$ na bázi $Y$ prostoru $U$ a také na bázi $Z$ prostoru $V$, potom $|Y|+|Z|=|X|+|Y\cup Z|$
+- věta o dimenzi jádra matice
+	- věta: Pro libovolné $A \in \mathbb K^{m\times n}:\text{dim}(\text{ker}(A))+\text{rank}(A)=n$.
+	- důkaz
+		- nechť $d=n-rank(A)$ je počet volných proměnných a $x_1,\dots,x_d$ jsou řešení soustavy $Ax=0$ daná zpětnou substitucí
+		- tato řešení jsou lineárně nezávislá, protože pro každé $i$ platí, že $x_i$ je mezi $x_1,\dots,x_d$ jediné, které má složku odpovídající i-té volné proměnné nenulovou
+		- vektory $x_1,\dots,x_d$ tudíž tvoří bázi $\text{ker}(A)$, a proto $\text{dim}(\text{ker}(A))=d=n-rank(A)$
+- věta o řešení rovnice s lineárním zobrazením
+	- věta: Nechť $f:U\to V$ je lineární zobrazení. Pro libovolné $v \in V$ rovnice $f(u)=v$ buď nemá žádné řešení, nebo řešení tvoří afinní podprostor $u_0+\text{ker}(f)$, kde $u_0$ je libovolné řešení $f(u)=v$.
+	- poznámka: tato věta přímo souvisí s větou o vztahu $Ax=b$ a $Ax=0$
+	- důkaz
+		- když $u\in u_0+\text{ker}(f)$, pak $u=u_0+w$ pro $w \in \text{ker}(f)$
+		- nyní $f(u)=f(u_0+w)=f(u_0)+f(w)=v+o=v$
+		- naopak pro $f(u)=v$ platí $f(u-u_0)=f(u)-f(u_0)=v-v=0$
+		- čili $u-u_0 \in \text{ker}(f)$, tudíž $u\in u_0+\text{ker}(f)$
+- pozorování o matici složeného lineárního zobrazení
+	- pozorování: Nechť $U,V,W$ jsou vektorové prostory nad $\mathbb K$ s konečnými bázemi $X,Y,Z$. Pro matice lineárních zobrazení $f:U\to V$ a $g:V\to W$ platí, že $[g\circ f]_{X,Z}=[g]_{Y,Z}[f]_{X,Y}$
+	- důkaz
+		- pro všechny $u \in U$ platí
+			- $[(g\circ f)(u)]_Z=[g\circ f]_{X,Z}[u]_X$
+			- $[(g\circ f)(u)]_Z=[g(f(u))]_Z=[g]_{Y,Z}[f(u)]_Y=[g]_{Y,Z}[f]_{X,Y}[u]_X$
+			- tedy $[g\circ f]_{X,Z}[u]_X=[g]_{Y,Z}[f]_{X,Y}[u]_X$
+		- dosadíme-li za $u$ i-tý vektor báze $X$, máme $[u]_X=e^i$ a tedy nám ze vztahu $[g\circ f]_{X,Z}e^i=([g]_{Y,Z}[f]_{X,Y})e^i$ plyne, že matice mají i-té sloupce shodné $\square$
+
+- zformulujte problém o počtu sudých podgrafů a vyřešte jej
+	- problém: Kolik sudých podgrafů obsahuje souvislý graf G?
+	- řešení
+		- sudý podgraf je podgraf, který má sudé stupně všech vrcholů
+		- symetrický rozdíl $\bigtriangleup$ zachovává sudé stupně, protože symetrický rozdíl dvou množin sudé mohutnosti má také sudou mohutnost
+		- proto $(U,\bigtriangleup,\cdot)$ tvoří vektorový prostor nad $\mathbb Z_2$
+		- pro prostory konečné mohutnosti platí $|U|=|\mathbb K|^{\text{dim}(U)}$
+		- ekvivalentní problém: sestrojte bázi U
+		- zvolme libovolnou kostru T grafu G
+		- pro každou hranu $e_i \in E_G \setminus E_T$ definujme $A_i$ jako unikátní cyklus z $T \cup e_i$
+		- množina takových cyklů je lineárně nezávislá, protože hrana $e_i$ nemůže být eliminována symetrickým rozdílem $A_i$ s ostatními prvky množiny, neboť ty $e_i$ neobsahují
+		- pro libovolný sudý podgraf $B$ označme $B \setminus E_T = \lbrace e_{i_1}, \dots, e_{i_k} \rbrace$
+		- graf $B \bigtriangleup A_{i_1}\bigtriangleup\dots\bigtriangleup A_{i_k}$ je sudým podgrafem $G$, ale také je podgrafem $T$, neboť hrany $e_i$ jsou eliminovány
+		- strom nemá žádné cykly, tudíž tento rozdíl (výše) je roven nule
+		- odtud $B = A_{i_1}\bigtriangleup\dots\bigtriangleup A_{i_k}$
+		- dostáváme, že $X$ generuje $U$
+		- tedy $\text{dim}(U)=|X|=|E_G|-|E_T|=|E_G|-|V_G|+1$
+		- každý souvislý graf $G$ má $2^{|E_G|-|V_G|+1}$ sudých podgrafů
+- zformulujte problém o množinových systémech s omezeními na mohutnosti a vyřešte jej
+	- problém: Kolik podmnožin může mít n-prvková množina, pokud každá podmnožina má mít lichou velikost, ale průnik každé dvojice různých podmnožin má mít sudou velikost?
+	- věta: Vždy platí, že $k \leq n$, neboli existuje nejvýše $n$ takových podmnožin.
+	- důkaz
+		- uvažujme soustavu podmnožin, která splňuje zadání
+		- sestrojíme matici incidence $M\in \mathbb Z^{k\times n}_2$ předpisem $m_{i,j} = \begin{cases} 1 &\text{pokud } j\in A_i \\ 0 &\text{pokud } j\notin A_i\end{cases}$
+		- matice splňuje $MM^T=I_k$, protože v součinu řádku a sloupce se stejným indexem je prvků lichý počet (tedy 1 v $\mathbb Z_2$) a u nesouhlasných řádků a sloupců se prvky posčítají na nulu, protože průnik je sudý
+		- nyní $k=\text{rank}(I_k)=\text{rank}(MM^T)\leq \text{rank}(M) \leq n$
+- zformulujte problém o dělení obdélníku na čtverce a vyřešte jej
+	- problém: Lze obdélník s iracionálním poměrem délek jeho stran rozdělit na konečně mnoho čtverců?
+	- věta: Pro iracionální poměr žádné takové rozdělení neexistuje.
+	- zjednodušený důkaz (sporem)
+		- nechť má obdélník $R$ délky stran $1:x$, kde x je iracionální
+		- $\mathbb R$ tvoří vektorový prostor nad $\mathbb Q$, zde jsou 1 a x lineárně nezávislé
+		- zvolme libovolné lineární zobrazení $f:\mathbb R \to \mathbb R$, kde $f(1)=1$ a $f(x)=-1$
+		- pro $A$ o stranách $a,b$ definujeme plochu jako $v(A)=f(a)f(b)$
+		- $R$ rozdělíme na čtverce $A$ o stranách délek $a$
+		- $-1=f(1)f(x)=v(R)=\sum v(A)=\sum f(a)^2 \geq 0$
 
 ## Přehledy (13)
 
