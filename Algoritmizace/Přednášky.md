@@ -315,3 +315,32 @@
 			- vzorkování – medián ze tří náhodně zvolených prvků
 			- náhodný výběr + ověření, zda je alespoň 1/4 prvků menších a 1/4 prvků větších
 			- nalezení mediánu tříděného úseku (existuje algoritmus, který hledá v lineárním čase) – zajistí složitost O(N log N), ale v průměru bude pomalejší, protože vzroste multiplikativní konstanta
+- nalezení K-tého nejmenšího prvku z N čísel
+	- speciální případ – medián
+	- způsoby
+		- setřídit čísla v poli – spousta zbytečné práce
+		- modifikace heapsortu – K-krát odeberu minimum
+		- akademická hříčka: postavit v poli haldu z prvních N–K+2 prvků
+		- modifikace quicksortu – quickselect
+		- lineární algoritmus
+- quickselect
+	- po rozdělení seznamu podle pivota pracujeme dál jen s tou částí, ve které je hledaný prvek (poznáme ji podle délky – známe délky jednotlivých částí)
+	- v průměru má lineární složitost, v nejhorším případě kvadratickou
+- lineární algoritmus
+	- seznam rozdělím po pěti prvcích
+	- z každé pětice vezmu medián (práce n)
+	- z nalezených mediánů najdu medián (práce n/5)
+	- ten zvolím jako pivot
+	- v nejhorším případě bude v menší části 3/10 n prvků
+	- tento algoritmus nemusíme umět
+- vyhodnocení aritmetického výrazu reprezentovaného binárním stromem
+	- průchod preorder → prefix
+	- průchod inorder → infix (bez závorek)
+	- průchod postorder → postfix
+	- vyhodnocení postfixu – pomocí zásobníku (vytáhnu dvě čísla ze zásobníku, provedu operaci, výsledek vrátím do zásobníku)
+	- vyhodnocení výrazu v prefixové notaci
+		- průchod odzadu a zpracování jako u postfixu
+		- průchod zepředu a ukládání operací do zásobníku – při přidávání čísla do zásobníku kontrola, zda je na vrcholu zásobníku číslo, pokud ano, tak ho vyzvednu a rovnou taky operaci pod ním, tu provedu
+	- rekurze
+- převod infix → postfix – pomocí zásobníku během jednoho průchodu
+- 

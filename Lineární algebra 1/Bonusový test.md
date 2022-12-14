@@ -1,6 +1,6 @@
 # Bonusový test
 
-## Definice (38)
+## Definice (41)
 
 *definujte…*
 
@@ -41,6 +41,9 @@
 			- // všechny nenulové řádky mají různý počet počátečních nul
 			- return A
 	- // konečnost: v každé iteraci roste celkový počet počátečních nul
+- pivot
+	- označme $j(i)=\text{min}\lbrace j:a_{i,j}\neq 0 \rbrace$
+	- pivot = první nenulový prvek $a_{i,j(i)}$ v i-tém řádku matice v REF
 - volné a bázické proměnné
 	- pro soustavu $A'x = b'$ s A' v REF jsou proměnné odpovídající sloupcům s pivoty bázické, ostatní jsou volné
 - hodnost matice
@@ -56,7 +59,7 @@
 - inverzní matice
 	- pokud pro čtvercovou matici $A \in \mathbb R^{n\times n}$ existuje $B \in \mathbb R^{n\times n}$ taková, že $AB=I_n$, pak se $B$ nazývá inverzní matice a značí se $A^{-1}$
 	- výpočet: $(A|I_n)\sim\sim (I_n|A^{-1})$
-- regulární matice
+- regulární/singulární matice
 	- pokud má matice $A$ inverzi, pak se nazývá regulární, jinak je singulární
 - binární operace
 	- binární operace na množině X je zobrazení X × X → X
@@ -74,6 +77,9 @@
 	- pokud je navíc operace $\circ$ komutativní, pak se jedná o abelovskou grupu
 - permutace
 	- permutace na množině $\lbrace1,2,\dots,n\rbrace$ je bijektivní zobrazení $p:\lbrace1,2,\dots,n\rbrace\rightarrow \lbrace1,2,\dots,n\rbrace$
+- permutační matice
+	- permutace může být popsána pomocí permutační matice $P$
+	- $(P)_{i,j} = \begin{cases} 1 &\text{pokud } p(i)=j \\ 0 &\text{jinak}\end{cases}$
 - transpozice
 	- transpozice je permutace, která má pouze jeden netriviální cyklus o délce 2
 	- jakoukoliv permutaci lze rozložit na transpozice
@@ -131,6 +137,8 @@
 		- $f(u+v)=f(u)+f(v)$
 		- $f(\alpha\cdot u)=\alpha \cdot f(u)$
 			- z toho vyplývá, že pro lineární zobrazení obecně platí $f(o) = o$
+- jádro lineárního zobrazení
+	- $\text{ker}(f)=\lbrace w \in U:f(w)=0\rbrace$
 - matice lineárního zobrazení
 	- nechť U a V jsou vektorové prostory nad stejným tělesem $\mathbb K$ s bázemi $X=(u_1,\dots,u_n)$ a $Y=(v_1,\dots,v_m)$
 	- matice lineárního zobrazení $f:U\rightarrow V$ vzhledem k bázím X a Y je $[f]_{X,Y} \in \mathbb K^{m\times n}$, jejíž sloupce jsou vektory souřadnic obrazů vektorů báze X vzhledem k bázi Y, tedy $[f(u_1)]_Y,\dots,[f(u_n)]_Y$
