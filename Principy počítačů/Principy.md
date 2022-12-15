@@ -697,3 +697,62 @@
 		- ROM (Read Only Memory)
 		- PROM (Programmable ROM) – jeden zápis, nekonečno čtení; funguje na základě spálení diod
 		- EPROM (Erasable PROM) – nekonečno zápisů, nekonečno čtení
+			- maže se UV zářením, je potřeba nechat to na slunci 20 minut
+		- EEPROM (Electrically EPROM) – „nekonečno“ zápisů, nekonečno čtení
+		- flash – „nekonečno“ zápisů, nekonečno čtení
+		- EEPROM + flash se dnes používají nejčastěji – souhrnný název NVRAM
+		- EEPROM × flash
+			- EEPROM – posloupnost bajtů
+			- flash – bajty ukládá v blocích po 1–16 kB
+			- EEPROM má sekvenční, random 1 byte a random block čtení průměrně rychlé
+			- flash má pomalejší random 1 byte, ale rychlejší sekvenční čtení i random block čtení
+			- zcela nekonečné zápisy nejsou možné, protože elektronům se postupně „přestává chtít ven z komůrek, kde jsou zabedněné“
+	- ADC (převodník z analogového na digitálního signálu)
+		- např. uživatelský vstup – potenciometr
+	- DAC – analogový výstup
+	- GPIO řadič (General Purpose Input/Output)
+		- registry ovlivňující, zda jsou piny vstupní/výstupní
+	- permanentní datové úložiště (mass storage device)
+- von Neumannovská architektura
+	- DRAM – kód + proměnné
+	- CPU + SRAM
+- pevný disk / hard disk drive (HDD)
+	- magnetický zápis
+	- dipól – otočený na jednu stranu (podle toho 1 nebo 0)
+	- dipóly jsou uloženy ve soustředných kružnicích
+		- jedna kružnice = stopa
+		- stopy jsou rozdělené na sektory (sektory jsou v podstatě kruhové výseče)
+		- na jednom sektoru původně 512 B, dnes 4 kB (4096 B, advanced format)
+	- čtecí hlava
+	- 7200 RPM (otáček za minutu)
+	- náhodný přístup v jedné stopě je lepší než sekvenční přístup pozpátku
+	- hlava se otáčí, aby přistupovala k různým stopám – tomu se říká seek (seek time – doba otočení)
+	- náhodný přístup mezi stopami je extrémně pomalý
+	- přístup v řádech ms (jiné paměti se pohybují v řádu ns)
+	- vhodné pro archivaci
+	- několik ploten, lze zapisovat z obou stran každé z nich
+	- všechny hlavy se pohybují najednou
+	- stopám, které jsou nad sebou, se říká cylinder
+	- v praxi se čísluje trojicí čísel – cylinder/hlava/sektor
+	- stopy vzdálenější od středu mohou být rozděleny na více sektorů pro dosažení větší kapacity
+	- úhlová rychlost je stejná, ale rychlost čtení/zápisu u jednotlivých stop se liší
+- CD/DVD/BluRay
+	- zápis/čtení pomocí laseru
+	- pomalejší zápis/čtení
+	- jedna spirální stopa
+	- Linear Block Addressing
+	- jakmile dojdou data, přestává čtení – takže lze mít různé tvary CD
+	- 1 sektor = 2048 B
+- řadič DVD
+	- address register (LBA)
+	- buffer = 1 sektor
+	- command register – podle toho, zda chci provádět čtení/zápis
+	- status register – ready?
+	- info register – kapacita disku
+	- potřebuju „magii“, která zajistí přesun dat z řadiče do paměti zařízení
+		- data register – obsahuje interní address reg., vrací vždy 1 bajt z bufferu
+- řadič HDD (HDC = Hard Drive Controller)
+	- řadič pevných disků se ovládá podobně jako řadič DVD, dostává LBA adresu
+- flash paměť s řadičem pevného disku – SSD
+- USB fleška: USB řadič → USB kabel → řadič → flash paměť
+- 
