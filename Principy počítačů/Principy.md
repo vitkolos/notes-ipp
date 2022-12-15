@@ -707,6 +707,7 @@
 			- EEPROM má sekvenční, random 1 byte a random block čtení průměrně rychlé
 			- flash má pomalejší random 1 byte, ale rychlejší sekvenční čtení i random block čtení
 			- zcela nekonečné zápisy nejsou možné, protože elektronům se postupně „přestává chtít ven z komůrek, kde jsou zabedněné“
+				- takže při běhu programu se používá RAM, do non-volatile paměti se v případě potřeby zapisuje v určitém rozumném intervalu
 	- ADC (převodník z analogového na digitálního signálu)
 		- např. uživatelský vstup – potenciometr
 	- DAC – analogový výstup
@@ -755,4 +756,16 @@
 	- řadič pevných disků se ovládá podobně jako řadič DVD, dostává LBA adresu
 - flash paměť s řadičem pevného disku – SSD
 - USB fleška: USB řadič → USB kabel → řadič → flash paměť
-- 
+- jakmile se data nahrají z disku do paměti, jsou uloženy v nějaké posloupnosti adres – první z nich se nazývá bázová
+- v Python potřebujeme pole bytů, není rozumné používat seznam, protože každé číslo seznamu by mělo svůj overhead
+- chceme na disk ukládat soubory
+	- pamatujeme si data samotného souboru + metadata
+		- metadata
+			- seznam sektorů, kde je soubor uložený (nemusí být přímo za sebou → fragmentace)
+			- délka v B
+			- cesta souboru – adresáře (directories, složky/folders) a název souboru
+			- datum, čas apod.
+	- metadata → souborový systém (file system)
+		- kromě zmíněného obsahuje i seznam volných sektorů
+	- přístup k souborům řeší operační systém
+		- soubor se otevře (jeho metadata se načtou do cache) → pracuje se s ním → zavře se (aby OS věděl, že ho nemusí držet v paměti)
