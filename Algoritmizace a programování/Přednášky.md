@@ -39,7 +39,7 @@
 		- $f\in O(g)$
 			- funkce f se dá shora odhadnout funkcí g (až na multiplikativní konstantu a pro dostatečně velká n)
 			- $f,g: \mathbb{N}→\mathbb{R}^+$
-			- $f\in O(g) \iff \exists c > 0\ \exists n_0\ \forall n>n_0: 0\leq f(n) \leq c \cdot g(n)$
+			- $f\in O(g) \iff (\exists c > 0)(\exists n_0)(\forall n>n_0): 0\leq f(n) \leq c \cdot g(n)$
 		- jde o odhad shora
 	- opačný odhad zdola $f \in \Omega(g)$
 	- přesný odhad $f \in \Theta(g)$

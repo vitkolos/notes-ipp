@@ -1,0 +1,133 @@
+# Zkouška
+
+## Úvod
+
+- Příklad: Technika důkazu indukcí a sporem
+- Definice: Operace s čísly: sumy, produkty, horní a dolní celá část
+- Definice: Množinové operace: rovnost, inkluze, sjednocení, průnik, rozdíl, symetrická diference, potence (množina podmnožin), mohutnost (počet prvků)
+- Definice: Uspořádané k-tice a kartézský součin
+
+## Relace
+
+- Definice: Relace mezi množinami, relace na množině
+- Příklad: Příklady relací: prázdná, univerzální, diagonální
+- Definice: Operace s relacemi: inverze, skládání
+- Definice: Funkce (zobrazení) a jejich druhy: prosté (injektivní), na (surjektivní), vzájemně jednoznačné (bijektivní)
+- Definice: Vlastnosti relací: reflexivita, symetrie, antisymetrie, transitivita
+- Definice: Ekvivalence, ekvivalenční třída, rozklad množiny
+- Věta: Vztah mezi ekvivalencemi a rozklady
+
+## Uspořádání
+
+- Definice: Uspořádání částečné a lineární, uspořádaná množina, ostré uspořádání
+- Příklad: Příklady uspořádání: dělitelnost, inkluze podmnožin, lexikografické
+- Definice: Hasseův diagram, relace bezprostředního předchůdce
+- Definice: Minimální/maximální a nejmenší/největší prvek
+- Věta: Konečná neprázdná uspořádaná množina má minimální a maximální prvek
+- Definice: Řetězec a antiřetězec
+- Definice: parametry α a ω
+- Věta: O Dlouhém a Širokém
+
+## Kombinatorické počítání
+
+- Věta: Počet funkcí mezi množinami
+- Věta: Počet prostých funkcí mezi množinami
+- Definice: Klesající mocnina
+- Definice: Charakteristická funkce podmnožiny
+- Věta: Počet všech podmnožin
+- Věta: Počet podmnožin sudé a liché velikosti
+- Věta: Počet permutací na množině
+- Věta: Počet uspořádaných k-tic bez opakování a k-prvkových podmnožin
+- Definice: Notace pro množinu všech k-prvkových podmnožin
+- Definice: Kombinační číslo (binomický koeficient), Pascalův trojúhelník
+- Věta: Základní vlastnosti kombinačních čísel
+- Věta: Binomická věta
+- Věta: Princip inkluze a exkluze
+- Příklad: Problém šatnářky: počet permutací bez pevného bodu
+- Věta: Odhad faktoriálu: nn/2 ≤ n! ≤ ((n+1)/2)n
+- Věta: Odhad kombinačního čísla: (n/k)k ≤ C(n,k) ≤ nk
+- Věta: Odhad prostředního kombinačního čísla: 4n/(2n+1) ≤ C(2n,n) ≤ 4n
+
+## Grafy
+
+- Definice: Graf, vrchol, hrana, V(G), E(G)
+- Definice: Standardní grafy: úplný, prázdný, cesta, kružnice
+- Definice: Bipartitní graf, úplný bipartitní graf
+- Definice: Isomorfismus grafů
+- Definice: Stupeň vrcholu, k-regulární graf, skóre grafu
+- Věta: Vztah mezi součtem stupňů a počtem hran, princip sudosti
+- Věta: Věta o skóre
+- Definice: Podgraf, indukovaný podgraf
+- Definice: Cesta, kružnice, sled a tah v grafu
+- Definice: Souvislý graf, relace dosažitelnosti (ekvivalence), komponenty souvislosti
+- Věta: Dosažitelnost sledem je totéž jako dosažitelnost cestou
+- Definice: Matice sousednosti
+- Věta: Počet sledů délky k lze získat z k-té mocniny matice sousednosti
+- Definice: Vzdálenost v grafu (grafová metrika)
+- Věta: Trojúhelníková nerovnost pro vzdálenost
+- Definice: Grafové operace: přidání/odebrání vrcholu/hrany, dělení hrany, kontrakce hrany
+- Definice: Otevřený a uzavřený eulerovský tah
+- Věta: Věta o existenci uzavřeného eulerovského tahu
+- Definice: Orientovaný graf, podkladový graf, vstupní a výstupní stupeň, vyváženost vrcholu
+- Definice: Silná a slabá souvislost orientovaných grafů
+- Věta: Uzavřené eulerovské tahy v orientovaných grafech
+
+## Stromy
+
+- Definice: Strom, les, list
+- Věta: Lemma o koncovém vrcholu
+- Věta: Je-li l list grafu G, pak G je strom, právě když G-l je strom.
+- Věta: Pět ekvivalentních charakteristik stromu
+- Definice: Kostra grafu
+- Věta: Graf má kostru, právě když je souvislý.
+
+## Rovinné kreslení grafů
+
+- Definice: Rovinné nakreslení grafu a jeho stěny (neformálně)
+- Definice: Rovinný graf, topologický graf
+- Příklad: K5 a K3,3 nejsou rovinné.
+- Věta: Hranice stěny je nakreslením uzavřeného sledu (bez důkazu).
+- Definice: Stereografická projekce
+- Věta: Graf jde nakreslit do roviny, právě když jde nakreslit na sféru.
+- Příklad: Vnější stěnu lze zvolit.
+- Věta: Kuratowského věta (bez důkazu)
+- Věta: Eulerova formule pro souvislé rovinné grafy (v+f=e+2)
+- Věta: Maximální rovinný graf je triangulace.
+- Věta: Maximální počet hran rovinného grafu
+- Věta: V rovinném grafu existuje vrchol stupně nejvýše 5.
+- Věta: Počet hran a vrchol nízkého stupně v rovinných grafech bez trojúhelníků
+
+## Barvení grafů
+
+- Definice: Obarvení grafu k barvami, barevnost
+- Příklad: Barevnost úplných grafů, cest a kružnic
+- Věta: Ekvivalentní tvrzení: graf má barevnost nejvýše 2, graf je bipartitní, graf neobsahuje lichou kružnici.
+- Věta: Barevnost ≥ klikovost
+- Příklad: Princip barvení indukcí: stromy jsou 2-obarvitelné, rovinné grafy 6-obarvitelné
+- Věta: Barevnost ≤ maximální stupeň + 1
+- Věta: Věta o 5 barvách
+- Věta: Věta o 4 barvách (bez důkazu)
+
+## Pravděpodobnost
+
+- Definice: Pravděpodobnostní prostor diskrétní, konečný, klasický
+- Definice: Jev elementární, jev složený, pravděpodobnost jevu
+- Příklad: Jev se také dá popsat logickou formulí.
+- Příklad: Bertrandův paradox s kartičkami
+- Definice: Podmíněná pravděpodobnost
+- Věta: Věta o úplné pravděpodobnosti
+- Věta: Bayesova věta
+- Definice: Jevy nezávislé a po dvou nezávislé
+- Definice: Součin pravděpodobnostních prostorů, projekce
+- Definice: Náhodná veličina
+- Příklad: Logické formule s náhodnými veličinami dávají jevy.
+- Definice: Střední hodnota
+- Věta: Věta o linearitě střední hodnoty
+- Definice: Indikátor náhodného jevu
+- Příklad: Použití indikátorů k výpočtu střední hodnoty
+
+## Různé
+
+- Věta: Erdősovo-Szekeresovo lemma o monotónních podposloupnostech
+- Příklad: Existence de Bruijnovy posloupnosti (konstrukce pomocí orientovaných eulerovských tahů)
+- Příklad: Klasifikace platónských těles pomocí rovinných grafů
