@@ -46,13 +46,29 @@
 ## Hlavní témata
 
 - třídění
-	- SelectSort, InsertSort, BubbleSort
-	- HeapSort, QuickSort
-	- složitost problému vnitřního třídění
-	- CountingSort, BucketSort, RadixSort
+	- SelectSort = procházení pole, vždy se hledá největší prvek
+	- InsertSort = zařazení prvku mezi již setříděné
+	- BubbleSort = výměna dvou prvků
+	- HeapSort = nejprve zhaldování pole, potom vyndávám minimum
+	- QuickSort = určíme pivota, rozdělíme na prvky menší rovny a větší rovny
+	- MergeSort = slévání setříděných runů
+	- složitost problému vnitřního třídění = n log n
+	- CountingSort = počítáme počet výskytů daného čísla
+	- BucketSort = nejprve pomocí CountingSortu spočítáme velikosti přihrádek, potom v daném poli určíme začátky přihrádek a nakonec data do přihrádek umístíme
+	- RadixSort = víceprůchodový BucketSort, využívá stability, postupně třídí podle důležitosti parametru (vzestupně – nejdůležitější nakonec)
+	- BucketSort třídění celých čísel podle číslic – čísla rozdělím do kyblíků podle číslice na dané pozici (postupuji zprava doleva – nejdříve řadím podle jednotek)
 - halda
-	- haldové algoritmy
-	- rychlé zhaldování
-- vyhledávání – BFS/DFS
+	- haldové operace
+		- přidání prvku – přidává se na konec a vybublává se
+		- odebrání minima – odebere se kořen, poslední prvek se dá na místo kořene a zabublá se (vyměňuju s menším)
+	- rychlé zhaldování – postupuje se zprava doleva; nejdříve se zhaldujou podstromy, ty se spojí pomocí kořene a ten se zabublá atd.
+- vyhledávání
+	- DFS – pomocí rekurze nebo zásobníku
+	- BFS – pomocí fronty
 - rotace
+	- pokud je balance B rovna 0 nebo 1, provádím rotaci
+	- pokud je rovna 0 nebo –1, provádím dvojrotaci
 - výrazy
+	- prefixová notace – rekurzí
+	- postfixová notace – zásobníkem
+	- infixová notace – ???
