@@ -111,7 +111,8 @@
 	- u velkého R (rozsahu hodnot)
 	- rozdělíme klíč na části – nejprve třídíme podle dolní (méně významné) části klíče, poté podle horní (významnější) části
 	- díky stabilitě třídění se zachová uspořádání z předchozích fází třídění
-- merge sort funguje při zapisování do souboru
+- vnější třídění = třídění dat, která se nevejdou do paměti (tedy je máme uložená v souborech)
+	- lze použít merge sort
 - u merge sortu má smysl slučovat tři nebo čtyři úseky
 - použitím vnitřního třídění k prvotnímu roztřídění pole snížím počet vstupně výstupních operací
 - tim sort – kombinuje insertion sort a merge sort (merge sort se používá až na větší úseky)
