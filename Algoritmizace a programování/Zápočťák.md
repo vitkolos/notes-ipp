@@ -45,6 +45,9 @@
 
 ## Hlavní témata
 
+- Hornerovo schéma
+- datové struktury – zásobník, fronta, halda, prioritní fronta, slovník
+- rekurze
 - třídění
 	- SelectSort = procházení pole, vždy se hledá největší prvek
 	- InsertSort = zařazení prvku mezi již setříděné
@@ -62,13 +65,14 @@
 		- přidání prvku – přidává se na konec a vybublává se
 		- odebrání minima – odebere se kořen, poslední prvek se dá na místo kořene a zabublá se (vyměňuju s menším)
 	- rychlé zhaldování – postupuje se zprava doleva; nejdříve se zhaldujou podstromy, ty se spojí pomocí kořene a ten se zabublá atd.
-- vyhledávání
-	- DFS – pomocí rekurze nebo zásobníku
-	- BFS – pomocí fronty
+- binární vyhledávací strom
 - rotace
 	- pokud je balance B rovna 0 nebo 1, provádím rotaci
 	- pokud je rovna 0 nebo –1, provádím dvojrotaci
+- vyhledávání
+	- DFS – pomocí rekurze nebo zásobníku
+	- BFS – pomocí fronty
 - výrazy
 	- prefixová notace – rekurzí
 	- postfixová notace – zásobníkem
-	- infixová notace – ???
+	- infixová notace – rekurzí bez parametru nebo převodem na postfix

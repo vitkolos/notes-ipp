@@ -81,6 +81,11 @@
 		- příklad použití algoritmu – vstup čísla po znacích, konverze číselného stringu na integer
 - operace s polynomy
 	- nejdříve polynom uložíme do pole – index v poli odpovídá mocnině (první prvek v poli je absolutní člen)
+- číselné soustavy
+- rychlé umocňování
+- vyhledávání v seznamu
+	- sekvenční průchod
+	- binární vyhledávání
 
 ## Řadicí algoritmy
 
