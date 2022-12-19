@@ -65,6 +65,7 @@
 		- přidání prvku – přidává se na konec a vybublává se
 		- odebrání minima – odebere se kořen, poslední prvek se dá na místo kořene a zabublá se (vyměňuju s menším)
 	- rychlé zhaldování – postupuje se zprava doleva; nejdříve se zhaldujou podstromy, ty se spojí pomocí kořene a ten se zabublá atd.
+- binární strom – průchod preorder/inorder/postorder
 - binární vyhledávací strom
 - rotace
 	- pokud je balance B rovna 0 nebo 1, provádím rotaci
