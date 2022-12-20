@@ -3,9 +3,31 @@
 ## Úvod
 
 - Příklad: Technika důkazu indukcí a sporem
+	- věta: Prvočísel je nekonečně mnoho.
+	- důkaz sporem
+		- kdyby $p_1,\dots,p_n$ byla všechna prvočísla
+		- $\zeta := p_1\cdot p_2 \cdot \ldots\cdot p_n$
+		- $(\zeta +1)\mod p_i=1 \implies \zeta + 1$ není dělitelné žádným prvočíslem a je větší než všechna $p_i\implies\zeta+1$ by také muselo být prvočíslo ↯
+	- věta: $\forall n \in \mathbb N: 2^0+2^1+2^2+\dots+2^n=2^{n+1}-1$
+	- důkaz indukcí podle n
+		- $2^0=2^1-1$
+		- indukční krok
+			- IP: $2^0+2^1+2^2+\dots+2^n=2^{n+1}-1$
+			- chceme: $2^0+2^1+2^2+\dots+2^n+2^{n+1}=2^{n+2}-1$
+			- z IP: $2^{n+1}-1+2^{n+1}=2^{n+2}-1\quad \square$
 - Definice: Operace s čísly: sumy, produkty, horní a dolní celá část
+	- prázdná suma se rovná nule, prázdný produkt jedné
+	- horní celá část se značí $\lceil x \rceil$, zaokrouhluje nahoru
+	- dolní celá část se značí $\lfloor x \rfloor$, zaokrouhluje dolů
 - Definice: Množinové operace: rovnost, inkluze, sjednocení, průnik, rozdíl, symetrická diference, potence (množina podmnožin), mohutnost (počet prvků)
+	- symetrická diference $A\bigtriangleup B=(A\setminus B)\cup(B\setminus A)$
+	- potence $2^A:=\lbrace B | B\subseteq A\rbrace$
 - Definice: Uspořádané k-tice a kartézský součin
+	- uspořádaná dvojice $(x,y)$
+		- lze zavést pomocí klasických množin jako $\lbrace \lbrace x \rbrace, \lbrace x,y\rbrace\rbrace$
+		- uspořádaná k-tice $(x_1,\dots,x_k)$
+	- kartézský součin $A\times B:=\lbrace(a,b)|a\in A, b\in B \rbrace$
+		- $A^k:=\underbrace{A\times A \times \dots \times A}_k$
 
 ## Relace
 
