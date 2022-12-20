@@ -77,3 +77,5 @@
 	- prefixová notace – rekurzí
 	- postfixová notace – zásobníkem
 	- infixová notace – rekurzí bez parametru nebo převodem na postfix
+- (odhad faktoriálu)
+- (složitost)

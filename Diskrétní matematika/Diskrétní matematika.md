@@ -576,4 +576,13 @@ $definice \rightarrow tvrzení \xrightarrow{důkaz} věta$
 	- jev s pevným bodem 2
 	- nejsou nezávislé
 - součin pravděpodobnostních prostorů
+- náhodná veličina – funkce, která každému elementárnímu jevu přiřadí číselnou hodnotu
+- střední hodnota náhodné veličiny X je $\mathbb E[X]$
+- věta o linearitě střední hodnoty
+	- důkaz pomocí roztržení sumy
+- příklad
+	- n hodů mincí
+	- X = počet jedniček … chceme $\mathbb E[X]$
+	- $X_i :=$ počet jedniček na i-té pozici
+	- z linearity víme, že střední hodnota X je součet středních hodnot Xi
 	- 
