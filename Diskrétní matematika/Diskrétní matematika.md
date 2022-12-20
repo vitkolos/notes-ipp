@@ -512,7 +512,68 @@ $definice \rightarrow tvrzení \xrightarrow{důkaz} věta$
 	- $P(\Omega)=1$
 	- náš diskrétní pravděpodobnostní prostor je konečný a klasický
 	- klasický … $P(J)=\frac{|J|}{|\Omega|}$
+		- klasický pravděpodobnostní prostor – všechny elementární jevy mají stejnou pravděpodobnost
 - mince
 - kostka
 - elementární jev … padla šestka
 - neelementární jev … padlo sudé číslo
+- poznámka pod čarou: klikovost grafu
+- příklad: n hodů mincí
+	- $\Omega = \lbrace 0,1 \rbrace^n$ 
+	- $P(\lbrace \omega \rbrace)=2^{-n}$
+- pravděpodobnostní závorky
+	- u kulatých je tam množina
+	- u hranatých je tam podmínka
+- příklad (Bertrandův paradox)
+	- tři kartičky, jedna je z obou stran červená, druhá modrá, třetí má jednu stranu červenou a druhou modrou
+	- vybereme náhodnou kartičku
+	- otočíme ji náhodnou stranou nahoru
+	- horní strana je červená
+	- jaká je pravděpodobnost toho, že dolní strana je také červená
+	- pravděpodobnostní prostor: ČČ, ČČ, MM, MM, ČM, ČM
+	- tři možnosti, z nich dvě chceme, takže $2 \over 3$
+- podmíněná pravděpodobnost
+- pravděpodobnost sjednocení jevů (pokud nejsou disjunktní / pokud jsou)
+- pravděpodobnost sjednocení je menší nebo rovna součtu pravděpodobností jevů
+- doplněk do množiny elementárních jevů … $\bar B$
+- $P[A|B] \cdot P(B)=P(A\cap B)$
+- $P[A|\bar B] \cdot P(\bar B)=P(A \cap \bar B)$
+- $P[A|B]+P[A|\bar B]=P(A)$
+- rozklad množiny elementárních jevů
+- věta o úplné pravděpodobnosti (věta o rozboru případů)
+- řetězové pravidlo
+- příklad
+	- T … pozitivní
+	- N … nemocný
+	- známe
+		- $P[T|N]=0.95$
+		- $P[T|\bar N]=0.03$
+		- $P(N)=0.06$
+	- chceme: $P[N|T]$
+- Bayesova věta
+- $X \subseteq Y \implies P(X) \leq P(Y)$
+- definice nezávislých jevů
+	- $P(A\cap B)=P(A)\cdot P(B)$
+		- $P[A|B]\cdot P(B)=P(A)\cdot P(B)$
+	- $\iff P(B)=0 \lor P[A|B]=P(A)$
+- jevy jsou po 2 nezávislé, pokud pro libovolnou dvojici z množiny jevů platí, že se pravděpodobnost průniku rovná součinu pravděpodobností
+	- lze zobecnit na jevy po k nezávislé
+	- jevy jsou nezávislé $\equiv$ pro každé $k\geq 2$ jsou po $k$ nezávislé
+- příklad
+	- kostka
+	- jev A … padlo sudé … 1/2
+	- jev B … padlo prvočíslo … 1/2
+	- padlo sudé prvočíslo … 1/6
+	- jevy jsou závislé
+- příklad
+	- dva hody mincí
+	- A … první hod je jednička
+	- B … druhý hod je jednička
+	- C … sudý počet jedniček
+	- jevy jsou po 2 nezávislé, ale nejsou po 3 nezávislé, tedy nejsou nezávislé
+- míchání karet
+	- jev s pevným bodem 1
+	- jev s pevným bodem 2
+	- nejsou nezávislé
+- součin pravděpodobnostních prostorů
+	- 
