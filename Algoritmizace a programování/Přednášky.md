@@ -349,4 +349,35 @@
 		- průchod zepředu a ukládání operací do zásobníku – při přidávání čísla do zásobníku kontrola, zda je na vrcholu zásobníku číslo, pokud ano, tak ho vyzvednu a rovnou taky operaci pod ním, tu provedu
 	- rekurze
 - převod infix → postfix – pomocí zásobníku během jednoho průchodu
-- 
+
+## Grafy
+
+- reprezentace grafu v programu
+	- matice sousednosti
+		- neorientovaný graf – symetrická matice
+		- ohodnocený graf – matice délek (ohodnocení) hran
+		- vhodné použití – malé grafy s velkým počtem hran
+		- není vhodná u grafů s velkým počtem vrcholů a relativně málo hranami (např. silniční síť)
+	- seznamy následníků
+		- u každého vrcholu je uložen seznam čísel vrcholů, do nichž odsud vede hrana
+		- primárně určeno pro orientované grafy – u neorientovaných ukládám obě orientované hrany
+		- u ohodnocených grafů ukládám i hodnocení hrany
+		- realizace
+			- pole N seznamů
+			- matice N×N–1 (z každého vrcholu může vést až $N - 1$ hran)
+			- matice N×R, když víme, že z každého vrcholu vede maximálně R hran
+			- nemáme omezení R, ale víme, že celkově graf obsahuje nejvýše M hran
+				- princip „vzájemné solidarity“ vrcholů – čísla následníků všech vrcholů se ukládají do jednoho společného pole E délky M
+				- v samostatném poli jsou uloženy indexy, na kterých začínají seznamy jednotlivých vrcholů
+				- špatně se modifikuje, ale ve většině grafových úloh není potřeba graf modifikovat
+	- seznam hran
+		- jednorozměrné pole délky M nebo spojový seznam
+		- každý záznam odpovídá jedné hraně grafu
+	- matice incidence
+		- matice velikosti M×N
+		- 1, pokud vrchol leží na hraně
+	- dynamická reprezentace – pomocí objektů
+- základní grafové problémy
+- při procházení musím nastavovat příznak „navštíven“, abych se nezacyklil
+- je potřeba rozlišovat implementaci DFS rekurzí/zásobníkem – liší se v pořadí zpracování vrcholů
+- časová složitost – záleží na reprezentaci grafu

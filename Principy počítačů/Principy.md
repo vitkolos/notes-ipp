@@ -10,7 +10,7 @@
 - důležité je pochopit, proč věci fungují tak, jak fungují – nemusíme se učit všechno nazpaměť, ale musíme umět termíny
 - nemusíme se hlásit, když se na něco budeme chtít zeptat
 
-## Počítač
+## 1. přednáška
 
 - Harvardská architektura počítače
 	- CPU – procesor, vykonává příkazy
@@ -769,3 +769,24 @@
 		- kromě zmíněného obsahuje i seznam volných sektorů
 	- přístup k souborům řeší operační systém
 		- soubor se otevře (jeho metadata se načtou do cache) → pracuje se s ním → zavře se (aby OS věděl, že ho nemusí držet v paměti)
+
+## 10,5. přednáška
+
+- pythoní funkce open zavolá funkci operačního systému (OpenFile), která do paměti uloží metadata a vrátí ID souboru, které se uloží v pythoním objektu
+- soubor se dá otevřít jako binární (s příznakem *b*) – výsledný objekt má jiný typ
+- na binárním souboru máme funkci read, které zadáme, kolik bytů chceme přečíst
+	- operační systém si do paměti připraví celý sektor, z něj vrátí požadované bajty
+	- pythoní objekt si pamatuje aktuální offset
+	- read posouvá offset o počet čtených bajtů, pokud chceme skočit k aktuálnímu bajtu, můžeme použít funkci seek (tato funkce umožňuje skákat relativně), funkce tell slouží ke zjištění aktuálního offsetu
+	- pythoní funkce seek nesouvisí se čtecí hlavou
+- funkce readline (u textového souboru) vrátí celý řádek ve formě textu
+- textový soubor (text file) – všechny bajty souboru se dají interpretovat jako text
+- binární soubor (binary file) – pro některé nebo všechny bajty platí, že se nedají interpretovat jako text
+- hexdump / hexview
+- file format – specifikace, co bajty na konkrétních offsetech v souboru znamenají
+- binární soubory často na začátku obsahují metadata (hlavička souboru / header, může být na konci souboru nebo např. před skupinou dat)
+- na začátku souboru může být sekvence bytů, která jednoznačně určuje formát (takže lze případně vyloučit, že se jedná o soubor v daném formátu) – magic number / signature
+- MIDI soubor – zápis not (není uložen zvuk)
+	- začátky a konce not
+- soubor BMP
+- obraz disku
