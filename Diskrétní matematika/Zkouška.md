@@ -34,11 +34,40 @@
 - Definice: Relace mezi množinami, relace na množině
 	- (binární) relace mezi množinami $X,Y$ je podmnožina $X\times Y$
 	- relace na množině $X$ je podmnožina $X^2$
+	- značení – pro relaci $R$ mezi $X,Y:xRy \equiv (x,y)\in R$
 - Příklad: Příklady relací: prázdná, univerzální, diagonální
+	- prázdná $\emptyset$
+	- univerzální $X\times Y$
+	- diagonální $\Delta_X := \lbrace (x,x)|x\in X\rbrace$, např. rovnost $x=y$
 - Definice: Operace s relacemi: inverze, skládání
+	- inverze
+		- k relaci $R$ mezi $X,Y$ lze definovat inverzní relaci $R^{-1}$ mezi $Y,X$, přičemž $R^{-1} := \lbrace(y,x)|(x,y)\in R\rbrace$
+	- skládání
+		- pro relaci $R$ mezi $X,Y$ a relaci $S$ mezi $Y,Z$ lze definovat složenou relaci $T=R\circ S$ mezi $X,Z$
+		- $xTz \equiv \exists y \in Y: xRy \land ySz$
+		- $R\circ \Delta_Y =R,\quad \Delta_X\circ R = R$
+		- značení skládání funkcí: $(f\circ g)(x)=g(f(x))$
 - Definice: Funkce (zobrazení) a jejich druhy: prosté (injektivní), na (surjektivní), vzájemně jednoznačné (bijektivní)
+	- funkce z množiny X do množiny Y je relace A mezi X a Y t. ž. $(\forall x\in X)(\exists! y\in Y):xAy$
+	- funkce $f:X\to Y$ je…
+	- prostá (injektivní) $\equiv \nexists x,x' \in X: x \neq x' \land f(x)=f(x')$
+	- na Y (surjektivní) $\equiv (\forall y \in Y)(\exists x \in X): f(x)=y$
+	- vzájemně jednoznačná (bijektivní) $\equiv (\forall y \in Y)(\exists! x \in X):f(x)=y$
+		- taková funkce je tedy prostá i „na“
+		- k takové funkci existuje inverzní funkce $f^{-1}$ z Y do X
 - Definice: Vlastnosti relací: reflexivita, symetrie, antisymetrie, transitivita
+	- relace R na X je…
+	- reflexivní $\equiv \forall x \in X: xRx$
+		- $\Delta_X \subseteq R$
+	- symetrická $\equiv \forall x,y \in X: xRy \implies yRx$
+		- $R=R^{-1}$
+	- antisymetrická $\equiv \forall x,y \in X: xRy \land yRx \implies x=y$
+	- tranzitivní $\equiv \forall x,y,z \in X: xRy \land yRz \implies xRz$
+		- $R\circ R \subseteq R$
 - Definice: Ekvivalence, ekvivalenční třída, rozklad množiny
+	- relace R na X je ekvivalence $\equiv$ R je reflexivní & symetrická & tranzitivní
+		- např. rovnost čísel, rovnost mod K, geometrická podobnost
+	- 
 - Věta: Vztah mezi ekvivalencemi a rozklady
 
 ## Uspořádání
