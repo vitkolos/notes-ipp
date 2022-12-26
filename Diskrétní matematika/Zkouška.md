@@ -121,11 +121,32 @@
 			- X* – konečné posloupnosti prvků z X
 		- pokud je slovo krátké, doplníme ho mezerami ze začátku abecedy
 - Definice: Hasseův diagram, relace bezprostředního předchůdce
+	- Hasseův diagram graficky zachycuje vztahy mezi prvky ČUM (porovnatelné prvky jsou spojeny, větší prvky jsou výše)
+	- $x$ je bezprostředním předchůdcem $y$ v uspořádání $\leq$ $\equiv x\lt y \land (\nexists z: x\lt z \land z \lt y)$
 - Definice: Minimální/maximální a nejmenší/největší prvek
+	- prvek $x\in X$ je nejmenší $\equiv \forall y \in X: x\leq y$
+	- prvek $x\in X$ je minimální $\equiv \nexists y \in X: y\lt x$
+	- x je nejmenší $\implies$ x je minimální
+	- v Hassově diagramu
+		- z minimálního prvku dolů nevede žádná spojnice
+		- nejmenší prvek je nejníž v diagramu, existuje do něj cesta z libovolného jiného prvku
 - Věta: Konečná neprázdná uspořádaná množina má minimální a maximální prvek
+	- důkaz
+		- zvolíme $x_1 \in X$ libovolně
+		- buď je $x_1$ minimální, nebo $\exists x_2 \lt x_1$
+		- buď je $x_2$ minimální, nebo $\exists x_3\lt x_2$
+		- atd.
+		- po konečně mnoha krocích nalezneme minimální prvek, protože jinak by X měla nekonečně mnoho různých prvků, což je spor s konečností
 - Definice: Řetězec a antiřetězec
+	- pro $(X,\leq)$ ČUM:
+	- $A\subseteq X$ je řetězec $\equiv \forall a,b \in A: a,b$ jsou porovnatelné
+	- $A \subseteq X$ je antiřetězec (nezávislá množina) $\equiv \nexists a,b$ různé & porovnatelné
 - Definice: parametry α a ω
+	- $\omega(X,\leq)$ je délka nejdelšího řetězce = maximum z délek řetězců (výška uspořádání)
+	- $\alpha(X,\leq)$ je délka nejdelšího antiřetězce (šířka uspořádání)
 - Věta: O Dlouhém a Širokém
+	- věta: pro každou konečnou ČUM $(X,\leq)$ platí $\alpha(X,\leq)\cdot \omega(X,\leq)\geq |X|$
+	- důkaz: TODO
 
 ## Kombinatorické počítání
 
