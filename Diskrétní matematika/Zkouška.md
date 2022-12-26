@@ -93,7 +93,33 @@
 ## Uspořádání
 
 - Definice: Uspořádání částečné a lineární, uspořádaná množina, ostré uspořádání
-- Příklad: Příklady uspořádání: dělitelnost, inkluze podmnožin, lexikografické
+	- relace R na množině X je (částečné) uspořádání $\equiv$ R je reflexivní & antisymetrická & tranzitivní
+	- (částečně) uspořádaná množina $(X,R)$
+		- zkráceně ČUM
+		- R je (částečné) uspořádání na X
+	- prvky $x,y \in X$ jsou porovnatelné $\equiv xRy \lor yRx$
+	- uspořádání je lineární $\equiv \forall x,y\in X$ porovnatelné
+		- (všechny prvky množiny jsou navzájem porovnatelné)
+	- částečné uspořádání (nebo pouze uspořádání) je obecný pojem, některá taková uspořádání jsou navíc lineární
+	- ostré uspořádání – každému uspořádání $\leq$ na X přiřadíme relaci $<$ na X: $a < b \equiv a \leq b \land a \neq b$ 
+		- pozor – ostré uspořádání není speciálním případem uspořádání (protože není reflexivní)
+		- vlastnosti ostrého uspořádání – ireflexivní, antisymetrické, tranzitivní
+- Příklady uspořádání: dělitelnost, inkluze podmnožin, lexikografické
+	- dělitelnost $(\mathbb N^+,\backslash)$
+		- $2\backslash 4$
+		- $4,6$ neporovnatelné
+		- dělitelnost na reálných čísel (bez nuly) není uspořádání, protože $(-1)\backslash1\land 1\backslash (-1)$ (není antisymetrické)
+	- inkluze $(2^X,\subseteq)$
+		- $\lbrace 1 \rbrace \subseteq \lbrace 1,3 \rbrace$
+		- $\lbrace 1,2 \rbrace, \lbrace 2,3 \rbrace$ neporovnatelné
+	- lexikografické uspořádání
+		- abeceda: $(X, \leq)$
+		- Df: $(X^2,\leq_{lex})$
+		- $(a_1, a_2) \leq_{lex} (b_1, b_2) \equiv a_1 \lt b_1 \lor (a_1=b_1 \land a2\leq b_2)$
+		- $(X^k, \leq_{lex})$
+		- $(X^*, \leq_{lex})$
+			- X* – konečné posloupnosti prvků z X
+		- pokud je slovo krátké, doplníme ho mezerami ze začátku abecedy
 - Definice: Hasseův diagram, relace bezprostředního předchůdce
 - Definice: Minimální/maximální a nejmenší/největší prvek
 - Věta: Konečná neprázdná uspořádaná množina má minimální a maximální prvek
