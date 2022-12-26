@@ -32,6 +32,8 @@
 ## Relace
 
 - Definice: Relace mezi množinami, relace na množině
+	- (binární) relace mezi množinami $X,Y$ je podmnožina $X\times Y$
+	- relace na množině $X$ je podmnožina $X^2$
 - Příklad: Příklady relací: prázdná, univerzální, diagonální
 - Definice: Operace s relacemi: inverze, skládání
 - Definice: Funkce (zobrazení) a jejich druhy: prosté (injektivní), na (surjektivní), vzájemně jednoznačné (bijektivní)
