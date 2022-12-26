@@ -67,8 +67,28 @@
 - Definice: Ekvivalence, ekvivalenční třída, rozklad množiny
 	- relace R na X je ekvivalence $\equiv$ R je reflexivní & symetrická & tranzitivní
 		- např. rovnost čísel, rovnost mod K, geometrická podobnost
-	- 
+	- ekvivalenční třída prvku $x \in X:R[x]=\lbrace y \in X | xRy\rbrace$
+	- množinový systém $\mathcal S\subseteq 2^X$ je rozklad množiny $X \equiv$
+		- $\forall A \in \mathcal S: A \neq \emptyset$
+		- $\forall A,B\in \mathcal S: A\neq B \implies A \cap B = \emptyset$
+		- $\bigcup_{A\in \mathcal S}A=X$
 - Věta: Vztah mezi ekvivalencemi a rozklady
+	- věta
+		- (1) $\forall x \in X: R[x]\neq \emptyset$
+		- (2) $\forall x,y \in X:$ buď $R[x]=R[y]$, nebo $R[x] \cap R[y]=\emptyset$
+		- (3) $\lbrace R[x] | x \in X\rbrace$ (množina všech ekvivalenčních tříd) určuje ekvivalenci R jednoznačně
+	- důkaz
+		- (1) ekvivalence je reflexivní, tedy nutně platí $x \in R[x]$, tudíž je ta ekvivalenční třída neprázdná
+		- (2) dokážeme, že pokud nejsou disjunktní, tak se rovnají
+			- platí $R[x]\cap R[y]\neq \emptyset$
+			- dokazujeme $R[x]=R[y]$, stačí nám $R[x]\subseteq R[y]$ (opačnou inkluzi lze dokázat podobným způsobem)
+			- víme $\exists t \in R[x]\cap R[y]$
+				- tedy platí xRt, tRx, yRt, tRy
+			- chceme $\forall a \in R[x]: a \in R[y]$
+			- dále aplikujeme tranzitivitu
+			- $aRx \land xRt \implies aRt$
+			- $aRt \land tRy \implies aRy$
+		- (3) na základě ekvivalenčních tříd lze jednoznačně určit, zda jsou prvky x a y ekvivalentní, neboť stačí najít ekvivalenční třídu obsahující y a zjistit, zda je v této třídě také x
 
 ## Uspořádání
 
