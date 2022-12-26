@@ -155,7 +155,7 @@
 		- pro $|N|=n, |M|=m;\quad m,n\gt 0$
 	- důkaz indukcí podle $n$
 		- $n=1\quad$ \#$f=m=m^1$
-		- .#
+		- .
 - Věta: Počet prostých funkcí mezi množinami
 - Definice: Klesající mocnina
 - Definice: Charakteristická funkce podmnožiny
