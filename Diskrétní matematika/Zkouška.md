@@ -164,9 +164,9 @@
 - Věta: Binomická věta
 - Věta: Princip inkluze a exkluze
 - Příklad: Problém šatnářky: počet permutací bez pevného bodu
-- Věta: Odhad faktoriálu: nn/2 ≤ n! ≤ ((n+1)/2)n
-- Věta: Odhad kombinačního čísla: (n/k)k ≤ C(n,k) ≤ nk
-- Věta: Odhad prostředního kombinačního čísla: 4n/(2n+1) ≤ C(2n,n) ≤ 4n
+- Věta: Odhad faktoriálu: $n^{n/2} \leq n! \leq ((n+1)/2)^n$
+- Věta: Odhad kombinačního čísla: $(n/k)^k \leq C(n,k) \leq n^k$
+- Věta: Odhad prostředního kombinačního čísla: $4^n/(2n+1) \leq C(2n,n) \leq 4^n$
 
 ## Grafy
 
