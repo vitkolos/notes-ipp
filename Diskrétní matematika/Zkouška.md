@@ -154,20 +154,84 @@
 	- věta: počet $f:N\to M=m^n$
 		- pro $|N|=n, |M|=m;\quad m,n\gt 0$
 	- důkaz indukcí podle $n$
-		- $n=1\quad$ \#$f=m=m^1$
-		- .
+		- $n=1\quad$ \# $f=m=m^1$
+		- $n\to n+1$
+			- (n+1)-prvková N, m-prvková M
+			- zvolíme $x\in N$
+			- $f':N\setminus\lbrace x \rbrace\to M$
+			- podle IP existuje $m^n$ funkcí $f'$
+			- zadat zobrazení $f$ je totéž jako zadat hodnotu $f(x)\in M$ plus zobrazení $f'$
+			- hodnotu $f(x)$ lze zvolit $m$ způsoby
+			- celkem tedy $m^n\cdot m=m^{n+1}$
+	- jiný způsob důkazu – pro každé $x$ existuje $m$ možností, počet $x$ je $n$
 - Věta: Počet prostých funkcí mezi množinami
+	- věta: počet prostých $f:N\to M=m^\underline{n}$ (viz klesající mocnina níže)
+	- důkaz indukcí podle $n$
+		- podobně jako předchozí důkaz
+		- $n\to n+1$
+			- $f':N\setminus\lbrace x \rbrace\to M\setminus\lbrace f(x) \rbrace$
+			- podle IP existuje $(m-1)^\underline n$ funkcí $f'$
+			- hodnotu $f(x)$ lze zvolit $m$ způsoby
+			- celkem tedy $(m-1)^\underline n \cdot m=m^\underline{n+1}$
+	- jiný způsob důkazu – pro první $x$ existuje $m$ možností, pro každé další o jednu méně, počet $x$ je $n$
 - Definice: Klesající mocnina
+	- $m^\underline n=\underbrace{m\cdot (m-1)\cdot (m-2)\cdot\ldots\cdot(m-n+1)}_n$
 - Definice: Charakteristická funkce podmnožiny
+	- pro podmnožinu $A$ množiny $X$ definujeme zobrazení $c_A:X\to\lbrace 0,1\rbrace$
+	- $c_A(x)= \begin{cases} 1 &\text{pokud } x\in A \\ 0 &\text{pokud }x\notin A\end{cases}$
 - Věta: Počet všech podmnožin
+	- věta: $|2^N|=2^{|N|}$
+	- důkaz: počet podmnožin = počet charakteristických funkcí = $2^{|N|}$
 - Věta: Počet podmnožin sudé a liché velikosti
+	- věta: Nechť $X\neq \emptyset$ je konečná množina, pak počet podmnožin $\mathcal S$ sudé velikosti se rovná počtu podmnožin $\mathcal L$ liché velikosti, což se rovná $2^{n-1}$.
+	- důkaz
+		- víme, že $\mathcal S\cup\mathcal L=2^X$
+		- stačí $|\mathcal S|=|\mathcal L|$
+		- sestrojíme $f:\mathcal S\to \mathcal L$ bijekci
+		- zvolíme si $a\in X$
+		- $f(S):=S\bigtriangleup \lbrace a\rbrace$ (prvek a přidáme nebo odebereme, podle toho, zda je prvkem S, nebo není)
+		- $f(S)\in \mathcal L$
+		- $f$ má inverzi $f^{-1}=f$
 - Věta: Počet permutací na množině
+	- definice: $[n]=\lbrace1,2,\dots,n\rbrace$
+	- věta: na množině $[n]$ existuje $n!$ permutací (podobně na každé n-prvkové množině)
+	- důkaz: počet prostých funkcí $[n]\to[n]=n^\underline n=n!$
 - Věta: Počet uspořádaných k-tic bez opakování a k-prvkových podmnožin
+	- počet uspořádaných k-tic $|X^k|=|X|^k$, lze jej totiž vyjádřit jako počet funkcí $f:[k]\to X$
+	- u uspořádaných k-tic bez opakování hledáme prosté funkce, tedy $|X|^\underline k$
+	- pomocí „počítání dvěma způsoby“ odvodíme vzorec pro neuspořádané k-tice (k-prvkové podmnožiny)
+	- uspořádaných k-tic bude k!-krát víc než těch neuspořádaných (každou neuspořádanou k-tici lze k! způsoby lineárně uspořádat)
+	- z toho vyplývá, že k-prvkových podmnožin (neuspořádaných k-tic) bude $|X|^\underline k\over k!$
 - Definice: Notace pro množinu všech k-prvkových podmnožin
+	- $X\choose k$ … množina všech k-prvkových podmnožin množiny X
 - Definice: Kombinační číslo (binomický koeficient), Pascalův trojúhelník
+	- kombinační číslo (binomický koeficient) ${n\choose k}:={n^\underline k \over k!}={n!\over k!(n-k)!}$
+	- Pascalův trojúhelník – n roste shora dolů, k zleva doprava
 - Věta: Základní vlastnosti kombinačních čísel
+	- ${n\choose k} = {n\choose n-k}$ … každé k-prvkové podmnožině přiřadíme její doplněk
+	- ${n-1\choose k-1}+{n-1\choose k}={n\choose k}$
+		- zvolíme jeden prvek $a$ a rozdělíme všechny k-prvkové podmnožiny podle toho, zda obsahují $a$, nebo ne
 - Věta: Binomická věta
+	- věta: $(x+y)^n=\sum_{i=0}^n{n\choose i}x^{n-i}y^i$
+	- důkaz
+		- jeden člen výsledného součtu – součin n věcí, z nichž každá bude x nebo y
+		- z každé závorky vyberu x nebo y
+		- výsledkem je člen $x^{n-k}y^k$
+		- takových členů tam bude $n \choose k$
 - Věta: Princip inkluze a exkluze
+	- věta: (pro konečné množiny) $$|\bigcup_{i=1}^nA_i|=\sum_{k=1}^n(-1)^{k+1}\sum_{I\in{[n]\choose k}}|\bigcap_{i\in I}A_i|$$
+	- důkaz
+		- pro prvek $x$ ve sjednocení spočítáme příspěvky k levé (vždy 1) a pravé straně
+		- nechť $x$ patří do právě $t$ množin
+		- průniky k-tic
+			- $k \gt t$ … přispěje 0
+			- $k\leq t$ … přispěje $(-1)^{k+1}{t\choose k}$
+				- vybíráme k-tice množin z t-množin, do kterých prvek patří
+				- minus jednička vychází ze vzorce
+			- chceme $\sum_{k=1}^t(-1)^{k+1}{t\choose k}=1$
+			- lze upravit na $\sum_{k=1}^t(-1)^{k}{t\choose k}=-1$
+			- z binomické věty $0=(1-1)^t=\sum_{k=0}^t{t\choose k}(-1)^{k}$
+			- tedy bez prvního členu se součet rovná $-1\quad \square$
 - Příklad: Problém šatnářky: počet permutací bez pevného bodu
 - Věta: Odhad faktoriálu: $n^{n/2} \leq n! \leq ((n+1)/2)^n$
 - Věta: Odhad kombinačního čísla: $(n/k)^k \leq C(n,k) \leq n^k$
