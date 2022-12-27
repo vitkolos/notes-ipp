@@ -282,6 +282,11 @@
 	- $in\geq ki$
 	- $n\geq k$, což platí
 - Věta: Odhad prostředního kombinačního čísla: $4^n/(2n+1) \leq {2n\choose n} \leq 4^n$
+	- věta: ${4^n\over 2n+1}\leq {2n\choose n}\leq 4^n$
+	- kombinačních čísel v jednom řádku Pascalova trojúhelníku je $2n+1$
+	- odhadujeme prostřední – tedy největší z nich
+	- ${4^n\over 2n+1}$ je průměr všech kombinačních čísel v řádku
+	- $4^n$ je jejich součet
 
 ## Grafy
 
