@@ -21,12 +21,12 @@
 	- dolní celá část se značí $\lfloor x \rfloor$, zaokrouhluje dolů
 - Definice: Množinové operace: rovnost, inkluze, sjednocení, průnik, rozdíl, symetrická diference, potence (množina podmnožin), mohutnost (počet prvků)
 	- symetrická diference $A\bigtriangleup B=(A\setminus B)\cup(B\setminus A)$
-	- potence $2^A:=\lbrace B | B\subseteq A\rbrace$
+	- potence $2^A:=\lbrace B \mid B\subseteq A\rbrace$
 - Definice: Uspořádané k-tice a kartézský součin
 	- uspořádaná dvojice $(x,y)$
 		- lze zavést pomocí klasických množin jako $\lbrace \lbrace x \rbrace, \lbrace x,y\rbrace\rbrace$
 		- uspořádaná k-tice $(x_1,\dots,x_k)$
-	- kartézský součin $A\times B:=\lbrace(a,b)|a\in A, b\in B \rbrace$
+	- kartézský součin $A\times B:=\lbrace(a,b)\mid a\in A, b\in B \rbrace$
 		- $A^k:=\underbrace{A\times A \times \dots \times A}_k$
 
 ## Relace
@@ -38,10 +38,10 @@
 - Příklad: Příklady relací: prázdná, univerzální, diagonální
 	- prázdná $\emptyset$
 	- univerzální $X\times Y$
-	- diagonální $\Delta_X := \lbrace (x,x)|x\in X\rbrace$, např. rovnost $x=y$
+	- diagonální $\Delta_X := \lbrace (x,x)\mid x\in X\rbrace$, např. rovnost $x=y$
 - Definice: Operace s relacemi: inverze, skládání
 	- inverze
-		- k relaci $R$ mezi $X,Y$ lze definovat inverzní relaci $R^{-1}$ mezi $Y,X$, přičemž $R^{-1} := \lbrace(y,x)|(x,y)\in R\rbrace$
+		- k relaci $R$ mezi $X,Y$ lze definovat inverzní relaci $R^{-1}$ mezi $Y,X$, přičemž $R^{-1} := \lbrace(y,x)\mid (x,y)\in R\rbrace$
 	- skládání
 		- pro relaci $R$ mezi $X,Y$ a relaci $S$ mezi $Y,Z$ lze definovat složenou relaci $T=R\circ S$ mezi $X,Z$
 		- $xTz \equiv \exists y \in Y: xRy \land ySz$
@@ -67,7 +67,7 @@
 - Definice: Ekvivalence, ekvivalenční třída, rozklad množiny
 	- relace R na X je ekvivalence $\equiv$ R je reflexivní & symetrická & tranzitivní
 		- např. rovnost čísel, rovnost mod K, geometrická podobnost
-	- ekvivalenční třída prvku $x \in X:R[x]=\lbrace y \in X | xRy\rbrace$
+	- ekvivalenční třída prvku $x \in X:R[x]=\lbrace y \in X \mid xRy\rbrace$
 	- množinový systém $\mathcal S\subseteq 2^X$ je rozklad množiny $X \equiv$
 		- $\forall A \in \mathcal S: A \neq \emptyset$
 		- $\forall A,B\in \mathcal S: A\neq B \implies A \cap B = \emptyset$
@@ -76,7 +76,7 @@
 	- věta
 		- (1) $\forall x \in X: R[x]\neq \emptyset$
 		- (2) $\forall x,y \in X:$ buď $R[x]=R[y]$, nebo $R[x] \cap R[y]=\emptyset$
-		- (3) $\lbrace R[x] | x \in X\rbrace$ (množina všech ekvivalenčních tříd) určuje ekvivalenci R jednoznačně
+		- (3) $\lbrace R[x] \mid x \in X\rbrace$ (množina všech ekvivalenčních tříd) určuje ekvivalenci R jednoznačně
 	- důkaz
 		- (1) ekvivalence je reflexivní, tedy nutně platí $x \in R[x]$, tudíž je ta ekvivalenční třída neprázdná
 		- (2) dokážeme, že pokud nejsou disjunktní, tak se rovnají
@@ -232,10 +232,56 @@
 			- lze upravit na $\sum_{k=1}^t(-1)^{k}{t\choose k}=-1$
 			- z binomické věty $0=(1-1)^t=\sum_{k=0}^t{t\choose k}(-1)^{k}$
 			- tedy bez prvního členu se součet rovná $-1\quad \square$
+	- druhý důkaz – pomocí charakteristických funkcí
 - Příklad: Problém šatnářky: počet permutací bez pevného bodu
+	- Šatnářka $n$ pánům vydá náhodně $n$ klobouků (které si předtím odložili v šatně). Jaká je pravděpodobnost, že žádný pán nedostane od šatnářky zpět svůj klobouk?
+	- jaká je pravděpodobnost, že náhodně zvolená permutace nebude mít žádný pevný bod
+	- každá z $n!$ permutací je stejně pravděpodobná
+	- $š(n)$ … počet permutací bez pevného bodu
+	- pravděpodobnost je rovna $š(n)/n!$
+	- $S_n$ … množina všech permutací
+	- $A_i=\lbrace \pi \in S_n \mid \pi(i)=i\rbrace$
+	- $A=\bigcup_{i=1}^n A_i$ … (množina všech „špatných“ permutací)
+	- musíme vyjádřit velikosti průniků
+		- permutací s $k$ pevnými body je $(n-k)!$
+		- (protože permutuji všechny prvky kromě těch pevných)
+	- dosazením do principu inkluze a exkluze vyjde $|A|=\sum_{k=1}^n(-1)^{k+1}{n\choose k}(n-k)!$
+		- $n\choose k$ vyplývá z počtu prvků druhé sumy
+		- ${n\choose k}(n-k)!={n!\over k!}$
+	- $|A|=\sum_{k=1}^n(-1)^{k+1}\frac{n!}{k!}=n!\cdot\sum_{k=1}^n{(-1)^{k+1}\over k!}$
+	- $|A|=n!({1\over 1!}-{1\over 2!}+{1\over 3!}-\dots+{(-1)^{n+1}\over n!})$
+	- $š(n)=n!-|A|=n!\cdot(1-{1\over 1!}+{1\over 2!}-{1\over 3!}+\dots+{(-1)^n\over n!})$
+		- závorka konverguje k $e^{-1}$
+		- závorka odpovídá pravděpodobnosti v problému šatnářky
+	- $š(n)=n!\cdot\sum_{k=0}^n\frac{(-1)^k}{k!}$
+	- pravděpodobnost … $\sum_{k=0}^n\frac{(-1)^k}{k!}\approx e^{-1}$
 - Věta: Odhad faktoriálu: $n^{n/2} \leq n! \leq ((n+1)/2)^n$
-- Věta: Odhad kombinačního čísla: $(n/k)^k \leq C(n,k) \leq n^k$
-- Věta: Odhad prostředního kombinačního čísla: $4^n/(2n+1) \leq C(2n,n) \leq 4^n$
+	- věta: Pro každé $n\geq 1$ platí $n^{n\over 2}\leq n!\leq ({n+1\over 2})^n$.
+	- lemma: AG nerovnost $\frac{a+b}{2}\geq \sqrt{ab}$
+		- $(\sqrt a - \sqrt b)^2\geq 0$
+		- $a-2\sqrt{ab}+b\geq 0$
+		- $a+b\geq 2\sqrt{ab}$
+		- $\frac{a+b}{2}\geq \sqrt{ab}$
+	- důkaz
+		- $(n!)^2$ lze přerovnat jako $(1\cdot n)(2\cdot (n-1))\dots((n-1)\cdot 2)(n\cdot 1)$
+		- to se rovná $\prod_{i=1}^n i(n+1-i)$
+		- zvolíme-li v AG nerovnosti $a=i,b=n+1-i$, dostáváme
+		- $\sqrt{i(n+1-i)}\leq {i+n+1-i\over 2}={n+1\over 2}$
+		- z toho vyplývá $$n!=\prod_{i=1}^n \sqrt{i(n+1-i)}\leq \prod_{i=1}^n\frac{n+1}{2}=\left(\frac{n+1}{2}\right)^n$$
+		- pro důkaz druhé nerovnosti uvažme součin $i(n+1-i)$
+		- pro $i=1$ a $i=n$ je roven $n$
+		- pro ostatní $i$ máme součin dvou čísel, z nichž větší je alespoň $n\over 2$ a menší je alespoň $2$, tedy součin je také nejméně $n$
+		- platí tedy $i(n+1-i)\geq n$
+		- tudíž $$(n!)^2=\prod_{i=1}^n {i(n+1-i)}\geq \prod_{i=1}^n n=n^n$$
+		- tedy platí $n!\geq n^{n\over 2}$
+- Věta: Odhad kombinačního čísla: $\left({n\over k}\right)^k \leq {n\choose k} \leq n^k$
+	- horní odhad zřejmý z toho, že kombinační číslo lze zapsat jako ${n^\underline k \over k!}$
+	- dolní odhad dokážeme pomocí ${n\choose k}=\prod_{i=0}^{k-1}{n-i\over k-i}$
+	- $\frac{n-i}{k-i}\geq \frac nk$, což dokážeme:
+	- $kn-ki \geq kn-in$
+	- $in\geq ki$
+	- $n\geq k$, což platí
+- Věta: Odhad prostředního kombinačního čísla: $4^n/(2n+1) \leq {2n\choose n} \leq 4^n$
 
 ## Grafy
 
