@@ -211,7 +211,7 @@
 	- ${n\choose k} = {n\choose n-k}$ … každé k-prvkové podmnožině přiřadíme její doplněk
 	- ${n-1\choose k-1}+{n-1\choose k}={n\choose k}$
 		- zvolíme jeden prvek $a$ a rozdělíme všechny k-prvkové podmnožiny podle toho, zda obsahují $a$, nebo ne
-- Věta: Binomická věta
+- Binomická věta
 	- věta: $(x+y)^n=\sum_{i=0}^n{n\choose i}x^{n-i}y^i$
 	- důkaz
 		- jeden člen výsledného součtu – součin n věcí, z nichž každá bude x nebo y
@@ -315,11 +315,12 @@
 			- $L \cup P = V$
 			- $L \cap P = \emptyset$
 			- $\forall e \in E: |e \cap L| = 1\quad (\land\ |e \cap P| = 1)$
+				- nebo $E(G)\subseteq\lbrace\lbrace x,y\rbrace\mid x\in L,y\in P\rbrace$
 	- úplný bipartitní $K_{m,n}$
 		- každý prvek nalevo je spojený s každým napravo
 		- prvky na jedné straně mezi sebou nejsou spojeny
 - Definice: Isomorfismus grafů
-	- existuje bijekce, která zachovává vlastnost být spojen hranou
+	- grafy jsou izomorfní $\equiv$ existuje bijekce, která zachovává vlastnost být spojen hranou
 	- v podstatě stačí přejmenovat vrcholy a dostaneme dva stejné grafy
 	- značení $\cong$
 	- $\cong$ je ekvivalence na libovolné množině grafů
@@ -329,8 +330,34 @@
 	- graf je k-regulární, pokud je stupeň všech vrcholů grafu roven k
 	- skóre grafu = posloupnost stupňů vrcholů (až na pořadí) → jakmile dvěma grafům vyjde jiné skóre, nemohou být izomorfní
 - Věta: Vztah mezi součtem stupňů a počtem hran, princip sudosti
-	- 
-- Věta: Věta o skóre
+	- věta: Pro každý graf $(V,E)$ platí $\sum_{v\in V} \text{deg}(v)=2\cdot |E|$.
+	- důkaz: každá hrana spojuje dva vrcholy (do součtu stupňů přispívá 2×)
+	- důsledek: princip sudosti
+		- součet stupňů je sudý $\implies$ počet vrcholů lichého stupně je sudý
+- Věta o skóre
+	- věta: Posloupnost $D=d_1\leq d_2\leq\dots\leq d_n$ pro $n\geq 2$ je skóre grafu $\iff D'=d'_1,\dots,d'_{n-1}$ je skóre grafu $\land \ 0\leq d_n\leq n-1$.
+		- přičemž $d'_i=\begin{cases}d_i &\text{pro } i\lt n-d_n\\ d_i-1 &\text{pro } i\geq n-d_n\end{cases}$
+		- poznámka: pro $n=1$ je posloupnost $D$ skóre $\iff$ $d_1=0$
+	- důkaz $\impliedby$
+		- předpokládám existenci $G'$
+		- vytvořím $G$ doplněním vrcholu $v_n$ a hran k $d_n$ posledním vrcholům v grafu $G'$
+		- tak vznikne graf $G$ se skórem $D$
+	- důkaz $\implies$
+		- předpokládejme, že $D$ je skóre grafu
+		- uvažme množinu $\mathcal G$ všech grafů se skórem $D$
+		- pomocné tvrzení: v množině $\mathcal G$ existuje graf $G_0$, v němž je vrchol $v_n$ spojen s posledními $d_n$ vrcholy
+		- stačí dokázat pomocné tvrzení
+		- pokud $d_n=n-1$ (tedy $v_n$ je spojen se všemi ostatními vrcholy), vyhovuje pomocnému tvrzeni kterýkoliv graf z $\mathcal G$ a jsme hotovi
+		- jinak definujeme $j(G)$, což je index toho z vrcholů nespojených s $v_n$, který má největší index
+		- buď $G_0$ graf, pro něž je $j(G)$ nejmenší možné
+		- dokážeme, že $j(G_0)=n-d_n-1$
+		- pro spor předpokládejme, že $j\gt n-d_n-1$
+		- vrchol $v_n$ je spojen s $d_n$ vrcholy, takže musí existovat $i\lt j$ takové, že $v_i$ je spojen s $v_n$
+		- vzhledem k tomu, že $\text{deg}(v_i)\leq \text{deg}(v_j)$, existuje vrchol $v_k$, který je spojený hranou s $v_j$, ale nikoli s $v_i$
+		- lze vytvořit $G'$, kde přepneme hrany
+			- v $G_0$ jsou spojeny vrcholy s indexy $j,k; i,n$
+			- v $G'$ tyto hrany nahradíme hranami $j,n;i,k$
+			- skóre zůstane zachováno, ale $j(G')$ je nižší než $j(G_0)$, což je spor
 - Definice: Podgraf, indukovaný podgraf
 - Definice: Cesta, kružnice, sled a tah v grafu
 - Definice: Souvislý graf, relace dosažitelnosti (ekvivalence), komponenty souvislosti
@@ -341,7 +368,7 @@
 - Věta: Trojúhelníková nerovnost pro vzdálenost
 - Definice: Grafové operace: přidání/odebrání vrcholu/hrany, dělení hrany, kontrakce hrany
 - Definice: Otevřený a uzavřený eulerovský tah
-- Věta: Věta o existenci uzavřeného eulerovského tahu
+- Věta o existenci uzavřeného eulerovského tahu
 - Definice: Orientovaný graf, podkladový graf, vstupní a výstupní stupeň, vyváženost vrcholu
 - Definice: Silná a slabá souvislost orientovaných grafů
 - Věta: Uzavřené eulerovské tahy v orientovaných grafech
@@ -364,7 +391,7 @@
 - Definice: Stereografická projekce
 - Věta: Graf jde nakreslit do roviny, právě když jde nakreslit na sféru.
 - Příklad: Vnější stěnu lze zvolit.
-- Věta: Kuratowského věta (bez důkazu)
+- Kuratowského věta (bez důkazu)
 - Věta: Eulerova formule pro souvislé rovinné grafy (v+f=e+2)
 - Věta: Maximální rovinný graf je triangulace.
 - Věta: Maximální počet hran rovinného grafu
@@ -379,8 +406,8 @@
 - Věta: Barevnost ≥ klikovost
 - Příklad: Princip barvení indukcí: stromy jsou 2-obarvitelné, rovinné grafy 6-obarvitelné
 - Věta: Barevnost ≤ maximální stupeň + 1
-- Věta: Věta o 5 barvách
-- Věta: Věta o 4 barvách (bez důkazu)
+- Věta o 5 barvách
+- Věta o 4 barvách (bez důkazu)
 
 ## Pravděpodobnost
 
@@ -389,14 +416,14 @@
 - Příklad: Jev se také dá popsat logickou formulí.
 - Příklad: Bertrandův paradox s kartičkami
 - Definice: Podmíněná pravděpodobnost
-- Věta: Věta o úplné pravděpodobnosti
-- Věta: Bayesova věta
+- Věta o úplné pravděpodobnosti
+- Bayesova věta
 - Definice: Jevy nezávislé a po dvou nezávislé
 - Definice: Součin pravděpodobnostních prostorů, projekce
 - Definice: Náhodná veličina
 - Příklad: Logické formule s náhodnými veličinami dávají jevy.
 - Definice: Střední hodnota
-- Věta: Věta o linearitě střední hodnoty
+- Věta o linearitě střední hodnoty
 - Definice: Indikátor náhodného jevu
 - Příklad: Použití indikátorů k výpočtu střední hodnoty
 
