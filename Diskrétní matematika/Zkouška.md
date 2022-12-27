@@ -291,11 +291,45 @@
 ## Grafy
 
 - Definice: Graf, vrchol, hrana, V(G), E(G)
+	- Graf je $(V, E)$, kde $V$ je konečná neprázdná množina vrcholů a $E \subseteq {V \choose 2}$ je množina hran.
+	- Lze značit jako $G=(V,E)$. Potom $V(G)$ je množina vrcholů a $E(G)$ je množina hran.
 - Definice: Standardní grafy: úplný, prázdný, cesta, kružnice
+	- úplný graf $K_n$
+		- $V(K_n):=[n]$
+		- $E(K_n):={V(K_n)\choose 2}$
+	- prázdný graf $E_n$
+		- $V(E_n):=[n]$
+		- $E(E_n) =\emptyset$
+	- cesta $P_n$
+		- $V(P_n):=\{0,\dots, n\}$
+		- $E(P_n):=\{\{i,i+1\}\mid 0\leq i \lt n\}$
+		- délka cesty se měří v počtu hran
+	- kružnice/cyklus $C_n$
+		- $n\geq 3$
+		- $V(C_n):=\{0,\dots, n–1\}$
+		- $E(C_n):=\{\{i,(i+1)\mod n\}\mid 0\leq i \lt n\}$
 - Definice: Bipartitní graf, úplný bipartitní graf
+	- bipartitní graf
+		- partity grafu – jednotlivé „strany“
+		- Df: Graf (V, E) je bipartitní $\equiv \exists L,P\subseteq V$ t. ž.:
+			- $L \cup P = V$
+			- $L \cap P = \emptyset$
+			- $\forall e \in E: |e \cap L| = 1\quad (\land\ |e \cap P| = 1)$
+	- úplný bipartitní $K_{m,n}$
+		- každý prvek nalevo je spojený s každým napravo
+		- prvky na jedné straně mezi sebou nejsou spojeny
 - Definice: Isomorfismus grafů
+	- existuje bijekce, která zachovává vlastnost být spojen hranou
+	- v podstatě stačí přejmenovat vrcholy a dostaneme dva stejné grafy
+	- značení $\cong$
+	- $\cong$ je ekvivalence na libovolné množině grafů
+		- neexistuje množina všech grafů (protože neexistuje množina všech množin)
 - Definice: Stupeň vrcholu, k-regulární graf, skóre grafu
+	- stupeň vrcholu – počet hran, kterých se účastní daný vrchol
+	- graf je k-regulární, pokud je stupeň všech vrcholů grafu roven k
+	- skóre grafu = posloupnost stupňů vrcholů (až na pořadí) → jakmile dvěma grafům vyjde jiné skóre, nemohou být izomorfní
 - Věta: Vztah mezi součtem stupňů a počtem hran, princip sudosti
+	- 
 - Věta: Věta o skóre
 - Definice: Podgraf, indukovaný podgraf
 - Definice: Cesta, kružnice, sled a tah v grafu
