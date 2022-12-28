@@ -591,15 +591,54 @@
 ## Rovinné kreslení grafů
 
 - Definice: Rovinné nakreslení grafu a jeho stěny (neformálně)
+	- (nakreslení grafu, aby se hrany nekřížily)
+	- vrcholy = body v rovině (navzájem různé)
+	- hrany = křivky, které se neprotínají a jejich společnými body jsou jejich společné vrcholy
+		- definice křivky
+			- $f:[0,1]→\mathbb R$
+			- spojitá, prostá
+			- = oblouk
+	- stěny nakreslení
+		- části, na které nakreslení grafu rozděluje rovinu
+		- stěnou je i vnější stěna (zbytek roviny)
+		- hranice stěny – skládá se z hran
+		- hranice stěny je nakreslení uzavřeného sledu
 - Definice: Rovinný graf, topologický graf
-- Příklad: K5 a K3,3 nejsou rovinné.
+	- graf je rovinný, pokud má alespoň jedno rovinné nakreslení
+	- topologický graf je uspořádaná dvojice (graf, nakreslení)
+- Příklad: $K_5$ a $K_{3,3}$ nejsou rovinné.
+	- $K_5$ – nakreslíme $K_4$ (jeden vrchol doprostřed, ostatní kolem něj) a hledáme, kam umístit pátý vrchol (zjistíme, že to nejde)
+	- podobně $K_{3,3}$
 - Věta: Hranice stěny je nakreslením uzavřeného sledu (bez důkazu).
 - Definice: Stereografická projekce
+	- máme rovinu, na ní je položená sféra (koule) tak, že se jí dotýká právě v jednom bodě (ten označím jako jižní pól)
+	- vedu polopřímku ze severního pólu skrz promítaný bod, průsečík s rovinou dává obraz daného bodu
+	- tak dostávám spojitou bijekci mezi sférou (bez severního pólu) a $\mathbb R^2$
 - Věta: Graf jde nakreslit do roviny, právě když jde nakreslit na sféru.
+	- důkaz: stereografická projekce je bijekce mezi sférou bez severního pólu a rovinou
 - Příklad: Vnější stěnu lze zvolit.
-- Kuratowského věta (bez důkazu)
+	- vnější stěna se pozná podle toho, že obsahuje severní pól
+	- když sféru pootočím, tak vnější stěnu můžu zvolit
+- Kuratowského věta (bez důkazu): Graf je nerovinný, právě když obsahuje podgraf izomorfní s dělením $K_5$ nebo $K_{3,3}$.
 - Věta: Eulerova formule pro souvislé rovinné grafy (v+f=e+2)
+	- věta: Nechť $G$ je souvislý graf nakreslený do roviny, $v:=|V(G)|, e:=|E(G)|, f:=$ počet stěn nakreslení, potom $v+f=e+2$.
+	- důkaz: indukcí podle $e$
+		- $e=v-1$ (G je strom)
+			- $f=1$
+			- $v+1=v-1+2\quad\checkmark$
+		- $e-1\to e$
+			- mějme graf $G$ s $e$ hranami
+			- zvolím si libovolnou hranu $x$ na kružnici
+			- $G':=G-x$
+			- $v'=v,\quad e'=e-1,\quad f'=f-1$
+			- z IP: $v'+f'=e'+2$
+			- po dosazení: $v+f-1=e-1+2$
+			- k oběma stranám přičteme jedničku
+			- $v+f=e+2\quad\square$
 - Věta: Maximální rovinný graf je triangulace.
+	- definice: maximální rovinný graf je rovinný graf, který přidáním libovolné hrany přestane být rovinný
+	- G musí být souvislý – kdyby nebyl, tak můžu spojit komponenty a graf nepřestane být rovinný, což je spor s maximální rovinností
+	- 
 - Věta: Maximální počet hran rovinného grafu
 - Věta: V rovinném grafu existuje vrchol stupně nejvýše 5.
 - Věta: Počet hran a vrchol nízkého stupně v rovinných grafech bez trojúhelníků
