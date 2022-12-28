@@ -767,17 +767,63 @@
 - Příklad: Jev se také dá popsat logickou formulí.
 	- např. $P[\text{padlo sudé číslo}]$
 - Příklad: Bertrandův paradox s kartičkami
+	- tři kartičky, jedna je z obou stran červená, druhá modrá, třetí má jednu stranu červenou a druhou modrou
+	- vybereme náhodnou kartičku
+	- otočíme ji náhodnou stranou nahoru
+	- horní strana je červená
+	- jaká je pravděpodobnost toho, že dolní strana je také červená
+	- pravděpodobnostní prostor: ČČ, ČČ, MM, MM, ČM, MČ
+	- tři možnosti, z nich dvě chceme, takže $2 \over 3$
 - Definice: Podmíněná pravděpodobnost
-- Věta o úplné pravděpodobnosti
+	- podmíněná pravděpodobnost jevu $A\subseteq\Omega$ za podmínky $B\subseteq\Omega$, přičemž $P(B)\neq 0$
+	- $P[A|B]:=\frac{P(A\cap B)}{P(B)}$
+	- počítání s pravděpodobností
+		- $P(A\cup B)=P(A)+P(B)-P(A\cap B)$
+		- $P(A\cup B)\leq P(A)+P(B)$
+		- doplněk do množiny elementárních jevů … $\bar B$
+		- $P[A|B] \cdot P(B)=P(A\cap B)$
+		- $P[A|\bar B] \cdot P(\bar B)=P(A \cap \bar B)$
+		- $P(A\cap B)+P(A\cap\bar B)=P(A)$
+		- pozorování: $P[A|B]\cdot P(B)=P(A\cap B)=P(B\cap A)=P[B|A]\cdot P(A)$
+- Věta o úplné pravděpodobnosti (věta o rozboru případů)
+	- věta: Pro $A\in \Omega,~B_1,\dots,B_k$ rozklad $\Omega$ t. ž. $\forall i:P(B_i)\neq 0$ platí $P(A)=\sum_iP[A|B_i]\cdot P(B_i)$.
+	- důsledek: řetězové pravidlo $P(A\cap B\cap C)=P[A|B\cap C]\cdot P(B\cap C)=P[A|B\cap C]\cdot P[B|C]\cdot P(C)$
 - Bayesova věta
+	- věta: Nechť $A$ je jev s $P(A)\neq 0$, $B_1,\dots,B_k$ rozklad $\Omega$ na jevy s $P(B_i)\neq 0$ pro všechna $i$. Potom $P[B_i|A]=\frac{P[A|B_i]\cdot P(B_i)}{\sum_jP[A|B_j]\cdot P(B_j)}$.
 - Definice: Jevy nezávislé a po dvou nezávislé
+	- nezávislost dvou jevů
+		- jevy $A,B$ jsou nezávislé $\equiv$
+			- $P(A\cap B)=P(A)\cdot P(B)$
+			- $P[A|B]\cdot P(B)=P(A)\cdot P(B)$
+		- $\iff P(B)=0 \lor P[A|B]=P(A)$
+	- jevy jsou po 2 nezávislé, pokud pro libovolnou dvojici z množiny jevů platí, že se pravděpodobnost průniku rovná součinu pravděpodobností
+		- lze zobecnit na jevy po $k$ nezávislé
+		- jevy jsou nezávislé $\equiv$ pro každé $k\geq 2$ jsou po $k$ nezávislé
 - Definice: Součin pravděpodobnostních prostorů, projekce
+	- součin pravděpodobnostních prostorů $(\Omega_1,2^{\Omega_1},P_1)$ a $(\Omega_2,2^{\Omega_2},P_2)$ je $(\Omega_1\times\Omega_2,2^{\Omega_1\times\Omega_2},P)$, kde $P(A):=\sum_{(a_1,a_2)\in A}P_1(a_1)\cdot P_2(a_2)$, přičemž $A\subseteq\Omega_1\times\Omega_2$
+	- jev lze promítnout na jednu z os – dostaneme hodnotu jednoho prvku z n-tice jevů
+	- jevy v různých prostorech jsou navzájem nezávislé
 - Definice: Náhodná veličina
+	- náhodná veličina je funkce z $\Omega$ do $\mathbb R$
+	- každému elementárnímu jevu přiřadí číselnou hodnotu
 - Příklad: Logické formule s náhodnými veličinami dávají jevy.
+	- např. $P[X\lt 3]$, kde $X$ je počet jedniček v $n$ hodech mincí
 - Definice: Střední hodnota
+	- střední hodnota náhodné veličiny $X$ je $\mathbb E[X]:=\sum_{\omega\in\Omega}X(\omega)\cdot P(\omega)$
+	- v klasickém pravděpodobnostním prostoru je to aritmetický průměr $\mathbb E[X]={\sum X(\omega)\over |\Omega|}$
 - Věta o linearitě střední hodnoty
+	- věta: Nechť $X,Y$ jsou náhodné věličiny a $\alpha\in\mathbb R$. Potom $\mathbb E[X+Y]=\mathbb E[X]+\mathbb E[Y]$ a $\mathbb E[\alpha X]=\alpha\mathbb E[X]$.
+	- důkaz
+		- $\mathbb E[X+Y]=\sum_{\omega\in\Omega}(X+Y)(\omega)\cdot P(\omega)$ $=\sum (X(\omega)\cdot P(\omega)+Y(\omega)\cdot P(\omega))$ $=\sum X(\omega)\cdot P(\omega)+\sum Y(\omega)\cdot P(\omega)$
+		- násobení konstantou se dokáže podobně (dosazením do sumy)
 - Definice: Indikátor náhodného jevu
+	- indikátor jevu $\equiv$ náhodná veličina, která nabývá hodnoty 0, nebo 1, podle toho, zda daný jev nastal
 - Příklad: Použití indikátorů k výpočtu střední hodnoty
+	- $n$ hodů mincí
+	- $X=$ celkový počet jedniček, chceme $\mathbb E[X]$
+	- $X_i=$ kolikrát je na i-té pozici jednička (1×/0×)
+	- $X=\sum_iX_i\to\mathbb E[X]=\sum_i\mathbb E[X_i]$
+	- $\mathbb E[X_i]={1\over 2}\to\mathbb E[X]={n\over 2}$
 
 ## Různé
 
