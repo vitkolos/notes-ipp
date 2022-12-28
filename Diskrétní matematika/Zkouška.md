@@ -515,8 +515,78 @@
 		- $G$ je souvislý, protože přidáním listu nerozbiju cestu a díky tranzitivitě dosažitelnosti je nový list $v$ dosažitelný ze všech vrcholů grafu stejně jako jeho soused $s$, ke kterému jsme $v$ připojili
 		- $G$ je acyklický, protože list se nemůže účastnit kružnice, takže pokud $G-v$ neměl kružnici, tak ani $G$ nemá kružnici
 - Věta: Pět ekvivalentních charakteristik stromu
+	- pro graf G jsou následující tvrzení ekvivalentní:
+		1. G je souvislý a acyklický (strom)
+		2. mezi vrcholy $u, v$ existuje právě jedna cesta (jednoznačně souvislý)
+		3. G je souvislý a po smazání libovolné jedné hrany už nebude souvislý (minimální souvislý)
+		4. G je acyklický a po přidání libovolné jedné hrany vznikne cyklus (maximální acyklický)
+		5. G je souvislý a platí pro něj Eulerova formule $|E(G)|=|V(G)|-1$
+	- důkaz
+		- $1\implies 2$
+			- indukcí otrháváním listů
+			- IP: $G-l$ je strom $\implies$ $G-l$ je jednoznačně souvislý
+			- dokážeme, že $G$ je jednoznačně souvislý
+			- přidání listu nevytvoří nové cesty mezi vrcholy, které byly už v $G-l$, protože list nemůže být vnitřním vrcholem cesty
+			- každá cesta do $l$ vede přes souseda $s$
+			- jelikož v původním grafu do souseda existovala právě jedna cesta mezi libovolným $v$ a sousedem $s$, musí existovat právě jedna cesta mezi libovolným $v$ a listem $l$
+				- existuje bijekce mezi $l,v$-cestami v $G$ a $s,v$-cestami v $G-l$
+		- $1\implies 3$
+			- podobná indukce
+			- $G-l$ je mimimální souvislý
+			- minimální souvislost je zachována
+				- když zruším hranu $s,l$, tak se to rozpadne
+				- když zruším jinou hranu, tak se to rozpadne taky, protože $G-l$ by se rozpadlo a (nově přidaný) list není vrcholem žádné cesty
+		- $1\implies 4$
+			- opět indukce
+			- když přidám hranu mezi vrcholy v $G-l$, tak to řeší IP
+			- když přidám hranu mezi $l$ a vrcholem v $G-l$, tak vzniká cyklus
+				- protože $G$ je souvislý, tudíž mezi $l$ a libovolným jiným vrcholem už nějaká cesta existuje
+		- $1\implies 5$
+			- indukcí podle $n:=|V(T)|$
+			- $n=1\quad 0=|E(T)|=|V(T)|-1=1-1$
+			- $n\to n+1$
+				- $T$ je strom na $n+1$ vrcholech
+				- $T$ má list
+				- $T':=T-l$ je strom na $n$ vrcholech
+				- z IP: $|E(T')|=n-1$
+				- vrácení $l$ zvýší počet hran i vrcholů o 1
+				- takže $|E(T)|=|E(T')|+1=n=(n+1)-1 \quad\square$
+		- $2\implies 1$
+			- obměnou, tedy $\neg 1\implies\neg 2$
+			- když graf není souvislý, tak není jednoznačně souvislý
+			- když graf není acyklický, tak má kružnici, přičemž mezi vrcholy na kružnici neexistuje jednoznačná cesta
+		- $3\implies 1$
+			- obměnou, tedy $\neg 1\implies \neg 3$
+			- když graf není souvislý, tak není minimální souvislý
+			- když má kružnici, tak není minimální souvislý, protože můžu odstranit hranu na kružnici a souvislost se zachová
+		- $4\implies 1$
+			- obměnou, tedy $\neg 1\implies \neg 4$
+			- když není acyklický, není maximální acyklický
+			- když není souvislý, můžu přidat hranu (most) a nevytvořím kružnici, takže graf nemohl být maximální acyklický
+		- $5\implies 1$
+			- dokážeme, že souvislý graf splňující Eulerovu formuli má list
+				- součet stupňů je roven dvojnásobku počtu hran
+				- $\sum\text{deg}(v_i)=2|E|=2n-2$ (z Eulerovy formule)
+				- průměrný stupeň $=\frac{2n-2}{n}<2$
+				- graf je souvislý a netriviální, takže alespoň jeden vrchol musí mít stupeň 1 $\implies$ graf má list
+			- důkaz indukcí podle $n:=|V(G)|$
+				- $n=1$ platí triviálně (graf je strom, takže implikace platí)
+				- $n\to n+1$
+					- mějme graf $G$, který splňuje (5) a má list $v$ – viz výše
+					- $G-v$ pořád splňuje (5)
+					- podle IP je $G-v$ strom
+					- $\implies G$ je strom
 - Definice: Kostra grafu
+	- kostra grafu je podgraf, který obsahuje všechny vrcholy původního grafu a je to strom
 - Věta: Graf má kostru, právě když je souvislý.
+	- lemma: $G$ má kostru $\iff G$ je souvislý
+	- $\implies$
+		- kostra je strom, strom je souvislý, každé dva vrcholy jsou spojené cestou
+		- kostra je podgrafem $G$, takže tyto cesty existují i v $G$, tudíž i $G$ je souvislý
+	- $\impliedby$
+		- $G$ je souvislý
+		- když je acyklický, tak mám kostru
+		- když není acyklický, tak odebírám hrany na cyklech tak dlouho, dokud není acyklický, čímž dostanu kostru
 
 ## Rovinné kreslení grafů
 
