@@ -394,7 +394,7 @@
 		- komponenty jsou souvislé
 		- graf je souvislý $\iff$ má 1 komponentu
 - Věta: Dosažitelnost sledem je totéž jako dosažitelnost cestou
-	- věta: $\exists$ cesta mezi $u,v\iff\exists$ sled mezi $u,v$
+	- lemma: $\exists$ cesta mezi $u,v\iff\exists$ sled mezi $u,v$
 	- důkaz $\implies$ triviální
 	- důkaz $\impliedby$
 		- uvažme sled S
@@ -409,11 +409,62 @@
 		- tzn. $A_{ij}=1$, pokud spolu $v_i, v_j$ tvoří hranu (jinak 0)
 	- $A$ je symetrická, součty řádků/sloupců jsou stupně vrcholů
 - Věta: Počet sledů délky k lze získat z k-té mocniny matice sousednosti
+	- lemma: $A^t_{ij}=$ \# sledů délky $t$ z $v_i$ do $v_j$
+	- důkaz: indukcí podle t
+		- $t=1$ … hrana = sled délky 1
+		- $t\to t+1$
+			- $A^{t+1}_{ij}=(A^tA)_{ij}=\sum_kA^t_{ik}A_{kj}$
+				- $A^t_{ik}$ … (z IP) počet sledů délky $t$ z $v_i$ do $v_k$
+				- $A_{kj}$ … tvoří $v_k,v_j$ hranu?
+			- suma se tedy rovná součtu počtu sledů délky $t$ z $v_i$ do $v_k$ pro ta $k$, kde $v_k,v_j$ tvoří hranu
+			- to se rovná počtu sledů délky $t+1$ z $v_i$ do $v_j$
 - Definice: Vzdálenost v grafu (grafová metrika)
+	- vzdálenost (grafová metrika) v souvislém grafu $G$
+	- $d_G:V^2\to\mathbb R$
+	- $d_G(u,v):=$ min. z délek (počtu hran) všech cest mezi $u,v$
+	- vlastnosti metriky (funkce je metrika = chová se jako vzdálenost)
+		- $d_G(u,v)\geq 0$
+		- $d_G(u,v) = 0 \iff u=v$
+		- platí trojúhelníková nerovnost $d_G(u,w) \leq d_G(u,w) + d_G(w,v)$
+		- $d_G(v,u)=d_G(u,v)$
 - Věta: Trojúhelníková nerovnost pro vzdálenost
+	- $\forall u,v,w\in V(G): d(u,v)\leq d(u,w)+d(w,v)$
 - Definice: Grafové operace: přidání/odebrání vrcholu/hrany, dělení hrany, kontrakce hrany
+	- přidání vrcholu, přidání hrany, smazání hrany – vždy pouze úprava odpovídající množiny
+	- odebrání vrcholu – musím odebrat odpovídající hrany
+		- výsledný graf je podgraf indukovaný množinou všech vrcholů bez toho odebíraného
+			- $G-v=G[V\setminus\{v\}]$
+	- dělení hrany (pomocí nového vrcholu): G % e
+		- $G\%e=(V\cup \lbrace x \rbrace, E\setminus\lbrace\lbrace u,v\rbrace\rbrace\cup\lbrace\lbrace u,x\rbrace,\lbrace v,x\rbrace\rbrace)$
+	- kontrakce hrany: G.e
+		- z vrcholů odebereme $u,v$, přidáme $x$
+		- z hran odebereme hranu $u,v$, v hranách s $u$ nebo $v$ nahradíme daný vrchol vrcholem $x$
 - Definice: Otevřený a uzavřený eulerovský tah
+	- eulerovský tah obsahuje všechny vrcholy a hrany grafu
+	- tah může být uzavřený (končí, kde začal), nebo otevřený
+	- graf je eulerovský $\equiv$ existuje v něm uzavřený eulerovský tah
 - Věta o existenci uzavřeného eulerovského tahu
+	- věta: graf $G$ je eulerovský $\iff G$ je souvislý a každý jeho vrchol má sudý stupeň
+	- důkaz $\implies$
+		- souvislost plyne z dosažitelnosti libovolných dvou vrcholů po eulerovském tahu (tah je speciální případ sledu – když někde vede sled, tak tam vede i cesta)
+		- kdykoliv jsme vrchol navštívili, vstupujeme a vystupujeme do něj po jiných hranách (hrany incidentní s $v$ rozdělíme do disjunktních dvojic $\implies \text{deg}(v)$ je sudý)
+	- důkaz $\impliedby$
+		- uvážíme nejdelší tah $T$ (respektive jeden z nejdelších tahů)
+		- sporem dokážeme, že $T$ je uzavřený
+			- kdyby nebyl uzavřený, obsahuje lichý počet hran incidentních s počátečním vrcholem $v$
+			- $v$ má sudý stupeň $\implies$ existuje nepoužitá hrana incidentní s $v$
+			- $T$ lze prodloužit o nepoužitou hranu $\implies$ existuje delší tah  ↯
+		- sporem dokážeme, že $T$ obsahuje všechny hrany
+			- kdyby pro nějaké $u$ tah $T$ neobsahoval hranu $\lbrace u,v\rbrace$
+				- (vrchol $v$ nemusí být na tahu $T$)
+			- při nějakém průchodu vrcholem $u$ lze uzavřený tah rozpojit a na jeho konec přidat hranu $\lbrace u,v\rbrace$, čímž vznikne delší tah ↯
+		- sporem dokážeme, že $T$ obsahuje všechny vrcholy
+			- mějme vrchol $v\notin T$
+			- zvolíme $u\in T$ libovolně
+			- graf je souvislý $\implies$ existuje cesta $P$ mezi $u,v$
+			- tedy musí existovat „nenakreslená“ hrana spojující „nakreslený“ a „nenakreslený“ vrchol
+			- formálně $\exists r,s\in P:r\in T,s\notin T, \lbrace r,s\rbrace\in E(G)$
+			- to je stejná situace jako v předchozím sporu ↯
 - Definice: Orientovaný graf, podkladový graf, vstupní a výstupní stupeň, vyváženost vrcholu
 - Definice: Silná a slabá souvislost orientovaných grafů
 - Věta: Uzavřené eulerovské tahy v orientovaných grafech
