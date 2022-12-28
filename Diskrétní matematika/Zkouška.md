@@ -7,7 +7,7 @@
 	- důkaz sporem
 		- kdyby $p_1,\dots,p_n$ byla všechna prvočísla
 		- $\zeta := p_1\cdot p_2 \cdot \ldots\cdot p_n$
-		- $(\zeta +1)\mod p_i=1 \implies \zeta + 1$ není dělitelné žádným prvočíslem a je větší než všechna $p_i\implies\zeta+1$ by také muselo být prvočíslo ↯
+		- $(\zeta +1)\bmod p_i=1 \implies \zeta + 1$ není dělitelné žádným prvočíslem a je větší než všechna $p_i\implies\zeta+1$ by také muselo být prvočíslo ↯
 	- věta: $\forall n \in \mathbb N: 2^0+2^1+2^2+\dots+2^n=2^{n+1}-1$
 	- důkaz indukcí podle n
 		- $2^0=2^1-1$
@@ -62,6 +62,7 @@
 	- symetrická $\equiv \forall x,y \in X: xRy \implies yRx$
 		- $R=R^{-1}$
 	- antisymetrická $\equiv \forall x,y \in X: xRy \land yRx \implies x=y$
+		- $R\cap R^{-1}\subseteq \Delta_X$
 	- tranzitivní $\equiv \forall x,y,z \in X: xRy \land yRz \implies xRz$
 		- $R\circ R \subseteq R$
 - Definice: Ekvivalence, ekvivalenční třída, rozklad množiny
@@ -307,7 +308,7 @@
 	- kružnice/cyklus $C_n$
 		- $n\geq 3$
 		- $V(C_n):=\{0,\dots, n–1\}$
-		- $E(C_n):=\{\{i,(i+1)\mod n\}\mid 0\leq i \lt n\}$
+		- $E(C_n):=\{\{i,(i+1)\bmod n\}\mid 0\leq i \lt n\}$
 - Definice: Bipartitní graf, úplný bipartitní graf
 	- bipartitní graf
 		- partity grafu – jednotlivé „strany“
@@ -359,10 +360,54 @@
 			- v $G'$ tyto hrany nahradíme hranami $j,n;i,k$
 			- skóre zůstane zachováno, ale $j(G')$ je nižší než $j(G_0)$, což je spor
 - Definice: Podgraf, indukovaný podgraf
+	- graf $G'=(V',E')$ je podgrafem grafu $G=(V,E)$ (značíme $G'\subseteq G$) $\equiv V'\subseteq V \land E'\subseteq E$
+	- graf $G'=(V',E')$ je indukovaným podgrafem grafu $G=(V,E)$ $\equiv V'\subseteq V \land E'= E\cap {V'\choose 2}$
+		- „podgraf indukovaný množinou vrcholů“
+		- $G[A] := (A, E(G) \cap {A \choose 2})$, kde $A\subseteq V(G)$
 - Definice: Cesta, kružnice, sled a tah v grafu
+	- cesta v grafu
+		- v grafu existuje podgraf izomorfní s $P_n$ pro nějaké $n$
+			- $G'\subseteq G:G'\cong P_n$
+		- v grafu existuje určitá posloupnost navzájem různých vrcholů a hran
+			- $(v_0,e_1,v_1,e_2,v_2,\dots,e_n,v_n)$
+			- $v_0,\dots,v_n$ jsou navzájem různé vrcholy
+			- $e_1,\dots,e_n$ jsou hrany
+			- $\forall i: e_i=\lbrace v_{i-1},v_i\rbrace$
+	- kružnice v grafu
+		- v grafu existuje podgraf izomorfní s $C_n$ pro nějaké $n$
+			- $G'\subseteq G:G'\cong C_n$
+		- v grafu existuje posloupnost navzájem různých vrcholů a hran
+			- $(v_0,e_0,v_1,e_1,\dots,v_{n-1},e_{n-1},v_0)$
+			- $v_0,\dots,v_{n-1}$ jsou navzájem různé vrcholy
+			- $e_0,\dots,e_{n-1}$ jsou hrany
+			- $\forall i: e_i=\lbrace v_{i},v_{(i+1)\bmod n}\rbrace$
+	- sled v grafu (walk) – můžou se opakovat vrcholy i hrany
+		- $(v_0,e_1,v_1,e_2,\dots,e_n,v_n)$
+		- $\forall i: e_i=\lbrace v_{i-1},v_i\rbrace$
+	- tah v grafu – můžou se opakovat vrcholy, hrany ne
 - Definice: Souvislý graf, relace dosažitelnosti (ekvivalence), komponenty souvislosti
+	- graf $G$ je souvislý $\equiv\forall u,v\in V(G):$ existuje cesta v $G$ s krajními vrcholy $u,v$
+	- dosažitelnost v $G$ je relace $\sim$ na $V(G)$ t. ž. $u\sim v\equiv$ existuje cesta v $G$ s krajními vrcholy $u,v$
+		- relace $\sim$ je ekvivalence
+		- tranzitivita se dokazuje pomocí dvou posloupností vrcholů ($x\sim y$ a $y\sim z$) a následně zvolení nejzazšího vrcholu z posloupnosti $y\sim z$, který je obsažen v posloupnosti $x\sim y$ a v tomto vrcholu se posloupnosti slepí (přičemž části za ním v první posloupnosti a před ním v druhé posloupnosti se ustřihnou)
+	- komponenty souvislosti jsou podgrafy indukované třídami ekvivalence $\sim$
+		- komponenty jsou souvislé
+		- graf je souvislý $\iff$ má 1 komponentu
 - Věta: Dosažitelnost sledem je totéž jako dosažitelnost cestou
+	- věta: $\exists$ cesta mezi $u,v\iff\exists$ sled mezi $u,v$
+	- důkaz $\implies$ triviální
+	- důkaz $\impliedby$
+		- uvažme sled S
+		- kdyby se ve sledu neopakovaly vrcholy, je to cesta
+		- pokud $v_k=v_l$, kde $k\lt l$, vyřízneme část sledu mezi nimi → stále máme sled, který je kratší než ten původní
+		- opakujeme, dokud S není cesta
 - Definice: Matice sousednosti
+	- matice sousednosti $A(G)$ grafu $G$
+	- matice $n\times n$ nul a jedniček
+	- při očíslování vrcholů $v_1,\dots,v_n\in V(G)$
+	- $A_{ij}:=[\lbrace v_i,v_j\rbrace\in E]$
+		- tzn. $A_{ij}=1$, pokud spolu $v_i, v_j$ tvoří hranu (jinak 0)
+	- $A$ je symetrická, součty řádků/sloupců jsou stupně vrcholů
 - Věta: Počet sledů délky k lze získat z k-té mocniny matice sousednosti
 - Definice: Vzdálenost v grafu (grafová metrika)
 - Věta: Trojúhelníková nerovnost pro vzdálenost
