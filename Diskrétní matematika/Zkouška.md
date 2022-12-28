@@ -493,8 +493,27 @@
 ## Stromy
 
 - Definice: Strom, les, list
-- Věta: Lemma o koncovém vrcholu
-- Věta: Je-li l list grafu G, pak G je strom, právě když G-l je strom.
+	- strom je souvislý graf bez kružnic (= acyklický)
+	- les je acyklický graf
+	- list je vrchol stupně 1
+		- strom o jednom vrcholu nemá žádný list
+- Lemma o koncovém vrcholu
+	- lemma: Každý strom s aspoň 2 vrcholy má aspoň 1 list (respektive aspoň dva listy).
+	- důkaz
+		- nechť $P$ je nejdelší cesta ve stromu
+		- dokážeme, že koncové vrcholy cesty $P$ jsou listy
+		- kdyby z koncového vrcholu $v$ vedla hrana do vrcholu, který neleží na cestě $P$, dala by se cesta $P$ o tuto hranu prodloužit, což by byl spor s tím, že jde o nejdelší cestu
+		- kdyby z koncového vrcholu $v$ vedle hrana do vrcholu, který leží na cestě $P$, byla by v grafu kružnice, což by byl spor s acykličností stromu
+		- tudíž musí být oba koncové vrcholy listy
+- Lemma o trhání listů
+	- lemma: Je-li $v$ list grafu $G$, pak $G$ je strom, právě když $G-v$ je strom.
+	- důkaz $\implies$
+		- $G-v$ je souvislý, protože pokud mezi dvěma vrcholy existovala cesta v $G$, tak existuje i v $G-v$, neboť list nikdy není vnitřním vrcholem cesty
+		- $G-v$ je acyklický, protože odstraněním vrcholu a hrany nemůže vzniknout kružnice
+			- jiná formulace: kdyby $C\subseteq G-v \subseteq G$, pak $C\subseteq G$ (kružnice by existovala v původním grafu, což by byl spor)
+	- důkaz $\impliedby$
+		- $G$ je souvislý, protože přidáním listu nerozbiju cestu a díky tranzitivitě dosažitelnosti je nový list $v$ dosažitelný ze všech vrcholů grafu stejně jako jeho soused $s$, ke kterému jsme $v$ připojili
+		- $G$ je acyklický, protože list se nemůže účastnit kružnice, takže pokud $G-v$ neměl kružnici, tak ani $G$ nemá kružnici
 - Věta: Pět ekvivalentních charakteristik stromu
 - Definice: Kostra grafu
 - Věta: Graf má kostru, právě když je souvislý.
