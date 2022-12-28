@@ -677,19 +677,95 @@
 ## Barvení grafů
 
 - Definice: Obarvení grafu k barvami, barevnost
+	- obarvení grafu $G$ $k$ barvami (k-obarvení) je $c:V(G)\to[k]$ t. ž. kdykoli $\lbrace x,y\rbrace\in E(G)$, pak $c(x)\neq c(y)$
+	- barevnost $\chi(G)$ grafu $G:=\text{min }k:\exists$ k-obarvení grafu $G$
+	- pozorování: kdykoli $H\subseteq G$, pak $\chi(H)\leq \chi(G)$
 - Příklad: Barevnost úplných grafů, cest a kružnic
+	- úplné grafy … $\chi(K_n)=n$
+	- cesty … $\chi(P_n)=2$ pro $n\geq 1$
+	- sudé kružnice … $\chi(C_{2k})=2$
+	- liché kružnice … $\chi(C_{2k+1})=3$
 - Věta: Ekvivalentní tvrzení: graf má barevnost nejvýše 2, graf je bipartitní, graf neobsahuje lichou kružnici.
+	- věta: $\chi(G)\leq 2\iff G$ je bipartitní $\iff G$ neobsahuje lichou kružnici
+	- důkaz barevnosti bipartitních grafů
+		- jednu partitu obarvím jednou barvou, druhou druhou barvou
+		- barvy určují partity
+	- důkaz barevnost $\iff$ lichá kružnice
+		- $\implies$ máme dokázáno obměnou (když má lichou kružnici, nejde obarvit dvěma barvami)
+		- $\impliedby$ 
+			- kdyby G byl nesouvislý: obarvíme po komponentách
+			- jinak: nechť T je kostra grafu G, pak existuje obarvení kostry (dvěma barvami)
+				- sporem: kdyby existovala hrana, které tohle obarvení přiřklo stejné barvy koncových vrcholů, pak v grafu existuje lichá kružnice (spor)
+				- mezi stejnobarevnými vrcholy bude cesta sudé délky, protože mají stejnou barvu a jsou ve stromě
+				- tedy spojením stejnobarevných vrcholů vznikne lichá kružnice
 - Věta: Barevnost ≥ klikovost
+	- definice: klikovost grafu $\kappa(G)$ je maximální $k$ takové, že v grafu jako podgraf existuje úplný graf $K_k$
+	- $\chi(G)\geq\kappa(G)$
+	- zjevně platí
 - Příklad: Princip barvení indukcí: stromy jsou 2-obarvitelné, rovinné grafy 6-obarvitelné
+	- barvení stromu
+		- strom rozdělíme do vrstev podle vzdálenosti od kořenu $v$
+		- $c(x)=(d(v,x) \bmod 2)+1$
+		- tvrzení: každý strom je 2-obarvitelný
+		- důkaz: indukcí podle počtu vrcholů (základní případ pro 1 vrchol), postupně přidáváme (odebrané) listy, listu dáváme opačnou barvu než má vrchol, kam ho připojujeme, tedy $c(l)=3-c'(s)$
+	- barvení rovinného grafu – viz následující věta
 - Věta: Barevnost ≤ maximální stupeň + 1
+	- definice: graf G je k-degenerovaný $\equiv \exists \leq$ lineární uspořádání na $V(G)$ t. ž. $\forall v \in V(G): |\lbrace u<v \mid \lbrace u,v \rbrace \in E(G) \rbrace| \leq k$
+		- vrcholy lze uspořádat tak, že z každého vrcholu doleva vede nejvýše $k$ hran
+		- vrcholy skládám zprava doleva tak, jak je odtrhávám
+		- stromy 1-deg., rovinné 5-deg., rovinné bez trojúhelníků 3-deg.
+		- $\Delta := \text{max deg}(v)$ … graf je $\Delta$-degenerovaný
+	- graf je k-degenerovaný $\implies \chi\leq k+1$
+		- barvím zleva, nejvýše $k$ barev může být zakázáno
 - Věta o 5 barvách
-- Věta o 4 barvách (bez důkazu)
+	- věta: Pro každý rovinný graf $G$ platí $\chi(G)\leq 5$.
+	- první důkaz: indukcí podle $|V|$
+		- pro $|V|\leq 5$ triviální
+		- $n-1\to n$
+			- nechť $v$ je vrchol s minimálním stupněm (nejvýše pět)
+			- $G' := G-v$, podle IP existuje 5-obarvení $c'$ grafu $G'$
+			- pokud na sousedech $v$ v obarvení $c'$ jsou použity max. 4 barvy, tak tu pátou můžeme použít na vrchol $v$
+			- co když má každý soused jinou barvu
+				- A je maximální souvislý podgraf indukovaný vrcholy áčkové a céčkové barvy, do kterých existuje cesta ze souseda $a$ přes vrcholy áčkové a céčkové barvy
+				- pokud soused $c \notin A$
+					- prohodíme barvy v A
+					- tím pádem áčková barva se uvolní pro $v$
+				- pokud soused $c \in A$
+					- použiju stejný trik pro $b$ a $d$
+					- soused $b$ je obalený kružnicí mezi $a$ a $c$, takže nehrozí, že by byl spojený s $d$
+			- tzv. Kempeho řetězce
+	- druhý důkaz: indukcí podle $|V|$
+		- máme vrchol stupně 5
+		- musí existovat dva sousedi toho grafu, kteří nejsou spojeni hranou (jinak bychom dostali $K_5$)
+		- můžu vytvořit rovinný $G'=G-v+\lbrace x,y\rbrace$ (nahradím vrchol hranou – bez ztráty rovinnosti)
+		- můžu vytvořit rovinný $G''=G'.\lbrace x,y\rbrace$ (kontrakce hrany – zachovává rovinnost)
+		- $G''$ obarvíme indukcí → dostaneme obarvení $c''$ → $c$ obarvení $G-v$ (v němž se barvy $x$ a $y$ rovnají) → existuje volná barva pro $v$
+- Věta o 4 barvách (bez důkazu): Pro každý rovinný graf $G$ platí $\chi(G)\leq 4$.
 
 ## Pravděpodobnost
 
 - Definice: Pravděpodobnostní prostor diskrétní, konečný, klasický
+	- pravděpodobnostní prostor
+		- $\Omega$ = množina elementárních jevů
+		- $\mathcal F \subseteq 2^\Omega$ = množina jevů
+		- $P:\mathcal F \to [0,1]$ = pravděpodobnost
+		- náš pravděpodobnostní prostor je diskrétní, konečný a klasický
+	- diskrétní pravděpodobnostní prostor
+		- $\Omega$ je konečná nebo spočetná (tedy spočetně nekonečná, existuje bijekce do $\mathbb N$)
+		- $\mathcal F = 2^\Omega$
+		- $P(J)=\sum_{x\in J}P(\lbrace x\rbrace)$
+			- stačí určit pravděpodobnosti elementárních jevů
+			- tedy jev nastává, když nastane kterýkoli z jeho elementárních jevů
+		- $P(\emptyset)=0,\quad P(\Omega)=1$
+		- klasický pravděpodobnostní prostor … $P(J)=\frac{|J|}{|\Omega|}$
+			- všechny elementární jevy mají stejnou pravděpodobnost
+		- konečný pravděpodobnostní prostor … $\Omega$ je konečná
 - Definice: Jev elementární, jev složený, pravděpodobnost jevu
+	- elementární jev = výsledek náhodného pokusu
+	- složený jev = množina elementárních jevů
+	- pravděpodobnost jevu … $P(J)=\sum_{x\in J}P(\lbrace x\rbrace)$
 - Příklad: Jev se také dá popsat logickou formulí.
+	- např. $P[\text{padlo sudé číslo}]$
 - Příklad: Bertrandův paradox s kartičkami
 - Definice: Podmíněná pravděpodobnost
 - Věta o úplné pravděpodobnosti
