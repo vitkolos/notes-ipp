@@ -609,6 +609,7 @@
 - Příklad: $K_5$ a $K_{3,3}$ nejsou rovinné.
 	- $K_5$ – nakreslíme $K_4$ (jeden vrchol doprostřed, ostatní kolem něj) a hledáme, kam umístit pátý vrchol (zjistíme, že to nejde)
 	- podobně $K_{3,3}$
+	- lze dokázat pomocí vět o maximálních počtech hran
 - Věta: Hranice stěny je nakreslením uzavřeného sledu (bez důkazu).
 - Definice: Stereografická projekce
 	- máme rovinu, na ní je položená sféra (koule) tak, že se jí dotýká právě v jednom bodě (ten označím jako jižní pól)
@@ -636,12 +637,42 @@
 			- k oběma stranám přičteme jedničku
 			- $v+f=e+2\quad\square$
 - Věta: Maximální rovinný graf je triangulace.
+	- (pokud má aspoň 3 vrcholy)
 	- definice: maximální rovinný graf je rovinný graf, který přidáním libovolné hrany přestane být rovinný
-	- G musí být souvislý – kdyby nebyl, tak můžu spojit komponenty a graf nepřestane být rovinný, což je spor s maximální rovinností
-	- 
+	- G musí být souvislý – kdyby nebyl, tak můžu spojit komponenty (pomocí vrcholů na hranici stěny, v níž leží komponenta) a graf nepřestane být rovinný, což je spor s maximální rovinností
+	- hranicí stěny je kružnice $\implies$ je to $\triangle$
+		- kdyby nebyl, tak na kružnici jsou nesousední vrcholy, které můžu spojit a graf nepřestane být rovinný
+	- hranicí stěny není kružnice
+		- nějaký vrchol na hranici se opakuje
+		- tento vrchol můžu odstranit → hranice se rozpadne na komponenty → vrcholy v různých komponentách můžu spojit bez ztráty rovinnosti
 - Věta: Maximální počet hran rovinného grafu
+	- počet hran maximálního rovinného grafu
+		- každá stěna přispěje třemi hranami
+		- každá hrana patří ke dvěma stěnám
+		- počítáme „strany hran“: $3f=2e$
+		- $f={2\over 3}e$
+		- $v+{2\over 3}e=e+2$
+		- $e=3v-6$
+	- věta: V každém rovinném grafu s aspoň 3 vrcholy je $|E|\leq 3|V|-6$.
+	- důkaz
+		- doplníme do $G$ hrany, až získáme maximální rovinný $G'$
+		- $e'=3v-6$ (vrcholy nepřidáváme)
+		- $e\leq e'=3v-6$
+	- důsledek
+		- průměrný stupeň vrcholu v rovinném grafu je menší než 6
+			- $\sum \text{deg}(\xi)=2e\leq 6v-12$
+			- průměrný stupeň $\leq {6v-12\over v}\lt 6$
 - Věta: V rovinném grafu existuje vrchol stupně nejvýše 5.
+	- viz věta a důsledek výše
+	- kdyby měly všechny vrcholy stupeň alespoň šest, tak by průměrný stupeň nemohl být ostře menší než 6
 - Věta: Počet hran a vrchol nízkého stupně v rovinných grafech bez trojúhelníků
+	- maximální rovinné grafy bez trojúhelníků mají stěny čtvercové, pětiúhelníkové, nebo to může být strom ve tvaru hvězdy
+	- pro čtvercově stěny platí $4f=2e$, pro pětiúhelníkové $5f=2e$
+	- obecně $4f\leq 2e\to f\leq \frac 12 e$
+	- $v+\frac 12e\geq e+2$
+	- $e\leq 2v-4$
+	- průměrný stupeň $\leq {4v-8\over v} \lt$ 4
+	- existuje vrchol stupně max. 3
 
 ## Barvení grafů
 
