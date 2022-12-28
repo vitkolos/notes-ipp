@@ -406,6 +406,7 @@
 	- matice $n\times n$ nul a jedniček
 	- při očíslování vrcholů $v_1,\dots,v_n\in V(G)$
 	- $A_{ij}:=[\lbrace v_i,v_j\rbrace\in E]$
+		- definice: indikátor $[\psi]$ je 0/1 podle platnosti výroku $\psi$
 		- tzn. $A_{ij}=1$, pokud spolu $v_i, v_j$ tvoří hranu (jinak 0)
 	- $A$ je symetrická, součty řádků/sloupců jsou stupně vrcholů
 - Věta: Počet sledů délky k lze získat z k-té mocniny matice sousednosti
@@ -466,8 +467,28 @@
 			- formálně $\exists r,s\in P:r\in T,s\notin T, \lbrace r,s\rbrace\in E(G)$
 			- to je stejná situace jako v předchozím sporu ↯
 - Definice: Orientovaný graf, podkladový graf, vstupní a výstupní stupeň, vyváženost vrcholu
+	- orientovaný graf … $(V,E): E \subseteq V^2 \setminus \{(x,x)\mid x\in V\}$
+		- nepovolíme smyčky (v podstatě zakážeme diagonálu na relaci)
+	- podkladový graf je neorientovaný graf založený na tom původním orientovaném
+		- pro orientovaný $G=(V,E)$ existuje podkladový $G^0=(V,E^0)$, kde $\lbrace u,v\rbrace \in E^0\equiv (u,v)\in E\lor (v,u)\in E$
+	- vstupní a výstupní stupeň $\text{deg}^\text{in},\text{deg}^\text{out}$ (hrany vedoucí do vrcholu / z vrcholu)
+	- vrchol je vyvážený $\equiv \text{deg}^\text{in}(v)=\text{deg}^\text{out}(v)$
+	- graf je vyvážený $\equiv$ všechny vrcholy jsou vyvážené
+	- součet vstupních stupňů = součet výstupních stupňů = počet hran
 - Definice: Silná a slabá souvislost orientovaných grafů
+	- orientovaný graf je slabě souvislý $\equiv$ jeho podkladový graf je souvislý
+	- o. graf je silně souvislý $\equiv$ existuje orientovaná cesta mezi každými dvěma vrcholy
+	- silná souvislost $\implies$ slabá souvislost
 - Věta: Uzavřené eulerovské tahy v orientovaných grafech
+	- věta: pro orientovaný graf $G$ platí: (1) $G$ je vyvážený a slabě souvislý $\iff$ (2) $G$ je eulerovský $\iff$ (3) $G$ je vyvážený a silně souvislý
+	- důkaz
+		- $3\implies 1\quad\checkmark$
+		- $2\implies 3$
+			- vyváženost – hran dovnitř je v každém vrcholu stejně jako hran ven
+			- silná souvislost – pro každou dvojici vrcholů existuje orientovaný tah $u\to v\implies$ existuje orientovaná cesta $u\to v$
+		- $1\implies 2$
+			- stejný princip jako u věty o existenci uzavřeného eulerovského tahu v neorientovaném grafu
+			- sudý stupeň vrcholu v podstatě odpovídá vyváženosti vrcholu
 
 ## Stromy
 
