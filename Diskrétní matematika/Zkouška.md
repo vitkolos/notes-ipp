@@ -124,6 +124,7 @@
 - Definice: Hasseův diagram, relace bezprostředního předchůdce
 	- Hasseův diagram graficky zachycuje vztahy mezi prvky ČUM (porovnatelné prvky jsou spojeny, větší prvky jsou výše)
 	- $x$ je bezprostředním předchůdcem $y$ v uspořádání $\leq$ $\equiv x\lt y \land (\nexists z: x\lt z \land z \lt y)$
+		- značí se $x\triangleleft y$
 - Definice: Minimální/maximální a nejmenší/největší prvek
 	- prvek $x\in X$ je nejmenší $\equiv \forall y \in X: x\leq y$
 	- prvek $x\in X$ je minimální $\equiv \nexists y \in X: y\lt x$
