@@ -390,7 +390,7 @@
 	- graf $G$ je souvislý $\equiv\forall u,v\in V(G):$ existuje cesta v $G$ s krajními vrcholy $u,v$
 	- dosažitelnost v $G$ je relace $\sim$ na $V(G)$ t. ž. $u\sim v\equiv$ existuje cesta v $G$ s krajními vrcholy $u,v$
 		- relace $\sim$ je ekvivalence
-		- tranzitivita se dokazuje pomocí dvou posloupností vrcholů ($x\sim y$ a $y\sim z$) a následně zvolení nejzazšího vrcholu z posloupnosti $y\sim z$, který je obsažen v posloupnosti $x\sim y$ a v tomto vrcholu se posloupnosti slepí (přičemž části za ním v první posloupnosti a před ním v druhé posloupnosti se ustřihnou)
+		- tranzitivita se dokazuje pomocí dvou posloupností vrcholů $x \sim y$ a $y\sim z$ a následně zvolení nejzazšího vrcholu z posloupnosti $y\sim z$, který je obsažen v posloupnosti $x\sim y$ a v tomto vrcholu se posloupnosti slepí (přičemž části za ním v první posloupnosti a před ním v druhé posloupnosti se ustřihnou)
 	- komponenty souvislosti jsou podgrafy indukované třídami ekvivalence $\sim$
 		- komponenty jsou souvislé
 		- graf je souvislý $\iff$ má 1 komponentu
