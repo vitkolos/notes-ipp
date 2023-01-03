@@ -877,7 +877,7 @@
 			- z toho plyne, že $\text{min}(d,k)=3$
 	- tabulka možných parametrů – $d,k$ vymýšlím podle podmínek, zbytek dopočítávám ze vzorců; jiná platónská tělesa nemohou existovat
 
-|d|k||e|v|f|útvar|
+|$d$|$k$||$e$|$v$|$f$||
 |:-:|:-:|:-:|:-:|:-:|:-:|-|
 |3|3||6|4|4|čtyřstěn|
 |3|4||12|8|6|krychle|
