@@ -878,7 +878,7 @@
 	- tabulka možných parametrů – $d,k$ vymýšlím podle podmínek, zbytek dopočítávám ze vzorců; jiná platónská tělesa nemohou existovat
 
 |d|k||e|v|f|útvar|
-|-|-|-|-|-|-|-|
+|:-:|:-:|:-:|:-:|:-:|:-:|-|
 |3|3||6|4|4|čtyřstěn|
 |3|4||12|8|6|krychle|
 |3|5||30|20|12|dvanáctistěn|
