@@ -585,4 +585,111 @@ $definice \rightarrow tvrzení \xrightarrow{důkaz} věta$
 	- X = počet jedniček … chceme $\mathbb E[X]$
 	- $X_i :=$ počet jedniček na i-té pozici
 	- z linearity víme, že střední hodnota X je součet středních hodnot Xi
-	- 
+
+---
+
+- náhodná veličina
+	- funkce, která elementárním jevům přiřazuje reálná čísla
+	- $X:\Omega\to\mathbb R$
+- střední hodnota – vážený průměr X (jako „váhy“ použijeme pravděpodobnosti)
+	- $\mathbb E[X]:=\sum_{\omega\in\Omega}X(\omega)\cdot P(\omega)=\sum_{a\in\mathbb R}a\cdot P[X=a]$
+	- linearita
+- jevy $J_1,\dots,J_n$
+	- $X:=$ počet jevů, které nastaly
+	- $X_i$ … indikátor jevu $J_i$
+	- $\mathbb E[X_i]=0\cdot P[X_i=0]+1\cdot P[X_i=1]$
+	- střední hodnota indikátoru jevu je rovna pravděpodobnosti jevu
+	- $\mathbb E[X]=\sum_i\mathbb E[X_i]$
+- neorientovaný graf $G$
+	- kolik hran vede mezi levou a pravou hromádkou?
+	- $X$ … počet hran, které vedou napříč
+	- vezmeme náhodný rozklad
+		- $L\cup P=V$
+		- $L\cap P = \emptyset$
+		- jedna z hromádek může být i prázdná
+	- $X:=$ počet hran mezi $L,P$, tedy počet $e\in E:|e\cap L|=1$
+	- $X_e$ … indikátor
+	- $\mathbb E[X_e]=\frac{1}{2}$
+	- $X=\sum_eX_e\implies\mathbb E[X]=\sum_e\mathbb E[X_e]=\frac{|E|}{2}$
+	- důsledek: existuje rozdělení na $L,P$ takové, že napříč vede alespoň polovina hran
+		- alespoň jeden z bipartitních podgrafů obsahuje alespoň polovinu všech hran
+- algoritmus: rozdělíme $V$ na $L,P$ náhodně
+	- pokud $X\lt{49\over 100}\cdot |E|$, znovu
+- věta: Markovova nerovnost
+	- nechť X je nezáporná náhodná veličina a $k\gt 0$
+	- přičemž $\mathbb E[X]\gt 0$
+	- pak $P\left[X\geq k\cdot\mathbb E\left[X\right]\right]\leq\frac 1k$
+- důkaz
+	- $\mathbb E[X]=\sum_{a\geq0}a\cdot P[X=a]=\sum_{a\lt t}a\cdot P[X=a]+\sum_{a\geq t}a\cdot P[X=a]$
+	- tvrdím, že první suma (pro $a\lt t$) je nezáporná
+	- u druhé sumy využiju toho, že $a\geq t$
+	- $\mathbb E[X]\geq t\cdot P[X\geq t]$
+	- pro $t=k\cdot\mathbb E[X]$ dosadím
+	- $P[X\geq k\cdot\mathbb E[X]]\leq\frac{\mathbb E[X]}{k\cdot\mathbb E[X]}$
+- důkaz efektivity algoritmu výše
+	- $P[X\lt {49\over 100}\cdot|E|]$
+	- $X'=|E|-X$
+		- (počet hran, které nevedou napříč)
+	- $X'\gt{51\over 100}\cdot|E|$
+	- $X'\gt {51\over 50}\cdot\frac{|E|}{2}$
+	- …
+- věta o Dlouhém a Širokém
+	- věta: pro každou konečnou ČUM $(X,\leq)$ platí $\alpha(X,\leq)\cdot \omega(X,\leq)\geq |X|$
+	- řetězec: $A\subseteq X:\forall a,b\in A: a\leq b\lor b\leq a$
+	- antiřetězec: $A\subseteq X:\forall a,b\in A,\;a\neq b: \neg(a\leq b\lor b\leq a)$
+	- maximální velikost řetězce … omega („výška“)
+	- maximální velikost antiřetězce … alfa („šířka“)
+	- důsledek věty: $\text{max}(\alpha,\omega)\geq\sqrt{|X|}$
+	- důkaz
+		- najdeme všechny minimální prvky → vrstva $X_1$
+		- smažu $X_1$, proces opakuju → najdu $X_2$
+		- atd.
+		- formálně – viz video
+		- každá vrstva tvoří antiřetězec
+		- vrstvy jsou rozklad
+		- existuje množina taková, že každý prvek je z jiné vrstvy a dohromady tvoří řetězec
+			- formálně $\exists\lbrace q_1,\dots,q_k\rbrace$ řetězec t. ž. $\forall i: q_i\in X_i$
+			- proč? $q_{i+1}$ je ve vrstvě i+1, protože nějaký prvek je menší → ten je ve vrstvě i
+- Erdősovo-Szekeresovo lemma
+	- nechť $x_1,\dots,x_{n^2+1}$ je posloupnost nazvájem různých čísel
+	- potom existuje vybraná podposloupnost délky n, která je ostře monotónní (rostoucí nebo klesající)
+	- definujme relaci $\leq$ na množině indexů $\lbrace 1,\dots,n^2+1\rbrace$
+	- $i\leq j\equiv i\leq j\land x_i\leq x_j$
+	- pozorování: $\leq$ je ČU
+		- řetězec je rostoucí pp. (podposloupnost)
+		- antiřetězec je klesající pp.
+	- $\alpha\cdot\omega\geq n^2+1$
+	- → nemůže nastat $\alpha \leq n\land \omega\leq n$
+	- $\implies \alpha\geq n+1\lor\omega\geq n+1$
+- klasifikace platónských těles pomocí rovinných grafů
+	- https://cs.wikipedia.org/wiki/Plat%C3%B3nsk%C3%A9_t%C4%9Bleso
+	- příklad
+		- vezmu osmistěn
+		- opíšu mu sféru
+		- z těžiště budu promítat vrcholy na sféru
+		- vznikne rovinný graf
+	- hledám rovinný graf
+	- každá stěna má právě $k$ hran
+	- graf je d-regulární
+	- $3\leq k$
+	- $d\leq 5$
+	- lze sestrojit duální graf – prohodí se nám $k$ a $d$
+	- $3\leq k\leq 5$
+	- $3\leq d\leq 5$
+	- Euler: $v+f=e+2$
+	- $kf=2e$
+	- $dv=2e$
+	- vyjádříme $f,v$ dosadíme do E. f.
+	- $2e/d+2e/k=e+2$
+	- vydělím 2e
+	- $\frac 1d+\frac 1k=\frac 12+\frac 1e$
+	- tedy pravá strana rovnice bude $\in(\frac 12,1]$
+		- z toho plyne, že $\text{min}(d,k)=3$
+	- tabulka možných parametrů
+		- d,k; e,v,f
+		- 3,3; 6,4,4 … čtyřstěn
+		- 3,4; 12,8,6 … krychle
+		- 3,5; 30,20,12 … dvanáctistěn
+		- 4,3; 12,6,8 … osmistěn
+		- 5,3; 30,12,20 … dvacetistěn
+	- jiné nemohou existovat
