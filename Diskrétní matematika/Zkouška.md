@@ -148,7 +148,21 @@
 	- $\alpha(X,\leq)$ je délka nejdelšího antiřetězce (šířka uspořádání)
 - Věta: O Dlouhém a Širokém
 	- věta: pro každou konečnou ČUM $(X,\leq)$ platí $\alpha(X,\leq)\cdot \omega(X,\leq)\geq |X|$
-	- důkaz: TODO
+		- řetězec: $A\subseteq X:\forall a,b\in A: a\leq b\lor b\leq a$
+		- antiřetězec: $A\subseteq X:\forall a,b\in A,\;a\neq b: \neg(a\leq b\lor b\leq a)$
+		- maximální velikost řetězce … $\omega$ („výška“)
+		- maximální velikost antiřetězce … $\alpha$ („šířka“)
+		- důsledek věty: $\text{max}(\alpha,\omega)\geq\sqrt{|X|}$
+	- důkaz
+		- najdeme všechny minimální prvky → vrstva $X_1$
+		- smažu $X_1$, proces opakuju → najdu $X_2$
+		- tak postupuju dál, dokud nerozkrájím celou ČUM
+		- každá vrstva tvoří antiřetězec
+		- vrstvy jsou rozklad
+		- existuje množina taková, že každý prvek je z jiné vrstvy a dohromady tvoří řetězec
+			- formálně $\exists\lbrace q_1,\dots,q_k\rbrace$ řetězec t. ž. $\forall i: q_i\in X_i$
+			- jak je to možné?
+				- $q_{i+1}$ je ve vrstvě $X_{i+1}$, protože nějaký prvek $q_i$ je menší – ten je ve vrstvě $X_i$
 
 ## Kombinatorické počítání
 
@@ -829,5 +843,44 @@
 ## Různé
 
 - Věta: Erdősovo-Szekeresovo lemma o monotónních podposloupnostech
+	- lemma: Nechť $x_1,\dots,x_{n^2+1}$ je posloupnost nazvájem různých čísel. Potom existuje vybraná podposloupnost délky $n+1$, která je ostře monotónní (rostoucí nebo klesající).
+	- důkaz
+		- definujme relaci $\leq$ na množině indexů $\lbrace 1,\dots,n^2+1\rbrace$
+		- $i\leq j\equiv i\leq j\land x_i\leq x_j$
+		- pozorování: $\leq$ je ČU
+			- řetězec je rostoucí pp. (podposloupnost)
+			- antiřetězec je klesající pp.
+		- z věty O Dlouhém a Širokém plyne $\alpha\cdot\omega\geq n^2+1$
+			- nemůže nastat $\alpha \leq n\land \omega\leq n$
+			- $\implies \alpha\geq n+1\lor\omega\geq n+1$
 - Příklad: Existence de Bruijnovy posloupnosti (konstrukce pomocí orientovaných eulerovských tahů)
+	- neprobráno, nebude zkoušeno
 - Příklad: Klasifikace platónských těles pomocí rovinných grafů
+	- platónské těleso = konvexní pravidelný mnohostěn, jehož všechny stěny jsou shodné pravidelné mnohoúhelníky a zároveň z každého vrcholu vychází stejný počet hran
+	- příklad
+		- vezmu osmistěn, opíšu mu sféru
+		- z těžiště budu promítat vrcholy na sféru
+		- vznikne rovinný graf
+	- hledám rovinný graf
+		- každá stěna má právě $k$ hran, $3\leq k$
+		- graf je d-regulární, $d\leq 5$
+	- lze sestrojit duální graf – prohodí se nám $k$ a $d$
+		- $3\leq k\leq 5$
+		- $3\leq d\leq 5$
+	- Eulerova formule: $v+f=e+2$
+		- $kf=2e, \quad dv=2e$
+		- vyjádříme $f,v$ dosadíme do E. f.
+		- ${2e\over d}+{2e \over k}=e+2$
+		- vydělím 2e
+		- $\frac 1d+\frac 1k=\frac 12+\frac 1e$
+		- tedy pravá strana rovnice bude $\in(\frac 12,1]$
+			- z toho plyne, že $\text{min}(d,k)=3$
+	- tabulka možných parametrů – $d,k$ vymýšlím podle podmínek, zbytek dopočítávám ze vzorců; jiná platónská tělesa nemohou existovat
+
+|d|k||e|v|f|útvar|
+|-|-|-|-|-|-|-|
+|3|3||6|4|4|čtyřstěn|
+|3|4||12|8|6|krychle|
+|3|5||30|20|12|dvanáctistěn|
+|4|3||12|6|8|osmistěn|
+|5|3||30|12|20|dvacetistěn|
