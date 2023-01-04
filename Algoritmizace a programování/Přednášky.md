@@ -381,3 +381,31 @@
 - při procházení musím nastavovat příznak „navštíven“, abych se nezacyklil
 - je potřeba rozlišovat implementaci DFS rekurzí/zásobníkem – liší se v pořadí zpracování vrcholů
 - časová složitost – záleží na reprezentaci grafu
+
+ke zkoušce: zdůvodnit, proč má algoritmus takovou časovou složitost
+
+- obecný strom
+	- známe maximální stupeň větvení M – lze reprezentovat podobně jako binární strom (místo dvou mám M odkazů na syny)
+	- obecné řešení – seznam odkazů na syny
+	- kanonická reprezentace – reprezentace obecného stromu binárním stromem
+		- levý ukazatel ukazuje na nejstaršího syna
+		- pravý ukazatel ukazuje na mladšího bratra
+		- akorát neobsahuje klasický průchod do hloubky/šířky – pouze jakýsi průchod všech vrcholů
+- příklad použití obecného stromu – trie
+- hešování – hešovací funkce mi z klíče vyrobí index
+	- jak řešit kolize?
+		- kolidující prvky můžu ukládat do seznamu na daném indexu
+		- pomocí sekundární hešovací funkce můžu vygenerovat náhradní index
+- metody návrhu algoritmů
+	- předvýpočet
+		- místo přímého výpočtu provedeme nejdříve předvýpočet a až pak výsledný výpočet
+		- typické způsoby předvýpočtu – setřídit data, překódovat data, přepočítat data
+		- příklad – prefixové součty
+	- hladové algoritmy
+		- v každém kroku vybírá lokální maximum (minimum) s cílem dojít ke globálnímu maximu (minimu)
+		- často nefunguje, musíme ověřit a dokázat správnost
+		- příklad – platidla (platím co největší mincí)
+			- pro sadu 1, 2, 5 funguje (ale nutné dokázat)
+			- pro sadu 1, 4, 5 nefunguje
+			- pro sadu 3, 8 a částku 9 nenajde řešení, ačkoliv existuje
+	- dynamické programování
