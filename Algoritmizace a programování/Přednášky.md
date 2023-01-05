@@ -408,4 +408,6 @@ ke zkoušce: zdůvodnit, proč má algoritmus takovou časovou složitost
 			- pro sadu 1, 2, 5 funguje (ale nutné dokázat)
 			- pro sadu 1, 4, 5 nefunguje
 			- pro sadu 3, 8 a částku 9 nenajde řešení, ačkoliv existuje
+		- příklad – minimální kostra v ohodnoceném grafu
+		- příklad – přidělení pracovních úkolů
 	- dynamické programování

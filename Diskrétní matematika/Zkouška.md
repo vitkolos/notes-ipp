@@ -855,6 +855,32 @@
 			- $\implies \alpha\geq n+1\lor\omega\geq n+1$
 - Příklad: Existence de Bruijnovy posloupnosti (konstrukce pomocí orientovaných eulerovských tahů)
 	- neprobráno, nebude zkoušeno
+- Příklad: Převod barvení mapy na barvení grafu pomocí duality
+	- každý stát (stěnu zobrazení) zvolíme jako vrchol grafu a hranami spojíme ty, které spolu sousedí
+	- duální graf rovinného grafu $G\equiv$ graf $G*$ jehož vrcholy odpovídají stěnám grafu G a hrany vedou mezi každou dvojicí stěn, které sdílejí společnou hranu
+- Definice: Markovova nerovnost
+	- věta
+		- nechť X je nezáporná náhodná veličina a $k\gt 0$
+		- přičemž $\mathbb E[X]\gt 0$
+		- pak $P\left[X\geq k\cdot\mathbb E\left[X\right]\right]\leq\frac 1k$
+	- důkaz
+		- $\mathbb E[X]=\sum_{a\geq0}a\cdot P[X=a]=\sum_{a\lt t}a\cdot P[X=a]+\sum_{a\geq t}a\cdot P[X=a]$
+		- tvrdím, že první suma (pro $a\lt t$) je nezáporná
+		- u druhé sumy využiju toho, že $a\geq t$
+		- $\mathbb E[X]\geq t\cdot P[X\geq t]$
+		- pro $t=k\cdot\mathbb E[X]$ dosadím
+		- $P[X\geq k\cdot\mathbb E[X]]\leq\frac{\mathbb E[X]}{k\cdot\mathbb E[X]}$
+- Příklad: Velikost řezu v grafu: střední hodnota, existuje velký řez, pravděpodobnostní algoritmus
+	- střední hodnota – vážený průměr X (jako „váhy“ použijeme pravděpodobnosti)
+		- $\mathbb E[X]:=\sum_{\omega\in\Omega}X(\omega)\cdot P(\omega)=\sum_{a\in\mathbb R}a\cdot P[X=a]$
+		- linearita
+	- jevy $J_1,\dots,J_n$
+		- $X:=$ počet jevů, které nastaly
+		- $X_i$ … indikátor jevu $J_i$
+		- $\mathbb E[X_i]=0\cdot P[X_i=0]+1\cdot P[X_i=1]$
+		- střední hodnota indikátoru jevu je rovna pravděpodobnosti jevu
+		- $\mathbb E[X]=\sum_i\mathbb E[X_i]$
+	- řez a algoritmus viz video
 - Příklad: Klasifikace platónských těles pomocí rovinných grafů
 	- platónské těleso = konvexní pravidelný mnohostěn, jehož všechny stěny jsou shodné pravidelné mnohoúhelníky a zároveň z každého vrcholu vychází stejný počet hran
 	- příklad
