@@ -690,6 +690,9 @@
 	- samé jedničky v exponentu a nenulová mantisa → not a number (NaN)
 		- $\infty/\infty =$ NaN
 		- jsou dva typy NaN
+
+## 11. přednáška
+
 - jednočip/microcontroller/$\micro$C/MCU
 	- SRAM data memory – 256 B, volatile
 	- CPU + registry
@@ -770,7 +773,7 @@
 	- přístup k souborům řeší operační systém
 		- soubor se otevře (jeho metadata se načtou do cache) → pracuje se s ním → zavře se (aby OS věděl, že ho nemusí držet v paměti)
 
-## 10,5. přednáška
+## 11,5. přednáška
 
 - pythoní funkce open zavolá funkci operačního systému (OpenFile), která do paměti uloží metadata a vrátí ID souboru, které se uloží v pythoním objektu
 - soubor se dá otevřít jako binární (s příznakem *b*) – výsledný objekt má jiný typ
@@ -790,3 +793,158 @@
 	- začátky a konce not
 - soubor BMP
 - obraz disku
+
+## 12. přednáška
+
+- reprezentace obrazových dat
+- fotka = obdélníkový obrázek
+- doba expozice (n-tina sekundy) – za tu dobu se počítá, kam dopadají fotony
+- na sítnici oka dopadají fotony – vnímáme nějaký průměr
+- fotku můžeme rozdělit na čtverečky – pixely
+- potřebujeme označit pixely
+- sloupečky (osa x) se číslují od nuly zleva doprava
+- řádky (osa y) se číslují od nuly shora dolů
+- pixely se obvykle ukládají po řádcích, v rámci řádku zleva doprava
+- pixel nemusí mít jeden bajt
+- intenzita světla (počet fotonů) může nabývat hodnot 0 až nekonečno
+- pixel bude n bitů – bpp (bits per pixel) = bitová hloubka (bit depth)
+- nejjednodušší
+	- jeden bit na pixel
+	- stanovíme hraniční intenzitu – hodnoty pod ní uložíme jako nula, nad ní jako jedna
+	- velmi omezená informace
+	- pro určité zobrazovací technologie (klasický LCD displej) dostačující
+	- tento princip ukládání nám umožňuje pixely sdružit např. po čtveřicích (tedy snížit rozlišení) a zachycovat odstíny šedé kombinací různého počtu černých a šedých pixelů (tzv. differing)
+	- https://en.wikipedia.org/wiki/List_of_monochrome_and_RGB_color_formats
+- jeden bajt na pixel
+	- stanovíme dvě meze – spodní (0) a horní (255)
+	- intenzitu uložíme jako číslo v rozmezí 0 až 255
+	- meze je potřeba stanovit podle situace
+- bylo by hezké zaznamenávat obrázky, kde jsou oba extrémy (a u těchto extrémů ukazovat detaily)
+	- použijeme floating-point čísla
+	- HDR (High Definition Range)
+	- moc se nepoužívá – je těžké takovou fotku zachytit atd.
+- chceme barvu
+- dívali jsme se jenom na počet fotonů, ne na jejich frekvenci (tedy barvu)
+- frekvence může být 0,00… (nenulová) až nekonečno
+	- obvykle nás zajímá viditelné světlo
+- v oku
+	- tyčinky – monochromatické vidění, velký rozsah
+	- čípky – barevné vidění, malý rozsah
+		- tři druhy čípků – jsou citlivé na různé frekvence (červené, zelené, modré)
+- barevný kanál → 3 kanály (RGB), nezávislé informace
+- 3-bit RGB – za každou barvu uložíme 1 bit
+- špatně se dělí osmi, přidáme bit navíc
+- 4-bit RGBI – navíc tmavší varianta barvy
+- 16-bit RGB
+	- každou barvu pomocí 3 bitů
+	- co s posledními bitem? 
+		- dáme ho zelené složce, protože tu lidské oko zvládne nejvíc rozlišovat
+		- nebo s ním také nemusíme dělat nic (→ 15-bit RGB)
+- 24-bit RGB
+	- 8 bitů na kanál
+	- hi-color / True Color
+	- ale máme 32bitové instrukce procesoru
+- 32-bit ARGB
+	- čtvrtý bajt je tzv. alpha kanál
+		- 255 = neprůhledný pixel
+		- 0 = zcela průhledný pixel
+- metadata obrázku
+	- počet kanálů
+	- bitů na pixel/kanál (bitová hloubka)
+	- šířka v pixelech
+	- výška v pixelech
+	- další informace ve formátu EXIF
+- jak uložit pixel
+	- typicky ARGB (A v MSB, B v LSB)
+	- nebo také RGBA
+	- navíc záleží na endianitě
+	- takže existují 4 možnosti: ARGB, RGBA, BGRA, ABGR
+	- buď je v metadatech informace o pořadí složek, nebo je to ve specifikaci formátu
+- rastrový obraz, bitmapa
+- formát BMP
+	- specifický způsob ukládání – zespodu nahoru
+	- každý řádek je zarovnaný (align) – na konci má padding (nadbytečné bajty bez významu), aby řádky začínaly na místech dělitelných čtyřmi (aby se dobře načítaly)
+- textová data
+- textový řetězec (string) = posloupnost znaků
+- znak
+	- písmeno
+	- číslice
+	- speciální znak
+	- bílý znak (whitespace)
+	- řídicí znak
+- kódování
+	- jeden znak → jeden kód
+	- kód → bitová reprezentace
+		- pevná délka / proměnná délka
+- rasterizace textu
+	- převod kód → obrázek (znak)
+- poznámka: jazyky se ukládají v pořadí, v jakém se čtou
+- kódování
+	- ASCII
+		- 7bitové (0–127)
+		- písmena abecedy jsou uloženy za sebou, podobně číslice
+		- znak nuly nemá kód nula
+		- mezera má kód 32 (šestnáctkově 20)
+		- při ukládání je MSb typicky nevyužitý
+	- 128–255 jsou volné
+		- rozšíření ASCII, tzv. codepage
+		- nestačí ani na všechny evropské znaky – Evropa se rozdělila na tři části
+		- ISO 8859-2 (ISO Latin2)
+		- 852 (DOS Latin2)
+		- Windows-1250
+		- nedá se napsat text, který by měl více kódování najednou (problém např. pro slovníky)
+	- Unicode
+		- 0–127 odpovídají ASCII
+		- běžné znaky jsou v rozsahu 0–\$FFFF
+			- je tam rozsah, kde je garantováno, že daným kódům nikdy nebudou přiděleny žádné znaky
+		- „neběžné“ znaky v rozsahu \$10000–\$10FFFF
+		- UTF-32
+			- jeden znak 4 bajty
+			- UTF-32LE / UTF-32BE
+			- prakticky se nepoužívá
+		- UCS-2
+			- každý znak je dvoubajtový
+			- podporuje málo znaků
+		- UTF-16
+			- má proměnnou délku znaku – 2B nebo 4B
+			- 4B znak se zachycuje pomocí sekvence dvou dvoubajtových surrogate znaků (z nepoužívaného „déčkového“ rozsahu)
+			- UTF-16LE / UTF-16BE
+		- UTF-8
+			- proměnná délka znaku – 1, 2, 3, 4B
+			- princip kódování vícebytových znaků
+			- vícebytové znaky mají v prvním bytu MSb roven jedné
+				- pak počet bytů odpovídá počtu jedniček na začátku prvního bytu
+				- první byte sekvence začíná 11, další byty začínají 10
+			- neřeší se endianita
+- nejběžnější kódování
+	- internet: UTF-8
+	- Windows: UTF-16LE
+- když chceme text zobrazit uživateli – provedeme rasterizaci
+- zalomení řádku
+	- CR (carriage return) – kód 13
+	- LF (line feed) – kód 10
+	- Windows: CR + LF
+	- Unix/Linux: LF
+	- Apple dříve: CR
+- Unicode (v podstatě nepoužívané)
+	- LS – line separator
+	- PS – paragraph separator
+- textový soubor jako posloupnost bytů
+	- v Pythonu otevřeme pomocí r nebo w
+	- řádky načítáme pomocí readline
+	- v Pythonu je text uložen pomocí Unicodu
+	- u příkazu open můžeme definovat kódování
+	- výchozí kódování je win-1250 (obecně podle operačního systému)
+- chceme uložit binární soubor s textem (ale také dalšími daty)
+	- data
+		- 2B číslo
+		- 4B délka textu
+		- text
+		- 4B číslo
+	- pro převod na správný počet bytů můžeme použít funkci tobytes knihovny numpy
+	- bajty stringu můžeme získat pomocí funkce str.encode
+	- převod ze seznamu čísel na byty lze provést pomocí bytes()
+	- převod bytů na konkrétní data se provádní pomocí frombuffer(bytes, type)
+	- typ bytes je immutable
+	- typ byteArray je mutable
+	- bytes.decode – převede bajty na string
