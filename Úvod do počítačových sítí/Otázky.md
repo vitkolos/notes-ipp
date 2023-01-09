@@ -1,0 +1,167 @@
+# Otázky
+
+https://www.ksi.mff.cuni.cz/teaching/nswi141-web/pages/questions  
+162 otázek, na testu jich bude 40
+
+- Označte nepravdivé tvrzení týkající se porovnání metody přepojování paketů a přepojování okruhů.
+- Jaké charakteristiky z hlediska přenosových parametrů mají následující typy aplikací resp. protokolů?
+- Který z následujících termínů nepatří mezi přenosové parametry počítačové sítě?
+- Které z následujících tvrzení týkajících se WAN je pravdivé?
+- Které z následujících tvrzení týkajících se LAN je pravdivé?
+- Které tvrzení charakterizuje Diffie-Hellmanův algoritmus?
+- Které tvrzení charakterizuje Dijkstrův algoritmus?
+- Na jakém principu funguje šifrování elektronické pošty?
+- Na jakém principu funguje elektronický podpis?
+- Jaké tvrzení o symetrických a asymetrických šifrovacích algoritmech je pravdivé?
+- Jaké vlastnosti musí splňovat hashovací algoritmus pro použití v kryptografii?
+- Které tvrzení o klíčích a certifikátech je pravdivé?
+- Jaké tvrzení o SSL resp. TLS je pravdivé?
+- Označte nepravdivé tvrzení ohledně vrstevnaté struktury sítí.
+- Jak spolupracují vrstvy vertikálně?
+- Co nepatří mezi funkce protokolu?
+- Zvolte nesprávnou definici pojmů segmentace, fragmentace, multiplexing a zapouzdření.
+- Jak budou vypadat zdrojové a cílové IP a MAC adresy paketu poslaného z notebooku na server na trase mezi routerem A a B?
+- Jak budou vypadat zdrojové a cílové IP a MAC adresy paketu poslaného jako odpověď serveru na požadavek z notebooku při průchodu podsítí označenou III?
+- Označte pravdivé tvrzení o peer-to-peer (P2P) resp. klient-server aplikačních modelech.
+- Které tvrzení týkající se URI je správné?
+- Které z následujících tvrzení o doménových jménech je pravdivé?
+- Jaký krok následuje poté, co www server připraví text stránky, rozdělí ho a naformátuje do TCP segmentů?
+- Jaký krok následuje poté, co www klient zjistí adresu cílového serveru a připraví paket v protokolu IP k odeslání?
+- Jaký krok následuje poté, co počítač, na kterém běží www server, přečte ethernetový rámec od síťové karty?
+- Co patří mezi úkoly aplikační vrstvy v TCP/IP modelu?
+- Označte úkol, který není předmětem činnosti žádného protokolu transportní vrstvy.
+- Co nepatří mezi úkoly síťové vrstvy v TCP/IP modelu?
+- Jaké je správné pořadí vrstev OSI modelu od nejvyšší po nejnižší?
+- Vyberte správné tvrzení o účelu a principu programu ping.
+- Co můžeme usoudit, pokud zavoláme program ping na adresu 127.0.0.1 s výsledkem: 4 packets transmitted, 0 packets received, 100.0% packet loss
+- Uživateli nejde zobrazit WWW stránka. Při použití IP adresy v URL se stránka správně zobrazí. Který protokol je zodpovědný za chybu?
+- Uživatel přesunul počítač do jiné podsítě v síti bez VLSM (Variable Length Subnet Mask) a Proxy ARP. Které z.následujících nastavení bude muset zcela jistě změnit?
+- Jakým způsobem se v aplikačních protokolech TCP/IP řeší zápis textových řádek?
+- Jakým způsobem se v aplikačních protokolech TCP/IP obvykle řeší binární zápis celých čísel?
+- Který z následujících protokolů se používá v TCP/IP na transportní vrstvě?
+- Který z následujících protokolů není protokolem aplikační vrstvy TCP/IP?
+- Který z následujících protokolů se používá v TCP/IP na aplikační vrstvě?
+- Co označuje zkratka STP?
+- Které z následujících tvrzení správně popisuje činnost konkrétního aplikačního protokolu?
+- Který aplikační protokol se používá k přenosu souborů?
+- Který aplikační protokol (resp. sada protokolů) se používá pro VoIP?
+- Který aplikační protokol se používá pro elektronickou poštu?
+- Který aplikační protokol se používá pro sdílení systému souborů?
+- Který aplikační protokol se používá pro zjišťování IP adres odpovídajících jménům strojů?
+- Které z následujících tvrzení o RFC je pravdivé?
+- Které z následujících tvrzení o povaze DNS protokolu je správné?
+- Které tvrzení správně popisuje obvyklou implementaci služby operačního systému "zjisti IP adresu pro dané doménové jméno"?
+- Které tvrzení o bezpečnostních aspektech protokolu DNS je správné?
+- Označte správné tvrzení o nameserverech.
+- Jakou TLD (Top Level Domain) najdeme v následujícím URI? ftp://sunsite.mff.cuni.cz/Network/RFCs/rfc-index.txt
+- Které z následujících tvrzení o používání poštovních protokolů je správné?
+- Které z následujících tvrzení o roli jednotlivých komponent v přenosu elektronické pošty je pravdivé?
+- Které z následujících tvrzení o SMTP protokolu je správné?
+- Které tvrzení o rozšířeních protokolu SMTP pro přenos souborů a diakritiky je správné?
+- Označte hlavičku, která se dle RFC 822 v dopisech nevyskytuje.
+- Který příkaz není příkazem SMTP protokolu podle RFC 821?
+- Které tvrzení o bezpečnostních aspektech poštovních protokolů je správné?
+- Které tvrzení o autenticitě původu dopisu je správné?
+- Jak označujeme protokol, kterým se přenášejí webové stránky?
+- Co označuje zkratka HTML?
+- Které tvrzení o povaze HTTP protokolu je správné?
+- Jaké tvrzení týkající se cookies je správné?
+- Jakým způsobem klient obvykle předává serveru data vyplněná uživatelem do ovládacích prvků dialogu?
+- Která z následujících metod ("příkazů") existuje v HTTP protokolu?
+- Které tvrzení o možnostech autora ovlivnit dynamickou povahu stránek je nesprávné?
+- Vyberte správné tvrzení o dynamických WWW stránkách.
+- Které tvrzení popisuje správně problematiku vzdáleného přihlášení pomocí protokolů telnet a SSH?
+- Které tvrzení o bezpečnosti přístupu přes SSH je správné?
+- Co označuje pojem VoIP (Voice over IP)?
+- Co označuje pojem SIP (Session Initiation Protocol)?
+- Jak funguje protokol DHCP?
+- Jakým způsobem se synchronizují hodiny na počítačích v síti?
+- Proč se synchronizují hodiny na počítačích v síti?
+- Které tvrzení o povaze FTP protokolu je správné?
+- Které z následujících tvrzení o bezpečnostních problémech FTP je správné?
+- Která charakteristika TCP není správná?
+- Jaké postupy používá TCP, aby zajistilo spolehlivost přenosu?
+- Který parametr datového přenosu určuje, jaký rozsah dat může stanice poslat, aniž musí čekat na potvrzení protistrany?
+- Co usoudíme z následujícího popisu paketu v programu tcpdump?
+- Co usoudíme z (kompletního) výpisu programu netstat -an?
+- Jakou informaci obvykle volí dynamicky klient, jenž se chystá navázat spojení na server?
+- Jakou informaci najdeme v záhlaví TCP i UDP?
+- Které tvrzení popisuje správně TCP resp. UDP?
+- Pokud TCP pakety dorazí v nesprávném pořadí, co se stane?
+- Pokud UDP pakety nedorazí ve správném pořadí, co se stane?
+- Pokud www prohlížeč pošle dotaz na www server na standardním portu, jaký z.následujících portů může obsahovat odpověď jako zdrojový?
+- Pokud FTP klient pošle příkaz na FTP server na standardním portu, jaký z.následujících portů může obsahovat odpověď jako zdrojový?
+- Co se odehrává během three-way handshake?
+- Co se stane, když jeden z partnerů pošle TCP paket s FIN příznakem?
+- Se kterou vrstvou TCP/IP je svázán pojem port?
+- K čemu se používají porty v OSI 4?
+- Označte termín, který není funkcí síťové vrstvy.
+- Jaká informace se přidává do paketu během zapouzdření na síťové vrstvě?
+- Jaký protokol poskytuje na síťové vrstvě službu spolehlivého přenosu dat?
+- Jaký protokol poskytuje na síťové vrstvě službu nespolehlivého přenosu dat?
+- Označte nepravdivé tvrzení o přidělování IP adres.
+- Označte nesprávnou variantu, jak počítač může zjistit IP adresu, kterou smí používat.
+- Označte pravdivé tvrzení o autonomních systémech (AS)?
+- Kolik bitů má IPv6 adresa?
+- Který z následujících protokolů nepracuje s IP adresami?
+- Která vrstva OSI pracuje s IP adresami?
+- Jak odesilatel zprávy zjistí, jaká část cílové IP adresy přísluší síti a jaká počítači?
+- Jaká IPv4 adresa má v části pro počítač samé jedničky?
+- Které tvrzení o typech IP adres je pravdivé?
+- Za předpokladu použití implicitních síťových masek označte nesprávně klasifikovanou IP adresu.
+- Kolik a jak rozsáhlých podsítí je třeba na pokrytí sítě s následujícími požadavky na počty připojených počítačů za použití VLSM (Variable Length Subnet Mask)?
+- Která z následujících kombinací představuje minimální síť pokrývající tyto unicastové adresy: 10.1.1.106, 10.1.1.111, 10.1.1.119?
+- Která následujících adres představuje korektní adresu počítače?
+- Defaultní router pro nějakou síť má adresu 172.31.219.33/27. Které z následujících nastavení může být v této síti správnou adresou počítače?
+- Který záznam může být platným záznamem ve směrovací tabulce routeru B z následujícího obrázku?
+- Který záznam může být platným záznamem ve směrovací tabulce routeru A z následujícího obrázku?
+- Které tvrzení o směrování je pravdivé?
+- Vyberte správné tvrzení o principu směrovacího algoritmu.
+- Jaké kroky musí udělat klientský počítač, aby správně odeslal paket v případě, že cílový server není ve stejné síti?
+- Vyberte správné tvrzení o činnosti routeru.
+- Které tvrzení o metodách řízení směrovacích tabulek je pravdivé?
+- Označte pravdivé tvrzení o distance-vector routovacích protokolech.
+- Označte pravdivé tvrzení o link-state routovacích protokolech.
+- Jakou informaci z paketu používá každý směrovač pro určení cesty?
+- Jaké pole IP záhlaví za normálních okolností mění router?
+- Označte existující pole (sloupec) routovací tabulky.
+- Jakým příkazem můžeme vypsat obsah routovací tabulky?
+- Které pole IP záhlaví brání vzniku nekonečné smyčky při doručování?
+- Vyberte správné tvrzení o účelu nebo použití pole IP záhlaví označovaného jako TTL (Time To Live).
+- Pokud má počítač špatně nastaven defaultní router, co nebude moci?
+- Jaký účel plní default gateway?
+- Co se stane, pokud cíl není nalezen v routovací tabulce?
+- Která z charakteristik IP filtrování je správná?
+- Která z charakteristik překladu adres (NAT) je správná?
+- Která z charakteristik proxy serveru je správná?
+- Které zařízení/prostředek implementuje bezpečnostní politiku lokální sítě vůči internetu?
+- Které tvrzení o ARP je pravdivé?
+- Počítač na obrázku poslal HTTP request, který dorazil na server. Jaké tvrzení o obsahu ARP tabulek na notebooku, switchi, routeru a serveru je pravdivé?
+- Jaké funkce plní ICMP (Internet Control Message Protocol)?
+- Označte pravdivé tvrzení o vztahu linkové a fyzické vrstvy v OSI a TCP/IP.
+- Co označuje termín LLC (Logical Link Control)?
+- Co označuje termín MAC (Media Access Control)?
+- Které tvrzení o deterministickém a nedeterministickém přístupu k médiu je pravdivé?
+- Které tvrzení o topologii sítě je pravdivé?
+- Které z tvrzení o Ethernetu je správné?
+- Které tvrzení o WiFi je správné?
+- Co je základní funkcí CSMA/CD?
+- Jak lze charakterizovat repeater, hub, bridge a switch?
+- S jakými adresami pracuje hub, přepínač resp. směrovač?
+- Jak lze charakterizovat Spanning Tree Protocol resp. Spanning Tree Algorithm?
+- Jaké tvrzení o VLAN je pravdivé?
+- Co označuje termín CRC?
+- Jaký hlavní smysl má zápatí (trailer) linkového rámce?
+- Kolikrát proběhne výpočet CRC (pro Frame Check Sequence) během přenosu zprávy mezi koncovými zařízeními na obrázku?
+- Kolikrát proběhne výpočet CRC (pro Frame Check Sequence) během přenosu zprávy mezi koncovými zařízeními na obrázku?
+- Do hubu jsou zapojeny stanice A, B, C a D. Stanice A je právě uprostřed vysílání rámce stanici D, když stanice B potřebuje vysílat data stanici C. Co musí stanice B udělat?
+- Do switche jsou zapojeny stanice A, B, C a D. Stanice A je právě uprostřed vysílání rámce stanici D, když stanice B potřebuje vysílat data stanici C. Co musí stanice B udělat?
+- Které tvrzení o médiích používaných v počítačových sítích je správné?
+- Kolik vodičů obsahuje kabel označovaný jako nestíněná kroucená dvoulinka (UTP)?
+- Jaké tvrzení o kabelech pro propojení dvou uzlů ethernetové sítě je pravdivé?
+- Jaký je rozdíl mezi jednovidovým (SM) a mnohovidovým (MM) optickým kabelem?
+- Jaký typ adres se používá na linkové vrstvě?
+- Jaký typ adres se používá na fyzické vrstvě?
+- Označte pravdivé tvrzení týkající se MAC adres (ve fungující síti).
+- V jakém případě není nutná adresace cílového počítače?
+- Se kterou vrstvou OSI je svázán pojem Ethernet?
