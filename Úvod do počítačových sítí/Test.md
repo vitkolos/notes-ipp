@@ -1,22 +1,76 @@
 # Test
 
-- Porovnání metody přepojování paketů a přepojování okruhů
+- porovnání metody přepojování paketů a přepojování okruhů
 	- přepojování okruhů – všechna data jdou jednou cestou
 		- rychlejší, plynulejší, ale při výpadku uzlu se spojení rozpadne
 	- přepojování paketů – data se rozdělí na packety, každý může jít jinou cestou; výpadek uzlu není fatální
-- Jaké charakteristiky z hlediska přenosových parametrů mají následující typy aplikací resp. protokolů?
-	- 
-- Který z následujících termínů nepatří mezi přenosové parametry počítačové sítě?
-- Které z následujících tvrzení týkajících se WAN je pravdivé?
-- Které z následujících tvrzení týkajících se LAN je pravdivé?
-- Které tvrzení charakterizuje Diffie-Hellmanův algoritmus?
-- Které tvrzení charakterizuje Dijkstrův algoritmus?
-- Na jakém principu funguje šifrování elektronické pošty?
-- Na jakém principu funguje elektronický podpis?
-- Jaké tvrzení o symetrických a asymetrických šifrovacích algoritmech je pravdivé?
-- Jaké vlastnosti musí splňovat hashovací algoritmus pro použití v kryptografii?
-- Které tvrzení o klíčích a certifikátech je pravdivé?
-- Jaké tvrzení o SSL resp. TLS je pravdivé?
+- typy aplikací/protokolů a jejich přenosové parametry (požadavky)
+	- multimediální aplikace – je důležité pravidelné doručování (nízký jitter), naopak ztrátovost nebo vyšší zpoždění (latence) až tak nevadí
+	- telefonní hovory – nízké zpoždění
+	- web, e-mail – nízká ztrátovost dat (latence ani jitter nevadí)
+- přenosové parametry počítačové sítě
+	- zpoždění (latence, delay) – doba mezi odesláním a doručením
+	- pravidelnost doručování (jitter, rozptyl zpoždění)
+	- ztrátovost dat – jak často dochází k nedoručení packetu
+	- šířka pásma (bandwidth, „rychlost“) – množství dat, která lze zakódovat a přenášet pomocí fyzických signálů
+- WAN
+	- rozlehlá síť (wide area network)
+	- mnoho vlastníků, distribuované řízení
+	- přenos dat na větší vzdálenosti
+	- dělí se na tři vrstvy – Tier 1 (páteřní operátoři), Tier 2 (regionální/národní operátoři), Tier 3 (operátoři, kteří připojují koncové zákazníky)
+- LAN
+	- lokální síť (local area network)
+	- jednotné vlastnictví a řízení
+	- sdílení prostředků (tiskáren, souborů)
+	- přenos dat na menší vzdálenosti
+	- dělí se na tři vrstvy – core (router připojený na ISP), distribuční (switche) a access vrstvu (koncová zařízení)
+- Diffie-Hellmanův algoritmus
+	- způsob výměny informací mezi dvěma partnery posílanými nezabezpečeným kanálem tak, aby oba získali sdílenou tajnou informaci (např. symetrický šifrovací klíč)
+	- základ řady protokolů založených na symetrické kryptografii
+	- je založen na umocňování, prvočíslech a operaci modulo (jednocestná funkce)
+- Dijkstrův algoritmus
+	- nalezení nejkratší cesty v grafu
+	- je používán routovacím protokolem OSPF (Open Shortest Path First)
+	- při přidání hrany/vrcholu je nutné přepočítat
+	- RIP (Routing Information Protocol) ho nepoužívá – nejkratší cestu hledá pomocí Bellman-Fordova algoritmu
+- šifrování elektronické pošty
+	- zpráva se zašifruje symetricky pomocí náhodně vygenerovaného klíče
+	- tento symetrický klíč se asymetricky zašifruje veřejným klíčem příjemce
+	- symetricky šifrovaná zpráva i asymetricky šifrovaný symetrický klíč se odešlou příjemci
+	- příjemce dešifruje symetrický klíč pomocí svého soukromého klíče
+	- následně symetrickým klíčem dešifruje text zprávy
+- elektronický podpis
+	- odesílatel vypočte hash podepisovaného textu (pomocí určité hashovací funkce)
+	- tento hash asymetricky zašifruje svým soukromým klíčem
+	- zašifrovaný hash společně s parametry použité hashovací funkce je připojen k textu jako elektronický podpis
+	- příjemce sám vypočte hash textu
+	- pomocí veřejného klíče odesílatele dešifruje zaslaný hash
+	- tyto dva hashe porovná
+- symetrické a asymetrické šifrování
+	- symetrické šifrování
+		- pro šifrování a dešifrování se používá stejný klíč
+		- příklady: DES, Blowfish, AES, RC4
+		- výhoda: rychlé, vhodné na velká data
+		- nevýhoda: je nutné bezpečně předat klíč
+	- asymetrické šifrování
+		- používá se pár klíčů (veřejný a soukromý)
+		- matematický základ – jednocestné funkce (násobení vs. rozklad na prvočinitele, operace modulo)
+		- příklady: RSA, DSA, ECDSA
+		- výhoda: odpadá problém předání klíče
+		- nevýhoda: pomalé, lze šifrovat jen malá data
+		- zásadní problém: je třeba ověřit autenticitu veřejného klíče
+- vlastnosti kryptografické hashovací funkce
+	- malá změna textu musí způsobit velkou změnu hashe
+	- jednocestnost (text z hashe nelze odvodit)
+	- nelze jednoduše najít jiný text se stejným hashem
+- klíče a certifikáty
+	- certifikát je klíč doplněný o identifikaci vlastníka a podepsaný vydavatelem (např. certifikační autoritou – CA)
+	- abychom mohli důvěřovat certifikátu (autenticitě klíče), musíme důvěřovat alespoň jedné CA v řetězci důvěry (každá CA má svůj certifikát podepsaný další CA – ta je typicky známější/důvěryhodnější)
+- SSL, TLS
+	- Secure Socket Layer – Transport Layer Security
+	- mezivrstva mezi transportní a aplikační vrstvou umožňující autentizaci a šifrování
+	- využívá ji řada protokolů (např. HTTPS)
+	- server na základě požadavku klienta pošle svůj certifikát, klient a server se následně dohodnou na šifrovacím klíči
 - Označte nepravdivé tvrzení ohledně vrstevnaté struktury sítí.
 - Jak spolupracují vrstvy vertikálně?
 - Co nepatří mezi funkce protokolu?
