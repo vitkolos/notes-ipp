@@ -71,13 +71,45 @@
 	- mezivrstva mezi transportní a aplikační vrstvou umožňující autentizaci a šifrování
 	- využívá ji řada protokolů (např. HTTPS)
 	- server na základě požadavku klienta pošle svůj certifikát, klient a server se následně dohodnou na šifrovacím klíči
-- Označte nepravdivé tvrzení ohledně vrstevnaté struktury sítí.
-- Jak spolupracují vrstvy vertikálně?
-- Co nepatří mezi funkce protokolu?
-- Zvolte nesprávnou definici pojmů segmentace, fragmentace, multiplexing a zapouzdření.
+- vrstevnatá struktura sítí
+	- výhody vrstevnatosti: snazší dekompozice a popis dílčích problémů, snadná změna technologie, úspora zdrojů díky spolupráci vrstev
+	- síťový (referenční) model – určuje počet a strukturu vrstev, rozdělení práce mezi vrstvy; např. ISO/OSI
+	- síťová architektura – síťový model + komunikační technologie + služby a protokoly; např. TCP/IP
+- vertikální spolupráce vrstev
+	- každá vrstva má na starost něco jiného
+	- vrstvy si postupně předávají data a řídicí informace (na straně odesílatele v jednom směru, na straně příjemce v druhém)
+	- encapsulation – řídicí informace pro jednotlivé vrstvy jsou zabaleny uvnitř dat
+- funkce protokolu
+	- protokol = sada pravidel správného chování (konvence/standard elektronické komunikace)
+	- protokol definuje průběh dialogu na obou stranách, formát zpráv, typy zpráv, sémantiku zpráv a informačních polí, interakci s dalšími vrstvami
+- segmentace, fragmentace, multiplexing a zapouzdření
+	- segmentace – rozdělení dat do menších bloků na transportní vrstvě
+	- fragmentace – rozdělení packetu na síťově vrstvě, aby velikost (délka) odpovídala požadavkům (MTU – maximum transmission unit) linkové vrstvy
+	- multiplexing – několik komunikačních kanálů v jedné vrstvě používá stejný kanál v podřízené vrstvě
+	- zapouzdření – každá vrstva data nějak zpracuje a přidá před ně hlavičku s informacemi o tom, jak byla zpracována (a výsledek předá dál)
 - Jak budou vypadat zdrojové a cílové IP a MAC adresy paketu poslaného z notebooku na server na trase mezi routerem A a B?
+	- zdrojová IP – notebook (pokud dochází k překladu adres, tak jde o adresu routeru A s vyhrazeným portem)
+	- zdrojová MAC – router A
+	- cílová IP – server
+	- cílová MAC – router B
 - Jak budou vypadat zdrojové a cílové IP a MAC adresy paketu poslaného jako odpověď serveru na požadavek z notebooku při průchodu podsítí označenou III?
-- Označte pravdivé tvrzení o peer-to-peer (P2P) resp. klient-server aplikačních modelech.
+	- záleží na konkrétním příkladu, ale pravděpodobně nějak takto:
+	- zdrojová IP – server 
+	- zdrojová MAC – nejbližší zdrojové zařízení v dané podsíti
+	- cílová IP – notebook (pokud na cestě dochází k překladu adres, tak adresa jde o adresu routeru)
+	- cílová MAC – nejbližší cílové zařízení v dané podsíti
+- peer-to-peer (P2P) a klient-server aplikační modely
+	- model klient-server
+		- klient zná pevnou adresu serveru
+		- klient navazuje komunikaci, zadává požadavky
+		- server obvykle obsluhuje více klientů
+		- download = tok dat server → klient
+		- upload = tok dat klient → server
+		- např. DNS, WWW, SMTP
+	- model peer-to-peer
+		- partneři neznají pevné adresy „zdroje dat“
+		- nejsou vyhraněné role – každý je zároveň klientem i serverem
+		- např. Napster, Gnutella, BitTorrent
 - Které tvrzení týkající se URI je správné?
 - Které z následujících tvrzení o doménových jménech je pravdivé?
 - Jaký krok následuje poté, co www server připraví text stránky, rozdělí ho a naformátuje do TCP segmentů?
