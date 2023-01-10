@@ -249,17 +249,48 @@
 	- odesílatel není nikdy jistý
 	- podobně nelze spoléhat na obsah či hlavičku dopisu
 - Jak označujeme protokol, kterým se přenášejí webové stránky?
+	- HTTP (Hypertext Transfer Protocol)
 - Co označuje zkratka HTML?
-- Které tvrzení o povaze HTTP protokolu je správné?
-- Jaké tvrzení týkající se cookies je správné?
+	- Hypertext Markup Language – hypertextový značkovací jazyk
+- povaha HTTP protokolu
+	- port 80 (HTTPS 443), typicky TCP
+	- formát – úvodní řádek, doplňující hlavičky, tělo dokumentu
+	- odpovědí na jeden požadavek je obvykle jeden dokument
+	- po jednom spojení může jít více požadavků
+	- požadavky jsou nezávislé, komunikace je bezestavová, stav je nutno přenášet jako dodatečná data (cookies)
+- cookies
+	- data, která vygeneruje server na základě informací od uživatele a pošle je klientovi při odpovědi ve formě hlaviček Set-Cookie
+	- prohlížeč si data uloží a posílá je posléze ve formě hlavičky Cookie při každém dalším požadavku na stejný server
+	- cookies umožňují sledování uživatelů napříč weby (při používání reklamních systémů apod.)
 - Jakým způsobem klient obvykle předává serveru data vyplněná uživatelem do ovládacích prvků dialogu?
-- Která z následujících metod ("příkazů") existuje v HTTP protokolu?
-- Které tvrzení o možnostech autora ovlivnit dynamickou povahu stránek je nesprávné?
-- Vyberte správné tvrzení o dynamických WWW stránkách.
-- Které tvrzení popisuje správně problematiku vzdáleného přihlášení pomocí protokolů telnet a SSH?
-- Které tvrzení o bezpečnosti přístupu přes SSH je správné?
+	- v těle POST požadavku nebo v URL při GET požadavku
+- metody HTTP protokolu
+	- GET, HEAD, POST, PUT, DELETE, CONNECT
+- jak může být web dynamický
+	- na klientovi – pomocí JavaScriptu (a dalších frontendových technologií)
+	- na serveru – pomocí PHP nebo jiných server-side jazyků
+- dynamické webové stránky
+	- na klientovi – pomocí JavaScriptu (a dalších frontendových technologií)
+	- na serveru – pomocí PHP nebo jiných server-side jazyků
+- problematika vzdáleného přihlášení pomocí protokolů Telnet a SSH
+	- Telnet
+		- telecommunication network
+		- uživatel má k dispozici síťový virtuální terminál (NVT), protokol přenáší oběma směry znaky a příkazy pro řízení NVT
+		- slabiny: nerozlišuje příkaz a odpověď, otevřený přenos dat
+	- SSH
+		- secure shell
+		- slouží ke vzdálenému přihlášení a přenosům souborů, je zabezpečený
+- bezpečnost přístupu přes SSH
+	- klient ověřuje server – na základě kontroly klíče nebo certifikátu
+	- server ověřuje uživatele – pomocí hesla / pomocí výzev a odpovědí (OTP) / pomocí veřejného klíče
+	- strategie používání klíčů
+		- důkladně ověřovat klíč serveru, dát pozor při změně
+		- na méně důležité cíle je možné i bez hesla, ale rozhodně nikoliv recipročně (A→B i B→A)
 - Co označuje pojem VoIP (Voice over IP)?
+	- technologie pro přenos hlasu po IP
+	- H.323, SIP, Skype, …
 - Co označuje pojem SIP (Session Initiation Protocol)?
+	- VoIP protokol zajišťující pouze signalizaci související s telefonováním
 - Jak funguje protokol DHCP?
 - Jakým způsobem se synchronizují hodiny na počítačích v síti?
 - Proč se synchronizují hodiny na počítačích v síti?
