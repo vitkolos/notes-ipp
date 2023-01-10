@@ -103,14 +103,20 @@
 		- klient zná pevnou adresu serveru
 		- klient navazuje komunikaci, zadává požadavky
 		- server obvykle obsluhuje více klientů
-		- download = tok dat server → klient
-		- upload = tok dat klient → server
+		- download = tok dat ve směru server → klient
+		- upload = tok dat ve směru klient → server
 		- např. DNS, WWW, SMTP
 	- model peer-to-peer
 		- partneři neznají pevné adresy „zdroje dat“
 		- nejsou vyhraněné role – každý je zároveň klientem i serverem
 		- např. Napster, Gnutella, BitTorrent
-- Které tvrzení týkající se URI je správné?
+- URI
+	- uniform resource identifier – původně nadřazené pojmům URL a URN, dnes však v podstatě zaměnitelné s pojmem URL
+	- části URL
+		- schéma – následované dvojtečkou (často se shoduje s názvem protokolu)
+		- autorita – někdy prefixovaná dvojicí lomítek
+			- jméno:heslo@adresa:port
+		- cesta, ?dotaz, \#fragment
 - Které z následujících tvrzení o doménových jménech je pravdivé?
 - Jaký krok následuje poté, co www server připraví text stránky, rozdělí ho a naformátuje do TCP segmentů?
 - Jaký krok následuje poté, co www klient zjistí adresu cílového serveru a připraví paket v protokolu IP k odeslání?
