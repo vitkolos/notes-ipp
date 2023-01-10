@@ -117,44 +117,137 @@
 		- autorita – někdy prefixovaná dvojicí lomítek
 			- jméno:heslo@adresa:port
 		- cesta, ?dotaz, \#fragment
-- Které z následujících tvrzení o doménových jménech je pravdivé?
+- doménová jména
+	- domény nejvyšší úrovně (TLD) spravuje ICANN – příklady: arpa, com, org, edu, net, info, cz, eu
+	- doménu cz spravuje CZ.NIC, doména nemá strukturu kategorií, nepodporuje lokalizovaná jména
+	- domény druhé úrovně (tedy vytváření domén třetí úrovně) spravují jejich majitelé
 - Jaký krok následuje poté, co www server připraví text stránky, rozdělí ho a naformátuje do TCP segmentů?
+	- předá data softwaru síťové vrstvy k odeslání
+	- síťová vrstva vezme segment, přidá své záhlaví se zdrojovou a cílovou IP adresou a číslem protokolu transportní vrstvy a vytvoří packet
+	- poté zkontroluje cílovou adresu, zda lze packet doručit přímo, nebo je třeba použít next-hop router
+	- packet je následně předán softwaru linkové vrstvy
 - Jaký krok následuje poté, co www klient zjistí adresu cílového serveru a připraví paket v protokolu IP k odeslání?
+	- předá ho softwaru linkové vrstvy, ten přidá své záhlaví s cílovou a zdrojovou MAC adresou a číslem protokolu síťové vrstvy
+	- PDU (protocol data unit) linkové vrstvy navíc obsahuje zápatí s FCS (frame check sequence) – to je „kontrolní součet“ obsahu rámce
 - Jaký krok následuje poté, co počítač, na kterém běží www server, přečte ethernetový rámec od síťové karty?
-- Co patří mezi úkoly aplikační vrstvy v TCP/IP modelu?
-- Označte úkol, který není předmětem činnosti žádného protokolu transportní vrstvy.
-- Co nepatří mezi úkoly síťové vrstvy v TCP/IP modelu?
+	- linková vrstva přepočítá FCS a ověří, zda odpovídá zaslané hodnotě
+	- dále zkontroluje MAC adresu
+	- data předá síťové vrstvě – ta zkontroluje IP adresu a předá segment transportní vrstvě
+- úkoly aplikační vrstvy v TCP/IP modelu
+	- spojuje funkce OSI 5, 6, 7 – určuje pravidla komunikace mezi klientem a serverem, stav dialogu a interpretaci dat
+- činnosti protokolů transportní vrstvy
+	- transportní vrstva zodpovídá za end-to-end přenos dat
+	- zprostředkovává služby sítě aplikačním protokolům
+	- umožňuje provozování více aplikací (klientů a serverů) na stejném uzlu sítě
+	- volitelně (funkce TCP)
+		- zabezpečuje spolehlivost přenosu dat
+		- segmentuje data pro snazší přenos a opětovně je skládá ve správném pořadí
+		- řídí tok dat
+- úkoly síťové vrstvy v TCP/IP modelu
+	- přenos dat předaných transportní vrstvou od zdroje k cíli
+	- adresace – protokol síťové vrstvy definuje tvar adres
+	- routing (směrování) – vyhledání nejvhodnější cesty k cílovému počítači
+	- forwarding (přeposílání) – předání dat ze vstupního síťového rozhraní na výstupní
+	- encapsulation (zapouzdření) – zabalení dat k odeslání, předání linkové vrstvě
+	- decapsulation – vybalení dat a předání transportní vrstvě
 - Jaké je správné pořadí vrstev OSI modelu od nejvyšší po nejnižší?
-- Vyberte správné tvrzení o účelu a principu programu ping.
+	- 7 aplikační, 6 prezentační, 5 relační, 4 transportní, 3 síťová, 2 linková, 1 fyzická
+- program ping
+	- základní prostředek pro diagnostiku sítě
+	- slouží k testování dostupnosti vzdáleného uzlu sítě
+	- používá zprávy ICMP Echo a ICMP Echo reply
 - Co můžeme usoudit, pokud zavoláme program ping na adresu 127.0.0.1 s výsledkem: 4 packets transmitted, 0 packets received, 100.0% packet loss
+	- na našem počítači je špatně konfigurovaný software síťové vrstvy
 - Uživateli nejde zobrazit WWW stránka. Při použití IP adresy v URL se stránka správně zobrazí. Který protokol je zodpovědný za chybu?
-- Uživatel přesunul počítač do jiné podsítě v síti bez VLSM (Variable Length Subnet Mask) a Proxy ARP. Které z.následujících nastavení bude muset zcela jistě změnit?
+	- DNS
+- Uživatel přesunul počítač do jiné podsítě v síti bez VLSM (Variable Length Subnet Mask) a Proxy ARP. Které z následujících nastavení bude muset zcela jistě změnit?
+	- nic
 - Jakým způsobem se v aplikačních protokolech TCP/IP řeší zápis textových řádek?
+	- pomocí ASCII, na konce řádků se používají znaky CR, LF
 - Jakým způsobem se v aplikačních protokolech TCP/IP obvykle řeší binární zápis celých čísel?
-- Který z následujících protokolů se používá v TCP/IP na transportní vrstvě?
-- Který z následujících protokolů není protokolem aplikační vrstvy TCP/IP?
-- Který z následujících protokolů se používá v TCP/IP na aplikační vrstvě?
+	- bajty se obvykle posílají v big endian pořadí
+- protokoly transportní vrstvy v TCP/IP
+	- TCP, UDP
+	- dále SCTP, DCCP, MPTCP
+- protokoly aplikační vrstvy TCP/IP
+	- FTP, HTTP, SMTP
+	- DNS, SIP
+	- NFS, XDR, RPC
+- protokoly aplikační vrstvy TCP/IP
+	- FTP, HTTP, SMTP
+	- DNS, SIP
+	- NFS, XDR, RPC
+	- Telnet, SSH
 - Co označuje zkratka STP?
-- Které z následujících tvrzení správně popisuje činnost konkrétního aplikačního protokolu?
+	- kabel s kovovým stíněním – tedy stíněná kroucená dvojlinka (shilded twisted pair)
+	- spanning tree algoritmus – algoritmus na hledání kostry v grafu sítě, zabraňuje zacyklení přeposílání rámců
+- činnosti aplikačních protokolů
+	- SIP – internetová telefonie
+	- NFS – přístup k souborům
+	- XDR – serializace dat
+	- RPC – vzdálené volání procedur
+	- Telnet – vzdálený terminál
+	- SSH – vzdálený zabezpečený terminál
+	- další jsou poměrně známé
 - Který aplikační protokol se používá k přenosu souborů?
+	- FTP
 - Který aplikační protokol (resp. sada protokolů) se používá pro VoIP?
+	- H.323, SIP
 - Který aplikační protokol se používá pro elektronickou poštu?
+	- SMTP, POP3, IMAP
 - Který aplikační protokol se používá pro sdílení systému souborů?
+	- NFS, SMB
 - Který aplikační protokol se používá pro zjišťování IP adres odpovídajících jménům strojů?
-- Které z následujících tvrzení o RFC je pravdivé?
-- Které z následujících tvrzení o povaze DNS protokolu je správné?
-- Které tvrzení správně popisuje obvyklou implementaci služby operačního systému "zjisti IP adresu pro dané doménové jméno"?
-- Které tvrzení o bezpečnostních aspektech protokolu DNS je správné?
-- Označte správné tvrzení o nameserverech.
+	- DNS
+- RFC
+	- request for comments
+	- prostředek standardizace internetu
+	- je volně šiřitelné
+	- různý charakter – standardy, informace, návody
+	- zdaleka ne všichni RFC dodržují
+- DNS
+	- domain name system
+	- klient-server aplikace pro překlad jmen na adresy a naopak
+	- binární protokol nad UDP i TCP (běžné dotazy se vyřizují pomocí UDP)
+	- jednotkou dat je záznam
+- Jak je obvykle implementována služba operačního systému „zjisti IP adresu pro dané doménové jméno“?
+	- klient postupně posílá dotazy na servery, které má ve své konfiguraci
+	- přičemž postupně zvyšuje timeout požadavků, dokud odpověď nedostane
+- bezpečnostní aspekty protokolu DNS
+	- není snadné dostat se ke znění dotazu, aby bylo možné podvrhnout odpověď
+	- cache poisoning útok – do korektní odpovědi útočník do sekce authority a additional přidá falešné údaje o jiné doméně
+	- podpisy zabezpečené DNS – DNSSEC, podepisování záznamů
+- nameservery
+	- vyřizují DNS požadavky na domény
+	- ke každé doméně je přiřazen alespoň jeden nameserver
+	- primární NS spravuje záznamy o doméně, sekundární stahují a uchovávají kopii dat o doméně, caching-only NS udržuje výsledky již vyřešených (a případně nevyřešených) dotazů po dobu jejich platnosti
 - Jakou TLD (Top Level Domain) najdeme v následujícím URI? ftp://sunsite.mff.cuni.cz/Network/RFCs/rfc-index.txt
-- Které z následujících tvrzení o používání poštovních protokolů je správné?
-- Které z následujících tvrzení o roli jednotlivých komponent v přenosu elektronické pošty je pravdivé?
-- Které z následujících tvrzení o SMTP protokolu je správné?
-- Které tvrzení o rozšířeních protokolu SMTP pro přenos souborů a diakritiky je správné?
-- Označte hlavičku, která se dle RFC 822 v dopisech nevyskytuje.
-- Který příkaz není příkazem SMTP protokolu podle RFC 821?
-- Které tvrzení o bezpečnostních aspektech poštovních protokolů je správné?
-- Které tvrzení o autenticitě původu dopisu je správné?
+	- cz
+- používání poštovních protokolů
+	- SMTP – odesílání
+	- POP, IMAP – čtení
+- role jednotlivých komponent v přenosu elektronické pošty
+	- na začátku poštu převezme SMTP server v lokální síti (mail-forwarder)
+	- během přenosu si poštu předá několik mail transfer agentů (MTA)
+	- nakonec se pošta předá mail exchangeru podle MX záznamu domény
+- SMTP protokol
+	- slouží k odesílání pošty
+	- nemá obecně povinnou autentikaci, takže může být problém se vzdáleným odesláním
+- rozšíření protokolu SMTP pro přenos souborů a diakritiky
+	- původně UUENCODE
+	- později MIME – tělo dokumentu je strukturované, dvě základní metody kódování (Base64 a Quoted-Printable)
+- hlavičky, které se dle RFC 822 vyskytují v dopisech
+	- date, from, sender, reply-to, to, cc, bcc, message-id, subject, received
+- příkazy SMTP protokolu podle RFC 821
+	- MAIL FROM, RCP TO, DATA, QUIT
+- bezpečnostní aspekty poštovních protokolů
+	- běžný server by měl posílat maily lokálních uživatelů komukoliv, ostatní maily pouze lokálním uživatelům
+	- při prvotním vložením mailu do systému může server požadovat autentizaci pomocí ESMTP příkazu AUTH
+	- klient může pomocí ESMTP příkazu STARTTLS požádat o zahájení SSL/TLS spojení
+	- dopis je otevřená listovní zásilka – řešením je šifrování
+- autenticita původu dopisu
+	- odesílatel není nikdy jistý
+	- podobně nelze spoléhat na obsah či hlavičku dopisu
 - Jak označujeme protokol, kterým se přenášejí webové stránky?
 - Co označuje zkratka HTML?
 - Které tvrzení o povaze HTTP protokolu je správné?
