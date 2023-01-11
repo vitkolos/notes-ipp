@@ -493,6 +493,7 @@
 	- brání vzniku nekonečné smyčky při doručování
 	- neurčuje čas, ale počet hopů, který packet ještě smí učinit
 	- při dosažení nuly se původnímu odesílateli vrátí ICMP Time Exceeded
+	- využívá ho příkaz traceroute k odhalení chybného směrování
 - Pokud má počítač špatně nastaven defaultní router, co nebude moci?
 	- nebude moci posílat packety jinam než na místa, která má ve směrovací tabulce
 - Jaký účel plní default gateway?
@@ -516,14 +517,30 @@
 	- netransparentní varianta – je třeba nakonfigurovat, aby se požadavky posílaly proxy-serveru
 	- proxy server umožňuje správě sítě kontrolovat činnost klientů a omezit objem provozu
 - Které zařízení/prostředek implementuje bezpečnostní politiku lokální sítě vůči internetu?
-- Které tvrzení o ARP je pravdivé?
+	- router (směrovač)
+- ARP
+	- konverze MAC (např. Ethernet) a síťových (např. IP) adres
+	- neznámé adresy se zjišťují broadcastovou výzvou
+	- výsledky se ukládají do ARP cache
+	- unicastová odpověď, nelze ověřit její správnost
+	- linková vrstva (OSI 2)
 - Počítač na obrázku poslal HTTP request, který dorazil na server. Jaké tvrzení o obsahu ARP tabulek na notebooku, switchi, routeru a serveru je pravdivé?
+	- notebook musí mít v ARP tabulce adresu switche, switch adresu routeru a router adresu serveru (a naopak)
 - Jaké funkce plní ICMP (Internet Control Message Protocol)?
-- Označte pravdivé tvrzení o vztahu linkové a fyzické vrstvy v OSI a TCP/IP.
+	- posílání řídících informací pro IP – testování dosažitelnosti, nedostupnost, vypršení TTL, vyhledávání routerů, výzva ke změně záznamu v routovací tabulce, …
+- vztah linkové a fyzické vrstvy v OSI a TCP/IP
+	- TCP/IP se jimi nezabývá
+	- v OSI se fyzická vrstva stará o doručení framů, tedy packetů obalených informacemi z linkové vrstvy (MAC adresy, číslo protokolu síťové vrstvy, FCS)
 - Co označuje termín LLC (Logical Link Control)?
+	- je to horní podvrstva linkové vrstvy, která zajišťuje multiplexing (různé protokoly síťové vrstvy mají přístup ke stejnému médiu)
 - Co označuje termín MAC (Media Access Control)?
-- Které tvrzení o deterministickém a nedeterministickém přístupu k médiu je pravdivé?
-- Které tvrzení o topologii sítě je pravdivé?
+	- je to spodní podvrstva linkové vrstvy, která má na starosti adresaci a řízení přístupu jednotlivých uzlů k fyzickému médiu
+- deterministický a nedeterministický přístup k médiu
+	- deterministický přístup – je určeno, kdo v dané chvíli smí vysílat (určuje to zvláštní uzel nebo třeba token)
+	- nedeterministické řízení – nikdo neomezuje uzly ve vysílání
+- topologie sítě
+	- multipoint – sběrnice, hvězda, kruh
+	- point-to-point – kabelem, přes modemy, bezdrátově
 - Které z tvrzení o Ethernetu je správné?
 - Které tvrzení o WiFi je správné?
 - Co je základní funkcí CSMA/CD?
