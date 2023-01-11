@@ -116,7 +116,7 @@
 		- schéma – následované dvojtečkou (často se shoduje s názvem protokolu)
 		- autorita – někdy prefixovaná dvojicí lomítek
 			- jméno:heslo@adresa:port
-		- cesta, ?dotaz, #fragment
+		- cesta?dotaz#fragment
 - doménová jména
 	- domény nejvyšší úrovně (TLD) spravuje ICANN – příklady: arpa, com, org, edu, net, info, cz, eu
 	- doménu cz spravuje CZ.NIC, doména nemá strukturu kategorií, nepodporuje lokalizovaná jména
@@ -359,17 +359,39 @@
 		- ⇐ SYN, ACK ~ Seq# s ~ Ack# c+1
 		- ACK ~ Seq# c+1 ~ Ack# s+1 ⇒
 - Co se stane, když jeden z partnerů pošle TCP paket s FIN příznakem?
+	- dojde k uzavření spojení – druhá strana odpoví ACK a následně také pošle FIN (na něj opět dostane odpověď ACK)
 - Se kterou vrstvou TCP/IP je svázán pojem port?
+	- s transportní vrstvou (OSI 4)
 - K čemu se používají porty v OSI 4?
-- Označte termín, který není funkcí síťové vrstvy.
+	- k rozlišení komunikačních kanálů – každá aplikace používá jiný port (i když na serveru používá stejnou službu)
+- funkce síťové vrstvy
+	- přenos dat předaných transportní vrstvou od zdroje k cíli
+	- adresace – protokol síťové vrstvy definuje tvar adres
+	- routing (směrování) – vyhledání nejvhodnější cesty k cílovému počítači
+	- forwarding (přeposílání) – předání dat ze vstupního síťového rozhraní na výstupní
+	- encapsulation (zapouzdření) – zabalení dat k odeslání, předání linkové vrstvě
+	- decapsulation – vybalení dat a předání transportní vrstvě
 - Jaká informace se přidává do paketu během zapouzdření na síťové vrstvě?
+	- IP adresa zdroje a cíle, číslo protokolu transportní vrstvy
 - Jaký protokol poskytuje na síťové vrstvě službu spolehlivého přenosu dat?
+	- žádný
 - Jaký protokol poskytuje na síťové vrstvě službu nespolehlivého přenosu dat?
-- Označte nepravdivé tvrzení o přidělování IP adres.
-- Označte nesprávnou variantu, jak počítač může zjistit IP adresu, kterou smí používat.
-- Označte pravdivé tvrzení o autonomních systémech (AS)?
+	- IP
+- přidělování IP adres
+	- centrální: IANA (Internet Assigned Numbers Authority) – řízená organizací ICANN
+	- regiony: RIR (regional Internet registry) – je jich pět, v našem regionu je to RIPE NCC
+	- dále ISP různých úrovní, v lokální síti adrey přiděluje lokální správa sítě
+- jak počítač může zjistit IP adresu, kterou smí používat
+	- BOOTP, DHCP, link local adresy, administrátorem přidělena manuálně
+- autonomních systém (AS)
+	- blok sítí se společnou routovací politikou
+	- zjednodušují routování na globální úrovni
+	- uvnitř se používají interní routovací protokoly (IGP)
+	- mezi AS se routuje pomocí externích routovacích protokolů (EGP) – nejznámějším z nich je Border Gateway Protocol (BGP)
 - Kolik bitů má IPv6 adresa?
-- Který z následujících protokolů nepracuje s IP adresami?
+	- 16 bytů, tedy 128 bitů
+- protokoly pracující s IP adresami
+	- IP, 
 - Která vrstva OSI pracuje s IP adresami?
 - Jak odesilatel zprávy zjistí, jaká část cílové IP adresy přísluší síti a jaká počítači?
 - Jaká IPv4 adresa má v části pro počítač samé jedničky?
