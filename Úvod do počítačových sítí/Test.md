@@ -355,9 +355,9 @@
 	- připojování klienta na server pomocí TCP
 	- synchronizace Sequence number
 	- klient – – – – – – – – – – – – – – – – – server
-		- SYN ~ Seq# c ~ Ack# 0 →
-		- ← SYN, ACK ~ Seq# s ~ Ack# c+1
-		- ACK ~ Seq# c+1 ~ Ack# s+1
+		- SYN ~ Seq# c ~ Ack# 0 ⇒
+		- ⇐ SYN, ACK ~ Seq# s ~ Ack# c+1
+		- ACK ~ Seq# c+1 ~ Ack# s+1 ⇒
 - Co se stane, když jeden z partnerů pošle TCP paket s FIN příznakem?
 - Se kterou vrstvou TCP/IP je svázán pojem port?
 - K čemu se používají porty v OSI 4?
