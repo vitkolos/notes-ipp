@@ -1,0 +1,610 @@
+# Test
+
+>>>porovnání metody přepojování paketů a přepojování okruhů<<<
+• přepojování okruhů – všechna data jdou jednou cestou
+	• rychlejší, plynulejší, ale při výpadku uzlu se spojení rozpadne
+• přepojování packetů – data se rozdělí na packety, každý může jít jinou cestou; výpadek uzlu není fatální
+>>>typy aplikací/protokolů a jejich přenosové parametry (požadavky)<<<
+• multimediální aplikace – je důležité pravidelné doručování (nízký jitter), naopak ztrátovost nebo vyšší zpoždění (latence) až tak nevadí
+• telefonní hovory – nízké zpoždění
+• web, e-mail – nízká ztrátovost dat (latence ani jitter nevadí)
+>>>přenosové parametry počítačové sítě<<<
+• zpoždění (latence, delay) – doba mezi odesláním a doručením
+• pravidelnost doručování (jitter, rozptyl zpoždění)
+• ztrátovost dat – jak často dochází k nedoručení packetu
+• šířka pásma (bandwidth, „rychlost“) – množství dat, která lze zakódovat a přenášet pomocí fyzických signálů
+>>>WAN<<<
+• rozlehlá síť (wide area network)
+• mnoho vlastníků, distribuované řízení
+• přenos dat na větší vzdálenosti
+• dělí se na tři vrstvy – Tier 1 (páteřní operátoři), Tier 2 (regionální/národní operátoři), Tier 3 (operátoři, kteří připojují koncové zákazníky)
+>>>LAN<<<
+• lokální síť (local area network)
+• jednotné vlastnictví a řízení
+• sdílení prostředků (tiskáren, souborů)
+• přenos dat na menší vzdálenosti
+• dělí se na tři vrstvy – core (router připojený na ISP), distribuční (switche) a access vrstvu (koncová zařízení)
+>>>Diffie-Hellmanův algoritmus<<<
+• způsob výměny informací mezi dvěma partnery posílanými nezabezpečeným kanálem tak, aby oba získali sdílenou tajnou informaci (např. symetrický šifrovací klíč)
+• základ řady protokolů založených na symetrické kryptografii
+• je založen na umocňování, prvočíslech a operaci modulo (jednocestná funkce)
+>>>Dijkstrův algoritmus<<<
+• nalezení nejkratší cesty v grafu
+• je používán routovacím protokolem OSPF (Open Shortest Path First)
+• při přidání hrany/vrcholu je nutné přepočítat
+• RIP (Routing Information Protocol) ho nepoužívá – nejkratší cestu hledá pomocí Bellman-Fordova algoritmu
+>>>šifrování elektronické pošty<<<
+• zpráva se zašifruje symetricky pomocí náhodně vygenerovaného klíče
+• tento symetrický klíč se asymetricky zašifruje veřejným klíčem příjemce
+• symetricky šifrovaná zpráva i asymetricky šifrovaný symetrický klíč se odešlou příjemci
+• příjemce dešifruje symetrický klíč pomocí svého soukromého klíče
+• následně symetrickým klíčem dešifruje text zprávy
+>>>elektronický podpis<<<
+• odesílatel vypočte hash podepisovaného textu (pomocí určité hashovací funkce)
+• tento hash asymetricky zašifruje svým soukromým klíčem
+• zašifrovaný hash společně s parametry použité hashovací funkce je připojen k textu jako elektronický podpis
+• příjemce sám vypočte hash textu
+• pomocí veřejného klíče odesílatele dešifruje zaslaný hash
+• tyto dva hashe porovná
+>>>symetrické a asymetrické šifrování<<<
+• symetrické šifrování
+	• pro šifrování a dešifrování se používá stejný klíč
+	• příklady: DES, Blowfish, AES, RC4
+	• výhoda: rychlé, vhodné na velká data
+	• nevýhoda: je nutné bezpečně předat klíč
+• asymetrické šifrování
+	• používá se pár klíčů (veřejný a soukromý)
+	• matematický základ – jednocestné funkce (násobení vs. rozklad na prvočinitele, operace modulo)
+	• příklady: RSA, DSA, ECDSA
+	• výhoda: odpadá problém předání klíče
+	• nevýhoda: pomalé, lze šifrovat jen malá data
+	• zásadní problém: je třeba ověřit autenticitu veřejného klíče
+>>>vlastnosti kryptografické hashovací funkce<<<
+• malá změna textu musí způsobit velkou změnu hashe
+• jednocestnost (text z hashe nelze odvodit)
+• nelze jednoduše najít jiný text se stejným hashem
+>>>klíče a certifikáty<<<
+• certifikát je klíč doplněný o identifikaci vlastníka a podepsaný vydavatelem (např. certifikační autoritou – CA)
+• abychom mohli důvěřovat certifikátu (autenticitě klíče), musíme důvěřovat alespoň jedné CA v řetězci důvěry (každá CA má svůj certifikát podepsaný další CA – ta je typicky známější/důvěryhodnější)
+>>>SSL, TLS<<<
+• Secure Socket Layer – Transport Layer Security
+• mezivrstva mezi transportní a aplikační vrstvou umožňující autentizaci a šifrování
+• využívá ji řada protokolů (např. HTTPS)
+• server na základě požadavku klienta pošle svůj certifikát, klient a server se následně dohodnou na šifrovacím klíči
+>>>vrstevnatá struktura sítí<<<
+• výhody vrstevnatosti: snazší dekompozice a popis dílčích problémů, snadná změna technologie, úspora zdrojů díky spolupráci vrstev
+• síťový (referenční) model – určuje počet a strukturu vrstev, rozdělení práce mezi vrstvy; např. ISO/OSI
+• síťová architektura – síťový model + komunikační technologie + služby a protokoly; např. TCP/IP
+>>>vertikální spolupráce vrstev<<<
+• každá vrstva má na starost něco jiného
+• vrstvy si postupně předávají data a řídicí informace (na straně odesílatele v jednom směru, na straně příjemce v druhém)
+• encapsulation – řídicí informace pro jednotlivé vrstvy jsou zabaleny uvnitř dat
+>>>funkce protokolu<<<
+• protokol = sada pravidel správného chování (konvence/standard elektronické komunikace)
+• protokol definuje průběh dialogu na obou stranách, formát zpráv, typy zpráv, sémantiku zpráv a informačních polí, interakci s dalšími vrstvami
+>>>segmentace, fragmentace, multiplexing a zapouzdření<<<
+• segmentace – rozdělení dat do menších bloků na transportní vrstvě
+• fragmentace – rozdělení packetu na síťově vrstvě, aby velikost (délka) odpovídala požadavkům (MTU – maximum transmission unit) linkové vrstvy
+• multiplexing – několik komunikačních kanálů v jedné vrstvě používá stejný kanál v podřízené vrstvě
+• zapouzdření – každá vrstva data nějak zpracuje a přidá před ně hlavičku s informacemi o tom, jak byla zpracována (a výsledek předá dál)
+>>>Jak budou vypadat zdrojové a cílové IP a MAC adresy paketu poslaného z notebooku na server na trase mezi routerem A a B?<<<
+• zdrojová IP – notebook (pokud dochází k překladu adres, tak jde o adresu routeru A s vyhrazeným portem)
+• zdrojová MAC – router A
+• cílová IP – server
+• cílová MAC – router B
+>>>Jak budou vypadat zdrojové a cílové IP a MAC adresy paketu poslaného jako odpověď serveru na požadavek z notebooku při průchodu podsítí označenou III?<<<
+• záleží na konkrétním příkladu, ale pravděpodobně nějak takto:
+• zdrojová IP – server 
+• zdrojová MAC – nejbližší zdrojové zařízení v dané podsíti
+• cílová IP – notebook (pokud na cestě dochází k překladu adres, tak adresa jde o adresu routeru)
+• cílová MAC – nejbližší cílové zařízení v dané podsíti
+>>>peer-to-peer (P2P) a klient-server aplikační modely<<<
+• model klient-server
+	• klient zná pevnou adresu serveru
+	• klient navazuje komunikaci, zadává požadavky
+	• server obvykle obsluhuje více klientů
+	• download = tok dat ve směru server → klient
+	• upload = tok dat ve směru klient → server
+	• např. DNS, WWW, SMTP
+• model peer-to-peer
+	• partneři neznají pevné adresy „zdroje dat“
+	• nejsou vyhraněné role – každý je zároveň klientem i serverem
+	• např. Napster, Gnutella, BitTorrent
+>>>URI<<<
+• uniform resource identifier – původně nadřazené pojmům URL a URN, dnes však v podstatě zaměnitelné s pojmem URL
+• části URL
+	• schéma – následované dvojtečkou (často se shoduje s názvem protokolu)
+	• autorita – někdy prefixovaná dvojicí lomítek
+		• jméno:heslo@adresa:port
+	• cesta?dotaz#fragment
+>>>doménová jména<<<
+• domény nejvyšší úrovně (TLD) spravuje ICANN – příklady: arpa, com, org, edu, net, info, cz, eu
+• doménu cz spravuje CZ.NIC, doména nemá strukturu kategorií, nepodporuje lokalizovaná jména
+• domény druhé úrovně (tedy vytváření domén třetí úrovně) spravují jejich majitelé
+>>>Jaký krok následuje poté, co www server připraví text stránky, rozdělí ho a naformátuje do TCP segmentů?<<<
+• předá data softwaru síťové vrstvy k odeslání
+• síťová vrstva vezme segment, přidá své záhlaví se zdrojovou a cílovou IP adresou a číslem protokolu transportní vrstvy a vytvoří packet
+• poté zkontroluje cílovou adresu, zda lze packet doručit přímo, nebo je třeba použít next-hop router
+• packet je následně předán softwaru linkové vrstvy
+>>>Jaký krok následuje poté, co www klient zjistí adresu cílového serveru a připraví paket v protokolu IP k odeslání?<<<
+• předá ho softwaru linkové vrstvy, ten přidá své záhlaví s cílovou a zdrojovou MAC adresou a číslem protokolu síťové vrstvy
+• PDU (protocol data unit) linkové vrstvy navíc obsahuje zápatí s FCS (frame check sequence) – to je „kontrolní součet“ obsahu rámce
+>>>Jaký krok následuje poté, co počítač, na kterém běží www server, přečte ethernetový rámec od síťové karty?<<<
+• linková vrstva přepočítá FCS a ověří, zda odpovídá zaslané hodnotě
+• dále zkontroluje MAC adresu
+• data předá síťové vrstvě – ta zkontroluje IP adresu a předá segment transportní vrstvě
+>>>úkoly aplikační vrstvy v TCP/IP modelu<<<
+spojuje funkce OSI 5, 6, 7 – určuje pravidla komunikace mezi klientem a serverem, stav dialogu a interpretaci dat
+>>>činnosti protokolů transportní vrstvy<<<
+• transportní vrstva zodpovídá za end-to-end přenos dat
+• zprostředkovává služby sítě aplikačním protokolům
+• umožňuje provozování více aplikací (klientů a serverů) na stejném uzlu sítě
+• volitelně (funkce TCP)
+	• zabezpečuje spolehlivost přenosu dat
+	• segmentuje data pro snazší přenos a opětovně je skládá ve správném pořadí
+	• řídí tok dat
+>>>úkoly síťové vrstvy v TCP/IP modelu<<<
+• přenos dat předaných transportní vrstvou od zdroje k cíli
+• adresace – protokol síťové vrstvy definuje tvar adres
+• routing (směrování) – vyhledání nejvhodnější cesty k cílovému počítači
+• forwarding (přeposílání) – předání dat ze vstupního síťového rozhraní na výstupní
+• encapsulation (zapouzdření) – zabalení dat k odeslání, předání linkové vrstvě
+• decapsulation – vybalení dat a předání transportní vrstvě
+>>>Jaké je správné pořadí vrstev OSI modelu od nejvyšší po nejnižší?<<<
+7 aplikační, 6 prezentační, 5 relační, 4 transportní, 3 síťová, 2 linková, 1 fyzická
+>>>program ping<<<
+• základní prostředek pro diagnostiku sítě
+• slouží k testování dostupnosti vzdáleného uzlu sítě
+• používá zprávy ICMP Echo a ICMP Echo reply
+>>>Co můžeme usoudit, pokud zavoláme program ping na adresu 127.0.0.1 s výsledkem: 4 packets transmitted, 0 packets received, 100.0% packet loss<<<
+na našem počítači je špatně konfigurovaný software síťové vrstvy
+>>>Uživateli nejde zobrazit WWW stránka. Při použití IP adresy v URL se stránka správně zobrazí. Který protokol je zodpovědný za chybu?<<<
+DNS
+>>>Uživatel přesunul počítač do jiné podsítě v síti bez VLSM (Variable Length Subnet Mask) a Proxy ARP. Které z následujících nastavení bude muset zcela jistě změnit?<<<
+nic
+>>>Jakým způsobem se v aplikačních protokolech TCP/IP řeší zápis textových řádek?<<<
+pomocí ASCII, na konce řádků se používají znaky CR, LF
+>>>Jakým způsobem se v aplikačních protokolech TCP/IP obvykle řeší binární zápis celých čísel?<<<
+bajty se obvykle posílají v big endian pořadí
+>>>protokoly transportní vrstvy v TCP/IP<<<
+• TCP, UDP
+• dále SCTP, DCCP, MPTCP
+>>>protokoly aplikační vrstvy TCP/IP<<<
+• FTP, HTTP, SMTP
+• DNS, SIP
+• NFS, XDR, RPC
+>>>protokoly aplikační vrstvy TCP/IP<<<
+• FTP, HTTP, SMTP
+• DNS, SIP
+• NFS, XDR, RPC
+• Telnet, SSH
+>>>Co označuje zkratka STP?<<<
+• kabel s kovovým stíněním – tedy stíněná kroucená dvojlinka (shilded twisted pair)
+• spanning tree algoritmus – algoritmus na hledání kostry v grafu sítě, zabraňuje zacyklení přeposílání rámců
+>>>činnosti aplikačních protokolů<<<
+• SIP – internetová telefonie
+• NFS – přístup k souborům
+• XDR – serializace dat
+• RPC – vzdálené volání procedur
+• Telnet – vzdálený terminál
+• SSH – vzdálený zabezpečený terminál
+• další jsou poměrně známé
+>>>Který aplikační protokol se používá k přenosu souborů?<<<
+FTP
+>>>Který aplikační protokol (resp. sada protokolů) se používá pro VoIP?<<<
+H.323, SIP
+>>>Který aplikační protokol se používá pro elektronickou poštu?<<<
+SMTP, POP3, IMAP
+>>>Který aplikační protokol se používá pro sdílení systému souborů?<<<
+NFS, SMB
+>>>Který aplikační protokol se používá pro zjišťování IP adres odpovídajících jménům strojů?<<<
+DNS
+>>>RFC<<<
+• request for comments
+• prostředek standardizace internetu
+• je volně šiřitelné
+• různý charakter – standardy, informace, návody
+• zdaleka ne všichni RFC dodržují
+>>>DNS<<<
+• domain name system
+• klient-server aplikace pro překlad jmen na adresy a naopak
+• binární protokol nad UDP i TCP (běžné dotazy se vyřizují pomocí UDP)
+• jednotkou dat je záznam
+>>>Jak je obvykle implementována služba operačního systému „zjisti IP adresu pro dané doménové jméno“?<<<
+• klient postupně posílá dotazy na servery, které má ve své konfiguraci
+• přičemž postupně zvyšuje timeout požadavků, dokud odpověď nedostane
+>>>bezpečnostní aspekty protokolu DNS<<<
+• není snadné dostat se ke znění dotazu, aby bylo možné podvrhnout odpověď
+• cache poisoning útok – do korektní odpovědi útočník do sekce authority a additional přidá falešné údaje o jiné doméně
+• podpisy zabezpečené DNS – DNSSEC, podepisování záznamů
+>>>nameservery<<<
+• vyřizují DNS požadavky na domény
+• ke každé doméně je přiřazen alespoň jeden nameserver
+• primární NS spravuje záznamy o doméně, sekundární stahují a uchovávají kopii dat o doméně, caching-only NS udržuje výsledky již vyřešených (a případně nevyřešených) dotazů po dobu jejich platnosti
+>>>Jakou TLD (Top Level Domain) najdeme v následujícím URI? ftp://sunsite.mff.cuni.cz/Network/RFCs/rfc-index.txt<<<
+cz
+>>>používání poštovních protokolů<<<
+• SMTP – odesílání
+• POP, IMAP – čtení
+>>>role jednotlivých komponent v přenosu elektronické pošty<<<
+• na začátku poštu převezme SMTP server v lokální síti (mail-forwarder)
+• během přenosu si poštu předá několik mail transfer agentů (MTA)
+• nakonec se pošta předá mail exchangeru podle MX záznamu domény
+>>>SMTP protokol<<<
+• slouží k odesílání pošty
+• nemá obecně povinnou autentikaci, takže může být problém se vzdáleným odesláním
+>>>rozšíření protokolu SMTP pro přenos souborů a diakritiky<<<
+• původně UUENCODE
+• později MIME – tělo dokumentu je strukturované, dvě základní metody kódování (Base64 a Quoted-Printable)
+>>>hlavičky, které se dle RFC 822 vyskytují v dopisech<<<
+date, from, sender, reply-to, to, cc, bcc, message-id, subject, received
+>>>příkazy SMTP protokolu podle RFC 821<<<
+MAIL FROM, RCP TO, DATA, QUIT
+>>>bezpečnostní aspekty poštovních protokolů<<<
+• běžný server by měl posílat maily lokálních uživatelů komukoliv, ostatní maily pouze lokálním uživatelům
+• při prvotním vložením mailu do systému může server požadovat autentizaci pomocí ESMTP příkazu AUTH
+• klient může pomocí ESMTP příkazu STARTTLS požádat o zahájení SSL/TLS spojení
+• dopis je otevřená listovní zásilka – řešením je šifrování
+>>>autenticita původu dopisu<<<
+• odesílatel není nikdy jistý
+• podobně nelze spoléhat na obsah či hlavičku dopisu
+>>>Jak označujeme protokol, kterým se přenášejí webové stránky?<<<
+HTTP (Hypertext Transfer Protocol)
+>>>Co označuje zkratka HTML?<<<
+Hypertext Markup Language – hypertextový značkovací jazyk
+>>>povaha HTTP protokolu<<<
+• port 80 (HTTPS 443), typicky TCP
+• formát – úvodní řádek, doplňující hlavičky, tělo dokumentu
+• odpovědí na jeden požadavek je obvykle jeden dokument
+• po jednom spojení může jít více požadavků
+• požadavky jsou nezávislé, komunikace je bezestavová, stav je nutno přenášet jako dodatečná data (cookies)
+>>>cookies<<<
+• data, která vygeneruje server na základě informací od uživatele a pošle je klientovi při odpovědi ve formě hlaviček Set-Cookie
+• prohlížeč si data uloží a posílá je posléze ve formě hlavičky Cookie při každém dalším požadavku na stejný server
+• cookies umožňují sledování uživatelů napříč weby (při používání reklamních systémů apod.)
+>>>Jakým způsobem klient obvykle předává serveru data vyplněná uživatelem do ovládacích prvků dialogu?<<<
+v těle POST požadavku nebo v URL při GET požadavku
+>>>metody HTTP protokolu<<<
+GET, HEAD, POST, PUT, DELETE, CONNECT
+>>>jak může být web dynamický<<<
+• na klientovi – pomocí JavaScriptu (a dalších frontendových technologií)
+• na serveru – pomocí PHP nebo jiných server-side jazyků
+>>>dynamické webové stránky<<<
+• na klientovi – pomocí JavaScriptu (a dalších frontendových technologií)
+• na serveru – pomocí PHP nebo jiných server-side jazyků
+>>>problematika vzdáleného přihlášení pomocí protokolů Telnet a SSH<<<
+• Telnet
+	• telecommunication network
+	• uživatel má k dispozici síťový virtuální terminál (NVT), protokol přenáší oběma směry znaky a příkazy pro řízení NVT
+	• slabiny: nerozlišuje příkaz a odpověď, otevřený přenos dat
+• SSH
+	• secure shell
+	• slouží ke vzdálenému přihlášení a přenosům souborů, je zabezpečený
+>>>bezpečnost přístupu přes SSH<<<
+• klient ověřuje server – na základě kontroly klíče nebo certifikátu
+• server ověřuje uživatele – pomocí hesla / pomocí výzev a odpovědí (OTP) / pomocí veřejného klíče
+• strategie používání klíčů
+	• důkladně ověřovat klíč serveru, dát pozor při změně
+	• na méně důležité cíle je možné i bez hesla, ale rozhodně nikoliv recipročně (A→B i B→A)
+>>>Co označuje pojem VoIP (Voice over IP)?<<<
+• technologie pro přenos hlasu po IP
+• H.323, SIP, Skype, …
+>>>Co označuje pojem SIP (Session Initiation Protocol)?<<<
+VoIP protokol zajišťující pouze signalizaci související s telefonováním
+>>>DHCP<<<
+• Dynamic Host Configuration Protocol
+• automaticky přiřadí klientovi jeho IP adresu (a zašle další informace o síti)
+• umožňuje statickou i dynamickou alokaci adres
+• časově omezený pronájem adresy
+• v síti může pracovat více serverů
+• funguje přes UDP
+>>>synchronizace hodin na počítačích v síti<<<
+• Network Time Protocol
+• klient kontaktuje NTP servery uvedené v konfiguraci
+• obvykle je v lokální síti jeden nebo více NTP serverů – ty se synchronizují proti NTP serveru, který poskytuje ISP
+>>>Proč se synchronizují hodiny na počítačích v síti?<<<
+• aby si časové značky (timestamps) souborů v síti odpovídaly
+• aby se daly porovnat časy událostí (co se stalo dřív)
+>>>povaha FTP protokolu<<<
+• File Transfer Protocol – jeden z nejstarších protokolů
+• umožňuje přenos souborů pomocí aktivního (problematické z bezpečnostního hlediska) nebo pasivního spojení
+• porty 21 (příkazy) a 20 (přenos dat), je nešifrovaný
+>>>bezpečnostní problémy FTP<<<
+• otevřený přenos hesla i dalších dat
+• aktivní datové spojení navazuje server – to může představovat jisté riziko
+>>>TCP<<<
+• Transmission Control Protocol
+• používá se pro spojované služby
+• klient naváže spojení, data tečou ve formě proudu (streamu)
+• spojení (relaci) řídí a zabezpečuje TCP, nikoliv aplikace
+• TCP je komplikované, má velkou režii
+• doručování může být méně pravidelné, ale je bezeztrátové
+>>>Jaké postupy používá TCP, aby zajistilo spolehlivost přenosu?<<<
+potvrzuje doručení packetů – v případě selhání odesílá znova
+>>>Který parametr datového přenosu určuje, jaký rozsah dat může stanice poslat, aniž musí čekat na potvrzení protistrany?<<<
+velikost okna (TCP hlavička window)
+>>>Co usoudíme z následujícího popisu paketu v programu tcpdump?<<<
+viz strana 149 (slide 121)
+>>>Co usoudíme z (kompletního) výpisu programu netstat -an?<<<
+zjistíme, jaká spojení jsou momentálně na našem počítači otevřená
+>>>Jakou informaci obvykle volí dynamicky klient, jenž se chystá navázat spojení na server?<<<
+Sequence number (někdy případně číslo portu)
+>>>Jakou informaci najdeme v záhlaví TCP i UDP?<<<
+Source Port, Destination Port, Checksum
+>>>TCP, UDP<<<
+• Transmission Control Protocol
+	• používá se pro spojované služby
+	• klient naváže spojení, data tečou ve formě proudu (streamu)
+	• spojení (relaci) řídí a zabezpečuje TCP, nikoliv aplikace
+	• TCP je komplikované, má velkou režii
+	• doručování může být méně pravidelné, ale je bezeztrátové
+• User Datagram Protocol
+	• používá se pro nespojované služby
+	• neexistuje spojení, data se posílají jako nezávislé zprávy
+	• UDP je jednoduché, relaci musí řídit aplikace
+	• pravidelný tok (za cenu vyšší ztrátovosti)
+>>>Pokud TCP pakety dorazí v nesprávném pořadí, co se stane?<<<
+TCP packety seřadí správně podle offsetu (případně sequence number?)
+>>>Pokud UDP pakety nedorazí ve správném pořadí, co se stane?<<<
+případný problém musí řešit aplikace samotná (respektive její programátor)
+>>>Pokud www prohlížeč pošle dotaz na www server na standardním portu, jaký port může obsahovat odpověď jako zdrojový?<<<
+80, případně 443
+>>>Pokud FTP klient pošle příkaz na FTP server na standardním portu, jaký port může obsahovat odpověď jako zdrojový?<<<
+21, případně 20
+>>>Co se odehrává během three-way handshake?<<<
+• připojování klienta na server pomocí TCP
+• synchronizace Sequence number
+• klient – – – – – – – – – – – – – – – – – server
+	• SYN ~ Seq# c ~ Ack# 0 ⇒
+	• ⇐ SYN, ACK ~ Seq# s ~ Ack# c+1
+	• ACK ~ Seq# c+1 ~ Ack# s+1 ⇒
+>>>Co se stane, když jeden z partnerů pošle TCP paket s FIN příznakem?<<<
+dojde k uzavření spojení – druhá strana odpoví ACK a následně také pošle FIN (na něj opět dostane odpověď ACK)
+>>>Se kterou vrstvou TCP/IP je svázán pojem port?<<<
+s transportní vrstvou (OSI 4)
+>>>K čemu se používají porty v OSI 4?<<<
+k rozlišení komunikačních kanálů – každá aplikace používá jiný port (i když na serveru používá stejnou službu)
+>>>funkce síťové vrstvy<<<
+• přenos dat předaných transportní vrstvou od zdroje k cíli
+• adresace – protokol síťové vrstvy definuje tvar adres
+• routing (směrování) – vyhledání nejvhodnější cesty k cílovému počítači
+• forwarding (přeposílání) – předání dat ze vstupního síťového rozhraní na výstupní
+• encapsulation (zapouzdření) – zabalení dat k odeslání, předání linkové vrstvě
+• decapsulation – vybalení dat a předání transportní vrstvě
+>>>Jaká informace se přidává do paketu během zapouzdření na síťové vrstvě?<<<
+IP adresa zdroje a cíle, číslo protokolu transportní vrstvy
+>>>Jaký protokol poskytuje na síťové vrstvě službu spolehlivého přenosu dat?<<<
+žádný
+>>>Jaký protokol poskytuje na síťové vrstvě službu nespolehlivého přenosu dat?<<<
+IP
+>>>přidělování IP adres<<<
+• centrální: IANA (Internet Assigned Numbers Authority) – řízená organizací ICANN
+• regiony: RIR (regional Internet registry) – je jich pět, v našem regionu je to RIPE NCC
+• dále ISP různých úrovní, v lokální síti adrey přiděluje lokální správa sítě
+>>>jak počítač může zjistit IP adresu, kterou smí používat<<<
+BOOTP, DHCP, link local adresy, administrátorem přidělena manuálně
+>>>autonomních systém (AS)<<<
+• blok sítí se společnou routovací politikou
+• zjednodušují routování na globální úrovni
+• uvnitř se používají interní routovací protokoly (IGP)
+• mezi AS se routuje pomocí externích routovacích protokolů (EGP) – nejznámějším z nich je Border Gateway Protocol (BGP)
+>>>Kolik bitů má IPv6 adresa?<<<
+16 bytů, tedy 128 bitů
+>>>protokoly pracující s IP adresami<<<
+IP, ARP, DNS, FTP, …
+>>>Která vrstva OSI pracuje s IP adresami?<<<
+síťová (OSI 3)
+>>>Jak odesilatel zprávy zjistí, jaká část cílové IP adresy přísluší síti a jaká počítači?<<<
+podle masky (číslo za lomítkem určuje zleva počet bitů, které přísluší síti)
+>>>Jaká IPv4 adresa má v části pro počítač samé jedničky?<<<
+network broadcast – určený všem počítačům v dané síti
+>>>typy IP adres<<<
+• speciální IPv4 adresy
+	• this host 0.0.0.0/8 – dokud počítači není přiřazená adresa
+	• loopback 127.0.0.1/8 – adresa lokálního počítače
+	• adresa sítě = adresa sítě + samé nuly
+	• network broadcast = adresa sítě + samé jedničky
+	• limited broadcast 255.255.255.255 – všem v této síti, nesmí opustit síť
+	• privátní adresy – pro provoz v lokální síti, přiděluje správce, nesmí opustit síť
+	• link-local adresy – pouze pro spojení v rámci segmentu sítě, uzel si ji sám volí
+• druhy IPv6 adres
+	• unicastová
+		• adresa jednoho uzlu
+		• zvláštní adresy – loopback, link-scope (obdoba link-local), unique-local (obdoba privátních adres)
+	• multicastová – adresa skupiny uzlů (rozhraní)
+	• anycastová – unicastová adresa přidělená více uzlům
+	• chybějí broadcastové adresy
+>>>klasifikace IP adres pomocí implicitních síťových masek<<<
+• třída ~ začátek 1. bytu ~ číselná hodnota 1. bytu
+• A ~ 0 ~ 1–126
+• B ~ 10 ~ 128–191
+• C ~ 110 ~ 192–223
+• D ~ 1110 ~ 224–239
+• E ~ 1111 ~ 240–255
+>>>Kolik a jak rozsáhlých podsítí je třeba na pokrytí sítě s následujícími požadavky na počty připojených počítačů za použití VLSM (Variable Length Subnet Mask)?<<<
+• záleží na konkrétním zadání
+• maska 28 bitů: maximálně 14 počítačů
+• maska 27 bitů: maximálně 30 počítačů
+• maska 26 bitů: víc než 30 počítačů (maximálně 62)
+• síť můžu pomocí masky 27 bitů rozdělit na 6 subnetů (každá „podsíť“ o kapacitě 30 počítačů) – pokud mi to někde nestačí, můžu rozložení změnit na 27, 27, 27, 26, 26, 28 (nebo i jinak, ale musí to početně vycházet)
+>>>Která z následujících kombinací představuje minimální síť pokrývající tyto unicastové adresy: 10.1.1.106, 10.1.1.111, 10.1.1.119?<<<
+viz příklad výše (s VLSM)
+>>>Která následujících adres představuje korektní adresu počítače?<<<
+těžko říct, asi by to neměla být žádná „speciální adresa“
+>>>Defaultní router pro nějakou síť má adresu 172.31.219.33/27. Které z následujících nastavení může být v této síti správnou adresou počítače?<<<
+neměla by to být speciální adresa a měla by odpovídat masce 27 bitů
+>>>Který záznam může být platným záznamem ve směrovací tabulce routeru B z následujícího obrázku?<<<
+• to snad vyplyne z obrázku
+• default záznam ukazuje směrem ven (typicky na router blíž WAN)
+• ostatní záznamy ukazují vždy na next-hop router (gateway), přes který se dá dostat do konkrétní sítě
+>>>Který záznam může být platným záznamem ve směrovací tabulce routeru A z následujícího obrázku?<<<
+• to snad vyplyne z obrázku
+• default záznam ukazuje směrem ven (typicky na router blíž WAN)
+• ostatní záznamy ukazují vždy na next-hop router (gateway), přes který se dá dostat do konkrétní sítě
+>>>směrování<<<
+• síťový software hledá pro cestu packetu další směrovač (next-hop router)
+• používá přitom směrovací tabulku, jejíž obsah má pod kontrolou operační systém
+• ve směrovací tabulce jsou uloženy dvojice destination – gateway, přičemž destination obsahuje IP adresu sítě (i s maskou) a gateway adresu next-hop routeru
+>>>princip směrovacího algoritmu<<<
+• ve směrovací tabulce se vyhledají všechny záznamy, které se shodují s cílem packetu
+• pokud nebyl žádný záznam nalezen (z čehož vyplývá, že tabulka neobsahuje default), je packet zahozen
+• jinak se vybere ten nejspeciálnější (ten s nejširší maskou)
+• default se použije pouze v případě, kdy tabulka neobsahuje jiný vhodný záznam
+>>>Jaké kroky musí udělat klientský počítač, aby správně odeslal paket v případě, že cílový server není ve stejné síti?<<<
+• ve směrovací tabulce se vyhledají všechny záznamy, které se shodují s cílem packetu
+• pokud nebyl žádný záznam nalezen (z čehož vyplývá, že tabulka neobsahuje default), je packet zahozen
+• jinak se vybere ten nejspeciálnější (ten s nejširší maskou)
+• default se použije pouze v případě, kdy tabulka neobsahuje jiný vhodný záznam
+>>>činnost routeru<<<
+• router je uzel propojující různé sítě, je vstupním bodem do celé sítě a je připojen k jinému routeru na straně ISP
+• router přeposílá packety směrem k jejich cíli
+>>>metody řízení směrovacích tabulek<<<
+• statické řízení – cesty se nastavují při startu podle konfigurace
+	• nevýhody: nepružné při změnách, problémy se subnettingem, nesnadné zálohování spojení
+	• výhody: méně citlivé na problémy v síti, dostupné i ve zcela heterogenním prostředí
+	• vhodné pro jednodušší, stabilní sítě
+	• směrovací tabulky lze upravovat ze strany routeru pomocí ICMP Redirect (ale má to své nevýhody)
+• dynamické řízení – routery si navzájem vyměňují informace o síti pomocí routovacího protokolu, stanice se jím mohou řídit také, ale v režimu read-only
+	• výhody: jednoduché změny konfigurace, síť se dokáže sama „opravovat“, směrovací tabulky se udržují automaticky
+	• nevýhody: citlivější na problémy a útoky, na počítači musí běžet program obsluhující protokol (routed, gated, BIRD; pro lokální sítě RIP, OSPF)
+>>>distance-vector routovací protokoly<<<
+• uzel má u záznamů ve směrovací tabulce i „vzdálenosti“
+• svou tabulku periodicky posílá sousedům, ti si upraví svoji tabulku a v dalším taktu ji posílají dál
+• výhody: jednoduché, snadno implementovatelné
+• nevýhody: pomalá reakce na chyby, metrika špatně zohledňuje vlastnosti linek (rychlost, spolehlivost, cenu), omezený rozsah sítě, chyba u jednoho routeru ovlivní celou síť
+• příklad: RIP (Routing Information Protocol)
+>>>link-state routovací protokoly<<<
+• každý router zná „mapu“ celé sítě, routery si navzájem sdělují stav svých linek a podle toho si každý modifikuje svoji mapu sítě
+• výhody: pružná reakce na změny, chyba neovlivní ostatní, síť je možné rozdělit, výměna dat pouze při změnách
+• nevýhody: náročnější výpočet, při startu a na nestabilních sítích může být výměna dat zátěží
+• příklad: OSPF (Open Shortest Path First)
+>>>Jakou informaci z paketu používá každý směrovač pro určení cesty?<<<
+IP adresu cíle
+>>>Jaké pole IP záhlaví za normálních okolností mění router?<<<
+TTL (tudíž v IPv4 i kontrolní součet hlavičky)
+>>>Označte existující pole (sloupec) routovací tabulky.<<<
+• v prezentaci: Destination, Mask, Gateway
+• ve Windows: Network Destination, Netmask, Gateway, Interface, Metric
+>>>Jakým příkazem můžeme vypsat obsah routovací tabulky?<<<
+příkazem „netstat -r“ nebo „route print“
+>>>Které pole IP záhlaví brání vzniku nekonečné smyčky při doručování?<<<
+TTL (Time To Live)
+>>>Vyberte správné tvrzení o účelu nebo použití pole IP záhlaví označovaného jako TTL (Time To Live).<<<
+• brání vzniku nekonečné smyčky při doručování
+• neurčuje čas, ale počet hopů, který packet ještě smí učinit
+• při dosažení nuly se původnímu odesílateli vrátí ICMP Time Exceeded
+• využívá ho příkaz traceroute k odhalení chybného směrování
+>>>Pokud má počítač špatně nastaven defaultní router, co nebude moci?<<<
+nebude moci posílat packety jinam než na místa, která má ve směrovací tabulce
+>>>Jaký účel plní default gateway?<<<
+pokud cíl není nalezen v routovací tabulce, tak se použije default gateway
+>>>Co se stane, pokud cíl není nalezen v routovací tabulce?<<<
+použije se default gateway (pokud není nastavená, tak se packet zahodí)
+>>>IP filtrování<<<
+• router na perimetru (intranet/internet) má v konfiguraci uvedeno, jaký provoz je povolen a za jakých podmínek
+• jde o filtrování na transportní vrstvě
+• přísná konfigurace: ven vybrané, dovnitř nic
+• obvyklá konfigurace: ven cokoliv, dovnitř nic
+• pro webové servery apod. se často používá oddělený segment sítě (demilitarizovaná zóna – DMZ)
+>>>překlad adres (NAT)<<<
+• obecný princip, kdy lokální síť používá privátní adresy a ven se představuje veřejnými adresami (nebo jinými privátními)
+• router přiřadí privátní adrese svůj port a následně komunikuje ven pomocí své veřejné adresy a tohoto portu
+• router packety v průběhu přenosu zachytává a překládá u nich veřejné adresy na soukromé a naopak
+>>>proxy server<<<
+• transparentní varianta – není třeba konfigurovat na klientovi
+	• router zachytí spojení, uloží požadavek a svým jménem ho odešle na server
+	• odpověď přijde zpět na router, ten ji uloží (pro další klienty) a odešle původnímu žadateli
+• netransparentní varianta – je třeba nakonfigurovat, aby se požadavky posílaly proxy-serveru
+• proxy server umožňuje správě sítě kontrolovat činnost klientů a omezit objem provozu
+>>>Které zařízení/prostředek implementuje bezpečnostní politiku lokální sítě vůči internetu?<<<
+router (směrovač)
+>>>ARP<<<
+• konverze MAC (např. Ethernet) a síťových (např. IP) adres
+• neznámé adresy se zjišťují broadcastovou výzvou
+• výsledky se ukládají do ARP cache
+• unicastová odpověď, nelze ověřit její správnost
+• linková vrstva (OSI 2)
+>>>Počítač na obrázku poslal HTTP request, který dorazil na server. Jaké tvrzení o obsahu ARP tabulek na notebooku, switchi, routeru a serveru je pravdivé?<<<
+notebook musí mít v ARP tabulce adresu switche, switch adresu routeru a router adresu serveru (a naopak)
+>>>Jaké funkce plní ICMP (Internet Control Message Protocol)?<<<
+posílání řídících informací pro IP – testování dosažitelnosti, nedostupnost, vypršení TTL, vyhledávání routerů, výzva ke změně záznamu v routovací tabulce, …
+>>>vztah linkové a fyzické vrstvy v OSI a TCP/IP<<<
+• TCP/IP se jimi nezabývá
+• v OSI se fyzická vrstva stará o doručení framů, tedy packetů obalených informacemi z linkové vrstvy (MAC adresy, číslo protokolu síťové vrstvy, FCS)
+>>>Co označuje termín LLC (Logical Link Control)?<<<
+je to horní podvrstva linkové vrstvy, která zajišťuje multiplexing (různé protokoly síťové vrstvy mají přístup ke stejnému médiu)
+>>>Co označuje termín MAC (Media Access Control)?<<<
+je to spodní podvrstva linkové vrstvy, která má na starosti adresaci a řízení přístupu jednotlivých uzlů k fyzickému médiu
+>>>deterministický a nedeterministický přístup k médiu<<<
+• deterministický přístup – je určeno, kdo v dané chvíli smí vysílat (určuje to zvláštní uzel nebo třeba token)
+• nedeterministické řízení – nikdo neomezuje uzly ve vysílání
+>>>topologie sítě<<<
+• multipoint – sběrnice, hvězda, kruh
+• point-to-point – kabelem, přes modemy, bezdrátově
+>>>Ethernet<<<
+• technologie pro lokální sítě
+• dokáže pružně reagovat na vývoj HW, přizpůsobí se širokému spektru přenosových médií
+• řízení přístupu metodou CSMA/CD – při detekci kolize uzel vysílá „jam signal“, exponenciální čekání končí po 16 pokusech chybou
+• adresy – 3 byty prefix, 3 byty adresa; dříve „vypálená“ v kartě, dnes nastavitelná
+>>>WiFi<<<
+• bezdrátová síť, WLAN (wireless LAN)
+• mnoho různých variant pod souhrným označením IEEE 802.11
+• SSID – identifikátor sítě
+• kolize řeší pomocí CSMA/CA (vyhýbá se kolizím čekáním)
+>>>Co je základní funkcí CSMA/CD?<<<
+• během vysílání uzel současně detekuje případnou kolizi
+• při kolizi stanice zastaví vysílání, upozorní ostatní, počká určitou (náhodnou!) dobu a pokus opakuje, obvykle se postupně prodlužuje interval čekání (exponenciální čekání)
+• podmínka: doba vysílání rámce > doba šíření po segmentu (kolizní okénko); limituje max. délku segmentu a min. velikost rámce
+>>>Jak lze charakterizovat repeater, hub, bridge a switch?<<<
+• repeater
+	• spojuje segmenty na fyzické vrstvě
+	• řeší: větší dosah (překonává útlum kabelu)
+	• neřeší: propustnost (problém kolizí naopak zhoršuje)
+	• ve strukturované kabeláži se nazývá hub, rozbočovač
+• bridge
+	• spojuje segmenty na linkové vrstvě
+	• řeší: větší propustnost (rozděluje kolizní doménu)
+	• ve strukturované kabeláži se nazývá switch, přepínač
+>>>S jakými adresami pracuje hub, přepínač resp. směrovač?<<<
+repeater nepracuje s adresami, bridge pracuje s MAC adresami, router pracuje s MAC i IP adresami
+>>>Jak lze charakterizovat Spanning Tree Protocol resp. Spanning Tree Algorithm?<<<
+• algoritmus najde kostru v grafu sítě – zablokuje některé porty switche a pouze monitoruje, jestli nedošlo k výpadku druhého switche
+• v STP figurují určité timeouty, aby systém fungoval
+>>>VLAN<<<
+• prostředek, jak po jedné fyzické síti provozovat více nezávislých lokálních sítí
+• sítě jsou označeny 12bitovým identifikátorem (VLANID)
+• ethernetový rámec se prodlouží o 32 bitů dlouhý tag
+• tagovat může koncová stanice nebo switch (transparentně)
+>>>Co označuje termín CRC?<<<
+cyklický kontrolní součet (cyclic redundancy check) – hashovací funkce používaná pro kontrolu konzistence dat (např. FCS)
+>>>Jaký hlavní smysl má zápatí (trailer) linkového rámce?<<<
+obsahuje FCS (frame check sequence)
+>>>Kolikrát proběhne výpočet CRC (pro Frame Check Sequence) během přenosu zprávy mezi koncovými zařízeními na obrázku?<<<
+podle počtu počítačů/routerů na cestě (bridge ani repeatery se nepočítají)
+>>>Kolikrát proběhne výpočet CRC (pro Frame Check Sequence) během přenosu zprávy mezi koncovými zařízeními na obrázku?<<<
+podle počtu počítačů/routerů na cestě (bridge ani repeatery se nepočítají)
+>>>Do hubu jsou zapojeny stanice A, B, C a D. Stanice A je právě uprostřed vysílání rámce stanici D, když stanice B potřebuje vysílat data stanici C. Co musí stanice B udělat?<<<
+počkat (nebo vysílat a vyřešit kolizi pomocí CSMA/CD – což je pravděpodobně způsob, jak by to Ethernet řešil)
+>>>Do switche jsou zapojeny stanice A, B, C a D. Stanice A je právě uprostřed vysílání rámce stanici D, když stanice B potřebuje vysílat data stanici C. Co musí stanice B udělat?<<<
+může rovnou vysílat
+>>>typy médií na fyzické vrstvě<<<
+metalické (elektrické pulzy), optické (světelné pulzy), bezdrátové (modulace vln)
+>>>Kolik vodičů obsahuje kabel označovaný jako nestíněná kroucená dvoulinka (UTP)?<<<
+obsahuje 8 měděných vodičů (4 páry navzájem zakroucené)
+>>>kabely pro propojení dvou uzlů ethernetové sítě<<<
+• obvykle pomocí nestíněné kroucené dvoulinky (UTP)
+• je potřeba zohlednit povahu zařízení – dva počítače pomocí kříženého (crossover) kabelu, počítač a síťový prvek pomocí přímého kabelu (ale dnes je již obvyklá autodetekce MDI/MDIX)
+>>>Jaký je rozdíl mezi jednovidovým (SM) a mnohovidovým (MM) optickým kabelem?<<<
+• jednovidové (singlemode) vlákno – svítí se laserem, jeden paprsek, větší dosah a šířka pásma, vyšší cena
+• mnohovidové vlákno – svítí se i LED, nižší dosah a šířka pásma, nižší cena
+>>>Jaký typ adres se používá na linkové vrstvě?<<<
+MAC
+>>>Jaký typ adres se používá na fyzické vrstvě?<<<
+žádné
+>>>MAC adresy (ve fungující síti)<<<
+• MAC je „fyzická“ adresa zařízení, dříve byla vypálená na síťové kartě (dnes nastavitelná)
+• v jedné síti nemohou mít dvě zařízení stejnou MAC adresu
+>>>V jakém případě není nutná adresace cílového počítače?<<<
+pokud použijeme broadcast/multicast adresu
+>>>Se kterou vrstvou OSI je svázán pojem Ethernet?<<<
+• s linkovou vrstvou (OSI 2)
