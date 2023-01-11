@@ -3,7 +3,7 @@
 - porovnání metody přepojování paketů a přepojování okruhů
 	- přepojování okruhů – všechna data jdou jednou cestou
 		- rychlejší, plynulejší, ale při výpadku uzlu se spojení rozpadne
-	- přepojování paketů – data se rozdělí na packety, každý může jít jinou cestou; výpadek uzlu není fatální
+	- přepojování packetů – data se rozdělí na packety, každý může jít jinou cestou; výpadek uzlu není fatální
 - typy aplikací/protokolů a jejich přenosové parametry (požadavky)
 	- multimediální aplikace – je důležité pravidelné doručování (nízký jitter), naopak ztrátovost nebo vyšší zpoždění (latence) až tak nevadí
 	- telefonní hovory – nízké zpoždění
@@ -391,37 +391,130 @@
 - Kolik bitů má IPv6 adresa?
 	- 16 bytů, tedy 128 bitů
 - protokoly pracující s IP adresami
-	- IP, 
+	- IP, ARP, DNS, FTP, …
 - Která vrstva OSI pracuje s IP adresami?
+	- síťová (OSI 3)
 - Jak odesilatel zprávy zjistí, jaká část cílové IP adresy přísluší síti a jaká počítači?
+	- podle masky (číslo za lomítkem určuje zleva počet bitů, které přísluší síti)
 - Jaká IPv4 adresa má v části pro počítač samé jedničky?
-- Které tvrzení o typech IP adres je pravdivé?
-- Za předpokladu použití implicitních síťových masek označte nesprávně klasifikovanou IP adresu.
+	- network broadcast – určený všem počítačům v dané síti
+- typy IP adres
+	- speciální IPv4 adresy
+		- this host 0.0.0.0/8 – dokud počítači není přiřazená adresa
+		- loopback 127.0.0.1/8 – adresa lokálního počítače
+		- adresa sítě = adresa sítě + samé nuly
+		- network broadcast = adresa sítě + samé jedničky
+		- limited broadcast 255.255.255.255 – všem v této síti, nesmí opustit síť
+		- privátní adresy – pro provoz v lokální síti, přiděluje správce, nesmí opustit síť
+		- link-local adresy – pouze pro spojení v rámci segmentu sítě, uzel si ji sám volí
+	- druhy IPv6 adres
+		- unicastová
+			- adresa jednoho uzlu
+			- zvláštní adresy – loopback, link-scope (obdoba link-local), unique-local (obdoba privátních adres)
+		- multicastová – adresa skupiny uzlů (rozhraní)
+		- anycastová – unicastová adresa přidělená více uzlům
+		- chybějí broadcastové adresy
+- klasifikace IP adres pomocí implicitních síťových masek
+	- třída ~ začátek 1. bytu ~ číselná hodnota 1. bytu
+	- A ~ 0 ~ 1–126
+	- B ~ 10 ~ 128–191
+	- C ~ 110 ~ 192–223
+	- D ~ 1110 ~ 224–239
+	- E ~ 1111 ~ 240–255
 - Kolik a jak rozsáhlých podsítí je třeba na pokrytí sítě s následujícími požadavky na počty připojených počítačů za použití VLSM (Variable Length Subnet Mask)?
+	- záleží na konkrétním zadání
+	- maska 28 bitů: maximálně 14 počítačů
+	- maska 27 bitů: maximálně 30 počítačů
+	- maska 26 bitů: víc než 30 počítačů (maximálně 62)
+	- síť můžu pomocí masky 27 bitů rozdělit na 6 subnetů (každá „podsíť“ o kapacitě 30 počítačů) – pokud mi to někde nestačí, můžu rozložení změnit na 27, 27, 27, 26, 26, 28 (nebo i jinak, ale musí to početně vycházet)
 - Která z následujících kombinací představuje minimální síť pokrývající tyto unicastové adresy: 10.1.1.106, 10.1.1.111, 10.1.1.119?
+	- viz příklad výše (s VLSM)
 - Která následujících adres představuje korektní adresu počítače?
-- Defaultní router pro nějakou síť má adresu 172.31.219.33/27. Které z následujících nastavení může být v této síti správnou adresou počítače?
-- Který záznam může být platným záznamem ve směrovací tabulce routeru B z následujícího obrázku?
+	- těžko říct, asi by to neměla být žádná „speciální adresa“
+- Defaultní router pro nějakou síť má adresu 172.31.219.33/27. Které z následujících nastavení může být v této síti správnou adresou počítače?
+	- neměla by to být speciální adresa a měla by odpovídat masce 27 bitů
+- Který záznam může být platným záznamem ve směrovací tabulce routeru B z následujícího obrázku?
+	- to snad vyplyne z obrázku
+	- default záznam ukazuje směrem ven (typicky na router blíž WAN)
+	- ostatní záznamy ukazují vždy na next-hop router (gateway), přes který se dá dostat do konkrétní sítě
 - Který záznam může být platným záznamem ve směrovací tabulce routeru A z následujícího obrázku?
-- Které tvrzení o směrování je pravdivé?
-- Vyberte správné tvrzení o principu směrovacího algoritmu.
+	- to snad vyplyne z obrázku
+	- default záznam ukazuje směrem ven (typicky na router blíž WAN)
+	- ostatní záznamy ukazují vždy na next-hop router (gateway), přes který se dá dostat do konkrétní sítě
+- směrování
+	- síťový software hledá pro cestu packetu další směrovač (next-hop router)
+	- používá přitom směrovací tabulku, jejíž obsah má pod kontrolou operační systém
+	- ve směrovací tabulce jsou uloženy dvojice destination – gateway, přičemž destination obsahuje IP adresu sítě (i s maskou) a gateway adresu next-hop routeru
+- princip směrovacího algoritmu
+	- ve směrovací tabulce se vyhledají všechny záznamy, které se shodují s cílem packetu
+	- pokud nebyl žádný záznam nalezen (z čehož vyplývá, že tabulka neobsahuje default), je packet zahozen
+	- jinak se vybere ten nejspeciálnější (ten s nejširší maskou)
+	- default se použije pouze v případě, kdy tabulka neobsahuje jiný vhodný záznam
 - Jaké kroky musí udělat klientský počítač, aby správně odeslal paket v případě, že cílový server není ve stejné síti?
-- Vyberte správné tvrzení o činnosti routeru.
-- Které tvrzení o metodách řízení směrovacích tabulek je pravdivé?
-- Označte pravdivé tvrzení o distance-vector routovacích protokolech.
-- Označte pravdivé tvrzení o link-state routovacích protokolech.
+	- ve směrovací tabulce se vyhledají všechny záznamy, které se shodují s cílem packetu
+	- pokud nebyl žádný záznam nalezen (z čehož vyplývá, že tabulka neobsahuje default), je packet zahozen
+	- jinak se vybere ten nejspeciálnější (ten s nejširší maskou)
+	- default se použije pouze v případě, kdy tabulka neobsahuje jiný vhodný záznam
+- činnost routeru
+	- router je uzel propojující různé sítě, je vstupním bodem do celé sítě a je připojen k jinému routeru na straně ISP
+	- router přeposílá packety směrem k jejich cíli
+- metody řízení směrovacích tabulek
+	- statické řízení – cesty se nastavují při startu podle konfigurace
+		- nevýhody: nepružné při změnách, problémy se subnettingem, nesnadné zálohování spojení
+		- výhody: méně citlivé na problémy v síti, dostupné i ve zcela heterogenním prostředí
+		- vhodné pro jednodušší, stabilní sítě
+		- směrovací tabulky lze upravovat ze strany routeru pomocí ICMP Redirect (ale má to své nevýhody)
+	- dynamické řízení – routery si navzájem vyměňují informace o síti pomocí routovacího protokolu, stanice se jím mohou řídit také, ale v režimu read-only
+		- výhody: jednoduché změny konfigurace, síť se dokáže sama „opravovat“, směrovací tabulky se udržují automaticky
+		- nevýhody: citlivější na problémy a útoky, na počítači musí běžet program obsluhující protokol (routed, gated, BIRD; pro lokální sítě RIP, OSPF)
+- distance-vector routovací protokoly
+	- uzel má u záznamů ve směrovací tabulce i „vzdálenosti“
+	- svou tabulku periodicky posílá sousedům, ti si upraví svoji tabulku a v dalším taktu ji posílají dál
+	- výhody: jednoduché, snadno implementovatelné
+	- nevýhody: pomalá reakce na chyby, metrika špatně zohledňuje vlastnosti linek (rychlost, spolehlivost, cenu), omezený rozsah sítě, chyba u jednoho routeru ovlivní celou síť
+	- příklad: RIP (Routing Information Protocol)
+- link-state routovací protokoly
+	- každý router zná „mapu“ celé sítě, routery si navzájem sdělují stav svých linek a podle toho si každý modifikuje svoji mapu sítě
+	- výhody: pružná reakce na změny, chyba neovlivní ostatní, síť je možné rozdělit, výměna dat pouze při změnách
+	- nevýhody: náročnější výpočet, při startu a na nestabilních sítích může být výměna dat zátěží
+	- příklad: OSPF (Open Shortest Path First)
 - Jakou informaci z paketu používá každý směrovač pro určení cesty?
+	- IP adresu cíle
 - Jaké pole IP záhlaví za normálních okolností mění router?
+	- TTL (tudíž v IPv4 i kontrolní součet hlavičky)
 - Označte existující pole (sloupec) routovací tabulky.
+	- v prezentaci: Destination, Mask, Gateway
+	- ve Windows: Network Destination, Netmask, Gateway, Interface, Metric
 - Jakým příkazem můžeme vypsat obsah routovací tabulky?
+	- příkazem „netstat -r“ nebo „route print“
 - Které pole IP záhlaví brání vzniku nekonečné smyčky při doručování?
+	- TTL (Time To Live)
 - Vyberte správné tvrzení o účelu nebo použití pole IP záhlaví označovaného jako TTL (Time To Live).
+	- brání vzniku nekonečné smyčky při doručování
+	- neurčuje čas, ale počet hopů, který packet ještě smí učinit
+	- při dosažení nuly se původnímu odesílateli vrátí ICMP Time Exceeded
 - Pokud má počítač špatně nastaven defaultní router, co nebude moci?
+	- nebude moci posílat packety jinam než na místa, která má ve směrovací tabulce
 - Jaký účel plní default gateway?
+	- pokud cíl není nalezen v routovací tabulce, tak se použije default gateway
 - Co se stane, pokud cíl není nalezen v routovací tabulce?
-- Která z charakteristik IP filtrování je správná?
-- Která z charakteristik překladu adres (NAT) je správná?
-- Která z charakteristik proxy serveru je správná?
+	- použije se default gateway (pokud není nastavená, tak se packet zahodí)
+- IP filtrování
+	- router na perimetru (intranet/internet) má v konfiguraci uvedeno, jaký provoz je povolen a za jakých podmínek
+	- jde o filtrování na transportní vrstvě
+	- přísná konfigurace: ven vybrané, dovnitř nic
+	- obvyklá konfigurace: ven cokoliv, dovnitř nic
+	- pro webové servery apod. se často používá oddělený segment sítě (demilitarizovaná zóna – DMZ)
+- překlad adres (NAT)
+	- obecný princip, kdy lokální síť používá privátní adresy a ven se představuje veřejnými adresami (nebo jinými privátními)
+	- router přiřadí privátní adrese svůj port a následně komunikuje ven pomocí své veřejné adresy a tohoto portu
+	- router packety v průběhu přenosu zachytává a překládá u nich veřejné adresy na soukromé a naopak
+- proxy server
+	- transparentní varianta – není třeba konfigurovat na klientovi
+		- router zachytí spojení, uloží požadavek a svým jménem ho odešle na server
+		- odpověď přijde zpět na router, ten ji uloží (pro další klienty) a odešle původnímu žadateli
+	- netransparentní varianta – je třeba nakonfigurovat, aby se požadavky posílaly proxy-serveru
+	- proxy server umožňuje správě sítě kontrolovat činnost klientů a omezit objem provozu
 - Které zařízení/prostředek implementuje bezpečnostní politiku lokální sítě vůči internetu?
 - Které tvrzení o ARP je pravdivé?
 - Počítač na obrázku poslal HTTP request, který dorazil na server. Jaké tvrzení o obsahu ARP tabulek na notebooku, switchi, routeru a serveru je pravdivé?
