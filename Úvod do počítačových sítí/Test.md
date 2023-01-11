@@ -116,7 +116,7 @@
 		- schéma – následované dvojtečkou (často se shoduje s názvem protokolu)
 		- autorita – někdy prefixovaná dvojicí lomítek
 			- jméno:heslo@adresa:port
-		- cesta, ?dotaz, \#fragment
+		- cesta, ?dotaz, #fragment
 - doménová jména
 	- domény nejvyšší úrovně (TLD) spravuje ICANN – příklady: arpa, com, org, edu, net, info, cz, eu
 	- doménu cz spravuje CZ.NIC, doména nemá strukturu kategorií, nepodporuje lokalizovaná jména
@@ -291,24 +291,73 @@
 	- H.323, SIP, Skype, …
 - Co označuje pojem SIP (Session Initiation Protocol)?
 	- VoIP protokol zajišťující pouze signalizaci související s telefonováním
-- Jak funguje protokol DHCP?
-- Jakým způsobem se synchronizují hodiny na počítačích v síti?
+- DHCP
+	- Dynamic Host Configuration Protocol
+	- automaticky přiřadí klientovi jeho IP adresu (a zašle další informace o síti)
+	- umožňuje statickou i dynamickou alokaci adres
+	- časově omezený pronájem adresy
+	- v síti může pracovat více serverů
+	- funguje přes UDP
+- synchronizace hodin na počítačích v síti
+	- Network Time Protocol
+	- klient kontaktuje NTP servery uvedené v konfiguraci
+	- obvykle je v lokální síti jeden nebo více NTP serverů – ty se synchronizují proti NTP serveru, který poskytuje ISP
 - Proč se synchronizují hodiny na počítačích v síti?
-- Které tvrzení o povaze FTP protokolu je správné?
-- Které z následujících tvrzení o bezpečnostních problémech FTP je správné?
-- Která charakteristika TCP není správná?
+	- aby si časové značky (timestamps) souborů v síti odpovídaly
+	- aby se daly porovnat časy událostí (co se stalo dřív)
+- povaha FTP protokolu
+	- File Transfer Protocol – jeden z nejstarších protokolů
+	- umožňuje přenos souborů pomocí aktivního (problematické z bezpečnostního hlediska) nebo pasivního spojení
+	- porty 21 (příkazy) a 20 (přenos dat), je nešifrovaný
+- bezpečnostní problémy FTP
+	- otevřený přenos hesla i dalších dat
+	- aktivní datové spojení navazuje server – to může představovat jisté riziko
+- TCP
+	- Transmission Control Protocol
+	- používá se pro spojované služby
+	- klient naváže spojení, data tečou ve formě proudu (streamu)
+	- spojení (relaci) řídí a zabezpečuje TCP, nikoliv aplikace
+	- TCP je komplikované, má velkou režii
+	- doručování může být méně pravidelné, ale je bezeztrátové
 - Jaké postupy používá TCP, aby zajistilo spolehlivost přenosu?
+	- potvrzuje doručení packetů – v případě selhání odesílá znova
 - Který parametr datového přenosu určuje, jaký rozsah dat může stanice poslat, aniž musí čekat na potvrzení protistrany?
+	- velikost okna (TCP hlavička window)
 - Co usoudíme z následujícího popisu paketu v programu tcpdump?
+	- viz strana 149 (slide 121)
 - Co usoudíme z (kompletního) výpisu programu netstat -an?
+	- zjistíme, jaká spojení jsou momentálně na našem počítači otevřená
 - Jakou informaci obvykle volí dynamicky klient, jenž se chystá navázat spojení na server?
+	- Sequence number (někdy případně číslo portu)
 - Jakou informaci najdeme v záhlaví TCP i UDP?
-- Které tvrzení popisuje správně TCP resp. UDP?
+	- Source Port, Destination Port, Checksum
+- TCP, UDP
+	- Transmission Control Protocol
+		- používá se pro spojované služby
+		- klient naváže spojení, data tečou ve formě proudu (streamu)
+		- spojení (relaci) řídí a zabezpečuje TCP, nikoliv aplikace
+		- TCP je komplikované, má velkou režii
+		- doručování může být méně pravidelné, ale je bezeztrátové
+	- User Datagram Protocol
+		- používá se pro nespojované služby
+		- neexistuje spojení, data se posílají jako nezávislé zprávy
+		- UDP je jednoduché, relaci musí řídit aplikace
+		- pravidelný tok (za cenu vyšší ztrátovosti)
 - Pokud TCP pakety dorazí v nesprávném pořadí, co se stane?
+	- TCP packety seřadí správně podle offsetu (případně sequence number?)
 - Pokud UDP pakety nedorazí ve správném pořadí, co se stane?
-- Pokud www prohlížeč pošle dotaz na www server na standardním portu, jaký z.následujících portů může obsahovat odpověď jako zdrojový?
-- Pokud FTP klient pošle příkaz na FTP server na standardním portu, jaký z.následujících portů může obsahovat odpověď jako zdrojový?
+	- případný problém musí řešit aplikace samotná (respektive její programátor)
+- Pokud www prohlížeč pošle dotaz na www server na standardním portu, jaký port může obsahovat odpověď jako zdrojový?
+	- 80, případně 443
+- Pokud FTP klient pošle příkaz na FTP server na standardním portu, jaký port může obsahovat odpověď jako zdrojový?
+	- 21, případně 20
 - Co se odehrává během three-way handshake?
+	- připojování klienta na server pomocí TCP
+	- synchronizace Sequence number
+	- klient – – – – – – – – – – – – – – – – – server
+		- SYN ~ Seq# c ~ Ack# 0 →
+		- ← SYN, ACK ~ Seq# s ~ Ack# c+1
+		- ACK ~ Seq# c+1 ~ Ack# s+1
 - Co se stane, když jeden z partnerů pošle TCP paket s FIN příznakem?
 - Se kterou vrstvou TCP/IP je svázán pojem port?
 - K čemu se používají porty v OSI 4?
