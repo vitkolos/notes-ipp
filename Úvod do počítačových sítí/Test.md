@@ -541,25 +541,70 @@
 - topologie sítě
 	- multipoint – sběrnice, hvězda, kruh
 	- point-to-point – kabelem, přes modemy, bezdrátově
-- Které z tvrzení o Ethernetu je správné?
-- Které tvrzení o WiFi je správné?
+- Ethernet
+	- technologie pro lokální sítě
+	- dokáže pružně reagovat na vývoj HW, přizpůsobí se širokému spektru přenosových médií
+	- řízení přístupu metodou CSMA/CD – při detekci kolize uzel vysílá „jam signal“, exponenciální čekání končí po 16 pokusech chybou
+	- adresy – 3 byty prefix, 3 byty adresa; dříve „vypálená“ v kartě, dnes nastavitelná
+- WiFi
+	- bezdrátová síť, WLAN (wireless LAN)
+	- mnoho různých variant pod souhrným označením IEEE 802.11
+	- SSID – identifikátor sítě
+	- kolize řeší pomocí CSMA/CA (vyhýbá se kolizím čekáním)
 - Co je základní funkcí CSMA/CD?
+	- během vysílání uzel současně detekuje případnou kolizi
+	- při kolizi stanice zastaví vysílání, upozorní ostatní, počká určitou (náhodnou!) dobu a pokus opakuje, obvykle se postupně prodlužuje interval čekání (exponenciální čekání)
+	- podmínka: doba vysílání rámce > doba šíření po segmentu (kolizní okénko); limituje max. délku segmentu a min. velikost rámce
 - Jak lze charakterizovat repeater, hub, bridge a switch?
+	- repeater
+		- spojuje segmenty na fyzické vrstvě
+		- řeší: větší dosah (překonává útlum kabelu)
+		- neřeší: propustnost (problém kolizí naopak zhoršuje)
+		- ve strukturované kabeláži se nazývá hub, rozbočovač
+	- bridge
+		- spojuje segmenty na linkové vrstvě
+		- řeší: větší propustnost (rozděluje kolizní doménu)
+		- ve strukturované kabeláži se nazývá switch, přepínač
 - S jakými adresami pracuje hub, přepínač resp. směrovač?
+	- repeater nepracuje s adresami, bridge pracuje s MAC adresami, router pracuje s MAC i IP adresami
 - Jak lze charakterizovat Spanning Tree Protocol resp. Spanning Tree Algorithm?
-- Jaké tvrzení o VLAN je pravdivé?
+	- algoritmus najde kostru v grafu sítě – zablokuje některé porty switche a pouze monitoruje, jestli nedošlo k výpadku druhého switche
+	- v STP figurují určité timeouty, aby systém fungoval
+- VLAN
+	- prostředek, jak po jedné fyzické síti provozovat více nezávislých lokálních sítí
+	- sítě jsou označeny 12bitovým identifikátorem (VLANID)
+	- ethernetový rámec se prodlouží o 32 bitů dlouhý tag
+	- tagovat může koncová stanice nebo switch (transparentně)
 - Co označuje termín CRC?
+	- cyklický kontrolní součet (cyclic redundancy check) – hashovací funkce používaná pro kontrolu konzistence dat (např. FCS)
 - Jaký hlavní smysl má zápatí (trailer) linkového rámce?
+	- obsahuje FCS (frame check sequence)
 - Kolikrát proběhne výpočet CRC (pro Frame Check Sequence) během přenosu zprávy mezi koncovými zařízeními na obrázku?
+	- podle počtu počítačů/routerů na cestě (bridge ani repeatery se nepočítají)
 - Kolikrát proběhne výpočet CRC (pro Frame Check Sequence) během přenosu zprávy mezi koncovými zařízeními na obrázku?
+	- podle počtu počítačů/routerů na cestě (bridge ani repeatery se nepočítají)
 - Do hubu jsou zapojeny stanice A, B, C a D. Stanice A je právě uprostřed vysílání rámce stanici D, když stanice B potřebuje vysílat data stanici C. Co musí stanice B udělat?
+	- počkat (nebo vysílat a vyřešit kolizi pomocí CSMA/CD – což je pravděpodobně způsob, jak by to Ethernet řešil)
 - Do switche jsou zapojeny stanice A, B, C a D. Stanice A je právě uprostřed vysílání rámce stanici D, když stanice B potřebuje vysílat data stanici C. Co musí stanice B udělat?
-- Které tvrzení o médiích používaných v počítačových sítích je správné?
+	- může rovnou vysílat
+- typy médií na fyzické vrstvě
+	- metalické (elektrické pulzy), optické (světelné pulzy), bezdrátové (modulace vln)
 - Kolik vodičů obsahuje kabel označovaný jako nestíněná kroucená dvoulinka (UTP)?
-- Jaké tvrzení o kabelech pro propojení dvou uzlů ethernetové sítě je pravdivé?
+	- obsahuje 8 měděných vodičů (4 páry navzájem zakroucené)
+- kabely pro propojení dvou uzlů ethernetové sítě
+	- obvykle pomocí nestíněné kroucené dvoulinky (UTP)
+	- je potřeba zohlednit povahu zařízení – dva počítače pomocí kříženého (crossover) kabelu, počítač a síťový prvek pomocí přímého kabelu (ale dnes je již obvyklá autodetekce MDI/MDIX)
 - Jaký je rozdíl mezi jednovidovým (SM) a mnohovidovým (MM) optickým kabelem?
+	- jednovidové (singlemode) vlákno – svítí se laserem, jeden paprsek, větší dosah a šířka pásma, vyšší cena
+	- mnohovidové vlákno – svítí se i LED, nižší dosah a šířka pásma, nižší cena
 - Jaký typ adres se používá na linkové vrstvě?
+	- MAC
 - Jaký typ adres se používá na fyzické vrstvě?
-- Označte pravdivé tvrzení týkající se MAC adres (ve fungující síti).
+	- žádné
+- MAC adresy (ve fungující síti)
+	- MAC je „fyzická“ adresa zařízení, dříve byla vypálená na síťové kartě (dnes nastavitelná)
+	- v jedné síti nemohou mít dvě zařízení stejnou MAC adresu
 - V jakém případě není nutná adresace cílového počítače?
+	- pokud použijeme broadcast/multicast adresu
 - Se kterou vrstvou OSI je svázán pojem Ethernet?
+	- s linkovou vrstvou (OSI 2)
