@@ -182,7 +182,7 @@ jednotlivé body odpovídají [otázkám](Otázky.md)
 	- Telnet, SSH
 - Co označuje zkratka STP?
 	- kabel s kovovým stíněním – tedy stíněná kroucená dvojlinka (shilded twisted pair)
-	- spanning tree algoritmus – algoritmus na hledání kostry v grafu sítě, zabraňuje zacyklení přeposílání rámců
+	- spanning tree protocol – distribuovaná verze algoritmu na hledání kostry v grafu sítě, zabraňuje zacyklení přeposílání rámců
 - činnosti aplikačních protokolů
 	- SIP – internetová telefonie
 	- NFS – přístup k souborům
