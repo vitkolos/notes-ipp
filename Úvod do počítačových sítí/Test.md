@@ -489,7 +489,7 @@
 	- příkazem „netstat -r“ nebo „route print“
 - Které pole IP záhlaví brání vzniku nekonečné smyčky při doručování?
 	- TTL (Time To Live)
-- Vyberte správné tvrzení o účelu nebo použití pole IP záhlaví označovaného jako TTL (Time To Live).
+- účel/použití pole IP záhlaví označovaného jako TTL (Time To Live)
 	- brání vzniku nekonečné smyčky při doručování
 	- neurčuje čas, ale počet hopů, který packet ještě smí učinit
 	- při dosažení nuly se původnímu odesílateli vrátí ICMP Time Exceeded
