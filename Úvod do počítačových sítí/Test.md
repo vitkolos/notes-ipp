@@ -484,7 +484,7 @@ jednotlivé body odpovídají [otázkám](Otázky.md)
 	- IP adresu cíle
 - Jaké pole IP záhlaví za normálních okolností mění router?
 	- TTL (tudíž v IPv4 i kontrolní součet hlavičky)
-- Označte existující pole (sloupec) routovací tabulky.
+- sloupce routovací tabulky
 	- v prezentaci: Destination, Mask, Gateway
 	- ve Windows: Network Destination, Netmask, Gateway, Interface, Metric
 - Jakým příkazem můžeme vypsat obsah routovací tabulky?
