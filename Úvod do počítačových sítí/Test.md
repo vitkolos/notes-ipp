@@ -531,7 +531,7 @@ jednotlivé body odpovídají [otázkám](Otázky.md)
 - Jaké funkce plní ICMP (Internet Control Message Protocol)?
 	- posílání řídících informací pro IP – testování dosažitelnosti, nedostupnost, vypršení TTL, vyhledávání routerů, výzva ke změně záznamu v routovací tabulce, …
 - vztah linkové a fyzické vrstvy v OSI a TCP/IP
-	- TCP/IP se jimi nezabývá
+	- TCP/IP se jimi nezabývá (respektive označuje je jako síťové rozhraní)
 	- v OSI se fyzická vrstva stará o doručení framů, tedy packetů obalených informacemi z linkové vrstvy (MAC adresy, číslo protokolu síťové vrstvy, FCS)
 - Co označuje termín LLC (Logical Link Control)?
 	- je to horní podvrstva linkové vrstvy, která zajišťuje multiplexing (různé protokoly síťové vrstvy mají přístup ke stejnému médiu)
