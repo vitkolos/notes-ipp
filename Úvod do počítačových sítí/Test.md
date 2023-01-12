@@ -346,7 +346,7 @@ jednotlivé body odpovídají [otázkám](Otázky.md)
 		- UDP je jednoduché, relaci musí řídit aplikace
 		- pravidelný tok (za cenu vyšší ztrátovosti)
 - Pokud TCP pakety dorazí v nesprávném pořadí, co se stane?
-	- TCP packety seřadí správně podle offsetu (případně sequence number?)
+	- záleží na nastavení TCP softwaru – typické je, že se pošle ACK pro poslední packet, který přišel ve správném pořadí, což způsobí opětovné zaslání chybných packetů (nebo je taky možné packety seřadit podle sequence number)
 - Pokud UDP pakety nedorazí ve správném pořadí, co se stane?
 	- případný problém musí řešit aplikace samotná (respektive její programátor)
 - Pokud www prohlížeč pošle dotaz na www server na standardním portu, jaký port může obsahovat odpověď jako zdrojový?
