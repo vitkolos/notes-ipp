@@ -2,7 +2,7 @@
 
 >>>porovnání metody přepojování paketů a přepojování okruhů<<<
 • přepojování okruhů – všechna data jdou jednou cestou
-	• rychlejší, plynulejší, ale při výpadku uzlu se spojení rozpadne
+__○ rychlejší, plynulejší, ale při výpadku uzlu se spojení rozpadne
 • přepojování packetů – data se rozdělí na packety, každý může jít jinou cestou; výpadek uzlu není fatální
 >>>typy aplikací/protokolů a jejich přenosové parametry (požadavky)<<<
 • multimediální aplikace – je důležité pravidelné doručování (nízký jitter), naopak ztrátovost nebo vyšší zpoždění (latence) až tak nevadí
@@ -48,17 +48,17 @@
 • tyto dva hashe porovná
 >>>symetrické a asymetrické šifrování<<<
 • symetrické šifrování
-	• pro šifrování a dešifrování se používá stejný klíč
-	• příklady: DES, Blowfish, AES, RC4
-	• výhoda: rychlé, vhodné na velká data
-	• nevýhoda: je nutné bezpečně předat klíč
+__○ pro šifrování a dešifrování se používá stejný klíč
+__○ příklady: DES, Blowfish, AES, RC4
+__○ výhoda: rychlé, vhodné na velká data
+__○ nevýhoda: je nutné bezpečně předat klíč
 • asymetrické šifrování
-	• používá se pár klíčů (veřejný a soukromý)
-	• matematický základ – jednocestné funkce (násobení vs. rozklad na prvočinitele, operace modulo)
-	• příklady: RSA, DSA, ECDSA
-	• výhoda: odpadá problém předání klíče
-	• nevýhoda: pomalé, lze šifrovat jen malá data
-	• zásadní problém: je třeba ověřit autenticitu veřejného klíče
+__○ používá se pár klíčů (veřejný a soukromý)
+__○ matematický základ – jednocestné funkce (násobení vs. rozklad na prvočinitele, operace modulo)
+__○ příklady: RSA, DSA, ECDSA
+__○ výhoda: odpadá problém předání klíče
+__○ nevýhoda: pomalé, lze šifrovat jen malá data
+__○ zásadní problém: je třeba ověřit autenticitu veřejného klíče
 >>>vlastnosti kryptografické hashovací funkce<<<
 • malá změna textu musí způsobit velkou změnu hashe
 • jednocestnost (text z hashe nelze odvodit)
@@ -100,23 +100,23 @@
 • cílová MAC – nejbližší cílové zařízení v dané podsíti
 >>>peer-to-peer (P2P) a klient-server aplikační modely<<<
 • model klient-server
-	• klient zná pevnou adresu serveru
-	• klient navazuje komunikaci, zadává požadavky
-	• server obvykle obsluhuje více klientů
-	• download = tok dat ve směru server → klient
-	• upload = tok dat ve směru klient → server
-	• např. DNS, WWW, SMTP
+__○ klient zná pevnou adresu serveru
+__○ klient navazuje komunikaci, zadává požadavky
+__○ server obvykle obsluhuje více klientů
+__○ download = tok dat ve směru server → klient
+__○ upload = tok dat ve směru klient → server
+__○ např. DNS, WWW, SMTP
 • model peer-to-peer
-	• partneři neznají pevné adresy „zdroje dat“
-	• nejsou vyhraněné role – každý je zároveň klientem i serverem
-	• např. Napster, Gnutella, BitTorrent
+__○ partneři neznají pevné adresy „zdroje dat“
+__○ nejsou vyhraněné role – každý je zároveň klientem i serverem
+__○ např. Napster, Gnutella, BitTorrent
 >>>URI<<<
 • uniform resource identifier – původně nadřazené pojmům URL a URN, dnes však v podstatě zaměnitelné s pojmem URL
 • části URL
-	• schéma – následované dvojtečkou (často se shoduje s názvem protokolu)
-	• autorita – někdy prefixovaná dvojicí lomítek
-		• jméno:heslo@adresa:port
-	• cesta?dotaz#fragment
+__○ schéma – následované dvojtečkou (často se shoduje s názvem protokolu)
+__○ autorita – někdy prefixovaná dvojicí lomítek
+____🞍 jméno:heslo@adresa:port
+__○ cesta?dotaz#fragment
 >>>doménová jména<<<
 • domény nejvyšší úrovně (TLD) spravuje ICANN – příklady: arpa, com, org, edu, net, info, cz, eu
 • doménu cz spravuje CZ.NIC, doména nemá strukturu kategorií, nepodporuje lokalizovaná jména
@@ -140,9 +140,9 @@ spojuje funkce OSI 5, 6, 7 – určuje pravidla komunikace mezi klientem a serve
 • zprostředkovává služby sítě aplikačním protokolům
 • umožňuje provozování více aplikací (klientů a serverů) na stejném uzlu sítě
 • volitelně (funkce TCP)
-	• zabezpečuje spolehlivost přenosu dat
-	• segmentuje data pro snazší přenos a opětovně je skládá ve správném pořadí
-	• řídí tok dat
+__○ zabezpečuje spolehlivost přenosu dat
+__○ segmentuje data pro snazší přenos a opětovně je skládá ve správném pořadí
+__○ řídí tok dat
 >>>úkoly síťové vrstvy v TCP/IP modelu<<<
 • přenos dat předaných transportní vrstvou od zdroje k cíli
 • adresace – protokol síťové vrstvy definuje tvar adres
@@ -274,18 +274,18 @@ GET, HEAD, POST, PUT, DELETE, CONNECT
 • na serveru – pomocí PHP nebo jiných server-side jazyků
 >>>problematika vzdáleného přihlášení pomocí protokolů Telnet a SSH<<<
 • Telnet
-	• telecommunication network
-	• uživatel má k dispozici síťový virtuální terminál (NVT), protokol přenáší oběma směry znaky a příkazy pro řízení NVT
-	• slabiny: nerozlišuje příkaz a odpověď, otevřený přenos dat
+__○ telecommunication network
+__○ uživatel má k dispozici síťový virtuální terminál (NVT), protokol přenáší oběma směry znaky a příkazy pro řízení NVT
+__○ slabiny: nerozlišuje příkaz a odpověď, otevřený přenos dat
 • SSH
-	• secure shell
-	• slouží ke vzdálenému přihlášení a přenosům souborů, je zabezpečený
+__○ secure shell
+__○ slouží ke vzdálenému přihlášení a přenosům souborů, je zabezpečený
 >>>bezpečnost přístupu přes SSH<<<
 • klient ověřuje server – na základě kontroly klíče nebo certifikátu
 • server ověřuje uživatele – pomocí hesla / pomocí výzev a odpovědí (OTP) / pomocí veřejného klíče
 • strategie používání klíčů
-	• důkladně ověřovat klíč serveru, dát pozor při změně
-	• na méně důležité cíle je možné i bez hesla, ale rozhodně nikoliv recipročně (A→B i B→A)
+__○ důkladně ověřovat klíč serveru, dát pozor při změně
+__○ na méně důležité cíle je možné i bez hesla, ale rozhodně nikoliv recipročně (A→B i B→A)
 >>>Co označuje pojem VoIP (Voice over IP)?<<<
 • technologie pro přenos hlasu po IP
 • H.323, SIP, Skype, …
@@ -333,16 +333,16 @@ Sequence number (někdy případně číslo portu)
 Source Port, Destination Port, Checksum
 >>>TCP, UDP<<<
 • Transmission Control Protocol
-	• používá se pro spojované služby
-	• klient naváže spojení, data tečou ve formě proudu (streamu)
-	• spojení (relaci) řídí a zabezpečuje TCP, nikoliv aplikace
-	• TCP je komplikované, má velkou režii
-	• doručování může být méně pravidelné, ale je bezeztrátové
+__○ používá se pro spojované služby
+__○ klient naváže spojení, data tečou ve formě proudu (streamu)
+__○ spojení (relaci) řídí a zabezpečuje TCP, nikoliv aplikace
+__○ TCP je komplikované, má velkou režii
+__○ doručování může být méně pravidelné, ale je bezeztrátové
 • User Datagram Protocol
-	• používá se pro nespojované služby
-	• neexistuje spojení, data se posílají jako nezávislé zprávy
-	• UDP je jednoduché, relaci musí řídit aplikace
-	• pravidelný tok (za cenu vyšší ztrátovosti)
+__○ používá se pro nespojované služby
+__○ neexistuje spojení, data se posílají jako nezávislé zprávy
+__○ UDP je jednoduché, relaci musí řídit aplikace
+__○ pravidelný tok (za cenu vyšší ztrátovosti)
 >>>Pokud TCP pakety dorazí v nesprávném pořadí, co se stane?<<<
 TCP packety seřadí správně podle offsetu (případně sequence number?)
 >>>Pokud UDP pakety nedorazí ve správném pořadí, co se stane?<<<
@@ -355,9 +355,9 @@ případný problém musí řešit aplikace samotná (respektive její programá
 • připojování klienta na server pomocí TCP
 • synchronizace Sequence number
 • klient – – – – – – – – – – – – – – – – – server
-	• SYN ~ Seq# c ~ Ack# 0 ⇒
-	• ⇐ SYN, ACK ~ Seq# s ~ Ack# c+1
-	• ACK ~ Seq# c+1 ~ Ack# s+1 ⇒
+__○ SYN ~ Seq# c ~ Ack# 0 ⇒
+__○ ⇐ SYN, ACK ~ Seq# s ~ Ack# c+1
+__○ ACK ~ Seq# c+1 ~ Ack# s+1 ⇒
 >>>Co se stane, když jeden z partnerů pošle TCP paket s FIN příznakem?<<<
 dojde k uzavření spojení – druhá strana odpoví ACK a následně také pošle FIN (na něj opět dostane odpověď ACK)
 >>>Se kterou vrstvou TCP/IP je svázán pojem port?<<<
@@ -400,20 +400,20 @@ podle masky (číslo za lomítkem určuje zleva počet bitů, které přísluš�
 network broadcast – určený všem počítačům v dané síti
 >>>typy IP adres<<<
 • speciální IPv4 adresy
-	• this host 0.0.0.0/8 – dokud počítači není přiřazená adresa
-	• loopback 127.0.0.1/8 – adresa lokálního počítače
-	• adresa sítě = adresa sítě + samé nuly
-	• network broadcast = adresa sítě + samé jedničky
-	• limited broadcast 255.255.255.255 – všem v této síti, nesmí opustit síť
-	• privátní adresy – pro provoz v lokální síti, přiděluje správce, nesmí opustit síť
-	• link-local adresy – pouze pro spojení v rámci segmentu sítě, uzel si ji sám volí
+__○ this host 0.0.0.0/8 – dokud počítači není přiřazená adresa
+__○ loopback 127.0.0.1/8 – adresa lokálního počítače
+__○ adresa sítě = adresa sítě + samé nuly
+__○ network broadcast = adresa sítě + samé jedničky
+__○ limited broadcast 255.255.255.255 – všem v této síti, nesmí opustit síť
+__○ privátní adresy – pro provoz v lokální síti, přiděluje správce, nesmí opustit síť
+__○ link-local adresy – pouze pro spojení v rámci segmentu sítě, uzel si ji sám volí
 • druhy IPv6 adres
-	• unicastová
-		• adresa jednoho uzlu
-		• zvláštní adresy – loopback, link-scope (obdoba link-local), unique-local (obdoba privátních adres)
-	• multicastová – adresa skupiny uzlů (rozhraní)
-	• anycastová – unicastová adresa přidělená více uzlům
-	• chybějí broadcastové adresy
+__○ unicastová
+____🞍 adresa jednoho uzlu
+____🞍 zvláštní adresy – loopback, link-scope (obdoba link-local), unique-local (obdoba privátních adres)
+__○ multicastová – adresa skupiny uzlů (rozhraní)
+__○ anycastová – unicastová adresa přidělená více uzlům
+__○ chybějí broadcastové adresy
 >>>klasifikace IP adres pomocí implicitních síťových masek<<<
 • třída ~ začátek 1. bytu ~ číselná hodnota 1. bytu
 • A ~ 0 ~ 1–126
@@ -460,13 +460,13 @@ neměla by to být speciální adresa a měla by odpovídat masce 27 bitů
 • router přeposílá packety směrem k jejich cíli
 >>>metody řízení směrovacích tabulek<<<
 • statické řízení – cesty se nastavují při startu podle konfigurace
-	• nevýhody: nepružné při změnách, problémy se subnettingem, nesnadné zálohování spojení
-	• výhody: méně citlivé na problémy v síti, dostupné i ve zcela heterogenním prostředí
-	• vhodné pro jednodušší, stabilní sítě
-	• směrovací tabulky lze upravovat ze strany routeru pomocí ICMP Redirect (ale má to své nevýhody)
+__○ nevýhody: nepružné při změnách, problémy se subnettingem, nesnadné zálohování spojení
+__○ výhody: méně citlivé na problémy v síti, dostupné i ve zcela heterogenním prostředí
+__○ vhodné pro jednodušší, stabilní sítě
+__○ směrovací tabulky lze upravovat ze strany routeru pomocí ICMP Redirect (ale má to své nevýhody)
 • dynamické řízení – routery si navzájem vyměňují informace o síti pomocí routovacího protokolu, stanice se jím mohou řídit také, ale v režimu read-only
-	• výhody: jednoduché změny konfigurace, síť se dokáže sama „opravovat“, směrovací tabulky se udržují automaticky
-	• nevýhody: citlivější na problémy a útoky, na počítači musí běžet program obsluhující protokol (routed, gated, BIRD; pro lokální sítě RIP, OSPF)
+__○ výhody: jednoduché změny konfigurace, síť se dokáže sama „opravovat“, směrovací tabulky se udržují automaticky
+__○ nevýhody: citlivější na problémy a útoky, na počítači musí běžet program obsluhující protokol (routed, gated, BIRD; pro lokální sítě RIP, OSPF)
 >>>distance-vector routovací protokoly<<<
 • uzel má u záznamů ve směrovací tabulce i „vzdálenosti“
 • svou tabulku periodicky posílá sousedům, ti si upraví svoji tabulku a v dalším taktu ji posílají dál
@@ -512,8 +512,8 @@ použije se default gateway (pokud není nastavená, tak se packet zahodí)
 • router packety v průběhu přenosu zachytává a překládá u nich veřejné adresy na soukromé a naopak
 >>>proxy server<<<
 • transparentní varianta – není třeba konfigurovat na klientovi
-	• router zachytí spojení, uloží požadavek a svým jménem ho odešle na server
-	• odpověď přijde zpět na router, ten ji uloží (pro další klienty) a odešle původnímu žadateli
+__○ router zachytí spojení, uloží požadavek a svým jménem ho odešle na server
+__○ odpověď přijde zpět na router, ten ji uloží (pro další klienty) a odešle původnímu žadateli
 • netransparentní varianta – je třeba nakonfigurovat, aby se požadavky posílaly proxy-serveru
 • proxy server umožňuje správě sítě kontrolovat činnost klientů a omezit objem provozu
 >>>Které zařízení/prostředek implementuje bezpečnostní politiku lokální sítě vůči internetu?<<<
@@ -557,14 +557,14 @@ je to spodní podvrstva linkové vrstvy, která má na starosti adresaci a říz
 • podmínka: doba vysílání rámce > doba šíření po segmentu (kolizní okénko); limituje max. délku segmentu a min. velikost rámce
 >>>Jak lze charakterizovat repeater, hub, bridge a switch?<<<
 • repeater
-	• spojuje segmenty na fyzické vrstvě
-	• řeší: větší dosah (překonává útlum kabelu)
-	• neřeší: propustnost (problém kolizí naopak zhoršuje)
-	• ve strukturované kabeláži se nazývá hub, rozbočovač
+__○ spojuje segmenty na fyzické vrstvě
+__○ řeší: větší dosah (překonává útlum kabelu)
+__○ neřeší: propustnost (problém kolizí naopak zhoršuje)
+__○ ve strukturované kabeláži se nazývá hub, rozbočovač
 • bridge
-	• spojuje segmenty na linkové vrstvě
-	• řeší: větší propustnost (rozděluje kolizní doménu)
-	• ve strukturované kabeláži se nazývá switch, přepínač
+__○ spojuje segmenty na linkové vrstvě
+__○ řeší: větší propustnost (rozděluje kolizní doménu)
+__○ ve strukturované kabeláži se nazývá switch, přepínač
 >>>S jakými adresami pracuje hub, přepínač resp. směrovač?<<<
 repeater nepracuje s adresami, bridge pracuje s MAC adresami, router pracuje s MAC i IP adresami
 >>>Jak lze charakterizovat Spanning Tree Protocol resp. Spanning Tree Algorithm?<<<
