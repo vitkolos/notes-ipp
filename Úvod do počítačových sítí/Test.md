@@ -1,5 +1,7 @@
 # Test
 
+jednotlivé body odpovídají [otázkám](Otázky.md)
+
 - porovnání metody přepojování paketů a přepojování okruhů
 	- přepojování okruhů – všechna data jdou jednou cestou
 		- rychlejší, plynulejší, ale při výpadku uzlu se spojení rozpadne

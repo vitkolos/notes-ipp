@@ -1,7 +1,8 @@
 # Otázky
 
 https://www.ksi.mff.cuni.cz/teaching/nswi141-web/pages/questions  
-162 otázek, na testu jich bude 40
+
+162 otázek, na testu jich bude 40; [odpovědi zde](Test.md)
 
 - Označte nepravdivé tvrzení týkající se porovnání metody přepojování paketů a přepojování okruhů.
 - Jaké charakteristiky z hlediska přenosových parametrů mají následující typy aplikací resp. protokolů?
