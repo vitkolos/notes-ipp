@@ -163,7 +163,7 @@ jednotlivé body odpovídají [otázkám](Otázky.md)
 - Uživateli nejde zobrazit WWW stránka. Při použití IP adresy v URL se stránka správně zobrazí. Který protokol je zodpovědný za chybu?
 	- DNS
 - Uživatel přesunul počítač do jiné podsítě v síti bez VLSM (Variable Length Subnet Mask) a Proxy ARP. Které z následujících nastavení bude muset zcela jistě změnit?
-	- nic
+	- asi nic?
 - Jakým způsobem se v aplikačních protokolech TCP/IP řeší zápis textových řádek?
 	- pomocí ASCII, na konce řádků se používají znaky CR, LF
 - Jakým způsobem se v aplikačních protokolech TCP/IP obvykle řeší binární zápis celých čísel?
@@ -219,6 +219,7 @@ jednotlivé body odpovídají [otázkám](Otázky.md)
 	- není snadné dostat se ke znění dotazu, aby bylo možné podvrhnout odpověď
 	- cache poisoning útok – do korektní odpovědi útočník do sekce authority a additional přidá falešné údaje o jiné doméně
 	- podpisy zabezpečené DNS – DNSSEC, podepisování záznamů
+	- server posílá různé příznaky (flags), jedním z nich je Authoritative, který určuje, že je odpověď (sekce ANSWER) autoritativní
 - nameservery
 	- vyřizují DNS požadavky na domény
 	- ke každé doméně je přiřazen alespoň jeden nameserver
@@ -577,6 +578,7 @@ jednotlivé body odpovídají [otázkám](Otázky.md)
 	- sítě jsou označeny 12bitovým identifikátorem (VLANID)
 	- ethernetový rámec se prodlouží o 32 bitů dlouhý tag
 	- tagovat může koncová stanice nebo switch (transparentně)
+	- síťová zařízení musí být schopná zpracovávat rámce výsledné velikosti (po přidání identifikátoru)
 - Co označuje termín CRC?
 	- cyklický kontrolní součet (cyclic redundancy check) – hashovací funkce používaná pro kontrolu konzistence dat (např. FCS)
 - Jaký hlavní smysl má zápatí (trailer) linkového rámce?
