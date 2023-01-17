@@ -794,7 +794,7 @@
 - soubor BMP
 - obraz disku
 
-## 12. přednáška
+## 12. + 12,5. přednáška
 
 - reprezentace obrazových dat
 - fotka = obdélníkový obrázek
@@ -948,3 +948,136 @@
 	- typ bytes je immutable
 	- typ byteArray je mutable
 	- bytes.decode – převede bajty na string
+
+## 13. přednáška
+
+- von Neumannovská architektura
+- mezi procesor a paměť vložíme řadič paměti (memory controller)
+- řadič paměti zajišťuje refresh DRAM paměti, takže pokud procesor ukládá během refreshe, tak se data pozdrží a uloží se do paměti po refreshi
+- když chceme 1,5GB paměť, tak pořídíme dvě paměti (1GB a 0,5GB)
+- řadič paměti je namapuje v adresovém prostoru, aby fungovala kapacita 1,5 GB (modul 0 mapuje na první paměť, modul 1 na druhou)
+- procesor a paměť můžou mít různé komunikační protokoly – řadič to propojuje (to souvisí s velikostí adresových prostorů – např. procesor podporuje 8GB, ale paměti jenom 4GB, řadič umožňuje mít dvě 4GB paměti)
+- chceme, aby z procesoru vedla pouze jedna sběrnice – budeme jí říkat systémová sběrnice, je na ni napojen řadič paměti i všechno ostatní
+- každé zařízení na sběrnici má svou adresu
+- každé zařízení má nějaké registry
+- když oslovujeme zařízení, tak řekneme adresu zařízení a adresu registru, se kterým pracujeme – pak až pošleme data
+- potřebujeme, aby ta sběrnice byla multidrop (abychom mohli připojit více zařízení)
+- potřebujeme, aby ta sběrnice měla nějakou vlastnost, kterou I2C nemá – proto se jako systémová sběrnice typicky používá sběrnice PCI Express (PCIe)
+- PCIe
+	- full duplex, multidrop
+	- dva druhy packetů (transakcí)
+		- adresace adresou zařízení
+		- adresace adresou v paměťovém adresovém prostoru
+			- memory write (MWr)
+			- memory read (MRd)
+				- procesor pošle požadavek
+				- řadič paměti si ho zapamatuje a začne na tom pracovat
+				- řadič v nějakém okamžiku pošle zpátky odpověď – řadič paměti vystupuje jako master, procesor jako slave, takže potřebujeme být schopni adresovat procesor
+					- zejména pokud máme více procesorů (nebo procesorových jader)
+					- v odpovědním packetu je kromě adresy procesoru také adresa řadiče paměti, aby si mohl procesor odpověď správně spojit s požadavkem
+- jak oslovovat zařízení na systémové sběrnici?
+	- v paměťovém prostoru je obvykle spousta volného místa
+	- toto volné místo namapujeme na zařízení
+	- memory mapped I/O (MM I/O)
+	- zařízení řekneme bázovou adresu v adresovém prostoru
+	- z dokumentace zařízení zjistíme offset registru
+	- když to zkombinujeme s bázovou adresou, tak zjistíme, na kterou adresu zapisovat
+	- říká se tomu Host Controller Interface (HCI) – víme, co který registr dělá a na jakém je offsetu
+	- komunikační protokol je daný systémovou sběrnicí
+- zvuková karta
+	- zvuk = tlak se mění v čase
+	- tlak budeme vzorkovat v čase – vždycky zaznamenáme jeho hodnotu
+	- sample … signed integer
+		- nekvalitní … 8-bit
+		- klasická kvalita … 16-bit
+		- kvalitnější … 24-bit
+	- v reproduktoru je membrána s elektromagnetem – podle napětí elektromagnet membránu přitahuje silně/slabě
+	- zvuková karta je jednoduchý digital analog converter (DAC) – podle vzorků vytváří napětí
+	- potřebujeme ve stejných intervalech, jako se zaznamenával vstup, udávat napětí
+		- sampling rate
+		- typicky 44,1 kHz
+		- někdy 22 kHz nebo 96 kHz
+	- potřebujeme cyklus, který bude dělat store do registru zvukové karty v daném (velmi přesném) intervalu
+	- bylo by hezké, kdybychom si mohli ve zvukové kartě připravit 1 ms předem (v bufferu) a zvuková karta by to následně přehrála (hodila by v tom bufferu po těch vzorcích a přehrávala by je)
+	- zvuková karta tedy musí mít sadu konfiguračních registrů, kam uložíme různé informace (velikost vzorku, vzorkovací frekvence)
+		- chceme mít n mikrofonů → n reproduktorů (mono/stereo/…)
+		- chceme spustit/ukončit přehrávání
+		- chceme nahrávat (tedy analog-digital converter)
+		- chceme znát aktuální stav zvukové karty (co zrovna přehrává)
+	- u zařízení s vícebytovými registry musíme řešit jejich endianitu (a případně převádět)
+	- chceme mixovat zvuk – průměrujeme dva vzorky (pokud mají různou hlasitost, tak děláme vážený průměr)
+	- dnešní zvukové karty mají HW akceleraci (CPU offloading) – typickým úkolem je právě mixování zvuku
+	- DSP (digital signalling procesor) – strojovým kódem tohoto procesoru můžeme ovládat, jak se má zvuková karta chovat
+- řadič sběrnice
+	- procesor – PCIe – USB řadič – USB sběrnice
+	- takovým řadičům se říká HBA (Host Bus Adapter) – někdy také nesprávně bridge
+	- USB HBA je komplikovaný, takže se podíváme na I2C HBA
+	- průběh
+		- pošleme write do konfiguračního registru, aby se do start condition bitu nastavila jednička
+		- pomocí readu čekáme, až tam bude jednička
+		- ze stavového registru přečteme stav řadiče
+		- chceme poslat první (adresový) bajt
+		- zrušíme start condition bit
+		- …
+		- pošleme data
+		- …
+	- mnoho transakcí na systémové sběrnici na jednu transakci na I2C lince
+	- čekání = device polling, ztrácíme procesorový čas
+- grafická karta
+	- je k ní připojený monitor
+	- obsahuje paměť (typicky DRAM) – „video RAM“
+		- v její části je frame buffer – tam je bitmapa stavu obrazovky
+		- karta x-krát za sekundu posílá monitoru obsah frame bufferu
+			- tradičně se používala analogová linka VGA
+			- dnes se používají digitální sériové linky DVI, HDMI, DisplayPort
+		- nechceme frame buffer obsluhovat pomocí registrů, bylo by to neefektivní
+		- frame buffer namapujeme do adresového prostoru, abychom do něj mohli zapisovat přímo
+		- mezi snímky je díra (aby se CRT paprsek mohl přesunout na začátek)
+		- registr grafické karty mi dává informaci o stavu vsync (že teď se právě paprsek přesouvá – je okamžik mezi snímky)
+		- v okamžiku mezi snímky můžeme změnit obraz (překopírovat data do frame bufferu nebo říct jinou bázovou adresu frame bufferu, pokud máme dva frame bufferu, které střídáme – tzv. princip double bufferingu)
+	- hardwarová akcelerace
+		- rasterizace textu
+			- kartě se nastaví textový režim
+			- má pole bitmap, které odpovídají znakům
+			- znaky přímo převádí na jim odpovídající bitmapy
+			- dnes se příliš nepoužívá
+		- rasterizace 2D
+		- rasterizace 3D
+			- do paměti nahrajeme mesh 3D modelu (trojúhelníky) a odpovídající textury, kterými se mesh pokryje – engine podle toho generuje obsah frame bufferu
+	- moderní grafická karta má procesor
+	- programu pro takový procesor se říká shader
+- jak dostat kód na von neumannovskou architekturu
+	- jeden z paměťových modulů může být non-volatile – ROM
+	- vykonává základní program, budeme mu říkat firmware
+	- procesor má nastavený startup vector, což je adresa, kam se procesor nastaví po zapnutí
+	- na té adrese je typicky jump, který směřuje jinam na reálný kód firmwarové ROM
+	- funkce firmwarové ROM
+		- bootování počítače
+			- test a konfigurace hardwaru
+				- plug & play – každému zařízení se přiřadí jiná bázová adresa a funguje to
+			- nalezení užitečného softwaru
+				- provede se jump na option ROM, kde je užitečný software (třeba editor a interpret basicu)
+				- myšlenka, že bychom chtěli distribuovat programy
+					- koupím si cartridge
+					- zapojím ji do počítače
+					- namapuje se jako další option ROM
+					- je tam nějaký magic
+				- užitečný software taky může být na mass storage device
+					- pevný disk je rozdělený na sektory, je to zformátované souborovým systémem
+					- nultý sektor je speciální – boot sector
+					- může tam být strojový kód něčeho užitečného, co by se mělo spustit
+					- je tam magic, který určuje, jestli je to zařízení bootovatelné (jestli v boot sektoru je něco rozumného)
+				- jednotlivá zařízení (třeba grafická karta) mají své option ROM
+				- v boot sektoru je typicky pouze část užitečného softwaru – bootloader
+			- další funkce – firmwarové ROM: abstrakce nad hardwarem
+				- funkce read sector, read key, print char
+				- aby bootloader mohl používat tyto základní funkce
+- kdysi na jedné disketě jeden program
+- dnes si chceme vybírat z různých programů
+- jádro operačního systému (kernel)
+	- poskytuje abstrakci souborového systému
+	- abstrakce HW (lepší než firmware) – vstup/výstup (klávesnice, myš, text, grafika)
+	- spouštění programů
+		- typicky to nejprve spustí tzv. shell, aby si uživatel mohl vybrat, jaký program chce spustit
+		- shell může být textový nebo grafický
+		- více programů současně – programy se střídají (je to zjednodušení, více na počítačových systémech)
