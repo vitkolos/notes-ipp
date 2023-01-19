@@ -48,8 +48,8 @@
 	- 256 = 2^8
 	- 1024 = 2^10
 	- 4096 = 2^12
-	- 65535 = 2^15
-	- cca 10^6 = 2^?
+	- 65536 = 2^16
+	- cca 10^6 = 2^20
 	- cca 16 000 000 = 2^24
 	- cca 4 200 000 000 = 2^32
 
@@ -113,7 +113,7 @@
 	- přijímač i vysílač má mapovací tabulku
 	- tento způsob synchronizace se nazývá clock recovery, používá se např. v USB
 		- vodiče v USB: 5 V, GND (tyto dva slouží k napájení připojeného zařízení), data+, data– (tyto dva zajišťují přenos dat)
-		- zbylé dva způsoby synchronizace přenosu používají linky I²C (pomocí hodinového signálu) a RS-252 (pomocí start a stop bitů)
+		- zbylé dva způsoby synchronizace přenosu používají linky I²C (pomocí hodinového signálu) a RS-232 (pomocí start a stop bitů)
 - linky simplex a duplex
 	- přenos jedním směrem – simplex
 	- přenos oběma směry – duplex
