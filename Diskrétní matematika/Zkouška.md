@@ -181,17 +181,17 @@
 			- celkem tedy $m^n\cdot m=m^{n+1}$
 	- jiný způsob důkazu – pro každé $x$ existuje $m$ možností, počet $x$ je $n$
 - Věta: Počet prostých funkcí mezi množinami
-	- věta: počet prostých $f:N\to M=m^\underline{n}$ (viz klesající mocnina níže)
+	- věta: počet prostých $f:N\to M=m^{\underline{n}}$ (viz klesající mocnina níže)
 	- důkaz indukcí podle $n$
 		- podobně jako předchozí důkaz
 		- $n\to n+1$
 			- $f':N\setminus\lbrace x \rbrace\to M\setminus\lbrace f(x) \rbrace$
-			- podle IP existuje $(m-1)^\underline n$ funkcí $f'$
+			- podle IP existuje $(m-1)^{\underline n}$ funkcí $f'$
 			- hodnotu $f(x)$ lze zvolit $m$ způsoby
-			- celkem tedy $(m-1)^\underline n \cdot m=m^\underline{n+1}$
+			- celkem tedy $(m-1)^{\underline n} \cdot m=m^{\underline{n+1}}$
 	- jiný způsob důkazu – pro první $x$ existuje $m$ možností, pro každé další o jednu méně, počet $x$ je $n$
 - Definice: Klesající mocnina
-	- $m^\underline n=\underbrace{m\cdot (m-1)\cdot (m-2)\cdot\ldots\cdot(m-n+1)}_n$
+	- $m^{\underline n}=\underbrace{m\cdot (m-1)\cdot (m-2)\cdot\ldots\cdot(m-n+1)}_n$
 - Definice: Charakteristická funkce podmnožiny
 	- pro podmnožinu $A$ množiny $X$ definujeme zobrazení $c_A:X\to\lbrace 0,1\rbrace$
 	- $c_A(x)= \begin{cases} 1 &\text{pokud } x\in A \\ 0 &\text{pokud }x\notin A\end{cases}$
@@ -211,17 +211,17 @@
 - Věta: Počet permutací na množině
 	- definice: $[n]=\lbrace1,2,\dots,n\rbrace$
 	- věta: na množině $[n]$ existuje $n!$ permutací (podobně na každé n-prvkové množině)
-	- důkaz: počet prostých funkcí $[n]\to[n]=n^\underline n=n!$
+	- důkaz: počet prostých funkcí $[n]\to[n]=n^{\underline n}=n!$
 - Věta: Počet uspořádaných k-tic bez opakování a k-prvkových podmnožin
 	- počet uspořádaných k-tic $|X^k|=|X|^k$, lze jej totiž vyjádřit jako počet funkcí $f:[k]\to X$
-	- u uspořádaných k-tic bez opakování hledáme prosté funkce, tedy $|X|^\underline k$
+	- u uspořádaných k-tic bez opakování hledáme prosté funkce, tedy $|X|^{\underline k}$
 	- pomocí „počítání dvěma způsoby“ odvodíme vzorec pro neuspořádané k-tice (k-prvkové podmnožiny)
 	- uspořádaných k-tic bude k!-krát víc než těch neuspořádaných (každou neuspořádanou k-tici lze k! způsoby lineárně uspořádat)
-	- z toho vyplývá, že k-prvkových podmnožin (neuspořádaných k-tic) bude $|X|^\underline k\over k!$
+	- z toho vyplývá, že k-prvkových podmnožin (neuspořádaných k-tic) bude $|X|^{\underline k}\over k!$
 - Definice: Notace pro množinu všech k-prvkových podmnožin
 	- $X\choose k$ … množina všech k-prvkových podmnožin množiny X
 - Definice: Kombinační číslo (binomický koeficient), Pascalův trojúhelník
-	- kombinační číslo (binomický koeficient) ${n\choose k}:={n^\underline k \over k!}={n!\over k!(n-k)!}$
+	- kombinační číslo (binomický koeficient) ${n\choose k}:={n^{\underline k} \over k!}={n!\over k!(n-k)!}$
 	- Pascalův trojúhelník – n roste shora dolů, k zleva doprava
 - Věta: Základní vlastnosti kombinačních čísel
 	- ${n\choose k} = {n\choose n-k}$ … každé k-prvkové podmnožině přiřadíme její doplněk
@@ -291,7 +291,7 @@
 		- tudíž $$(n!)^2=\prod_{i=1}^n {i(n+1-i)}\geq \prod_{i=1}^n n=n^n$$
 		- tedy platí $n!\geq n^{n\over 2}$
 - Věta: Odhad kombinačního čísla: $\left({n\over k}\right)^k \leq {n\choose k} \leq n^k$
-	- horní odhad zřejmý z toho, že kombinační číslo lze zapsat jako ${n^\underline k \over k!}$
+	- horní odhad zřejmý z toho, že kombinační číslo lze zapsat jako ${n^{\underline k} \over k!}$
 	- dolní odhad dokážeme pomocí ${n\choose k}=\prod_{i=0}^{k-1}{n-i\over k-i}$
 	- $\frac{n-i}{k-i}\geq \frac nk$, což dokážeme:
 	- $kn-ki \geq kn-in$
