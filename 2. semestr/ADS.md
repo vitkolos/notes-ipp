@@ -1,0 +1,56 @@
+# ADS
+
+## Cviko
+
+- Vladan Majerech
+- cvičení bude rychlé a náročné
+- stránka předmětu – budou tam informace, možná i video
+	- budou tam domácí úkoly!
+	- termín je těsně před (dalším) cvičením
+	- je to bez nápověd
+	- po deadlinu max. poloviční počet
+	- lze odevzdávat opakovaně
+	- můžeme úkoly dělat napřed, většina bude stejná jako vloni
+- otázka
+	- máme vajíčko, které se z nějaké výšky rozbije, z menší ne
+	- máme diskrétní výšky, máme k vajíček, chceme minimalizovat počet pokusů
+	- nerozbitá vajíčka umíme sbírat
+	- řešíme pro k vajíček
+	- hledáme minimální počet pokusů – nevadí, že rozbijeme všechna vajíčka, pokud známe řešení
+	- odpověď
+		- s jedním vajíčkem musíme postupně zespodu
+		- hledáme f(v,h) … počet pokusů
+			- kde v je počet vajíček
+			- h je počet různých výšek
+			- to je špatné řešení, funkce by se snadno komprimovala
+		- správné f(v,p) … \# výšek
+			- hledáme rekurenci
+			- $f(v,p)=f(v,p-1)+f(v-1,p-1)$
+				- buď se vajíčko rozbilo, nebo se nerozbilo
+			- $f(v,0)=1$
+			- $f(0,p)=1$
+			- Pascalův trojúhelník
+			- tabulka, jednička podél obou okrajů, takže to není přímo Pascalův trojúhelník
+			- $f=\sum_{i=0}^v{p\choose i}$
+- AVL strom
+	- pro každý vrchol: maximální hloubka pravého podstromu se od levého liší o jedna
+	- n je počet vrcholů, jaká je nejvyšší hloubka? (nejhorší strom)
+	- budeme počítat obráceně
+	- hledáme minimální počet vrcholů pro danou výšku
+		- $A(h)$ … minimální počet vrcholů
+	- původní funkce je schodovitá
+		- nová funkce nám vyjadřuje, kde jsou ty schody
+	- když chceme co nejhlubší, tak bude jeden podstrom o jedna menší
+	- $A(h)=A(n-1)+A(n-2)+1$
+	- $F(h)=F(h-1)+F(h-2)$ … Fibonacciho posloupnost
+	- $B(h)=A(h)+1=A(h-1)+A(h-2)+1+1=B(h-1)+B(h-2)$
+	- $A(h)=B(h)-1$
+	- je to posunutá Fibonacciho posloupnost
+	- $A_{n+3}=c_1A_{n+2}+c_2A_{n+1}+c_3A_n$
+	- předpokládejme řešení $q^{n+3}=c_1q^{n+2}+c_2q^{n+1}+c_3q^n$
+	- tedy $q^3=c_1q^2+c_2q^1+c_3q^0$
+	- polynom třetího stupně má tři kořeny $q_1,q_2,q_3$
+	- s komplexními kořeny není problém
+	- je problém s dvojnásobnými kořeny
+	- u vícenásobných kořenů hledáme kořeny stylem $q^n,q^n\cdot n,q^n{n\choose 2}$
+	- 
