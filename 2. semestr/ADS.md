@@ -11,6 +11,7 @@
 	- po deadlinu max. poloviční počet
 	- lze odevzdávat opakovaně
 	- můžeme úkoly dělat napřed, většina bude stejná jako vloni
+	- musíme mít dvě třetiny bodů
 - otázka
 	- máme vajíčko, které se z nějaké výšky rozbije, z menší ne
 	- máme diskrétní výšky, máme k vajíček, chceme minimalizovat počet pokusů
@@ -46,11 +47,22 @@
 	- $B(h)=A(h)+1=A(h-1)+A(h-2)+1+1=B(h-1)+B(h-2)$
 	- $A(h)=B(h)-1$
 	- je to posunutá Fibonacciho posloupnost
+- mějme rekurenci
 	- $A_{n+3}=c_1A_{n+2}+c_2A_{n+1}+c_3A_n$
 	- předpokládejme řešení $q^{n+3}=c_1q^{n+2}+c_2q^{n+1}+c_3q^n$
 	- tedy $q^3=c_1q^2+c_2q^1+c_3q^0$
 	- polynom třetího stupně má tři kořeny $q_1,q_2,q_3$
+	- $\alpha_1q_1^n+\alpha_2q_2^n+\alpha_3q_3^n$
 	- s komplexními kořeny není problém
 	- je problém s dvojnásobnými kořeny
 	- u vícenásobných kořenů hledáme kořeny stylem $q^n,q^n\cdot n,q^n{n\choose 2}$
+	- rekurenci lze zapsat jinak – viz sešit
+		- vlastní čísla
+- obecnější master theorem
+	- napsali jsme program, n je velikost vstupu
+	- $t(n)=cn^\alpha\log^\beta n+t(a_1n)+t(a_2n)+\dots+t(a_kn)$
+	- $\forall i:a_i\lt 1; a_1\geq a_2\geq \dots\geq a_k$
+	- $n\leq n_0\quad t(n)\leq C$
+	- rozepíšeme příklad bez logaritmu
+	- za domácí úkol indukcí dokázat ty tři varianty
 	- 
