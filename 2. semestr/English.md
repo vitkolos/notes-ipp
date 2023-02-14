@@ -37,3 +37,4 @@
 	- Since the bus can crash at any time, you should be paying attention and watching out for the accident.
 	- Thanks to the ban of the mobile phones, people would read more.
 	- As people are spending most of the time on their phones, they aren't engaged with adverts that much. As a consequence our proposal would increase the transportation companies revenue and thus decrease the ticket price.
+- homework – text about banning smoking, answer questions
