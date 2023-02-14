@@ -1,0 +1,39 @@
+# English
+
+- It was pouring. They cancelled the picnic.
+	- reason → expected result
+- Since it was pouring, they cancelled the picnic.
+	- subordinate (dependent) clause + independent clause = complex sentence
+	- adverbial conjunction of reason
+	- alternatives to „since“: as, because
+- They cancelled the picnic because it was pouring.
+	- there's no comma in front of a subordinate clause
+- Due to the heavy rain, they cancelled the picnic.
+	- due to → what? → noun phrase
+	- Because of the heavy rain…
+	- Owing to… (formal), Thanks to…
+	- as a result of (formal/scientific)
+	- registers
+		- thanks to, because of – spoken language
+		- due to, owing to, as a result of – formal
+- It was pouring, so they cancelled the picnic.
+	- so
+	- therefore
+	- thus
+	- hence
+	- register – so (common), that's why (written) → therefore → as a result, as a consequence → thus/hence (maths)
+	- "so" is special, it has a comma in front of it
+	- there can be semicolon in front
+- Since there was a lack of interest in the subject, we decided to cancel the series.
+- Due to the lack of interest in the subject…
+- He was fed up with the way things were going, so / that's why he decided to quit.
+- Since negotiations between our companies have stalled, we should come up with some new ideas before we continue, therefore I suggest we postpone meeting again until next month.
+- "big words" – therefore, consequently
+- public transport – phones should be banned
+	- so much more friends – 
+	- beautiful city – 
+	- eye contact?
+	- Due to banning the mobile phones in the public transport, we could make people appreciate the landscape of the city more.
+	- Since the bus can crash at any time, you should be paying attention and watching out for the accident.
+	- Thanks to the ban of the mobile phones, people would read more.
+	- As people are spending most of the time on their phones, they aren't engaged with adverts that much. As a consequence our proposal would increase the transportation companies revenue and thus decrease the ticket price.

@@ -65,4 +65,5 @@
 	- $n\leq n_0\quad t(n)\leq C$
 	- rozepíšeme příklad bez logaritmu
 	- za domácí úkol indukcí dokázat ty tři varianty
-	- 
+
+https://mj.ucw.cz/vyuka/2021/ads1/
