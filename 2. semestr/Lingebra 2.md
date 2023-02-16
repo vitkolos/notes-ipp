@@ -1,0 +1,31 @@
+# Lineární algebra 2
+
+- skalární součin vektorů
+	- definujeme jako maticový součin řádkového a sloupcového vektoru
+	- odpovídá součinu velikostí vektorů a kosinu úhlu, který svírají
+	- vektory jsou kolmé, právě když je jejich skalární součin roven nule
+	- eukleidovská norma vektoru = zobecnění Pythagorovy věty pro n-složkový vektor … $||x||=\sqrt{x^Tx}=\sqrt{\sum_{i=0}^n x_i^2}$
+	- vlastnosti skalárního součinu
+	- skalární součin nad $\mathbb R$ je zobrazení, splňuje čtyři vlastnosti
+	- omezujeme se na reálná čísla, protože je umíme porovnávat
+		- kvůli vlastnosti $\langle x,x\rangle\geq 0$
+	- ze symetrie a linearity v první složce vyplývá linearita v druhé složce
+	- pokud je alespoň jedním činitelem nulový vektor, vyjde nula
+- komplexní skalární součin
+	- trochu jiné vlastnosti – jedna z nich obsahuje komplexně sdružené číslo
+- …
+- norma (indukovaná skalárním součinem) a kolmost
+- existují různé skalární součiny – my většinou používáme ten standardní
+- Pythagorova věta
+	- pokud $x,y\in V$ jsou kolmé, tak platí
+	- $||x+y||^2=||x||^2+||y||^2$
+	- důkaz
+- Cauchyho-Schwarzova nerovnost
+	- důkaz reálného případu
+- trojúhelníková nerovnost
+- norma obecně
+- p-norma
+	- ne všechny normy jsou indukované skalárním součinem
+	- typicky se používá $p$ rovno $1,2,\infty$
+	- funguje to pro $p\geq 1$
+- jednotková koule
