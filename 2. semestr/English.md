@@ -38,3 +38,12 @@
 	- Thanks to the ban of the mobile phones, people would read more.
 	- As people are spending most of the time on their phones, they aren't engaged with adverts that much. As a consequence our proposal would increase the transportation companies revenue and thus decrease the ticket price.
 - homework – text about banning smoking, answer questions
+	- What will happen on Sunday night?
+		- not mentioned in the text
+	- What will be lost? What will be gained?
+		- people will smoke less as there will be less places where they are allowed to
+	- Who is against it? Who is for it?
+		- tobacco companies, smokers, bars
+		- nonsmokers, American Nonsmokers' Rights Foundation
+	- it has been enacted in California, it was successful
+	- probably not
