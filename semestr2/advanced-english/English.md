@@ -47,3 +47,35 @@
 		- nonsmokers, American Nonsmokers' Rights Foundation
 	- it has been enacted in California, it was successful
 	- probably not
+
+---
+
+- laws: pass (parliament), enact, enforce
+- ban – prohibition
+- slip through the loopholes
+- tighten/close the loophole
+- loathe – despise, hate
+- lament – grieve, mourn (the loss)
+- zeal – passion
+- incensed – furious
+- stand firm in
+- take a drag – to pull
+- tough
+- usher in – to lead into
+- venue – a place where public events take place
+- wispy – thin, unsubstantial
+- hazy – unclear
+- Because the NYC has a large population of smokers, the tax money from the Phillip Morris company will be lost and the citizens will have to pay it in their taxes.
+- In addition, because of the ban, most venues will need to close down. As a result, the economy will suffer.
+- As we have seen many times in the past, people will always find loopholes to bypass the law, therefore it is useless to introduce the ban – there will be just more of a bureaucracy for everyone.
+- It was pouring. They held the picnic.
+	- situation → unexpected result
+	- contrast, concession
+- Though it was pouring, they held the picnic.
+	- though, although, even though (the only difference is in the stress)
+- In spite of the downpour, they held the picnic.
+	- in spite of, despite, regardless of
+- It was pouring, but they held the picnic (anyway).
+	- but
+	- semicolon + comma: nevertheless, however, still, yet, even so, all the same
+- 
