@@ -29,3 +29,11 @@
 	- typicky se používá $p$ rovno $1,2,\infty$
 	- funguje to pro $p\geq 1$
 - jednotková koule
+- ortogonální a ortonormální systém
+	- ortogonální – systém na sebe kolmých vektorů
+	- ortonormální – ortogonální systém, kde norma všech vektorů je jedna
+	- ortogonální systém lze zortonormalizovat, pokud tam není nulový vektor, a to tak, že všechny vektory vydělím normou
+	- kanonická báze v prostoru $\mathbb R^n$ je ortonormální
+- je-li systém ortonormální, pak je lineárně nezávislý (důkaz trikem, použiju skalární součin lineární kombinace všech vektorů systému s libovolným vektorem systému)
+- Fourierovy koeficienty, Fourierův rozvoj – vyjádření vektoru vůči ortonormální bázi prostoru
+- Gramova-Schmidtova ortogonalizace – ortonormální bázi sestrojím postupným nakolmováním vektorů (od vektoru $x_k$ odečtu projekci do lineárního obalu vektorů $x_1,\dots,x_n$)

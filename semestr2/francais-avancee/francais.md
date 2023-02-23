@@ -1,0 +1,2 @@
+- un félin = šelma
+- 
