@@ -34,6 +34,12 @@
 	- ortonormální – ortogonální systém, kde norma všech vektorů je jedna
 	- ortogonální systém lze zortonormalizovat, pokud tam není nulový vektor, a to tak, že všechny vektory vydělím normou
 	- kanonická báze v prostoru $\mathbb R^n$ je ortonormální
-- je-li systém ortonormální, pak je lineárně nezávislý (důkaz trikem, použiju skalární součin lineární kombinace všech vektorů systému s libovolným vektorem systému)
+- je-li systém ortonormální, pak je lineárně nezávislý (důkaz „trikem“, použiju skalární součin lineární kombinace všech vektorů systému s libovolným vektorem systému)
 - Fourierovy koeficienty, Fourierův rozvoj – vyjádření vektoru vůči ortonormální bázi prostoru
 - Gramova-Schmidtova ortogonalizace – ortonormální bázi sestrojím postupným nakolmováním vektorů (od vektoru $x_k$ odečtu projekci do lineárního obalu vektorů $x_1,\dots,x_n$)
+- každý konečně generovaný prostor se skalárním součinem má ortonormální bázi (platí pro prostory s konečnou dimenzí)
+- tvrzení o skalárním součinu vyplývajícím z báze
+- libovolný skalární součin je standardní skalární součin vůči určité bázi (pro ten standardní je bází kanonická báze)
+	- podobně to platí pro normu indukovanou skalárním součinem
+- ortogonální doplněk množiny – všechny vektory doplňku jsou kolmé na všechny vektory množiny
+- vlastnosti ortogonálního doplňku podprostoru

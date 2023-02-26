@@ -6,3 +6,5 @@ https://kam.mff.cuni.cz/~klazar/MAI23.html
 - ostré lineární uspořádání, trichotomie
 - suprema a infima, meze
 - … (doplnit od důsledku 9)
+- každá podmnožina v $\mathbb R^*$ má supremum i infimum
+- 
