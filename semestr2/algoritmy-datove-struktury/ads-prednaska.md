@@ -1,0 +1,56 @@
+# ADS: přednáška
+
+- grafové algoritmy
+- prohledávání do hloubky a do šířky
+- graf G, BÚNO orientovaný
+- reprezentace grafu
+	- matice sousednosti – prostor $\Theta(n^2)$
+	- seznamy sousedů – prostor $\Theta(n+m)$, kde $n$ je počet vrcholů, $m$ je počet hran
+
+## Prohledávání do hloubky
+
+- stav vrcholu – neviděný / otevřený / zavřený
+- DFS(v):
+	- stav(v) $\leftarrow$ otevřený
+	- pro $vw\in E$:
+		- pokud stav(w) == neviděný:
+			- DFS(w)
+	- stav(v) $\leftarrow$ zavřený
+- inicializace: všechny vrcholy nastavíme jako neviděné
+- lemma: Po doběhnutí DFS(u) je stav(v) buď neviděný, nebo zavřený. Stav(v) je zavřený $\iff\exists$ cesta z u do v.
+- důkaz
+	- pozorování: neviděný → otevřený → zavřený
+	- $v$ otevřený nebo zavřený $\implies v$ dosažitelný
+		- indukcí podle doby běhu
+	- $v$ dosažitelný $\implies v$ na konci zavřený
+		- důkaz sporem – minimálním protipříkladem
+		- kdyby neplatilo, existuje „špatný vrchol“ $x$, který je dosažitelný, ale nenalezený
+		- zvolíme $x$ takový, že cesta $u\to x$ má nejméně hran
+		- určitě $u\neq x$
+		- na cestě $u\to x$ zvolíme $p$, což je předposlední vrchol před vrcholem $u$
+		- $p$ je určitě „dobrý“ (hledali jsme $x$ s nejméně hranami)
+		- museli jsme vstoupit do $p\implies$ objevit hranu $px$, což je spor
+- lemma: DFS běží v čase $\Theta(n+m)$
+- důkaz
+	- pozorování: do každého vrcholu vstoupíme maximálně jednou
+	- dva přístupy
+		- $\Theta(\sum_v\Theta(1+\text{deg}^{\text{out}}(v)))=\Theta(n+m)$
+		- účtujeme vrcholům a hranám
+- opakované DFS
+	- $\forall v\in v:$ stav(v) $\leftarrow$ neviděn
+	- pro všechna v:
+		- je-li stav(v) == neviděn:
+			- DFS(v)
+- opakované DFS by mělo větší složitost – ale lze převést na přidání jednoho vrcholu a jeho připojení ke všem vrcholům grafu → asymptotika je zachována
+- DFS strom
+	- tvoří ho stromové hrany
+	- zpětné hrany – vede do otevřeného vrcholu (do předka)
+	- dopředné hrany – vede do zavřeného vrcholu, který je potomkem
+	- příčné hrany – vede do zavřeného vrcholu, který není potomkem; vždy zprava doleva
+- klasifikace hran
+	- pro hranu xy může průchod vrcholy vypadat takto
+		- $(_x\quad)_x\quad(_y\quad)_y$ – nenastane
+		- $(_y\quad)_y\quad(_x\quad)_x$ – příčná
+		- $(_x\quad(_y\quad)_y\quad)_x$ – stromová nebo dopředná
+		- $(_y\quad(_x\quad)_x\quad)_y$ – zpětná
+	- 
