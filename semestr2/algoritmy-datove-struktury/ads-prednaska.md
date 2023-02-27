@@ -53,4 +53,15 @@
 		- $(_y\quad)_y\quad(_x\quad)_x$ – příčná
 		- $(_x\quad(_y\quad)_y\quad)_x$ – stromová nebo dopředná
 		- $(_y\quad(_x\quad)_x\quad)_y$ – zpětná
-	- 
+- hrana v neorientovaném grafu
+	- když ji vidím poprvé → stromová, podruhé zpětná
+	- poprvé zpětná, podruhé dopředná
+- věta: DFS(u) běží v čase $\Theta(n+m)$ a prostoru $\Theta(n+m)$ a najde dosažitelné vrcholy a klasifikace hran mezi nimi.
+- hledání mostů v neorientovaných grafech
+	- df: $e$ je most $\equiv (G-e)$ má více komponent souvislosti než $G$
+	- pozorování: $e$ není most $\iff e$ leží na kružnici
+	- pozorování: zpětná hrana nemůže být most
+	- stromová hrana xy není most $\iff\exists$ zpětná hrana ab, kde a leží ve stromu pod y, b leží ostře nad y
+	- df: low(v) := min { in(b) } (???)
+	- low(v) = min { low(s1), …, low(sk), in(b) | vb zpětné hrany } (???)
+	- DFS algoritmus umí o každé hraně v neorientovaném grafu rozhodnout, jestli je to most
