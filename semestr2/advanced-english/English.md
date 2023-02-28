@@ -102,5 +102,7 @@
 	- trams are more used in the city centre, whereas buses are the only option in the outskirts
 	- trams are less bumpy
 	- While buses are more widespread, the trams are more comfortable and less bumpy. What is more, trams are rarely late, whereas buses are rarely on time; consequently, people prefer trams over buses where possible.
-- writing: choose two opposing things (one paragraph), it has to be printed
-	- something interesting
+- hw
+	- writing: choose two opposing things (one paragraph), it has to be printed
+		- something interesting
+	- reading: smoking ban, pull out the pros and cons
