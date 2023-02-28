@@ -78,4 +78,11 @@
 - It was pouring, but they held the picnic (anyway).
 	- but
 	- semicolon + comma: nevertheless, however, still, yet, even so, all the same
+
+---
+
+- linger (over) – to remain longer than necessary
+- something can linger (in the air) – feeling, scent, doubt
+- suspend sb from × expel
+- **it is a drag on sth** = it retards / slows down / limits / holds back progress
 - 
