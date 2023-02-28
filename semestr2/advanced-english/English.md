@@ -85,4 +85,20 @@
 - something can linger (in the air) – feeling, scent, doubt
 - suspend sb from × expel
 - **it is a drag on sth** = it retards / slows down / limits / holds back progress
-- 
+- a hazy memory
+- Alaska is cold. Florida is hot.
+	- opposition
+	- while, whereas – in the front or in the middle of a sentence
+		- While Alaska is cold, Florida is hot.
+	- unlike, in contrast to – with reduced clause
+		- Unlike Alaska, Florida is hot.
+	- but, however – they have two functions
+		- Alaska is cold, but Florida is hot.
+			- universal rule: if "but" connects two clauses, put comma in front of it (you can't be wrong)
+		- Alaska is cold; however, Florida is hot. 
+	- on the other hand
+- trams vs. buses
+	- buses seem to be more stuck in traffic
+	- trams are more used in the city centre, whereas buses are the only option in the outskirts
+	- trams are less bumpy
+	- While buses are more widespread, the trams are more comfortable and less bumpy. What is more, trams are rarely late, whereas buses are rarely on time; consequently, people prefer trams over buses where possible.
