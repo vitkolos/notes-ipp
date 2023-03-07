@@ -106,6 +106,9 @@
 	- writing: choose two opposing things (one paragraph), it has to be printed
 		- something interesting
 	- reading: smoking ban, pull out the pros and cons
+
+---
+
 - usher in the new year, a new era (of sth), an age, a way of doing, a new mindset, a new way of thinking, a new epoch
 - linger: perfume, smells, odours, taste, lingering emotions, doubts, memories
 - to linger over sth (prodlévat, zůstávat nad dobrým vínem…)
@@ -113,3 +116,21 @@
 - sth can drag on (něco se táhne, vleče)
 - sth is a drag on – it retards, slows down (progress)
 - to drag – to pull with effort
+- hazy memory, day; hazy = unclear (noun: haze)
+	- lake can be cloudy, murky
+- wispy – smoke rings, beard, hair
+- savored – moment, atmosphere, food
+- incense – infuriate, make angry
+- backlash – strong negative reaction
+- undermine – reduce credibility, weaken the foundation
+- testify – give evidence (witnesses testify)
+- chronic
+- dispense
+- transient – temporary (move quickly away)
+- severe – serious (illness, wound), harsh (weather), strict (upbringing)
+- jeopardize – to endanger, put in danger
+- hazard – a risk, danger; to hazard a guess
+- conflate – to join together two disparate ideas as one, to confuse (mix up)
+- recur
+- specious argument
+- exacerbate
