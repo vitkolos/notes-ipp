@@ -11,5 +11,6 @@
 	- přičtení 16bit. konstanty k registru, uložení do registru
 	- podobně rozdíl, odečtení konstanty
 	- logické operace – and, or, xor, nor (or + negace)
-	- negace se dělá pomocí nor \$t1,\$t2,\$t2
-	- 
+	- negace se dělá pomocí `nor $t1,$t2,$t2`
+	- bitové posuny
+	- přístup do paměti
