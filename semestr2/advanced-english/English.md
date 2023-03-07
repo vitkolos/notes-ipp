@@ -134,4 +134,4 @@
 - recur
 - specious argument
 - exacerbate
-- hw: say it's good/bad, make some notes (about the article), add more arguments (for or against) + maths homework
+- hw: say it's good/bad, make some notes (about the article), add more arguments (for or against) + maths homework, 27–30 triangles (in the book)
