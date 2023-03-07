@@ -134,3 +134,4 @@
 - recur
 - specious argument
 - exacerbate
+- hw: say it's good/bad, make some notes (about the article), add more arguments (for or against)
