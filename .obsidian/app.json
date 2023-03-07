@@ -22,7 +22,7 @@
     "fr-FR"
   ],
   "showFrontmatter": false,
-  "attachmentFolderPath": "./přílohy",
+  "attachmentFolderPath": "./prilohy",
   "foldHeading": false,
   "useMarkdownLinks": true,
   "newLinkFormat": "relative",
