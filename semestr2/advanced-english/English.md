@@ -106,3 +106,10 @@
 	- writing: choose two opposing things (one paragraph), it has to be printed
 		- something interesting
 	- reading: smoking ban, pull out the pros and cons
+- usher in the new year, a new era (of sth), an age, a way of doing, a new mindset, a new way of thinking, a new epoch
+- linger: perfume, smells, odours, taste, lingering emotions, doubts, memories
+- to linger over sth (prodlévat, zůstávat nad dobrým vínem…)
+- suspend (an indefinite amount of time), expel, expulsion
+- sth can drag on (něco se táhne, vleče)
+- sth is a drag on – it retards, slows down (progress)
+- to drag – to pull with effort
