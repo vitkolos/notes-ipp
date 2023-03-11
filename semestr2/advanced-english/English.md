@@ -135,3 +135,11 @@
 - specious argument
 - exacerbate
 - hw: say it's good/bad, make some notes (about the article), add more arguments (for or against) + maths homework, 27–30 triangles (in the book)
+	- it's a bad idea
+	- it runs the risk of a backlash
+	- smoke quickly disperses in the open air
+	- people can move around to avoid intense exposure
+	- there is no evidence that the outdoor exposure to tobacco smoke can lead to substantial health damage
+	- bans like this may create smoke-filled areas near park entrances
+	- arguments for: if people don't have where to smoke, they are less likely to start smoking, less stubs in parks
+- 
