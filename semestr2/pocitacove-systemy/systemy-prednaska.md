@@ -28,4 +28,44 @@
 - příznaky na x86
 	- rezervované, systémové, aritmetické
 	- typicky se používá zero flag (1 když u poslední operace vyšla nula), sign flag (kopie MSb znaménkového čísla), carry flag (přetečení a podtečení v bezznaménkové aritmetice)
-	- 
+- ISA – shrnutí
+	- ISA je abstraktní model, často může být odtržený od implementace
+	- u x86 architekturu vlastní společně Intel a AMD
+	- tradiční klasifikace
+		- CISC – Complex Instruction Set Computer
+			- lidi píšou programy v asembleru
+		- RISC – Reduced…
+			- překládám program překladačem z vyššího programovacího jazyka
+			- např. x86 (původně)
+		- VLIW – Very Long Instruction Word
+			- není potřeba dekódovat instrukci, rovnou je z ní jasné, co mají které části procesoru dělat
+		- EPIC – Explicitly Parallel Instruction Computer
+			- v jedné instrukci je jich několik (?)
+	- ortogonalita – mám obecné registry a instrukce, které můžu používat s libovolnými registry (x86 není ortogonální; obecně akumulátorové instrukční sady nejsou ortogonální)
+	- architektura typu Load-Execute-Store – máme zvlášť instrukce na load a store, s pamětí nejde dělat nic jiného
+- hardwarová architektura
+	- procesor
+		- řadič paměti
+		- cache
+		- jádra – logické procesory + registry
+	- hyper-threading – na jedné výpočetní jednotce (uvnitř jádra) běží dvě instrukce najednou
+		- uvnitř jednoho jádra jsou dvě vlákna (logické procesory) – může jich být i víc
+		- zvyšuje to výkon, schovává to latenci přístupu do paměti
+		- každé vlákno má své registry
+	- hierarchie keší
+		- privátní (na každém jádru)
+			- L1I a L1D – malé keše
+			- L2 – větší, pro kód (instrukce) i data
+		- sdílená
+			- L3/LLC – velká; dneska má obvykle každé jádro vlastní L3\$ slice
+	- 95 % přístupů do paměti jde z nějaké úrovně cache (což je fajn, protože paměť je pomalá)
+	- out-of-order execution – instrukce si procesor popřehází, aby to bylo rychlejší (ale výsledek odpovídá tomu, jako by je vykonával ve správném pořadí)
+- pipeline
+	- jednotlivé kroky (stage) jedné instrukce: načtení instrukce z paměti, její dekódování, vykonání, paměťová operace, zápis výsledku do registru
+	- najednou se můžou vykonávat všechny kroky instrukce (takže vlákno v jednu chvíli zpracovává pět instrukcí – u každé z nich je v jiné stagi)
+	- je potřeba řešit správné pořadí zápisů a načtení dat
+	- problém s podmíněnými skoky – ve chvíli, kdy zjistím, že mám skákat, už bych vykonával stage u dalších instrukcí
+		- používá se branch predictor, zkouší odhadnout, kam se skočí
+		- když to odhadne špatně, tak se pipeline restartuje
+		- hledá ve skákání nějaké vzory, zkouší hádat
+		- pokud instrukci na dané adrese nikdy neviděl, tak zpětný skok předpokládá, naopak dopředný skok nikoliv
