@@ -27,4 +27,5 @@
 	- násobení (malými čísly) se převádí na sčítání pomocí binárního rozkladu
 - příznaky na x86
 	- rezervované, systémové, aritmetické
-	- typicky se používá zero flag (1 když u poslední operace vyšla nula), sign flag (kopie MSb znaménkového čísla), carry flag (přetečení a podtečení v bezznaménkové aritmetic)
+	- typicky se používá zero flag (1 když u poslední operace vyšla nula), sign flag (kopie MSb znaménkového čísla), carry flag (přetečení a podtečení v bezznaménkové aritmetice)
+	- 
