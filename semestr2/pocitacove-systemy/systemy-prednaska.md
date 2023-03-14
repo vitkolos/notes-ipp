@@ -14,3 +14,12 @@
 	- negace se dělá pomocí `nor $t1,$t2,$t2`
 	- bitové posuny
 	- přístup do paměti
+- (5. přednáška)
+- MIPS instrukce
+	- nepodmíněné skoky
+		- na adresu (j)
+		- skok přes obsah registru (jr)
+		- jump and link (jal; pro uložení návratové adresy do registru 31 a skok do podprogramu – návrat pomocí jr 31; kdybychom chtěli skákat do vnořených funkcí, tak bychom potřebovali zásobník)
+	- podmíněné skoky – equal, not equal (beq, bne)
+	- porovnávání – slt (menší než), sltu (unsigned), slti (immediate), sltiu
+	- 
