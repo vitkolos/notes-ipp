@@ -16,4 +16,11 @@
 - nesmíme opisovat – kód píšeme sami, o problému se můžeme bavit
 - komunikace přes Mattermost
 - budeme programovat v C
+
+## Poznámky
+
+- k prog 2
+	- permutace – je jich 14, aby se indexy vešly do číselného typu (vejde se to longu)
+	- 25. permutace je 21345
+- k úkolu ze systémů – nemusí nás trápit oscilace, musíme udělat jednotný kód pro všechna tři tlačítka (přístup C nebo C++)
 - 
