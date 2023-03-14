@@ -22,5 +22,6 @@
 - k prog 2
 	- permutace – je jich 14, aby se indexy vešly do číselného typu (vejde se to longu)
 	- 25. permutace je 21345
+	- 49. je 23145?
 - k úkolu ze systémů – nemusí nás trápit oscilace, musíme udělat jednotný kód pro všechna tři tlačítka (přístup C nebo C++)
 - 
