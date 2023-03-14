@@ -22,4 +22,6 @@
 		- jump and link (jal; pro uložení návratové adresy do registru 31 a skok do podprogramu – návrat pomocí jr 31; kdybychom chtěli skákat do vnořených funkcí, tak bychom potřebovali zásobník)
 	- podmíněné skoky – equal, not equal (beq, bne)
 	- porovnávání – slt (menší než), sltu (unsigned), slti (immediate), sltiu
-	- 
+		- na x86 pomocí odčítání a příznaků
+	- `lw $t0, 4($gp)` načte hodnotu z místa, kde jsou v paměti globální proměnné, offset 4
+	- násobení (malými čísly) se převádí na sčítání pomocí binárního rozkladu
