@@ -125,15 +125,15 @@
 - undermine – reduce credibility, weaken the foundation
 - testify – give evidence (witnesses testify)
 - chronic
-- dispense
+- disperse
 - transient – temporary (move quickly away)
 - severe – serious (illness, wound), harsh (weather), strict (upbringing)
 - jeopardize – to endanger, put in danger
 - hazard – a risk, danger; to hazard a guess
 - conflate – to join together two disparate ideas as one, to confuse (mix up)
 - recur
-- specious argument
-- exacerbate
+- specious argument – zavádějící/klamný argument
+- exacerbate – zhoršit, ztížit, popudit, rozhořčit
 - hw: say it's good/bad, make some notes (about the article), add more arguments (for or against) + maths homework, 27–30 triangles (in the book)
 	- it's a bad idea
 	- it runs the risk of a backlash
@@ -142,4 +142,29 @@
 	- there is no evidence that the outdoor exposure to tobacco smoke can lead to substantial health damage
 	- bans like this may create smoke-filled areas near park entrances
 	- arguments for: if people don't have where to smoke, they are less likely to start smoking, less stubs in parks
-- 
+
+---
+
+- tu occur over and over – to recur (recurring dream)
+- disperse – spread out, disappear, dissipate, scatter
+- transitive × intransitive
+	- "last night, I hit" – not a sentence, hit is transitive
+	- "I walked" – walk is intransitive
+- run the risk of doing sth
+- the smoking ban
+	- cigarette butts everywhere × there's rubbish on the ground anyways
+	- it's better when people smoke outside than inside
+	- smoking is bad and harmful and it smells
+- homework
+	- essay
+	- first paragraph = introduction
+		- we don't have to do for and against in the introduction
+	- 2 or 3 paragraphs body
+	- we can play both sides
+	- we have the grammar of concession
+	- we have to tell our (one) stance in the last paragraph
+	- use the grammar we know
+	- it has to be typed and printed
+	- double spacing
+	- theme: the ban on smoking outdoors (outdoor areas)
+	- we need to make a good cohesive argument (no size requirement)
