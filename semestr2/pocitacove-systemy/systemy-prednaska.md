@@ -25,3 +25,6 @@
 		- na x86 pomocí odčítání a příznaků
 	- `lw $t0, 4($gp)` načte hodnotu z místa, kde jsou v paměti globální proměnné, offset 4
 	- násobení (malými čísly) se převádí na sčítání pomocí binárního rozkladu
+- příznaky na x86
+	- rezervované, systémové, aritmetické
+	- typicky se používá zero flag (1 když u poslední operace vyšla nula), sign flag (kopie MSb znaménkového čísla), carry flag (přetečení a podtečení v bezznaménkové aritmetic)
