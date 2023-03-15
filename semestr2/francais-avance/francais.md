@@ -6,3 +6,4 @@
 - comme, puisque – une cause évident
 - comme – une cause connue à tout le monde
 - puisque – une cause connue seulement à quelques gens
+-  
