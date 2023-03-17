@@ -19,9 +19,28 @@
 
 ## Poznámky
 
-- k prog 2
-	- permutace – je jich 14, aby se indexy vešly do číselného typu (vejde se to longu)
-	- 25. permutace je 21345
-	- 49. je 23145?
 - k úkolu ze systémů – nemusí nás trápit oscilace, musíme udělat jednotný kód pro všechna tři tlačítka (přístup C nebo C++)
-- 
+
+```C
+// předávání funkcí v C
+struct Button;
+typedef void(*action-f)(Button &b);
+void increment(Button &b) { counter++; }
+struct Button { int pin; bool down; action-f down; }
+struct Button buttons[3];
+button[0].down = &increment;
+
+// třídy v C++
+// virtuální funkce + virtuální destruktor
+// když k nějaké virtuální metodě dám =0, tak mi to znemožní vytvořit samotnou třídu – u každého syna musím danou metodu přepsat
+// nepoužívat operátor new
+// chci mít pole tlačítek
+Button *buttons[3];
+// uděláme si globální proměnné pro jednotlivé typy (tři tlačítka) a pak jejich ukazatele uložíme do pole
+// všechen kód na detekci změny nebo autorepeatu bude ve funkci loop
+
+// můžeme si vybrat, který přístup se nám líbí víc
+```
+
+- digitalRead používat úsporně (jako u millis)
+- hodnota digitalRead může oscilovat (je potřeba to softwarově opravit, na začátku na to kašleme)
