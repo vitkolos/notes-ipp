@@ -110,4 +110,22 @@
 			- MSb určuje znaménko čísla
 	- desetinná čísla – float
 		- $\text{value}=(-1)^{\text{sign}}\cdot\text{significand}\cdot 2^{\text{exponent}-\text{bias}}$
-		- tohle je reprezentace v paměti, procesory si to ukládají po sv
+		- tohle je reprezentace v paměti, procesory si to ukládají po svém
+- endianita – vícebytová čísla se v paměti ukládají tak, že je MSB na začátku (big endian), nebo LSB na začátku (little endian)
+- zarovnání dat
+	- moderní procesory vyžadují, aby byla data v paměti zarovnaná podle jejich velikosti
+	- např. 4bajtový int musí mít adresu zarovnanou na 4 (dělitelnou čtyřmi)
+	- celá struktura (struct) je zarovnaná na největší datový typ dostupný na CPU (např. 16B)
+	- některé jazyky přehazují položky ve struktuře, aby se eliminovalo volné místo
+	- sizeof vrátí velikost včetně těch mezer 
+- správa paměti
+	- globální proměnné – přiřazena na začátku, celou dobu drží svoji hodnotu, je na jednom místě v paměti
+	- lokální proměnné, argumenty funkcí – uloženy na zásobníku
+	- dynamicky alokované proměnné – programátor je explicitně alokuje (pomocí `malloc()`, `new`, `unique_ptr`, …), existuje vyhrazený blok paměti pro tyto alokace
+- alokace paměti
+	- úkol – najdi blok nepoužité paměti dostatečné velikosti, alokuj část velkého poolu paměti (používá se pojem heap)
+	- životní cyklus – alokuj blok, použij blok, uvolni blok
+	- vždy existuje určitý počet bytů, který lze minimálně alokovat – takže na jednobytovou proměnnou se alokuje zbytečně moc paměti (proto není dobré příliš používat `new`)
+- fragmentace
+	- interní – v bloku je alokováno více paměti, než je potřeba
+	- externí – volná paměť je rozdělena do malých bloků a mezi nimi jsou bloky alokované paměti
