@@ -129,3 +129,10 @@
 - fragmentace
 	- interní – v bloku je alokováno více paměti, než je potřeba
 	- externí – volná paměť je rozdělena do malých bloků a mezi nimi jsou bloky alokované paměti
+- dynamická alokace paměti – mám spojový seznam volných bloků nebo bitmapu (kde každý bit reprezentuje jeden blok)
+- alokační algoritmy
+	- first fit – začíná na začátku, najde první dostatečně velké volné místo
+	- next fit – stejné jako first fit, akorát začíná na pozici, kde bylo alokováno naposledy
+	- best fit – začíná na začátku, najde nejmenší dost velké volné místo
+		- vytváří malinké díry
+	- worst fit – začíná na začátku, najde největší místo
