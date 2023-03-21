@@ -69,3 +69,45 @@
 		- když to odhadne špatně, tak se pipeline restartuje
 		- hledá ve skákání nějaké vzory, zkouší hádat
 		- pokud instrukci na dané adrese nikdy neviděl, tak zpětný skok předpokládá, naopak dopředný skok nikoliv
+- superskalární procesor
+	- jsme schopni souběžně zpracovávat více instrukcí
+	- dnešní procesory jsou pěticestné – najednou zpracovávají pět instrukcí
+	- dnes se používá asymetrická superskalarita – jedna pipeline je silnější a zvládá všechno, čtyři zbývající jsou slabší a zvládají jenom jednoduché instrukce
+- out-of-order execution
+	- mikroinstrukce se umístí do poolu a čekají, až budou mít výkonné jednotky volno
+	- jednotlivé jednotky umí různé věci
+
+## Paměť
+
+- podle rychlosti: registry, cache, RAM, perzistentní RAM, SSD + flash disky, HDD, magnetické pásky
+	- od perzistentní RAM (včetně) ta média drží data po vypnutí
+	- po perzistentní RAM (včetně) jsou uložená data přístupná CPU, zbytek je obsluhován vždy nějakým řadičem (jako externí I/O)
+- paměť – definice
+	- každá paměť se skládá z paměťových buněk – bitů
+	- bity jsou seskupeny do slov fixní délky
+	- každé slovo je přístupné binární adresou (podle délky adresy rozlišujeme např. 32 nebo 64bitovou architekturu)
+		- můžeme uložit $2^N$ slov, kde $N$ je délka adresy
+	- dnes se používá 8bitové slovo (bajt)
+- fyzický pohled na paměť
+	- paměť je vlastně dvojrozměrná
+	- adresa se dekóduje tak, aby paměťový řadič našel správnou řádku a sloupec v ní
+	- když bajty jsou za sebou, jsou v jedné řádce
+	- časování
+		- CAS – Column Access Strobe, kolik taktů trvá, než jsem schopný adresovat další sloupec uvnitř jedné řádky (tento parametr ovlivňuje cenu paměti)
+		- další 3 parametry
+- datová reprezentace
+	- celá čísla
+		- bezznaménková
+			- jednoduchá binární reprezentace čísla
+			- obvykle 1, 2, 4, 8 bytů
+			- reprezentovaný rozsah $[0;2^N-1]$
+		- znaménková
+			- dvojkový doplněk
+			- bitová negace + 1
+			- pouze jedna 0
+			- kompatibilní s bezznaménkovou aritmetikou
+			- asymetrický rozsah $[-2^{N-1};2^{N-1}-1]$
+			- MSb určuje znaménko čísla
+	- desetinná čísla – float
+		- $\text{value}=(-1)^{\text{sign}}\cdot\text{significand}\cdot 2^{\text{exponent}-\text{bias}}$
+		- tohle je reprezentace v paměti, procesory si to ukládají po sv
