@@ -168,3 +168,30 @@
 	- double spacing
 	- theme: the ban on smoking outdoors (outdoor areas)
 	- we need to make a good cohesive argument (no size requirement)
+
+---
+
+- **During** the summer he completed the house he had started to build in the winter.
+- **While** he was building it, he broke his finger.
+- He had worked for the company for 5 years **by which time / at which point** he decided he had enough experience to go out on his own.
+- **On finding** the elevator broken, he decided to walk.
+	- on -ing + noun phrase / that…
+	- *upon* is the same
+- He had **just / no sooner / hardly** begun to walk up the stairs when the elevator began to work.
+- I dislike you but I'm offering you the job.
+	- **Much as** I dislike you, I'm offering you the job.
+	- **Little as** I trust you, I'm lending you the money.
+	- **Hard as** it may seem, I'm applying for the job.
+	- can be prefixed by **as** (As hard as it may seem)
+- get
+	- get thinner, become thinner, grow thinner
+	- leave home, go to work, get to the office / arrive at the office
+	- earn a degree
+	- get on – vycházet s někým
+	- get at – navážet se do někoho
+	- get up to – vyvádět, provést
+	- get by – vystačit si, vyžít (get by on your savings)
+	- get round to – dostat se k něčemu (najít si na to čas)
+	- get out of – vyvléct se z něčeho
+- homework
+	- page 84 – text + exercise
