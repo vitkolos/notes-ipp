@@ -1,8 +1,14 @@
 - un félin = šelma
-- une fakt news = une infox
+- une fake news = une infox
 - la contre-verité, la désinformation
 - la post-verité
 - l'ère post-factuelle
 - comme, puisque – une cause évident
 - comme – une cause connue à tout le monde
 - puisque – une cause connue seulement à quelques gens
+- les passifs avec *voir*
+	- il se voit offert
+	- elle s'est vue offerte
+	- il se voit offrir
+	- elle s'est vu offrir
+	- elle s'est fait offrir
