@@ -12,3 +12,8 @@
 	- il se voit offrir
 	- elle s'est vu offrir
 	- elle s'est fait offrir
+- quartier difficile/sensible
+- grièvement blessé (× gravement)
+- empailler = vycpat
+- un cygne = labuť
+- youtubeur: Hugo décrypte
