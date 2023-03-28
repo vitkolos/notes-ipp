@@ -13,7 +13,7 @@
     "pageSize": "A4",
     "landscape": false,
     "margin": "0",
-    "downscalePercent": 96
+    "downscalePercent": 88
   },
   "legacyEditor": false,
   "spellcheckLanguages": [

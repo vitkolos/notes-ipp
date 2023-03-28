@@ -44,3 +44,15 @@ Button *buttons[3];
 
 - digitalRead používat úsporně (jako u millis)
 - hodnota digitalRead může oscilovat (je potřeba to softwarově opravit, na začátku na to kašleme)
+- ReCodEx má problém s voláním funkcí v globálním scopu
+	- u tříd dělá problém volání funkcí v konstruktoru a při přímé inicializaci vlastností objektu (stylem `int t = millis();`)
+- když chci rozsvítit desetinnou tečku, vyANDuju aktuální rozsvícení s 0x7F
+- je potřeba pohnout s latchem pomocí digitalWrite (postupně LOW, HIGH)
+- data se posílají pomocí `shiftOut(data_pin, clock_pin, bitOrder, value)`
+- všechny tři piny (data, clock, latch) je potřeba nastavit na output
+- používá se MSBFIRST bitOrder
+- dají se používat dvě metody latchování
+	- jedna varianta – latch high, nastavení registrů, latch low
+	- druhá varianta – nastavení registrů, latch low, latch high
+		- v setupu nastavím latch na high
+- uděláme si funkci na zobrazení jedné pozice (jako hodnotu k zobrazení předávat bajt, ne zobrazované číslo)

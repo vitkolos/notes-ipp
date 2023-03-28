@@ -136,3 +136,56 @@
 	- best fit – začíná na začátku, najde nejmenší dost velké volné místo
 		- vytváří malinké díry
 	- worst fit – začíná na začátku, najde největší místo
+- cvičení na alokaci – alokuju do 64B bloků
+	- alokuju A, což je 42 B, nejbližší násobek je 64 B
+	- 2 KiB je násobek 64 B, alokuju za A
+	- 100 B – alokuju 128 B
+	- atd.
+	- pak dealokuju nějaké bloky
+	- alokuju dál pomocí nějaké metody – podle toho se bloky alokují na nějaké místo
+- buddy memory allocation
+	- bloky velikosti $2^N$, adresy zarovnány na násobek své velikosti
+	- hledám nejmenší volný blok, který odpovídá požadované velikosti
+	- když je blok moc velký, tak ho rozpůlím
+- cache
+	- hardwarová nebo softwarová struktura, v níž jsou uložena data, aby se zrychlily operace s nimi
+	- velikost cache je omezená
+	- CPU používá cache, aby zrychlil přístup do paměti (když má data uložená v cachi, nechodí pro ně do paměti)
+	- cache je tvořena jednotlivými řádky (obvykle mají 64 bajtů, jsou zarovnány)
+	- cache hit – požadavek je odbaven z cache
+	- cache miss
+		- data nebyla nalezena v hierarchii cache
+		- provádí se přístup do paměti
+		- načtená data se ukládají do cache
+		- pokud není volná cache line, uloží se na místo jiné cache
+			- tato původní cache se propisuje do hlavní paměti (při zapisování dat totiž procesor zapisuje do cache)
+	- stav cache line se udržuje pomocí MESI protokolu
+	- technická realizace cache = asociativní paměť
+		- je to v podstatě tabulka – vlevo klíč (odpovídající adresa v paměti), vpravo hodnota (cache line)
+		- konstantně rychle se v ní hledá klíč
+		- rychlost se zajišťuje hardwarově
+- víceprocesorový systém
+	- SMP – symetrický multiprocessing
+		- všechny procesory přistupují do paměti přes systémovou sběrnici
+		- přístupy jsou stejně rychlé
+	- NUMA – non-uniform memory access
+		- každý procesor má „svůj“ blok paměti
+		- jeden společný adresový prostor vzniklý sloučením bloků jednotlivých pamětí
+		- každý procesor může adresovat libovolnou paměť
+		- přístupy jsou různě rychlé – přístupy do „cizích“ pamětí trvají déle
+
+## Programovací jazyky
+
+- překladač, gramatika
+- překlad
+	- preprocesor
+	- kompilátor (překladač)
+	- assembler
+	- linker
+- knihovna – statická nebo dynamická sada binárek
+- linking – spojení binárek do jedné
+- loader – načte program do paměti
+- program vs. proces (proces je spuštěný program)
+- knihovna se linkuje do souboru .lib (statická knihovna)
+	- lidi už pak používají přímo hlavičkový soubor a statickou zkompilovanou knihovnu
+	- pokud je knihovna statická, použije ji linker, pokud je dynamická, použije ji až loader
