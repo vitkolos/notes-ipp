@@ -195,3 +195,17 @@
 	- get out of – vyvléct se z něčeho
 - homework
 	- page 84 – text + exercise
+
+---
+
+- I had just came in when it started to rain.
+	- no sooner – for emphasis, (different register?), used with **than**
+	- hardly – not that much used
+- inversion – used to ask questions
+	- He had **no sooner** begun to walk up the steps, **than** the elevator started to work.
+	- inverted: No sooner had he begun to walk up the steps, than the elevator started to work.
+- just, no sooner, hardly, scarcely (we cannot use inversion with "just")
+- write a story using these words (in any form – as verbs/nouns/adjectives…), 16:35, no dictionaries
+- homework
+	- inversion worksheet
+	- maths – logic and sets 26/7, 8 + appendix (122, 123)
