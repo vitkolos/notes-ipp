@@ -192,5 +192,24 @@
 - organizace paměti
 	- u toho procesu musí OS nějak řešit paměť
 	- překladač jednotlivé části programu dává do správných segmentů
-		- příklady segmentů – globální proměnné, konstanty, intrukce…
-	- 
+		- příklady segmentů – globální proměnné, konstanty, instrukce…
+	- v paměti je kód, statická data, zásobník (vzájemné volání funkcí, lokální proměnné) a halda (na dynamickou alokaci proměnných)
+	- realističtěji – kód, konstanty, inicializovaná statická data (např. `int x = 5;`, konkrétní hodnoty jsou umístěny ve spustitelném souboru), neinicializovaná statická data (např. objekty – konstruktor se volá až při běhu programu), jeden zásobník pro každé vlákno (při rekurzi může dojít), halda
+- linking
+	- linker vezme segmenty z každého souboru a slije je dohromady
+	- z knihovny do výsledného souboru skládá jenom ty funkce, které jsou opravdu použity
+	- linker přepočítává adresy na základě toho, jak za sebe skládá segmenty (začátek segmentu je na adrese 0)
+	- loader pak ty adresy po spuštění přepočítává znova podle toho, kde jsou segmenty uloženy v paměti
+- volací konvence
+	- každá funkce má na zásobníku aktivační záznam
+	- na zásobník uložím (z registrů) návratovou adresu a adresu aktivačního záznamu funkce, která mě volala
+	- některé další registry (které mají vlastnost Preserve) uložím do zásobníku, aby nebyly poškozeny
+	- volací konvence jasně deklaruje, jak se hodnoty předávají z volané funkce do volající
+	- volající funkce připraví na zásobníku prostor (strukturu) pro vrácenou hodnotu, překladač adresu této struktury předá volané funkci jako parametr
+	- relativní adresace lokálních dat a dočasných proměnných – adresy se počítají relativně vůči frame pointeru
+	- technologie linkeru a loaderu je stará a nepočítala s přetížením funkcí – proto se dělá public name mangling (do jmen funkcí se vkládá otisk typů a jmen parametrů)
+	- musí být jasně definované, co každá funkce uklízí
+	- parametry fungují v podstatě stejně jako lokální proměnné
+	- předávání parametrů
+		- předání hodnotou – na zásobník dám kopii vypočítané hodnoty parametru
+		- předání referencí – na zásobník dám ukazatel (adresu) na parametr
