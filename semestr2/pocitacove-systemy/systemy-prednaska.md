@@ -185,7 +185,12 @@
 - knihovna – statická nebo dynamická sada binárek
 - linking – spojení binárek do jedné
 - loader – načte program do paměti
-- program vs. proces (proces je spuštěný program)
+- program vs. proces (proces je spuštěný program, entita operačního systému)
 - knihovna se linkuje do souboru .lib (statická knihovna)
 	- lidi už pak používají přímo hlavičkový soubor a statickou zkompilovanou knihovnu
 	- pokud je knihovna statická, použije ji linker, pokud je dynamická, použije ji až loader
+- organizace paměti
+	- u toho procesu musí OS nějak řešit paměť
+	- překladač jednotlivé části programu dává do správných segmentů
+		- příklady segmentů – globální proměnné, konstanty, intrukce…
+	- 

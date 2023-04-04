@@ -17,3 +17,27 @@
 - empailler = vycpat
 - un cygne = labuť
 - youtubeur: Hugo décrypte
+- brainstorming
+	- voyager
+	- voiture
+	- les moyens de transport
+	- le bus
+	- le train
+	- l'avion
+	- le sous-marin
+	- étranger (les pays, …)
+	- …
+- lézarder – vyhřívat se, být na sluníčku
+- routard – cestovatel s batohem
+- dormir à la belle étoile – spát pod širákem
+- escapade – útěk
+- détente – uvolnění, odpočinek, zábava
+- paysage – krajina
+- avoir soif d'aventures – mít touhu po dobrodružství
+- flâner – toulat se
+- vadrouille – vandr
+- globe-trotteur – světoběžník
+- récit de voyage – cestopis
+- sac de couchage – spacák
+- Écosse – Skotsko
+- 
