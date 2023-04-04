@@ -213,3 +213,4 @@
 	- předávání parametrů
 		- předání hodnotou – na zásobník dám kopii vypočítané hodnoty parametru
 		- předání referencí – na zásobník dám ukazatel (adresu) na parametr
+			- v C se všechny parametry předávají hodnotou, takže se vlastně pointery kopírují

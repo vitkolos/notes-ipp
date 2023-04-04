@@ -209,3 +209,21 @@
 - homework
 	- inversion worksheet
 	- maths – logic and sets 26/7, 8 + appendix (122, 123)
+
+---
+
+- zero conditional – general truth, "when" and "if" are interchangeable, the meaning is the same
+- When he comes, we'll leave. – time phrase
+- If he comes, we'll leave. – first conditional
+	- If present (or present perfect), future.
+	- we can change the probability – will (100% sure), can (probability), should (expectation), may, might…
+	- unless = if not
+	- if = provided that = so long as = as long as
+	- if you should… / if you happen to… / if you should happen to… = kdybys náhodou…
+- Tuition might be instituted at the Czech universities next year.
+- The Czech Republic is debating whether to join the EU.
+- Distance learning is being proposed as a future method of instruction at Czech universities.
+- we choose one and we weight the pros and cons
+- homework
+	- I have chosen tuition – we'll discuss in groups
+	- conjunctions worksheet
