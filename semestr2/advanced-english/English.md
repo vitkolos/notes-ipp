@@ -227,3 +227,8 @@
 - homework
 	- I have chosen tuition – we'll discuss in groups
 	- conjunctions worksheet
+- Tuition might be instituted at the Czech universities next year.
+	- higher salaries for teachers
+		- more people would consider teaching → there would be better teachers?
+	- more money in state budget
+	- less students who can afford their studies
