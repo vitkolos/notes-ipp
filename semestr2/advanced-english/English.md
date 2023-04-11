@@ -251,10 +251,32 @@
 	- it would cause student debt
 	- some fields of study would be underfunded
 	- changing one's field of study would be harder
-- If there are tuition fees, people would be encouraged to pick more useful degrees, and there would be less people studying without an interest.
-- Provided that the fees result in an increased budget, the teachers' salaries might get higher, thus the quality of teaching might increase.
-- Also, more money could be used for the research.
-- However, the fees would discriminate against low income students as they would have to take out student loans.
-- As long as there are fees, some fields of study might be underfunded.
-- Furthermore, changing one's field of study would be less desirable, because they have already paid a lot of money for their current degree.
-- Therefore, we do not recommend instituting the tuition fees.
+- sentences
+	- If there are tuition fees, people would be encouraged to pick more useful degrees, and there would be less people studying without an interest.
+	- Provided that the fees result in an increased budget, the teachers' salaries might get higher, thus the quality of teaching might increase.
+	- Also, more money could be used for the research.
+	- However, the fees would discriminate against low income students as they would have to take out student loans.
+	- As long as there are fees, some fields of study might be underfunded.
+	- Furthermore, changing one's field of study would be less desirable, because they have already paid a lot of money for their current degree.
+	- Therefore, we do not recommend instituting the tuition fees.
+- Martin is in class.
+- Martin wishes (that) he was/were at home, but he isn't.
+	- subjunctive → were
+	- unreal present = past
+- He wishes he were sleeping.
+- I wish he called me.
+- I wish he would call me.
+	- *would* 1. makes it less likely or 2. pushes it into the future (or both)
+- wish = if only
+- If + past tense, would/could + root verb = present unreal
+- if I moved × if I were to move (less likely)
+- stack × pile, heap
+- desolate – isolated, abandoned, without life
+- dingy – dirty, small (dingy pub = joint = *pajzl*)
+- coffin
+- cram sth into – jam, stuff sth in…
+- sth is cram – full of people, crowded
+- cram for a test
+- desperate – to have no hope
+- neat – cool, tidy, organized
+- neat × messy
