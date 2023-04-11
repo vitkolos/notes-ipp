@@ -252,8 +252,9 @@
 	- some fields of study would be underfunded
 	- changing one's field of study would be harder
 - If there are tuition fees, people would be encouraged to pick more useful degrees, and there would be less people studying without an interest.
-- Provided that the fees result in an increased budget, the teachers' salaries might get higher, therefore the quality of teaching might increase.
+- Provided that the fees result in an increased budget, the teachers' salaries might get higher, thus the quality of teaching might increase.
 - Also, more money could be used for the research.
 - However, the fees would discriminate low income students as they would have to take out student loans.
 - As long as there are fees, some fields of study might be underfunded.
-- Furthermore, changing one's field of study would be less desirable, because they have already paid a lot money for their current degree.
+- Furthermore, changing one's field of study would be less desirable, because they have already paid a lot of money for their current degree.
+- Therefore, we do not recommend instituting the tuition fees.
