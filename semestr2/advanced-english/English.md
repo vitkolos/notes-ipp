@@ -222,7 +222,7 @@
 	- if you should… / if you happen to… / if you should happen to… = kdybys náhodou…
 - Tuition might be instituted at the Czech universities next year.
 - The Czech Republic is debating whether to join the EU.
-- Distance learning is being proposed as a future method of instruction at Czech universities.
+- Distance learningb is being proposed as a future method of instruction at Czech universities.
 - we choose one and we weight the pros and cons
 - homework
 	- I have chosen tuition – we'll discuss in groups
@@ -239,4 +239,21 @@
 	- maths – unit 3 (page 35, ex. 4, 5) + appendix p. 123–125
 - on condition that he saves money
 - on condition of his saving money
-- 
+- tuition pros
+	- people would have to study useful things
+	- less people studying without an interest
+	- teachers' salaries might be higher
+	- more money in state budget
+	- more money can be used for research
+	- less money wasted
+- tuition cons
+	- it would discriminate low income students
+	- it would cause student debt
+	- some fields of study would be underfunded
+	- changing one's field of study would be harder
+- If there are tuition fees, people would be encouraged to pick more useful degrees, and there would be less people studying without an interest.
+- Provided that the fees result in an increased budget, the teachers' salaries might get higher, therefore the quality of teaching might increase.
+- Also, more money could be used for the research.
+- However, the fees would discriminate low income students as they would have to take out student loans.
+- As long as there are fees, some fields of study might be underfunded.
+- Furthermore, changing one's field of study would be less desirable, because they have already paid a lot money for their current degree.
