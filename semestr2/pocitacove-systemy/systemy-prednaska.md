@@ -214,3 +214,59 @@
 		- předání hodnotou – na zásobník dám kopii vypočítané hodnoty parametru
 		- předání referencí – na zásobník dám ukazatel (adresu) na parametr
 			- v C se všechny parametry předávají hodnotou, takže se vlastně pointery kopírují
+- proměnné
+	- proměnná = pojmenovaný kus paměti, v němž je uložena hodnota; má typ
+	- způsob uložení
+		- statická data – globální proměnné v C
+		- zásobník – lokální proměnné v C
+		- halda – dynamická paměť v C/C#
+	- slovník (Python, PHP, JavaScript)
+		- dynamická struktura
+- halda
+	- úložiště pro dynamickou paměť
+	- alokace – vedeme si evidenci volných bloků, používá se nějaký ze zmíněných algoritmů
+		- alternativní přístup – inkrementální alokace, vycházíme z předpokladu, že paměť nedojde
+	- dealokace – někde explicitní (C, C++), jinde automatická pomocí garbage collectoru
+		- když přijdu o pointer na objekt v paměti (takže ho nemůžu smazat) = memory leak
+		- u explicitní dealokace se používá funkce free – může být problém, pokud ji na jeden objekt voláme víckrát
+		- GC se spustí, jakmile dojde paměť
+		- při běhu garbage collectoru se může běh programu úplně zaseknout
+		- přístupy k GC
+			- tracing – procházíme všechny živé objekty a hledáme, co je z nich dosažitelné
+			- reference counting
+- přenositelnost kódu
+	- může se lišit velikost typů na různých architekturách (u některých jazyků)
+	- někdy může hrát roli i endianita
+	- některé překladače mají specifické funkce (nebo syntaxi) navíc – ty není dobrý nápad používat
+	- volání funkcí OS přímo pomocí příkazů (někdy to není problém, pokud OS používají stejnou knihovnu)
+	- přenositelnost se někdy řeší pomocí virtuálního stoje (VM)
+		- C#, Java
+		- program se přeloží do bytecodu (Java) nebo CIL (C#)
+		- jsou to „instrukce procesoru, který neexistuje“
+		- pak je tam běhová podpora, která zpracovává instrukce abstraktního procesoru a vykonává instrukce toho konkrétního procesoru, na kterém běží – tenhle přístup je extrémně pomalý
+		- výhoda: lze to zavřít do sandboxu
+		- řešení problémů s rychlostí
+			- JIT (just in time) kompilace – překládá mezikód do nativního kódu na vyžádání, pokud daný překlad ještě neexistuje
+			- AOT (ahead of time) kompilace – při instalaci program přeložím do nativního kódu (používá se třeba u Androidu)
+
+## Operační systém
+
+- role OS
+	- abstraktní stroj
+		- je reprezentován rozhraním jádra
+		- schovává komplexitu hardwaru
+	- správa zdrojů
+		- management hardwaru zajišťuje OS
+		- sdílení HW mezi aplikacemi
+			- alokace paměti
+			- procesorový čas
+			- abstrakce (disk, síť)
+- režimy procesoru (bývá jich několik, ale nejdůležitější jsou dva)
+	- uživatelský režim
+		- přístupný všem aplikacím
+		- omezený přístup ke zdrojům
+	- kernel mode
+		- je používán operačním systémem nebo jeho částí
+		- má plný přístup ke zdrojům
+	- přechod mezi režimy je jasně definovaný – je pouze omezené množství způsobů, jak přepnout z uživatelského do kernel režimu (aby bylo možné vyhodnotit, zda je to záměr, nebo chyba)
+		- syscall = volání systémového API
