@@ -18,3 +18,4 @@
 	- do konce semestru vybrat téma  
 	- do prázdnin přijít s alfa verzí  
 	- má to být v C#, leda by byl dobrý důvod
+- https://kam.mff.cuni.cz/~perm/programovani/NMIN201/objektovy_navrh/

@@ -232,3 +232,11 @@
 		- more people would consider teaching → there would be better teachers?
 	- more money in state budget
 	- less students who can afford their studies
+
+---
+
+- homework
+	- maths – unit 3 (page 35, ex. 4, 5) + appendix p. 123–125
+- on condition that he saves money
+- on condition of his saving money
+- 
