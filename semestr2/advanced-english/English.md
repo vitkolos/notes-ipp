@@ -237,6 +237,10 @@
 
 - homework
 	- maths – unit 3 (page 35, ex. 4, 5) + appendix p. 123–125
+	- second HW
+		- nebude vybírat  
+		- lidi mají přání, o ideálních bytech  
+		- napsat pár vět o svém ideálním bytě pomocí 2. kondicionálu
 - on condition that he saves money
 - on condition of his saving money
 - tuition pros
