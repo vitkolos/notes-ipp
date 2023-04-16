@@ -284,3 +284,8 @@
 - desperate – to have no hope
 - neat – cool, tidy, organized
 - neat × messy
+- homework
+	- If I had a balcony, I could eat my breakfast there in summer.
+	- If my apartment had a bathroom, I wouldn't have to use the shared one.
+	- If there was a washing machine in my apartment, I could wash my clothes easily.
+	- If I had my own kitchen in my apartment, I would cook more.
