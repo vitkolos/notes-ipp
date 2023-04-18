@@ -21,12 +21,22 @@
 - https://kam.mff.cuni.cz/~perm/programovani/NMIN201/objektovy_navrh/
 - úlohy na dynamické programování
 	1. opíjení u piva, vína, tvrdého
-	2. T, F, ^, v, !
+		- n drinků
+		- hned po vínu není tvrdý
+		- hned po tvrdém není víno ani tvrdý
+	1. T, F, ^, v, !
 		- vstup: konstantní bool. výraz
 		- výstup: počet možných uzávorkování, aby to byla pravda
-	3. mosty
-	4. pokleslá podposloupnost
-	5. salámy
-	6. loupežníci
-	7. editační vzdálenost
-	8. čínský mobil
+	2. mosty
+	3. pokleslá podposloupnost
+	4. salámy
+	5. loupežníci
+	6. editační vzdálenost
+	7. čínský mobil
+- podposloupnost
+	- rekurzivní:
+	- nevíme, který prvek bude poslední → zkusíme všechny
+	- nevíme, který prvek bude před ním → zkusíme všechny
+	- délka nejdelší podposloupnosti končící v daném místě je X → uložíme do cache
+	- pokleslá podposloupnost = dvě nejdelší podposloupnosti za sebou
+	- takže spočítáme cache nejdelší podposloupnosti začínající v daném místě
