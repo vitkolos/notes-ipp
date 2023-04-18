@@ -1,0 +1,291 @@
+# English
+
+- It was pouring. They cancelled the picnic.
+	- reason → expected result
+- Since it was pouring, they cancelled the picnic.
+	- subordinate (dependent) clause + independent clause = complex sentence
+	- adverbial conjunction of reason
+	- alternatives to „since“: as, because
+- They cancelled the picnic because it was pouring.
+	- there's no comma in front of a subordinate clause
+- Due to the heavy rain, they cancelled the picnic.
+	- due to → what? → noun phrase
+	- Because of the heavy rain…
+	- Owing to… (formal), Thanks to…
+	- as a result of (formal/scientific)
+	- registers
+		- thanks to, because of – spoken language
+		- due to, owing to, as a result of – formal
+- It was pouring, so they cancelled the picnic.
+	- so
+	- therefore
+	- thus
+	- hence
+	- register – so (common), that's why (written) → therefore → as a result, as a consequence → thus/hence (maths)
+	- "so" is special, it has a comma in front of it
+	- there can be semicolon in front
+- Since there was a lack of interest in the subject, we decided to cancel the series.
+- Due to the lack of interest in the subject…
+- He was fed up with the way things were going, so / that's why he decided to quit.
+- Since negotiations between our companies have stalled, we should come up with some new ideas before we continue, therefore I suggest we postpone meeting again until next month.
+- "big words" – therefore, consequently
+- public transport – phones should be banned
+	- so much more friends – 
+	- beautiful city – 
+	- eye contact?
+	- Due to banning the mobile phones in the public transport, we could make people appreciate the landscape of the city more.
+	- Since the bus can crash at any time, you should be paying attention and watching out for the accident.
+	- Thanks to the ban of the mobile phones, people would read more.
+	- As people are spending most of the time on their phones, they aren't engaged with adverts that much. As a consequence our proposal would increase the transportation companies revenue and thus decrease the ticket price.
+- homework – text about banning smoking, answer questions
+	- What will happen on Sunday night?
+		- not mentioned in the text
+	- What will be lost? What will be gained?
+		- people will smoke less as there will be less places where they are allowed to
+	- Who is against it? Who is for it?
+		- tobacco companies, smokers, bars
+		- nonsmokers, American Nonsmokers' Rights Foundation
+	- it has been enacted in California, it was successful
+	- probably not
+
+---
+
+- laws: pass (parliament), enact, enforce
+- ban – prohibition
+- slip through the loopholes
+- tighten/close the loophole
+- loathe – despise, hate
+- lament – grieve, mourn (the loss)
+- zeal – passion
+- incensed – furious
+- stand firm in
+- take a drag – to pull
+- tough
+- usher in – to lead into
+- venue – a place where public events take place
+- wispy – thin, unsubstantial
+- hazy – unclear
+- Because the NYC has a large population of smokers, the tax money from the Phillip Morris company will be lost and the citizens will have to pay it in their taxes.
+- In addition, because of the ban, most venues will need to close down. As a result, the economy will suffer.
+- As we have seen many times in the past, people will always find loopholes to bypass the law, therefore it is useless to introduce the ban – there will be just more of a bureaucracy for everyone.
+- It was pouring. They held the picnic.
+	- situation → unexpected result
+	- contrast, concession
+- Though it was pouring, they held the picnic.
+	- though, although, even though (the only difference is in the stress)
+- In spite of the downpour, they held the picnic.
+	- in spite of, despite, regardless of
+- It was pouring, but they held the picnic (anyway).
+	- but
+	- semicolon + comma: nevertheless, however, still, yet, even so, all the same
+
+---
+
+- linger (over) – to remain longer than necessary
+- something can linger (in the air) – feeling, scent, doubt
+- suspend sb from × expel
+- **it is a drag on sth** = it retards / slows down / limits / holds back progress
+- a hazy memory
+- Alaska is cold. Florida is hot.
+	- opposition
+	- while, whereas – in the front or in the middle of a sentence
+		- While Alaska is cold, Florida is hot.
+	- unlike, in contrast to – with reduced clause
+		- Unlike Alaska, Florida is hot.
+	- but, however – they have two functions
+		- Alaska is cold, but Florida is hot.
+			- universal rule: if "but" connects two clauses, put comma in front of it (you can't be wrong)
+		- Alaska is cold; however, Florida is hot. 
+	- on the other hand
+- trams vs. buses
+	- buses seem to be more stuck in traffic
+	- trams are more used in the city centre, whereas buses are the only option in the outskirts
+	- trams are less bumpy
+	- While buses are more widespread, the trams are more comfortable and less bumpy. What is more, trams are rarely late, whereas buses are rarely on time; consequently, people prefer trams over buses where possible.
+- hw
+	- writing: choose two opposing things (one paragraph), it has to be printed
+		- something interesting
+	- reading: smoking ban, pull out the pros and cons
+
+---
+
+- usher in the new year, a new era (of sth), an age, a way of doing, a new mindset, a new way of thinking, a new epoch
+- linger: perfume, smells, odours, taste, lingering emotions, doubts, memories
+- to linger over sth (prodlévat, zůstávat nad dobrým vínem…)
+- suspend (an indefinite amount of time), expel, expulsion
+- sth can drag on (něco se táhne, vleče)
+- sth is a drag on – it retards, slows down (progress)
+- to drag – to pull with effort
+- hazy memory, day; hazy = unclear (noun: haze)
+	- lake can be cloudy, murky
+- wispy – smoke rings, beard, hair
+- savored – moment, atmosphere, food
+- incense – infuriate, make angry
+- backlash – strong negative reaction
+- undermine – reduce credibility, weaken the foundation
+- testify – give evidence (witnesses testify)
+- chronic
+- disperse
+- transient – temporary (move quickly away)
+- severe – serious (illness, wound), harsh (weather), strict (upbringing)
+- jeopardize – to endanger, put in danger
+- hazard – a risk, danger; to hazard a guess
+- conflate – to join together two disparate ideas as one, to confuse (mix up)
+- recur
+- specious argument – zavádějící/klamný argument
+- exacerbate – zhoršit, ztížit, popudit, rozhořčit
+- hw: say it's good/bad, make some notes (about the article), add more arguments (for or against) + maths homework, 27–30 triangles (in the book)
+	- it's a bad idea
+	- it runs the risk of a backlash
+	- smoke quickly disperses in the open air
+	- people can move around to avoid intense exposure
+	- there is no evidence that the outdoor exposure to tobacco smoke can lead to substantial health damage
+	- bans like this may create smoke-filled areas near park entrances
+	- arguments for: if people don't have where to smoke, they are less likely to start smoking, less stubs in parks
+
+---
+
+- tu occur over and over – to recur (recurring dream)
+- disperse – spread out, disappear, dissipate, scatter
+- transitive × intransitive
+	- "last night, I hit" – not a sentence, hit is transitive
+	- "I walked" – walk is intransitive
+- run the risk of doing sth
+- the smoking ban
+	- cigarette butts everywhere × there's rubbish on the ground anyways
+	- it's better when people smoke outside than inside
+	- smoking is bad and harmful and it smells
+- homework
+	- essay
+	- first paragraph = introduction
+		- we don't have to do for and against in the introduction
+	- 2 or 3 paragraphs body
+	- we can play both sides
+	- we have the grammar of concession
+	- we have to tell our (one) stance in the last paragraph
+	- use the grammar we know
+	- it has to be typed and printed
+	- double spacing
+	- theme: the ban on smoking outdoors (outdoor areas)
+	- we need to make a good cohesive argument (no size requirement)
+
+---
+
+- **During** the summer he completed the house he had started to build in the winter.
+- **While** he was building it, he broke his finger.
+- He had worked for the company for 5 years **by which time / at which point** he decided he had enough experience to go out on his own.
+- **On finding** the elevator broken, he decided to walk.
+	- on -ing + noun phrase / that…
+	- *upon* is the same
+- He had **just / no sooner / hardly** begun to walk up the stairs when the elevator began to work.
+- I dislike you but I'm offering you the job.
+	- **Much as** I dislike you, I'm offering you the job.
+	- **Little as** I trust you, I'm lending you the money.
+	- **Hard as** it may seem, I'm applying for the job.
+	- can be prefixed by **as** (As hard as it may seem)
+- get
+	- get thinner, become thinner, grow thinner
+	- leave home, go to work, get to the office / arrive at the office
+	- earn a degree
+	- get on – vycházet s někým
+	- get at – navážet se do někoho
+	- get up to – vyvádět, provést
+	- get by – vystačit si, vyžít (get by on your savings)
+	- get round to – dostat se k něčemu (najít si na to čas)
+	- get out of – vyvléct se z něčeho
+- homework
+	- page 84 – text + exercise
+
+---
+
+- I had just came in when it started to rain.
+	- no sooner – for emphasis, (different register?), used with **than**
+	- hardly – not that much used
+- inversion – used to ask questions
+	- He had **no sooner** begun to walk up the steps, **than** the elevator started to work.
+	- inverted: No sooner had he begun to walk up the steps, than the elevator started to work.
+- just, no sooner, hardly, scarcely (we cannot use inversion with "just")
+- write a story using these words (in any form – as verbs/nouns/adjectives…), 16:35, no dictionaries
+- homework
+	- inversion worksheet
+	- maths – logic and sets 26/7, 8 + appendix (122, 123)
+
+---
+
+- zero conditional – general truth, "when" and "if" are interchangeable, the meaning is the same
+- When he comes, we'll leave. – time phrase
+- If he comes, we'll leave. – first conditional
+	- If present (or present perfect), future.
+	- we can change the probability – will (100% sure), can (probability), should (expectation), may, might…
+	- unless = if not
+	- if = provided that = so long as = as long as
+	- if you should… / if you happen to… / if you should happen to… = kdybys náhodou…
+- Tuition might be instituted at the Czech universities next year.
+- The Czech Republic is debating whether to join the EU.
+- Distance learningb is being proposed as a future method of instruction at Czech universities.
+- we choose one and we weight the pros and cons
+- homework
+	- I have chosen tuition – we'll discuss in groups
+	- conjunctions worksheet
+- Tuition might be instituted at the Czech universities next year.
+	- higher salaries for teachers
+		- more people would consider teaching → there would be better teachers?
+	- more money in state budget
+	- less students who can afford their studies
+
+---
+
+- homework
+	- maths – unit 3 (page 35, ex. 4, 5) + appendix p. 123–125
+	- second HW
+		- nebude vybírat  
+		- lidi mají přání, o ideálních bytech  
+		- napsat pár vět o svém ideálním bytě pomocí 2. kondicionálu
+- on condition that he saves money
+- on condition of his saving money
+- tuition pros
+	- people would have to study useful things
+	- less people studying without an interest
+	- teachers' salaries might be higher
+	- more money in state budget
+	- more money can be used for research
+	- less money wasted
+- tuition cons
+	- it would discriminate low income students
+	- it would cause student debt
+	- some fields of study would be underfunded
+	- changing one's field of study would be harder
+- sentences
+	- If there are tuition fees, people would be encouraged to pick more useful degrees, and there would be less people studying without an interest.
+	- Provided that the fees result in an increased budget, the teachers' salaries might get higher, thus the quality of teaching might increase.
+	- Also, more money could be used for the research.
+	- However, the fees would discriminate against low income students as they would have to take out student loans.
+	- As long as there are fees, some fields of study might be underfunded.
+	- Furthermore, changing one's field of study would be less desirable, because they have already paid a lot of money for their current degree.
+	- Therefore, we do not recommend instituting the tuition fees.
+- Martin is in class.
+- Martin wishes (that) he was/were at home, but he isn't.
+	- subjunctive → were
+	- unreal present = past
+- He wishes he were sleeping.
+- I wish he called me.
+- I wish he would call me.
+	- *would* 1. makes it less likely or 2. pushes it into the future (or both)
+- wish = if only
+- If + past tense, would/could + root verb = present unreal
+- if I moved × if I were to move (less likely)
+- stack × pile, heap
+- desolate – isolated, abandoned, without life
+- dingy – dirty, small (dingy pub = joint = *pajzl*)
+- coffin
+- cram sth into – jam, stuff sth in…
+- sth is cram – full of people, crowded
+- cram for a test
+- desperate – to have no hope
+- neat – cool, tidy, organized
+- neat × messy
+- homework
+	- If I had a balcony, I could eat my breakfast there in summer.
+	- If my apartment had a bathroom, I wouldn't have to use the shared one.
+	- If there was a washing machine in my apartment, I could wash my clothes easily.
+	- If I had my own kitchen in my apartment, I would cook more.
