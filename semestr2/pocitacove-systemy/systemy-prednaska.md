@@ -322,4 +322,10 @@
 			- u výjimek typu fault se procesor vrátí na stav před instrukcí, nechám OS, aby problém opravil, a potom instrukci pustím znova
 		- softwarové – speciální instrukce
 	- jak funguje přerušení
-		- 
+		- CPU zjistí zdroj přerušení
+		- získá adresu handleru
+		- proud instrukcí je přerušen
+		- handler uloží stav CPU
+		- handler udělá něco užitečného
+		- handler obnoví stav CPU
+		- CPU pokračuje v proudu instrukcí
