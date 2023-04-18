@@ -270,3 +270,56 @@
 		- má plný přístup ke zdrojům
 	- přechod mezi režimy je jasně definovaný – je pouze omezené množství způsobů, jak přepnout z uživatelského do kernel režimu (aby bylo možné vyhodnotit, zda je to záměr, nebo chyba)
 		- syscall = volání systémového API
+		- tenká vrstva nad OS zajišťuje syscally
+- architektura
+	- monolitická
+		- obslužná vrstva, jejím prostřednictvím se volají interní funkce
+		- takhle funguje linuxový kernel
+		- zranitelnost – programy v jádře mohou dělat cokoliv
+		- původně byly součásti jádra pevně nastavené od instalaci
+			- problém – při připojení klávesnice chceme nainstalovat driver zařízení -> dnes lze obsah jádra měnit
+	- vrstvená
+		- každá vrstva má svoje rozhraní
+		- každá vrstva může používat jenom vrstvu přímo pod ní (její rozhraní)
+	- mikrokernel
+		- většina služeb se z kernel space vystrčí do user space, jsou tam jako jednotlivé moduly, ty komunikují bez sebou a s jádrem
+		- je to rozšiřitelné, spolehlivé (jednotlivé služby lze v případě chyby restartovat) a bezpečné, ale poměrně pomalé
+		- takhle fungují Windows
+			- mají ještě hardwarovou abstrakční vrstvu, takže mikrokernel je přenositelný
+			- služby běží v kernel režimu (což je v rozporu s filozofií mikrokernel)
+- zařízení
+	- pojmy
+		- řadič zařízení (controller) – HW součástka, komunikuje se zařízením nějakým protokolem
+		- ovladač zařízení (driver) – SW komoponenta, součást operačního systému, realizuje komunikaci s řadičem, poskytuje operačnímu systému jednotné komunikační zařízení
+		- BIOS/UEFI – inicializuje zařízení při bootu
+	- topologie zařízení
+		- sběrnice
+			- řadič, z něj vychází jeden drát, na něj jsou všechna zařízení připojena
+			- na jedné sběrnici je přetlak
+			- při paralelním vedení drátů je problém s přeslechy (vzájemné rušení signálů)
+		- hvězda
+			- každé zařízení je připojeno k řadiči samostatně
+			- takhle funguje SATA
+			- nevýhoda – na řadiči musí být víc konektorů
+			- výhoda – na drátu není nikdo jiný, takže není potřeba řešit adresaci
+			- používají se sériové protokoly – jsou rychlejší než paralelní
+		- ring
+			- signál se po kruhu pohybuje jedním směrem – každé zařízení (i řadič) jedním portem vysílá a druhým přijímá
+		- strom
+			- k řadiči můžu připojit rozbočovač (hub)
+			- takhle funguje USB
+	- jak CPU provádí I/O operace
+		- buď má speciální instrukce, nebo používá memory-mapping
+	- uživatel chce nějaké množství dat – jejich získání zajišťuje kernel/řadič (může být potřeba několik dotazů)
+	- komunikace se zařízeními
+		- polling – CPU se aktivně ptá na změnu stavu zařízení (pomalé, dnes už se nepoužívá)
+		- přerušení – řadič vyšle signál, že je operace hotová, a přeruší chod procesoru (ale pořád musím kopírovat data, což je pomalé)
+		- DMA (Direct Memory Access) – přenos dat ze zařízení do paměti probíhá hardwarově bez účasti procesoru, až pak se provede přerušení; funkce scatter/gather umožňuje využívat nesouvislé části paměti
+	- typy přerušení
+		- externí – hardwarové pomocí IRQ pinu, lze ho zamaskovat (deaktivovat – pomocí registru)
+		- (hardwarová) výjimka – nastal problém s instrukcemi -> procesor vyvolá přerušení a nechá na OS, aby situaci vyřešil
+			- výjimka typu trap se volá po instrukci, např. dělení nulou
+			- u výjimek typu fault se procesor vrátí na stav před instrukcí, nechám OS, aby problém opravil, a potom instrukci pustím znova
+		- softwarové – speciální instrukce
+	- jak funguje přerušení
+		- 
