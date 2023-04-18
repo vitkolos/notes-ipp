@@ -19,3 +19,14 @@
 	- do prázdnin přijít s alfa verzí  
 	- má to být v C#, leda by byl dobrý důvod
 - https://kam.mff.cuni.cz/~perm/programovani/NMIN201/objektovy_navrh/
+- úlohy na dynamické programování
+	1. opíjení u piva, vína, tvrdého
+	2. T, F, ^, v, !
+		- vstup: konstantní bool. výraz
+		- výstup: počet možných uzávorkování, aby to byla pravda
+	3. mosty
+	4. pokleslá podposloupnost
+	5. salámy
+	6. loupežníci
+	7. editační vzdálenost
+	8. čínský mobil
