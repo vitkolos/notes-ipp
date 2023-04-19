@@ -271,9 +271,9 @@
 - I wish he called me.
 - I wish he would call me.
 	- *would* 1. makes it less likely or 2. pushes it into the future (or both)
-- wish = if only
+- I wish = if only
 - If + past tense, would/could + root verb = present unreal
-- if I moved × if I were to move (less likely)
+- if I moved × if I *were to* move (less likely)
 - stack × pile, heap
 - desolate – isolated, abandoned, without life
 - dingy – dirty, small (dingy pub = joint = *pajzl*)
@@ -289,3 +289,25 @@
 	- If my apartment had a bathroom, I wouldn't have to use the shared one.
 	- If there was a washing machine in my apartment, I could wash my clothes easily.
 	- If I had my own kitchen in my apartment, I would cook more.
+
+---
+
+- homework
+	- unit 3 – pages 37–39 (circles)
+- apartment – place, location, size, architecture, orientation
+- Michal
+	- house
+	- smaller town near bigger city
+	- privacy
+	- newly built
+- Vítek
+	- flat
+	- Prague / outskirts
+	- wall sockets
+	- close to stores, trams/metro
+	- can be tiny
+	- occasional parties
+- I wish there weren't that much traffic in the centre of Prague. If there weren't that many cars, the trams would not be delayed that often.
+- I wish those floods hadn't had happen. If there hadn't been those terrible floods, they wouldn't have destroyed that many houses.
+	- alternative: I wish there hadn't been floods. If there hadn't, it would be nice.
+- I wish I had been born elsewhere. If I had been born in Ostrava, I could have met some interesting people there.
