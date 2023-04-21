@@ -18,6 +18,7 @@
 	- do konce semestru vybrat téma  
 	- do prázdnin přijít s alfa verzí  
 	- má to být v C#, leda by byl dobrý důvod
+	- k mým návrhům (diff, akordy) – obě varianty jsou použitelné
 - https://kam.mff.cuni.cz/~perm/programovani/NMIN201/objektovy_navrh/
 - úlohy na dynamické programování
 	1. opíjení u piva, vína, tvrdého

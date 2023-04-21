@@ -45,4 +45,8 @@
 - Bonjour, je m'appelle Vít Kološ et je suis étudiant. Je viens de République tchèque et j'ai seize ans. J'ai jeté cette bouteille à la mer en 2019. Si vous lisez cette message, informez-moi, s'il vous plaît, voilà mon adresse courriel…
 - poupe – záď
 - faire naufrage – ztroskotat
-- 
+- veste polaire – fleecová mikina
+- eventail – vějíř
+- étanche – vodotěsný
+- couture – šití
+- carnet – deník
