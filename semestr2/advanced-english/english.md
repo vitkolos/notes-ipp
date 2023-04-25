@@ -315,4 +315,21 @@
 ---
 
 - něco málo z matematických domácích úkolů bude na matematickém kvízu 9. května (ve stejnou hodinu bude i test)
-- 
+- mixed conditional
+- If I had listened to my doctor, I would have exercised more and I would be much healthier now.
+- If I hadn't fiddled around with the TV set, I wouldn't have damaged HDMI connector and the TV could be working.
+- If we hadn't met at that party, I wouldn't have started dating you and we wouldn't be married now.
+- discoveries/inventions – airplane, wheel, electricity, car, fertilizers/pesticides, penicillin, radio, printing press, steam engine, microscope, lense (contact), LEGO
+- If the radio hadn't been invented
+	- most people would still read newspapers
+	- information would not spread that fast and the progress of scientific development would be way slower
+	- there would not be any Wi-Fi
+	- it would be harder to communicate during natural disasters
+	- the radar wouldn't have been invented, therefore there would not be that good weather forecast
+	- there could not be any efficient space-earth communication
+- homework
+	- writing – think of my own topic (use my imagination)
+		- three paragraphs – three ideas (but one invention/discovery)
+		- use past + present, combine them, play with it
+		- print it
+		- double spaced
