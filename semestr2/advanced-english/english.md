@@ -327,9 +327,11 @@
 	- it would be harder to communicate during natural disasters
 	- the radar wouldn't have been invented, therefore there would not be that good weather forecast
 	- there could not be any efficient space-earth communication
+- test = vocabulary
 - homework
 	- writing – think of my own topic (use my imagination)
 		- three paragraphs – three ideas (but one invention/discovery)
 		- use past + present, combine them, play with it
 		- print it
 		- double spaced
+		- should be similar to the car stuff
