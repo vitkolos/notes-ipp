@@ -347,4 +347,40 @@
 - scheduler – část operačního systému, používá schedulingové algoritmy k přidělení zdrojů (jader) jednotkám
 - když se přeruší vykonávání vlákna, provede se context switch – kontext procesoru se uloží
 - real-time scheduling: real-time proces má čas, kdy se má spustit, a čas, do kdy má skončit (hard deadline – nemá smysl pokračovat, soft deadline – má smysl pokračovat ve výpočtu)
-- 
+- stavy vlákna
+	- created
+	- ready
+	- running
+	- blocked
+	- terminated (zombie)
+- multitasking
+	- cooperative – všechny procesy kooperují, předávají si řízení
+	- preemptive – každé vlákno dostane od scheduleru svůj time slice; jakmile čas vyprší, dojde k přerušení
+- scheduling
+	- cíle
+		- …
+	- priorita – vázaná na proces
+		- je dvousložková – při spuštění se přiděluje statická priorita (podle uživatele), dynamická priorita se v časových intervalech pravidelně zvyšuje všem ready vláknům (po spuštění se dynamická priorita sníží na nula); celková priorita je daná součtem
+	- kooperativní algoritmy
+		- first come, first serve (FCFS)
+			- FIFO řada, procesy se vykonávají v pořadí, ve kterém přišly
+		- shortest job first
+			- musí být známý očekávaný čas běhu
+		- longest job first
+	- preemptivní algoritmy
+		- round robin
+			- jako FCFS
+			- když vlákno trvá moc dlouho, tak se zařadí na konec fronty
+		- multilevel feedback-queue
+			- každá fronta má jinak dlouhý time slice
+			- první (horní) ho má kratší, ty pod ní ho mají delší
+			- když vlákno trvá moc dlouho, tak se zařadí na konec nižší fronty
+			- když se vlákno brzo zablokuje, tak se zařadí na konec vyšší fronty
+		- completely fair scheduler (CFS)
+			- používá červeno-černý strom
+- komunikace mezi procesy (inter-process communication = IPC)
+	- kooperující procesy – jejich zdroje jsou izolovány operačním systémem, ke komunikaci používají OS-specifické IPC API
+	- typické IPC metody
+		- pipes (nebo jiný typ socketů)
+		- sdílená paměť
+		- signály

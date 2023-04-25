@@ -25,15 +25,30 @@
 		- n drinků
 		- hned po vínu není tvrdý
 		- hned po tvrdém není víno ani tvrdý
-	1. T, F, ^, v, !
-		- vstup: konstantní bool. výraz
+	2. T, F, ^, v, !
+		- vstup: konstantní bool. výraz (bez závorek – skládá se ze znaků výše)
 		- výstup: počet možných uzávorkování, aby to byla pravda
-	2. mosty
-	3. pokleslá podposloupnost
-	4. salámy
-	5. loupežníci
-	6. editační vzdálenost
-	7. čínský mobil
+		- u konjunkce spolu vynásobím, kolika způsoby lze splnit levý výraz a kolika způsoby lze splnit pravý výraz
+		- kvůli disjunkci si musím evidovat i kolika způsoby lze výraz nesplnit
+		- rekurze podle posledního operátoru
+	1. mosty
+		- nesmějí se křížit
+		- maximální počet mostů
+		- nahoře čísla 1 až n
+		- dole permutace 1 až n
+		- spojujeme stejná čísla – hledáme co největší počet nekřížících se spojení
+		- nápověda: některý most bude poslední
+	1. pokleslá podposloupnost
+	2. salámy
+		- vstup je počet požadovaných centimetrů (n) a cena salámů o délkách 1 až n
+		- výstup je nejlevnější kombinace
+	3. loupežníci
+	4. editační vzdálenost
+		- skaly → laska (odeberu ly, přidám la)
+		- některá operace bude poslední
+		- voláme rekurzivně lps(začátek1,začátek2,délka1,délka2)
+		- tabulka, kde jsou řádky podle znaků jednoho stringu a sloupce podle znaků druhého stringu
+	1. čínský mobil
 - podposloupnost
 	- rekurzivní:
 	- nevíme, který prvek bude poslední → zkusíme všechny
