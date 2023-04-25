@@ -311,3 +311,8 @@
 - I wish those floods hadn't had happen. If there hadn't been those terrible floods, they wouldn't have destroyed that many houses.
 	- alternative: I wish there hadn't been floods. If there hadn't, it would be nice.
 - I wish I had been born elsewhere. If I had been born in Ostrava, I could have met some interesting people there.
+
+---
+
+- něco málo z matematických domácích úkolů bude na matematickém kvízu 9. května (ve stejnou hodinu bude i test)
+- 
