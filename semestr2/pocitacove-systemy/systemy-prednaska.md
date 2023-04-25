@@ -329,3 +329,22 @@
 		- handler udělá něco užitečného
 		- handler obnoví stav CPU
 		- CPU pokračuje v proudu instrukcí
+- program = pasivní soubor na disku
+- loader – vezme program a načte ho do paměti
+- někde v hlavičce programu je informace o tom, kde program (výkon instrukcí) začíná
+- proces
+	- instance programu vytvořená operačním systémem
+	- je to datová struktura uvnitř operačního systému, v níž jsou uložené různá data, která daný program potřebuje
+	- vlastní: kód, prostor v paměti, další prostředky
+- vlákno (thread)
+	- místo uvnitř procesu, kde se vykonávají instrukce
+	- kontext procesoru – datová struktura, ve které jsou uložené registry procesoru, pokud dané vlákno zrovna neběží
+	- vlastní: pozici v kódu (program counter), svůj zásobník, stav procesoru
+- fiber
+	- lightweight vlákno
+	- nemá celý kontext
+	- scheduling se dělá kooperativně (jednotlivé fibery se vzájemně vyměňují v běhu)
+- scheduler – část operačního systému, používá schedulingové algoritmy k přidělení zdrojů (jader) jednotkám
+- když se přeruší vykonávání vlákna, provede se context switch – kontext procesoru se uloží
+- real-time scheduling: real-time proces má čas, kdy se má spustit, a čas, do kdy má skončit (hard deadline – nemá smysl pokračovat, soft deadline – má smysl pokračovat ve výpočtu)
+- 
