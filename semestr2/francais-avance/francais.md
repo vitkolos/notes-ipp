@@ -50,3 +50,4 @@
 - étanche – vodotěsný
 - couture – šití
 - carnet – deník
+- la banquise – led ve slané vodě
