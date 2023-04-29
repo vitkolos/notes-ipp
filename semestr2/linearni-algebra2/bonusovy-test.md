@@ -5,10 +5,19 @@
 *definujte…*
 
 - permutace
+	- permutace na množině $\lbrace1,2,\dots,n\rbrace$ je bijektivní zobrazení $p:\lbrace1,2,\dots,n\rbrace\rightarrow \lbrace1,2,\dots,n\rbrace$
 - znaménko permutace
+	- znaménko permutace $p$ je $\text{sgn}(p)=(-1)^{\text{počet inverzí}\ p}$
+	- permutace s kladným znaménkem jsou sudé, se záporným liché
+	- v exponentu může být \# inverzí, \# transpozic, \# sudých cyklů, $n-$\# cyklů
 - determinant
+	- determinant matice $A\in\mathbb K^{n\times n}$ je dán výrazem $$\text{det }A=\sum_{p\in S_n}\text{sgn}(p)\prod_{i=1}^na_{i,p(i)}$$
 - adjungovaná matice
+	- $A^{ij}$ je podmatice získaná z $A$ odstraněním $i$-tého řádku a $j$-tého sloupce
+	- pro $A\in\mathbb K^{n\times n}:(\text{adj }A)_{ji}=(-1)^{i+j}\cdot\text{det }A^{ij}$
+	- tzn. faktory Laplaceova rozvoje podél i-tého řádku matice $A$ ukládáme do i-tého sloupce $\text{adj }A$
 - Laplaceova matice
+	- Laplaceova matice je pojem z teorie grafů, v LA2 byl představen pouze Laplaceův rozvoj (jako věta) $$\text{det }A=\sum_{j=1}^na_{ij}\cdot(-1)^{i+j}\cdot\text{det }A^{ij}$$
 - polynom nad tělesem
 - kořen polynomu a jeho násobnost
 - algebraicky uzavřené těleso
