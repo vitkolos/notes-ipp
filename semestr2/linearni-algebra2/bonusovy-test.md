@@ -17,7 +17,7 @@
 	- pro $A\in\mathbb K^{n\times n}:(\text{adj }A)_{ji}=(-1)^{i+j}\cdot\text{det }A^{ij}$
 	- tzn. faktory Laplaceova rozvoje podél i-tého řádku matice $A$ ukládáme do i-tého sloupce $\text{adj }A$
 - Laplaceova matice
-	- Laplaceova matice je pojem z teorie grafů, v LA2 byl představen pouze Laplaceův rozvoj (jako věta) $$\text{det }A=\sum_{j=1}^na_{ij}\cdot(-1)^{i+j}\cdot\text{det }A^{ij}$$
+	- pro graf $G$ o $n$ vrcholech je $L_G\in\mathbb Z^{n\times n}$ Laplaceova matice taková, že $$(L_G)_{ij}= \begin{cases} \text{deg}(v_i) &\text{pokud } i=j \\ -1 &\text{pro }v_i,v_j\text{ sousední} \\ 0 &\text{jinak}\end{cases}$$
 - polynom nad tělesem
 - kořen polynomu a jeho násobnost
 - algebraicky uzavřené těleso
