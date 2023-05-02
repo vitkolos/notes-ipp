@@ -435,4 +435,27 @@
 		- FAT2
 		- root directory
 		- data
-	- 
+	- smazané soubory se označují speciálním bajtem (takže při mazání nepřepisuju data)
+	- FAT je pole intů
+		- velikost
+			- FAT = FAT16 → inty jsou 16bitové
+			- FAT32 → inty jsou 32bitové
+		- pole je indexované od dvojky
+			- nula má speciální význam
+			- jednička je kořenový adresář
+		- index v poli určuje offset bloku dat, kde je uložený obsah souboru
+		- hodnoty položek v poli
+			- nula = odpovídající blok je volný
+			- ostatní hodnoty tvoří spoják (ten začíná záznamem v adresáři, hodnota na daném indexu odkazuje na další index…)
+			- minus jedna označuje poslední blok souboru
+		- nepoužívá se alokační strategie – hledám první volný blok
+		- FAT se dnes obvykle vejde do paměti
+		- spoják je jednosměrný – takže při náhodném přístupu k souboru musím spoják projít od začátku
+- Second extended file system (ext2)
+	- starý linuxový file system
+	- s random access má podobný problém jako FAT
+	- inode reprezentuje jeden soubor/adresář
+	- inode je poměrně složitě zanořený, je tam daný pevný limit na velikost souboru
+- rotační pevný disk
+	- na ose je několik ploten
+	- stopy (soustředné kružnice) se dělí na sektory
