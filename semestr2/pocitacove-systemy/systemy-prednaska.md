@@ -426,8 +426,8 @@
 	- práce s FAT bude u zkoušky :)
 - File Allocation Table (FAT)
 	- z doby MS DOSu
-	- jedna struktura (FAT) spravuje volné bloky a uložení dat souborů (a asi i názvy souborů?)
-	- adresář je sekvence záznamů s pevnou délkou a atributy
+	- jedna struktura (FAT) spravuje volné bloky a uložení dat souborů
+	- adresář je sekvence záznamů s pevnou délkou a atributy (počáteční blok, název + přípona, velikost, časy, …)
 	- root je na fixní pozici
 	- formát struktury
 		- boot record
