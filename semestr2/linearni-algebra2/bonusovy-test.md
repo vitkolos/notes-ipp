@@ -17,9 +17,13 @@
 	- pro $A\in\mathbb K^{n\times n}:(\text{adj }A)_{ji}=(-1)^{i+j}\cdot\text{det }A^{ij}$
 	- tzn. faktory Laplaceova rozvoje podél i-tého řádku matice $A$ ukládáme do i-tého sloupce $\text{adj }A$
 - Laplaceova matice
-	- pro graf $G$ o $n$ vrcholech je $L_G\in\mathbb Z^{n\times n}$ Laplaceova matice taková, že $$(L_G)_{ij}= \begin{cases} \text{deg}(v_i) &\text{pokud } i=j \\ -1 &\text{pro }v_i,v_j\text{ sousední} \\ 0 &\text{jinak}\end{cases}$$
+	- Laplaceova matice grafu $G$ na $V_G=\lbrace v_1,\dots,v_n\rbrace$ je $L_G\in\mathbb R^{n\times n}$ taková, že $$(L_G)_{ij}= \begin{cases} \text{deg}(v_i) &\text{pro } i=j \\ -1 &\text{jestliže }i\neq j\land (v_i,v_j)\in E_G \\ 0 &\text{jinak}\end{cases}$$
 - polynom nad tělesem
+	- polynom stupně $n$ v proměnné $x$ nad tělesem $\mathbb K$ je výraz $p(x)=a_nx^n+a_{n-1}x^{n-1}+\dots+a_2x^2+a_1x+a_0$, kde $a_n\neq 0$ a $a_n,\dots,a_0\in\mathbb K$
+	- píšeme $p\in\mathbb K(x)$
 - kořen polynomu a jeho násobnost
+	- kořen polynomu $p\in\mathbb K(x)$ je $r\in\mathbb K$ takové, že $p(r)=0$
+	- násobnost kořene $r$ z $p\in\mathbb K(x)$ je největší kladné celé číslo $k$ takové, že $(x-r)^k$ dělí $p$
 - algebraicky uzavřené těleso
 - Vandermondova matice
 - vlastní číslo a vlastní vektor lineárního zobrazení

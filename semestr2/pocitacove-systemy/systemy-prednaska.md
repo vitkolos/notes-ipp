@@ -384,3 +384,55 @@
 		- pipes (nebo jiný typ socketů)
 		- sdílená paměť
 		- signály
+- soubor
+	- jednotka organizace dat
+	- kolekce souvisejících informací
+	- jádro OS nerozumí formátům souborů
+	- soubory se typicky neukládají v paměti, ale na perzistentním úložišti
+	- soubor je chápán jako unikátní číslo – kvůli lidem mají soubory jméno a cestu (aby v souborech nebyl chaos)
+	- některé části názvu souboru (počáteční tečka, přípona) mají speciální význam (ale přípona souboru nemusí souviset s reálným formátem souboru)
+	- operace se soubory – vyčištění cache, změna atributů, vytvoření, smazání
+	- file handle – číslo specifické pro proces, odkazuje na konkrétní soubor (stdin, stdout, stderr mají handles 0, 1, 2)
+	- buffering
+		- cachování sektorů disku (když disk čtu po bajtech, první se načítá z cache, všechny ostatní v daném sektoru už se pak načítají z cache)
+		- existuje několik úrovní cache (systémová, language runtime)
+		- sekvenční vs. náhodný přístup
+	- alternativy – memory mapping, asynchronní přístup souborům
+- adresář
+	- kolekce souborů
+	- význam – rychlejší hledání souboru, lepší navigace pro uživatele, logické seskupení souborů
+	- obvykle reprezentován jako soubor
+	- někdy v něm můžou být uloženy některé atributy jeho souborů
+	- obvykle existuje kořenový adresář
+	- operace – vytvořit, smazat, přejmenovat, najít název, vypsat soubory
+- ukládání souborů
+	- tradiční úložiště
+		- na sekundárním nebo externím úložišti
+		- file system in RAM (pro dočasné soubory)
+	- síťové úložiště – soubory se tváří, jako by byly na disku, ale přitom jsou uloženy někde jinde na síti
+	- virtuální soubory – např. /dev/null
+- file links
+	- links (hard links)
+		- více adresářových záznamů odkazuje na stejný fyzický soubor
+		- většina operací je transparentních
+		- šetří místo, ale může dělat problémy (smazání hardlinku nesmí smazat fyzický soubor – takže OS musí počítat odkazy na daný soubor)
+	- symlinks (soft links)
+		- symlinky jsou speciální soubory, v nichž je uložená cesta jiného souboru
+- file system
+	- řeší překlad jmen, správu datových bloků, správu dat souborů
+	- pro file system je jednotkou jeden blok, blok je určitý počet sektorů
+	- řeší abstrakci práce se soubory a adresáři
+	- může být lokální (FAT, NTFS) nebo síťový (NFS, CIFS/SMB)
+	- práce s FAT bude u zkoušky :)
+- File Allocation Table (FAT)
+	- z doby MS DOSu
+	- jedna struktura (FAT) spravuje volné bloky a uložení dat souborů (a asi i názvy souborů?)
+	- adresář je sekvence záznamů s pevnou délkou a atributy
+	- root je na fixní pozici
+	- formát struktury
+		- boot record
+		- FAT1
+		- FAT2
+		- root directory
+		- data
+	- 
