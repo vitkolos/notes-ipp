@@ -51,3 +51,24 @@
 - couture – šití
 - carnet – deník
 - la banquise – led ve slané vodě
+- je viens **de** République tchèque × je viens **du** Senégal, je viens **des** États-Unis
+	- de Hongrie × d'Haiti
+	- d'Israël (mužský rod se samohláskou)
+- les villes
+	- de Montréal
+	- du Hauvre
+	- du Mans
+	- de la Havane
+- les pays sans article
+	- de Chypre
+	- de Cuba
+- en France, en République tchéque, au Portugal, en Israël (kvůli samohlásce)
+- *en haut* se neváže (je tam H aspiré)
+- la hauteur
+- les hauteurs × les auteurs (výšky se nevážou, autoři se vážou)
+- le Caire
+- partir par/vers…
+- issue = východ, východisko
+- la rivière = řeka, která se vlévá do jiné řeky
+- le fleuve = řeka, která se vlévá do moře
+- mousson = monzun
