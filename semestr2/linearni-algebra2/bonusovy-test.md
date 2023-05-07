@@ -25,19 +25,41 @@
 	- kořen polynomu $p\in\mathbb K(x)$ je $r\in\mathbb K$ takové, že $p(r)=0$
 	- násobnost kořene $r$ z $p\in\mathbb K(x)$ je největší kladné celé číslo $k$ takové, že $(x-r)^k$ dělí $p$
 - algebraicky uzavřené těleso
+	- pokud každý polynom $p\in\mathbb K(x)$ stupně alespoň jedna má alespoň jeden kořen, pak je těleso $\mathbb K$ algebraicky uzavřené
 - Vandermondova matice
+	- značí se $V_{n+1}(x_0,\dots,x_n)$, přičemž prvky jsou určeny takto: $v_{ij}=x_{i-1}^{j-1}$ 
 - vlastní číslo a vlastní vektor lineárního zobrazení
+	- mějme vektorový prostor $V$ nad tělesem $\mathbb K$ a lineární zobrazení $f:V\to V$
+	- vlastní číslo zobrazení $f$ je jakékoliv $\lambda\in\mathbb K$, pro které existuje vektor $u\in V\setminus 0$ takový, že $f(u)=\lambda u$
+	- vlastní vektor odpovídající vlastnímu číslu $\lambda$ je libovolný vektor $u\in V$ takový, že $f(u)=\lambda u$
+	- množina všech vlastních čísel matice je jejím spektrem
 - vlastní číslo a vlastní vektor matice
+	- mějme vektorový prostor $V$ nad tělesem $\mathbb K$ a matici $A\in\mathbb K^{n\times n}$
+	- vlastní číslo matice $A$ je jakékoliv $\lambda\in\mathbb K$, pro které existuje vektor $x\in V\setminus 0$ takový, že $Ax=\lambda x$
+	- vlastní vektor odpovídající vlastnímu číslu $\lambda$ je libovolný vektor $x\in V$ takový, že $Ax=\lambda x$
+	- množina všech vlastních čísel matice je jejím spektrem
 - charakteristický polynom
+	- charakteristický polynom matice $A\in\mathbb K^{n\times n}$ je $p_A(t)=\text{det}(A-tI_n)$
 - algebraická násobnost vlastního čísla
+	- odpovídá násobnosti daného vlastního čísla jako kořene charakteristického polynomu
 - geometrická násobnost vlastního čísla
+	- geometrická násobnost vlastního čísla je dimenze podprostoru jeho vlastních vektorů
 - podobné matice
+	- matice $A,B\in\mathbb K^{n\times n}$ jsou si podobné, pokud existuje regulární matice $R$ taková, že $A=R^{-1}BR$
 - diagonalizovatelná matice
+	- matice podobná diagonální matici je diagonalizovatelná
 - Jordanův blok
+	- Jordanův blok je čtvercová matice, která má na hlavní diagonále dané vlastní číslo, na diagonále nad ní má jedničky a všude jinde má nuly
 - Jordanův normální tvar matice
+	- matice v Jordanově normálním tvaru má na diagonále Jordanovy bloky (a všude jinde nuly)
 - zobecněný vlastní vektor
+	- zobecněný vlastní vektor matice $A$ k vlastnímu číslu $\lambda$ je libovolný vektor $x$ splňující $(A-\lambda I)^ix=0$ pro nějaké $i\in\mathbb N$
+	- lze je řadit do řetězců $x_k,\dots,x_2,x_1,0$, kde $(A-\lambda I)x_i=x_{i-1}$
 - hermitovská matice
+	- hermitovská transpozice komplexní matice $A\in\mathbb C^{m\times n}$ je matice $A^H\in\mathbb C^{n\times m}$, kde $(A^H)_{ij}=\overline{a_{ji}}$
+	- matice $A$ je hermitovská, pokud $A=A^H$
 - unitární matice
+	- matice $A$ je unitární, pokud $A^{-1}=A^H$
 - skalární součin pro vektorové prostory nad komplexními čísly
 - norma spojená se skalárním součinem
 - kolmé vektory
