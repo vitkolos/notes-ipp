@@ -141,7 +141,7 @@
 			- mějme matice $A,B,C$
 			- přičemž platí $a_{kl}=b_{kl}+c_{kl}$ pro $k= i$, jinak $a_{kl}=b_{kl}=c_{kl}$
 			- chceme $\text{det }A=\text{det }B+\text{det }C$
-			- aplikujeme algebraické úpravy:$$\begin{gather}\text{det }A=\sum_{p\in S_n}\text{sgn}(p)\prod_{j}a_{j,p(j)}=\sum_{p\in S_n}a_{i,p(i)}\cdot\text{sgn}(p)\prod_{j\neq i}a_{j,p(j)}= \\ =\sum_{p\in S_n}(b_{i,p(i)}+c_{i,p(i)})\cdot\text{sgn}(p)\prod_{j\neq i}a_{j,p(j)}=\\ =\sum_{p\in S_n}b_{i,p(i)}\cdot\text{sgn}(p)\prod_{j\neq i}b_{j,p(j)}+\sum_{p\in S_n}c_{i,p(i)}\cdot\text{sgn}(p)\prod_{j\neq i}c_{j,p(j)}=\\ =\sum_{p\in S_n}\text{sgn}(p)\prod_{j}b_{j,p(j)}+\sum_{p\in S_n}\text{sgn}(p)\prod_{j}c_{j,p(j)}=\text{det }B+\text{det }C\end{gather}$$ 
+			- aplikujeme algebraické úpravy:$$\begin{gather*}\text{det }A=\sum_{p\in S_n}\text{sgn}(p)\prod_{j}a_{j,p(j)}=\sum_{p\in S_n}a_{i,p(i)}\cdot\text{sgn}(p)\prod_{j\neq i}a_{j,p(j)}= \\ =\sum_{p\in S_n}(b_{i,p(i)}+c_{i,p(i)})\cdot\text{sgn}(p)\prod_{j\neq i}a_{j,p(j)}=\\ =\sum_{p\in S_n}b_{i,p(i)}\cdot\text{sgn}(p)\prod_{j\neq i}b_{j,p(j)}+\sum_{p\in S_n}c_{i,p(i)}\cdot\text{sgn}(p)\prod_{j\neq i}c_{j,p(j)}=\\ =\sum_{p\in S_n}\text{sgn}(p)\prod_{j}b_{j,p(j)}+\sum_{p\in S_n}\text{sgn}(p)\prod_{j}c_{j,p(j)}=\text{det }B+\text{det }C\end{gather*}$$ 
 - věta o determinantu součinu dvou matic
 - věta o Laplaceově rozvoji determinantu
 - Cramerovo pravidlo (řešení systémů s determinanty)
