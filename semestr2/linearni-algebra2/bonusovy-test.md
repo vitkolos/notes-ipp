@@ -172,8 +172,47 @@
 			- poznámka: podle mého názoru by to mělo být spíše $(-1)^{k-1}$, ale na tom nezáleží
 		- po obou posunech dostaneme $(-1)^{i+1+j+1}=(-1)^{i+j}$
 - Cramerovo pravidlo (řešení systémů s determinanty)
+	- věta
+		- Nechť $A\in\mathbb K^{n\times n}$ je regulární matice.
+		- Pro jakékoliv $b\in\mathbb K^{n}$ řešení $x$ soustavy $Ax=b$ splňuje $x_i=\frac 1{\text{det }A}\text{ det }A_{i\to b}$, kde $A_{i\to b}$ získáme z $A$ nahrazení i-tého sloupce vektorem $b$.
+	- důkaz
+		- označme $a_1,\dots,a_n$ sloupce matice $A$
+		- soustavu $Ax=b$ lze přepsat po sloupcích na vztah $\sum^n_{j=1}x_ja_j=b$
+			- $x_j$ je skalár
+		- z linearity determinantu podle i-tého sloupce (funguje díky linearitě součtu v řádku a díky tomu, že transpozice nemění determinant) dostáváme $$\text{det }A_{i\to b}=\text{det }A_{i\to\sum^n_{j=1}x_ja_j}=\sum^n_{j=1}x_j\text{ det }A_{i\to a_j}=x_i\text{ det }A$$
+		- pro $i\neq j$ je totiž determinant nulový, neboť v dané matici se jeden sloupec opakuje
 - věta o adjungované matici
+	- věta: Pro regulární matici $A\in\mathbb K^{n\times n}:A^{-1}=\frac1{\text{det }A}\text{ adj }A$.
+	- důkaz
+		- Laplaceovým rozvojem $\text{det }A$
+		- (i-tý řádek z $A$) $\cdot$ (i-tý sloupec z $\text{adj }A$) $=\text{det }A$
+			- to vyplývá z definice – faktory Laplaceova rozvoje podél i-tého řádku $A$ ukládáme do i-tého sloupce $\text{adj }A$
+			- přičemž tyto faktory jsou v Laplaceově rozvoji násobeny postupně prkvy i-tého řádku $A$ a sečteny – výsledkem je determinant $A$
+			- z toho vyplývá, že součin $A$ a k ní adjungované bude mít na diagonále determinant $A$
+		- pro $j\neq i$: (j-tý řádek z $A$) $\cdot$ (i-tý sloupec z $\text{adj }A$) $=\text{det}(A')=0$
+			- $A'$ se totiž získá nahrazením i-tého řádku tím j-tým
+			- u toho vyplývá, že součin $A$ a k ní adjungované bude mít mimo diagonálu nuly
+		- $A\cdot\text{adj }A=\text{det }A\cdot I\implies A\cdot(\frac1{\text{det }A}\text{ adj }A)=I$
 - věta o počtu koster grafu
+	- věta: Každý multigraf $G$ s $|V_G|\geq 2$ splňuje $\kappa(G)=\text{det }L_G^{11}.$
+	- důkaz
+		- pomocné lemma: $\kappa(G)=\kappa(G-e)+\kappa(G\circ e)$
+			- všechny kostry grafu $G$ lze rozdělit podle toho, zda obsahují hranu $e$
+			- kostry grafu $G-e$ jsou ty kostry $G$, které hranu $e$ neobsahují
+			- kostry grafu $G\circ e$ jsou kostry $G$, které hranu $e$ obsahují ($\circ$ značí kontrakci hrany)
+		- $G$ je BÚNO souvislý, důkaz indukcí podle $|E_G|$
+		- základní případ
+			- pro $|E_G|=1$ má $G$ jen dva vrcholy a $\kappa(G)=1=\text{deg}(v_2)=(L_G)_{22}=\text{det }L_G^{11}$
+		- indukční krok
+			- zvolme libovolnou $e\in E_G$, BÚNO $e=(v_1,v_2)$
+				- předpokládáme, že jsou vrcholy očíslovány tak, aby zvolená hrana vedla právě takto
+			- označme $A=L_G^{11},\,B=L_{G-e}^{11},\,C=L_{G\circ e}^{11}$
+			- $C$ je podmatice $L_G$ odpovídající $v_3,\dots,v_n$, tedy $C=A^{11}=B^{11}$
+			- z indukčního předpokladu: $\kappa(G-e)=\text{det }B,\,\kappa(G\circ e)=\text{det }C$
+			- $A,B$ jsou shodné kromě $b_{11}=a_{11}-1$, protože vypuštěním $e$ klesne stupeň $v_2$ o jedna
+			- první sloupec $A$ vyjádříme jako součet prvního sloupce $B$ a vektoru $e_1$
+			- linearitou determinantu matice $A$ podél tohoto rozkladu prvního sloupce získáme $\text{det }A=\text{det }B+\text{det }C$
+			- $\kappa(G)=\kappa(G-e)+\kappa(G\circ e)=\text{det }L_{G-e}^{11}+\text{det }L_{G\circ e}^{11}=\text{det }L_G^{11}$
 - malá Fermatova věta
 - věta o Vandermondově matici
 - správnost Lagrangeovy interpolace
