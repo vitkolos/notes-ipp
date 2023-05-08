@@ -59,12 +59,35 @@
 	- hermitovská transpozice komplexní matice $A\in\mathbb C^{m\times n}$ je matice $A^H\in\mathbb C^{n\times m}$, kde $(A^H)_{ij}=\overline{a_{ji}}$
 	- matice $A$ je hermitovská, pokud $A=A^H$
 - unitární matice
-	- matice $A$ je unitární, pokud $A^{-1}=A^H$
+	- matice $A$ je unitární, pokud $A^{-1}=A^H$ (tedy $A^HA=I_n$)
 - skalární součin pro vektorové prostory nad komplexními čísly
+	- skalární součin na vektorovém prostoru $V$ nad $\mathbb C$ je zobrazení, které přiřadí každé dvojici vektorů $u,v\in V$ skalár $\langle u|v\rangle\in\mathbb C$ tak, že jsou splněny následující axiomy:
+		- $\forall u\in V:\langle u|u\rangle\in\mathbb R^+_0$ (reálné číslo $\geq 0$)
+		- $\forall u\in V:\langle u|u\rangle=0\iff u=0$
+		- $\forall u,v\in V: \langle v|u\rangle=\overline{\langle u|v\rangle}$
+		- $\forall u,v,w \in V: \langle u+v|w\rangle=\langle u|w\rangle+\langle v|w\rangle$
+		- $\forall u,v\in V,\forall \alpha\in\mathbb C: \langle \alpha u|v\rangle=\alpha\langle u|v\rangle$
+	- formálně je každý skalární součin zobrazení $V\times V\to\mathbb C$
+	- skalární součin na $V$ nad $\mathbb R$ je zobrazení $V\times V\to\mathbb R$, přičemž $\langle v|u\rangle = \langle u|v\rangle$ (ve třetím axiomu), $\alpha\in\mathbb R$ (v posledním axiomu)
 - norma spojená se skalárním součinem
+	- je-li $V$ prostor se skalárním součinem, pak norma odvozená ze skalárního součinu je zobrazení $V\to R^+_0$ přiřazující vektoru $u$ jeho normu $||u||=\sqrt{\langle u|u\rangle}$
+	- geometrická interpretace v euklidovském prostoru $\mathbb R^n$
+		- $||u||$ … délka (velikost) $u$
+		- $||u-v||$ … vzdálenost bodů $u,v$
+		- $\langle u|v\rangle$ souvisí s „úhlem“ $\varphi$ mezi $u,v$ a délkami $u,v$
+			- $\langle u|v\rangle=||u||\cdot||v||\cos\varphi$
+			- to vyplývá z kosinové věty, kde $a=||u||,\,b=||v||,\,c=||u-v||$
 - kolmé vektory
+	- vektory $u,v$ z prostoru se skalárním součinem jsou kolmé, pokud $\langle u|v\rangle=0$
+	- kolmé vektory značíme $u\perp v$
 - ortonormální báze
+	- bázi $Z=\lbrace v_1,\dots,v_n \rbrace$ prostoru $V$ se skalárním součinem nazveme ortonormální, pokud platí $v_i\perp v_j$ pro každé $i\neq j$ a také $||v_i||=1$ pro každé $v_i\in Z$
+	- pozorování: matice, jejichž sloupce tvoří vektory ortonormální báze $\mathbb C^n$ vzhledem ke std. skal. součinu, splňují $A^HA=I_n\implies$ jsou unitární
 - Fourierovy koeficienty
+	- nechť $Z=\lbrace v_1,\dots,v_n\rbrace$ je ortonormální báze prostoru $V$
+	- $\langle u|v_i\rangle$ … Fourierovy koeficienty
+	- tvrzení: pro každé $u\in V$ platí $u=\langle u|v_1\rangle v_1+\dots+\langle u|v_n\rangle v_n$
+	- důkaz: (vyplývá z toho, že $\langle v_i|v_j\rangle$ se rovná jedné pro $i=j$, jinak nule) $$u=\sum^n_{i=1} \alpha_iv_i\implies\langle u|v_j\rangle=\left\langle \sum^n_{i=1} \alpha_iv_i\middle|v_j\right\rangle=\sum^n_{i=1}\alpha_i\langle v_i|v_j\rangle=\alpha_j$$
 - kolmá projekce
 - izometrie
 - ortogonální doplněk
