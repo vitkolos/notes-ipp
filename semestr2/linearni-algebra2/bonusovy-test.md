@@ -153,8 +153,24 @@
 			- pro vynásobení řádku $\alpha$: $\text{det }E=\alpha$
 			- z těchto lze odvodit ostatní operace
 		- rozložíme regulární $A$ na elementární matice $A=E_1\dots E_k$
-		- $\text{det}(AB)=\text{det}(E_1\dots E_kB)=\text{det }E_1\cdot\text{det}(E_2\dots E_kB)=$ $=\text{det }E_1\dots\text{det }E_k\cdot\text{det }B=\text{det}(E_1\dots E_k)\cdot\text{det }B=\text{det }A\cdot\text{det }B$
+		- $\text{det}(AB)=\text{det}(E_1\dots E_kB)=\text{det }E_1\cdot\text{det}(E_2\dots E_kB)=$ 
+		- $=\text{det }E_1\dots\text{det }E_k\cdot\text{det }B=\text{det}(E_1\dots E_k)\cdot\text{det }B=$
+		- $=\text{det }A\cdot\text{det }B$
+	- důsledek: $\text{det}(A^{-1})=(\text{det }A)^{-1}$, neboť $\text{det }A\cdot\text{det}(A^{-1})=\text{det}(AA^{-1})=\text{det }I=1$
+	- důsledek: $A$ je regulární $\iff\text{det }A\neq0$
 - věta o Laplaceově rozvoji determinantu
+	- notace: $A^{ij}$ je podmatice získaná z $A$ odstraněním i-tého řádku a j-tého sloupce
+	- věta: Pro libovolné $A\in\mathbb K^{n\times n}$ a jakékoli $i\in \lbrace 1,\dots,n\rbrace$ platí $$\text{det }A=\sum^n_{j=1}a_{ij}(-1)^{i+j}\text{ det }A^{ij}$$
+	- důkaz
+		- vyjádříme i-tý řádek jako lineární kombinaci vektorů kanonické báze (transponované do řádků) a použijeme linearitu
+		- $(a_{i1},a_{i2},\dots,a_{in})=a_{i1}e^T_1+a_{i2}e^T_2+\dots+a_{in}e^T_n$
+		- z linearity vyplývá, že se determinant původní matice rovná součtu $n$ členů, kde j-tý člen je roven $a_{ij}$-násobku determinantu matice, která má místo i-tého řádku j-tý kanonický vektor, tedy $$\begin{vmatrix} *&*&*&* \\ a_{i1} & a_{i2} & \cdots &  a_{in} \\ *&*&*&* \end{vmatrix}=a_{i1}\begin{vmatrix} *&*&*&* \\ 1 & 0 & \cdots &  0 \\ *&*&*&* \end{vmatrix}+a_{i2}\begin{vmatrix} *&*&*&* \\ 0 & 1 & \cdots &  0 \\ *&*&*&* \end{vmatrix}+\cdots$$
+		- pro j-tou matici provedeme dvě úpravy: posuneme i-tý řádek na první pozici a posuneme j-tý sloupec na první pozici
+		- tím dostaneme na prvním řádku $e_1$
+		- determinant matice, která má na prvním řádku $e_1$, odpovídá determinantu podmatice vzniklé odebráním prvního řádku a prvního sloupce
+		- při posunutí k-tého řádku/sloupce na první pozici je potřeba determinant výsledné vynásobit $(-1)^{k+1}$, aby se rovnal determinantu původní matice
+			- poznámka: podle mého názoru by to mělo být spíše $(-1)^{k-1}$, ale na tom nezáleží
+		- po obou posunech dostaneme $(-1)^{i+1+j+1}=(-1)^{i+j}$
 - Cramerovo pravidlo (řešení systémů s determinanty)
 - věta o adjungované matici
 - věta o počtu koster grafu
