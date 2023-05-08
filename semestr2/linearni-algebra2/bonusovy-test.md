@@ -131,6 +131,17 @@
 *vyslovte a dokažte… / uveďte a dokažte…*
 
 - věta o linearitě determinantu
+	- věta
+		- Determinant matice je lineárně závislý na každém jejím řádku a sloupci, tj vzhledem ke skalárnímu násobku řádku: $$\begin{vmatrix}a_{11} & a_{12} & \cdots & a_{1n} \\ a_{21} & a_{22} & \cdots & a_{2n} \\ \vdots & \vdots & & \vdots \\ \alpha\cdot a_{i1} & \alpha\cdot a_{i2} & \cdots & \alpha\cdot a_{in}\\ \vdots & \vdots & & \vdots \\ a_{n1} & a_{n2} & \dots & a_{nn} \end{vmatrix}=\alpha\cdot \begin{vmatrix}a_{11} & a_{12} & \cdots & a_{1n} \\ a_{21} & a_{22} & \cdots & a_{2n} \\ \vdots & \vdots & & \vdots \\ a_{i1} & a_{i2} & \cdots & a_{in}\\ \vdots & \vdots & & \vdots \\ a_{n1} & a_{n2} & \dots & a_{nn} \end{vmatrix}$$ a vzhledem ke sčítání řádků: $$\begin{vmatrix}a_{11} & a_{12} & \cdots & a_{1n} \\ a_{21} & a_{22} & \cdots & a_{2n} \\ \vdots & \vdots & & \vdots \\ b_{i1}+c_{i1} & b_{i2}+c_{i2} & \cdots & b_{in}+c_{in}\\ \vdots & \vdots & & \vdots \\ a_{n1} & a_{n2} & \dots & a_{nn} \end{vmatrix}=$$ $$=\begin{vmatrix}a_{11} & a_{12} & \cdots & a_{1n} \\ a_{21} & a_{22} & \cdots & a_{2n} \\ \vdots & \vdots & & \vdots \\ b_{i1} & b_{i2} & \cdots & b_{in}\\ \vdots & \vdots & & \vdots \\ a_{n1} & a_{n2} & \dots & a_{nn} \end{vmatrix}+\begin{vmatrix}a_{11} & a_{12} & \cdots & a_{1n} \\ a_{21} & a_{22} & \cdots & a_{2n} \\ \vdots & \vdots & & \vdots \\ c_{i1} & c_{i2} & \cdots & c_{in}\\ \vdots & \vdots & & \vdots \\ a_{n1} & a_{n2} & \dots & a_{nn} \end{vmatrix}$$
+	- důkaz
+		- důkaz pro skalární násobek
+			- poznámka: počáteční matici označím jako $A$, koncovou jako $B$, obě matice viz výše
+			- $\alpha$ bude v každém součinu právě jednou (pro $i=j$) a ze součtu ho můžu vytknout, tedy $$\text{det }A=\sum_{p\in S_n}\text{sgn}(p)\left(\alpha\cdot\prod_{j=1}^na_{j,p(j)}\right)=$$ $$=\alpha\cdot\sum_{p\in S_n}\text{sgn}(p)\prod_{j=1}^na_{j,p(j)}=\text{det }B$$
+		- důkaz pro součet
+			- mějme matice $A,B,C$
+			- přičemž platí $a_{kl}=b_{kl}+c_{kl}$ pro $k= i$, jinak $a_{kl}=b_{kl}=c_{kl}$
+			- chceme $\text{det }A=\text{det }B+\text{det }C$
+			- aplikujeme algebraické úpravy:$$\begin{gather}\text{det }A=\sum_{p\in S_n}\text{sgn}(p)\prod_{j}a_{j,p(j)}=\sum_{p\in S_n}a_{i,p(i)}\cdot\text{sgn}(p)\prod_{j\neq i}a_{j,p(j)}= \\ =\sum_{p\in S_n}(b_{i,p(i)}+c_{i,p(i)})\cdot\text{sgn}(p)\prod_{j\neq i}a_{j,p(j)}=\\ =\sum_{p\in S_n}b_{i,p(i)}\cdot\text{sgn}(p)\prod_{j\neq i}b_{j,p(j)}+\sum_{p\in S_n}c_{i,p(i)}\cdot\text{sgn}(p)\prod_{j\neq i}c_{j,p(j)}=\\ =\sum_{p\in S_n}\text{sgn}(p)\prod_{j}b_{j,p(j)}+\sum_{p\in S_n}\text{sgn}(p)\prod_{j}c_{j,p(j)}=\text{det }B+\text{det }C\end{gather}$$ 
 - věta o determinantu součinu dvou matic
 - věta o Laplaceově rozvoji determinantu
 - Cramerovo pravidlo (řešení systémů s determinanty)
