@@ -1,4 +1,5 @@
-.obsidian/workspace*
+.obsidian
+.markdownlint.json
 *.pdf
 domácí úkoly
 domaci-ukoly
