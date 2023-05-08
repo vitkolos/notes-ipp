@@ -141,8 +141,19 @@
 			- mějme matice $A,B,C$
 			- přičemž platí $a_{kl}=b_{kl}+c_{kl}$ pro $k= i$, jinak $a_{kl}=b_{kl}=c_{kl}$
 			- chceme $\text{det }A=\text{det }B+\text{det }C$
-			- aplikujeme algebraické úpravy:$$\begin{gather*}\text{det }A=\sum_{p\in S_n}\text{sgn}(p)\prod_{j}a_{j,p(j)}=\sum_{p\in S_n}a_{i,p(i)}\cdot\text{sgn}(p)\prod_{j\neq i}a_{j,p(j)}= \\ =\sum_{p\in S_n}(b_{i,p(i)}+c_{i,p(i)})\cdot\text{sgn}(p)\prod_{j\neq i}a_{j,p(j)}=\\ =\sum_{p\in S_n}b_{i,p(i)}\cdot\text{sgn}(p)\prod_{j\neq i}b_{j,p(j)}+\sum_{p\in S_n}c_{i,p(i)}\cdot\text{sgn}(p)\prod_{j\neq i}c_{j,p(j)}=\\ =\sum_{p\in S_n}\text{sgn}(p)\prod_{j}b_{j,p(j)}+\sum_{p\in S_n}\text{sgn}(p)\prod_{j}c_{j,p(j)}=\text{det }B+\text{det }C\end{gather*}$$ 
+			- aplikujeme algebraické úpravy: $$\begin{gather*}\text{det }A=\sum_{p\in S_n}\text{sgn}(p)\prod_{j}a_{j,p(j)}=\sum_{p\in S_n}a_{i,p(i)}\cdot\text{sgn}(p)\prod_{j\neq i}a_{j,p(j)}= \\ =\sum_{p\in S_n}(b_{i,p(i)}+c_{i,p(i)})\cdot\text{sgn}(p)\prod_{j\neq i}a_{j,p(j)}=\\ =\sum_{p\in S_n}b_{i,p(i)}\cdot\text{sgn}(p)\prod_{j\neq i}b_{j,p(j)}+\sum_{p\in S_n}c_{i,p(i)}\cdot\text{sgn}(p)\prod_{j\neq i}c_{j,p(j)}=\\ =\sum_{p\in S_n}\text{sgn}(p)\prod_{j}b_{j,p(j)}+\sum_{p\in S_n}\text{sgn}(p)\prod_{j}c_{j,p(j)}=\text{det }B+\text{det }C\end{gather*}$$
+		- z toho lze za použití dalšího lemmatu (že matice se dvěma stejnými řádky nebo dvěma stejnými sloupci má nulový determinant) odvodit, že přičtení násobku řádku k jinému řádku matice nezmění determinant
+		- v konečném důsledku z toho vyplývá, že singulární matice má nulový determinant
 - věta o determinantu součinu dvou matic
+	- věta: Pro libovolné $A,B\in\mathbb K^{n\times n}:\text{det}(AB)=\text{det }A\cdot\text{det }B$.
+	- důkaz
+		- $A,B$ jsou BÚNO regulární (jinak dostaneme $0=0$)
+		- pro součin s elementárními maticemi věta platí, protože
+			- pro přičtení řádku k jinému řádku: $\text{det }E=1$
+			- pro vynásobení řádku $\alpha$: $\text{det }E=\alpha$
+			- z těchto lze odvodit ostatní operace
+		- rozložíme regulární $A$ na elementární matice $A=E_1\dots E_k$
+		- $\text{det}(AB)=\text{det}(E_1\dots E_kB)=\text{det }E_1\cdot\text{det}(E_2\dots E_kB)=$ $=\text{det }E_1\dots\text{det }E_k\cdot\text{det }B=\text{det}(E_1\dots E_k)\cdot\text{det }B=\text{det }A\cdot\text{det }B$
 - věta o Laplaceově rozvoji determinantu
 - Cramerovo pravidlo (řešení systémů s determinanty)
 - věta o adjungované matici
