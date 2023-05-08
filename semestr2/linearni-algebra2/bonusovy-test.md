@@ -214,6 +214,13 @@
 			- linearitou determinantu matice $A$ podél tohoto rozkladu prvního sloupce získáme $\text{det }A=\text{det }B+\text{det }C$
 			- $\kappa(G)=\kappa(G-e)+\kappa(G\circ e)=\text{det }L_{G-e}^{11}+\text{det }L_{G\circ e}^{11}=\text{det }L_G^{11}$
 - malá Fermatova věta
+	- věta: Pro libovolné $x\in\mathbb Z_p\setminus\lbrace 0\rbrace:x^{p-1}=1$.
+	- důkaz
+		- zobrazení $f_a:x\mapsto ax$ je v $\mathbb Z_p$ bijekcí na $\lbrace 1, \dots, p-1 \rbrace$
+		- proto v $\mathbb Z_p$ platí $\prod_{x=1}^{p-1}x=\prod_{x=1}^{p-1}f_a(x)=\prod_{x=1}^{p-1}ax=a^{p-1}\prod_{x=1}^{p-1}x$
+		- a po zkrácení $\prod_{x=1}^{p-1}x$ dostaneme $1=a^{p-1}$
+	- důsledek: $a=a^p$ (v tělese $\mathbb Z_p$), případně $a^p-a=0$
+	- důsledek: pro každý $q\in\mathbb Z_p(x)$ existuje $r\in\mathbb Z_p(x)$ stupně nejvýše $p-1$ takový, že $\forall x\in\mathbb Z_p:q(x)=r(x)$
 - věta o Vandermondově matici
 - správnost Lagrangeovy interpolace
 - věta o podprostoru vlastních vektorů
