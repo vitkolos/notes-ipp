@@ -89,9 +89,14 @@
 	- tvrzení: pro každé $u\in V$ platí $u=\langle u|v_1\rangle v_1+\dots+\langle u|v_n\rangle v_n$
 	- důkaz: (vyplývá z toho, že $\langle v_i|v_j\rangle$ se rovná jedné pro $i=j$, jinak nule) $$u=\sum^n_{i=1} \alpha_iv_i\implies\langle u|v_j\rangle=\left\langle \sum^n_{i=1} \alpha_iv_i\middle|v_j\right\rangle=\sum^n_{i=1}\alpha_i\langle v_i|v_j\rangle=\alpha_j$$
 - kolmá projekce
+	- nechť $W$ je prostor se skalárním součinem a $V$ je jeho podprostor s ortonormální bází $Z=\lbrace v_1,\dots,v_n\rbrace$
+	- zobrazení $p_Z:W\to V$ definované $p_Z(u)=\sum^n_{i=1}\langle u|v_i \rangle v_i$ je ortogonální (kolmá) projekce $W$ na $V$
 - izometrie
+	- lineární zobrazení $f$ mezi prostory $V$ a $W$ je izometrie, pokud zachovává skalární součin, neboli $\langle u|w\rangle = \langle f(u)|f(w)\rangle$
 - ortogonální doplněk
+	- ortogonální doplněk podmnožiny $V$ prostoru se skalárním součinem $W$ je $V^\perp=\lbrace u\in W\mid\forall v\in V: u\perp v\rbrace$
 - Gramova matice
+	- 
 - pozitivně definitní matice
 - Choleského rozklad
 - bilineární forma
