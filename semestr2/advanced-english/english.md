@@ -279,7 +279,7 @@
 - dingy – dirty, small (dingy pub = joint = *pajzl*)
 - coffin
 - cram sth into – jam, stuff sth in…
-- sth is cram – full of people, crowded
+- sth is crammed – full of people, crowded
 - cram for a test
 - desperate – to have no hope
 - neat – cool, tidy, organized
@@ -342,7 +342,6 @@
 - kvíz = matematika z domácích úkolů
 - linger, wispy, run the risk, incense, much as I
 - I came to a bar once, there was a lingering smell of cigarettes. At the bar, I met a guy who ran a company which sold incense, and he asked me to invest in the business. He was fairly convincing and I fell for his wispy hair so I agreed and ran the risk. And much as I know it was successful.
-- 
 - I went to a church once, there was a lingering smell of incense. I saw a guy standing near the entrance to the cathedral. He seemed really nice, and I fell for his wispy hair, so I ran the risk and asked him out for a date. And much as I know it was successful, because now we have two kids.
 	- should be: And as far as I know…
 - much as = even though
