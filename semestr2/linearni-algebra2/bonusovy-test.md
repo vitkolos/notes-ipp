@@ -30,12 +30,12 @@
 	- značí se $V_{n+1}(x_0,\dots,x_n)$, přičemž prvky jsou určeny takto: $v_{ij}=x_{i-1}^{j-1}$ 
 - vlastní číslo a vlastní vektor lineárního zobrazení
 	- mějme vektorový prostor $V$ nad tělesem $\mathbb K$ a lineární zobrazení $f:V\to V$
-	- vlastní číslo zobrazení $f$ je jakékoliv $\lambda\in\mathbb K$, pro které existuje vektor $u\in V\setminus 0$ takový, že $f(u)=\lambda u$
+	- vlastní číslo zobrazení $f$ je jakékoliv $\lambda\in\mathbb K$, pro které existuje vektor $u\in V\setminus \lbrace 0\rbrace$ takový, že $f(u)=\lambda u$
 	- vlastní vektor odpovídající vlastnímu číslu $\lambda$ je libovolný vektor $u\in V$ takový, že $f(u)=\lambda u$
 	- množina všech vlastních čísel matice je jejím spektrem
 - vlastní číslo a vlastní vektor matice
 	- mějme vektorový prostor $V$ nad tělesem $\mathbb K$ a matici $A\in\mathbb K^{n\times n}$
-	- vlastní číslo matice $A$ je jakékoliv $\lambda\in\mathbb K$, pro které existuje vektor $x\in V\setminus 0$ takový, že $Ax=\lambda x$
+	- vlastní číslo matice $A$ je jakékoliv $\lambda\in\mathbb K$, pro které existuje vektor $x\in V\setminus \lbrace 0\rbrace$ takový, že $Ax=\lambda x$
 	- vlastní vektor odpovídající vlastnímu číslu $\lambda$ je libovolný vektor $x\in V$ takový, že $Ax=\lambda x$
 	- množina všech vlastních čísel matice je jejím spektrem
 - charakteristický polynom
@@ -66,9 +66,11 @@
 		- $\forall u\in V:\langle u|u\rangle=0\iff u=0$
 		- $\forall u,v\in V: \langle v|u\rangle=\overline{\langle u|v\rangle}$
 		- $\forall u,v,w \in V: \langle u+v|w\rangle=\langle u|w\rangle+\langle v|w\rangle$
-		- $\forall u,v\in V,\forall \alpha\in\mathbb C: \langle \alpha u|v\rangle=\alpha\langle u|v\rangle$
+		- $\forall u,v\in V,\,\forall \alpha\in\mathbb C: \langle \alpha u|v\rangle=\alpha\langle u|v\rangle$
 	- formálně je každý skalární součin zobrazení $V\times V\to\mathbb C$
 	- skalární součin na $V$ nad $\mathbb R$ je zobrazení $V\times V\to\mathbb R$, přičemž $\langle v|u\rangle = \langle u|v\rangle$ (ve třetím axiomu), $\alpha\in\mathbb R$ (v posledním axiomu)
+	- standardní skalární součin na $\mathbb R^n$: $\langle u|v\rangle=v^Tu$
+	- standardní skalární součin na $\mathbb C^n$: $\langle u|v\rangle=v^Hu$
 - norma spojená se skalárním součinem
 	- je-li $V$ prostor se skalárním součinem, pak norma odvozená ze skalárního součinu je zobrazení $V\to R^+_0$ přiřazující vektoru $u$ jeho normu $||u||=\sqrt{\langle u|u\rangle}$
 	- geometrická interpretace v euklidovském prostoru $\mathbb R^n$
@@ -89,21 +91,40 @@
 	- tvrzení: pro každé $u\in V$ platí $u=\langle u|v_1\rangle v_1+\dots+\langle u|v_n\rangle v_n$
 	- důkaz: (vyplývá z toho, že $\langle v_i|v_j\rangle$ se rovná jedné pro $i=j$, jinak nule) $$u=\sum^n_{i=1} \alpha_iv_i\implies\langle u|v_j\rangle=\left\langle \sum^n_{i=1} \alpha_iv_i\middle|v_j\right\rangle=\sum^n_{i=1}\alpha_i\langle v_i|v_j\rangle=\alpha_j$$
 - kolmá projekce
-	- nechť $W$ je prostor se skalárním součinem a $V$ je jeho podprostor s ortonormální bází $Z=\lbrace v_1,\dots,v_n\rbrace$
+	- nechť $W$ je prostor se skalárním součinem a $V$ je jeho podprostor s ortonormální bází $Z=(v_1,\dots,v_n)$
 	- zobrazení $p_Z:W\to V$ definované $p_Z(u)=\sum^n_{i=1}\langle u|v_i \rangle v_i$ je ortogonální (kolmá) projekce $W$ na $V$
 - izometrie
 	- lineární zobrazení $f$ mezi prostory $V$ a $W$ je izometrie, pokud zachovává skalární součin, neboli $\langle u|w\rangle = \langle f(u)|f(w)\rangle$
 - ortogonální doplněk
 	- ortogonální doplněk podmnožiny $V$ prostoru se skalárním součinem $W$ je $V^\perp=\lbrace u\in W\mid\forall v\in V: u\perp v\rbrace$
 - Gramova matice
-	- 
+	- nechť $V$ je prostor se skalárním součinem a bází $X=(v_1,\dots,v_n)$
+	- Gramova matice $A$ je definovaná jako $a_{ij}=\langle v_i|v_j\rangle$
+	- dle věty platí $\forall u,w\in V:\langle u|w\rangle=[w]_X^HA^T[u]_X$
 - pozitivně definitní matice
+	- pokud hermitovská matice $A$ řádu $n$ vyhovuje $\forall x\in\mathbb C^n\setminus \lbrace 0\rbrace: x^HAx\gt 0$, pak je pozitivně definitní
 - Choleského rozklad
+	- věta: pro každou pozitivně definitní matici $A$ existuje unikání horní trojúhelníková matice $U$ s kladnou diagonálou taková, že $A=U^HU$
+	- matice $U$ se nazývá Choleského rozklad
 - bilineární forma
+	- nechť $V$ je vektorový prostor nad tělesem $\mathbb K$ a nechť zobrazení $f:V\times V\to \mathbb K$ splňuje
+		- $\forall u,v\in V,\,\forall \alpha\in\mathbb K:f(\alpha u,v)=f(u,\alpha v)=\alpha f(u,v)$
+		- $\forall u,v,w\in V:f(u+v,w)=f(u,w)+f(v,w)$
+		- $\forall u,v,w\in V:f(u,v+w)=f(u,v)+f(u,w)$
+	- poté se $f$ nazývá bilineární forma na $V$
+	- bilineární forma je symetrická, když $\forall u,v\in V:f(u,v)=f(v,u)$
 - kvadratická forma
+	- zobrazení $g:V\to\mathbb K$ se nazývá kvadratická forma, pokud existuje bilineární forma $f$ taková, že $g(u)=f(u,u)$ pro všechny $u\in V$
 - matice bilineární formy vzhledem k bázi
+	- nechť $V$ je vektorový prostor nad tělesem $\mathbb K$ s bází $X=(v_1,\dots,v_n)$
+	- matice bilineární formy $f$ vzhledem k bází $X$ je matice $B$ definovaná $b_{ij}=f(v_i,v_j)$
+	- matice kvadratické formy $g$ je matice symetrické bilineární formy $f$ odpovídající $g$, pokud taková symetrická $f$ existuje
+	- pozorování o použití matic forem: $f(u,w)=[u]^T_XB[w]_X$ (důkaz pomocí vyjádření z bázických vektorů)
 - analytické vyjádření formy
+	- analytické vyjádření bilineární formy $f$ nad $\mathbb K^n$ s maticí $B$ je homogenní polynom $f((x_1,\dots,x_n)^T,(y_1,\dots,y_n)^T)=\sum^n_{i=1}\sum^n_{j=1}b_{ij}x_iy_j$
 - signatura formy
+	- nechť reálná kvadratická forma $g$ má diagonální matici $B$ obsahující pouze $1,-1$ a $0$
+	- signatura formy $g$ je trojice (počet jedniček, počet –1, počet nul), počítáno na diagonále matice $B$
 
 ## Věty a důkazy (30)
 
