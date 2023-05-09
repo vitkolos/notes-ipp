@@ -459,3 +459,118 @@
 - rotační pevný disk
 	- na ose je několik ploten
 	- stopy (soustředné kružnice) se dělí na sektory
+	- blok – stejný sektor na všech plotnách
+	- cluster – stejná stopa na všech plotnách
+	- flying height – vzdálenost mezi hlavou a plotnou
+	- rotační rychlost – 5 až 15 tisíc otáček za minutu
+	- …
+	- přístup na sektor je docela dlouhý (v jednotkách milisekund)
+	- rotační zpoždění – hlava na správný sektor čeká třeba 4 ms (pokud celá rotace trvá 8 ms)
+	- disk access time = seek time + rotational latency + transfer time
+		- transfer time je zanedbatelný (ve srovnání se zbylými dvěma hodnotami)
+	- disk nestíhá odbavovat všechny požadavky operačního systému, takže je řadí do fronty, v disku je procesor, který se rozhoduje sám, jak je obslouží (dřív to rozhodoval OS)
+	- trojice čísel – CHS (cluster, head = číslo plotny, sector)
+	- disk scheduling algorithms
+		- FCFS (First Come First Served)
+		- SSTF (Shortest Seek Time First)
+		- SCAN (aka Elevator algorithm) – zachovává směr (dokud je kam)
+		- CSCAN (Circular SCAN) – jede jenom jedním směrem, na konci udělá seek zpátky na počáteční mez; časy seeků jsou rovnoměrnější
+		- LOOK/CLOOK – jako scany, ale nenavštěvují kraje disku (dívají se, jestli tam jsou ještě požadavky)
+		- FSCAN – má dvě fronty
+- solid-state disk (SSD)
+	- disk bez pohyblivých částí – jenom elektrické obvody
+	- NAND flash – sestává z tranzistorů
+	- má omezenou životnost na počet zápisů
+	- mřížková struktura organizovaná po blocích stránek (pages)
+	- vymazat se dá pouze celý blok najednou
+	- „smazané“ stránky se nedají přepsat, dokud není celý blok vymazán
+	- někdy se dělá to, že se plné stránky překopírují jinam, aby se blok mohl vymazat
+- HDD partitioning (diskové oddíly)
+	- dělení disku do několika logických disků – každý může mít vlastní file systém
+- RAID (Redundant Array of Inexpensive Disks)
+	- způsob propojení více pevných disků do jednoho
+	- typicky na úrovní hardwaru, ale může být implementováno pomocí OS
+	- hlavní cíl je zvýšení spolehlivosti a zrychlení přístupu
+- virtuální paměť
+	- instrukce procesoru pracují s virtuálními adresami
+	- operační paměť má fyzické adresy
+	- hardwarově je implementován převodní mechanismus
+		- musí vyhodnotit, jestli existuje převod
+		- zajistí přepočet, pokud existuje
+		- tyto kroky musí být extrémně rychlé
+	- existují dva mechanismy – segmentace (už se nepoužívá) a stránkování
+	- MMU = Memory Management Unit, provádí převod
+	- převod paměti je transparentní
+	- výhody konceptu
+		- větší adresový prostor – abych mohl spustit proces s většími požadavky na paměť
+		- bezpečnost – aby si procesy navzájem nemohly koukat do paměti, každý má vlastní mapování; to je dnes ten hlavní důvod
+	- segmentace
+		- virtuální adresový prostor se dělí do logických segmentů
+		- segmenty mají svoje unikátní číslo, velikost, začátek (kde ve virtuální paměti daný segment začíná) a vlastnosti (např. zda se od nich smí zapisovat)
+		- adresa v paměti je dvojice – číslo segmentu a offset uvnitř segmentu
+		- tabulka segmentů je v paměti – je to jednoduché pole indexované číslem segmentu, pro každý segment je v poli uložená datová struktura se všemi potřebnými informacemi o segmentu
+		- data o aktivních segmentech se cachují
+		- když se proces snaží přistoupit k segmentu, který neexistuje, tak najdu nějaký jiný segment, data v něm uložená schovám na disk (pokud je read-only, tak to nemusím dělat, protože jsou data uložená v původním exe souboru) a segment můžu použít
+		- v případě chyby – segmentation fault
+	- stránkování (paging) – používá se
+		- virtuální adresový prostor (VAS) je rozdělen na stejné části (stránky, jejich velikost odpovídá mocninám dvojky)
+		- fyzický adresový prostor (PAS) je rozdělen na stejné části (rámce, framy, mají stejnou velikost jako stránky)
+		- VAS je jednorozměrný, instrukce pracují s jedním číslem
+		- page table (stránkovací tabulka)
+			- zajišťuje překlad adres
+			- je to pole stránek (indexované číslem stránky)
+			- každý záznam obsahuje číslo framu a atributy
+			- je tam jednička/nula – aby se dalo určit, jestli stránka fyzicky existuje
+			- v případě chyby – page fault
+		- virtuální adresa se navenek jeví jako jedno číslo, ale protože velikost stránky je mocnina dvojky, tak část binárního čísla odpovídá číslu stránky a část offsetu
+		- když mi dojde fyzická paměť, tak nějakou stránku uložím na disk – je to obvykle méně dat, než by to bylo při výpadku segmentu (segmenty měly různé velikosti, stránky jsou všechny stejně velké)
+		- problémy s page table
+			- velikost
+				- 32-bit VA/PA, 4k paes/frames (12 bits)
+					- jedna stránka = 4 bajty
+					- počet stránek = $2^{20}$
+					- takže 4 MB pro každý proces
+				- nápad – víceúrovňové stránkovací tabulky
+					- obvykle nepotřebuju celou tabulku
+					- první úroveň tabulky je vždycky v paměti, další úrovně tam být nemusí
+					- je to vlastně strom
+					- může být výpadek stránkovací tabulky
+			- rychlost
+				- každý přístup do paměti znamená alespoň jeden další přístup do paměti
+				- TLB (Translation Lookaside Buffer)
+					- asociativní paměť (mapa)
+					- cachuju převody mezi adresou stránky a framu
+					- některé procesory nemají stránkovací tabulku, mají jenom TLB – tuhle logiku řeší OS
+		- reálný příklad
+			- 32-bit adresa
+			- posledních 12 bitů určuje offset
+			- číslo stránky rozdělím na dvakrát 10 bitů
+			- každá část odpovídá jedné úrovni stránkování
+			- prvních deset bitů použiju k indexaci do první tabulky
+			- dozvím se číslo rámce tabulky druhé úrovně
+			- použiju druhých deset bitů k indexaci do druhé tabulky
+			- dozvím se číslo rámce dat, použiju offset a mám data
+		- příklad (může být ve zkoušce)
+			- 32bitové adresy
+			- dvouúrovňové stránkování, 4KiB stránky
+			- inty mají 4 bajty
+			- sčítám dva tisíce intů do jednoho long longu
+			- kolik page faultů maximálně může nastat?
+			- čtu 8 000 bajtů, stránky mají 4 000
+			- v nejhorším případě bude těch 8 000 sahat do tří stránek
+			- můžou nastat tři výpadky stránek + nemusí existovat stránkovací tabulky druhé úrovně
+			- stránkovací tabulka druhé úrovně pokrývá 4 MB
+				- tudíž mi stačí jedna
+				- ale v nejhorším případě se to nevejde do jedné, ale do dvou, takže můžou nastat dva výpadky
+			- takže celkem pět výpadků
+		- proces převodu adresy
+			- vezmu adresu a rozdělím ji na číslo stránky a offset
+			- vezmu číslo stránky a podívám se do TLB (pokud ho má → mám číslo rámce → slepím s offsetem → hotovo)
+			- pokud ho TLB nemá, pokračuju dál – projdu stránkovací tabulky
+			- v tabulce/TLB jsou dva příznaky
+				- A (accessed) – přistoupil jsem tam
+				- D (dirty) – něco jsem tam zapsal
+			- aktualizuju ty příznaky podle reality
+			- adresu slepím s offsetem, přistoupím k datům
+			- když v tabulce není present bit, tak vrátím page fault
+			- převod uložím do TLB
