@@ -28,6 +28,7 @@
 	- pokud každý polynom $p\in\mathbb K(x)$ stupně alespoň jedna má alespoň jeden kořen, pak je těleso $\mathbb K$ algebraicky uzavřené
 - Vandermondova matice
 	- značí se $V_{n+1}(x_0,\dots,x_n)$, přičemž prvky jsou určeny takto: $v_{ij}=x_{i-1}^{j-1}$ 
+	- v každém řádku je geometrická posloupnost s kvocientem $x_i$ (posloupnost začíná jedničkou a končí $x_i^n$)
 - vlastní číslo a vlastní vektor lineárního zobrazení
 	- mějme vektorový prostor $V$ nad tělesem $\mathbb K$ a lineární zobrazení $f:V\to V$
 	- vlastní číslo zobrazení $f$ je jakékoliv $\lambda\in\mathbb K$, pro které existuje vektor $u\in V\setminus \lbrace 0\rbrace$ takový, že $f(u)=\lambda u$
@@ -222,6 +223,16 @@
 	- důsledek: $a=a^p$ (v tělese $\mathbb Z_p$), případně $a^p-a=0$
 	- důsledek: pro každý $q\in\mathbb Z_p(x)$ existuje $r\in\mathbb Z_p(x)$ stupně nejvýše $p-1$ takový, že $\forall x\in\mathbb Z_p:q(x)=r(x)$
 - věta o Vandermondově matici
+	- věta: Vandermondova matice $V_{n+1}(x_0,\dots,x_n)$ je regulární $\iff x_0,\dots,x_n$ jsou různá.
+	- jak vypadá V. matice: v každém řádku je geometrická posloupnost s kvocientem $x_i$ (posloupnost začíná jedničkou a končí $x_i^n$)
+	- důkaz
+		- odečteme první řádek matice od všech ostatních (vzniklou matici označme $A$)
+		- v prvním soupci je jedna jednička a pod ní $n$ nul, takže podle Laplaceova rozvoje dostaneme determinant matice bez prvního řádku a prvního sloupce (matice $A^{11}$)
+		- z každého řádku vytkneme $(x_i-x_0)$, matici označme jako $B$
+		- tedy $$\text{det }V_{n+1}=\text{det }A=\text{det }A^{11}=\left(\prod^n_{i=1}(x_i-x_0)\right)\cdot\text{det }B$$
+		- nyní odzadu odečteme od každého sloupce $x_0$-násobek předchozího, tak eliminujeme všechny sčítance obsahující $x_0$
+		- získáme rekurenci $$\text{det}(V_{n+1}(x_0,\dots,x_n))=\left(\prod_{i=1}^n(x_i-x_0)\right)\cdot\text{det}(V_n(x_1,\dots,x_n))$$
+		- z toho plyne $$\text{det}(V_{n+1}(x_0,\dots,x_n))=\prod_{i\lt j}(x_j-x_i)$$
 - správnost Lagrangeovy interpolace
 - věta o podprostoru vlastních vektorů
 - věta o lineární nezávislosti vlastních vektorů
