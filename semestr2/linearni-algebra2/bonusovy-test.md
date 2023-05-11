@@ -280,7 +280,16 @@
 		- použijeme větu (o adjungované matici), že $M\cdot\text{adj }M=(\text{det }M)\cdot I_n$ pro $M=A-tI_n$
 		- složky $\text{adj}(A-tI_n)$ jsou determinanty podmatic, tj. polynomy v $t$ stupně nejvýše $n-1$
 		- matici lze tedy rozepsat takto: $\text{adj}(A-tI_n)=t^{n-1}B_{n-1}+\dots+tB_1+B_0$ pro $B_{n-1},\dots,B_0\in\mathbb K^{n\times n}$
-		- nyní máme $(A-tI_n)(t^{n-1}B_{n-1}+\dots+tB_1+B_0)=$ $=p_A(t)I_n=(-1)^nt^nI_n+a_{n-1}t^{n-1}I_n+\dots+a_2t^2I_n+a_1tI_n+a_0I_n$
+		- nyní máme $(A-tI_n)(t^{n-1}B_{n-1}+\dots+tB_1+B_0)=$ 
+		  $=p_A(t)I_n=(-1)^nt^nI_n+a_{n-1}t^{n-1}I_n+\dots+a_2t^2I_n+a_1tI_n+a_0I_n$
+		- získáme $n+1$ rovnic (porovnáváme koeficienty u $t^i$ na levé a pravé straně rovnice)
+			- pro $t^n$: $-B_{n-1}=(-1)^nI_n$
+			- pro $t^i$ ($0\lt i\lt n$): $AB_i-B_{i-1}=a_iI_n$
+			- pro $t^0$: $AB_0=a_0I_n$
+		- všechny rovnice kromě té poslední vynásobíme zleva $A^n$ a všechny je sečteme
+		- na levé straně dostaneme $-A^nB_{n-1}+A^{n-1}(AB_{n-1}-B_{n-2})+\dots+A(AB_1-B_0)+AB_0=0_n$
+			- členy se navzájem poodčítají
+		- pravá strana: $(-1)^nA^n+a_{n-1}A^{n-1}+\dots+a_2A^2+a_1A+a_0I_n=p_A(A)$
 - nezbytná a postačující podmínka, kdy je matice diagonalizovatelná
 - věta o diagonalizaci speciálních komplexních matic
 - Cauchy-Schwarzova nerovnost
