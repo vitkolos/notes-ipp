@@ -275,6 +275,12 @@
 		- $\iff$ matice $A-\lambda I_n$ je singulární
 		- $\iff0=\text{det}(A-\lambda I_n)=p_A(\lambda)$
 - Cayley-Hamiltonova věta
+	- věta: Pro matici $A\in\mathbb K^{n\times n}$ a její charakteristický polynom $p_A(t)=(-1)^nt^n+a_{n-1}t^{n-1}+\dots+a_2t^2+a_1t+a_0$ platí, že $p_A(A)=(-1)^nA^n+a_{n-1}A^{n-1}+\dots+a_2A^2+a_1A+a_0I_n=0_n$.
+	- důkaz
+		- použijeme větu (o adjungované matici), že $M\cdot\text{adj }M=(\text{det }M)\cdot I_n$ pro $M=A-tI_n$
+		- složky $\text{adj}(A-tI_n)$ jsou determinanty podmatic, tj. polynomy v $t$ stupně nejvýše $n-1$
+		- matici lze tedy rozepsat takto: $\text{adj}(A-tI_n)=t^{n-1}B_{n-1}+\dots+tB_1+B_0$ pro $B_{n-1},\dots,B_0\in\mathbb K^{n\times n}$
+		- nyní máme $(A-tI_n)(t^{n-1}B_{n-1}+\dots+tB_1+B_0)=$ $=p_A(t)I_n=(-1)^nt^nI_n+a_{n-1}t^{n-1}I_n+\dots+a_2t^2I_n+a_1tI_n+a_0I_n$
 - nezbytná a postačující podmínka, kdy je matice diagonalizovatelná
 - věta o diagonalizaci speciálních komplexních matic
 - Cauchy-Schwarzova nerovnost
