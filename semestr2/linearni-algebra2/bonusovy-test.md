@@ -256,7 +256,24 @@
 	- věta: Nechť $f:V\to V$ je lineární zobrazení a $\lambda_1,\dots,\lambda_k$ jsou různá vlastní čísla $f$ a $u_1,\dots,u_k$ odpovídající netriviální vlastní vektory. Potom $u_1,\dots,u_k$ jsou lineárně nezávislé.
 	- důkaz
 		- pro spor přepdokládejme, že $k$ je nejmenší číslo, pro které existují vlastní čísla a vektory odporující větě
+		- tedy $\sum^k_{i=1}\alpha_iu_i=0$, přičemž alespoň jedno $\alpha_i$ je nenulové, tedy $\exists i:\alpha_i\neq 0$
+		- nulový vektor vyjádříme dvěma způsoby
+			- $0=\lambda_k0=\lambda_k\sum^k_{i=1}\alpha_iu_i=\sum^k_{i=1}\lambda_k\alpha_iu_i$
+			- $0=f(0)=f\left(\sum^k_{i=1}\alpha_iu_i\right)=\sum^k_{i=1}\alpha_if(u_i)=\sum^k_{i=1}\lambda_i\alpha_iu_i$
+		- z toho plyne $0=0-0=\sum^k_{i=1}\lambda_i\alpha_iu_i-\sum^k_{i=1}\lambda_k\alpha_iu_i=\sum^{k-1}_{i=1}(\lambda_i-\lambda_k)\alpha_iu_i$
+			- poslední členy obou součtů jsou stejné, proto se odečtou
+		- $\left(\sum^{k-1}_{i=1}(\lambda_i-\lambda_k)\alpha_iu_i=0\right)\land(\forall i:\lambda_i\neq\lambda_k)\land(\exists i:\alpha_i\neq0)$
+		- $\implies\left(\sum^{k-1}_{i=1}\beta_iu_i=0\right)\land(\exists i:\beta_i\neq0)$
+		- tedy již prvních $k-1$ vektorů je lineárně závislých, což je spor s minimalitou $k$
 - věta o kořenech charakteristického polynomu
+	- věta: Číslo $\lambda\in\mathbb K$ je vlastním číslem matice $A\in\mathbb K^{n\times n}\iff\lambda$ je kořenem jeho charakteristického polynomu $p_A(t)$.
+	- definice charakteristického polynomu: $p_A(t)=\text{det}(A-tI_n)$
+	- důkaz
+		- $\lambda$ je vlastní číslo $A$
+		- $\iff\exists x\in\mathbb K^n\setminus\lbrace0\rbrace:Ax=\lambda x$
+		- $\iff\exists x\in\mathbb K^n\setminus\lbrace0\rbrace: 0=Ax-\lambda x=Ax-\lambda I_nx=(A-\lambda I_n)x$
+		- $\iff$ matice $A-\lambda I_n$ je singulární
+		- $\iff0=\text{det}(A-\lambda I_n)=p_A(\lambda)$
 - Cayley-Hamiltonova věta
 - nezbytná a postačující podmínka, kdy je matice diagonalizovatelná
 - věta o diagonalizaci speciálních komplexních matic
