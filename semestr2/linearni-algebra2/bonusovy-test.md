@@ -234,8 +234,28 @@
 		- získáme rekurenci $$\text{det}(V_{n+1}(x_0,\dots,x_n))=\left(\prod_{i=1}^n(x_i-x_0)\right)\cdot\text{det}(V_n(x_1,\dots,x_n))$$
 		- z toho plyne $$\text{det}(V_{n+1}(x_0,\dots,x_n))=\prod_{i\lt j}(x_j-x_i)$$
 - správnost Lagrangeovy interpolace
+	- Lagrangeova interpolace je alternativní způsob interpolace polynomu $p\in\mathbb K(x)$ stupně $n$ skrz $n+1$ bodů $(x_i,y_i)$
+	- určení polynomu (a důkaz správnosti)
+		- určíme $n+1$ pomocných polynomů stupně $n$ $$p_i(x)=\frac{\prod_{j\neq i}(x-x_j)}{\prod_{j\neq i}(x_i-x_j)}$$
+			- v čitateli je součin dvojčlenů, jmenovatel je konstanta
+			- všimneme si, že $p_i(x_i)=1$ a že $p_i(x_j)=0$ pro $i\neq j$
+				- to je vidět po dosazení za $x$
+		- sestavíme $p(x)$ jako lineární kombinaci $p(x)=\sum^{n+1}_{j=1}y_jp_j(x)$
+			- tzn. každý z pomocných polynomů vynásobím odpovídajícím $y_i$
+		- potom platí $p(x_i)=y_ip_i(x_i)=y_i$, protože ve všech ostatních sčítancích je $p_j(x_i)$ roven nule
 - věta o podprostoru vlastních vektorů
+	- věta: Vlastní vektory odpovídající stejnému vlastnímu číslu tvoří podprostor.
+	- důkaz
+		- uvažme vlastní číslo $\lambda$ lineárního zobrazení $f:V\to V$ a množinu $U=\lbrace u \in V: f(u)=\lambda u\rbrace$
+			- tedy $U$ je množina vlastních vektorů odpovídajících danému vlastnímu číslu
+		- pro jakékoli $u,v\in U$ a $\alpha\in \mathbb K$ dostaneme
+			- $f(\alpha u)=\alpha f(u)=\alpha\lambda u=\lambda(\alpha u)$
+			- $f(u+v)=f(u)+f(v)=\lambda u+\lambda v=\lambda(u+v)$
+		- z toho plyne, že je $U$ uzavřen na sčítání a skalární násobky, tedy je podprostorem $V$
 - věta o lineární nezávislosti vlastních vektorů
+	- věta: Nechť $f:V\to V$ je lineární zobrazení a $\lambda_1,\dots,\lambda_k$ jsou různá vlastní čísla $f$ a $u_1,\dots,u_k$ odpovídající netriviální vlastní vektory. Potom $u_1,\dots,u_k$ jsou lineárně nezávislé.
+	- důkaz
+		- pro spor přepdokládejme, že $k$ je nejmenší číslo, pro které existují vlastní čísla a vektory odporující větě
 - věta o kořenech charakteristického polynomu
 - Cayley-Hamiltonova věta
 - nezbytná a postačující podmínka, kdy je matice diagonalizovatelná
