@@ -388,8 +388,18 @@
 				- $=\langle u|v_i\rangle-\sum^n_{j=1}\langle u|v_j\rangle\langle v_j|v_i\rangle=\langle u|v_i\rangle-\langle u|v_i\rangle=0$
 					- $\langle v_j|v_i\rangle =0\iff i\neq j$
 					- $\langle v_j|v_i\rangle =1\iff i=j$
-		- $||v_i||=\left\Vert\frac1{||w_i||}w_i\right\Vert$
-		- 
+		- $||v_i||=\left\Vert\frac1{||w_i||}w_i\right\Vert=\frac{||w_i||}{||w_i||}=1$
+		- pomocí lemmatu o výměně dokážeme, že po výměně $u_i$ za $w_i$, respektive $v_i$ dané vektory stále generují stejný prostor
+			- lemma o výměně
+				- Buď $y_1,\dots,y_n$ systém generátorů vektorového prostoru $V$ a nechť vektor $x \in V$ má vyjádření $x = \sum_{i=1}^n\alpha_iy_i$.
+				- Pak pro libovolné $k$ takové, že $\alpha_k \neq 0$, je $y_1,\dots,y_{k-1},x,y_{k+1},\dots,y_n$ systém generátorů prostoru $V$.
+			- důkaz lemmatu
+				- $x = \sum_i\alpha_iy_i = \sum_{i\neq k}\alpha_iy_i + \alpha_ky_k$
+				- $y_k=\frac{1}{\alpha_k}(x-\sum_{i\neq k}\alpha_iy_i)$
+				- libovolný vektor $z \in V$ lze vyjádřit jako
+					- $z = \sum_i\beta_iy_i=\sum_{i\neq k}\beta_iy_i + \beta_ky_k=$
+					- $=\sum_{i\neq k}\beta_iy_i + \frac{\beta_k}{\alpha_k}(x-\sum_{i\neq k}\alpha_iy_i)=$
+					- $=\frac{\beta_k}{\alpha_k}x+\sum_{i\neq k}(\beta_i-\frac{\beta_k}{\alpha_k}\alpha_i)y_i$
 - věta o izometrii a normě
 - věta o izometrii a vlastnostech její matice
 - věta o ortogonálním doplňku
