@@ -62,7 +62,7 @@
 - unitární matice
 	- matice $A$ je unitární, pokud $A^{-1}=A^H$ (tedy $A^HA=I_n$)
 - skalární součin pro vektorové prostory nad komplexními čísly
-	- skalární součin na vektorovém prostoru $V$ nad $\mathbb C$ je zobrazení, které přiřadí každé dvojici vektorů $u,v\in V$ skalár $\langle u|v\rangle\in\mathbb C$ tak, že jsou splněny následující axiomy: $\overline{a}$
+	- skalární součin na vektorovém prostoru $V$ nad $\mathbb C$ je zobrazení, které přiřadí každé dvojici vektorů $u,v\in V$ skalár $\langle u|v\rangle\in\mathbb C$ tak, že jsou splněny následující axiomy:
 		- $\forall u\in V:\langle u|u\rangle\in\mathbb R^+_0$ (reálné číslo $\geq 0$)
 		- $\forall u\in V:\langle u|u\rangle=0\iff u=0$
 		- $\forall u,v\in V: \langle v|u\rangle=\overline{\langle u|v\rangle}$ (komplexně sdružené)
