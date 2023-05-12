@@ -62,10 +62,10 @@
 - unitární matice
 	- matice $A$ je unitární, pokud $A^{-1}=A^H$ (tedy $A^HA=I_n$)
 - skalární součin pro vektorové prostory nad komplexními čísly
-	- skalární součin na vektorovém prostoru $V$ nad $\mathbb C$ je zobrazení, které přiřadí každé dvojici vektorů $u,v\in V$ skalár $\langle u|v\rangle\in\mathbb C$ tak, že jsou splněny následující axiomy:
+	- skalární součin na vektorovém prostoru $V$ nad $\mathbb C$ je zobrazení, které přiřadí každé dvojici vektorů $u,v\in V$ skalár $\langle u|v\rangle\in\mathbb C$ tak, že jsou splněny následující axiomy: $\overline{a}$
 		- $\forall u\in V:\langle u|u\rangle\in\mathbb R^+_0$ (reálné číslo $\geq 0$)
 		- $\forall u\in V:\langle u|u\rangle=0\iff u=0$
-		- $\forall u,v\in V: \langle v|u\rangle=\overline{\langle u|v\rangle}$
+		- $\forall u,v\in V: \langle v|u\rangle=\overline{\langle u|v\rangle}$ (komplexně sdružené)
 		- $\forall u,v,w \in V: \langle u+v|w\rangle=\langle u|w\rangle+\langle v|w\rangle$
 		- $\forall u,v\in V,\,\forall \alpha\in\mathbb C: \langle \alpha u|v\rangle=\alpha\langle u|v\rangle$
 	- formálně je každý skalární součin zobrazení $V\times V\to\mathbb C$
@@ -344,6 +344,14 @@
 		- $R^{-1}_nA_nR_n=R^H_nA_nR_n=\begin{pmatrix}1 & 0^T \\ 0 & R^H_{n-1} \end{pmatrix}\cdot P^H_nA_nP_n\cdot \begin{pmatrix}1 & 0^T \\ 0 & R_{n-1} \end{pmatrix}=$
 		- $=\begin{pmatrix}1 & 0^T \\ 0 & R^H_{n-1} \end{pmatrix}\cdot \begin{pmatrix}\lambda & 0^T \\ 0 & A_{n-1} \end{pmatrix}\cdot \begin{pmatrix}1 & 0^T \\ 0 & R_{n-1} \end{pmatrix}=\begin{pmatrix}\lambda & 0^T \\ 0 & D_{n-1} \end{pmatrix}=D_n$
 - Cauchy-Schwarzova nerovnost
+	- věta: Skalární součin libovolných dvou vektorů $u$ a $v$ ve vektorovém prostoru nad $\mathbb C$ splňuje $|\langle u|v\rangle|\leq\sqrt{\langle u|u\rangle\langle v|v\rangle}$.
+		- tedy $|\langle u|v \rangle|\leq ||u||\cdot ||v||$ (vůči odpovídající normě)
+	- důkaz
+		- pro $u=0$ nebo $v=0$ dostaneme $0\leq 0$
+		- pro libovolné $a\in\mathbb C$ platí:
+			- $||u+a v||^2\geq 0$
+			- $||u+a v||^2=\langle u+a v|u+a v\rangle$ $=\langle u|u\rangle + a \langle v|u\rangle +\overline{a}\langle u|v\rangle + a\overline{a}\langle v|v\rangle$
+		- pro vzájemné odečtení posledních
 - trojúhelníková nerovnost
 - věta o Fourierových koeficientech
 - správnost Gram-Schmidtovy ortonormalizace (včetně lemmatu, pokud jej potřebujete)
