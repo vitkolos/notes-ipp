@@ -351,7 +351,13 @@
 		- pro libovolné $a\in\mathbb C$ platí:
 			- $||u+a v||^2\geq 0$
 			- $||u+a v||^2=\langle u+a v|u+a v\rangle$ $=\langle u|u\rangle + a \langle v|u\rangle +\overline{a}\langle u|v\rangle + a\overline{a}\langle v|v\rangle$
-		- pro vzájemné odečtení posledních
+		- pro vzájemné odečtení posledních dvou členů zvolíme $$a=-\frac{\langle u|v\rangle}{\langle v|v\rangle}$$
+		- dostaneme
+			- $0\leq\langle u|u\rangle-\frac{\langle u|v\rangle}{\langle v|v\rangle}\langle v|u\rangle$
+			- $\langle u|v\rangle\langle v|u\rangle\leq\langle u|u\rangle\langle v|v\rangle$
+				- na $\mathbb C$ platí $a\overline{a}=|a|^2$
+			- $|\langle u|v\rangle|^2\leq||u||^2\cdot||v||^2$
+			- $|\langle u|v\rangle|\leq||u||\cdot||v||$
 - trojúhelníková nerovnost
 - věta o Fourierových koeficientech
 - správnost Gram-Schmidtovy ortonormalizace (včetně lemmatu, pokud jej potřebujete)
