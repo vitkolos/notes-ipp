@@ -359,6 +359,7 @@
 			- $|\langle u|v\rangle|^2\leq||u||^2\cdot||v||^2$
 			- $|\langle u|v\rangle|\leq||u||\cdot||v||$
 - trojúhelníková nerovnost
+	- tvrzení: Každá norma odvozená ze skalárního součinu splňuje trojúhelníkovou nerovnost.
 - věta o Fourierových koeficientech
 - správnost Gram-Schmidtovy ortonormalizace (včetně lemmatu, pokud jej potřebujete)
 - věta o izometrii a normě
