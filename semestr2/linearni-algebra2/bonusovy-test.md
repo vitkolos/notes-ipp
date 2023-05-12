@@ -291,7 +291,43 @@
 			- členy se navzájem poodčítají
 		- pravá strana: $(-1)^nA^n+a_{n-1}A^{n-1}+\dots+a_2A^2+a_1A+a_0I_n=p_A(A)$
 - nezbytná a postačující podmínka, kdy je matice diagonalizovatelná
+	- věta: Matice $A\in\mathbb K^{n\times n}$ je podobná diagonální matici (tzn. diagonalizovatelná), právě když prostor $\mathbb K^n$ má bázi sestávající z vlastních vektorů $A$.
+	- důkaz: $AR=RD$ s diagonální maticí $D$, pokud pro každé $i$ existuje vektor $x$ (i-tý sloupec $R$) takový, že $Ax=\lambda x=d_{ii}x$
+	- důležitá „pozorování“
+		- vlastní vektory matice $A$ tvoří bázi prostoru $\mathbb K^n\iff$ je jich $n$ a jsou lineárně nezávislé
+		- matice $R$ je regulární (z definice podobnosti)
+		- vlastní čísla diagonální matice jsou její prvky na diagonále
+		- dvě podobné matice mají stejná vlastní čísla, důkaz:
+			- $A=R^{-1}BR$
+			- $Ax=\lambda x$
+			- $R^{-1}BRx=\lambda x$
+			- $BRx=\lambda Rx$
+			- $By=\lambda y$
+	- H. důkaz
+		- $\implies$
+			- $AR=RD$, porovnáváme j-té sloupce
+			- levá strana: $(AR)_{*j}=AR_{*j}$
+			- pravá strana: $(RD)_{*j}=\lambda_j R_{*j}$
+			- $AR_{*j}=\lambda_j R_{*j}\implies R_{*j}$ je vlastní vektor matice $A$
+			- z regularity $R$ vyplývá lineární nezávislost
+		- $\impliedby$
+			- $R$ sestavíme z vlastních vektorů matice $A$ (dáme je do sloupců)
+			- tedy platí $AR_{*j}=\lambda_j R_{*j}$
+			- z toho odvodíme $AR=RD$
+	- důsledek – matice $R$ je tvořena vlastními vektory matice $A$, matice $D$ ma na diagonále vlastní čísla matice $A$
 - věta o diagonalizaci speciálních komplexních matic
+	- věta: Každá hermitovská matice $A$ má všechna vlastní čísla reálná. Navíc existuje unitární matice $R$ taková, že $R^{-1}AR$ je diagonální.
+	- důkaz: indukcí dle $n$ (řádu matice)
+		- pro $n=1$ věta platí
+		- označme $A_n=A$
+		- v tělese $\mathbb C$ má matice $A_n$ vlastní číslo $\lambda$ s vlastním vektorem $x$
+		- zvětšíme $x$ faktorem $\frac1{\sqrt{x^Hx}}$, aby platilo $x^Hx=1$
+			- normalizace vektoru
+		- doplníme $x$ na unitární matici $P_n$
+			- doplnění lze provést
+		- $P_n^HA_nP_n$ je hermitovská: $(P^H_nA_nP_n)^H=P^H_nA^H_n(P^H_n)^H=P^H_nA_nP_n$
+		- $($první sloupec $P_n$ je $x)\land (A_nx=\lambda x)\implies$ první sloupec $A_nP_n$ je $\lambda x$
+		- $P_n$ je unitární $
 - Cauchy-Schwarzova nerovnost
 - trojúhelníková nerovnost
 - věta o Fourierových koeficientech
