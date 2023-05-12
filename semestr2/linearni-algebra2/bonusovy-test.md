@@ -401,7 +401,34 @@
 					- $=\sum_{i\neq k}\beta_iy_i + \frac{\beta_k}{\alpha_k}(x-\sum_{i\neq k}\alpha_iy_i)=$
 					- $=\frac{\beta_k}{\alpha_k}x+\sum_{i\neq k}(\beta_i-\frac{\beta_k}{\alpha_k}\alpha_i)y_i$
 - věta o izometrii a normě
+	- věta: Lineární zobrazení mezi prostory $V$ a $W$ je izometrie, právě když zachovává související normu, tj. $||u||=||f(u)||$.
+	- definice: lineární zobrazení je izometrie, pokud zachovává skalární součin, tedy $\langle u|w\rangle=\langle f(u)|f(w)\rangle$
+	- důkaz
+		- $\implies$ vychází z definice normy (norma závisí na skalárním součinu)
+		- pro $\impliedby$ porovnáme
+			- $||u+aw||^2=||f(u+aw)||^2$
+			- levá strana: $||u||^2+a\langle w|u\rangle + \overline{a}\langle u|w\rangle + a\overline{a}||w||^2$
+			- pravá strana: $||f(u)||^2+a\langle f(w)|f(u)\rangle + \overline{a}\langle f(u)|f(w)\rangle + a\overline{a}||f(w)||^2$
+			- první a poslední členy se zjevně rovnají
+			- pro konkrétní $a$ porovnáme obě strany
+			- pro $a=1$: $\langle w|u\rangle+\langle u|w\rangle=\langle f(w)|f(u)\rangle+\langle f(u)|f(w)\rangle$
+			- pro $a=i$: $\langle w|u\rangle-\langle u|w\rangle=\langle f(w)|f(u)\rangle-\langle f(u)|f(w)\rangle$
+			- obě rovnice sečteme a dostaneme $\langle u|w\rangle=\langle f(u)|f(w)\rangle$
 - věta o izometrii a vlastnostech její matice
+	- věta
+		- Nechť $V$ a $W$ jsou prostory se skalárním součinem konečné dimenze a $X,Y$ jsou jejich ortonormální báze.
+		- Lineární zobrazení $f:V\to W$ je bijektivní izometrie, právě když $[f]_{XY}$ je unitární.
+	- důkaz
+		- lineární bijekce implikuje stejné dimenze a naopak
+		- $X$ je ortonormální $\implies\langle u|w\rangle=[w]^H_X[u]_X$, důkaz:
+			- $u=\sum^n_{i=1}\langle u|v_i\rangle v_i;\quad w=\sum^n_{j=1}\langle w|v_j\rangle v_j$
+			- $\langle u|w\rangle =\left\langle \sum^n_{i=1}\langle u|v_i\rangle v_i\middle|\sum^n_{j=1}\langle w|v_j\rangle v_j\right\rangle=$
+			- $=\sum^n_{i=1}\sum^n_{j=1}\langle u|v_i\rangle\overline{\langle w|v_j\rangle}\langle v_i|v_j\rangle=\sum^n_{i=1}\langle u|v_i\rangle\overline{\langle w|v_i\rangle}=[w]^H_Z[u]_Z$
+				- ($\langle w|v_k\rangle$ je komplexně sdružené)
+		- $Y$ je ortonormální $\implies\langle f(u)|f(w)\rangle=[f(w)]^H_Y[f(u)]_Y=[w]^H_X[f]^H_{XY}[f]_{XY}[u]_X$
+		- maticová rovnost $x^Ty=x^TAy$ obecně platí, pouze když je $A$ jednotková matice
+		- $f$ je izometrie pokud $[w]^H_X[u]_X=[w]_X^H[f]^H_{XY}[f]_{XY}[u]_X$ platí pro všechna $u$ a $w$
+		- to platí právě když $[f]^H_{XY}[f]_{XY}=I$, tedy je-li $[f]_{XY}$ unitární
 - věta o ortogonálním doplňku
 - věta o skalárním součinu dvou vektorů a Gramově matici
 - věta o třech ekvivalentních podmínkách pro pozitivně definitní matice
