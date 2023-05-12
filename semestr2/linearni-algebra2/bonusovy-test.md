@@ -317,6 +317,11 @@
 	- důsledek – matice $R$ je tvořena vlastními vektory matice $A$, matice $D$ ma na diagonále vlastní čísla matice $A$
 - věta o diagonalizaci speciálních komplexních matic
 	- věta: Každá hermitovská matice $A$ má všechna vlastní čísla reálná. Navíc existuje unitární matice $R$ taková, že $R^{-1}AR$ je diagonální.
+	- pozorování o hermitovských a unitárních maticích
+		- hermitovské matice mají reálnou úhlopříčku
+		- $A$ je unitární $\iff A^H$ je unitární
+		- součin unitárních matic je unitární
+		- unitární $A$ splňuje $A^HA=I$, tj. pro sloupce $x_1,\dots,x_n$ platí $x_i^Hx_i=1$ a $x_i^Hx_j=0$ pro $i\neq j$
 	- důkaz: indukcí dle $n$ (řádu matice)
 		- pro $n=1$ věta platí
 		- označme $A_n=A$
@@ -325,9 +330,19 @@
 			- normalizace vektoru
 		- doplníme $x$ na unitární matici $P_n$
 			- doplnění lze provést
-		- $P_n^HA_nP_n$ je hermitovská: $(P^H_nA_nP_n)^H=P^H_nA^H_n(P^H_n)^H=P^H_nA_nP_n$
+		- mějme matici $P_n^HA_nP_n$, ta je hermitovská: $(P^H_nA_nP_n)^H=P^H_nA^H_n(P^H_n)^H=P^H_nA_nP_n$
 		- $($první sloupec $P_n$ je $x)\land (A_nx=\lambda x)\implies$ první sloupec $A_nP_n$ je $\lambda x$
-		- $P_n$ je unitární $
+		- $P_n$ je unitární $\implies$ první sloupec $P^H_nA_nP_n$ je $P^H_n\lambda x=\lambda P^H_nx=\lambda e_1$
+			- protože součin i-tého řádku a sloupce je jedna, jinak nula (a vektor $x$ odpovídá prvnímu řádku matice $P^H_n$)
+		- $(P^H_nA_nP_n)_{11}=\lambda$, zbytek prvního řádku a prvního sloupce tvoří nuly
+			- nuly v prvním sloupci jsme odvodili
+			- z hermitovskosti vyplývá, že $\lambda\in\mathbb R$ (protože je na diagonále) a že jsou nuly i v prvním řádku
+		- $(P_n^HA_nP_n)^{11}=A_{n-1}$ hermitovská
+		- podle indukčního předpokladu: $R_{n-1}^{-1}A_{n-1}R_{n-1}=D_{n-1}$ pro nějakou unitární $R_{n-1}$ a diagonální $D_{n-1}$
+		- položíme $R_n=P_n\cdot\begin{pmatrix}1 & 0^T \\ 0 & R_{n-1} \end{pmatrix}$
+			- součiny unitárních matic jsou unitární
+		- $R^{-1}_nA_nR_n=R^H_nA_nR_n=\begin{pmatrix}1 & 0^T \\ 0 & R^H_{n-1} \end{pmatrix}\cdot P^H_nA_nP_n\cdot \begin{pmatrix}1 & 0^T \\ 0 & R_{n-1} \end{pmatrix}=$
+		- $=\begin{pmatrix}1 & 0^T \\ 0 & R^H_{n-1} \end{pmatrix}\cdot \begin{pmatrix}\lambda & 0^T \\ 0 & A_{n-1} \end{pmatrix}\cdot \begin{pmatrix}1 & 0^T \\ 0 & R_{n-1} \end{pmatrix}=\begin{pmatrix}\lambda & 0^T \\ 0 & D_{n-1} \end{pmatrix}=D_n$
 - Cauchy-Schwarzova nerovnost
 - trojúhelníková nerovnost
 - věta o Fourierových koeficientech
