@@ -88,8 +88,8 @@
 	- pozorování: matice, jejichž sloupce tvoří vektory ortonormální báze $\mathbb C^n$ vzhledem ke std. skal. součinu, splňují $A^HA=I_n\implies$ jsou unitární
 - Fourierovy koeficienty
 	- nechť $Z=\lbrace v_1,\dots,v_n\rbrace$ je ortonormální báze prostoru $V$
-	- $\langle u|v_i\rangle$ … Fourierovy koeficienty
 	- tvrzení: pro každé $u\in V$ platí $u=\langle u|v_1\rangle v_1+\dots+\langle u|v_n\rangle v_n$
+	- $\langle u|v_i\rangle$ … Fourierovy koeficienty
 	- důkaz: (vyplývá z toho, že $\langle v_i|v_j\rangle$ se rovná jedné pro $i=j$, jinak nule) $$u=\sum^n_{i=1} \alpha_iv_i\implies\langle u|v_j\rangle=\left\langle \sum^n_{i=1} \alpha_iv_i\middle|v_j\right\rangle=\sum^n_{i=1}\alpha_i\langle v_i|v_j\rangle=\alpha_j$$
 - kolmá projekce
 	- nechť $W$ je prostor se skalárním součinem a $V$ je jeho podprostor s ortonormální bází $Z=(v_1,\dots,v_n)$
@@ -359,9 +359,37 @@
 			- $|\langle u|v\rangle|^2\leq||u||^2\cdot||v||^2$
 			- $|\langle u|v\rangle|\leq||u||\cdot||v||$
 - trojúhelníková nerovnost
-	- tvrzení: Každá norma odvozená ze skalárního součinu splňuje trojúhelníkovou nerovnost.
+	- tvrzení: Každá norma odvozená ze skalárního součinu splňuje trojúhelníkovou nerovnost: $||u+v||\leq||u||+||v||$
+	- důkaz
+		- $||u+v||=\sqrt{\langle u+v|u+v\rangle}=\sqrt{\langle u|u\rangle+\langle v|u\rangle+\langle u|v\rangle+\langle v|v\rangle}\leq$
+		- $\leq\sqrt{||u||^2+2|\langle u|v\rangle|+||v||^2}\leq\sqrt{||u||^2+2||u||\cdot||v||+||v||^2}=$
+		- $=||u||+||v||$
+		- první nerovnost platí, neboť
+			- $(a+bi)+(a-bi)\leq 2|a+bi|$ 
+			- $2a\leq2\sqrt{a^2+b^2}$
+			- $a^2\leq a^2+b^2$
+		- druhá nerovnost vyplývá z Cauchy-Schwarzovy nerovnosti
 - věta o Fourierových koeficientech
+	- nechť $Z=\lbrace v_1,\dots,v_n\rbrace$ je ortonormální báze prostoru $V$
+	- tvrzení: pro každé $u\in V$ platí $u=\langle u|v_1\rangle v_1+\dots+\langle u|v_n\rangle v_n$
+	- $\langle u|v_i\rangle$ … Fourierovy koeficienty
+	- důkaz: (vyplývá z toho, že $\langle v_i|v_j\rangle$ se rovná jedné pro $i=j$, jinak nule) $$u=\sum^n_{i=1} \alpha_iv_i\implies\langle u|v_j\rangle=\left\langle \sum^n_{i=1} \alpha_iv_i\middle|v_j\right\rangle=\sum^n_{i=1}\alpha_i\langle v_i|v_j\rangle=\alpha_j$$
 - správnost Gram-Schmidtovy ortonormalizace (včetně lemmatu, pokud jej potřebujete)
+	- algoritmus – převede libovolnou bázi $(u_1,\dots,u_n)$ prostoru $V$ se skalárním součinem na ortonormální bázi $(v_1,\dots,v_n)$
+		- for $i=1,\dots,n$ do
+			- $w_i=u_i-\sum^{i-1}_{j=1}\langle u_i|v_j\rangle v_j$
+			- $v_i=\frac1{||w_i||}w_i$
+		- end
+	- důkaz správnosti
+		- $v_i\perp v_j\iff i\neq j$ plyne z $w_i\perp v_j$ pro každé $j\lt i$, což dokazuje následující lemma
+			- lemma: Nechť $p_Z$ je ortogonální projekce $W$ na $V$, potom $u-p_Z(u)\perp v_i$ pro každé $v_i\in Z$.
+			- důkaz
+				- $\langle u-p_Z(u)|v_i\rangle=\left\langle u-\sum^n_{j=1}\langle u|v_j\rangle v_j\middle|v_i\right\rangle=$
+				- $=\langle u|v_i\rangle-\sum^n_{j=1}\langle u|v_j\rangle\langle v_j|v_i\rangle=\langle u|v_i\rangle-\langle u|v_i\rangle=0$
+					- $\langle v_j|v_i\rangle =0\iff i\neq j$
+					- $\langle v_j|v_i\rangle =1\iff i=j$
+		- $||v_i||=\left\Vert\frac1{||w_i||}w_i\right\Vert$
+		- 
 - věta o izometrii a normě
 - věta o izometrii a vlastnostech její matice
 - věta o ortogonálním doplňku
