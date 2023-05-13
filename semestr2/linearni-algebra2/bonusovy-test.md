@@ -497,7 +497,35 @@
 		- eliminaci jsme prováděli přičítáním násobku řádku shora dolů, tedy $\text{det }A_i=\text{det }A'_i=\prod_{j\leq i}\alpha_j=\text{det }A_{i-1}\alpha_i$
 		- $A$ je pozitivně definitní $\iff\alpha_1,\dots,\alpha_n\gt0\iff\text{det }A_1,\dots,\text{det }A_n\gt0$
 - správnost algoritmu pro výpočet Choleského rozkladu
-	- předpokládejme, že algoritmus selže během i-té iterace, tj. 
+	- máme $A$, hledáme $U$ takové, že $U^HU=A$
+	- algoritmus
+		- input: hermitovská $A$
+		- output: $U$, pokud je $A$ pozitivně definitní
+		- for $i=1,\dots,n$ do
+			- $u_ii=\sqrt{a_ii-\sum^{i-1}_{k=1}\bar u_{ki}u_{ki}}$
+			- if $u_{ii}\notin\mathbb R^+$ then return $A$ není pozitivně definitní
+			- for $j=i+1,\dots,n$ do
+				- $u_{ij}=\frac1{u_ii}\left(a_{ij}-\sum^{i-1}_{k=1}\bar u_{ki}u_{kj}\right)$
+			- end
+		- end
+	- správnost
+		- předpokládejme, že algoritmus selže během i-té iterace, tj. $\alpha-u^Hu\leq 0$
+			- $\alpha$ odpovídá $a_{ii}$
+		- $u$ je vektor o $i-1$ složkách v horní trojúhelníkové matici
+		- máme částečný rozklad hlavní vedoucí podmatice $A'=V^HV$ a rovněž sloupce nad $\alpha$ (a řádku vlevo) $a=V^Hu$
+		- trikově zvolíme $x=-V^{-1}u$
+		- $x$ má $i-1$ složek, tedy jej doplníme o jednu jedničku (na pozici $i$) a jinak samé nuly na vektor $y$
+		- $y^HAy=x^HA'x+x^Ha+a^Hx+\alpha=$
+			- tento rozklad vychází z toho, jak vypadá vektor $y$
+				- první člen součtu násobí dvakrát vektorem $x$
+				- druhý a třetí člen násobí jednou $x$ a jednou jedničkou (na i-té pozici)
+				- čtvrtý člen násobí dvakrát jedničkou
+				- ostatní členy násobí nulou (proto v součtu chybí)
+		- $=(-V^{-1}u)^H(V^HV)(-V^{-1}u)+$
+		- $+(-V^{-1}u)^H(V^Hu)+(V^Hu)^H(-V^{-1}u)+\alpha=$
+		- $=u^H(V^H)^{-1}V^HVV^{-1}u-u^H(V^H)^{-1}V^Hu-u^HVV^{-1}u+\alpha=$
+		- $=u^Hu-u^Hu-u^Hu+\alpha=\alpha-u^Hu\leq 0$
+		- proto $A$ není pozitivně definitní
 - věta o diagonalizovatelnosti matic forem
 - Sylvesterův zákon setrvačnosti – o diagonalizaci kvadratických forem
 - věta o počtu přímek svírajících stejný úhel
