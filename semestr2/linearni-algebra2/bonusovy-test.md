@@ -496,8 +496,8 @@
 		- $\alpha_1,\dots,\alpha_n$ jsou prvky na diagonále výsledné horní trojúhelníkové matice $A'$
 		- eliminaci jsme prováděli přičítáním násobku řádku shora dolů, tedy $\text{det }A_i=\text{det }A'_i=\prod_{j\leq i}\alpha_j=\text{det }A_{i-1}\alpha_i$
 		- $A$ je pozitivně definitní $\iff\alpha_1,\dots,\alpha_n\gt0\iff\text{det }A_1,\dots,\text{det }A_n\gt0$
-		- 
 - správnost algoritmu pro výpočet Choleského rozkladu
+	- předpokládejme, že algoritmus selže během i-té iterace, tj. 
 - věta o diagonalizovatelnosti matic forem
 - Sylvesterův zákon setrvačnosti – o diagonalizaci kvadratických forem
 - věta o počtu přímek svírajících stejný úhel
