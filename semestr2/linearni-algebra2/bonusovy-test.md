@@ -233,7 +233,7 @@
 		- nyní odzadu odečteme od každého sloupce $x_0$-násobek předchozího, tak eliminujeme všechny sčítance obsahující $x_0$
 		- získáme rekurenci $$\text{det}(V_{n+1}(x_0,\dots,x_n))=\left(\prod_{i=1}^n(x_i-x_0)\right)\cdot\text{det}(V_n(x_1,\dots,x_n))$$
 		- z toho plyne $$\text{det}(V_{n+1}(x_0,\dots,x_n))=\prod_{i\lt j}(x_j-x_i)$$
-- správnost Lagrangeovy interpolace
+- Lagrangeova interpolace (a její správnost)
 	- Lagrangeova interpolace je alternativní způsob interpolace polynomu $p\in\mathbb K(x)$ stupně $n$ skrz $n+1$ bodů $(x_i,y_i)$
 	- určení polynomu (a důkaz správnosti)
 		- určíme $n+1$ pomocných polynomů stupně $n$ $$p_i(x)=\frac{\prod_{j\neq i}(x-x_j)}{\prod_{j\neq i}(x_i-x_j)}$$
@@ -374,7 +374,7 @@
 	- tvrzení: pro každé $u\in V$ platí $u=\langle u|v_1\rangle v_1+\dots+\langle u|v_n\rangle v_n$
 	- $\langle u|v_i\rangle$ … Fourierovy koeficienty
 	- důkaz: (vyplývá z toho, že $\langle v_i|v_j\rangle$ se rovná jedné pro $i=j$, jinak nule) $$u=\sum^n_{i=1} \alpha_iv_i\implies\langle u|v_j\rangle=\left\langle \sum^n_{i=1} \alpha_iv_i\middle|v_j\right\rangle=\sum^n_{i=1}\alpha_i\langle v_i|v_j\rangle=\alpha_j$$
-- správnost Gram-Schmidtovy ortonormalizace (včetně lemmatu, pokud jej potřebujete)
+- Gram-Schmidtova ortonormalizace (a její správnost) – včetně lemmatu, pokud jej potřebujete
 	- algoritmus – převede libovolnou bázi $(u_1,\dots,u_n)$ prostoru $V$ se skalárním součinem na ortonormální bázi $(v_1,\dots,v_n)$
 		- for $i=1,\dots,n$ do
 			- $w_i=u_i-\sum^{i-1}_{j=1}\langle u_i|v_j\rangle v_j$
@@ -496,7 +496,7 @@
 		- $\alpha_1,\dots,\alpha_n$ jsou prvky na diagonále výsledné horní trojúhelníkové matice $A'$
 		- eliminaci jsme prováděli přičítáním násobku řádku shora dolů, tedy $\text{det }A_i=\text{det }A'_i=\prod_{j\leq i}\alpha_j=\text{det }A_{i-1}\alpha_i$
 		- $A$ je pozitivně definitní $\iff\alpha_1,\dots,\alpha_n\gt0\iff\text{det }A_1,\dots,\text{det }A_n\gt0$
-- správnost algoritmu pro výpočet Choleského rozkladu
+- algoritmus pro výpočet Choleského rozkladu (a jeho správnost)
 	- máme $A$, hledáme $U$ takové, že $U^HU=A$
 	- algoritmus
 		- input: hermitovská $A$
@@ -595,16 +595,74 @@
 *přehledově sepište, co víte o… (uveďte definice, tvrzení, věty, příklady a souvislosti – důkazy nejsou vyžadovány)*
 
 - výpočet determinantů
+	- permutační grupa, znaménko permutace
+	- vzorec pro výpočet determinantu
+	- Sarrusovo pravidlo pro matice 3×3
+	- determinant matice s nulovým řádkem
+	- determinant trojúhelníkové matice
+	- vliv elementárních úprav a transpozice na determinant
+	- věta o linearitě determinantu
+	- determinant singulární matice je roven nule
+	- věta o determinantu součinu dvou matic
+	- věta o Laplaceově rozvoji determinantu
+	- adjungovaná matice
+	- věta o adjungované matici
+	- Cramerovo pravidlo (řešení systémů s determinanty)
 - determinanty a jejich geometrický význam
+	- *viz výpočet determinantů*
+	- objem rovnoběžnostěnu určeného $k$ vektory je roven absolutní hodnotě determinantu matice, jejíž sloupce tyto vektory tvoří
+	- po provedení lineárního zobrazení se objemy těles změní úměrně absolutní hodnotě determinantu matice zobrazení
 - počet koster grafu
+	- kostra je podgraf souvislého grafu, který je stromem a obsahuje všechny vrcholy
+	- Laplaceova matice
+	- věta o počtu koster grafu
 - polynomy
+	- polynom nad tělesem
+	- malá Fermatova věta
+	- kořen polynomu a jeho násobnost
+	- algebraicky uzavřené těleso
+	- Vandermondova matice
+	- věta o Vandermondově matici
+	- Lagrangeova interpolace
 - vlastní čísla a vlastní vektory
+	- vlastní číslo a vlastní vektor lineárního zobrazení
+	- vlastní číslo a vlastní vektor matice
+	- algebraická násobnost vlastního čísla
+	- geometrická násobnost vlastního čísla
 - charakteristický polynom a jeho koeficienty
+	- charakteristický polynom matice
+	- algebraická násobnost vlastního čísla
 - podobné matice a diagonalizace
+	- podobné matice
+	- diagonalizovatelná matice
+	- Jordanův blok
+	- Jordanův normální tvar matice
+	- zobecněný vlastní vektor
+	- 
 - speciální komplexní matice
+	- hermitovská matice
+	- unitární matice
+	- 
 - skalární součin a související norma
+	- skalární součin pro vektorové prostory nad komplexními čísly
+	- norma spojená se skalárním součinem
+	- kolmé vektory
+	- ortonormální báze
+	- Fourierovy koeficienty
+	- kolmá projekce
+	- izometrie
+	- ortogonální doplněk
+	- Gramova matice
 - ortogonalita a kolmá projekce
 - ortonormální báze
 - ortogonální doplněk
 - pozitivně definitní matice
+	- definice pozitivně definitní matice
+	- Choleského rozklad
 - bilineární a kvadratické formy a jejich matice
+	- bilineární forma
+	- kvadratická forma
+	- matice bilineární formy vzhledem k bázi
+	- analytické vyjádření formy
+	- signatura formy
+	- 
