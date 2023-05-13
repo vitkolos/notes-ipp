@@ -125,7 +125,7 @@
 	- analytické vyjádření bilineární formy $f$ nad $\mathbb K^n$ s maticí $B$ je homogenní polynom $f((x_1,\dots,x_n)^T,(y_1,\dots,y_n)^T)=\sum^n_{i=1}\sum^n_{j=1}b_{ij}x_iy_j$
 - signatura formy
 	- nechť reálná kvadratická forma $g$ má diagonální matici $B$ obsahující pouze $1,-1$ a $0$
-	- signatura formy $g$ je trojice (počet jedniček, počet –1, počet nul), počítáno na diagonále matice $B$
+	- signatura formy $g$ je trojice (počet jedniček, počet minus jedniček, počet nul), počítáno na diagonále matice $B$
 
 ## Věty a důkazy (30)
 
@@ -538,8 +538,57 @@
 		- zvolíme $R_n=P_n\cdot \begin{pmatrix}1 & 0^T \\ 0 & R_{n-1}\end{pmatrix}$
 		- pak $R^T_nA_nR_n=\begin{pmatrix}1 & 0^T \\ 0 & R^T_{n-1}\end{pmatrix}\cdot P^T_nA_nP_n \cdot \begin{pmatrix}1 & 0^T \\ 0 & R_{n-1}\end{pmatrix}=$
 		- $=\begin{pmatrix}\alpha & 0^T \\ 0 & R^T_{n-1}A_{n-1}R_{n-1}\end{pmatrix}$, což je dle IP diagonální matice
+		- pokud $\alpha=0$, ale první sloupec není nulový ($a_{i1}$ je nenulové pro nějaké $i$), tak použijeme elementární matici $E$ pro přičtení i-tého sloupce k prvnímu → vezmeme $A'=E^TAE$ místo $A$
+		- pokud je celý první řádek (i sloupec) nulový, tak $R_n=\begin{pmatrix}1 & 0^T \\ 0 & R_{n-1}\end{pmatrix}$
 - Sylvesterův zákon setrvačnosti – o diagonalizaci kvadratických forem
+	- věta
+		- Každá kvadratická forma na konečně generovaném reálném vektorovém prostoru má vzhledem k vhodné bázi diagonální matici pouze s 1, –1 a 0.
+		- Všechny takové diagonální matice odpovídající téže formě mají stejný počet 1 a stejný počet –1.
+	- důkaz existence
+		- nechť $B$ je maticí formy vzhledem k bázi $Y$
+		- pro reálnou symetrickou matici existuje spektrální rozklad (lze ji diagonalizovat), tedy $B=R^TDR$ pro regulární $R$
+		- rozložíme $D=S^TD'S$
+			- všechny matice jsou diagonální
+			- $d'_{ii}=\text{sgn}(d_{ii})$
+			- $s_{ii}=\sqrt{|d_{ii}|}$ pro nenulové $d_{ii}$
+				- pro $d_{ii}=0:s_{ii}=1$, aby $S$ byla regulární
+		- $SR$ je regulární, $B=(SR)^TD'SR$
+		- zvolíme bázi $X$ tak, že $[id]_{X,Y}=SR,\,[id]_{Y,X}=(SR)^{-1}$
+		- $[id]^T_{Y,X}B[id]_{Y,X}=D'$ je hledaná matice formy
+	- důkaz jednoznačnosti signatury (počtu jedniček, minus jedniček, nul) 
+		- mějme báze $X=(u_1,\dots,u_n),\,Y=(v_1,\dots,v_n)$
+		- mějme dvě různé „sylvesterovské“ matice $B,B'$ formy $g$ uspořádané tak, že nejdříve jsou jedničky, pak minus jedničky a nakonec nuly
+		- součin s regulární maticí přechodu nemění hodnost, tedy i počet nul musí být v obou maticích stejný
+		- nechť $r$ je počet jedniček v $B$, $s$ je počet jedniček v $B'$
+		- BÚNO $r\gt s$
+		- uvažme podprostory $\mathcal L(u_1,\dots,u_r)$ a $\mathcal L(v_{s+1},\dots,v_n)$
+		- z $r\gt s$ vyplývá, že součet jejich dimenzí přesahuje $n$, tedy mají netriviální průnik
+		- zvolme nenulový vektor $w$ z tohoto průniku
+			- $[w]_X=(x_1,\dots,x_r,0,\dots,0)$
+			- $[w]_Y=(0,\dots,0,y_{s+1},\dots,y_n)$
+			- alespoň jedno $x_i$ a alespoň jedno $y_i$ je nenulové
+		- $g(w)=[w]^T_XB[w]_X=x_1^2+\dots+x^2_r\gt 0$
+			- protože alespoň jedno $x_i$ je nenulové
+		- $g(w)=[w]^T_YB[w]_Y=-y_1^2-\dots-y^2_r\lt 0$
+			- protože alespoň jedno $y_i$ je nenulové
+		- musí však platit $g(w)=g(w)$, což neplatí → to je spor
+		- tedy $r=s$
 - věta o počtu přímek svírajících stejný úhel
+	- věta: V $\mathbb R^d$ může nevýše $d+1\choose 2$ přímek svírat stejný úhel.
+	- důkaz
+		- předpokládejme, že existuje $n$ takových přímek
+		- zvolíme vektory jednotkové délky $v_1,\dots,v_n$, z každé přímky po jednom
+		- platí $\langle v_i|v_j\rangle=\cos \varphi$ pro $i\neq j$ (jinak 1, protože jsou jednotkové délky)
+		- dokážeme, že matice $v_1v_1^T,\dots,v_nv_n^T\in\mathbb R^{d\times d}$ jsou lineárně nezávislé
+			- předpokládejme, že $\sum_{i=1}^n\alpha_iv_iv_i^T=0$ (lineární kombinace matic se rovná nulové matici)
+			- pak musí platit pro každé $j\in\lbrace1,\dots,n\rbrace:0=v_j^T0v_j=v^T_j\left(\sum^n_{i=1}\alpha_iv_iv_i^T\right)v_j=$
+			- $=\sum^n_{i=1}\alpha_iv_j^Tv_iv_i^Tv_j=\sum^n_{i=1}\alpha_i\langle v_i|v_j\rangle^2=\alpha_j+\cos^2\varphi\sum_{i\neq j}\alpha_i$
+			- to lze přepsat na soustavu rovnic $Ax=0$
+				- $A$ má na diagonále jedničky, všude jinde $\cos^2\varphi$
+				- $x=(a_1,\dots,a_n)^T$
+			- matice této soustavy je regulární, proto je jediným řešením $\alpha_1=\dots=\alpha_n=0$, z toho plyne lineární nezávislost matic
+		- dimenze prostoru symetrických matic z $\mathbb R^{d\times d}$ je $d+1\choose 2$
+			- proto $n\leq {d+1\choose 2}$
 
 ## Přehledy (14)
 
