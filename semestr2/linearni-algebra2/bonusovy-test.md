@@ -616,8 +616,10 @@
 	- kostra je podgraf souvislého grafu, který je stromem a obsahuje všechny vrcholy
 	- Laplaceova matice
 	- věta o počtu koster grafu
+	- úplný graf $K_n$ má $n^{n-2}$ koster
 - polynomy
 	- polynom nad tělesem
+	- operace s polynomy – sčítání, odčítání, skalární násobek, součin, dělení se zbytkem
 	- malá Fermatova věta
 	- kořen polynomu a jeho násobnost
 	- algebraicky uzavřené těleso
@@ -627,22 +629,32 @@
 - vlastní čísla a vlastní vektory
 	- vlastní číslo a vlastní vektor lineárního zobrazení
 	- vlastní číslo a vlastní vektor matice
+	- spektrum (množina vlastních čísel matice)
 	- algebraická násobnost vlastního čísla
 	- geometrická násobnost vlastního čísla
+	- věta o podprostoru vlastních vektorů
+	- věta o lineární nezávislosti vlastních vektorů
+	- vlastní vektory a vlastní čísla diagonální matice
+	- matice řádu $n$ může mít nejvýše $n$ různých vlastních čísel
 - charakteristický polynom a jeho koeficienty
 	- charakteristický polynom matice
+	- vlastní čísla jako kořeny charakteristického polynomu
 	- algebraická násobnost vlastního čísla
+	- věta o kořenech charakteristického polynomu
+	- spektrální rozklad pomocí charakteristického polynomu
+	- Geršgorinovy kruhy
+	- Cayley-Hamiltonova věta
 - podobné matice a diagonalizace
-	- podobné matice
+	- podobné matice +++
 	- diagonalizovatelná matice
 	- Jordanův blok
 	- Jordanův normální tvar matice
 	- zobecněný vlastní vektor
-	- 
+	- nezbytná a postačující podmínka, kdy je matice diagonalizovatelná
 - speciální komplexní matice
 	- hermitovská matice
 	- unitární matice
-	- 
+	- věta o diagonalizaci speciálních komplexních matic
 - skalární součin a související norma
 	- skalární součin pro vektorové prostory nad komplexními čísly
 	- norma spojená se skalárním součinem
@@ -653,16 +665,29 @@
 	- izometrie
 	- ortogonální doplněk
 	- Gramova matice
+	- Cauchy-Schwarzova nerovnost
+	- trojúhelníková nerovnost
+	- věta o Fourierových koeficientech
+	- Gram-Schmidtova ortonormalizace
+	- věta o izometrii a normě
+	- věta o izometrii a vlastnostech její matice
+	- věta o ortogonálním doplňku
+	- věta o skalárním součinu dvou vektorů a Gramově matici
 - ortogonalita a kolmá projekce
 - ortonormální báze
 - ortogonální doplněk
 - pozitivně definitní matice
 	- definice pozitivně definitní matice
 	- Choleského rozklad
+	- věta o třech ekvivalentních podmínkách pro pozitivně definitní matice
+	- věta o rekurentní podmínce pro pozitivně definitní matice
+	- věta o pozitivně definitních maticích a determinantech
+	- výpočet Choleského rozkladu
 - bilineární a kvadratické formy a jejich matice
 	- bilineární forma
 	- kvadratická forma
 	- matice bilineární formy vzhledem k bázi
 	- analytické vyjádření formy
 	- signatura formy
-	- 
+	- věta o diagonalizovatelnosti matic forem
+	- Sylvesterův zákon setrvačnosti – o diagonalizaci kvadratických forem
