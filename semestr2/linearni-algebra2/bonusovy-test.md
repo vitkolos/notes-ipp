@@ -490,6 +490,13 @@
 		- $R^HAR=\begin{pmatrix}\alpha & 0^H \\ 0 & \tilde A-\frac1\alpha aa^H \end{pmatrix}$
 			- $A$ je pozitivně definitní, právě když je výsledná bloková matice pozitivně definitní (což nastává, když má oba nenulové bloky pozitivně definitní)
 - věta o pozitivně definitních maticích a determinantech
+	- věta (Sylvesterova podmínka, hlavní vedoucí podmatice): Hermitovská matice $A$ řádu $n$ je pozitivně definitní, právě když matice $A_1,\dots,A_n$ mají kladné determinanty, kde $A_i$ sestává z prvních $i$ řádku a sloupců $A$.
+	- důkaz
+		- použijeme Gaussovu eliminaci $A\sim\sim A'$ pro test, zda je $A$ pozitivně definitní
+		- $\alpha_1,\dots,\alpha_n$ jsou prvky na diagonále výsledné horní trojúhelníkové matice $A'$
+		- eliminaci jsme prováděli přičítáním násobku řádku shora dolů, tedy $\text{det }A_i=\text{det }A'_i=\prod_{j\leq i}\alpha_j=\text{det }A_{i-1}\alpha_i$
+		- $A$ je pozitivně definitní $\iff\alpha_1,\dots,\alpha_n\gt0\iff\text{det }A_1,\dots,\text{det }A_n\gt0$
+		- 
 - správnost algoritmu pro výpočet Choleského rozkladu
 - věta o diagonalizovatelnosti matic forem
 - Sylvesterův zákon setrvačnosti – o diagonalizaci kvadratických forem
