@@ -445,12 +445,54 @@
 		- $\text{dim }V+\text{dim }V^\perp=|X|+|Y|=|Z|=\text{dim }W$
 		- $(V^\perp)^\perp=\mathcal L(Z\setminus Y)=\mathcal L(X)=V$
 - věta o skalárním součinu dvou vektorů a Gramově matici
+	- věta
+		- Nechť $V$ je prostor se skalárním součinem a bází $X=(v_1,\dots,v_n)$.
+		- Potom tzv. Gramova matice $A$ definované $a_{ij}=\langle v_i|v_j\rangle$ splňuje $\forall u,w\in V:\langle u|w\rangle =[w]^H_XA^T[u]_X$.
+	- pozorování: když je $X$ ortonormální báze, pak $A=I_n$
+	- důkaz
+		- označme $[u]_X=(b_1,\dots,b_n)^T,\,[w]_X=(c_1,\dots,c_n)^T$
+		- $\langle u|v\rangle=\left\langle\sum_{i=1}^kb_iv_i\middle|\sum^l_{j=1}c_jv_j\right\rangle=$
+		- $=\sum^k_{i=1}\sum^l_{j=1}b_i\bar{c_j}\langle v_i|v_j\rangle=[w]^H_XA^T[u]_X$
 - věta o třech ekvivalentních podmínkách pro pozitivně definitní matice
+	- věta: Pro hermitovskou matici $A$ jsou následující podmínky ekvivalentní:
+		1. $A$ je pozitivně definitní,
+		2. $A$ má všechna vlastní čísla kladná,
+		3. existuje regulární matice $U$ taková, že $A=U^HU$.
+	-  důkaz
+		- $1\implies 2$
+			- protože $A$ je hermitovská, má vlastní čísla reálná
+			- mějme netriviální vlastní vektor $x$ odpovídající vl. číslu $\lambda$
+			- potom $0\lt x^HAx=\lambda x^Hx=\lambda\langle x|x\rangle$
+				- $\langle x|x\rangle\gt 0\implies\lambda\gt 0$
+		- $2\implies 3$
+			- protože $A$ je hermitovská, existují unitární $R$ a diagonální $D$ takové, že $A=R^HDR$
+			- vezměme diagonální $\tilde D:\tilde d_{ii}=\sqrt{d_{ii}}$
+			- vezměme $U=\tilde DR$
+			- $U^HU=(\tilde DR)^H\tilde DR=R^H\tilde D^H\tilde DR=R^HDR=A$
+			- $U$ je regulární, protože unitární i diagonální matice jsou regulární
+		- $3\implies 1$
+			- pro regulární $U$ platí $x\in\mathbb C^n\setminus\lbrace0\rbrace\implies Ux\neq0$
+			- $x^HAx=x^HU^HUx=(Ux)^HUx=\langle Ux|Ux\rangle \gt 0$
 - věta o rekurentní podmínce pro pozitivně definitní matice
+	- věta: Bloková matice $A=\begin{pmatrix}\alpha & a^H \\ a & \tilde A \end{pmatrix}$ je pozitivně definitní $\iff \alpha\gt 0\land\tilde A-\frac1\alpha aa^H$ je pozitivně definitní.
+	- pozorování: Gaussova eliminace prvního sloupce pomocí prvního řádku dává v hermitovské matici $\begin{pmatrix}\alpha & a^H \\ a & \tilde A \end{pmatrix}\sim\sim\begin{pmatrix}\alpha & a^H \\ 0 & \tilde A-\frac1\alpha aa^H \end{pmatrix}$
+	- pozorování: pokud je $A$ pozitivně definitní a $R$ je regulární, pak $R^HAR$ je také pozitivně definitní
+		- důkaz: $x^HR^HARx=y^HAy\gt0$ pro $y=Rx\neq 0$
+	- pozorování: hermitovská bloková matice $C=\begin{pmatrix}A & 0 \\ 0 & B \end{pmatrix}$ je pozitivně definitní, právě když jsou $A$ i $B$ pozitivně definitní, důkaz:
+		- mějme $z=(x_1,\dots,x_n,y_1,\dots,y_m)^T$
+		- $\impliedby:\quad z^HCz=x^HAx+y^HBy$
+			- když jsou oba sčítance kladné, tak je kladný i součet
+		- $\implies:\quad$ doplníme $x$ nulami na $z$, dostaneme $x^HAx=z^HCz\gt 0$
+			- podobně pro $y$ a $B$
+	- důkaz
+		- Gaussova eliminace prvního sloupce $A$ odpovídá součinu $$\begin{pmatrix}1 & 0^H \\ -\frac1\alpha a & I \end{pmatrix}\cdot\begin{pmatrix}\alpha & a^H \\ a & \tilde A \end{pmatrix}=\begin{pmatrix}\alpha & a^H \\ 0 & \tilde A-\frac1\alpha aa^H \end{pmatrix}$$
+			- matici elementárních úprav označme $R^H$ (je regulární)
+		- $R^HAR=\begin{pmatrix}\alpha & 0^H \\ 0 & \tilde A-\frac1\alpha aa^H \end{pmatrix}$
+			- $A$ je pozitivně definitní, právě když je výsledná bloková matice pozitivně definitní (což nastává, když má oba nenulové bloky pozitivně definitní)
 - věta o pozitivně definitních maticích a determinantech
 - správnost algoritmu pro výpočet Choleského rozkladu
 - věta o diagonalizovatelnosti matic forem
-- Sylvesterův zákon setrvačnosti — o diagonalizaci kvadratických forem
+- Sylvesterův zákon setrvačnosti – o diagonalizaci kvadratických forem
 - věta o počtu přímek svírajících stejný úhel
 
 ## Přehledy (14)
