@@ -502,10 +502,10 @@
 		- input: hermitovská $A$
 		- output: $U$, pokud je $A$ pozitivně definitní
 		- for $i=1,\dots,n$ do
-			- $u_ii=\sqrt{a_ii-\sum^{i-1}_{k=1}\bar u_{ki}u_{ki}}$
+			- $u_{ii}=\sqrt{a_{ii}-\sum^{i-1}_{k=1}\bar u_{ki}u_{ki}}$
 			- if $u_{ii}\notin\mathbb R^+$ then return $A$ není pozitivně definitní
 			- for $j=i+1,\dots,n$ do
-				- $u_{ij}=\frac1{u_ii}\left(a_{ij}-\sum^{i-1}_{k=1}\bar u_{ki}u_{kj}\right)$
+				- $u_{ij}=\frac1{u_{ii}}\left(a_{ij}-\sum^{i-1}_{k=1}\bar u_{ki}u_{kj}\right)$
 			- end
 		- end
 	- správnost
@@ -527,6 +527,17 @@
 		- $=u^Hu-u^Hu-u^Hu+\alpha=\alpha-u^Hu\leq 0$
 		- proto $A$ není pozitivně definitní
 - věta o diagonalizovatelnosti matic forem
+	- věta: Pro jakoukoliv symetrickou matici $A\in\mathbb K^{n\times n}$ s $\text{char}(\mathbb K)\neq 2$ existuje regulární matice $R$ taková, že $R^TAR$ je diagonální.
+	- důkaz
+		- indukcí dle $n$ (řádu matice)
+		- označme $A=A_n=\begin{pmatrix}\alpha & a^T \\ a & \tilde A \end{pmatrix}$
+		- když $\alpha\neq 0$, volíme $P^T_n=\begin{pmatrix}1 & 0^T \\ -\frac1\alpha a & I_{n-1} \end{pmatrix}$
+		- pak $P^T_nA_nP_n=\begin{pmatrix}\alpha & 0^H \\ 0 & \tilde A-\frac1\alpha aa^T \end{pmatrix}$
+		- označíme $A_{n-1}=\tilde A-\frac1\alpha aa^T$, tato matice je symetrická
+		- dle indukčního předpokladu existuje $R_{n-1}$ pro $A_{n-1}$
+		- zvolíme $R_n=P_n\cdot \begin{pmatrix}1 & 0^T \\ 0 & R_{n-1}\end{pmatrix}$
+		- pak $R^T_nA_nR_n=\begin{pmatrix}1 & 0^T \\ 0 & R^T_{n-1}\end{pmatrix}\cdot P^T_nA_nP_n \cdot \begin{pmatrix}1 & 0^T \\ 0 & R_{n-1}\end{pmatrix}=$
+		- $=\begin{pmatrix}\alpha & 0^T \\ 0 & R^T_{n-1}A_{n-1}R_{n-1}\end{pmatrix}$, což je dle IP diagonální matice
 - Sylvesterův zákon setrvačnosti – o diagonalizaci kvadratických forem
 - věta o počtu přímek svírajících stejný úhel
 
