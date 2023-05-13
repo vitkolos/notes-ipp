@@ -430,6 +430,20 @@
 		- $f$ je izometrie pokud $[w]^H_X[u]_X=[w]_X^H[f]^H_{XY}[f]_{XY}[u]_X$ platí pro všechna $u$ a $w$
 		- to platí právě když $[f]^H_{XY}[f]_{XY}=I$, tedy je-li $[f]_{XY}$ unitární
 - věta o ortogonálním doplňku
+	- věta: Pro konečně generovaný prostor $W$ se skalárním součinem a podprostor $V$ platí $(V^\perp)^\perp=V$ a $\text{dim }V+\text{dim }V^\perp=\text{dim }W$.
+	- důkaz
+		- zvolíme nějakou ortonormální bázi $X$ prostoru $V$ a doplníme ji na ortonormální bázi $Z$ prostoru $W$
+		- označme $Y=Z\setminus X,\,X=(x_1,\dots,x_k),\,Y=(y_1,\dots,y_l)$
+		- každé $u\in\mathcal L(X)=V$ je kolmé ke každému $v\in\mathcal L(Y)$
+			- $\langle u|v\rangle=\left\langle\sum_{i=1}^ka_ix_i\middle|\sum^l_{j=1}b_jy_j\right\rangle=\sum^k_{i=1}\sum^l_{j=1}a_i\bar{b_j}\langle x_i|y_j\rangle=0$
+			- protože $Z$ je ortonormální báze
+			- proto $\mathcal L(Y)\subseteq V^\perp$
+		- vezměme $w\in V^\perp$ a uvažme $[w]_Z$
+		- $Z$ je ortonormální $\implies ([w]_Z)_i=\langle w|z_i\rangle$
+		- $w\in V^\perp\implies\langle w|x_i\rangle =0\implies w\in\mathcal L(Y)\implies V^\perp\subseteq\mathcal L(Y)$
+		- tedy $V^\perp=\mathcal L(Y)$
+		- $\text{dim }V+\text{dim }V^\perp=|X|+|Y|=|Z|=\text{dim }W$
+		- $(V^\perp)^\perp=\mathcal L(Z\setminus Y)=\mathcal L(X)=V$
 - věta o skalárním součinu dvou vektorů a Gramově matici
 - věta o třech ekvivalentních podmínkách pro pozitivně definitní matice
 - věta o rekurentní podmínce pro pozitivně definitní matice
