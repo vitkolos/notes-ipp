@@ -72,7 +72,7 @@
 	- skalární součin na $V$ nad $\mathbb R$ je zobrazení $V\times V\to\mathbb R$, přičemž $\langle v|u\rangle = \langle u|v\rangle$ (ve třetím axiomu), $\alpha\in\mathbb R$ (v posledním axiomu)
 	- standardní skalární součin na $\mathbb R^n$: $\langle u|v\rangle=v^Tu$
 	- standardní skalární součin na $\mathbb C^n$: $\langle u|v\rangle=v^Hu$
-- norma spojená se skalárním součinem
+- norma indukovaná skalárním součinem
 	- je-li $V$ prostor se skalárním součinem, pak norma odvozená ze skalárního součinu je zobrazení $V\to R^+_0$ přiřazující vektoru $u$ jeho normu $||u||=\sqrt{\langle u|u\rangle}$
 	- geometrická interpretace v euklidovském prostoru $\mathbb R^n$
 		- $||u||$ … délka (velikost) $u$
