@@ -574,7 +574,7 @@
 		- musí však platit $g(w)=g(w)$, což neplatí → to je spor
 		- tedy $r=s$
 - věta o počtu přímek svírajících stejný úhel
-	- věta: V $\mathbb R^d$ může nevýše $d+1\choose 2$ přímek svírat stejný úhel.
+	- věta: V $\mathbb R^d$ může nevýše $d+1\choose 2$ přímek svírat stejný úhel $\varphi$.
 	- důkaz
 		- předpokládejme, že existuje $n$ takových přímek
 		- zvolíme vektory jednotkové délky $v_1,\dots,v_n$, z každé přímky po jednom
