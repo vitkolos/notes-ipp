@@ -655,15 +655,17 @@
 	- Jordanův blok
 	- Jordanův normální tvar matice
 	- zobecněný vlastní vektor
+		- pro rozklad $AR=RJ$ se zobecněné vlstní vektory objevují ve sloupcích $R$ společně s vlastními vektory
 - speciální komplexní matice
 	- transpozice, hermitovská transpozice
 	- symetrická matice, hermitovská matice
 	- ortogonální matice, unitární matice
 	- věta o diagonalizaci speciálních komplexních matic
-	- 
 - skalární součin a související norma
 	- skalární součin pro vektorové prostory nad komplexními čísly
-	- norma spojená se skalárním součinem
+		- kdy je reálný
+	- norma spojená se skalárním součinem (odvozená ze součinu, indukovaná součinem)
+		- geometrická interpretace
 	- kolmé vektory
 	- ortonormální báze
 	- Fourierovy koeficienty
@@ -674,6 +676,7 @@
 	- Cauchy-Schwarzova nerovnost
 	- trojúhelníková nerovnost
 	- věta o Fourierových koeficientech
+	- metoda nejmenších čtverců
 	- Gram-Schmidtova ortonormalizace
 	- věta o izometrii a normě
 	- věta o izometrii a vlastnostech její matice
@@ -687,7 +690,7 @@
 	- Choleského rozklad
 	- věta o třech ekvivalentních podmínkách pro pozitivně definitní matice
 	- věta o rekurentní podmínce pro pozitivně definitní matice
-	- věta o pozitivně definitních maticích a determinantech
+	- věta o pozitivně definitních maticích a determinantech (Sylvesterova podmínka)
 	- výpočet Choleského rozkladu
 - bilineární a kvadratické formy a jejich matice
 	- bilineární forma
@@ -696,4 +699,5 @@
 	- analytické vyjádření formy
 	- signatura formy
 	- věta o diagonalizovatelnosti matic forem
+	- polární báze
 	- Sylvesterův zákon setrvačnosti – o diagonalizaci kvadratických forem
