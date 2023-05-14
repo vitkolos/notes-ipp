@@ -645,16 +645,22 @@
 	- Geršgorinovy kruhy
 	- Cayley-Hamiltonova věta
 - podobné matice a diagonalizace
-	- podobné matice +++
+	- podobné matice
+		- idea: matice stejného zobrazení vzhledem k různým bázím jsou podobné
+		- mají stejná vlastní čísla
+		- rovnají se jejich charakteristické polynomy
 	- diagonalizovatelná matice
+	- nezbytná a postačující podmínka, kdy je matice diagonalizovatelná
+	- Jordanova normální forma (každá čtvercová komplexní matice je podobná matici v Jordanově normální formě)
 	- Jordanův blok
 	- Jordanův normální tvar matice
 	- zobecněný vlastní vektor
-	- nezbytná a postačující podmínka, kdy je matice diagonalizovatelná
 - speciální komplexní matice
-	- hermitovská matice
-	- unitární matice
+	- transpozice, hermitovská transpozice
+	- symetrická matice, hermitovská matice
+	- ortogonální matice, unitární matice
 	- věta o diagonalizaci speciálních komplexních matic
+	- 
 - skalární součin a související norma
 	- skalární součin pro vektorové prostory nad komplexními čísly
 	- norma spojená se skalárním součinem
