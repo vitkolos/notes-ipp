@@ -2,8 +2,6 @@
 
 ## Definice (37)
 
-*definujte…*
-
 - permutace
 	- permutace na množině $\lbrace1,2,\dots,n\rbrace$ je bijektivní zobrazení $p:\lbrace1,2,\dots,n\rbrace\rightarrow \lbrace1,2,\dots,n\rbrace$
 - znaménko permutace
@@ -128,8 +126,6 @@
 	- signatura formy $g$ je trojice (počet jedniček, počet minus jedniček, počet nul), počítáno na diagonále matice $B$
 
 ## Věty a důkazy (30)
-
-*vyslovte a dokažte… / uveďte a dokažte…*
 
 - věta o linearitě determinantu
 	- věta
@@ -591,8 +587,6 @@
 			- proto $n\leq {d+1\choose 2}$
 
 ## Přehledy (14)
-
-*přehledově sepište, co víte o… (uveďte definice, tvrzení, věty, příklady a souvislosti – důkazy nejsou vyžadovány)*
 
 - výpočet determinantů
 	- permutační grupa, znaménko permutace
