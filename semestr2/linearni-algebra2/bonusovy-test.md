@@ -523,7 +523,10 @@
 		- $=u^Hu-u^Hu-u^Hu+\alpha=\alpha-u^Hu\leq 0$
 		- proto $A$ není pozitivně definitní
 - věta o diagonalizovatelnosti matic forem
-	- věta: Pro jakoukoliv symetrickou matici $A\in\mathbb K^{n\times n}$ s $\text{char}(\mathbb K)\neq 2$ existuje regulární matice $R$ taková, že $R^TAR$ je diagonální.
+	- věta: Pokud je $g$ kvadratická forma na vektorovém prostoru $V$ konečné dimenze $n$ nad tělesem $\mathbb K$ jiné charakteristiky než 2, pak má forma $g$ diagonální matici $B$ vzhledem k vhodné bázi $X$. (To platí i pro symetrické bilineární formy.)
+	- definice: Polární báze dává diagonální matici kvadratické formy.
+	- přeformulováno z hlediska matic:
+		- věta: Pro jakoukoliv symetrickou matici $A\in\mathbb K^{n\times n}$ s $\text{char}(\mathbb K)\neq 2$ existuje regulární matice $R$ taková, že $R^TAR$ je diagonální.
 	- důkaz
 		- indukcí dle $n$ (řádu matice)
 		- označme $A=A_n=\begin{pmatrix}\alpha & a^T \\ a & \tilde A \end{pmatrix}$
