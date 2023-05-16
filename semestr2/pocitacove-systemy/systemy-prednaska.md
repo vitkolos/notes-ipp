@@ -590,6 +590,8 @@
 		- struktura (struct) – vnější a vnitřní zarovnání, počítání offsetu
 		- FAT (odpověď: 10, 15)
 		- vybrat kód
+		- Jedná se o alokaci souvislých bloků paměti. Máte zadaný typ algoritmu pro alokaci (např. first fit) a sekvenci alokací a dealokací bloků různé velikosti. A otázka pak zní: Na jaké adrese leží nějaký blok na heapu, pokud byl použitý daný algoritmus?
+		- ale můžou tam být i jiné otázky
 	- je na to zhruba hodina (ale klidně dvě hodiny)
 	- odpovědi musí být správné, na postupu nezáleží
 	- v češtině i angličtině
