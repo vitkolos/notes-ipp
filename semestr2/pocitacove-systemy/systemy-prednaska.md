@@ -574,3 +574,82 @@
 			- adresu slepím s offsetem, přistoupím k datům
 			- když v tabulce není present bit, tak vrátím page fault
 			- převod uložím do TLB
+- zkouška
+	- nezávislá na zápočtu
+	- test u počítače v laborce – musíme se zapsat v SISu
+	- nepotřebujeme vůbec nic – ale máme si vzít prázdné papíry a tužku + můžeme si vzít kalkulačku (nebo si pustíme na počítači)
+	- stačí nám znalosti z přednášky
+	- 10 otázek
+	- některé čistě teoretické
+		- jedna správná odpověď (zaškrtnout)
+		- několik správných odpovědí
+	- další otázky počítací (je jich 5)
+		- page faults
+			- pozor na rozdíl mezi čtením a kopírováním
+			- při kopírování jich vypadne 8 (úloha viz prezentace)
+		- struktura (struct) – vnější a vnitřní zarovnání, počítání offsetu
+		- FAT (odpověď: 10, 15)
+		- vybrat kód
+	- je na to zhruba hodina (ale klidně dvě hodiny)
+	- odpovědi musí být správné, na postupu nezáleží
+	- v češtině i angličtině
+- stránkování (pokračování)
+	- adresy přepočítává hardware (softwarově by to bylo pomalé)
+	- v TLB jsou vždycky 3 bity – Accessed, Dirty, Present
+	- připomenutí: fault vypadne před instrukcí × trap za instrukcí
+	- page fault handling
+		- zajišťuje OS
+		- provádí se kontrola, jestli program sahá na adresu, kam má přístup
+		- vytváří se mapování – hledá se volný rámec
+			- pokud je paměť plná, tak se najde oběť (pomocí page replacement algoritmu) – pokud je dirty, tak se uloží; odstraní se mapping z TLB
+		- opakuje instrukci
+	- page replacement algoritmy (používají se u rámců, TLB, cachí…)
+		- optimální algoritmus – pouze teoretický, nahradí stránku, ke které budeme přistupovat za nejdelší dobu
+		- clock
+			- rámce jsou organizovány kruhově
+			- ručička ukazuje na rámec, který bude nahrazen
+			- pokud má rámec nenulový Accessed bit, nastavím ho na nulu a posunu se dál
+			- pokud ho má rámec nulový, tak ho nahradím
+		- NRU (not recently used)
+			- Accessed bit pravidelně nuluju
+			- klasifikuju rámce podle jejich A, D bitů do čtyři tříd
+				- A0, D0 … třída 0
+				- A0, D1 … třída 1
+				- A1, D0 … třída 2
+				- A1, D1 … třída 3
+			- použiju náhodný rámec z neprázdné třídy s nejnižším číslem
+		- LRU (least recently used)
+			- používá minulost k předpovědi budoucnosti
+			- nahrazuje stránku, která nebyla použita nejdéle
+			- HW implementace cachí nebo bitovou maticí
+		- NFU (not frequently used)
+			- bokem mám počítadlo pro rámec
+			- jednou za čas vezmu A a přičtu ho k počítadlu a vynuluju A
+			- vyberu frame s nejnižším počítadlem
+			- problémy – nově přidané rámce jsou vyhozeny dříve, než nasbírají dostatek bodů v počítadle; rámce, které byly hodně používány nebudou nikdy vyhozeny
+			- stárnutí – periodicky dělím počítadla (shiftuju)
+			- když stránku namapuju, tak jí dám nějakou počáteční hodnotu do počítadla, aby nebyla hned eliminována
+	- sdílená paměť
+		- část virtuálního adresového prostoru je sdílená mezi procesy
+		- ty používají sdílenou paměť ke komunikaci
+	- paměťově mapované soubory
+		- virtuální adresový prostor ukazuje do souboru
+- virtualizace
+	- VM – hypervisor zajišťuje virtualizaci hardwaru
+	- virtualizace na úrovni OS
+- paralelní počítání
+	- chci zrychlit výpočet
+	- race condition
+		- více vláken přistupuje ke sdílenému prostředku
+		- to vede k tomu, že výsledek výpočtu závisí na plánování operačního systému nebo na chování procesoru
+		- takový výsledek je k ničemu
+		- řešila by to atomizace read-modify-write operace
+		- definuju kritickou sekci
+		- pomocí synchronizačního primitiva zajistím, že v kritické sekci je jenom jedno vlákno
+		- aktivní a pasivní/blokující synchronizační primitiva
+			- aktivní vykonávají instrukce a pořád koukají do kritické sekce, jestli tam můžou
+			- pasivní/blokující jsou zablokovány, dokud není přístup povolen
+		- hardwarová podpora – atomické instrukce test-and-set (TSL), compare-and-swap (CAS)
+		- spin-lock
+		- semafor
+		- …
