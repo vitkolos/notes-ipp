@@ -103,7 +103,7 @@
 - pozitivně definitní matice
 	- pokud hermitovská matice $A$ řádu $n$ vyhovuje $\forall x\in\mathbb C^n\setminus \lbrace 0\rbrace: x^HAx\gt 0$, pak je pozitivně definitní
 - Choleského rozklad
-	- věta: pro každou pozitivně definitní matici $A$ existuje unikání horní trojúhelníková matice $U$ s kladnou diagonálou taková, že $A=U^HU$
+	- věta: pro každou pozitivně definitní matici $A$ existuje unikátní horní trojúhelníková matice $U$ s kladnou diagonálou taková, že $A=U^HU$
 	- matice $U$ se nazývá Choleského rozklad
 - bilineární forma
 	- nechť $V$ je vektorový prostor nad tělesem $\mathbb K$ a nechť zobrazení $f:V\times V\to \mathbb K$ splňuje
@@ -447,8 +447,8 @@
 	- pozorování: když je $X$ ortonormální báze, pak $A=I_n$
 	- důkaz
 		- označme $[u]_X=(b_1,\dots,b_n)^T,\,[w]_X=(c_1,\dots,c_n)^T$
-		- $\langle u|v\rangle=\left\langle\sum_{i=1}^kb_iv_i\middle|\sum^l_{j=1}c_jv_j\right\rangle=$
-		- $=\sum^k_{i=1}\sum^l_{j=1}b_i\bar{c_j}\langle v_i|v_j\rangle=[w]^H_XA^T[u]_X$
+		- $\langle u|v\rangle=\left\langle\sum_{i=1}^nb_iv_i\middle|\sum^n_{j=1}c_jv_j\right\rangle=$
+		- $=\sum^n_{i=1}\sum^n_{j=1}b_i\bar{c_j}\langle v_i|v_j\rangle=[w]^H_XA^T[u]_X$
 - věta o třech ekvivalentních podmínkách pro pozitivně definitní matice
 	- věta: Pro hermitovskou matici $A$ jsou následující podmínky ekvivalentní:
 		1. $A$ je pozitivně definitní,
