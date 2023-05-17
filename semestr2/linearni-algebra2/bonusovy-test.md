@@ -508,7 +508,7 @@
 		- předpokládejme, že algoritmus selže během i-té iterace, tj. $\alpha-u^Hu\leq 0$
 			- $\alpha$ odpovídá $a_{ii}$
 		- $u$ je vektor o $i-1$ složkách v horní trojúhelníkové matici
-		- máme částečný rozklad hlavní vedoucí podmatice $A'=V^HV$ a rovněž sloupce nad $\alpha$ (a řádku vlevo) $a=V^Hu$
+		- máme částečný rozklad hlavní vedoucí podmatice $A'=V^HV$ a rovněž sloupec nad $\alpha$ (a řádku vlevo) $a=V^Hu$
 		- trikově zvolíme $x=-V^{-1}u$
 		- $x$ má $i-1$ složek, tedy jej doplníme o jednu jedničku (na pozici $i$) a jinak samé nuly na vektor $y$
 		- $y^HAy=x^HA'x+x^Ha+a^Hx+\alpha=$
