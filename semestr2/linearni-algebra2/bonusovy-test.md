@@ -276,7 +276,7 @@
 		- použijeme větu (o adjungované matici), že $M\cdot\text{adj }M=(\text{det }M)\cdot I_n$ pro $M=A-tI_n$
 		- složky $\text{adj}(A-tI_n)$ jsou determinanty podmatic, tj. polynomy v $t$ stupně nejvýše $n-1$
 		- matici lze tedy rozepsat takto: $\text{adj}(A-tI_n)=t^{n-1}B_{n-1}+\dots+tB_1+B_0$ pro $B_{n-1},\dots,B_0\in\mathbb K^{n\times n}$
-		- nyní máme $(A-tI_n)(t^{n-1}B_{n-1}+\dots+tB_1+B_0)=$ 
+		- nyní máme $(A-tI_n)(t^{n-1}B_{n-1}+\dots+tB_1+B_0)$ 
 		  $=p_A(t)I_n=(-1)^nt^nI_n+a_{n-1}t^{n-1}I_n+\dots+a_2t^2I_n+a_1tI_n+a_0I_n$
 		- získáme $n+1$ rovnic (porovnáváme koeficienty u $t^i$ na levé a pravé straně rovnice)
 			- pro $t^n$: $-B_{n-1}=(-1)^nI_n$
