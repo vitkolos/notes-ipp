@@ -584,7 +584,7 @@
 			- $=\sum^n_{i=1}\alpha_iv_j^Tv_iv_i^Tv_j=\sum^n_{i=1}\alpha_i\langle v_i|v_j\rangle^2=\alpha_j+\cos^2\varphi\sum_{i\neq j}\alpha_i$
 			- to lze přepsat na soustavu rovnic $Ax=0$
 				- $A$ má na diagonále jedničky, všude jinde $\cos^2\varphi$
-				- $x=(a_1,\dots,a_n)^T$
+				- $x=(\alpha_1,\dots,\alpha_n)^T$
 			- matice této soustavy je regulární, proto je jediným řešením $\alpha_1=\dots=\alpha_n=0$, z toho plyne lineární nezávislost matic
 		- dimenze prostoru symetrických matic z $\mathbb R^{d\times d}$ je $d+1\choose 2$
 			- proto $n\leq {d+1\choose 2}$
