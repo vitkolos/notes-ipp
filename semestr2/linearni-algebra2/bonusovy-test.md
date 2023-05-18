@@ -282,7 +282,7 @@
 			- pro $t^n$: $-B_{n-1}=(-1)^nI_n$
 			- pro $t^i$ ($0\lt i\lt n$): $AB_i-B_{i-1}=a_iI_n$
 			- pro $t^0$: $AB_0=a_0I_n$
-		- všechny rovnice kromě té poslední vynásobíme zleva $A^n$ a všechny je sečteme
+		- všechny rovnice kromě té poslední vynásobíme zleva $A^i$ (respektive $A^n$) a všechny je sečteme
 		- na levé straně dostaneme $-A^nB_{n-1}+A^{n-1}(AB_{n-1}-B_{n-2})+\dots+A(AB_1-B_0)+AB_0=0_n$
 			- členy se navzájem poodčítají
 		- pravá strana: $(-1)^nA^n+a_{n-1}A^{n-1}+\dots+a_2A^2+a_1A+a_0I_n=p_A(A)$
