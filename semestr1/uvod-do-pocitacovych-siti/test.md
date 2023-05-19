@@ -1,6 +1,6 @@
 # Test
 
-jednotlivé body odpovídají [otázkám](Otázky.md)
+jednotlivé body odpovídají [otázkám](otazky.md)
 
 - porovnání metody přepojování paketů a přepojování okruhů
 	- přepojování okruhů – všechna data jdou jednou cestou
