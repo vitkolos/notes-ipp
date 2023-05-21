@@ -35,4 +35,3 @@
 - nevlastní integrál?
 - délka křivky $l=\int_a^b\sqrt{1+(f'(x))^2}\,dx$
 - povrch rotačního tělesa $S=\int_a^b2\pi f(x)\sqrt{1+(f'(x))^2}\,dx$
-- 
