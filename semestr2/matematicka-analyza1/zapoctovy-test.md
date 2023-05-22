@@ -35,3 +35,16 @@
 - délka křivky $l=\int_a^b\sqrt{1+(f'(x))^2}\,dx$
 - povrch rotačního tělesa $S=\int_a^b2\pi f(x)\sqrt{1+(f'(x))^2}\,dx$
 - $0\cdot\text{něco omezeného}=0\implies \lim_{x\to0}\sqrt{|x|}\sin(1/x)=0$
+
+## Užitečné vzorce (k procvičování)
+
+- známé limity pro $x\to0$
+- podmínky L'Hospitalova pravidla
+- derivace součinu a podílu
+- derivace složené funkce
+- Taylorův polynom
+- integrace per partes
+- plocha mezi křivkami
+- objem rotačního tělesa
+- délka křivky
+- povrch rotačního tělesa
