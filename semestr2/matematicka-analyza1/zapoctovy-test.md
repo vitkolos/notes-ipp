@@ -29,7 +29,7 @@
 - NEZAPOMÍNAT $+\,c$
 - substituce neurčitého i určitého integrálu
 - „orientovaná“ plocha pod grafem funkce (Newtonův integrál) $\int_a^bf(x)\,dx$
-- **rozklad na parciální zlomky**
+- rozklad na parciální zlomky
 - plocha mezi křivkami $S=\int_a^b|f(x)-g(x)|\,dx$
 - objem rotačního tělesa $V=\int_a^b\pi f^2(x)\,dx$
 - délka křivky $l=\int_a^b\sqrt{1+(f'(x))^2}\,dx$
