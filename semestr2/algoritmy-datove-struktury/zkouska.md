@@ -87,7 +87,7 @@
 	- Df: $\text{low}(v):=\text{min}\lbrace \text{in}(b)\mid ab$ je zpětná hrana s $a\in T(v)\rbrace$
 	- `low` pro $v$ je minimum z `low` synů $v$ a `in` zpětných hran z $v$
 	- stromová hrana $xy$ není most $\iff\text{low}(y)\lt y$
-	- běží v čase $\Theta(n+m)$
+	- stačí nám upravené DFS, běží v čase $\Theta(n+m)$
 
 ## Algoritmy pro orientované grafy
 
