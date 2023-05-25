@@ -43,14 +43,51 @@
 		- $f,g:\mathbb N\to\mathbb R$
 		- $\forall^*n$ … pro všechna $n$ až na konečně mnoho výjimek (existuje $n_0$ takové, že pro všechna větší $n$ už to platí)
 	- $f\in \Omega(g)\equiv\exists c\,\forall^*n\;f(n)\geq c\cdot g(n)$
-	- $\Theta(g)\equiv O(g)\cap \Omega(g)$
+	- $\Theta(g):= O(g)\cap \Omega(g)$
 
 ## Základní grafové algoritmy
 
 - Algoritmus: Prohledávání do šířky (BFS)
+	- zpracování určitého vrcholu = odeberu ho z fronty, podívám se na sousední vrcholy a pokud jsou nenavštívené, tak je označím jako otevřené a přidám je do fronty ke zpracování, zpracovávaný vrchol zavřu
+	- algoritmus začíná přidáním prvního vrcholu do fronty (to je ten vrchol, ze kterého graf prohledáváme)
+	- algoritmus končí, jakmile je fronta prázdná
+	- složitost $\Theta(n+m)$
 - Algoritmus: Prohledávání do hloubky (DFS)
+	- lze implementovat rekurzí nebo jako BFS se zásobníkem místo fronty
+	- na začátku jsou všechny vrcholy neviděné
+	- DFS(v):
+		- stav(v) ← otevřený
+		- pro vw $\in E$
+			- pokud stav(w) = neviděný
+				- DFS(w)
+		- stav(v) ← zavřený
+	- opakované DFS – algoritmus nespouštíme pouze pro jeden určitý vrchol, ale pro všechny (neviděné) vrcholy grafu → projdeme všechny komponenty souvislosti
+		- stejného efektu lze docílit přidáním jednoho supervrcholu, který bude připojen ke všem vrcholům grafu
+	- složitost $\Theta(n+m)$
 - Definice: Klasifikace hran v DFS
-- Algoritmus: Hledání mostů
+	- v orientovaném grafu
+		- stromová hrana – hrana, po které jsme při DFS prošli
+		- zpětná hrana – vede do předka (do otevřeného vrcholu)
+		- dopředná hrana – vede do potomka (do uzavřeného vrcholu)
+		- příčná hrana – vede do uzavřeného vrcholu v jiné větvi (není ani předkem, ani potomkem)
+		- hrana nemůže být příčná v opačném směru – taková hrana je stromová
+	- v neorientovaném grafu – každou hranu vidíme dvakrát
+		- poprvé stromová, podruhé zpětná
+		- poprvé zpětná, podruhé dopředná
+		- hrana nemůže být poprvé dopředná, protože taková hrana je stromová
+		- hrana nemůže být poprvé příčná, protože podruhé by byla příčná v opačném směru, což nejde
+		- pokud ignorujeme druhé návštěvy, tak existují jenom stromové a zpětné hrany
+	- klasifikaci lze určit i na základě uzávorkování průchodu vrcholy, když při otevření vrcholu $v_i$ napíšeme $(_i$ a při jeho uzavření $)_i$
+	- místo uzávorkování lze rovněž použít „hodiny“ a každému vrcholu nastavit čas otevření (in) a čas uzavření (out)
+- Algoritmus: Hledání mostů v neorientovaných grafech
+	- Df: $e\in E(G)$ je most $\equiv G-e$ má více komponent než $G$
+		- $e$ není most $\iff e$ leží na kružnici
+	- zpětná hrana není nikdy most (leží na kružnici), tedy stačí poznat, zda stromová hrana leží na kružnici
+	- stromová hrana $xy$ není most $\iff\exists$ zpětná hrana $ab$, kde $a$ leží v $T(y)$ (podstromu $y$) a $b$ v něm neleží
+	- Df: $\text{low}(v):=\text{min}\lbrace \text{in}(b)\mid ab$ je zpětná hrana s $a\in T(v)\rbrace$
+	- `low` pro $v$ je minimum z `low` synů $v$ a `in` zpětných hran z $v$
+	- stromová hrana $xy$ není most $\iff\text{low}(y)\lt y$
+	- běží v čase $\Theta(n+m)$
 
 ## Algoritmy pro orientované grafy
 
