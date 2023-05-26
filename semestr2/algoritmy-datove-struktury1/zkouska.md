@@ -262,13 +262,78 @@
 ## Vyhledávací stromy
 
 - Definice: Rozhraní slovníku, množiny a jejich uspořádaných verzí
+	- množina – Find/Member, Insert, Delete
+	- slovník – Get, Set, Delete
+	- u statické struktury (např. setříděného pole) se navíc hodí operace Build
+	- uspořádaná množina má navíc Min, Max, Pred, Succ
 - Definice: Binární vyhledávací strom (BVS)
+	- BVS je binární strom, jehož každému vrcholu $v$ přiřadíme unikátní klíč $k(v)$ z univerza. Přitom musí pro každý vrchol $v$ platit:
+		- Kdykoliv $a\in L(v)$, pak $k(a)\lt k(v)$
+		- Kdykoliv $b\in R(v)$, pak $k(b)\gt k(v)$.
 - Algoritmus: Operace Find, Insert a Delete v BVS
+	- Find: „binární vyhledávání“ (porovnávám s vrcholem – podle toho se zanořím do jednoho z podstromů nebo vrátím hodnotu vrcholu, případně $\emptyset$, pokud se nemám kam zanořit)
+	- Insert: vložím vrchol tam, kde bych ho našel, kdyby ve stromu byl (pokud tam je, tak nic nedělám)
+	- Delete: vrchol najdeme a smažeme; pokud má jednoho syna, tak ho připojíme pod otce smazaného vrcholu; pokud má dva syny, nejdříve nalezneme nejlevější vrchol v pravém podstromu a s tím ho prohodíme (fungovalo by to i symetricky)
 - Definice: Dokonale vyvážený strom
+	- dokonale vyvážený je takový strom, pro jehož každý vrchol platí $||l(v)|-|r(v)||\leq 1$
+	- špatně se udržuje
 - Definice: AVL strom
+	- AVL strom = hloubkově vyvážený strom
+	- pro každý jeho vrchol platí $|h(l(v))-h(r(v))|\leq1$
+	- tedy hloubka levého a pravého podstromu se liší nejvýše o jedna
 - Věta: Odhad hloubky AVL stromu
+	- věta: AVL strom na $n$ vrcholech má hloubku $\Theta(\log n)$.
+	- důkaz
+		- jaká je maximální hloubka stromu o $n$ vrcholech?
+			- inverzní otázka: jaký je mininimální počet vrcholů ve stromu hloubky $h$?
+			- $A_h:=$ min. počet vrcholů pro hloubku $h$
+			- $A_0=1,\;A_1=2$
+			- $A_h=A_{h-1}+A_{h-2}+1$ (za kořen)
+				- to vede na Fib. čísla
+			- tvrzení: $A_h\geq 2^{h/2}$
+			- důkaz indukcí
+			- pro $A_0,A_1$ platí
+			- indukční krok: $A_h=A_{h-1}+A_{h-2}+1\geq 2^{h/2}\cdot 2^{-1/2}+2^{h/2}\cdot2^{-1}\geq 2^{h/2}$
+				- u první nerovnosti odčítáme jedničku, u druhé nerovnosti dělíme konstantou (mírně) větší než jedna
+			- $A_h\geq c^h$ (dokázali jsme pro $c=\sqrt{2}$)
+			- tedy $h\leq \log_cn$
+			- kdyby $h\gt \log_2n$, pak $n\geq A_h\geq c^h\gt n$, což je spor
+		- dolní odhad
+			- $B_0=1,\;B_1=3,\;B_h=2B_{h-1}+1$
+			- $B_h=2^{h+1}-1\leq 2^{h+1}$
+			- $h\geq\log n-1$
+		- tedy $h\in\Theta(\log n)$
 - Definice: Rotace hrany stromu
+	- jednoduchá rotace – hranu změním z levé na pravou (nebo naopak), převěsím jeden podstrom
+	- dvojitá rotace – jeden vrchol „vytáhnu“ zespodu nahoru, převěsím dva podstromy
 - Algoritmus: Operace Insert a Delete v AVL stromech
+	- Df. znaménko vrcholu
+		- $\delta: V\to \lbrace-1,0,+1\rbrace$
+		- $\delta(v):=h(r(v))-h(l(v))$
+	- insert a delete jako u BVS, ale navíc udržujeme znaménko a rotujeme, když je třeba
+	- při insertu vkládáme list, posíláme nahoru signál o zvýšení hloubky
+	- insert – 5 možností, BÚNO signál o zvýšení hloubky přichází do vrcholu $x$ zleva (jinak bychom prohodili strany a znaménka)
+		- vrchol $x$ měl znaménko +
+			- hloubka podstromů se vyrovnala, znaménko se změní na 0
+			- hloubka hloubka podstromu $T(x)$ se nezměnila, takže propagaci informace ukončíme
+		- vrchol měl znaménko $0$
+			- znaménko $x$ se změní na $-$
+			- hloubka $T(x)$ vzrostla, pokračujeme v propagaci
+		- vrchol $x$ měl znaménko $-$, nově by měl $-2\implies$ musíme vyvažovat
+			- označíme levého syna jako $y$
+			- $y$ má znaménko $-$
+				- provedeme jednoduchou rotaci hrany $xy$
+				- tím získají vrcholy $x,y$ znaménko $0$
+				- hloubka se nezměnila, propagaci ukončíme
+			- $y$ má znaménko $+$
+				- pravého syna vrcholu $y$ označíme jako $z$
+				- provedeme dvojitou rotaci
+				- novým kořenem podstromu je vrchol $z$, získá znaménko $0$
+				- hloubka se nezměnila, propagaci ukončíme
+			- $y$ má znaménko $0$
+				- nemůže nastat, protože z vrcholu se znaménkem $0$ se informace nešíří výše (až na případ s listem, ale jeho otec $x$ nemůže mít nikdy $-$)
+	- delete – 6 možností, obdobné jako u insertu, akorát může nastat každá z možností
+	- při insertu se provádí maximálně jedna rotace, při deletu jich může být víc
 
 ## (a,b)-stromy
 
