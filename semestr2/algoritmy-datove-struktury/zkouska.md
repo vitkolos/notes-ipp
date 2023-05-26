@@ -140,11 +140,63 @@
 ## Nejkratší cesty
 
 - Definice: Vzdálenost v grafu
+	- mějme orientovaný graf $G=(V,E)$ s délkami hran $l:E\to \mathbb R^+_0$
+	- délka $uv$-cesty $P:l(P):=\sum_{e\in P}l(e)$
+	- vzdálenost $d(u,v):=\text{min}\lbrace l(p)\mid P$ je $uv$-cesta$\rbrace$
+		- může být $\infty$, pokud cesta neexistuje
 - Věta: Trojúhelníková nerovnost pro vzdálenost
+	- $d(u,v)\leq d(u,w)+d(w,v)$
+	- důkaz
+		- pokud je $d(u,w)$ nebo $d(w,v)$ nekonečná, nerovnost triviálně platí
+		- jinak uvažujeme spojení nejkratší $uw$-cesty s nejkratší $wv$-cestou, to je nějaký $uv$-sled, který nemůže být kratší než nejkratší $uv$-cesta (protože nejkratší cesta = nejkratší sled; když se vrchol opakuje, tak část mezi opakováními vystřihneme)
+	- kdybychom povolili hrany záporné délky, museli bychom zakázat záporné cykly
 - Algoritmus: Dijkstrův algoritmus
+	- hledání nejkratších cest z daného vrcholu do všech vrcholů grafu
+	- je to v podstatě BFS s budíky
+	- funguje pro $l\in\mathbb Q_0^+$
+	- začínáme od nějakého vrcholu $v_0$ (otevřeme ho a jeho ohodnocení $h(v_0)$ nastavíme na nulu)
+	- dokud existují nějaké otevřené vrcholy, vybereme z nich ten, jehož $h(v)$ je nejmenší (ten zavřeme) a všechny jeho následníky otevřeme a jejich $h(w)$ snížíme na $h(v)+l(v,w)$
+	- ukládáme předchůdce vrcholů, aby se cesta dala rekonstruovat
+	- každý vrchol zavřeme pouze jednou
+	- pokud nejmenší $h(v)$ hledáme pokaždé znova, tak to má složitost $\Theta(n^2)$
 - Příklad: Implementace Dijkstrova algoritmu pomocí haldy
+	- cena operací
+		- ExtractMin … $T_X$
+		- Insert … $T_I$
+		- Decrease … $T_D$
+	- složitost Dijkstra je $O(n\cdot T_I+m\cdot T_D + n\cdot T_X)$
+		- vkládáme každý vrchol
+		- decrease se provádí nejvýše jednou za každou hranu
+		- extractujeme každý vrchol
+	- v poli je vložení a odebrání $O(n)$, decrease $O(1)\implies O(n^2)$
+	- v binární haldě jsou všechny tři operace $O(\log n)\implies O((n+m) \log n)$
+	- v d-regulární haldě jsou Insert a Decrease $O(\log_d n)$, ExtractMin je $O(d\log_dn)$
+		- $\log_dn=\frac{\log n}{\log d}$
+		- je vhodné zvolit $d=m/n$, aby asymptotika vycházela hezky
+	- ještě lepší je Fibonacciho halda
 - Algoritmus: Obecný relaxační algoritmus
+	- jako Dijkstra, ale volíme libovolný otevřený vrchol (tedy ne nutně ten s nejnižším ohodnocením)
+	- algoritmus
+		- vstup: graf $G$, počáteční vrchol $v_0$
+		- na začátku jsou všechny vrcholy nenalezené, jejich ohodnocení je nekonečné, jejich předchůdci jsou nedefinováni
+		- stav počátečního vrcholu nastavíme na otevřený, jeho ohodnocení na nulu
+		- dokud existují otevřené vrcholy
+			- vezmu nějaký otevřený vrchol $v$
+			- pro všechny jeho následníky $w$ provedu relaxaci, tzn.:
+				- pokud $h(w)\gt h(v)+l(v,w)$
+					- $h(w)\leftarrow h(v)+l(v,w)$
+					- stav(w) $\leftarrow$ otevřený
+					- $P(w)\leftarrow v$
+				- stav(v) $\leftarrow$ uzavřený
+		- výstup: ohodnocení vrcholů $h$ a pole předchůdců
 - Algoritmus: Bellmanův-Fordův algoritmus
+	- relaxační algoritmus, vrcholy ukládá do fronty (takže jako Dijkstra, akorát nebere nejlevnější, ale nejstarší)
+	- funguje pro grafy bez záporných cyklů
+	- má fáze
+		- $F_0:=$ otevření $v_0$
+		- $F_i:=$ zavírání vrcholů otevřených v $F_{i-1}$ a otevírání jejich následníků
+	- invariant: na konci fáze $F_i$ odpovídá $h(v)$ délce nekratšího $v_0v$-sledu o nejvýše $i$ hranách
+	- z toho vyplývá složitost $\Theta(n\cdot m)$
 
 ## Minimální kostry
 
