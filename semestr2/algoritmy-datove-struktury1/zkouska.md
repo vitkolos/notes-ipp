@@ -201,11 +201,63 @@
 ## Minimální kostry
 
 - Algoritmus: Jarníkův algoritmus
+	- klasický Jarník
+		- hladový algoritmus
+		- na začátku máme strom $T$, který obsahuje vrchol $v_0$ (libovolný) a žádné hrany
+		- vezmeme nejlehčí hranu vedoucí mezi stromem $T$ a zbytkem grafu – tu přidáme do stromu
+			- opakujeme, dokud takové hrany existují
+		- složitost $O(nm)$
+	- Jarník podle Dijkstry
+		- udržuju si haldu aktivních hran – to jsou hrany v aktuálním řezu
+		- do stromu $T$ vždycky přidávám minimum z haldy
+		- když zjistím, že mám dvě aktivní hrany, které vedou do jednoho vrcholu mimo $T$, tak tu těžší zahodím
+		- s polem složitost $O(n^2)$, s haldou $O(m\log n)$ (protože $n\log n$ se díky souvislosti grafu vejde do $m\log n$)
 - Věta: Lemma o řezech
+	- Df: Mějme podmnožinu vrcholů $A$ a jejich doplněk $B$. Elementární řez určený množinami $A,B$ je množina hran, které leží jedním vrcholem v $A$ a druhým v $B$.
+	- lemma: Nechť $G$ je graf opatřený unikátními vahami, $R$ nějaký jeho elementární řez a $e$ nejlehčí hrana tohoto řezu. Pak $e$ leží v každé minimální kostře grafu $G$.
+	- důkaz
+		- v kostře musí ležet právě jedna hrana řezu
+		- pro spor předpokládejme, že je to jiná hrana než $e$ (a že je kostra minimální)
+		- tuto hranu můžeme z kostry odstranit, tím vzniknou dva stromy
+		- tyto stromy následně můžeme spojit pomocí hrany $e$
+		- tím cena kostry klesne, což je spor s minimalitou
 - Věta: Jednoznačnost minimální kostry
+	- věta: Souvislý graf s unikátními vahami má právě jednu minimální kostru (a Jarníkův algoritmus ji najde).
+	- důkaz
+		- každá hrana vybraná Jarníkovým algoritmem je nejlehčí hranou elementárního řezu mezi vrcholy stromu $T$ a zbytkem grafu
+		- každá hrana, kterou vybere, leží v každé minimální kostře
 - Algoritmus: Borůvkův algoritmus
+	- paralelní verze Jarníkova algoritmu
+	- na začátku $T$ obsahuje izolované vrcholy grafu
+	- dokud $T$ není souvislý:
+		- rozložíme $T$ na komponenty souvislosti
+		- pro každou komponentu najdeme nejlehčí hranu mezi komponentou a zbytkem vrcholů a přidáme ji do $T$
+	- složitost
+		- rozklad na komponenty v $O(n+m)$, ale taky $O(m)$ díky souvislosti
+		- nalezení nejlehčích hran v $O(m)$
+		- algoritmus se zastaví po nejvýše $\lfloor\log n\rfloor$ iteracích
+		- z toho plyne složitost $O(m\log n)$
 - Algoritmus: Kruskalův algoritmus
+	- hladový algoritmus
+	- na začátku je $T$ les izolovaných vrcholů
+	- uspořádá hrany od nejlehčí po nejtěžší, postupně bere každou z nich (od nejlehčí)
+	- vezme hranu a pokud jsou její krajní vrcholy v různých komponentách, tak ji přidá do $T$
+	- konečnost zřejmá z omezeného počtu hran, správnost z řezového lemmatu (přidává nejlehčí hranu řezu)
+	- složitost
+		- třídění hran v $O(m\log m)\subseteq O(m\log n^2)=O(m\log n)$
+		- použijeme strukturu Union-Find
+		- složitost algoritmu je $O(m\log n+m\cdot T_F(n)+n\cdot T_U(n))$
+			- unionem přibývá hrana do kostry
 - Algoritmus: Union-Find
+	- primitivně s polem Union $O(n)$, Find $O(1)$
+	- rychleji pomocí keříků
+		- komponenta je keřík orientovaný do kořene
+		- union se dělá připojením kořene jednoho keříku ke kořeni druhého keříku
+		- find se dělá vystoupáním do kořene
+		- kořen si pamatuje hloubku, při unionu budeme připojovat mělčí pod hlubší
+		- tudíž hloubka keříku bude $\leq\log n$
+		- z toho plyne Union i Find $O(\log n)$
+		- pak má Kruskal složitost $O(m\log n)$
 
 ## Vyhledávací stromy
 
