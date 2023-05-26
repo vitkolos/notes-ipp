@@ -301,7 +301,7 @@
 		- dolní odhad
 			- $B_0=1,\;B_1=3,\;B_h=2B_{h-1}+1$
 			- $B_h=2^{h+1}-1\leq 2^{h+1}$
-			- $h\geq\log n-1$
+			- $h\geq\log n-1\geq \log n$
 		- tedy $h\in\Theta(\log n)$
 - Definice: Rotace hrany stromu
 	- jednoduchá rotace – hranu změním z levé na pravou (nebo naopak), převěsím jeden podstrom
@@ -312,11 +312,11 @@
 		- $\delta(v):=h(r(v))-h(l(v))$
 	- insert a delete jako u BVS, ale navíc udržujeme znaménko a rotujeme, když je třeba
 	- při insertu vkládáme list, posíláme nahoru signál o zvýšení hloubky
-	- insert – 5 možností, BÚNO signál o zvýšení hloubky přichází do vrcholu $x$ zleva (jinak bychom prohodili strany a znaménka)
+	- insert – signál o zvýšení hloubky přichází do vrcholu $x$ BÚNO zleva (jinak bychom prohodili strany a znaménka)
 		- vrchol $x$ měl znaménko +
 			- hloubka podstromů se vyrovnala, znaménko se změní na 0
 			- hloubka hloubka podstromu $T(x)$ se nezměnila, takže propagaci informace ukončíme
-		- vrchol měl znaménko $0$
+		- vrchol $x$ měl znaménko $0$
 			- znaménko $x$ se změní na $-$
 			- hloubka $T(x)$ vzrostla, pokračujeme v propagaci
 		- vrchol $x$ měl znaménko $-$, nově by měl $-2\implies$ musíme vyvažovat
@@ -325,21 +325,56 @@
 				- provedeme jednoduchou rotaci hrany $xy$
 				- tím získají vrcholy $x,y$ znaménko $0$
 				- hloubka se nezměnila, propagaci ukončíme
+			- $y$ má znaménko $0$
+				- nemůže nastat, protože z vrcholu se znaménkem $0$ se informace nešíří výše (až na případ s listem, ale jeho otec $x$ nemůže mít nikdy $-$)
 			- $y$ má znaménko $+$
 				- pravého syna vrcholu $y$ označíme jako $z$
 				- provedeme dvojitou rotaci
 				- novým kořenem podstromu je vrchol $z$, získá znaménko $0$
 				- hloubka se nezměnila, propagaci ukončíme
-			- $y$ má znaménko $0$
-				- nemůže nastat, protože z vrcholu se znaménkem $0$ se informace nešíří výše (až na případ s listem, ale jeho otec $x$ nemůže mít nikdy $-$)
-	- delete – 6 možností, obdobné jako u insertu, akorát může nastat každá z možností
+	- delete – informace o snížení hloubky přišla BÚNO z levého syna
+		- vrchol $x$ měl znaménko $-$
+			- znaménko se změní na $0$
+			- hloubka $T(x)$ se snížila, propagace pokračuje
+		- vrchol $x$ měl znaménko $0$
+			- znaménko se změní na $+$
+			- hloubka $T(x)$ se nezměnila, propagace končí
+		- vrchol $x$ měl znaménko $+$, nově $+2\implies$ vyvažujeme
+			- označíme **pravého** syna jako $y$
+			- vrchol $y$ má znaménko $+$
+				- provedeme rotaci hrany $xy$
+				- tím získají vrcholy $x,y$ znaménko $0$
+				- hloubka se snížila, změnu propagujeme
+			- vrchol $y$ má znaménko $0$
+				- rotujeme $xy$
+				- vrchol $x$ získá $+$, vrchol $y$ znaménko $-$
+				- hloubka se nezměnila, propagaci ukončíme
+			- vrcholy $y$ má znaménko $-$
+				- levého syna vrcholu $y$ označíme jako $z$
+				- provedeme dvojitou rotaci, která celou konfiguraci překoření za vrchol $z$, ten získá znaménko $0$
+				- došlo ke snížení hloubky → propagujeme dál
 	- při insertu se provádí maximálně jedna rotace, při deletu jich může být víc
+	- operace Find, Insert, Delete v AVL stromu mají časovou složitost $\Theta(\log n)$
 
 ## (a,b)-stromy
 
 - Definice: Vícecestný vyhledávací strom a (a,b)-strom
+	- Obecný vyhledávací strom je zakořeněný strom s určeným pořadím synů každého vrcholu. Ty dělíme na vnitřní a vnější.
+	- Vnitřní (interní) vrcholy obsahují libovolný nenulový počet (lineárně uspořádaných) klíčů. Ty slouží jako oddělovače hodnot v podstromech. Vrchol s $k$ klíči má $k+1$ synů.
+	- Vnější (externí) vrcholy neobsahují data, nemají potomky (jsou to listy). Značíme malými čtverečky.
+	- (a,)-strom pro parametry $a\geq2,\;b\geq2a-1$ je obecný vyhledávací strom, pro který navíc platí:
+		- Kořen má $2$ až $b$ synů, ostatní vnitřní vrcholy $a$ až $b$ synů.
+		- Všechny vnější vrcholy jsou ve stejné hloubce.
 - Věta: Odhad hloubky (a,b)-stromu
+	- lemma: (a,b)-strom s $n$ klíči má hloubku $\Theta(\log n)$
+	- důkaz
+		- $A_h:=$ minimální počet klíčů ve stromu hloubky $h$
+		- min. počet vrcholů na jednotlivých hladinách: $1, 2, 2a, 2a^2,\dots$
+		- na poslední interní hladině má aspoň $2a^{h-1}$ vrcholů, každý z nich obsahuje alespoň jeden klíč
+		- $A_h\geq 2a^{h-1}\in\Omega(a^h)\implies$ hloubka je $O(\log n)$
+		- podobně $\Omega(\log n)$, tudíž i $\Theta(\log n)$
 - Algoritmus: Operace Insert a Delete v (a,b)-stromech
+	- 
 - Příklad: Volba parametrů (a,b)-stromu
 
 ## Písmenkové stromy (trie)
