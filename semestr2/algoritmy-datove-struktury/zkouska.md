@@ -52,6 +52,12 @@
 	- algoritmus začíná přidáním prvního vrcholu do fronty (to je ten vrchol, ze kterého graf prohledáváme)
 	- algoritmus končí, jakmile je fronta prázdná
 	- složitost $\Theta(n+m)$
+	- klasifikace hran – rozdělíme vrcholy na vrstvy (podle toho, jak je BFS prochází ve vlnách)
+		- stromová hrana – prošli jsme po ní při BFS
+		- příčná hrana – v rámci vrstvy
+		- zpětná hrana – do předchozí vrstvy nebo i o několik vrstev dozadu
+		- „dopředně příčná“ hrana – do následující vrstvy
+		- neexistuje hrana, která by vedla o víc než jednu vrstvu dopředu
 - Algoritmus: Prohledávání do hloubky (DFS)
 	- lze implementovat rekurzí nebo jako BFS se zásobníkem místo fronty
 	- na začátku jsou všechny vrcholy neviděné
@@ -61,8 +67,9 @@
 			- pokud stav(w) = neviděný
 				- DFS(w)
 		- stav(v) ← zavřený
+	- DFS spouštíme z nějaké vrcholu – navštívíme všechny vrcholy z něj dosažitelné
 	- opakované DFS – algoritmus nespouštíme pouze pro jeden určitý vrchol, ale pro všechny (neviděné) vrcholy grafu → projdeme všechny komponenty souvislosti
-		- stejného efektu lze docílit přidáním jednoho supervrcholu, který bude připojen ke všem vrcholům grafu
+		- stejného efektu lze docílit přidáním jednoho superzdroje, který bude připojen ke všem vrcholům grafu
 	- složitost $\Theta(n+m)$
 - Definice: Klasifikace hran v DFS
 	- v orientovaném grafu
@@ -85,20 +92,50 @@
 	- zpětná hrana není nikdy most (leží na kružnici), tedy stačí poznat, zda stromová hrana leží na kružnici
 	- stromová hrana $xy$ není most $\iff\exists$ zpětná hrana $ab$, kde $a$ leží v $T(y)$ (podstromu $y$) a $b$ v něm neleží
 	- Df: $\text{low}(v):=\text{min}\lbrace \text{in}(b)\mid ab$ je zpětná hrana s $a\in T(v)\rbrace$
-	- `low` pro $v$ je minimum z `low` synů $v$ a `in` zpětných hran z $v$
+	- `low` pro $v$ je minimum z `low` synů $v$ a `in` zpětných hran z $v$ (respektive `in` vrcholu, do nějž zpětná hrana z $v$ vede)
 	- stromová hrana $xy$ není most $\iff\text{low}(y)\lt y$
 	- stačí nám upravené DFS, běží v čase $\Theta(n+m)$
 
 ## Algoritmy pro orientované grafy
 
 - Algoritmus: Detekce cyklů pomocí DFS
+	- lemma: na každém cyklu leží alespoň jedna zpětná hrana
+		- mějme cyklus, na něm vrchol s minimálním `out`em
+		- tedy další vrchol na cyklu bude mít větší `out`
+		- tím získáváme hranu, na níž roste `out` – to platí pouze pro zpětné hrany
+	- opačná implikace je jednoduchá (zpětná hrana nutně tvoří cyklus)
+	- tedy stačí pustit opakované DFS a hledat zpětné hrany
+	- věta: graf je DAG $\iff$ opakované DFS nenajde zpětnou hranu
 - Definice: Acyklický orientovaný graf (DAG), zdroj, stok
+	- DAG je orientovaný graf bez cyklů :)
+	- zdroj je vrchol s $\text{deg}^{\text{in}}(v)=0$
+	- stok je vrchol s $\text{deg}^{\text{out}}(v)=0$
+	- lemma: každý DAG má alespoň jeden zdroj a stok
+	- pro DAG $G$ je $G^T$ graf vzniklý otočením šipek u $G$, je taky DAG (protože transpozice cyklu je cyklus), dojde k prohození zdrojů a stoků
 - Definice: Topologické uspořádání DAGu
+	- topologické uspořádání grafu $G=(V,E)$ je lineární uspořádání $\leq$ na $V$ takové, že $\forall uv\in E: u\leq v$
+	- může jich být víc
 - Algoritmus: Konstrukce topologického uspořádání
+	- postupným odtrháváním zdrojů (vezmeme libovolný vrchol, jdeme proti šipkám do zdroje, tento zdroj umístíme do uspořádání a odtrhneme ho z grafu) – to je ale složité na efektivní implementaci
+	- opakované DFS opouští vrcholy v pořadí opačném topologickému uspořádání (důkaz přes klesající `out` na hraně a nepřítomnost zpětných hran)
 - Příklad: Princip indukce podle topologického uspořádání
+	- mějme topologické uspořádání $v_1,\dots,v_n$
+	- počítáme počet cest z vrcholu $v_i$ do všech vrcholů grafu
+	- pro $j\lt i:c(v_j)=0$
+	- $c(v_i)=1$
+	- pro $j\gt i$ induktivně $c(v_j)=\sum c(p)$, kde $p$ jsou vrcholy, z nichž vede hrana do $v_j$
 - Algoritmus: Počet cest mezi dvěma vrcholy v DAGu
+	- indukcí přes topologické uspořádání, v čase $\Theta(n+m)$
 - Definice: Silná souvislost, její komponenty, graf komponent
+	- buď $\leftrightarrow$ binární relace na vrcholech grafu definovaná tak, že $x\leftrightarrow y$, právě když existuje orientovaná cesta jak z $x$ do $y$, tak z $y$ do $x$
+	- relace $\leftrightarrow$ je ekvivalence, ekvivalenční třídy indukují podgrafy = komponenty silné souvislosti
+	- graf je silně souvislý, má-li jednu komponentu (tedy pro každé dva vrcholy existuje cesta tam i zpět)
+	- graf komponent $\mathcal C(G)$ má za vrcholy komponenty silné souvislosti grafu $G$, hrany mezi vrcholy vedou právě tehdy, když mezi danými komponentami vedou hrany v původním grafu
+	- lemma: graf komponent je DAG (kdyby existoval cyklus, tak by se takto provázané komponenty slily do jedné)
 - Algoritmus: Rozklad grafu na komponenty silné souvislosti
+	- opakované DFS v $G^T$, při opouštění vrcholu ho dáme na zásobník
+	- beru vrcholy ze zásobníku a pro vrcholy bez přiřazené komponenty provádím DFS
+		- kdykoliv narazím na vrchol bez přiřazené komponenty, nastavím mu komponentu na „aktuální vrchol“ (to je ten vrchol, který jsem vzal ze zásobníku) a zanořím se (spustím rekurzivně DFS)
 
 ## Nejkratší cesty
 
