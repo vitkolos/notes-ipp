@@ -374,7 +374,6 @@
 		- $A_h\geq 2a^{h-1}\in\Omega(a^h)\implies$ hloubka je $O(\log n)$
 		- podobně $\Omega(\log n)$, tudíž i $\Theta(\log n)$
 - Algoritmus: Operace Insert a Delete v (a,b)-stromech
-	- 
 - Příklad: Volba parametrů (a,b)-stromu
 
 ## Písmenkové stromy (trie)
