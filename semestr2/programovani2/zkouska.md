@@ -14,7 +14,7 @@
 
 ## Ústní část
 
-- [algoritmizace](../algoritmy-datove-struktury/zkouska.md)
+- [algoritmizace](../algoritmy-datove-struktury1/zkouska.md)
 	- složitost algoritmu, složitost úlohy/problému
 	- fronta, zásobník, BFS, DFS
 	- halda
