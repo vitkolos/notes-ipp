@@ -483,8 +483,29 @@
 ## Rozděl a panuj
 
 - Algoritmus: Třídění sléváním (Mergesort)
-- Algoritmus: Násobení n-ciferných čísel v čase O(nlog23)
+	- na vstupu posloupnost
+	- pokud je délka posloupnosti menší rovna jedné, mergesort vrátí vstup
+	- jinak vrátí merge(mergesort(první polovina vstupu), mergesort(druhá polovina vstupu)), kde merge slévá dvě poloviční setříděné posloupnosti v lineárním čase
+	- čas $\Theta(n\log n)$
+- Algoritmus: Násobení n-ciferných čísel v čase $O(n^{\log_23})$
+	- Karacubovo násobení
+	- násobíme dvě $n$-ciferná čísla $x,y$ v soustavě o základu $z$
+	- cifry obou čísel rozdělíme na dvě poloviny
+		- $x=a\cdot z^{n/2}+b$
+		- $y=c\cdot z^{n/2}+d$
+	- pak $x\cdot y=(a\cdot z^{n/2}+b)(c\cdot z^{n/2}+d)=ac\cdot z^{n}+(ad+bc)\cdot z^{n/2}+bd$
+	- $(ad+bc)$ lze vyjádřit jako $(a+b)(c+d)-ac-bd$
+	- takže stačí 3 násobení
+	- $T(n)=3\cdot T(n/2)+cn$
+	- časová složitost podproblému na vrstvě a počet podproblémů
+		- 1. vrstva $\quad n\quad1$
+		- 2. vrstva $\quad\frac n2\quad3$
+		- i-tá vrstva $\quad \frac {n}{2^i}\quad 3^i$
+		- poslední vrstva $\quad 1\quad 3^{\log_2 n}$
+	- $T(n)=\sum_{i=0}^{\log_2 n}n\cdot(3/2)^i\in\Theta(n\cdot (3/2)^{\log_2n})$, což lze převést na $\Theta(n^{\log_23})$
+	- podle Master theorem $a=3,\,b=2,\,c=1$
 - Věta: Kuchařková věta (Master theorem)
+	- 
 - Algoritmus: Strassenův algoritmus na násobení matic (vzorce nezkouším)
 
 ## Třídění a vyhledávání
