@@ -128,7 +128,7 @@
 - další pravidla
 	- Deméteřin zákon – funkce by neměla volat jiné funkce, které jsou od ní „příliš daleko“ (měly by být přibližně na její úrovni; porušení zhoršuje udržovatelnost kódu a zapouzdření)
 	- DRY – neopakuj se
-	- high cohesion, low coupling – související věci by měly být v programu u sebe, ale měl by být provázané jen zlehka (přes interface)
+	- high cohesion, low coupling – související věci by měly být v programu u sebe, ale měly by být provázané jen zlehka (přes interface)
 - grafové algoritmy
 	- reprezentace grafu
 		- matice sousednosti – řádky i sloupce odpovídají vrcholům, jednička odpovídá hraně, nula nehraně
