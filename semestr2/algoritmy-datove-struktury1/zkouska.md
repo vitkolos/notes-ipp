@@ -526,8 +526,27 @@
 ## Třídění a vyhledávání
 
 - Algoritmus: Quickselect – hledání k-tého nejmenšího prvku
+	- určíme pivota
+	- vstup rozdělíme na tři množiny – menší, větší a rovny pivotovi
+	- porovnáme $k$ s velikostmi množin, podle toho zjistíme, ve které hledat dál (a odpovídajícím způsobem upravíme $k$)
 - Věta: Průměrná časová složitost Quickselectu při náhodné volbě pivota
+	- Df: skoromedián je prvek, který leží v prostředních dvou čtvrtinách setříděné posloupnosti
+	- lemma o džbánu
+		- $\mathbb E[$\# pokusů do 1. úspěchu$]=\frac 1p$, kde $p=$ pravděpodobnost úspěchu
+		- lze dostat úpravou $\mathbb E=1+(1-p)\cdot\mathbb E$
+	- kdybychom volili pivota jako skoromedián, tak podle Master theorem $b=4/3,\,a=c=1\implies \Theta(n)$
+		- protože v další hladině má ta množina, se kterou pracuji, velikost maximálně $\frac 34 n$
+	- průměrnou složitost při náhodné volbě pivota dokážeme pomocí rozkladu na epochy
+	- epocha skončí, kdykoliv se strefím do skoromediánu
+	- průměrný počet průchodů v epoše je 2 (podle lemmatu o džbánu), protože pravděpodobnost výběru skoromediánu je $\frac 12$
+	- 2 je konstanta, takže s náhodou volbou pivota můžeme v průměru zacházet, jako bychom volili skoromedián
 - Algoritmus: k-tý nejmenší prvek v lineárním čase (algoritmus s pěticemi)
+	- rozdělíme vstup na pětice, v konstantním čase najdeme jejich mediány
+	- rekurzivním spuštěním téhož algoritmu najdeme medián mediánů
+	- prvky jsem si rozdělil na $n/5$ sloupečků o výšce $5$
+	- v nejhorším případě budu v další hladině zpracovávat $\frac 7{10} n$, protože se mi podařilo zbavit jenom $\frac 3{10}n$
+	- z toho plyne $T(n)=T(\frac 15 n)+T(\frac 7{10}n)+\Theta(n)$
+	- pro obecnější Master theorem lze určit $S_\alpha=\frac {9}{10}\lt 1\implies \Theta(n)$
 - Algoritmus: Quicksort
 - Věta: Průměrná časová složitost Quicksortu při náhodné volbě pivota
 
