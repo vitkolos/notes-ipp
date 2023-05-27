@@ -538,23 +538,63 @@
 		- protože v další hladině má ta množina, se kterou pracuji, velikost maximálně $\frac 34 n$
 	- průměrnou složitost při náhodné volbě pivota dokážeme pomocí rozkladu na epochy
 	- epocha skončí, kdykoliv se strefím do skoromediánu
-	- průměrný počet průchodů v epoše je 2 (podle lemmatu o džbánu), protože pravděpodobnost výběru skoromediánu je $\frac 12$
+	- průměrný počet průchodů v epoše je $\leq 2$ (podle lemmatu o džbánu), protože pravděpodobnost výběru skoromediánu je $\frac 12$
 	- 2 je konstanta, takže s náhodou volbou pivota můžeme v průměru zacházet, jako bychom volili skoromedián
 - Algoritmus: k-tý nejmenší prvek v lineárním čase (algoritmus s pěticemi)
 	- rozdělíme vstup na pětice, v konstantním čase najdeme jejich mediány
 	- rekurzivním spuštěním téhož algoritmu najdeme medián mediánů
-	- prvky jsem si rozdělil na $n/5$ sloupečků o výšce $5$
-	- v nejhorším případě budu v další hladině zpracovávat $\frac 7{10} n$, protože se mi podařilo zbavit jenom $\frac 3{10}n$
+	- prvky jsme rozdělili na $n/5$ sloupečků o výšce $5$
+	- v nejhorším případě budeme v další hladině zpracovávat $\frac 7{10} n$, protože se nám podařilo zbavit jenom $\frac 3{10}n$
 	- z toho plyne $T(n)=T(\frac 15 n)+T(\frac 7{10}n)+\Theta(n)$
 	- pro obecnější Master theorem lze určit $S_\alpha=\frac {9}{10}\lt 1\implies \Theta(n)$
 - Algoritmus: Quicksort
+	- pokud $n\leq 1$: vrátíme vstup
+	- zvolíme pivota $p$
+	- rozdělíme $x_1,\dots,x_n$ podle $p$ na $L,S,P$
+	- $L\leftarrow \text{QuickSort}(L)$
+	- $P\leftarrow \text{QuickSort}(P)$
+	- vrátíme $L,S,P$
 - Věta: Průměrná časová složitost Quicksortu při náhodné volbě pivota
+	- věta: QuickSort s náhodnou volbou pivota má časovou složitost se střední hodnotou $\Theta(n\log n)$.
+	- důkaz
+		- porovnání účtujeme prvku, který není pivot
+		- $T_i:=$ počet porovnání, kterých se účastní $x_i$ (a není pivot)
+		- sleduju cestu jednoho prvku stromem rekurze
+		- rozdělím cestu na epochy, epocha končí, když je pivot skoromedián
+		- průměrný počet průchodů v epoše je $\leq 2$
+		- počet epoch pro prvek je $\Theta(\log n)$, protože po každé epoše se problém zmenší na $\frac 34$ (nebo na méně)
+		- $\mathbb E[T_i]\in\Theta(\log n)$
+		- z linearity střední hodnoty dostaneme průměrnou časovou složitost algoritmu $\Theta(n\log n)$
 
 ## Dynamické programování
 
 - Algoritmus: Nejdelší rostoucí podposloupnost
+	- vstup: posloupnost $x_1,\dots,x_n$
+	- vyplňujeme pole délek nejdelších rostoucích podposloupností (označíme ho jako $T$), které končí v $x_i$
+		- tedy $T_i:=$ délka nejdelší rostoucí podposloupnosti končící v $x_i$
+	- $T_1=1$
+	- pro každý další prvek $x_i$ se vždycky podíváme na prvky nalevo – najdeme maximální $T_j$ takové, že $x_j\lt x_i$
+		- zároveň si uložíme odkaz na předchůdce $x_j$, abychom podposloupnost mohli následně vypsat
 - Algoritmus: Editační vzdálenost řetězců
+	- na vstupu slova délky $n,m$
+	- tabulka čísel o rozměrech $(m+1)\times (n+1)$, nad první řádek napíšeme jedno slovo, nalevo od prvního sloupce druhé slovo
+	- předvyplníme poslední sloupec a poslední řádek (potkávají se v nule, směrem doleva/nahoru se zvyšují)
+	- tabulku vyplňujeme zespodu zprava doleva nahoru, zapíšeme minimum z buňky dole, buňky vpravo a (buňky vpravo dole + $\delta$), kde $\delta$ je rovna jedné, když písmena odpovídajícího řádku a sloupce liší, jinak je 0
+	- výsledek je vlevo nahoře
 - Algoritmus: Konstrukce optimálního BVS
+	- počítáme optimální podstrom s daným kořenem na dané množině vrcholů
+	- jeho cena bude rovna ceně optimálního podstromu na vrcholech před kořenem + za kořenem + součtu cen vrcholů (to nám započítává cenu vrcholů a rovněž zohledňuje, že jsou ostatní vrcholy posunuté o vrstvu níž)
+	- množina vrcholů je určena počátečním a koncovým vrcholem, takže takových množin bude $O(n^2)$, výpočet každé trvá $O(n)$, takže celý algoritmus trvá $O(n^3)$ (když to zacachujeme nebo napíšeme dynamicky)
 - Algoritmus: Floydův-Warshallův algoritmus na výpočet vzdáleností v grafu
+	- vstup: matice délek hran (hodnota je $\infty$, když cesta neexistuje, jinak $L_{ij}=l(v_i,v_j)$)
+	- výstup: matice vzdáleností $D$ (opět povolujeme nekonečno)
+	- $D_{ij}^k:=$ délka nejkratší cesty z $v_i$ do $v_j$ přes $v_1,\dots,v_k$ (jakožto vnitřní vrcholy cesty)
+	- $D^0=L,\;D^n=D$
+	- indukční krok $$D_{ij}^k=\text{min} \begin{cases}D_{ij}^{k-1}\\ D_{ik}^{k-1}+D_{kj}^{k-1}\end{cases}$$
+	- dá se to dělat na místě, protože $D^{k-1}_{ik}=D^k_{ik}$ a obdobně pro $D_{kj}$, $k$ totiž nemůže být vnitřní vrchol cesty, když už je jejím krajním vrcholem
 - Příklad: Princip dynamického programování
+	- rekurze → memoizace → přepis rekurze na cykly (dynamika)
+	- např. Fibonacciho čísla
 - Příklad: Grafová interpretace dynamického programování
+	- u rostoucí podposloupnosti hledáme nejdelší cestu z $0$ do $n+1$ (posloupnost $n$ prvků jsme obložili $-\infty$ a $+\infty$), přičemž hrany vedou mezi prvky, které za sebou můžou v rostoucí podposloupnosti následovat (první je menší než druhý)
+	- u editační vzdálenosti hledáme nejkratší cestu z levého horního do pravého dolního rohu, přičemž hrany vedou vodorovně (cena 1), svisle (cena 1) a diagonálně doprava dolů (cena 1 nebo 0)
