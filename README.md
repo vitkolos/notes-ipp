@@ -10,4 +10,5 @@
 - [Diskrétní matematika (zkouška)](semestr1/diskretni-matematika/zkouska.md)
 - [Úvod do počítačových sítí (test)](semestr1/uvod-do-pocitacovych-siti/test.md)
 - [Lineární algebra 2 (bonusový test)](semestr2/linearni-algebra2/bonusovy-test.md)
+- [Algoritmy a datové struktury 1 (zkouška)](semestr2/algoritmy-datove-struktury1/zkouska.md)
 - [Programování 2 (zkouška)](semestr2/programovani2/zkouska.md)
