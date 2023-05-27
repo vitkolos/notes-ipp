@@ -374,7 +374,33 @@
 		- $A_h\geq 2a^{h-1}\in\Omega(a^h)\implies$ hloubka je $O(\log n)$
 		- podobně $\Omega(\log n)$, tudíž i $\Theta(\log n)$
 - Algoritmus: Operace Insert a Delete v (a,b)-stromech
+	- insert
+		- přidáváme klíč do vrcholu na poslední interní hladině
+		- když se vejde, je všechno v pořádku, jenom musíme přidat externí vrchol (list)
+		- když se nevejde, tak ho rozdělíme na dva, prostřední klíč přesuneme o patro výš
+		- když to přeteče o patro výš, tak vrchol zase rozdělíme…
+		- přinejhorším nakonec rozdělíme kořen
+		- co když nám při dělení vrcholu vzniknou dva moc malé?
+			- to se nemůže stát, protože $b=2a-1$
+			- přeteklý vrchol má $b$ klíčů, jeden jde nahoru, zbývá $b-1$
+			- rozdělíme na $\lfloor\frac{b-1}2\rfloor$ a $\lceil\frac{b-1}2\rceil$
+			- kdyby se to pokazilo, tak $\lfloor\frac{b-1}2\rfloor \lt a-1\iff b \lt 2a-1$
+	- delete
+		- mazání v poslední interní hladině je snadné, jenom musíme řešit podtečení vrcholu (tzn. počet klíčů ve vrcholu se nesmí snížit pod $a-1$)
+		- pokud mažeme v hladině, která není poslední, tak to vyřešíme jako u BVS – daný klíč nahradíme maximem z levého podstromu nebo minimem z pravého (to je nutně na poslední interní hladině)
+		- řešení podtečení
+			- pokud má soused minimální povolený počet klíčů, tak můžu slučovat
+				- podteklý vrchol má $a-2$ klíčů, soused má $a-1$ klíčů, k tomu přiberu klíč z otce, který je mezi nimi → dohromady jich bude $2a-2$, což je v pořádku
+				- tohle se může kaskádovat (až do kořene)
+			- pokud má soused větší než minimální počet klíčů, tak mu jeden klíč utrhneme
+				- BÚNO je soused pravý
+				- podteklý vrchol si jako nové maximum vezme oddělovací vrchol z otce (ten, který odděloval podteklý vrchol a souseda)
+				- otec si jako oddělovací vrchol vezme minimum ze souseda
+				- tohle se nemůže kaskádovat
 - Příklad: Volba parametrů (a,b)-stromu
+	- nechceme $b$ výrazně větší než $2a$, typicky $b=2a-1$ nebo $b=2a$
+	- nechceme velké $a$, optimální jsou $(2,3)$ nebo $(2,4)$
+	- hodí se nastavit (a,b)-strom tak, aby se jeden vrchol vešel do jednoho bloku cache
 
 ## Písmenkové stromy (trie)
 
