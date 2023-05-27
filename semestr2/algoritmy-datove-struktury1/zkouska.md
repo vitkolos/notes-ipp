@@ -505,8 +505,23 @@
 	- $T(n)=\sum_{i=0}^{\log_2 n}n\cdot(3/2)^i\in\Theta(n\cdot (3/2)^{\log_2n})$, což lze převést na $\Theta(n^{\log_23})$
 	- podle Master theorem $a=3,\,b=2,\,c=1$
 - Věta: Kuchařková věta (Master theorem)
-	- 
+	- věta: rekurentní rovnice $T(n)=a\cdot T(\frac nb)+\Theta(n^c),\;T(1)=1$ pro $a\in\mathbb N,\,a\geq 1,\,b\in\mathbb R,\,b\gt 1,\,c\in\mathbb R^+_0$ má řešení… (viz složitost u rozboru případů koeficientu níže)
+	- důkaz
+		- na i-té hladině podproblém velikosti $\frac n{b^i}$, počet podproblémů $a^i$
+		- v jednom podproblému trávíme čas $(\frac{n}{b^i})^c$
+		- čas na i-tou hladinu $\Theta(a^i\cdot (\frac{n}{b^i})^c)=\Theta(n^c\cdot(\frac a{b^c})^i)$, hladin je $\log_b n$
+		- celkový čas $$T(n)=n^c \sum^{\log_bn}_{i=0}\left(\frac a{b^c}\right)^i$$
+		- označíme kvocient geometrické řady $q=a/b^c$
+		- pro $q\lt 1:$ součet je omezen konstantou $\implies\Theta(n^c)$
+		- pro $q=1:\sum=\log_bn\in O(\log n)\implies\Theta(n^c\cdot \log n)$
+		- pro $q\gt 1:$
+			- $\Theta(n^c\cdot(a/b^c)^{\log_b n})$, stačí započítat poslední prvek geometrické řady (důkaz ze součtu geometrické řady)
+			- upravíme $$n^c\cdot(a/b^c)^{\log_b n}=\frac{n^ca^{\log_bn}}{b^{c\log_bn}}=a^{\log_bn}=b^{\log_ba\cdot\log_bn}=n^{\log_ba}$$
+			- z toho vyplývá složitost $\Theta(n^{\log_ba})$
+		- poznámka: nevadí nám, že $n$ nemusí být mocnina $b$, v asymptotice se to ztratí
 - Algoritmus: Strassenův algoritmus na násobení matic (vzorce nezkouším)
+	- $X\cdot Y=\begin{pmatrix}A&B \\ C&D \end{pmatrix}\cdot\begin{pmatrix}P&Q \\ R&S \end{pmatrix}=\begin{pmatrix}AP+BR&AQ+BS \\ CP+DR&CQ+DS \end{pmatrix}$
+	- jedno z 8 násobení lze ušetřit, z toho dostaneme $\Theta(n^{\log_27})$
 
 ## Třídění a vyhledávání
 
