@@ -123,7 +123,7 @@
 	- počítáme počet cest z vrcholu $v_i$ do všech vrcholů grafu
 	- pro $j\lt i:c(v_j)=0$
 	- $c(v_i)=1$
-	- pro $j\gt i$ induktivně $c(v_j)=\sum c(p)$, kde $p$ jsou vrcholy, z nichž vede hrana do $v_j$
+	- pro $j\gt i$ induktivně $c(v_j)=\sum_k c(p_k)$, kde $p_k$ jsou vrcholy, z nichž vede hrana do $v_j$
 - Algoritmus: Počet cest mezi dvěma vrcholy v DAGu
 	- indukcí přes topologické uspořádání, v čase $\Theta(n+m)$
 - Definice: Silná souvislost, její komponenty, graf komponent
@@ -307,7 +307,7 @@
 	- jednoduchá rotace – hranu změním z levé na pravou (nebo naopak), převěsím jeden podstrom
 	- dvojitá rotace – jeden vrchol „vytáhnu“ zespodu nahoru, převěsím dva podstromy
 - Algoritmus: Operace Insert a Delete v AVL stromech
-	- Df. znaménko vrcholu
+	- Df: znaménko vrcholu
 		- $\delta: V\to \lbrace-1,0,+1\rbrace$
 		- $\delta(v):=h(r(v))-h(l(v))$
 	- insert a delete jako u BVS, ale navíc udržujeme znaménko a rotujeme, když je třeba
@@ -404,18 +404,81 @@
 
 ## Písmenkové stromy (trie)
 
-- Definice: Definice trie
+- Definice: Trie
+	- písmenkový/prefixový strom
+	- vrcholy odpovídají prefixům slov ze slovníku (množiny, kterou do trie ukládám) $\implies$ počet vrcholů je $O(\sum_i|x_i|)$, kde $x_i$ je slovo (takže lineární velikost trie)
+	- do stromu značíme, ve kterých vrcholech končí nějaké slovo ze slovníku (protože slovům nemusí odpovídat listy – nějaké slovo může být prefixem jiného)
+	- každý vrchol dále obsahuje pole ukazatelů na syny (indexované abecedou)
 - Algoritmus: Operace Find, Insert a Delete v trii
+	- find – procházím po vrcholech v lineárním čase (vůči délce hledaného slova)
+	- insert – zkoušíme dané slovo najít, pokud nějaká hrana chybí, tak ji přidáme, poslední vrchol opatříme značkou; lineární čas vůči délce přidaného slova
+	- delete – slovo najdeme, smažeme jeho značku a potom se vracíme do kořene, přičemž po cestě mažeme vrcholy, které nemají značku ani syny; lineární čas vůči délce mazaného slova
+	- složitost v závislosti na velikosti abecedy $|\Sigma|$ a délce slova $L$
+		- find $\Theta(L)$
+		- insert $\Theta(|\Sigma|\cdot L)$ – vyrábí pointery pro vrchol a nuluje ho
+		- delete $\Theta(|\Sigma|\cdot L)$ – kontroluje, jestli má vrchol dalšího syna
+	- trie s BVS ve vrcholech – umí všechno v $\Theta(L\cdot \log |\Sigma|)$
 - Příklad: Použití trie k reprezentaci čísel
+	- zvolíme vhodný základ soustavy, čísla převedeme do této soustavy, tím dostaneme řetězce a ty ukládáme do trie (taková trie se někdy označuje jako radix tree, číslicový strom)
+	- základ soustavy $z$
+	- číslo z intervalu $[0,M]$ má $\lt\log_zM+1$ číslic
+	- pokud je základ soustavy rozumně malý, tak Find, Insert, Delete pracují v čase $O(\log_zM)$
+	- z asymptotického hlediska to (oproti BVS) nepomáhá, z praktického hlediska to mívá lepší konstanty
 
 ## Hešování
 
 - Definice: Hešování s řetězci v přihrádkach
+	- máme universum $\mathcal U$ a množinu přihrádek $[m]$
+	- hešovací funkce $h:\mathcal U\to [m]$
+	- přání: $h$ je rovnoměrná
+		- máme $n$-prvkovou množinu $X\subseteq\mathcal U$, kterou chceme do přihrádek umístit
+		- počet prvků v jedné přihrádce bude $\sim \frac nm\implies$ pro $m\geq n$ je to $O(1)$
+		- $\implies$ Find, Ins, Del v $O(1)$? (pro nekonečné universum a konečně přihrádek to samozřejmě nemůže být pravda)
+	- každá přihrádka má spojový seznam (řetězec)
+	- v nejhorším případě se může celá množina $X$ zahešovat do jedné přihrádky
 - Algoritmus: Operace Find, Insert a Delete v hešování s řetězci
+	- každá z operací spočívá ve spočítání heše a průchodu daného spojového seznamu (řetězce), případně jeho úpravě
+	- heš spočítáme v konstantním čase, řetězce mají $n/m$ prvků, takže i průchod spojáku je konstantní pro $m\geq n$
 - Algoritmus: Dynamické rozšiřování tabulky
+	- na začátku založíme prázdnou hešovací tabulku s konstantním počtem přihrádek
+	- když vkládáme prvek, zkontrolujeme faktor naplnění $\alpha=n/m$ (chceme ho udržet shora omezený konstantou)
+	- když je tabulka příliš plná, zdvojnásobíme $m$ (počet přihrádek) a všechny prvky přehešujeme
+	- přehešování trvá $\Theta(n)$, mezi dvěma přehešováními vložíme řádově $n$ prvků, takže každý přispěje konstantním časem $\implies \Theta(1)$ insert
 - Definice: c-univerzální systém funkcí
+	- Df: systém $\mathcal H$ funkcí z $\mathcal U$ do $[m]$ je $c$-univerzální pro $c\gt 0\equiv$ pravděpodobnost, že mi náhodně zvolená funkce konkrétní dva prvky hodí do stejné přihrádky, je malá (nejvýše $c/m$)
+		- $\forall x,y\in\mathcal U,\,x\neq y:\text{Pr}_{h\in\mathcal H}[h(x)=h(y)]\leq\frac cm$
+	- kdyby funkce byla dokonale náhodně vybraná, tak by to vyšlo $1/m$ (takže $c=1$)
+	- $c$ bývá běžně $2,4,…$
 - Věta: Konstrukce 1-univerzálního systému pomocí skalárního součinu
+	- (standardní) skalární součin nad tělesem $\mathbb Z_m$
+		- $m$ … počet přihrádek, je to prvočíslo
+	- $\mathcal U=\mathbb Z_m^d$ (hešujeme d-složkové vektory se složkami ze $\mathbb Z_m$)
+	- hešovací funkci parametrizujeme vektorem $a\in\mathbb Z_m^d$
+	- $\mathcal H=\lbrace h_a\mid a\in\mathbb Z^d_m\rbrace$
+	- $h_a(x)=\braket{a,x}$ (v tělese)
+		- tedy $\braket{a,x}=\sum_{i=1}^da_ix_i\bmod m$
+	- věta: Tento systém je 1-univerzální.
+	- důkaz
+		- pro $x\neq y$
+		- $\text{Pr}_{h\in\mathcal H}[h(x)=h(y)]=Pr_a[\braket{a,x}=\braket{a,y}]$
+			- $ax=ay$
+			- $a(x-y)=0$
+			- $\sum_{i=1}^d a_i(x_i-y_i)=0$
+		- BÚNO $x_1\neq y_1$ (přečíslováním souřadnic)
+		- $a_1(x_1-y_1)+\sum^d_{i=2}a_i(x_i-y_i)=0$
+		- neznámá $a_1\;\cdot$ nenulová konst. $(x_1-y_1)$ + konstanta = 0
+			- lineární rovnice, existuje právě jedno řešení $a_1$
+		- pravděpodobnost, že $a_1$ je řešení je $1/m$
+		- je to pravděpodobnost přes všechny volby $a$, takže to splňuje definici 1-univerzálního systému
 - Věta: Průměrná složitost operací při náhodné volbě hešovací funkce z c-univerzálního systému
+	- věta: Pro $x_1,\dots,x_n,y\in\mathcal U$ navzájem různé a $\mathcal H$ c-univerzální systém z $\mathcal U$ do $[m$] platí $\mathbb E_{h\in\mathcal H}[\text{\#}i:h(x_i)=h(y)]\leq \frac{cn}m$.
+	- důkaz
+		- $I_j$ … indikátor kolize (1 pokud $h(x_j)=h(y)$, jinak 0)
+		- střední hodnota indikátoru je rovna pravděpodobnosti jevu
+		- $\mathbb E[I_j]=\text{Pr}[h(x_j)=h(y)]\leq \frac cm$
+		- \# kolizí = $\sum_jI_j=\sum_j\mathbb E[I_j]\leq \frac {cn}m$
+	- důsledek
+		- pro $m\in\Omega(n)$ je počet kolizí omezen konstantou, tedy průměrná složitost operací je konstantní
 
 ## Rozděl a panuj
 
