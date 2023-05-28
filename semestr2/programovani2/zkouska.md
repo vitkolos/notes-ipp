@@ -109,7 +109,7 @@
 	- pokud simulační jádro běží paralelně ve více vláknech, plynou z toho problémy paralelizace – race condition, deadlock
 	- možná implementace
 		- kalendář událostí = cyklický spoják
-		- plánujeme procesy (o jakou událost jde si pamatuje proces)
+		- plánujeme procesy (o jakou událost jde, si pamatuje proces)
 		- pokud proces závisí na jiném procesu, tak se jím nechá aktivovat po jeho skončení (= pasivní čekání; aktivně čekající proces by se neustále ptal, jestli může pokračovat, což by zatěžovalo procesor)
 - programování řízené událostmi = program reaguje na události (obvykle uživatelské nebo simulované – při diskrétní simulaci), zpracovává je a transformuje, předává mezi úrovněmi
 - objektový návrh
