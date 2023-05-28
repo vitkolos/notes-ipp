@@ -540,6 +540,7 @@
 	- epocha skončí, kdykoliv se strefím do skoromediánu
 	- průměrný počet průchodů v epoše je $\leq 2$ (podle lemmatu o džbánu), protože pravděpodobnost výběru skoromediánu je $\frac 12$
 	- 2 je konstanta, takže s náhodou volbou pivota můžeme v průměru zacházet, jako bychom volili skoromedián
+	- z toho plyne $\Theta(n)$
 - Algoritmus: k-tý nejmenší prvek v lineárním čase (algoritmus s pěticemi)
 	- rozdělíme vstup na pětice, v konstantním čase najdeme jejich mediány
 	- rekurzivním spuštěním téhož algoritmu najdeme medián mediánů
