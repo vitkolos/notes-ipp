@@ -241,7 +241,7 @@
 	- hladový algoritmus
 	- na začátku je $T$ les izolovaných vrcholů
 	- uspořádá hrany od nejlehčí po nejtěžší, postupně bere každou z nich (od nejlehčí)
-	- vezme hranu a pokud jsou její krajní vrcholy v různých komponentách, tak ji přidá do $T$
+	- vezme hranu a pokud jsou její krajní vrcholy v různých komponentách (zjišťuje se operací Find), tak ji přidá do $T$ (a operací Union spojí komponenty)
 	- konečnost zřejmá z omezeného počtu hran, správnost z řezového lemmatu (přidává nejlehčí hranu řezu)
 	- složitost
 		- třídění hran v $O(m\log m)\subseteq O(m\log n^2)=O(m\log n)$
