@@ -498,8 +498,8 @@
 	- takže stačí 3 násobení
 	- $T(n)=3\cdot T(n/2)+cn$
 	- časová složitost podproblému na vrstvě a počet podproblémů
-		- 1. vrstva $\quad n\quad1$
-		- 2. vrstva $\quad\frac n2\quad3$
+		- 1\. vrstva $\quad n\quad1$
+		- 2\. vrstva $\quad\frac n2\quad3$
 		- i-tá vrstva $\quad \frac {n}{2^i}\quad 3^i$
 		- poslední vrstva $\quad 1\quad 3^{\log_2 n}$
 	- $T(n)=\sum_{i=0}^{\log_2 n}n\cdot(3/2)^i\in\Theta(n\cdot (3/2)^{\log_2n})$, což lze převést na $\Theta(n^{\log_23})$
