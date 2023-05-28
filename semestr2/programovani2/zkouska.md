@@ -116,7 +116,7 @@
 	- lze ho pojmout jako návrh hlaviček tříd a metod a definice atributů
 	- snažíme se problém rozdělit na co nejmenší smysluplné součásti
 	- UML diagram – krabičky představují třídy, spojnicemi se značí relace (případně komunikace)
-	- data flow diagram – orientovaný graf, vrcholy představují operace, grany jsou popsány putujícími daty
+	- data flow diagram – orientovaný graf, vrcholy představují operace, hrany jsou popsány putujícími daty
 - SOLID
 	- single reponsibility – každá entita zodpovídá za jednu věc
 	- open-closed – entity jsou otevřené rozšíření, ale uzavřené změnám
