@@ -157,7 +157,7 @@
 	- začínáme od nějakého vrcholu $v_0$ (otevřeme ho a jeho ohodnocení $h(v_0)$ nastavíme na nulu)
 	- dokud existují nějaké otevřené vrcholy, vybereme z nich ten, jehož $h(v)$ je nejmenší (ten zavřeme) a všechny jeho následníky otevřeme a jejich $h(w)$ snížíme na $h(v)+l(v,w)$
 	- ukládáme předchůdce vrcholů, aby se cesta dala rekonstruovat
-	- každý vrchol zavřeme pouze jednou
+	- pozorování: každý vrchol zavřeme pouze jednou
 	- pokud nejmenší $h(v)$ hledáme pokaždé znova, tak to má složitost $\Theta(n^2)$
 - Příklad: Implementace Dijkstrova algoritmu pomocí haldy
 	- cena operací
