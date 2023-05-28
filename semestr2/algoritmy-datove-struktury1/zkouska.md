@@ -362,7 +362,7 @@
 	- Obecný vyhledávací strom je zakořeněný strom s určeným pořadím synů každého vrcholu. Ty dělíme na vnitřní a vnější.
 	- Vnitřní (interní) vrcholy obsahují libovolný nenulový počet (lineárně uspořádaných) klíčů. Ty slouží jako oddělovače hodnot v podstromech. Vrchol s $k$ klíči má $k+1$ synů.
 	- Vnější (externí) vrcholy neobsahují data, nemají potomky (jsou to listy). Značíme malými čtverečky.
-	- (a,)-strom pro parametry $a\geq2,\;b\geq2a-1$ je obecný vyhledávací strom, pro který navíc platí:
+	- (a,b)-strom pro parametry $a\geq2,\;b\geq2a-1$ je obecný vyhledávací strom, pro který navíc platí:
 		- Kořen má $2$ až $b$ synů, ostatní vnitřní vrcholy $a$ až $b$ synů.
 		- Všechny vnější vrcholy jsou ve stejné hloubce.
 - Věta: Odhad hloubky (a,b)-stromu
