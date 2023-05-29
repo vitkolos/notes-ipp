@@ -72,7 +72,7 @@
 		- VMT přísluší celé třídě (vytváří ji překladač)
 		- každý objekt má ukazatel na svou VMT (tudíž syn přetypovaný na otce může podle VMT poznat, že je syn) – umisťuje ho tam konstruktor
 		- přepisování metod je potřeba kvůli tomu, že synovské třídy často inicializujeme s typem rodiče (abychom ke všem objektům různých synovských tříd mohli přistupovat jednotně) = polymorfismus
-	- abstraktní třída – vše je automaticky virtuální (nelze přímo vytvořit její instanci)
+	- abstraktní třída – může mít abstraktní metody, nelze přímo vytvořit její instanci
 	- abstraktní metoda – pouze hlavička funkce, musí být obsažena v abstraktní třídě, nelze ji volat (musí se přepsat)
 	- modifikátor sealed – u třídy zakazuje dědění, u metody zakazuje override
 	- interface – vypadá jako abstraktní třída (bez těl funkcí), zachází se s ním podobně
