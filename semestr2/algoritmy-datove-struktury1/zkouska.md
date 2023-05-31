@@ -206,7 +206,7 @@
 		- na začátku máme strom $T$, který obsahuje vrchol $v_0$ (libovolný) a žádné hrany
 		- vezmeme nejlehčí hranu vedoucí mezi stromem $T$ a zbytkem grafu – tu přidáme do stromu
 			- opakujeme, dokud takové hrany existují
-		- složitost $O(nm)$
+		- složitost $O(n\cdot m)$
 	- Jarník podle Dijkstry
 		- udržuju si haldu aktivních hran – to jsou hrany v aktuálním řezu
 		- do stromu $T$ vždycky přidávám minimum z haldy
