@@ -313,7 +313,7 @@
 	- insert a delete jako u BVS, ale navíc udržujeme znaménko a rotujeme, když je třeba
 	- při insertu vkládáme list, posíláme nahoru signál o zvýšení hloubky
 	- insert – signál o zvýšení hloubky přichází do vrcholu $x$ BÚNO zleva (jinak bychom prohodili strany a znaménka)
-		- vrchol $x$ měl znaménko +
+		- vrchol $x$ měl znaménko $+$
 			- hloubka podstromů se vyrovnala, znaménko se změní na 0
 			- hloubka hloubka podstromu $T(x)$ se nezměnila, takže propagaci informace ukončíme
 		- vrchol $x$ měl znaménko $0$
