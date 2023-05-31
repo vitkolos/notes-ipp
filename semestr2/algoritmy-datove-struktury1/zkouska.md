@@ -93,7 +93,7 @@
 	- stromová hrana $xy$ není most $\iff\exists$ zpětná hrana $ab$, kde $a$ leží v $T(y)$ (podstromu $y$) a $b$ v něm neleží
 	- Df: $\text{low}(v):=\text{min}\lbrace \text{in}(b)\mid ab$ je zpětná hrana s $a\in T(v)\rbrace$
 	- `low` pro $v$ je minimum z `low` synů $v$ a `in` zpětných hran z $v$ (respektive `in` vrcholu, do nějž zpětná hrana z $v$ vede)
-	- stromová hrana $xy$ není most $\iff\text{low}(y)\lt y$
+	- stromová hrana $xy$ není most $\iff\text{low}(y)\lt \text{in}(y)$
 	- stačí nám upravené DFS, běží v čase $\Theta(n+m)$
 
 ## Algoritmy pro orientované grafy
