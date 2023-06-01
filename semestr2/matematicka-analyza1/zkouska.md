@@ -2,10 +2,28 @@
 
 ## Definice
 
-- definice funkce, funkce prostá na a bijekce (př. 1)
+- definice funkce, funkce prostá, na a bijekce (př. 1)
+	- funkce $f$ z množiny $A$ do množiny $B$ je každá taková uspořádaná trojice $(A,B,f)$, že $f\subset A\times B$ a pro každé $a\in A$ existuje právě jedno $b\in B$, že $afb$
+		- píšeme, že $f:A\to B$ a že $f(a)=b$
+	- funkce $f:X\to Y$ je prostá $\equiv f(x)=f(x')\implies x=x'$
+	- funkce $f:X\to Y$ je na $\equiv f[X]=Y$
+	- $f$ je bijekce (vzájemně jednoznačná) $\equiv f$ je na a je prostá
 - supremum a infimum v lineárním uspořádání (př. 1)
+	- $(A,\lt)$ buď lineární uspořádání a nechť $B\subset A$
+	- prvky $\sup(B):=\min(H(B))$ a $\inf(B):=\max(D(B))$ v $A$, existují-li, nazveme supremem a infimem množiny $B$
+		- $H(B)$ je množina horních mezí, tedy prvků $h\in A$ takových, že $\forall b\in B: b\leq h$
+		- obdobně je $D(B)$ množina dolních mezí
 - (nejvýše) spočetná a nespočetná množina (př. 1)
+	- $X$ je nekonečná, když existuje prostá funkce $f:\mathbb N\to X$
+	- $X$ je konečná, když není nekonečná
+	- $X$ je spočetná, když existuje bijekce $f:\mathbb N\to X$
+	- $X$ je nejvýše spočetná, je-li konečná nebo spočetná
+	- $X$ je nespočetná, když není nejvýše spočetná
 - vlastní a nevlastní limita posloupnosti, podposloupnost (př. 2)
+	- nechť $(a_n)$ je reálná posloupnost a $L \in \mathbb R^*$
+	- pokud $\forall\varepsilon\,\exists n_0\,(n\geq n_0\implies a_n\in U(L,\varepsilon))$, píšeme, že $\lim a_n=L$ nebo $\lim_{n\to\infty}a_n=L$ nebo $a_n\to L$, a řekneme, že posloupnost $(a_n)$ má limitu $L$
+	- pro $L\in \mathbb R$ mluvíme o vlastní limitě a pro $l\in\pm\infty$ o limitě nevlastní
+	- posloupnost mající vlastní limitu konverguje, jinak diverguje
 - liminf a limsup posloupnosti (př. 3)
 - řada, částečný součet řady, součet řady (př. 3)
 - geometrická řada a její součet, absolutně konvergentní řada (př. 4)
