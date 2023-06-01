@@ -25,7 +25,12 @@
 	- pro $L\in \mathbb R$ mluvíme o vlastní limitě a pro $l\in\pm\infty$ o limitě nevlastní
 	- posloupnost mající vlastní limitu konverguje, jinak diverguje
 - liminf a limsup posloupnosti (př. 3)
+	- nechť $A\in \mathbb R^*$ a $(a_n)\subset\mathbb R$; řekneme, že $A$ je hromadný bod posloupnosti $(a_n)$, je-li limitou nějaké její podposloupnosti; $H(a_n)$ je množina těchto hromadných bodů
+	- limes inferior a limes superior dané posloupnosti $(a_n)$ definujeme po řadě jako $\lim\inf a_n :=\min(H(a_n))$ a $\lim\sup a_n:=\max(H(a_n))$
 - řada, částečný součet řady, součet řady (př. 3)
+	- (nekonečnou) řadou rozumíme posloupnost $(a_n)\subset\mathbb R$
+	- jejím součtem rozumíme limitu $\sum a_n=\sum_{n=1}^\infty a_n=a_1+a_2+\dots := \lim(a_1+a_2+\dots+a_n)$, když existuje
+	- posloupnost $(a_1+a_2+\dots+a_n)$ sestává z takzvaných částečných součtů (řady)
 - geometrická řada a její součet, absolutně konvergentní řada (př. 4)
 - limita funkce, jednostranná limita funkce (př. 4 a 5)
 - exponenciála, logaritmus, kosinus a sinus (př. 4)
