@@ -43,6 +43,8 @@
 	- $\sum^\infty_{n=0}q^n=\begin{cases} +\infty & \text{pro }q\geq 1 \\ \frac{1}{1-q} & \text{pro }|q|\lt 1 \\ \text{neexistuje} & \text{pro }q\leq -1 \end{cases}$
 	- řada $\sum a_n$ je absolutně konvergentní, konverguje-li řada $\sum |a_n|$
 - limita funkce, jednostranná limita funkce (př. 4 a 5)
+	- limitní bod
+		- prvek $L\in\mathbb R^*$ je limitní bod množiny $M\subset\mathbb R$, když $\forall\varepsilon:P(L,\varepsilon)\cap M\neq\emptyset$
 	- limita
 		- nechť $A,L\in\mathbb R^*,\,M\subset\mathbb R,\,A$ je limitní bod množiny $M$ a $f:M\to\mathbb R$ je funkce
 		- pokud $\forall\varepsilon\,\exists\delta:f[P(A,\delta)\cap M]\subset U(L,\varepsilon)$, píšeme $\lim_{x\to A}f(x)=L$ a řekneme, že funkce $f$ má v $A$ limitu $L$
@@ -54,15 +56,52 @@
 	- $\log := \exp^{-1}:(0,+\infty)\to\mathbb R$
 	- $\forall t\in\mathbb R$ nechť $\cos t:=\sum_{n=0}^\infty\frac{(-1)^nt^{2n}}{(2n)!}$ a $\sin t:=\sum_{n=0}^\infty\frac{(-1)^nt^{2n+1}}{(2n+1)!}$
 - spojitost funkce v bodě, jednostranná spojitost funkce v bodě (př. 5)
-	- nechť 
+	- nechť $a\in M\subset\mathbb R$ a $f:M\to\mathbb R$
+	- funkce $f$ je spojitá v bodě $a$, když $\forall\varepsilon\,\exists\delta: f[U(a,\delta)\cap M]\subset U(f(a),\varepsilon)$
+	- jinak je $f$ v bodě $a$ nespojitá
+	- funkce $f$ je zleva spojitá v bodě $a$, když $\forall\varepsilon\,\exists\delta:f[U^-(a,\delta)\cap M]\subset U(f(a),\varepsilon)$
+	- obdobně se definuje spojitost zprava
 - asymptotické symboly $O,\,o,\,\sim$ (př. 5)
+	- $O$
+		- nechť je $M\subset\mathbb R,\,f,g:M\to\mathbb R$ a $N\subset M$
+		- pokud $(\exists c\geq 0)(\forall x\in N)(|f(x)|\leq c\cdot |g(x)|)$, píšeme $f(x)=O(g(x))\;(x\in N)$ a řekneme, že funkce $f$ je na množině $N$ velké $O$ z funkce $g$
+	- $o,\,\sim$
+		- nechť $A\in\mathbb R^*$ je limitní bod množiny $M\in\mathbb R,\,f,:M\to\mathbb R$ jsou funkce a $(\exists\delta)(\forall x\in P(A,\delta)\cap M)(g(x)\neq 0)$
+		- když $\lim_{x\to A}\frac{f(x)}{g(x)}=0\implies f(x)=o(g(x))\;(x\to A)$
+			- pro $x$ jdoucí k $A$ je $f$ malé $o$ z $g$
+		- když $\lim_{x\to A} \frac{f(x)}{g(x)}=1\implies f(x)\sim g(x)\;(x\to A)$
+			- pro $x$ jdoucí k $A$ se $f$ asymptoticky rovná $g$
 - kompaktní, otevřená, uzavřená množina (př. 6)
+	- množina $M\subset\mathbb R$ je kompaktní, když každá posloupnost $(a_n)\subset M$ má konvergentní podposloupnost $(a_{m_n})$ s $\lim a_{m_n}\in M$
+	- množina $M\subset\mathbb R$ je otevřená, když $(\forall a\in M)(\exists\delta)(U(a,\delta)\subset M)$
+	- množina $M\subset\mathbb R$ je uzavřená, když je $\mathbb R\setminus M$ otevřená
 - globální, lokální a ostré extrémy funkce (př. 6)
+	- nechť je $a\in M\subset\mathbb R$ a nechť $f:M\to \mathbb R$
+	- funkce $f$ má na $M$ v bodu $a$ globální maximum, když $\forall x\in M: f(x)\leq f(a)$
+	- funkce $f$ má na $M$ v bodu $a$ lokální maximum, když $(\exists\delta)(\forall x\in U(a,\delta)\cap M)(f(x)\leq f(a))$
+	- obdobně se definují minima
+	- platí-li pro každé $x\neq a$ tyto nerovnosti jako ostré, jde o ostré globální/lokální maximum/minimum
 - derivace funkce, jednostranná derivace funkce (př. 7)
+	- nechť $a\in M$ je limitní bod množiny $M\subset\mathbb R$ a $f:M\to \mathbb R$ je funkce
+	- definujeme $f'(a)=\frac{df}{dx}(a):=\lim_{x\to a}\frac{f(x)-f(a)}{x-a}=\lim_{h\to 0}\frac{f(a+h)-f(a)}{h}$ a řekneme, že tato limita $f'(a)=\frac{df}{dx}(a)\in\mathbb R^*$ je derivace funkce $f$ v bodě $a$
+	- jednostranné derivace $f'_-,f'_+$ se definují podobně, akorát se používají limity zleva/zprava
 - standardní definice tečny (d. 9, př. 7)
+	- nechť $a\in M$ je limitní bod množiny $M\subset\mathbb R$ a $f:M\to\mathbb R$ je diferencovatelná v $a$ (má tam vlastní derivaci)
+	- tečnou ke $G_f$ (grafu funkce $f$) v bodě $(a,f(a))\in G_f$ rozumíme přímku $\ell: y=f'(a)\cdot (x-a)+f(a)$
+	- je to jediná přímka se sklonem $f'(a)$ procházející bodem $(a,f(a))$
 - derivace vyšších řádů (d. 8, př. 8)
+	- nechť $\emptyset\neq M\subset\mathbb R$ je otevřená množina, $f:M\to\mathbb R,\,f_0:=f$ a pro $i=1,2,\dots,n\in\mathbb N$ platí, že $D(f_{i-1})=M$ a $f_i:=(f_{i-1})'$
+	- pak každou funkci $f^{(i)}:=f_i:M\to\mathbb R,\,i=1,2,\dots,n$ nazveme derivací řádu $i$ funkce $f$ či její $i$-tou derivací
 - (ryze) konvexní a konkávní funkce (d. 10, př. 8)
+	- $I\subset\mathbb R$ je interval
+	- $\kappa(a,f(a),c,f(c))$ je sečna $G_f$ jdoucí body $(a,f(a))$ a $(c,f(c))$
+	- funkce $f:I\to\mathbb R$ je na $I$ konvexní, pokud $\forall(a\lt b\lt c)\subset I: (b,f(b))\leq\kappa(a,f(a),c,f(c))$
+	- pomocí ostré nerovnosti se definuje ostře konvexní funkce
+	- pomocí opačné nerovnosti se definuje (ostře) konkávní funkce
 - inflexní bod (d. 14, př. 8)
+	- bod $a\in M$ je oboustranný limitní bod (OLB) množiny $M\in\mathbb R$, pokud $\forall\delta: P^-(a,\delta)\cap M\neq\emptyset\land P^+(a,\delta)\cap M\neq\emptyset$
+	- nechť $a\in M$ je OLB $M\subset\mathbb R$ a $\ell$ je tečna ke $G_f$ v $(a,f(a))$
+	- tento bod je inflexním bodem grafu funkce $f$, existuje-li $\delta$, že $x\in 
 - svislé asymptoty a asymptoty v nekonečnu (př. 8)
 - Taylorův polynom funkce (d. 1, př. 9), Taylorova řada funkce (d. 5, př. 9)
 - primitivní funkce (d. 8, př. 9)
