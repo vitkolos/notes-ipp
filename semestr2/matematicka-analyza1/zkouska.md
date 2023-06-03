@@ -173,8 +173,74 @@
 
 ## Věty bez důkazů
 
-
+- definice a vlastnosti $\mathbb R$ (d. 10 a t. 11, př. 1)
+	- Reálná čísla tvoří množinu $\mathbb R:=C/\sim$
+		- $C$ je množina všech Cauchyových posloupností zlomků
+		- posloupnost $(a_n)\subset\mathbb Q$ je Cauchyova $\equiv\forall k\,\exists n_0:m,n\geq n_0\implies|a_m-a_n|\leq 1/k$
+			- vzdálenost mezi členy posloupnosti se postupně zmenšuje na libovolně malou hodnotu
+		- relaci shodnosti $\sim$ na $C$ definujeme takto: $(a_n)\sim(b_n)\equiv(\forall k\,\exists n_0:n\geq n_0\implies|a_n-b_n|\leq 1/k)$
+	- $(\mathbb R,0,1,+,\cdot,\lt)$ je uspořádané těleso.
+- o podposloupnostech (t. 7, př. 2)
+	- $(a_n)$ buď libovolná reálná posloupnost a $A\in\mathbb R^*$. Platí následující.
+		- $(a_n)$ má podposloupnost, která má limitu.
+		- $(a_n)$ nemá limitu $\iff (a_n)$ má dvě podposloupnosti s dvěma různými limitami.
+		- Neplatí, že $\lim a_n=A\iff(a_n)$ má podposloupnost, jež má limitu různou od $A$.
+- existence monotónní podposloupnosti (t. 13, př. 2)
+	- Každá posloupnost reálných čísel má monotónní podposloupnost.
+- geometrická posloupnost (t. 5, př. 3)
+	- Nechť $q\in\mathbb R$. Potom $$\lim_{n\to\infty}q^n\begin{cases}=0 & \text{pro }|q|\lt 1 \\ =1 & \text{pro }q=1 \\ =+\infty & \text{pro }q\gt 1 \\ \text{neexistuje} & \text{pro } q\leq -1\end{cases}$$
+- liminf a limsup (v. 11, př. 3)
+	- Pro každou $(a_n)\subset\mathbb R$ je množina $H(a_n)$ neprázdná. V lineárním uspořádání $(\mathbb R^*,\lt)$ má minimum i maximum.
+- o harmonických číslech (v. 4, př. 4)
+- Riemannova věta (v. 5, př. 4)
+- o Riemannově funkci (t. 8, př. 5)
+- limita složené funkce (v. 14, př. 5)
+- Heineho definice spojitosti (t. 1, př. 6)
+- Blumbergova definice spojitosti (v. 5, př. 6)
+- počet spojitých funkcí (v. 7, př. 6)
+- derivace složené funkce (v. 18, př. 7)
+- derivace inverzní funkce (v. 19, př. 7)
+- l'Hospitalovo pravidlo (v. 7, př. 8)
+- konvexita a konkavita a $f''$ (v. 12, př. 8)
+- Lagrangeův a Cauchyův zbytek Taylorova polynomu (v. 6, př. 9)
+- Bellova čísla (t. 7, př. 9)
+- Riemann = Newton (dů. 6, př. 10)
+- integrace substitucí (v. 15, př. 10)
+- $(N)\int_A^Bf$ per partes (v. 4, př. 11)
+- $\int r(x)$ (v. 7, př. 11)
+- o restrikcích (t. 5, př. 12)
+- Lebesgueova věta (v. 12, př. 12)
+- ZVA 2 (v. 17, př. 12)
+- Riemann = Darboux (t. 8, př. 13)
+- HK. $\int$ a N. $\int$ (v. 12, př. 13)
+- délka grafu (v. 4, př. 14)
+- integrální kritérium (dů. 14, př. 14)
 
 ## Věty s důkazy
 
-
+- $\sqrt 2\notin\mathbb Q$ (v. 8, př. 1)
+- Cantorova věta (v. 17, př. 1)
+- jednoznačnost limity (t. 4, př. 2)
+- Bolzano-Weierstrassova (v. 15, př. 2)
+- limita a uspořádání (v. 6, př. 3)
+- Cauchyova podmínka (v. 17, př. 2)
+- nutná podmínka konvergence řady (t. 2, př. 4)
+- harmonická řada (t. 3, př. 4)
+- Heineho definice (v. 14, př. 4)
+- aritmetika limit funkcí (v. 11, př. 5)
+- nabývání mezihodnot (v. 8, př. 6)
+- princip minima a maxima (v. 13, př. 6)
+- nutná podmínka extrému (v. 4, př. 7)
+- Leibnizův vzorec (v. 16, př. 7)
+- Lagrangeova věta (v. 2, př. 8)
+- derivace a monotonie (v. 4, př. 8)
+- Taylorův polynom (v. 2, př. 9)
+- nejednoznačnost primitivní funkce (v. 9, př. 9)
+- monotonie $(\text{N})\int$ (t. 8, př. 10)
+- derivace jsou Darbouxovy (v. 12, př. 10)
+- Bachetova identita (t. 10, př. 11)
+- neomezené funkce jsou špatné (t. 8, př. 12)
+- Baireova věta (v. 10, př. 12)
+- $\underline\int\leq\overline\int$ (t. 7, př. 13)
+- ZVA 1 (v. 1, př. 13)
+- vzorec $\sum=\int+\int$ (v. 15, př. 14)
