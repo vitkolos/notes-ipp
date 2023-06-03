@@ -6,6 +6,4 @@ stream.cuni.cz → Klimošová
 - značení $\subset$
 - ostré lineární uspořádání, trichotomie
 - suprema a infima, meze
-- … (doplnit od důsledku 9)
 - každá podmnožina v $\mathbb R^*$ má supremum i infimum
-- 

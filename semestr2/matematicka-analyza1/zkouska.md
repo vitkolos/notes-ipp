@@ -31,10 +31,30 @@
 	- (nekonečnou) řadou rozumíme posloupnost $(a_n)\subset\mathbb R$
 	- jejím součtem rozumíme limitu $\sum a_n=\sum_{n=1}^\infty a_n=a_1+a_2+\dots := \lim(a_1+a_2+\dots+a_n)$, když existuje
 	- posloupnost $(a_1+a_2+\dots+a_n)$ sestává z takzvaných částečných součtů (řady)
+	- má-li řada vlastní součet, pak konverguje, jinak diverguje
 - geometrická řada a její součet, absolutně konvergentní řada (př. 4)
+	- geometrické řady jsou řady $\sum_{n=0}^\infty q^n=1+q+q^2+\dots$ s parametrem $q\in\mathbb R$ zvaným kvocient
+	- mějme částečný součet $s_n:=1+q+q^2+\dots+q^{n-1}$
+		- $qs_n=q+q^2+q^3+\dots+q^n$
+		- $s_n=1+q+q^2+\dots+q^{n-1}$
+		- $qs_n-s_n=q^n-1$
+		- $s_n=\frac{q^n-1}{q-1}=\frac 1{1-q}+\frac{q^n}{q-1}$
+		- pak stačí určit $\lim s_n$ pro dané $q$
+	- $\sum^\infty_{n=0}q^n=\begin{cases} +\infty & \text{pro }q\geq 1 \\ \frac{1}{1-q} & \text{pro }|q|\lt 1 \\ \text{neexistuje} & \text{pro }q\leq -1 \end{cases}$
+	- řada $\sum a_n$ je absolutně konvergentní, konverguje-li řada $\sum |a_n|$
 - limita funkce, jednostranná limita funkce (př. 4 a 5)
+	- limita
+		- nechť $A,L\in\mathbb R^*,\,M\subset\mathbb R,\,A$ je limitní bod množiny $M$ a $f:M\to\mathbb R$ je funkce
+		- pokud $\forall\varepsilon\,\exists\delta:f[P(A,\delta)\cap M]\subset U(L,\varepsilon)$, píšeme $\lim_{x\to A}f(x)=L$ a řekneme, že funkce $f$ má v $A$ limitu $L$
+	- limita zleva (obdobně zprava)
+		- nechť $A,L\in\mathbb R^*,\,M\subset\mathbb R,\,A$ je levý limitní bod množiny $M$ a $f:M\to\mathbb R$ je funkce
+		- pokud $\forall\varepsilon\,\exists\delta:f[P^-(A,\delta)\cap M]\subset U(L,\varepsilon)$, píšeme $\lim_{x\to A^-}f(x)=L$ a řekneme, že funkce $f$ má v bodě $A$ limitu zleva rovnou $L$
 - exponenciála, logaritmus, kosinus a sinus (př. 4)
+	- pro každé $x\in\mathbb R$ položíme $e^x=\exp(x):=\sum_{n=0}^\infty\frac{x^n}{n!}=1+x+{x^2\over 2}+{x^3\over 6}+\dots:\mathbb R\to \mathbb R$
+	- $\log := \exp^{-1}:(0,+\infty)\to\mathbb R$
+	- $\forall t\in\mathbb R$ nechť $\cos t:=\sum_{n=0}^\infty\frac{(-1)^nt^{2n}}{(2n)!}$ a $\sin t:=\sum_{n=0}^\infty\frac{(-1)^nt^{2n+1}}{(2n+1)!}$
 - spojitost funkce v bodě, jednostranná spojitost funkce v bodě (př. 5)
+	- nechť 
 - asymptotické symboly $O,\,o,\,\sim$ (př. 5)
 - kompaktní, otevřená, uzavřená množina (př. 6)
 - globální, lokální a ostré extrémy funkce (př. 6)
