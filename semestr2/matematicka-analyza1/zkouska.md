@@ -101,9 +101,24 @@
 - inflexní bod (d. 14, př. 8)
 	- bod $a\in M$ je oboustranný limitní bod (OLB) množiny $M\in\mathbb R$, pokud $\forall\delta: P^-(a,\delta)\cap M\neq\emptyset\land P^+(a,\delta)\cap M\neq\emptyset$
 	- nechť $a\in M$ je OLB $M\subset\mathbb R$ a $\ell$ je tečna ke $G_f$ v $(a,f(a))$
-	- tento bod je inflexním bodem grafu funkce $f$, existuje-li $\delta$, že
+	- tento bod je inflexním bodem grafu funkce $f$, pokud $(\exists\delta)(x\in P^-(a,\delta)\cap M)(x'\in P^+(a,\delta)\cap M):$ $((x,f(x))\leq \ell\land (x',f(x'))\geq \ell)$
+	- nebo platí opačné nerovnosti
 - svislé asymptoty a asymptoty v nekonečnu (př. 8)
+	- svislé asymptoty
+		- nechť $b\in \mathbb R$ je levý limitní bod $M\subset\mathbb R$ a $f:M\to\mathbb R$
+		- když $\lim_{x\to b^-}f(x)=\pm\infty$, nazveme přímku $x=b$ levou asymptotou funkce $f$
+		- pravé asymptoty se definují podobně
+	- asymptoty v nekonečnu
+		- nechť $M\subset\mathbb R,\,+\infty$ je limitní bod $M,\,s,b,\in\mathbb R$ a $f:M\to\mathbb R$
+		- když $\lim_{x\to+\infty}(f(x)-sx-b)=0$, nazveme přímku $y=sx+b$ asymptotou funkce f v $+\infty$
+		- asymptoty v $-\infty$ se definují podobně
 - Taylorův polynom funkce (d. 1, př. 9), Taylorova řada funkce (d. 5, př. 9)
+	- Taylorův polynom
+		- mějme $n\in\mathbb N$, přičemž $f,f',f'',\dots,f^{(n-1)}:U(b,\delta)\to\mathbb R$ a $\exists f^{(n)}(b)\in\mathbb R$
+		- polynom $$T^{f,b}_n(x):=\sum_{j=0}^n\frac{f^{(j)}(b)}{j!}(x-b)^j$$ nazveme Taylorovým polynomem funkce $f$ řádu $n$ se středem v čísle $b$
+	- Taylorova řada
+		- nechť $f^{(n)}:U(a,\delta)\to\mathbb R$ pro každé $n\in\mathbb N_0$
+		- pokud pro každé $x\in U(a,\delta)$ platí $$f(x)=\sum_{n=0}^\infty\frac{f^{(n)}(a)}{n!}(x-a)^n$$ – řekneme, že na $U(a,\delta)$ je funkce $f$ součtem své Taylorovy řady se středem $a$
 - primitivní funkce (d. 8, př. 9)
 - stejnoměrná spojitost (d. 19, př. 6)
 - (nevlastní) Newtonův integrál funkce (d. 7, př. 10 a d. 1, př. 11)
