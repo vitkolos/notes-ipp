@@ -26,7 +26,7 @@
 	- posloupnost mající vlastní limitu konverguje, jinak diverguje
 - liminf a limsup posloupnosti (př. 3)
 	- nechť $A\in \mathbb R^*$ a $(a_n)\subset\mathbb R$; řekneme, že $A$ je hromadný bod posloupnosti $(a_n)$, je-li limitou nějaké její podposloupnosti; $H(a_n)$ je množina těchto hromadných bodů
-	- limes inferior a limes superior dané posloupnosti $(a_n)$ definujeme po řadě jako $\lim\inf a_n :=\min(H(a_n))$ a $\lim\sup a_n:=\max(H(a_n))$
+	- limes inferior a limes superior dané posloupnosti $(a_n)$ definujeme po řadě jako $\liminf a_n :=\min(H(a_n))$ a $\limsup a_n:=\max(H(a_n))$
 - řada, částečný součet řady, součet řady (př. 3)
 	- (nekonečnou) řadou rozumíme posloupnost $(a_n)\subset\mathbb R$
 	- jejím součtem rozumíme limitu $\sum a_n=\sum_{n=1}^\infty a_n=a_1+a_2+\dots := \lim(a_1+a_2+\dots+a_n)$, když existuje
@@ -126,8 +126,17 @@
 - stejnoměrná spojitost (d. 19, př. 6)
 	- pro $M\subset \mathbb R$ je funkce $f:M\to\mathbb R$ (na $M$) stejnoměrně spojitá, pokud $\forall\varepsilon\,\exists\delta: a,b\in M\land |a-b|\leq\delta\implies |f(a)-f(b)|\leq\varepsilon$
 - (nevlastní) Newtonův integrál funkce (d. 7, př. 10 a d. 1, př. 11)
-	- 
+	- když $f:(a,b)\to\mathbb R$ (přičemž $a\lt b$) má primitivní funkci $F$ a existují vlastní limity $F(a):=\lim_{x\to a}F(x)$ a $F(b):=\lim_{x\to b}F(x)$, definujeme Newtonův integrál funkce $f$ na intervalu $(a,b)$ jako jejich rozdíl $$(N)\int_a^bf:=F(b)-F(A)=\lim_{x\to b}F(x)-\lim_{x\to a}F(x)$$
+	- pak plochu $A_f$ oblasti $G_{\leq f}$ definujeme jako $A_f:=(N)\int_a^bf$
+	- pro $b\lt a$ klademe $(N)\int_a^bf:=-(N)\int_b^af$
+	- dále vždy definujeme $(N)\int_a^af:=0$
+	- rozšířený (nevlastní) Newtonův integrál funkce $f:(a,b)\to\mathbb R$ definujeme jako $(N_e)\int_a^bf:=[F]_a^b$ pro libovolnou zobecněnou antiderivaci $F:(a,b)\to\mathbb R$ funkce $f$, přičemž zobecněná antiderivace funkce $f:I\to\mathbb R$ pro netriviální interval $I$ se definuje jako $F:I\to\mathbb R$, pokud $F$ je spojitá a $F'(x)=f(x)$ platí pro každé $x\in I$ s konečně mnoha výjimkami
 - Riemannův integrál (d. 1, př. 12) a množina míry 0 (d. 11, př. 12)
+	- dělením $\overline a$ intervalu $I$ rozumíme každou takovou $(k+1)$-tici bodů $\overline a=(a_0,a_1,\dots,a_k),\,k\in\mathbb N$, že $a=a_0\lt a_1\lt\dots\lt a_{k-1}\lt a_k=b$
+		- jeho norma $\Vert\overline a\Vert\in[0,+\infty)$ je největší délka $a_i-a_{i-1}$ podintervalu (formálně $\Vert\overline a\Vert=\max(\lbrace a_i-a_{i-1}\mid i\in [k]\rbrace)$)
+	- dělení intervalu $I$ s body je každá taková dvojice $(\overline a, \overline t)$, že $\overline a$ je dělení intervalu $I$ a $k$-tice $\overline t=(t_1,\dots,t_k)$ splňuje $\forall i\in[k]:t_i\in [a_{i-1},a_i]$
+	- funkce $f:[a,b]\to\mathbb R$ (přičemž $a\lt b$) je riemannovsky integrovatelná, psáno $f\in R(a,b)$, pokud $\exists c\,\forall\varepsilon\,\exists\delta\,\forall(\overline a,\overline t)$ platí, že $\Vert\overline a\Vert\lt\delta\implies|R(\overline a,\overline t,f)-c|\lt\varepsilon$
+	- pak také píšeme $(R)\int_a^bf=c$ nebo $(R)\int_a^bf(x)\,dx=c$ a řekneme, že (Riemannův) integrál funkce $f$ přes interval $[a,b]$ se rovná $c$
 - Henstock-Kurzweilův integrál (d. 11, př. 13)
 - délka grafu funkce, plocha mezi grafy, objem rotačního tělesa (př. 14)
 
