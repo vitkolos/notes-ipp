@@ -52,6 +52,7 @@
 	- algoritmus začíná přidáním prvního vrcholu do fronty (to je ten vrchol, ze kterého graf prohledáváme)
 	- algoritmus končí, jakmile je fronta prázdná
 	- složitost $\Theta(n+m)$
+	- BFS najde cestu s nejmenším počtem hran (z výchozího vrcholu do libovolného vrcholu grafu) – tedy lze použít k hledání nejkratší cesty v grafech s jednotkovými hranami 
 	- klasifikace hran – rozdělíme vrcholy na vrstvy (podle toho, jak je BFS prochází ve vlnách)
 		- stromová hrana – prošli jsme po ní při BFS
 		- příčná hrana – v rámci vrstvy
