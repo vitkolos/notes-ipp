@@ -138,17 +138,38 @@
 	- Riemannův součet pro $f$ a $(\overline a,\overline t)$
 		- $R(\overline a,\overline t,f):=\sum_{i=1}^k(a_i-a_{i-1})\cdot f(t_i)$
 	- Riemannův integrál
-		- funkce $f:[a,b]\to\mathbb R$ (přičemž $a\lt b$) je riemannovsky integrovatelná, psáno $f\in R(a,b)$, pokud $\exists c\,\forall\varepsilon\,\exists\delta\,\forall(\overline a,\overline t)$ platí, že $\Vert\overline a\Vert\lt\delta\implies|R(\overline a,\overline t,f)-c|\lt\varepsilon$
-		- pak také píšeme $(R)\int_a^bf=c$ nebo $(R)\int_a^bf(x)\,dx=c$ a řekneme, že (Riemannův) integrál funkce $f$ přes interval $[a,b]$ se rovná $c$
+		- funkce $f:[a,b]\to\mathbb R$ (přičemž $a\lt b$) je riemannovsky integrovatelná, psáno $f\in \text{R}(a,b)$, pokud $\exists c\,\forall\varepsilon\,\exists\delta\,\forall(\overline a,\overline t)$ platí, že $\Vert\overline a\Vert\lt\delta\implies|R(\overline a,\overline t,f)-c|\lt\varepsilon$
+		- pak také píšeme $(\text{R})\int_a^bf=c$ nebo $(\text{R})\int_a^bf(x)\,dx=c$ a řekneme, že (Riemannův) integrál funkce $f$ přes interval $[a,b]$ se rovná $c$
 	- množina míry 0
 		- množina $M\subset\mathbb R$ má míru nula, pokud pro každé $\varepsilon$ existují takové intervaly $[a_n,b_n],\,n\in\mathbb N$ a $a_n\lt b_n$, že $$M\subset\bigcup_{n=1}^\infty[a_n,b_n]\land\sum_{n=1}^\infty(b_n-a_n)\lt\varepsilon$$
 		- jinými slovy jde o množinu, kterou lze pokrýt spočetným sjednocením intervalů s libovolně malou celkovou délkou
 		- každá nejvýše spočetná množina má míru 0
 		- žádný netriviální interval nemá míru 0
 - Henstock-Kurzweilův integrál (d. 11, př. 13)
-	- 
+	- kalibry
+		- nechť $a\lt b$ jsou v $\mathbb R$
+		- funkci $\delta_c:[a,b]\to(0,+\infty)$ nazveme kalibrem (na $[a,b]$)
+		- dělení s body $(\overline a,\overline t)$ intervalu $[a,b]$ nazveme $\delta_c$-jemným, pokud $\forall i\in[k]:a_i-a_{i-1}\lt \delta_c(t_i)$
+	- $f:[a,b]\to\mathbb R$ je HK-integrovatelná, symbolicky psáno $f\in \text{HK}(a,b)$, pokud $\exists c\,\forall\varepsilon\,\exists\delta_c$, kalibr na $[a,b]$, že pro všechna dělení s body $(\overline a,\overline t)$ na intervalu $[a,b]$ platí, že $(\overline a,\overline t)$ je $\delta_c$-jemné $\implies |R(\overline a,\overline t,f)-c|\lt\varepsilon$
+	- pak také píšeme $(\text{HK})\int_a^bf=c$ nebo $(\text{HK})\int_a^bf(x)\,dx=c$ a řekneme, že Henstock-Kurzweilův integrál funkce $f$ přes interval $[a,b]$ se rovná $c$
 - délka grafu funkce, plocha mezi grafy, objem rotačního tělesa (př. 14)
-	- 
+	- délka lomené čáry vepsané do $G_f$
+		- $L(\overline a,f):=\sum_{i=1}^k|u_{i-1}u_i|$
+		- přičemž $u_j := (a_j,f(a_j))$, $|uv|=\sqrt{(u_1-v_1)^2+(u_2-v_2)^2}$
+	- délka grafu funkce $f:[a,b]\to\mathbb R$
+		- $\ell(G_f):=\sup(\lbrace L(\overline a,f)\mid \overline a$ je dělení intervalu $[a,b]\rbrace)$
+		- podle vzorce platí $\ell(G_f)=\int_a^b\sqrt{1+(f')^2}\in(0,+\infty)$
+	- plocha sloupcového grafu s nejnižšími sloupci, které pokrývají $G_{f,g}$
+		- $M(f,g,\overline a):=\sum_{i=1}^k|I_i|\cdot(\sup(g[I_i])-\inf(f[I_i]))\in\mathbb R^*\,(\geq 0)$
+		- přičemž $I_i:=[a_{i-1},a_i],\,|I_i|:=a_i-a_{i-1}$
+	- plocha mezi grafy funkcí $f,g:[a,b]\to\mathbb R,\,f\leq g$
+		- $A(G_{f,g}):=\inf(\lbrace M(f,g,\overline a)\mid\overline a$ je dělení intervalu $[a,b]\rbrace)$
+		- podle vzorce platí $A(G_{f,g})=\int_a^b(g-f)$
+	- objem kotoučů
+		- $K(\overline a,f):=\pi \sum_{i=1}^k|I_i|\cdot \sup(f[I_i])^2$
+	- objem tělesa vzniklého rotací funkce $f:[a,b]\to[0,+\infty)$
+		- $V(T_f):=\inf(\lbrace K(f,\overline a)\mid\overline a$ je dělení intervalu $[a,b]\rbrace)$
+		- podle vzorce platí $V(T_f)=\pi\int_a^bf^2$
 
 ## Věty bez důkazů
 
