@@ -120,8 +120,13 @@
 		- nechť $f^{(n)}:U(a,\delta)\to\mathbb R$ pro každé $n\in\mathbb N_0$
 		- pokud pro každé $x\in U(a,\delta)$ platí $$f(x)=\sum_{n=0}^\infty\frac{f^{(n)}(a)}{n!}(x-a)^n$$ – řekneme, že na $U(a,\delta)$ je funkce $f$ součtem své Taylorovy řady se středem $a$
 - primitivní funkce (d. 8, př. 9)
+	- nechť $I\subset\mathbb R$ je netriviální interval a $F,f:I\to\mathbb R$
+	- řekneme, že $F$ je primitivní funkce k $f$, symbolicky $F=\int f$, pokud $F'=f$ na celém $I$
+	- někdy se $F$ také nazývá antiderivací funkce $f$
 - stejnoměrná spojitost (d. 19, př. 6)
+	- pro $M\subset \mathbb R$ je funkce $f:M\to\mathbb R$ (na $M$) stejnoměrně spojitá, pokud $\forall\varepsilon\,\exists\delta: a,b\in M\land |a-b|\leq\delta\implies |f(a)-f(b)|\leq\varepsilon$
 - (nevlastní) Newtonův integrál funkce (d. 7, př. 10 a d. 1, př. 11)
+	- 
 - Riemannův integrál (d. 1, př. 12) a množina míry 0 (d. 11, př. 12)
 - Henstock-Kurzweilův integrál (d. 11, př. 13)
 - délka grafu funkce, plocha mezi grafy, objem rotačního tělesa (př. 14)
