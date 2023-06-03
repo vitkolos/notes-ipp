@@ -135,10 +135,20 @@
 	- dělením $\overline a$ intervalu $I$ rozumíme každou takovou $(k+1)$-tici bodů $\overline a=(a_0,a_1,\dots,a_k),\,k\in\mathbb N$, že $a=a_0\lt a_1\lt\dots\lt a_{k-1}\lt a_k=b$
 		- jeho norma $\Vert\overline a\Vert\in[0,+\infty)$ je největší délka $a_i-a_{i-1}$ podintervalu (formálně $\Vert\overline a\Vert=\max(\lbrace a_i-a_{i-1}\mid i\in [k]\rbrace)$)
 	- dělení intervalu $I$ s body je každá taková dvojice $(\overline a, \overline t)$, že $\overline a$ je dělení intervalu $I$ a $k$-tice $\overline t=(t_1,\dots,t_k)$ splňuje $\forall i\in[k]:t_i\in [a_{i-1},a_i]$
-	- funkce $f:[a,b]\to\mathbb R$ (přičemž $a\lt b$) je riemannovsky integrovatelná, psáno $f\in R(a,b)$, pokud $\exists c\,\forall\varepsilon\,\exists\delta\,\forall(\overline a,\overline t)$ platí, že $\Vert\overline a\Vert\lt\delta\implies|R(\overline a,\overline t,f)-c|\lt\varepsilon$
-	- pak také píšeme $(R)\int_a^bf=c$ nebo $(R)\int_a^bf(x)\,dx=c$ a řekneme, že (Riemannův) integrál funkce $f$ přes interval $[a,b]$ se rovná $c$
+	- Riemannův součet pro $f$ a $(\overline a,\overline t)$
+		- $R(\overline a,\overline t,f):=\sum_{i=1}^k(a_i-a_{i-1})\cdot f(t_i)$
+	- Riemannův integrál
+		- funkce $f:[a,b]\to\mathbb R$ (přičemž $a\lt b$) je riemannovsky integrovatelná, psáno $f\in R(a,b)$, pokud $\exists c\,\forall\varepsilon\,\exists\delta\,\forall(\overline a,\overline t)$ platí, že $\Vert\overline a\Vert\lt\delta\implies|R(\overline a,\overline t,f)-c|\lt\varepsilon$
+		- pak také píšeme $(R)\int_a^bf=c$ nebo $(R)\int_a^bf(x)\,dx=c$ a řekneme, že (Riemannův) integrál funkce $f$ přes interval $[a,b]$ se rovná $c$
+	- množina míry 0
+		- množina $M\subset\mathbb R$ má míru nula, pokud pro každé $\varepsilon$ existují takové intervaly $[a_n,b_n],\,n\in\mathbb N$ a $a_n\lt b_n$, že $$M\subset\bigcup_{n=1}^\infty[a_n,b_n]\land\sum_{n=1}^\infty(b_n-a_n)\lt\varepsilon$$
+		- jinými slovy jde o množinu, kterou lze pokrýt spočetným sjednocením intervalů s libovolně malou celkovou délkou
+		- každá nejvýše spočetná množina má míru 0
+		- žádný netriviální interval nemá míru 0
 - Henstock-Kurzweilův integrál (d. 11, př. 13)
+	- 
 - délka grafu funkce, plocha mezi grafy, objem rotačního tělesa (př. 14)
+	- 
 
 ## Věty bez důkazů
 
