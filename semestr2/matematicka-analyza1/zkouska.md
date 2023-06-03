@@ -101,7 +101,7 @@
 - inflexní bod (d. 14, př. 8)
 	- bod $a\in M$ je oboustranný limitní bod (OLB) množiny $M\in\mathbb R$, pokud $\forall\delta: P^-(a,\delta)\cap M\neq\emptyset\land P^+(a,\delta)\cap M\neq\emptyset$
 	- nechť $a\in M$ je OLB $M\subset\mathbb R$ a $\ell$ je tečna ke $G_f$ v $(a,f(a))$
-	- tento bod je inflexním bodem grafu funkce $f$, existuje-li $\delta$, že $x\in 
+	- tento bod je inflexním bodem grafu funkce $f$, existuje-li $\delta$, že
 - svislé asymptoty a asymptoty v nekonečnu (př. 8)
 - Taylorův polynom funkce (d. 1, př. 9), Taylorova řada funkce (d. 5, př. 9)
 - primitivní funkce (d. 8, př. 9)
