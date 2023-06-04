@@ -222,11 +222,32 @@
 	- přičemž $C(M):=\set{f:M\to\mathbb R\mid f \text{ je spojitá}}$
 		- tedy $C(M)$ je množina spojitých reálných funkcí definovaných na $M$
 - derivace složené funkce (v. 18, př. 7)
+	- Nechť $a\in M$ je limitní bod množiny $M\subset\mathbb R$, $g:M\to N$ je spojitá v $a$, s derivací $g'(a)\in\mathbb R^*$ a taková, že $g(a)\in N$ je limitní bod množiny $N\subset \mathbb R$, a nechť $f:N\to\mathbb R$ je funkce s derivací $f'(g(a))\in\mathbb R^*$.
+	- Pak složená funkce $f(g):M\to\mathbb R$ má derivaci $(f(g))'(a)=f'(g(a))\cdot g'(a)$, není-li součin neurčitý, tj. není ani $0\cdot (\pm\infty)$, ani $(\pm\infty)\cdot 0$.
 - derivace inverzní funkce (v. 19, př. 7)
+	- Nechť $a\in M$ je limitní bod množiny $M\subset\mathbb R$, $f:M\to\mathbb R$ je prostá funkce s derivací $f'(a)\in\mathbb R^*$ a inverzní funkce $f^{-1}:f[M]\to M$ je spojitá v $b:=f(a)$.
+	- Potom platí následující.
+		- Když $f'(a)\in\mathbb R\setminus\set{0}$, pak $f^{-1}$ má derivaci $(f^{-1})'(b)=\frac 1{f'(a)}=\frac 1{f'(f^{-1}(b))}$.
+		- Když $f'(a)=0$ a $f$ roste (resp. klesá) v bodě $a$, pak $f^{-1}$ má derivaci $(f^{-1})'(b)=+\infty$ (resp. $-\infty$).
+		- Když $f'(a)=\pm\infty$ a $b$ je limitní bod množiny $f[M]$, pak $f^{-1}$ má derivaci $(f^{-1})'(b)=0$.
 - l'Hospitalovo pravidlo (v. 7, př. 8)
+	- Nechť $A\in\mathbb R,\,f,g:P^+(A,\delta)\to\mathbb R$ mají vlastní derivace, $g'\neq 0$ a (1) $\lim_{x\to A}f(x)=\lim_{x\to A}g(x)=0$ nebo (2) $\lim_{x\to A}g(x)=\pm\infty$.
+	- Pak $\lim_{x\to A}\frac{f(x)}{g(x)}=\lim_{x\to A}\frac{f'(x)}{g'(x)}$, pokud poslední limita existuje.
+	- Věta platí i pro $P^-(A,\delta)$, $P(A,\delta)$ a pro $A=\pm\infty$.
 - konvexita a konkavita a $f''$ (v. 12, př. 8)
+	- Nechť $I\subset\mathbb R$ je interval, $f:I\to\mathbb R$ je spojitá, $D(f)=I^0,\,\forall c\in I^0\,\exists f''(c)\in\mathbb R^*$.
+	- $f''\geq 0\implies f$ je konvexní
+	- $f''\gt 0\implies f$ je ryze konvexní
+	- opačné nerovnosti $\implies$ (ryze) konkávní
+	- $I^0$ je vnitřek intervalu $I$ vzniklý vynecháním koncových bodů intervalu $I$
 - Lagrangeův a Cauchyův zbytek Taylorova polynomu (v. 6, př. 9)
+	- definujeme zbytek Tylorova polynomu jako $R^{f,a}_n(x):=f(x)-T^{f,a}_n(x),\,x\in U(a,\delta)$
+	- Mějme $f,f',\dots,f^{(n+1)}:U(a,\delta)\to\mathbb R$, kde $n\in\mathbb N$.
+	- Pak platí následující.
+	- Lagrangeův zbytek: $\forall x\in P(a,\delta)\,\exists c$ mezi $a$ a $x$, že $R^{f,a}_n(x)=\frac{f^{(n+1)}(c)}{(n+1)!}\cdot (x-a)^{n+1}$
+	- Cauchyův zbytek: $\forall x\in P(a,\delta)\,\exists c$ mezi $a$ a $x$, že $R_n^{f,a}(x)=\frac{f^{(n+1)}(c)\cdot(x-c)^n}{n!}\cdot(x-a)$
 - Bellova čísla (t. 7, př. 9)
+	- $\forall x\in(-1,1)$ platí rozvoj $e^{e^x-1}=\exp(\exp(x)-1)=\sum_{n=0}^\infty\frac{B_nx^n}{n!}$, kde $B_n$ je počet rozkladů $n$-prvkové množiny
 - Riemann = Newton (dů. 6, př. 10)
 - integrace substitucí (v. 15, př. 10)
 - $(N)\int_A^Bf$ per partes (v. 4, př. 11)
