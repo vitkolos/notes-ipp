@@ -249,7 +249,12 @@
 - Bellova čísla (t. 7, př. 9)
 	- $\forall x\in(-1,1)$ platí rozvoj $e^{e^x-1}=\exp(\exp(x)-1)=\sum_{n=0}^\infty\frac{B_nx^n}{n!}$, kde $B_n$ je počet rozkladů $n$-prvkové množiny ($B_0:=1$)
 - Riemann = Newton (dů. 6, př. 10)
+	- Když je $f:[a,b]\to\mathbb R$ spojitá a $F:[a,b]\to\mathbb R$ je k ní primitivní, pak $\lim_{\Vert\overline a\Vert\to0}R(\overline a,\overline t,f)=F(b)-F(a)$.
 - integrace substitucí (v. 15, př. 10)
+	- Nechť $I,J\subset\mathbb R$ jsou netriviální intervaly, $g:I\to J,\,g':I\to\mathbb R$ a $f:J\to\mathbb R$. Pak
+		- (1) $F=\int f$ na $J\implies F(g)=\int f(g)\cdot g'$ na $I$
+		- (2) když $g$ je surjekce a $g'\neq 0$, potom platí implikace
+			- $G=\int f(g)\cdot g'$ na $I\implies G(g^{-1})=\int f$ na $J$
 - $(N)\int_A^Bf$ per partes (v. 4, př. 11)
 - $\int r(x)$ (v. 7, př. 11)
 - o restrikcích (t. 5, př. 12)
