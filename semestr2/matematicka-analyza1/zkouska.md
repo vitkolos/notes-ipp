@@ -192,9 +192,25 @@
 - liminf a limsup (v. 11, př. 3)
 	- Pro každou $(a_n)\subset\mathbb R$ je množina $H(a_n)$ neprázdná. V lineárním uspořádání $(\mathbb R^*,\lt)$ má minimum i maximum.
 - o harmonických číslech (v. 4, př. 4)
+	- Uvažme harmonická čísla $h_n=\sum_{j=1}^n1/j$.
+	- Pak existuje konstanta $c\gt 0$, že pro každé $n\in\mathbb N$ se $h_n=\log n+\gamma+\Delta_n,\;|\Delta_n|\geq\frac cn$, kde $\gamma=0.577\dots$ je tzv. Eulerova konstanta.
 - Riemannova věta (v. 5, př. 4)
+	- Nechť pro řadu $\sum^\infty_{n=1}a_n$ platí:
+		- $\lim a_n=0$
+		- $\sum a_{k_n}=+\infty$, kde $a_{k_n}$ jsou kladné sčítance řady
+		- $\sum a_{z_n}=-\infty$, kde $a_{z_n}$ jsou záporné sčítance řady
+	- Pak pro každé $S\in\mathbb R^*$ existuje taková bijekce $\pi:\mathbb N\to\mathbb N$, že $\sum_{n=1}^\infty a_{\pi(n)}=S$.
+	- Jinými slovy, přeházením sčítanců řady můžeme dostat libovolné číslo.
 - o Riemannově funkci (t. 8, př. 5)
+	- Riemannova funkce je spojitá právě a jenom v iracionálních číslech.
+	- přičemž Riemannova funkce $r:\mathbb R\to\set{0}\cup\set{\frac 1n\mid n\in\mathbb N}$ je definovaná jako $r(x)=\begin{cases}0 & \text{pro iracionální } x \\ \frac 1n & \text{pro }x=\frac mn\in\mathbb Q\end{cases}$
+		- $\frac mn$ je zlomek v základním tvaru
 - limita složené funkce (v. 14, př. 5)
+	- Nechť $A,K,L\in\mathbb R^*$ a $M,N\subset\mathbb R,\,A$ je limitní bod $M,\,K$ je limitní bod $N$ a funkce $g:M\to N$ a $f:N\to\mathbb R$ mají limity $\lim_{x\to A}g(x)=K$ a $\lim_{x\to K}f(x)=L$.
+	- Pak složená funkce $f(g):M\to\mathbb R$ má limitu $\lim_{x\to A}f(g)(x)=L\iff$ platí podmínka 1 nebo podmínka 2.
+		- Podmínka 1: $K\in N\implies f(K)=L$
+		- Podmínka 2: $\exists\delta: K\notin g[P(A,\delta)\cap M]$
+	- Neplatí-li ani 1, ani 2, pak limita $\lim_{x\to A}f(g)(x)$ neexistuje nebo se rovná $f(K)\neq L$.
 - Heineho definice spojitosti (t. 1, př. 6)
 - Blumbergova definice spojitosti (v. 5, př. 6)
 - počet spojitých funkcí (v. 7, př. 6)
