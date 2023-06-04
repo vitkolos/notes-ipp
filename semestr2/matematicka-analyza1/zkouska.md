@@ -212,8 +212,15 @@
 		- Podmínka 2: $\exists\delta: K\notin g[P(A,\delta)\cap M]$
 	- Neplatí-li ani 1, ani 2, pak limita $\lim_{x\to A}f(g)(x)$ neexistuje nebo se rovná $f(K)\neq L$.
 - Heineho definice spojitosti (t. 1, př. 6)
+	- Funkce $f:M\to\mathbb R$ je spojitá v bodě $a\in M\subset\mathbb R$, právě když $\forall (a_n)\subset M:\lim a_n=a\implies \lim f(a_n)=f(a)$.
 - Blumbergova definice spojitosti (v. 5, př. 6)
+	- $\forall f:\mathbb R\to\mathbb R\;\exists M\subset\mathbb R$, že $M$ je hustá v $\mathbb R$ a restrikce $f\mid M$ je spojitá funkce.
+	- přičemž množina $M$ je hustá v $\mathbb R$, když $(\forall a\in \mathbb R)(\forall \delta)(U(a,\delta)\cap M\neq \emptyset)$
+	- restrikce je v podstatě omezení definičního oboru funkce
 - počet spojitých funkcí (v. 7, př. 6)
+	- věta: $\exists$ bijekce $h:\mathbb R\to C(\mathbb R)$
+	- přičemž $C(M):=\set{f:M\to\mathbb R\mid f \text{ je spojitá}}$
+		- tedy $C(M)$ je množina spojitých reálných funkcí definovaných na $M$
 - derivace složené funkce (v. 18, př. 7)
 - derivace inverzní funkce (v. 19, př. 7)
 - l'Hospitalovo pravidlo (v. 7, př. 8)
