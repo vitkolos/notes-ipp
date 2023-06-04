@@ -247,7 +247,7 @@
 	- Lagrangeův zbytek: $\forall x\in P(a,\delta)\,\exists c$ mezi $a$ a $x$, že $R^{f,a}_n(x)=\frac{f^{(n+1)}(c)}{(n+1)!}\cdot (x-a)^{n+1}$
 	- Cauchyův zbytek: $\forall x\in P(a,\delta)\,\exists c$ mezi $a$ a $x$, že $R_n^{f,a}(x)=\frac{f^{(n+1)}(c)\cdot(x-c)^n}{n!}\cdot(x-a)$
 - Bellova čísla (t. 7, př. 9)
-	- $\forall x\in(-1,1)$ platí rozvoj $e^{e^x-1}=\exp(\exp(x)-1)=\sum_{n=0}^\infty\frac{B_nx^n}{n!}$, kde $B_n$ je počet rozkladů $n$-prvkové množiny
+	- $\forall x\in(-1,1)$ platí rozvoj $e^{e^x-1}=\exp(\exp(x)-1)=\sum_{n=0}^\infty\frac{B_nx^n}{n!}$, kde $B_n$ je počet rozkladů $n$-prvkové množiny ($B_0:=1$)
 - Riemann = Newton (dů. 6, př. 10)
 - integrace substitucí (v. 15, př. 10)
 - $(N)\int_A^Bf$ per partes (v. 4, př. 11)
