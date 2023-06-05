@@ -326,25 +326,59 @@
 		- nechť $(a_n)$ je omezená posloupnost a $(b_n)\preceq(a_n)$ je její monotónní podposloupnost zaručená tvrzením o existenci monotónní podposloupnosti
 		- patrně $(b_n)$ je omezená a podle věty o robustně monotónní podposloupnosti má limitu
 - limita a uspořádání (v. 6, př. 3)
-	- 
+	- věta
+		- Nechť $(a_n)$ a $(b_n)$ jsou dvě reálné posloupnosti s $\lim a_n=K\in\mathbb R^*$ a $\lim b_n=L\in\mathbb R^*$. Platí následující.
+		- (1) Když $K\lt L$, tak existuje $n_0$, že pro každé dva (ne nutně stejné) index $m,n\geq n_0$ je $a_m\lt b_n$.
+		- (2) Když pro každé $n_0$ existují indexy $m$ a $n$, že $m,n\geq n_0$ a $a_m\geq b_n$, pak $K\geq L$.
+	- důkaz
+		- nechť $K\lt L$
+		- $\exists\varepsilon:U(K,\varepsilon)\lt U(L,\varepsilon)$
+		- podle definice limity máme $n_0$, že $m,n\geq n_0\implies a_m\in U(K,\varepsilon)\land b_n\in U(L,\varepsilon)$
+		- tudíž $m,n\geq n_0\implies a_m\lt b_n$
+		- (2) je obměnou implikace (1)
 - Cauchyova podmínka (v. 17, př. 2)
 	- věta: Posloupnost reálných čísel $(a_n)$ je konvergentní, právě když $(a_n)$ je Cauchyova.
 	- důkaz $\implies$
 		- nechť $\lim a_n = a$ a je dáno $\varepsilon$
 		- pak existuje $n_0$, že $n\geq n_0\implies |a_n-a|\lt\varepsilon /2$
-		- $m,n\geq n_0\implies |a_m-a_n|\leq |a_m-a|+|a-a_n|\lt \varepsilon/2+\varepsilon/2=\varepsilon$
+		- $m,n\geq n_0\implies |a_m-a_n|\leq |a_m-a|+|a-a_n|\lt \frac {\varepsilon}2+\frac {\varepsilon}2=\varepsilon$
 			- z trojúhelníkové nerovnosti
 	- důkaz $\impliedby$
 		- nechť $(a_n)$ je Cauchyova posloupnost
 		- lze dokázat, že každá Cauchyova posloupnost je omezená
 		- podle Bolzano-Weierstrassovy věty má tudíž konvergentní podposloupnost $(a_{m_n})$ s limitou $a$
-		- pro dané $\varepsilon$ tak máme $n_0$, že $n\geq n_0\implies |a_{m_n}-a|\gt\varepsilon/2$ a že $m,n\geq n_0\implies |a_m-a_n|\lt \varepsilon /2$
-		- vždy $m_n\geq n$, takže $n\geq n_0\implies |a_n-a|\leq |a_n-a_{m_n}|+|a_{m_n}-a|\lt\varepsilon/2+\varepsilon/2=\varepsilon$
+		- pro dané $\varepsilon$ tak máme $n_0$, že $n\geq n_0\implies |a_{m_n}-a|\gt\frac {\varepsilon}2$ a že $m,n\geq n_0\implies |a_m-a_n|\lt \varepsilon /2$
+		- vždy $m_n\geq n$, takže $n\geq n_0\implies |a_n-a|\leq |a_n-a_{m_n}|+|a_{m_n}-a|\lt\frac {\varepsilon}2+\frac {\varepsilon}2=\varepsilon$
 		- tedy $a_n\to a$
 - nutná podmínka konvergence řady (t. 2, př. 4)
+	- tvrzení: Když řada $\sum a_n$ konverguje, pak $\lim a_n=0$.
+	- důkaz
+		- když $\sum a_n$ konverguje, pak $S:=\lim s_n\in\mathbb R$
+			- $s_n=\sum_{j=1}^na_j$
+		- $\lim a_n=\lim (s_n-s_{n-1})=\lim s_n-\lim s_{n-1}=S-S=0$
 - harmonická řada (t. 3, př. 4)
+	- tvrzení: Tzv. harmonická řada $\sum_{n=1}^\infty\frac 1n=1+\frac12+\frac13+\dots$ diverguje a má součet $+\infty$.
+	- důkaz
+		- mějme řadu $\sum a_n$ se sčítanci $a_1=\frac12,\,a_2=a_3=\frac 14,\,a_4=a_5=a_6=a_7=\frac18,\,\dots$
+		- nechť $(h_n)$ jsou částečné součty harmonické řady a $(s_n)$ jsou částečné součty řady $\sum a_n$
+		- pak $\forall n:\frac 1n\gt a_n$, z čehož plyne $\forall n:h_n\gt s_n$
+		- protože $\lim s_n=+\infty$, podle věty o jednom strážníkovi i $\lim h_n=+\infty$ a $\sum\frac1n=+\infty$
 - Heineho definice (v. 14, př. 4)
+	- tato věta ukazuje, jak redukovat limitu funkce na limity posloupností
+	- věta: Nechť $M\subset\mathbb R,\,K,L$ jsou prvky $\mathbb R^*,\,K$ je limitní bod množiny $M$ a $f:M\to\mathbb R$. Pak $\lim_{x\to K} f(x)=L\iff$ $\iff \forall (a_n)\subset M\setminus\set{K}: \lim a_n=K\implies \lim f(a_n)=L$.
+		- Tedy $L$ je limita funkce $f$ v $K$, právě když pro každou posloupnost $(a_n)$ v $M$, která má limitu $K$, ale nikdy se $K$ nerovná, funkční hodnoty $(f(a_n))$ mají limitu $L$.
+	- důkaz $\implies$
+		- předpokládejme, že $\lim_{x\to K}f(x)=L,\,(a_n)\subset M\setminus\set{K}$ má limitu $K$ a je dáno $\varepsilon$
+		- pak existuje $\delta$, že pro každé $x\in M\cap P(K,\delta)$ je $f(x)\in U(L,\varepsilon)$
+		- pro toto $\delta$ existuje $n_0$, že $n\geq n_0\implies a_n\in P(K,\delta)\cap M$
+		- tedy $n\geq n_0\implies f(a_n)\in U(L,\varepsilon)$ a $f(a_n)\to L$
+	- důkaz $\impliedby$ obměnou
+		- předpokládejme, že $\lim_{x\to K}f(x)=L$ neplatí (a odvodíme, že pravá strana ekvivalence neplatí)
+		- takže existuje $\varepsilon\gt 0$, že pro každé $\delta\gt 0$ existuje bod $b=b(\delta)\in M\cap P(K,\delta)$, že $f(b)\notin U(L,\varepsilon)$
+		- položíme $\delta=\frac1n$ pro $n\in\mathbb N$ a pro každé $n$ vybereme takový bod $b_n$ (podle předpisu výše)
+		- posloupnost $(b_n)$ leží v $M\setminus\set{K}$ a konverguje ke $K$, ale posloupnost hodnot $(f(b_n))$ nekonverguje k $L$, pravá strana ekvivalence tedy neplatí
 - aritmetika limit funkcí (v. 11, př. 5)
+	- 
 - nabývání mezihodnot (v. 8, př. 6)
 - princip minima a maxima (v. 13, př. 6)
 - nutná podmínka extrému (v. 4, př. 7)
