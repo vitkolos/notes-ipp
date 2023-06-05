@@ -314,9 +314,33 @@
 		- pokud $a\in Y$, podle definice $Y$ platí, že $a\notin f(a) =Y$, což je spor
 		- pokud $a\notin Y=f(a)$, má $a$ vlastnost definující množinu $Y$, tudíž $a\in Y$, což je spor
 - jednoznačnost limity (t. 4, př. 2)
+	- tvrzení: Limita posloupnosti je jednoznačná. Tedy pokud $\lim a_n=K$ a $\lim a_n=L$, pak $K=L$.
+	- důkaz
+		- nechť $\lim a_n=K,\,\lim a_n=L$ a $\varepsilon$ je libovolné
+		- podle definice limity posloupnosti existuje $n_0$, že $n\gt n_0\implies a_n\in U(K,\varepsilon)$ i $a_n\in U(L,\varepsilon)$
+		- tedy $\forall\varepsilon:U(K,\varepsilon)\cap U(L,\varepsilon)\neq\emptyset$
+		- tudíž $K=L$
 - Bolzano-Weierstrassova (v. 15, př. 2)
+	- věta: Omezená posloupnost reálných čísel má vždy konvergentní podposloupnost.
+	- důkaz
+		- nechť $(a_n)$ je omezená posloupnost a $(b_n)\preceq(a_n)$ je její monotónní podposloupnost zaručená tvrzením o existenci monotónní podposloupnosti
+		- patrně $(b_n)$ je omezená a podle věty o robustně monotónní podposloupnosti má limitu
 - limita a uspořádání (v. 6, př. 3)
+	- 
 - Cauchyova podmínka (v. 17, př. 2)
+	- věta: Posloupnost reálných čísel $(a_n)$ je konvergentní, právě když $(a_n)$ je Cauchyova.
+	- důkaz $\implies$
+		- nechť $\lim a_n = a$ a je dáno $\varepsilon$
+		- pak existuje $n_0$, že $n\geq n_0\implies |a_n-a|\lt\varepsilon /2$
+		- $m,n\geq n_0\implies |a_m-a_n|\leq |a_m-a|+|a-a_n|\lt \varepsilon/2+\varepsilon/2=\varepsilon$
+			- z trojúhelníkové nerovnosti
+	- důkaz $\impliedby$
+		- nechť $(a_n)$ je Cauchyova posloupnost
+		- lze dokázat, že každá Cauchyova posloupnost je omezená
+		- podle Bolzano-Weierstrassovy věty má tudíž konvergentní podposloupnost $(a_{m_n})$ s limitou $a$
+		- pro dané $\varepsilon$ tak máme $n_0$, že $n\geq n_0\implies |a_{m_n}-a|\gt\varepsilon/2$ a že $m,n\geq n_0\implies |a_m-a_n|\lt \varepsilon /2$
+		- vždy $m_n\geq n$, takže $n\geq n_0\implies |a_n-a|\leq |a_n-a_{m_n}|+|a_{m_n}-a|\lt\varepsilon/2+\varepsilon/2=\varepsilon$
+		- tedy $a_n\to a$
 - nutná podmínka konvergence řady (t. 2, př. 4)
 - harmonická řada (t. 3, př. 4)
 - Heineho definice (v. 14, př. 4)
