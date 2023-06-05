@@ -378,7 +378,18 @@
 		- položíme $\delta=\frac1n$ pro $n\in\mathbb N$ a pro každé $n$ vybereme takový bod $b_n$ (podle předpisu výše)
 		- posloupnost $(b_n)$ leží v $M\setminus\set{K}$ a konverguje ke $K$, ale posloupnost hodnot $(f(b_n))$ nekonverguje k $L$, pravá strana ekvivalence tedy neplatí
 - aritmetika limit funkcí (v. 11, př. 5)
-	- 
+	- věta
+		- Nechť $M\subset\mathbb R,\,A,K,L\in\mathbb R^*,\,A$ je limitní bod množiny $M$, funkce $f,g:M\to\mathbb R$ mají limity $\lim_{x\to A}f(x)=K$, $\lim_{x\to A}g(x)=L$ a výraz $K+L$, $KL$, respektive $K/L$ není neurčitý. Pak…
+		- $\lim_{x\to A}(f(x)+g(x))=K+L$
+		- $\lim_{x\to A}f(x)g(x)=KL$
+		- $\lim_{x\to A}\frac{f(x)}{g(x)}=\frac KL$, kde pro $g(x)=0$ klademe $\frac{f(x)}{g(x)}:=0$
+	- důkaz podílu (ostatní důkazy jsou podobné)
+		- nechť $(a_n)\subset M\setminus\set{A}$ s $\lim a_n=A$
+		- podle Heineho definice limity funkce platí $\lim f(a_n)=K$ a $\lim g(a_n)=L$
+		- předpokládáme, že $L\neq 0$, takže $g(a_n)\neq 0$ pro každé $n\geq n_0$, a že oba prvky $K,L$ nejsou nekonečna
+		- podle věty o aritmetice limit posloupností tedy platí $\lim\frac{f(a_n)}{g(a_n)}=\frac{\lim f(a_n)}{\lim g(a_n)}=\frac KL$
+		- to platí pro každou posloupnost $\left(\frac{f(a_n)}{g(a_n)}\right)$ s $(a_n)$ jako výše
+		- tudíž podle Heineho definice limity funkce platí $\lim_{x\to A}\frac{f(x)}{g(x)}=\frac KL$
 - nabývání mezihodnot (v. 8, př. 6)
 - princip minima a maxima (v. 13, př. 6)
 - nutná podmínka extrému (v. 4, př. 7)
