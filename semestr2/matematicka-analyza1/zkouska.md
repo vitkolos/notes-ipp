@@ -256,19 +256,63 @@
 		- (2) když $g$ je surjekce a $g'\neq 0$, potom platí implikace
 			- $G=\int f(g)\cdot g'$ na $I\implies G(g^{-1})=\int f$ na $J$
 - $(N)\int_A^Bf$ per partes (v. 4, př. 11)
+	- Mějme $f,g,F,G:(A,B)\to\mathbb R$, kde $A\lt B$ jsou v $\mathbb R^*$, $F$ je primitivní k $f$, $G$ je primitivní ke $g$.
+	- Pak $(\text{N}) \int_A^B fG=[FG]_A^B-(\text{N})\int_A^BFg$ platí vždy, když jsou definovány dva z těchto tří členů.
 - $\int r(x)$ (v. 7, př. 11)
+	- Pro všechny racionální funkce $r(x)$ existuje funkce $R(x)$ tvaru $R(x)=r_0(x)+\sum_{i=1}^ks_i\cdot \log(|x-\alpha_i|)+$ $+\sum_{i=1}^lt_i\cdot \log(a_i(x))+\sum_{i=1}^mu_i\cdot \arctan(b_i(x))$, kde…
+		- $r_0(x)$ je racionální funkce
+		- $k,l,m\in\mathbb N_0$
+		- prázdné $\sum:=0$
+		- $s_i,t_i,u_i\in\mathbb R$
+		- $\alpha_i\in Z(r(x))$ (to je množina reálných kořenů jmenovatele)
+		- $a_i(x)$ jsou ireducibilní trojčleny
+		- $b_i(x)\in\mathbb R[x]$ jsou nekonstantní lineární polynomy
+	- … že na každém netriviálním intervalu $I\subset\mathbb R\setminus Z(r(x))$ platí $R(x)=\int r(x)$.
 - o restrikcích (t. 5, př. 12)
+	- Jestliže $a\lt b\lt c$ jsou reálná čísla a $f:[a,c]\to\mathbb R$, pak $f\in\text{R}(a,c)\iff f\in\text{R} (a,b)\land f\in\text{R}(b,c)$.
+	- Když obě strany ekvivalence platí, pak $\int_a^cf=\int_a^bf+\int_b^cf$.
+	- (výraz $f\in\text{R}(a,c)$ znamená, že funkce $f:[a,c]\to\mathbb R$ je riemannovsky integrovatelná)
 - Lebesgueova věta (v. 12, př. 12)
+	- Pro každou $f:[a,b]\to\mathbb R$ platí, že $f\in\text{R}(a,b)\iff f$ je omezená a $\text{BN}(f)$ má míru 0.
+	- přičemž $\text{BN}(f)$ je množina bodů nespojitosti funkce $f$
 - ZVA 2 (v. 17, př. 12)
+	- základní věta analýzy 2
+	- Nechť $f,F:(a,b)\to\mathbb R$, kde $a\lt b$, $F$ je primitivní k $f$ a $f\in\text{R}(a,b)$.
+	- Pak existují vlastní limity $F_a:=\lim_{x\to a}F(x)$ a $F_b:=\lim_{x\to b}F(x)$ a $(\text{R})\int_a^bf=F_b-F_a=(\text{N})\int_a^bf$.
 - Riemann = Darboux (t. 8, př. 13)
+	- Mějme $f:[a,b]\to\mathbb R$.
+	- Pak $f\in\text{R}(a,b)\iff\underline{\int_a^b}f=\overline{\int_a^b}f\in\mathbb R$.
+	- Když platí obě strany implikace, pak $(\text{R})\int_a^bf=\underline{\int_a^b}f=\overline{\int_a^b}f$.
 - HK. $\int$ a N. $\int$ (v. 12, př. 13)
+	- Nechť $a\lt b,\,F,f:[a,b]\to\mathbb R$, $F$ je spojitá a $F'=f$ na $(a,b)$.
+	- Pak $f\in\text{HK}(a,b)$ a $(\text{HK})\int_a^bf=F(b)-F(a)=(\text{N})\int_a^bf$.
 - délka grafu (v. 4, př. 14)
+	- Nechť funkce $f:[a,b]\to\mathbb R$ je spojitá a $f'\in\text{R}(a,b)$.
+	- Pak $\ell(G_f)=\int_a^b\sqrt{1+(f')^2}\in(0,+\infty)$.
 - integrální kritérium (dů. 14, př. 14)
+	- Nechť $m\in\mathbb Z$ a $f:[m,+\infty)\to\mathbb R$ je nezáporná a nerostoucí.
+	- Pak řada $\sum_{n=m}^\infty f(n)$ konverguje$\iff\lim_{n\to\infty}\int_m^n f\lt+\infty$.
 
 ## Věty s důkazy
 
 - $\sqrt 2\notin\mathbb Q$ (v. 8, př. 1)
+	- věta: Rovnice $x^2=2$ nemá v oboru zlomků řešení.
+	- důkaz
+		- pro spor nechť $(a/b)^2=2$ pro $a,b\in\mathbb N$ nesoudělná
+		- $a^2=2b^2$
+		- $a^2$ je sudé $\implies a$ je sudé $\implies a=2c$ pro $c\in\mathbb N$
+		- $(2c)^2=2b^2$
+		- $4c^2=2b^2$
+		- $b^2=2c^2$
+		- tedy i $b$ je sudé $\implies a,b$ jsou soudělná, co je spor
 - Cantorova věta (v. 17, př. 1)
+	- věta: Pro žádnou množinu $X$ neexistuje surjekce $f:X\to\mathcal P(X)$ z $X$ na její potenci.
+	- důkaz
+		- pro spor nechť $X\to\mathcal P(X)$ je surjekce
+		- mějme množinu $Y:=\set{x\in X\mid x\notin f(x)}$
+		- protože $f$ je na, nutně existuje $a\in X$ takové, že $f(a)=Y$
+		- pokud $a\in Y$, podle definice $Y$ platí, že $a\notin f(a) =Y$, což je spor
+		- pokud $a\notin Y=f(a)$, má $a$ vlastnost definující množinu $Y$, tudíž $a\in Y$, což je spor
 - jednoznačnost limity (t. 4, př. 2)
 - Bolzano-Weierstrassova (v. 15, př. 2)
 - limita a uspořádání (v. 6, př. 3)
