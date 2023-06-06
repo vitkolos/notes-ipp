@@ -464,13 +464,58 @@
 		- tedy $f$ na $I$ klesá
 		- zbývající tři možnosti lze dokázat podobně
 - Taylorův polynom (v. 2, př. 9)
-	- 
+	- věta: Mějme $n\in\mathbb N$ a $f:U(b,\delta)\to\mathbb R$. $T_n^{f,b}(x)$ je jediný takový reálný polynom $p(x)$ stupně nejvýše $n$, že $f(x)=p(x)+o((x-b)^n)\quad(x\to b)$.
+	- lemma o polynomech: Mějme $b\in\mathbb R$, $n\in\mathbb N_0$, $p(x)\in\mathbb R[x]$ s $\deg p\leq n$. Pak $\lim_{x\to b}\frac{p(x)}{(x-b)^n}=0\implies p(x)\equiv 0$.
+	- důkaz lemmatu
+		- indukcí podle $n$
+		- pro $n=0$ to platí ($p(x)=a_0$ a $a_0/1\to 0$ dává $a_0=0$)
+		- nechť $n\gt 0$ a platí předpoklad implikace 
+		- $p(b)=\lim_{x\to b}p(x)=0$
+		- tedy $b$ je kořenem $p(x)$, tudíž $p(x)=(x-b)\cdot q(x)$, kde $q(x)$ je reálný polynom stupně nejvýše $n-1$
+		- $0=\lim_{x\to b}\frac{p(x)}{(x-b)^n}=\lim_{x\to b}\frac{(x-b)\cdot q(x)}{(x-b)^b}=\lim_{x\to b}\frac{q(x)}{(x-b)^{n-1}}$
+		- z indukčního předpokladu plyne, že $q(x)$ je nulový polynom
+	- důkaz věty
+		- indukcí podle $n$ dokážeme, že $\lim_{x\to b}\frac{f(x)-T_n^{f,b}(x)}{(x-b)^n}=0$
+		- pro $n=1$ podle aritmetiky limit funkcí $\lim_{x\to b}\frac{f(x)-T_1^{f,b}(x)}{(x-b)^n}=\lim_{x\to b}\frac{f(x)-f(b)}{x-b}-\lim_{x\to b}f'(b)$ $=f'(b)-f'(b)=0$
+		- pro $n\geq 2$ podle l'Hospitalova pravidla $$\lim_{x\to b}\frac{f(x)-T_n^{f,b}(x)}{(x-b)^n}=\frac 1n\lim_{x\to b}\frac{f'(x)-T_{n-1}^{f',b}(x)}{(x-b)^{n-1}}=\frac 1n\cdot 0=0$$ 
+			- (derivaci Taylorova polynomu zde bereme jako fakt, lze ji snadno dokázat)
+		- nechť $p(x)\in\mathbb R[x]$ s $\deg p\leq n$ splňuje, že $\lim_{x\to b}\frac{f(x)-p(x)}{(x-b)^n}=0$
+		- pak $\lim_{x\to b}\frac{p(x)-T_n^{f,b}(x)}{(x-b)^n}=\lim_{x\to b}\frac{p(x)-f(x)}{(x-b)^n}+\lim_{x\to b}\frac{f(x)-T_n^{f,b}(x)}{(x-b)^n}$ $=0+0=0$
+		- z lemmatu plyne $p(x)-T_n^{f,b}(x)=0\implies p(x)=T_n^{f,b}(x)$
 - nejednoznačnost primitivní funkce (v. 9, př. 9)
+	- věta: Nechť $I\subset\mathbb R$ je netriviální interval, $F_1,F_2,f:I\to\mathbb R$ a $F_1$ i $F_2$ je primitivní k $f$. Pak existuje $c\in\mathbb R$, že $F_1-F_2=c$ na $I$.
+	- důkaz
+		- podle Lagrangeovy věty o střední hodnotě použité pro funkci $F_1-F_2$ a interval $[a,b]$ existuje $c\in(a,b)$, že $\frac{(F_1-F_2)(b)-(F_1-F_2)(a)}{b-a}=(F_1-F_2)'(c)=F_1'(c)-F_2'(c)$ $=f(c)-f(c)=0$
+		- tedy $F_1(b)-F_2(b)=F_1(a)-F_2(a)$
+		- takže $F_1(x)-F_2(x)=c$ pro nějakou konstantu $c$ a každé $x\in I$
 - monotonie $(\text{N})\int$ (t. 8, př. 10)
+	- věta: Když $f,g\in\text{N}(a,b)$ a $f\leq g$ na $(a,b)$, pak $(\text{N})\int_a^bf\leq(\text{N})\int_a^bg$.
+	- důkaz
+		- nechť $F$ je primitivní k $f$, $G$ ke $g$
+		- čísla $c\lt d$ v $(a,b)$ buďte libovolná
+		- použijeme Lagrangeovu větu o střední hodnotě pro funkci $F-G$ a intervalu $[c,d]$
+		- pro nějaký bod $e\in(c,d)$ platí $(F(d)-G(d))-(F(c)-G(c))=(F-G)'(e)\cdot(d-c)$ $=(f(e)-g(e))\cdot (d-c)\leq0$
+			- protože $f\leq g$ a $d-c\gt 0$
+		- proto $F(d)-F(c)\leq G(d)-G(c)$
+		- tato nerovnost se zachová při limitních přechodech $c\to a$ a $d\to b$, čímž dostáváme požadovanou nerovnost
 - derivace jsou Darbouxovy (v. 12, př. 10)
+	- věta: 
+	- důkaz
 - Bachetova identita (t. 10, př. 11)
+	- věta: 
+	- důkaz
 - neomezené funkce jsou špatné (t. 8, př. 12)
+	- věta: 
+	- důkaz
 - Baireova věta (v. 10, př. 12)
+	- věta: 
+	- důkaz
 - $\underline\int\leq\overline\int$ (t. 7, př. 13)
+	- věta: 
+	- důkaz
 - ZVA 1 (v. 1, př. 13)
+	- věta: 
+	- důkaz
 - vzorec $\sum=\int+\int$ (v. 15, př. 14)
+	- věta: 
+	- důkaz
