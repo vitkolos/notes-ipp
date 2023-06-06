@@ -478,7 +478,7 @@
 		- indukcí podle $n$ dokážeme, že $\lim_{x\to b}\frac{f(x)-T_n^{f,b}(x)}{(x-b)^n}=0$
 		- pro $n=1$ podle aritmetiky limit funkcí $\lim_{x\to b}\frac{f(x)-T_1^{f,b}(x)}{(x-b)^n}=\lim_{x\to b}\frac{f(x)-f(b)}{x-b}-\lim_{x\to b}f'(b)$ $=f'(b)-f'(b)=0$
 		- pro $n\geq 2$ podle l'Hospitalova pravidla $$\lim_{x\to b}\frac{f(x)-T_n^{f,b}(x)}{(x-b)^n}=\frac 1n\lim_{x\to b}\frac{f'(x)-T_{n-1}^{f',b}(x)}{(x-b)^{n-1}}=\frac 1n\cdot 0=0$$ 
-			- (derivaci Taylorova polynomu zde bereme jako fakt, lze ji snadno dokázat)
+			- derivaci Taylorova polynomu zde berme jako fakt
 		- nechť $p(x)\in\mathbb R[x]$ s $\deg p\leq n$ splňuje, že $\lim_{x\to b}\frac{f(x)-p(x)}{(x-b)^n}=0$
 		- pak $\lim_{x\to b}\frac{p(x)-T_n^{f,b}(x)}{(x-b)^n}=\lim_{x\to b}\frac{p(x)-f(x)}{(x-b)^n}+\lim_{x\to b}\frac{f(x)-T_n^{f,b}(x)}{(x-b)^n}$ $=0+0=0$
 		- z lemmatu plyne $p(x)-T_n^{f,b}(x)=0\implies p(x)=T_n^{f,b}(x)$
@@ -489,7 +489,7 @@
 		- tedy $F_1(b)-F_2(b)=F_1(a)-F_2(a)$
 		- takže $F_1(x)-F_2(x)=c$ pro nějakou konstantu $c$ a každé $x\in I$
 - monotonie $(\text{N})\int$ (t. 8, př. 10)
-	- věta: Když $f,g\in\text{N}(a,b)$ a $f\leq g$ na $(a,b)$, pak $(\text{N})\int_a^bf\leq(\text{N})\int_a^bg$.
+	- tvrzení: Když $f,g\in\text{N}(a,b)$ a $f\leq g$ na $(a,b)$, pak $(\text{N})\int_a^bf\leq(\text{N})\int_a^bg$.
 	- důkaz
 		- nechť $F$ je primitivní k $f$, $G$ ke $g$
 		- čísla $c\lt d$ v $(a,b)$ buďte libovolná
@@ -499,23 +499,98 @@
 		- proto $F(d)-F(c)\leq G(d)-G(c)$
 		- tato nerovnost se zachová při limitních přechodech $c\to a$ a $d\to b$, čímž dostáváme požadovanou nerovnost
 - derivace jsou Darbouxovy (v. 12, př. 10)
-	- věta: 
+	- definice: $f:M\to\mathbb R$, kde $M\subset\mathbb R$, má Darbouxovu vlastnost, pokud pro každý interval $I\subset M$ je obraz $f[I]$ interval.
+	- věta: $I$ je netriviální interval a $f:I\to\mathbb R$ má primitivní funkci $\implies f$ má Darbouxovu vlastnost.
 	- důkaz
+		- mějme $a\lt b$, $f,F:[a,b]\to\mathbb R$, $F$ je primitivní k $f$
+		- nechť $f(a)\lt c\lt f(b)$ (případ s opačnými nerovnostmi je podobný)
+		- uvážíme $G(x):=F(x)-cx:[a,b]\to\mathbb R$
+		- patrně $G'=F'-c=f-c$ na $[a,b]$, tudíž $G$ je spojitá
+		- podle principu minima a maxima nabývá $G$ v nějakém $d\in[a,b]$ minimum
+		- z $G'(a)=f(a)-c\lt 0$ a $G'(b)=f(b)-c\gt 0$ plyne, že $d\in(a,b)$
+		- podle věty o nutné podmínce extrému musí platit $G'(d)=f(d)-c=0$, takže $f(d)=c$
 - Bachetova identita (t. 10, př. 11)
-	- věta: 
+	- tvrzení: Nechť $p,q\in\mathbb R[x]$ nemají společný kořen, tj. pro žádné $z\in\mathbb C$ neplatí, že $p(z)=q(z)=0$. Pak $\exists r,s\in\mathbb R[x]$, že $r(x)\cdot p(x)+s(x)\cdot q(x)=1$.
 	- důkaz
+		- mějme $p(x)$ a $q(x)$, jak je uvedeno, a $S:=\set{r(x)\cdot p(x)+s(x)\cdot q(x)\mid r(x),s(x)\in\mathbb R[x]}$
+		- nechť polynom $t(x)\in S$, $t(x)\neq 0$, má nejmenší stupeň
+		- libovolný $a(x)\in S$ jím dělíme se zbytkem: $a(x)=t(x)\cdot b(x)+c(x)$
+		- kde $b(x),c(x)\in\mathbb R[x]$ a $\deg c(x)\lt \deg t(x)$ nebo $c(x)=0$
+		- ale $c(x)=a(x)-b(x)\cdot t(x)\in S$ (berme jako fakt)
+		- polynom $c(x)$ je tedy nulový a $a(x)=b(x)t(x)$, takže $t(x)$ dělí každý prvek v $S$
+		- ale $p(x),q(x)\in S$ a $t(x)$ je oba dělí
+		- protože $p(x)$ a $q(x)$ nemají společný kořen, podle základní věty algebry je $t(x)$ nenulový konstantní polynom
+		- BÚNO $t(x)=1$
+		- tedy $1\in S$ a máme uvedenou identitu
 - neomezené funkce jsou špatné (t. 8, př. 12)
-	- věta: 
+	- tvrzení: Je-li funkce $f:[a,b]\to\mathbb R$ neomezená, pak $f\notin\text{R}(a,b)$.
 	- důkaz
+		- předpokládám, že $f$ je neomezená
+		- ukážeme, že $\forall n\,\exists(\overline a, \overline t):\Vert \overline a\Vert\lt\frac 1n\land |R(\overline a,\overline t,f)|\gt n$
+			- to je v rozporu s Cauchyho podmínkou pro riemannovskou integrovatelnost funkce $f$
+			- z neomezenosti $f$ a z kompaktnosti $[a,b]$ plyne existence konvergentní posloupnosti $(b_n)\subset[a,b]$ s limitou $\lim b_n=\alpha\in[a,b]$ a s limitou $\lim|f(b_n)|=+\infty$
+			- nechť je dáno $n\in\mathbb N$
+			- jako $\overline a$ vezmeme libovolné dělení s $\Vert \overline a\Vert\lt\frac 1n$, přičemž existuje jediný index $j$, že $\alpha\in[a_{j-1},a_j]$
+			- vybereme libovolné body $t_i\in[a_{i-1},a_i]$ pro každé $i\neq j$
+			- uvážíme neúplný Riemannův součet $$s:=\sum_{i=1,\,i\neq j}^k(a_i-a_{i-1})\cdot f(t_i)$$
+			- vybereme $t_j\in[a_{j-1},a_j]$ tak, že $|(a_j-a_{j-1})f(t_j)|\gt |s|+n$
+				- to lze, protože $b_n\in[a_{j-1},a_j]$ pro každé dostatečně velké $n$
+			- definujeme $\overline t$ jako sestávající ze všech těchto bodů
+			- z trojúhelníkové nerovnosti $|u+v|\geq |u|-|v|$ plyne $|R(\overline a,\overline t,f)|\geq |(a_j-a_{j-1})f(t_j)|- |s|\gt n$
 - Baireova věta (v. 10, př. 12)
-	- věta: 
-	- důkaz
+	- věta: Jsou-li $a\lt b$ reálná čísla a $[a,b]=\bigcup_{n=1}^\infty M_n$, pak některá množina $M_n$ není řídká.
+	- definice: $M\subset[a,b]$ je řídká, pokud pro každé okolí $U(c,\varepsilon)$ s $c\in[a,b]$ existuje takové okolí $U(d,\delta)\subset U(c,\varepsilon)\cap[a,b]$, že $U(d,\delta)\cap M=\emptyset$
+	- důkaz (sporem)
+		- nechť je každá $M_n$ řídká
+		- $M_1$ je řídká $\implies \exists[a_1,b_1]\subset[a,b]$, že $a_1\lt b_1$ a $[a_1,b_1]\cap M_1=\emptyset$
+		- podobně $M_2$ je řídká
+		- takto získáme posloupnost vnořených intervalů $[a,b]\supset[a_1,b_1]\supset[a_2,b_2]\supset\dots$
+		- kde $\forall n:a_n\lt b_n\land [a_n,b_n]\cap M_n=\emptyset$
+		- nechť $\alpha:=\lim a_n\in[a,b]$
+		- tato limita existuje a leží v $[a,b]$, protože posloupnost $a_n$ je neklesající a omezená z obou stran čísly $a,b$
+		- zjevně $a_n\lt b_m$ pro každé $n,m$, takže $\forall n:\alpha\in[a_n,b_n]$
+		- pak ale $\alpha\notin M_n$ pro každé $n$, což je spor s tím, že $\alpha\in[a,b]$
 - $\underline\int\leq\overline\int$ (t. 7, př. 13)
-	- věta: 
+	- tvrzení: Nechť $f:[a,b]\to\mathbb R$. Pro každá dvě dělení $\overline a, \overline b\in\mathcal D(a,b)$ (z množiny všech dělení intervalu $[a,b]$) platí, že $s(\overline a,f)\leq \underline{\int_a^bf}\leq\overline{\int_a^b}f\leq S(\overline b, f)$.
 	- důkaz
+		- mějme $\overline c:=\overline a\cup \overline b$
+		- pak $\overline a,\overline b\subset \overline c$
+		- podle tvrzení o monotonii dolních a horních součtů platí $s(\overline a,f)\leq s(\overline c,f)\leq S(\overline c,f)\leq S(\overline b,f)$
+			- protože podmnožina je „dál“ od funkčních hodnot
+		- a tedy $s(\overline a,f)\leq S(\overline b,f)$
+		- v lineárním uspořádání $(X,\leq)$ pro dvě množiny $A,B\subset X$ splňující $A\leq B$ platí $\sup(A)\leq \inf(B)$, když tyto prvky existují
 - ZVA 1 (v. 1, př. 13)
-	- věta: 
+	- základní věta analýzy 1
+	- věta
+		- Mějme $f:[a,b]\to\mathbb R$, přičemž $f\in\text{R}(a,b)$.
+		- Pak $\forall x\in(a,b]: f\in \text R(a,x)$ a $F:[a,b]\to\mathbb R$, kde $F(x):=\int_a^xf$, je lipschitzovsky spojitá.
+		- Dále: $f$ je spojitá v $x\in[a,b]\implies F'(x)=f(x)$.
+	- definice: funkce $f:M\to\mathbb R$ je lipschitzovsky spojitá, existuje-li $c\gt 0$, že $\forall x,y\in M: |f(x)-f(y)|\leq c|x-y|$
 	- důkaz
+		- nechť $f\in\text R(a,b)$
+		- podle tvrzení o restrikcích platí $f\in\text R(a',b')$ pro každé $a\leq a'\lt b'\leq b$
+		- tedy $F$ je dobře definovaná a $F(a)=0$
+		- protože $f$ je omezená (podle tvrzení, že neomezené jsou špatné), vezmeme omezující konstantu $d\gt 0$
+		- nechť $c:=1+d$
+		- nechť $x\lt y$ jsou v $[a,b]$
+		- podle definice riemannovské integrovatelnosti mějme takové dělení $(\overline a, \overline t)$ s body intervalu $[x,y]$, že $|\int_x^yf-R(\overline a,\overline t, f)|\lt y-x$
+		- podle tvrzení o restrikcích a definice funkce $F$:
+		- $|F(y)-F(x)|=|\int_x^yf|\leq y-x+|R(\overline a,\overline t,f)|\leq y-x+c(y-x)$
+		- tudíž $|F(y)-F(x)|\leq c|y-x|$, tedy $F$ je lipschitzovsky spojitá
+		- nechť $f$ je v $x_0\in[a,b]$ spojitá a je dáno $\varepsilon$
+		- vezmeme číslo $\delta$, že $x\in U(x_0,\delta)\cap [a,b]\implies f(x)\in U(f(x_0),\varepsilon)$
+		- nechť $x\in P(x_0,\delta)\cap [a,b]$ je libovolné, řekněme $x\gt x_0$ (pro $x\lt x_0$ je argument podobný)
+		- vezmeme dělení s body $(\overline a,\overline t)$ intervalu $[x_0,x]$, že $|\int_{x_0}^xf-R(\overline a,\overline t,f)|\lt \varepsilon(x-x_0)$
+		- pak $\frac{F(x)-F(x_0)}{x-x_0}-f(x_0)=\frac {1}{x-x_0}\int_{x_0}^xf-f(x_0)\lt$
+		- $\lt \frac{R(\overline a,\overline t,f)+\varepsilon(x-x_0)}{x-x_0}-f(x_0)\lt \frac{(x-x_0)(f(x_0)+\varepsilon+\varepsilon)}{x-x_0}-f(x_0)=2\varepsilon$
+		- podobně se dokáže, že je i $\gt -2\varepsilon$, tedy $F'(x_0)=f(x_0)$
 - vzorec $\sum=\int+\int$ (v. 15, př. 14)
-	- věta: 
+	- věta: Nechť $a\lt b$ jsou v $\mathbb Z$, $f,f'\in\text{R}(a,b)$ a $f$ je spojitá v $b$. Pak platí identita $\sum_{a\lt n\leq b}f(n)=\int_a^bf+\int_a^b\set{x}f'(x)=:\int_a^bf+T$.
+		- kde $\set{x}$ je „zlomková část“ čísla $x$ (tedy desetinná část) $\in[0,1)$
 	- důkaz
+		- identitu stačí dokázat pro $b=a+1$, což nazveme elementární identitou
+		- identitu s obecnými mezemi $a\lt b$ dostaneme jako součet elementárních identit s mezemi $a,a+1,\dots,b$
+		- dokážeme elementární identitu
+		- podle integrace per partes pro $b=a+1$:
+		- $T=\int_a^{a+1}(x-a)f'(x)=[(x-a)f(x)]_a^{a+1}-\int_a^{a+1}f$
+		- takže opravdu $$\sum_{a\lt n\lt a+1}f(n)=[(x-a)f(x)]_a^{a+1}=f(a+1)$$
