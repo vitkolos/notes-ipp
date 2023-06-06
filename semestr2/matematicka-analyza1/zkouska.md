@@ -433,9 +433,38 @@
 		- můžeme předpokládat, že $\theta\leq\delta$ a vzít jakékoli $c\in P^+(b,\theta)\cap M$ a $d\in P^-(b,\theta)\cap M$
 		- $c,d$ nutně existují díky tomu, že $b$ je oboustranný limitní bod
 - Leibnizův vzorec (v. 16, př. 7)
+	- věta: Nechť $b\in M$ je limitní bod množiny $M\subset\mathbb R$, $f,g:M\to\mathbb R$ a $f$ nebo $g$ je spojitá v $b$. Pak $(fg)'(b)=f'(b)\cdot g(b)+f(b)\cdot g'(b)$, když pravá strana není neurčitý výraz.
+	- důkaz
+		- nechť je $g$ spojitá v $b$ (druhý případ s $f$ je symetrický)
+		- podle předpokladů a podle aritmetiky limit funkcí platí 
+			- $(fg)'(b)=\lim_{x\to b}\frac{f(x)g(x)-f(b)g(b)}{x-b}=$
+			- $=\lim_{x\to b}\frac{(f(x)-f(b))g(x)+f(b)(g(x)-g(b))}{x-b}=$
+			- $=\lim_{x\to b}\frac{f(x)-f(b)}{x-b}\cdot \lim_{x\to b}g(x)+f(b)\lim_{x\to b}\frac {g(x)-g(b)}{x-b}=$
+			- $=f'(b)g(b)+f(b)g'(b)$
+		- poslední rovnost platí pro $g$ spojitou v $b$
 - Lagrangeova věta (v. 2, př. 8)
+	- věta: Nechť $a,b\in\mathbb R$, $a\lt b$, $f:[a,b]\to\mathbb R$ je spojitá a $\forall c\in(a,b)$ existuje $f'(c)$ (i nevlastní). Pak $\exists c\in (a,b): f'(c)=\frac{f(b)-f(a)}{b-a}=: z$.
+	- důkaz
+		- $g(x):=f(x)-(x-a)\cdot z:[a,b]\to\mathbb R$ splňuje předpoklady Rolleovy věty
+			- podle Rolleovy věty u funkce (se stejnými předpoklady jako u Lagrangeovy věty), pro níž platí $f(a)=f(b)$, existuje $c\in(a,b):f'(c)=0$
+		- zjevně platí $g(a)=g(b)=f(a)$
+		- tudíž $0=g'(c)=f'(c)-z$ pro nějaké $c\in(a,b)$
+		- proto $f'(c)=z$
+	- geometrický význam věty – existuje tečna v bodě $c$ rovnoběžná se sečnou procházející body $a,b$
 - derivace a monotonie (v. 4, př. 8)
+	- věta
+		- Nechť $I\subset\mathbb R$ je interval, $f:I\to\mathbb R$ je spojitá a $\forall c\in I^0$ existuje $f'(c)$ (i nevlastní).
+		- $f'\geq 0$ na $I^0\implies f$ na $I$ neklesá
+		- $f'\gt 0$ na $I^0\implies f$ na $I$ roste
+		- opačné nerovnosti obdobně
+	- důkaz
+		- nechť je $f'\gt 0$ na $I^0$ a $x\lt y$ jsou libovolná čísla v $I$
+		- podle Lagrangeovy věty pro nějaké $z\in(x,y)\subset I^0$ je $\frac{f(y)-f(x)}{y-x}=f'(z)\lt 0$
+		- $y-x\gt 0\implies f(y)-f(x)\lt 0\implies f(x)\gt f(y)$
+		- tedy $f$ na $I$ klesá
+		- zbývající tři možnosti lze dokázat podobně
 - Taylorův polynom (v. 2, př. 9)
+	- 
 - nejednoznačnost primitivní funkce (v. 9, př. 9)
 - monotonie $(\text{N})\int$ (t. 8, př. 10)
 - derivace jsou Darbouxovy (v. 12, př. 10)
