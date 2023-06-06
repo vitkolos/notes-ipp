@@ -391,8 +391,47 @@
 		- to platí pro každou posloupnost $\left(\frac{f(a_n)}{g(a_n)}\right)$ s $(a_n)$ jako výše
 		- tudíž podle Heineho definice limity funkce platí $\lim_{x\to A}\frac{f(x)}{g(x)}=\frac KL$
 - nabývání mezihodnot (v. 8, př. 6)
+	- věta: Nechť $a,b,c\in\mathbb R,\,a\lt b,\,f:[a,b]\to\mathbb R$ je spojitá funkce a $f(a)\lt c\lt f(b)$ nebo $f(a)\gt c\gt f(b)$. Pak $\exists d\in(a,b):f(d)=c$.
+	- důkaz
+		- předpokládejme, že $f(a)\lt c\lt f(b)$ (případ s opačnými nerovnostmi je podobný)
+		- nechť $A:=\set{x\in[a,b]\mid f(x)\lt c}$ a $d:=\sup(A)\in [a,b]$
+		- $d$ je korektně definované, protože $A$ je neprázdná ($a\in A$) a shora omezená (např. $b$ je její horní mez)
+		- ukážeme, že $f(d)\lt c$ i $f(d)\gt c$ vede ke sporu, takže $f(d)=c$
+			- ze spojitosti $f$ v $a$ i $b$ plyne, že $d\in(a,b)$
+			- nechť $f(d)\lt c$
+				- ze spojitosti $f$ v $d$ plyne, že $\exists\delta:x\in U(d,\delta)\cap [a,b]\implies f(x)\lt c$
+				- pak ale $A$ obsahuje čísla větší než $d$, což je ve sporu s tím, že $d$ je horní mez množiny $A$
+			- naopak z opačné nerovnosti $f(d)\gt c$ by obdobným způsobem plynulo, že každé $x\in[a,d)$ dostatečně blízké $d$ leží mimo $A$, což je ve sporu s tím, že $d$ je nejmenší horní mez množiny $A$
 - princip minima a maxima (v. 13, př. 6)
+	- věta
+		- Nechť $M\subset\mathbb R$ je neprázdná kompaktní množina a $f:M\to\mathbb R$ je spojitá funkce
+		- Pak existují takové body $a,b\in M$, že $\forall x\in M: f(a)\leq f(x)\leq f(b)$.
+		- Řekneme, že $f$ nabývá na $M$ v bodu $a$ minimum $f(a)$ a v bodu $b$ maximum $f(b)$.
+	- důkaz
+		- dokážeme existenci maxima, důkaz minima je podobný
+		- patrně $f[M]\neq\emptyset$
+		- ukážeme, že tato množina je shora omezená
+			- kdyby nebyla, existovala by posloupnost $(a_n)\subset M$, že $\lim f(a_n)=+\infty$
+			- podle kompaktnosti existuje konvergentní podposloupnost $(a_{m_n})$ s limitou $a\in M$
+			- pokud $f[M]$ není shora omezená, tak $\lim f(a_{m_n})=+\infty$
+			- to je spor s Heineho definicí spojitosti (má platit $\lim f(a_{m_n})=f(a)$)
+		- lze tedy definovat $s:=\sup(f[M])\in\mathbb R$
+		- podle definice suprema existuje $(a_n)\subset M$ s $\lim f(a_n)=s$
+		- díky kompaktnosti existuje konvergentní podposloupnost $(a_{m_n})$ s limitou $b\in M$
+		- podle Heineho definice spojitosti platí $\lim f(a_{m_n})=f(b)=s$
+		- protože $s=f(b)$ je horní mez $f[M]$, platí $f(b)\geq f(x)$ pro každé $x\in M$
 - nutná podmínka extrému (v. 4, př. 7)
+	- věta
+		- Nechť $b\in M$ je oboustranný limitní bod $M\subset\mathbb R$, $f:M\to\mathbb R$, $\exists f'(b)\in\mathbb R^*$ a $f'(b)\neq 0$.
+		- Pak $(\forall\delta)(\exists c,d\in U(b,\delta)\cap M)(f(c)\lt f(b)\lt f(d))$ – funkce $f$ nemá v bodě $b$ lokální extrém.
+	- důkaz
+		- nechť $f'(b)\lt 0$ (případ s opačnou nerovností je podobný)
+		- vezmeme tak malé $\varepsilon$, že $\forall y\in U(f'(b),\varepsilon): y\lt 0$
+		- podle definice derivace funkce v bodu existuje takové $\theta$, že $x\in P(b,\theta)\cap M\implies \frac{f(x)-f(b)}{x-b}\in U(f'(b),\varepsilon)$
+		- pro $x\in P^-(b,\theta)\cap M$ platí $x\lt b$, tedy $x-b\lt 0$, proto (díky zápornosti zlomku) $f(x)-f(b)\gt 0$, tudíž $f(x)\gt f(b)$
+		- podobně pro $x\gt b$ platí $f(x)\lt f(b)$
+		- můžeme předpokládat, že $\theta\leq\delta$ a vzít jakékoli $c\in P^+(b,\theta)\cap M$ a $d\in P^-(b,\theta)\cap M$
+		- $c,d$ nutně existují díky tomu, že $b$ je oboustranný limitní bod
 - Leibnizův vzorec (v. 16, př. 7)
 - Lagrangeova věta (v. 2, př. 8)
 - derivace a monotonie (v. 4, př. 8)
