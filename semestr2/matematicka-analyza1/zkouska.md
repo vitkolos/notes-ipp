@@ -576,6 +576,7 @@
 		- podle definice riemannovské integrovatelnosti mějme takové dělení $(\overline a, \overline t)$ s body intervalu $[x,y]$, že $|\int_x^yf-R(\overline a,\overline t, f)|\lt y-x$
 		- podle tvrzení o restrikcích a definice funkce $F$:
 		- $|F(y)-F(x)|=|\int_x^yf|\leq y-x+|R(\overline a,\overline t,f)|\leq y-x+c(y-x)$
+			- pozn.: tady by podle mě mělo být místo $c$ spíše $d$
 		- tudíž $|F(y)-F(x)|\leq c|y-x|$, tedy $F$ je lipschitzovsky spojitá
 		- nechť $f$ je v $x_0\in[a,b]$ spojitá a je dáno $\varepsilon$
 		- vezmeme číslo $\delta$, že $x\in U(x_0,\delta)\cap [a,b]\implies f(x)\in U(f(x_0),\varepsilon)$
@@ -583,6 +584,7 @@
 		- vezmeme dělení s body $(\overline a,\overline t)$ intervalu $[x_0,x]$, že $|\int_{x_0}^xf-R(\overline a,\overline t,f)|\lt \varepsilon(x-x_0)$
 		- pak $\frac{F(x)-F(x_0)}{x-x_0}-f(x_0)=\frac {1}{x-x_0}\int_{x_0}^xf-f(x_0)\lt$
 		- $\lt \frac{R(\overline a,\overline t,f)+\varepsilon(x-x_0)}{x-x_0}-f(x_0)\lt \frac{(x-x_0)(f(x_0)+\varepsilon+\varepsilon)}{x-x_0}-f(x_0)=2\varepsilon$
+			- poslední nerovnost bereme jako fakt
 		- podobně se dokáže, že je i $\gt -2\varepsilon$, tedy $F'(x_0)=f(x_0)$
 - vzorec $\sum=\int+\int$ (v. 15, př. 14)
 	- věta: Nechť $a\lt b$ jsou v $\mathbb Z$, $f,f'\in\text{R}(a,b)$ a $f$ je spojitá v $b$. Pak platí identita $\sum_{a\lt n\leq b}f(n)=\int_a^bf+\int_a^b\set{x}f'(x)=:\int_a^bf+T$.
