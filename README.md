@@ -1,7 +1,7 @@
 # Bc. Informatika: poznámky
 
 - zpracoval Vít Kološ
-- [https://www.kolos.ga/node/**view**/notes-ipp/main/](https://www.kolos.ga/node/view/notes-ipp/main/)
+- [https://www.vitkolos.tk/node/**view**/notes-ipp/main/](https://www.vitkolos.tk/node/view/notes-ipp/main/)
 - podporované režimy: view, cards, source, [anki](https://ankiweb.net/shared/info/1087328706), quizlet, cards-json
 
 ## Přehledně zpracované předměty
