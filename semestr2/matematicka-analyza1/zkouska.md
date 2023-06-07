@@ -22,8 +22,8 @@
 - vlastní a nevlastní limita posloupnosti, podposloupnost (př. 2)
 	- nechť $(a_n)$ je reálná posloupnost a $L \in \mathbb R^*$
 	- pokud $\forall\varepsilon\,\exists n_0\,(n\geq n_0\implies a_n\in U(L,\varepsilon))$, píšeme, že $\lim a_n=L$ nebo $\lim_{n\to\infty}a_n=L$ nebo $a_n\to L$, a řekneme, že posloupnost $(a_n)$ má limitu $L$
-	- pro $L\in \mathbb R$ mluvíme o vlastní limitě a pro $l\in\pm\infty$ o limitě nevlastní
-	- posloupnost mající vlastní limitu konverguje, jinak diverguje
+	- pro $L\in \mathbb R$ mluvíme o vlastní limitě a pro $L=\pm\infty$ o limitě nevlastní
+	- posloupnost, která má vlastní limitu, konverguje (pokud ji nemá, tak diverguje)
 - liminf a limsup posloupnosti (př. 3)
 	- nechť $A\in \mathbb R^*$ a $(a_n)\subset\mathbb R$; řekneme, že $A$ je hromadný bod posloupnosti $(a_n)$, je-li limitou nějaké její podposloupnosti; $H(a_n)$ je množina těchto hromadných bodů
 	- limes inferior a limes superior dané posloupnosti $(a_n)$ definujeme po řadě jako $\liminf a_n :=\min(H(a_n))$ a $\limsup a_n:=\max(H(a_n))$
