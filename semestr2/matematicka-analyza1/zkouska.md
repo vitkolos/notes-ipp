@@ -40,7 +40,7 @@
 		- $qs_n-s_n=q^n-1$
 		- $s_n=\frac{q^n-1}{q-1}=\frac 1{1-q}+\frac{q^n}{q-1}$
 		- pak stačí určit $\lim s_n$ pro dané $q$
-	- $\sum^\infty_{n=0}q^n=\begin{cases} +\infty & \text{pro }q\geq 1 \\ \frac{1}{1-q} & \text{pro }|q|\lt 1 \\ \text{neexistuje} & \text{pro }q\leq -1 \end{cases}$
+	- $\sum^\infty_{n=0}q^n\begin{cases} =+\infty & \text{pro }q\geq 1 \\ =\frac{1}{1-q} & \text{pro }|q|\lt 1 \\ \text{neexistuje} & \text{pro }q\leq -1 \end{cases}$
 	- řada $\sum a_n$ je absolutně konvergentní, konverguje-li řada $\sum |a_n|$
 - limita funkce, jednostranná limita funkce (př. 4 a 5)
 	- okolí, prstencové okolí, levé/pravé (prstencové) okolí (pro $b,\varepsilon\in\mathbb R$)
