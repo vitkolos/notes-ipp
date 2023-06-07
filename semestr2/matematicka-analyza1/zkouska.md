@@ -370,7 +370,7 @@
 		- mějme řadu $\sum a_n$ se sčítanci $a_1=\frac12,\,a_2=a_3=\frac 14,\,a_4=a_5=a_6=a_7=\frac18,\,\dots$
 		- nechť $(h_n)$ jsou částečné součty harmonické řady a $(s_n)$ jsou částečné součty řady $\sum a_n$
 		- pak $\forall n:\frac 1n\gt a_n$, z čehož plyne $\forall n:h_n\gt s_n$
-		- protože $\lim s_n=+\infty$, podle věty o jednom strážníkovi i $\lim h_n=+\infty$ a $\sum\frac1n=+\infty$
+		- protože $\lim s_n=+\infty$ (berme jako fakt), podle věty o jednom strážníkovi i $\lim h_n=+\infty$ a $\sum\frac1n=+\infty$
 - Heineho definice (v. 14, př. 4)
 	- tato věta ukazuje, jak redukovat limitu funkce na limity posloupností
 	- věta: Nechť $M\subset\mathbb R,\,K,L$ jsou prvky $\mathbb R^*,\,K$ je limitní bod množiny $M$ a $f:M\to\mathbb R$. Pak $\lim_{x\to K} f(x)=L\iff$ $\iff \forall (a_n)\subset M\setminus\set{K}: \lim a_n=K\implies \lim f(a_n)=L$.
