@@ -43,8 +43,17 @@
 	- $\sum^\infty_{n=0}q^n=\begin{cases} +\infty & \text{pro }q\geq 1 \\ \frac{1}{1-q} & \text{pro }|q|\lt 1 \\ \text{neexistuje} & \text{pro }q\leq -1 \end{cases}$
 	- řada $\sum a_n$ je absolutně konvergentní, konverguje-li řada $\sum |a_n|$
 - limita funkce, jednostranná limita funkce (př. 4 a 5)
+	- okolí, prstencové okolí, levé/pravé (prstencové) okolí (pro $b,\varepsilon\in\mathbb R$)
+		- $U(b,\varepsilon):=(b-\varepsilon,b+\varepsilon)$
+		- $P(b,\varepsilon):=(b-\varepsilon,b)\cup (b,b+\varepsilon)$
+		- $U(+\infty,\varepsilon):=(1/\varepsilon,+\infty)$, podobně pro $-\infty$ ($P$ se definuje stejně)
+		- $U^-(b,\varepsilon):=(b-\varepsilon,b]$, podobně $U^+$ ($P^-$ a $P^+$ mají otevřený interval)
 	- limitní bod
 		- prvek $L\in\mathbb R^*$ je limitní bod množiny $M\subset\mathbb R$, když $\forall\varepsilon:P(L,\varepsilon)\cap M\neq\emptyset$
+	- jednostranný limitní bod
+		- bod $b\in\mathbb R$ je levým limitním bodem množiny $M\subset\mathbb R$, pokud $\forall\varepsilon: P^-(b,\varepsilon)\cap M\neq \emptyset$ (podobně se zavádí pravý limitní bod)
+	- oboustranný limitní bod
+		- bod $b\in M$ je oboustranný limitní bod (OLB) množiny $M\in\mathbb R$, pokud $\forall\varepsilon: P^-(b,\varepsilon)\cap M\neq\emptyset\land P^+(b,\varepsilon)\cap M\neq\emptyset$
 	- limita
 		- nechť $A,L\in\mathbb R^*,\,M\subset\mathbb R,\,A$ je limitní bod množiny $M$ a $f:M\to\mathbb R$ je funkce
 		- pokud $\forall\varepsilon\,\exists\delta:f[P(A,\delta)\cap M]\subset U(L,\varepsilon)$, píšeme $\lim_{x\to A}f(x)=L$ a řekneme, že funkce $f$ má v $A$ limitu $L$
@@ -99,8 +108,7 @@
 	- pomocí ostré nerovnosti se definuje ostře konvexní funkce
 	- pomocí opačné nerovnosti se definuje (ostře) konkávní funkce
 - inflexní bod (d. 14, př. 8)
-	- bod $a\in M$ je oboustranný limitní bod (OLB) množiny $M\in\mathbb R$, pokud $\forall\delta: P^-(a,\delta)\cap M\neq\emptyset\land P^+(a,\delta)\cap M\neq\emptyset$
-	- nechť $a\in M$ je OLB $M\subset\mathbb R$ a $\ell$ je tečna ke $G_f$ v $(a,f(a))$
+	- nechť $a\in M$ je oboustranný limitní bod $M\subset\mathbb R$ a $\ell$ je tečna ke $G_f$ v $(a,f(a))$
 	- tento bod je inflexním bodem grafu funkce $f$, pokud $(\exists\delta)(x\in P^-(a,\delta)\cap M)(x'\in P^+(a,\delta)\cap M):$ $((x,f(x))\leq \ell\land (x',f(x'))\geq \ell)$
 	- nebo platí opačné nerovnosti
 - svislé asymptoty a asymptoty v nekonečnu (př. 8)
