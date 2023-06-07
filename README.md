@@ -12,3 +12,4 @@
 - [Lineární algebra 2 (bonusový test)](semestr2/linearni-algebra2/bonusovy-test.md)
 - [Algoritmy a datové struktury 1 (zkouška)](semestr2/algoritmy-datove-struktury1/zkouska.md)
 - [Programování 2 (zkouška)](semestr2/programovani2/zkouska.md)
+- [Matematická analýza 1 (zkouška)](semestr2/matematicka-analyza1/zkouska.md)
