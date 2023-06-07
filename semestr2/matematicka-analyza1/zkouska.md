@@ -466,6 +466,7 @@
 - Taylorův polynom (v. 2, př. 9)
 	- věta: Mějme $n\in\mathbb N$ a $f:U(b,\delta)\to\mathbb R$. $T_n^{f,b}(x)$ je jediný takový reálný polynom $p(x)$ stupně nejvýše $n$, že $f(x)=p(x)+o((x-b)^n)\quad(x\to b)$.
 	- lemma o polynomech: Mějme $b\in\mathbb R$, $n\in\mathbb N_0$, $p(x)\in\mathbb R[x]$ s $\deg p\leq n$. Pak $\lim_{x\to b}\frac{p(x)}{(x-b)^n}=0\implies p(x)\equiv 0$.
+		- $p(x)\equiv 0$ … všechny koeficienty polynomu se rovnají nule
 	- důkaz lemmatu
 		- indukcí podle $n$
 		- pro $n=0$ to platí ($p(x)=a_0$ a $a_0/1\to 0$ dává $a_0=0$)
