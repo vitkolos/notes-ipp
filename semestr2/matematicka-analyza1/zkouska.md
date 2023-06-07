@@ -336,7 +336,7 @@
 - limita a uspořádání (v. 6, př. 3)
 	- věta
 		- Nechť $(a_n)$ a $(b_n)$ jsou dvě reálné posloupnosti s $\lim a_n=K\in\mathbb R^*$ a $\lim b_n=L\in\mathbb R^*$. Platí následující.
-		- (1) Když $K\lt L$, tak existuje $n_0$, že pro každé dva (ne nutně stejné) index $m,n\geq n_0$ je $a_m\lt b_n$.
+		- (1) Když $K\lt L$, tak existuje $n_0$, že pro každé dva (ne nutně stejné) indexy $m,n\geq n_0$ je $a_m\lt b_n$.
 		- (2) Když pro každé $n_0$ existují indexy $m$ a $n$, že $m,n\geq n_0$ a $a_m\geq b_n$, pak $K\geq L$.
 	- důkaz
 		- nechť $K\lt L$
