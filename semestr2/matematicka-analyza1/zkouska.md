@@ -373,7 +373,9 @@
 		- protože $\lim s_n=+\infty$ (berme jako fakt), podle věty o jednom strážníkovi i $\lim h_n=+\infty$ a $\sum\frac1n=+\infty$
 - Heineho definice (v. 14, př. 4)
 	- tato věta ukazuje, jak redukovat limitu funkce na limity posloupností
-	- věta: Nechť $M\subset\mathbb R,\,K,L$ jsou prvky $\mathbb R^*,\,K$ je limitní bod množiny $M$ a $f:M\to\mathbb R$. Pak $\lim_{x\to K} f(x)=L\iff$ $\iff \forall (a_n)\subset M\setminus\set{K}: \lim a_n=K\implies \lim f(a_n)=L$.
+	- věta
+		- Nechť $M\subset\mathbb R,\,K,L$ jsou prvky $\mathbb R^*,\,K$ je limitní bod množiny $M$ a $f:M\to\mathbb R$.
+		- Pak $\lim_{x\to K} f(x)=L\iff$ $(\forall (a_n)\subset M\setminus\set{K})(\lim a_n=K\implies \lim f(a_n)=L)$.
 		- Tedy $L$ je limita funkce $f$ v $K$, právě když pro každou posloupnost $(a_n)$ v $M$, která má limitu $K$, ale nikdy se $K$ nerovná, funkční hodnoty $(f(a_n))$ mají limitu $L$.
 	- důkaz $\implies$
 		- předpokládejme, že $\lim_{x\to K}f(x)=L,\,(a_n)\subset M\setminus\set{K}$ má limitu $K$ a je dáno $\varepsilon$
