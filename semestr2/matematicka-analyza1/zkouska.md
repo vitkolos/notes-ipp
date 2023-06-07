@@ -100,6 +100,7 @@
 	- je to jediná přímka se sklonem $f'(a)$ procházející bodem $(a,f(a))$
 - derivace vyšších řádů (d. 8, př. 8)
 	- nechť $\emptyset\neq M\subset\mathbb R$ je otevřená množina, $f:M\to\mathbb R,\,f_0:=f$ a pro $i=1,2,\dots,n\in\mathbb N$ platí, že $D(f_{i-1})=M$ a $f_i:=(f_{i-1})'$
+		- kde $D(f)$ je definiční obor $f'$
 	- pak každou funkci $f^{(i)}:=f_i:M\to\mathbb R,\,i=1,2,\dots,n$ nazveme derivací řádu $i$ funkce $f$ či její $i$-tou derivací
 - (ryze) konvexní a konkávní funkce (d. 10, př. 8)
 	- $I\subset\mathbb R$ je interval
@@ -414,7 +415,7 @@
 			- naopak z opačné nerovnosti $f(d)\gt c$ by obdobným způsobem plynulo, že každé $x\in[a,d)$ dostatečně blízké $d$ leží mimo $A$, což je ve sporu s tím, že $d$ je nejmenší horní mez množiny $A$
 - princip minima a maxima (v. 13, př. 6)
 	- věta
-		- Nechť $M\subset\mathbb R$ je neprázdná kompaktní množina a $f:M\to\mathbb R$ je spojitá funkce
+		- Nechť $M\subset\mathbb R$ je neprázdná kompaktní množina a $f:M\to\mathbb R$ je spojitá funkce.
 		- Pak existují takové body $a,b\in M$, že $\forall x\in M: f(a)\leq f(x)\leq f(b)$.
 		- Řekneme, že $f$ nabývá na $M$ v bodu $a$ minimum $f(a)$ a v bodu $b$ maximum $f(b)$.
 	- důkaz
