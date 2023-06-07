@@ -134,11 +134,11 @@
 - stejnoměrná spojitost (d. 19, př. 6)
 	- pro $M\subset \mathbb R$ je funkce $f:M\to\mathbb R$ (na $M$) stejnoměrně spojitá, pokud $\forall\varepsilon\,\exists\delta: a,b\in M\land |a-b|\leq\delta\implies |f(a)-f(b)|\leq\varepsilon$
 - (nevlastní) Newtonův integrál funkce (d. 7, př. 10 a d. 1, př. 11)
-	- když $f:(a,b)\to\mathbb R$ (přičemž $a\lt b$) má primitivní funkci $F$ a existují vlastní limity $F(a):=\lim_{x\to a}F(x)$ a $F(b):=\lim_{x\to b}F(x)$, definujeme Newtonův integrál funkce $f$ na intervalu $(a,b)$ jako jejich rozdíl $$(N)\int_a^bf:=F(b)-F(A)=\lim_{x\to b}F(x)-\lim_{x\to a}F(x)$$
-	- pak plochu $A_f$ oblasti $G_{\leq f}$ definujeme jako $A_f:=(N)\int_a^bf$
-	- pro $b\lt a$ klademe $(N)\int_a^bf:=-(N)\int_b^af$
-	- dále vždy definujeme $(N)\int_a^af:=0$
-	- rozšířený (nevlastní) Newtonův integrál funkce $f:(a,b)\to\mathbb R$ definujeme jako $(N_e)\int_a^bf:=[F]_a^b$ pro libovolnou zobecněnou antiderivaci $F:(a,b)\to\mathbb R$ funkce $f$, přičemž zobecněná antiderivace funkce $f:I\to\mathbb R$ pro netriviální interval $I$ se definuje jako $F:I\to\mathbb R$, pokud $F$ je spojitá a $F'(x)=f(x)$ platí pro každé $x\in I$ s konečně mnoha výjimkami
+	- když $f:(a,b)\to\mathbb R$ (přičemž $a\lt b$) má primitivní funkci $F$ a existují vlastní limity $F(a):=\lim_{x\to a}F(x)$ a $F(b):=\lim_{x\to b}F(x)$, definujeme Newtonův integrál funkce $f$ na intervalu $(a,b)$ jako jejich rozdíl $$(\text{N})\int_a^bf:=F(b)-F(A)=\lim_{x\to b}F(x)-\lim_{x\to a}F(x)$$
+	- pak plochu $A_f$ oblasti $G_{\leq f}$ definujeme jako $A_f:=(\text{N})\int_a^bf$
+	- pro $b\lt a$ klademe $(\text{N})\int_a^bf:=-(\text{N})\int_b^af$
+	- dále vždy definujeme $(\text{N})\int_a^af:=0$
+	- rozšířený (nevlastní) Newtonův integrál funkce $f:(a,b)\to\mathbb R$ definujeme jako $(\text{N}_e)\int_a^bf:=[F]_a^b$ pro libovolnou zobecněnou antiderivaci $F:(a,b)\to\mathbb R$ funkce $f$, přičemž zobecněná antiderivace funkce $f:I\to\mathbb R$ pro netriviální interval $I$ se definuje jako $F:I\to\mathbb R$, pokud $F$ je spojitá a $F'(x)=f(x)$ platí pro každé $x\in I$ s konečně mnoha výjimkami
 - Riemannův integrál (d. 1, př. 12) a množina míry 0 (d. 11, př. 12)
 	- dělením $\overline a$ intervalu $I$ rozumíme každou takovou $(k+1)$-tici bodů $\overline a=(a_0,a_1,\dots,a_k),\,k\in\mathbb N$, že $a=a_0\lt a_1\lt\dots\lt a_{k-1}\lt a_k=b$
 		- jeho norma $\Vert\overline a\Vert\in[0,+\infty)$ je největší délka $a_i-a_{i-1}$ podintervalu (formálně $\Vert\overline a\Vert=\max(\lbrace a_i-a_{i-1}\mid i\in [k]\rbrace)$)
@@ -263,7 +263,7 @@
 		- (1) $F=\int f$ na $J\implies F(g)=\int f(g)\cdot g'$ na $I$
 		- (2) když $g$ je surjekce a $g'\neq 0$, potom platí implikace
 			- $G=\int f(g)\cdot g'$ na $I\implies G(g^{-1})=\int f$ na $J$
-- $(N)\int_A^Bf$ per partes (v. 4, př. 11)
+- $(\text{N})\int_A^Bf$ per partes (v. 4, př. 11)
 	- Mějme $f,g,F,G:(A,B)\to\mathbb R$, kde $A\lt B$ jsou v $\mathbb R^*$, $F$ je primitivní k $f$, $G$ je primitivní ke $g$.
 	- Pak $(\text{N}) \int_A^B fG=[FG]_A^B-(\text{N})\int_A^BFg$ platí vždy, když jsou definovány dva z těchto tří členů.
 - $\int r(x)$ (v. 7, př. 11)
