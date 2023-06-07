@@ -249,7 +249,7 @@
 	- opačné nerovnosti $\implies$ (ryze) konkávní
 	- $I^0$ je vnitřek intervalu $I$ vzniklý vynecháním koncových bodů intervalu $I$
 - Lagrangeův a Cauchyův zbytek Taylorova polynomu (v. 6, př. 9)
-	- definujeme zbytek Tylorova polynomu jako $R^{f,a}_n(x):=f(x)-T^{f,a}_n(x),\,x\in U(a,\delta)$
+	- definujeme zbytek Taylorova polynomu jako $R^{f,a}_n(x):=f(x)-T^{f,a}_n(x),\,x\in U(a,\delta)$
 	- Mějme $f,f',\dots,f^{(n+1)}:U(a,\delta)\to\mathbb R$, kde $n\in\mathbb N$.
 	- Pak platí následující.
 	- Lagrangeův zbytek: $\forall x\in P(a,\delta)\,\exists c$ mezi $a$ a $x$, že $R^{f,a}_n(x)=\frac{f^{(n+1)}(c)}{(n+1)!}\cdot (x-a)^{n+1}$
