@@ -599,8 +599,8 @@
 			- poslední nerovnost bereme jako fakt
 		- podobně se dokáže, že je i $\gt -2\varepsilon$, tedy $F'(x_0)=f(x_0)$
 - vzorec $\sum=\int+\int$ (v. 15, př. 14)
-	- věta: Nechť $a\lt b$ jsou v $\mathbb Z$, $f,f'\in\text{R}(a,b)$ a $f$ je spojitá v $b$. Pak platí identita $\sum_{a\lt n\leq b}f(n)=\int_a^bf+\int_a^b\set{x}f'(x)=:\int_a^bf+T$.
-		- kde $\set{x}$ je „zlomková část“ čísla $x$ (tedy desetinná část) $\in[0,1)$
+	- věta: Nechť $a\lt b$ jsou v $\mathbb Z$, $f,f'\in\text{R}(a,b)$ a $f$ je spojitá v $b$. Pak platí identita $\sum_{a\lt n\leq b}f(n)=\int_a^bf+\int_a^b\lbrace x\rbrace f'(x)=:\int_a^bf+T$.
+		- kde $\lbrace x\rbrace$ je „zlomková část“ čísla $x$ (tedy desetinná část) $\in[0,1)$
 	- důkaz
 		- identitu stačí dokázat pro $b=a+1$, což nazveme elementární identitou
 		- identitu s obecnými mezemi $a\lt b$ dostaneme jako součet elementárních identit s mezemi $a,a+1,\dots,b$
