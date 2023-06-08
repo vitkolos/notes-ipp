@@ -18,7 +18,7 @@
 - aritmetika limit (limita součtu/rozdílu/součinu/podílu je součet/rozdíl/součin/podíl limit)
 - $\frac c\infty=0$
 - věta o limitě složené funkce (podmínky: obor hodnot „vnořené“ funkce je podmnožinou definičního oboru „vnější“ funkce, „vnější funkce je spojitá)
-- derivace součtu/rozdílu je součet/podíl derivací
+- derivace součtu/rozdílu je součet/rozdíl derivací
 - L'Hospitalovo pravidlo – podmínky: nenulovost funkcí ve jmenovateli, neurčitý výraz správného typu (na levé straně), existence limity (na pravé straně)
 - $(fg)'=f'g+fg'$
 - $\left(\frac fg\right)'=\frac{f'g-fg'}{g^2}$
