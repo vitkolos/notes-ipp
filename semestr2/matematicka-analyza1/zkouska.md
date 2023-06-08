@@ -202,7 +202,7 @@
 	- Pro každou $(a_n)\subset\mathbb R$ je množina $H(a_n)$ neprázdná. V lineárním uspořádání $(\mathbb R^*,\lt)$ má minimum i maximum.
 - o harmonických číslech (v. 4, př. 4)
 	- Uvažme harmonická čísla $h_n=\sum_{j=1}^n1/j$.
-	- Pak existuje konstanta $c\gt 0$, že pro každé $n\in\mathbb N$ se $h_n=\log n+\gamma+\Delta_n,\;|\Delta_n|\geq\frac cn$, kde $\gamma=0.577\dots$ je tzv. Eulerova konstanta.
+	- Pak existuje konstanta $c\gt 0$, že pro každé $n\in\mathbb N$ se $h_n=\log n+\gamma+\Delta_n,\;|\Delta_n|\leq\frac cn$, kde $\gamma=0.577\dots$ je tzv. Eulerova konstanta.
 - Riemannova věta (v. 5, př. 4)
 	- Nechť pro řadu $\sum^\infty_{n=1}a_n$ platí:
 		- $\lim a_n=0$
