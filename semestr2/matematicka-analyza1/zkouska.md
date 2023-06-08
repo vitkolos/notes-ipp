@@ -5,9 +5,9 @@
 - definice funkce, funkce prostá, na a bijekce (př. 1)
 	- funkce $f$ z množiny $A$ do množiny $B$ je každá taková uspořádaná trojice $(A,B,f)$, že $f\subset A\times B$ a pro každé $a\in A$ existuje právě jedno $b\in B$, že $afb$
 		- píšeme, že $f:A\to B$ a že $f(a)=b$
-	- funkce $f:X\to Y$ je prostá $\equiv f(x)=f(x')\implies x=x'$
-	- funkce $f:X\to Y$ je na $\equiv f[X]=Y$
-	- $f$ je bijekce (vzájemně jednoznačná) $\equiv f$ je na a je prostá
+	- funkce $f:X\to Y$ je prostá, když $f(x)=f(x')\implies x=x'$
+	- funkce $f:X\to Y$ je na, když $f[X]=Y$
+	- $f$ je bijekce (vzájemně jednoznačná), když je na a je prostá
 - supremum a infimum v lineárním uspořádání (př. 1)
 	- $(A,\lt)$ buď lineární uspořádání a nechť $B\subset A$
 	- prvky $\sup(B):=\min(H(B))$ a $\inf(B):=\max(D(B))$ v $A$, existují-li, nazveme supremem a infimem množiny $B$
@@ -185,9 +185,9 @@
 - definice a vlastnosti $\mathbb R$ (d. 10 a t. 11, př. 1)
 	- Reálná čísla tvoří množinu $\mathbb R:=C/\sim$
 		- $C$ je množina všech Cauchyových posloupností zlomků
-		- posloupnost $(a_n)\subset\mathbb Q$ je Cauchyova $\equiv\forall k\,\exists n_0:m,n\geq n_0\implies|a_m-a_n|\leq 1/k$
+		- posloupnost $(a_n)\subset\mathbb Q$ je Cauchyova, když $\forall k\,\exists n_0:m,n\geq n_0\implies|a_m-a_n|\leq 1/k$
 			- vzdálenost mezi členy posloupnosti se postupně zmenšuje na libovolně malou hodnotu
-		- relaci shodnosti $\sim$ na $C$ definujeme takto: $(a_n)\sim(b_n)\equiv(\forall k\,\exists n_0:n\geq n_0\implies|a_n-b_n|\leq 1/k)$
+		- relaci shodnosti $\sim$ na $C$ definujeme takto: $(a_n)\sim(b_n)$, když $(\forall k\,\exists n_0:n\geq n_0\implies|a_n-b_n|\leq 1/k)$
 	- $(\mathbb R,0,1,+,\cdot,\lt)$ je uspořádané těleso.
 - o podposloupnostech (t. 7, př. 2)
 	- $(a_n)$ buď libovolná reálná posloupnost a $A\in\mathbb R^*$. Platí následující.
