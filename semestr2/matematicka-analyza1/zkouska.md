@@ -268,7 +268,7 @@
 	- Mějme $f,g,F,G:(A,B)\to\mathbb R$, kde $A\lt B$ jsou v $\mathbb R^*$, $F$ je primitivní k $f$, $G$ je primitivní ke $g$.
 	- Pak $(\text{N}) \int_A^B fG=[FG]_A^B-(\text{N})\int_A^BFg$ platí vždy, když jsou definovány dva z těchto tří členů.
 - $\int r(x)$ (v. 7, př. 11)
-	- Pro všechny racionální funkce $r(x)$ existuje funkce $R(x)$ tvaru $R(x)=r_0(x)+\sum_{i=1}^ks_i\cdot \log(|x-\alpha_i|)+$ $+\sum_{i=1}^lt_i\cdot \log(a_i(x))+\sum_{i=1}^mu_i\cdot \arctan(b_i(x))$, kde…
+	- Pro všechny racionální funkce $r(x)$ existuje funkce $R(x)$ tvaru $R(x)=r_0(x)+\sum_{i=1}^ks_i\cdot \log(|x-\alpha_i|)$ $+\sum_{i=1}^lt_i\cdot \log(a_i(x))+\sum_{i=1}^mu_i\cdot \arctan(b_i(x))$, kde…
 		- $r_0(x)$ je racionální funkce
 		- $k,l,m\in\mathbb N_0$
 		- prázdné $\sum:=0$
