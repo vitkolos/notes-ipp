@@ -119,7 +119,7 @@
 		- pravé asymptoty se definují podobně
 	- asymptoty v nekonečnu
 		- nechť $M\subset\mathbb R,\,+\infty$ je limitní bod $M,\,s,b,\in\mathbb R$ a $f:M\to\mathbb R$
-		- když $\lim_{x\to+\infty}(f(x)-sx-b)=0$, nazveme přímku $y=sx+b$ asymptotou funkce f v $+\infty$
+		- když $\lim_{x\to+\infty}(f(x)-sx-b)=0$, nazveme přímku $y=sx+b$ asymptotou funkce $f$ v $+\infty$
 		- asymptoty v $-\infty$ se definují podobně
 - Taylorův polynom funkce (d. 1, př. 9), Taylorova řada funkce (d. 5, př. 9)
 	- Taylorův polynom

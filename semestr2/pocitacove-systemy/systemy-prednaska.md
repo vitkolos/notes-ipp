@@ -1,10 +1,11 @@
 # Počítačové systémy
 
-- …
-- ABI (…)
+## CPU
+
+- ABI
 - MIPS registry – jejich účely (jak by se měly používat) jsou popsány v MIPSovém ABI
 	- je lepší používat přímo jména registrů v ABI – aby případné přečíslování registrů nedělalo problém
-	- různé funkce registrů (…)
+	- různé funkce registrů
 - základní instrukce
 	- součet dvou registrů, uložení do (třetího) registru
 		- na rozdíl od x86 umí MIPS uložit výsledek do třetího registru
@@ -14,7 +15,6 @@
 	- negace se dělá pomocí `nor $t1,$t2,$t2`
 	- bitové posuny
 	- přístup do paměti
-- (5. přednáška)
 - MIPS instrukce
 	- nepodmíněné skoky
 		- na adresu (j)
@@ -357,8 +357,6 @@
 	- cooperative – všechny procesy kooperují, předávají si řízení
 	- preemptive – každé vlákno dostane od scheduleru svůj time slice; jakmile čas vyprší, dojde k přerušení
 - scheduling
-	- cíle
-		- …
 	- priorita – vázaná na proces
 		- je dvousložková – při spuštění se přiděluje statická priorita (podle uživatele), dynamická priorita se v časových intervalech pravidelně zvyšuje všem ready vláknům (po spuštění se dynamická priorita sníží na nula); celková priorita je daná součtem
 	- kooperativní algoritmy
@@ -463,7 +461,6 @@
 	- cluster – stejná stopa na všech plotnách
 	- flying height – vzdálenost mezi hlavou a plotnou
 	- rotační rychlost – 5 až 15 tisíc otáček za minutu
-	- …
 	- přístup na sektor je docela dlouhý (v jednotkách milisekund)
 	- rotační zpoždění – hlava na správný sektor čeká třeba 4 ms (pokud celá rotace trvá 8 ms)
 	- disk access time = seek time + rotational latency + transfer time
@@ -639,19 +636,20 @@
 - virtualizace
 	- VM – hypervisor zajišťuje virtualizaci hardwaru
 	- virtualizace na úrovni OS
-- paralelní počítání
-	- chci zrychlit výpočet
-	- race condition
-		- více vláken přistupuje ke sdílenému prostředku
-		- to vede k tomu, že výsledek výpočtu závisí na plánování operačního systému nebo na chování procesoru
-		- takový výsledek je k ničemu
-		- řešila by to atomizace read-modify-write operace
-		- definuju kritickou sekci
-		- pomocí synchronizačního primitiva zajistím, že v kritické sekci je jenom jedno vlákno
-		- aktivní a pasivní/blokující synchronizační primitiva
-			- aktivní vykonávají instrukce a pořád koukají do kritické sekce, jestli tam můžou
-			- pasivní/blokující jsou zablokovány, dokud není přístup povolen
-		- hardwarová podpora – atomické instrukce test-and-set (TSL), compare-and-swap (CAS)
-		- spin-lock
-		- semafor
-		- …
+
+## Paralelní počítání
+
+- chci zrychlit výpočet
+- race condition
+	- více vláken přistupuje ke sdílenému prostředku
+	- to vede k tomu, že výsledek výpočtu závisí na plánování operačního systému nebo na chování procesoru
+	- takový výsledek je k ničemu
+	- řešila by to atomizace read-modify-write operace
+	- definuju kritickou sekci
+	- pomocí synchronizačního primitiva zajistím, že v kritické sekci je jenom jedno vlákno
+	- aktivní a pasivní/blokující synchronizační primitiva
+		- aktivní vykonávají instrukce a pořád koukají do kritické sekce, jestli tam můžou
+		- pasivní/blokující jsou zablokovány, dokud není přístup povolen
+	- hardwarová podpora – atomické instrukce test-and-set (TSL), compare-and-swap (CAS)
+	- spin-lock
+	- semafor
