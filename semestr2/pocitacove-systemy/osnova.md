@@ -1,0 +1,42 @@
+# Systémy – osnova (podle prezentací)
+
+- C/C++
+	- vlastnosti jazyka
+	- ukazatele
+	- velikosti datových typů (a struktur)
+- CPU
+	- ISA, instrukce
+	- registry
+	- fyzická konstrukce
+	- spouštění instrukcí
+- paměť
+	- datová reprezentace
+	- zarovnání
+	- správa paměti, alokace
+	- cache
+- programovací jazyky
+	- kompilátor (překladač)
+	- gramatika
+	- linking
+	- volání funkcí, volací konvence
+	- proměnné
+- operační systémy
+	- režimy CPU
+	- architektura
+	- správa zařízení
+	- komunikace zařízení, přerušení
+	- procesy
+	- plánování
+	- soubor
+	- filesystem
+	- přístup na disk
+	- SSD, HDD
+	- virtuální paměť
+	- segmentace, stránkování
+	- nahrazování stránek
+	- virtualizace
+- paralelní programování a synchronizace
+	- race condition
+	- synchronizační primitiva
+	- deadlock
+	- synchronizační problémy
