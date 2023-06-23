@@ -3,6 +3,7 @@
 - zpracoval Vít Kološ
 - [https://www.vitkolos.tk/node/**view**/notes-ipp/main/](https://www.vitkolos.tk/node/view/notes-ipp/main/)
 - podporované režimy: view, cards, source, [anki](https://ankiweb.net/shared/info/1087328706), quizlet, cards-json
+- pokud ti moje zápisky pomohly, můžeš mi [koupit pivo](https://revolut.me/vitkolos)
 
 ## Přehledně zpracované předměty
 
