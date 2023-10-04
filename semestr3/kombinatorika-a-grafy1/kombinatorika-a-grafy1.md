@@ -39,4 +39,14 @@
 - důkaz
 	- definujme $P:=\frac{2m\choose m}{2^{2m}}$ a dokažme $\frac1{2\sqrt{m}}\leq P\leq \frac{1}{\sqrt{2m}}$
 	- …
-- 
+
+## Vytvořující (generující) funkce
+
+- definice: vytvořující funkce posloupnosti $(a_n)_{n=0}^\infty$ reálných čísel je funkce proměnné $x$ definovaná jako součet $f(x)=\sum_{n=0}^\infty a_n(x^n)$
+	- tato funkce nemusí být dobře definovaná pro všechna reálná čísla (dokonce se může stát, že nebude definovaná pro žádné reálné číslo kromě nuly)
+	- pro nás bude praktické, když bude definovaná na okolí nuly (více než jednobodovém)
+- fakt: pokud existuje $K\gt 0$ taková, že $\forall n:|a_n|\leq K^n$ (posloupnost se dá shora odhadnout nějakou exponenciální funkcí), tak řada $\sum_{n=0}^\infty a_nx^n$ konverguje na $(-\frac 1K,\frac 1K)$ absolutně stejnoměrně
+- navíc má $f(x)=\sum_{n=0}^\infty a_nx^n$ derivace všech řádů na $(-\frac 1K,\frac 1K)$, které se dají spočítat „derivováním člen po členu“
+	- $f'(x)=\sum_{n=0}^\infty a_nnx^{n-1}$
+	- $f''(x)=\sum_{n=0}^\infty a_nn(n-1)x^{n-2}$
+	- 
