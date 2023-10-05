@@ -37,3 +37,21 @@
 		- interfaces
 		- arrays
 		- delegates
+- halda je garbage-collectovaná (GC), funguje chytřeji než v Pythonu, není potřeba reference counter, ale používá se graf dosažitelnosti
+- overhead u každého objektu na haldě
+	- syncblock – kvůli práci s více vlákny (u jednovláknových programů zbytečný)
+	- pointer na typ (zjednodušeně řečeno)
+		- třída System.Type, má instance na GC haldě
+		- každý datový typ odpovídá jedné instanci třídy
+	- na referenčních proměnných jde volat `.GetType()`
+- `new` na hodnotovém typu (např. u typu struct) nealokuje nikde nic
+- dotnetový typ `System.Int16` → C# klíčové slovo `short`
+	- pokud klíčové slovo existuje, používáme ho
+- v Javě se hodnotové typy označují malým písmenem, referenční velkým – v C# nic takového neplatí
+- dotnet se vyvíjí rychleji než C#, takže např. System.Half ještě nemá klíčové slovo v C#
+- odbočka: CLS compliant = všechny jazyky dotnetu musí tenhle typ podporovat (problém je hlavně s Javou, když se používá v dotnetu, všechny ostatní jazyky dotnetu nejspíš podporují všechny dotnetí typy)
+- při přiřazování se v C# kopíruje obsah proměnné nezávisle na typu (takže u referenčních typů se kopíruje odkaz do GC haldy, u hodnotových typů samotná hodnota)
+- třídy a struktury můžeme anotovat slovem `record`
+	- např. `record class C {}`
+	- při běhu se takové třídy/struktury chovají klasicky
+	- umožní nám to psát méně boilerplate kódu, protože nám C# překladač vytvoří nějaké chytré metody (např. lepší ToString)
