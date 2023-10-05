@@ -13,4 +13,20 @@
 	- to rat on someone / to rat someone out
 	- to be cowed
 	- to bug someone … to annoy someone
-- 
+- Aesop's Fables
+	- Πυθαγόρας → a bonus point on a test
+	- to establish … to prove, to show something is true
+	- to hold … to state
+	- to style … to portray, to try to look like
+	- thence = thenceforth
+		- henceforth … from now on
+		- thenceforth … from that point on (from then on)
+	- to centre … to focus on
+	- to be derived from … to come from
+	- questions
+		- what's the moral
+		- do you agree with the moral
+		- does the story make sense
+		- was the animal choice logical
+		- how would the animals react to them being involved there
+		- retell the story
