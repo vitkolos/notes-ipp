@@ -27,3 +27,6 @@
 - jak najít jehlu
 	- můžeme hledat jehlu na každém indexu sena → $\Theta(J\cdot S)$
 	- můžeme po nenalezení přeskočit dál → nefunguje, viz seno "clanekokokosu", jehla "kokos"
+	- postupně si vytváříme seno
+		- df: stav algoritmu := nejdelší prefix jehly, který je suffixem sena
+		- 
