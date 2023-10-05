@@ -55,3 +55,4 @@
 	- např. `record class C {}`
 	- při běhu se takové třídy/struktury chovají klasicky
 	- umožní nám to psát méně boilerplate kódu, protože nám C# překladač vytvoří nějaké chytré metody (např. lepší ToString)
+	- místo `record class` se dá napsat jenom `record`
