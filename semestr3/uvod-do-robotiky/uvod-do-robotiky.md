@@ -4,10 +4,22 @@
 	- nejdřív musíme mít odevzdané a opravené všechny teoretické domácí úkoly
 - zápočet za docházku, domácí úkoly a finální projekt
 	- dvě absence jsou povoleny (víc radši ne)
-	- domácí úkoly odevzdávat nejpozději den před příštím cvičením
-	- odevzdávání domácích úkolů do SISu
-	- na cvičeních se proberou nejčastější špatná řešení
-	- po cvičení úkol opravím a znovu odevzdám
-	- u zkoušky bych měl být schopen úkoly obhájit
+	- domácí úkoly
+		- do SISu
+		- první verzi nejpozději den před příštím cvičením (odevzdat aspoň pokus o řešení)
+		- na cvičeních se proberou nejčastější špatná řešení (ale můžeme se i doptat na to svoje konkrétní)
+		- pak nahrát opravnou verzi (dříve než se přihlásím ke zkoušce; do SISu se odevzdává jako correction)
+		- u zkoušky bych měl být schopen všechny své úkoly obhájit
+		- pokud se v SISu u mého řešení objeví OK $\implies$ úkol je v pořádku (platí pouze tato jediná implikace, o kontrolu našeho řešení můžeme výslovně požádat po cvičení)
+		- v první fázi teoretické úkoly, pak práce s roboty
 	- závěrečný projekt předvést do konce zkouškového v zimním semestru
 	- na výjimkách je potřeba se domluvit předem
+- Parallax BoeBot
+- programuje se v C++
+- první úkol  
+	- přečíst Runaround  
+	- vymyslet ke každému zákonu výjimku (tenhle zákon tvrdí tohle, ale bylo by dobré, kdyby ho v této situaci robot porušil)  
+	- stačí TXT, nahrát do SISu  
+	- uvažovat robota s limity a omezenými informacemi  
+	- zákon je formulovaný slovně, můžeme v úkolu popsat, jak ty věci chápeme  
+	- nemusí to být extra dlouhé, máme se zamyslet a popsat nějakou myšlenku
