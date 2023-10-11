@@ -45,8 +45,8 @@
 		- arrays
 		- delegates
 - halda je garbage-collectovaná (GC), funguje chytřeji než v Pythonu, není potřeba reference counter, ale používá se graf dosažitelnosti
-- overhead u každého objektu na haldě
-	- syncblock – kvůli práci s více vlákny (u jednovláknových programů zbytečný)
+- overhead u každého objektu na haldě (má typicky 16 B)
+	- syncblock – kvůli práci s více vlákny (u jednovláknových programů zbytečný), má 8 B
 	- pointer na typ (zjednodušeně řečeno)
 		- třída System.Type, má instance na GC haldě
 		- každý datový typ odpovídá jedné instanci třídy
@@ -63,5 +63,14 @@
 	- při běhu se takové třídy/struktury chovají klasicky
 	- umožní nám to psát méně boilerplate kódu, protože nám C# překladač vytvoří nějaké chytré metody (např. lepší ToString)
 	- místo `record class` se dá napsat jenom `record`
-- padding v lokální paměti
-	- když překladač sází dvě 14B struktury vedle sebe do paměti, přičemž jejich první (vnitřní) proměnná má 8 B, tak mezi ně obvykle dá dva nulové bajty, ale struktury pořád vnímáme jako 14B
+- poznámky z cvičení
+	- padding v lokální paměti
+		- když překladač sází dvě 14B struktury vedle sebe do paměti, přičemž jejich první (vnitřní) proměnná má 8 B, tak mezi ně obvykle dá dva nulové bajty, ale struktury pořád vnímáme jako 14B (nebo jako 16B)
+		- zároveň se snaží si struktury nějak přeházet, aby v paměti zabíraly co nejméně místa a vycházelo mu dobře zarovnání (podle toho, co se hodí procesoru)
+	- u pole se ukládá informace o jeho délce (4 nebo 8 B), je to klasicky součástí dat (jako první je v paměti délka pole, pak jsou postupně jeho prvky)
+	- struktura obsahující jeden int se v paměti ukládá stejně jako jeden int
+	- úkoly
+		- můžeme používat knihovní funkce
+		- máme si všímat společných aspektů úloh, udělat to tak, aby psaní složitější úlohy nezahrnovalo mazání kódu z jednodušší úlohy, pouze přidávání nového kódu
+		- kód psát samostatně, můžeme nad úkolem společně přemýšlet a bavit se o něm
+		- nepoužívat jazykové modely k psaní kódu

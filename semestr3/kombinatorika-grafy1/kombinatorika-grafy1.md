@@ -49,4 +49,16 @@
 - navíc má $f(x)=\sum_{n=0}^\infty a_nx^n$ derivace všech řádů na $(-\frac 1K,\frac 1K)$, které se dají spočítat „derivováním člen po členu“
 	- $f'(x)=\sum_{n=0}^\infty a_nnx^{n-1}$
 	- $f''(x)=\sum_{n=0}^\infty a_nn(n-1)x^{n-2}$
+	- $f(x)=a_0+a_1x+a_2x^2+a_3x^3+\dots$
+	- $f'(x)=a_1+2a_2x+3a_3x^2+\dots$
+	- $f''(x)=2a_2+3\cdot 2a_3+\dots$
+	- $f^{(n)}(x)=n!\cdot a_n+\dots$
+- důsledek
+	- $f(0)=a_0$
+	- $f'(0)=a_1$
+	- $f''(0)=2a_2$
+	- $f^{(n)}(0)=n!\cdot a_n$
+	- takže $a_n=\frac{1}{n!} f^{(n)}(0)$
+- fakt: vytvořující funkce lze mezi sebou násobit jako polynomy, výsledek je vytvořující funkcí posloupnosti $a_0b_0,a_0b1+a_1b0,\dots$, této posloupnosti se říká konvoluce posloupností $(a_n)_{n=0}^\infty$ a $(b_n)_{n=0}^\infty$
+- užití vytvořujících funkcí
 	- 
