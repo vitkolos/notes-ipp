@@ -93,4 +93,10 @@
 			- $f(x)-xf(x)-x^2f(x)=F_0+F_1x-F_0x$
 			- $f(x)\cdot(1-x-x^2)=F_0+F_1x-F_0x$
 			- $f(x)=\frac{F_0+F_1x-F_0x}{1-x-x^2}=\frac x{1-x-x^2}$
-		- 
+- obecnější příklad – mějme posloupnost $a_0,a_1,a_2,\dots$, která splňuje $a_n=\alpha_1a_{n-1}+\alpha_2a_{n-2}+\dots+\alpha_da_{n-d}$ pro každé $n\geq d$, kde $d\in\mathbb N$, $\alpha_1,\dots,\alpha_d\in\mathbb R,\,\alpha_d\neq 0$; najďeme vzorec pro $f(x)=\sum_{n=0}^\infty a_nx^n$
+	- $\sum_{n=d}^\infty a_nx^n=$
+	- $=\sum_{n=d}^\infty\alpha_1a_{n-1}x^n+\sum_{n=d}^\infty\alpha_2a_{n-2}x^n+\dots+\sum_{n=d}^\infty\alpha_da_{n-d}x^n$
+	- $f(x)-(a_0+a_1x+\dots+a_{d-1}x^{d-1})=$
+	- $=a_1x(f(x)-(a_0+a_1x+\dots+a_{d-2}x^{d-2}))+$
+	- $+a_2x^2(f(x)-(a_0+\dots+a_{d-3}x^{d-3}))+\dots+a_dx^df(x)$
+	- …
