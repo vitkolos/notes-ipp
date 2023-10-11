@@ -61,4 +61,15 @@
 	- takže $a_n=\frac{1}{n!} f^{(n)}(0)$
 - fakt: vytvořující funkce lze mezi sebou násobit jako polynomy, výsledek je vytvořující funkcí posloupnosti $a_0b_0,a_0b1+a_1b0,\dots$, této posloupnosti se říká konvoluce posloupností $(a_n)_{n=0}^\infty$ a $(b_n)_{n=0}^\infty$
 - užití vytvořujících funkcí
-	- 
+	- kombinatorické počítání
+	- asymptotické odhady
+	- dokazování identit u posloupností
+	- řešení rekurencí
+- příklad na kombinatorické počítání – platíme $n$ Kč pomocí mincí s hodnotami 1, 2 a 5 Kč, na pořadí nezáleží ($a_n$ je počet způsobů, jak $n$ korun zaplatit)
+	- $f(x)=\sum_{n=0}^\infty a_nx^n=$
+	- $=(1+x+x^2+x^3+\dots)(1+x^2+x^4+x^6+\dots)(1+x^5+x^{10}+\dots)$
+	- $=\frac1{1-x}\cdot\frac1{1-x^2}\cdot\frac1{1-x^5}$
+	- pak lze zjistit koeficient u $x^n$, ten se bude rovnat $a_n$
+
+### Řešení rekurencí
+
