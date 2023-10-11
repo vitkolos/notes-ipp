@@ -1,6 +1,13 @@
 # Programování v C\#
 
-- zkouška bude podobná jako u principů
+- zkouška bude podobná jako u Principů
+- poznámky z cvičení
+	- součástí zápočťáku je dokumentace, předvedení zápočťáku může být i online
+	- zápočťák se teoreticky může dělat i ve skupině, ale není to praktické
+	- body navíc za kvalitní řešení domácích úkolů
+	- je třeba splnit úlohu tak, aby prošly všechny testy
+	- kdybychom fakt nevěděli, kde je problém, můžeme napsat Kliberovi
+	- používat .NET verze 7.0
 - principy Pythonu
 	- přiřazení do proměnné vytvoří objekt na garbage-collectované haldě s daty, jejich délkou a overheadem (obsahuje ref. count a datový typ)
 	- odkaz (reference) na tento objekt se uloží do lokální paměti na místo vyhrazené dané proměnné
@@ -56,3 +63,5 @@
 	- při běhu se takové třídy/struktury chovají klasicky
 	- umožní nám to psát méně boilerplate kódu, protože nám C# překladač vytvoří nějaké chytré metody (např. lepší ToString)
 	- místo `record class` se dá napsat jenom `record`
+- padding v lokální paměti
+	- když překladač sází dvě 14B struktury vedle sebe do paměti, přičemž jejich první (vnitřní) proměnná má 8 B, tak mezi ně obvykle dá dva nulové bajty, ale struktury pořád vnímáme jako 14B
