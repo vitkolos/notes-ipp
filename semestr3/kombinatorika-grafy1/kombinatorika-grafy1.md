@@ -73,3 +73,24 @@
 
 ### Řešení rekurencí
 
+- Fibonacciho čísla $F_0:=0,\,F_1:=1,\,F_n:=F_{n-1}+F_{n-2}$ pro $n\geq 2$
+	- chceme získat explicietní vzorec pro $f(x)=\sum_{n=0}^\infty F_nx^n$
+	- obecná metoda řešení rekurencí
+		- vezmi rekurenci pro $n\geq n_0$
+		- vynásob ji $x^n$
+		- sečti pro $n\geq n_0$
+		- vyjádři všechny sumy pomocí hledané vytvořující funkce $f(x)$
+		- dopočítej $f(x)$
+	- aplikace na $F_n$
+		- $F_n=F_{n-1}+F_{n-2}$ pro $n\geq 2$
+		- $F_nx^n=F_{n-1}x^n+F_{n-2}x^n$ pro $n\geq 2$
+		- $\underbrace{\sum_{n=2}^\infty F_nx^n}_{S_1}=\underbrace{\sum_{n=2}^\infty F_{n-1}x^n}_{S_2}+\underbrace{\sum_{n=2}^\infty F_{n-2}x^n}_{S_3}$
+			- $S_1=F_2x^2+F_3x^3+F_4x^4+\dots=f(x)-F_0-F_1x$
+			- $S_2=F_1x^2+F_2x^3+F_3x^4+\dots=x(f(x)-F_0)$
+			- $S_3=F_0x^2+F_1x^3+F_2x^4+\dots=x^2f(x)$
+			- $S_1=S_2+S_3$
+			- $f(x)-F_0-F_1x=x(f(x)-F_0)+x^2f(x)$
+			- $f(x)-xf(x)-x^2f(x)=F_0+F_1x-F_0x$
+			- $f(x)\cdot(1-x-x^2)=F_0+F_1x-F_0x$
+			- $f(x)=\frac{F_0+F_1x-F_0x}{1-x-x^2}=\frac x{1-x-x^2}$
+		- 
