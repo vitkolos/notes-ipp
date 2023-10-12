@@ -74,3 +74,25 @@
 		- máme si všímat společných aspektů úloh, udělat to tak, aby psaní složitější úlohy nezahrnovalo mazání kódu z jednodušší úlohy, pouze přidávání nového kódu
 		- kód psát samostatně, můžeme nad úkolem společně přemýšlet a bavit se o něm
 		- nepoužívat jazykové modely k psaní kódu
+- jak rozlišit, kdy použít referenční a kdy hodnotový typ
+- syntaktický cukr – `var` a `new()`
+- fields a ochrana přístupu (public, readonly, …)
+- properties – gettery, settery
+	- auto-implemented props
+		- automaticky se vytvoří backing field
+		- props bez setteru jsou readonly
+		- getter a setter můžou mít různou viditelnost (celku se nastaví nějaká viditelnost, u getteru nebo setteru se pak napíše jiná viditelnost)
+- do readonly věcí můžu zapisovat v konstruktoru
+- výchozí hodnoty typů
+- za `new X()` můžu do složených závorek napsat do složených závorek nastavení hodnot fieldů (ale je to syntaktický cukr pro nastavení hodnot fieldů po skončení běhu konstruktoru, úroveň přístupu odpovídá úrovni okolního kódu – takže to funguje podobně, jako bychom přiřazení provedli až dodatečně na dalším řádku; jediný rozdíl spočívá v klíčovém slově `init`)
+- ve složených závorkách za `new X()` je inicializér
+- klíčové slovo `init` se používá podobně jako `set` (nedají se použít zároveň), akorát `init` umožňuje přiřazení pouze v konstruktoru nebo v inicializéru
+- klíčové slovo required – danému fieldu/property musím nastavit hodnotu do konce běhu inicializéru
+- u bezparametrických konstruktorů nemusím psát závorky, takže stačí `new X`
+- primary constructors – v C# 12, fieldy píšu do závorky za `class C`
+	- můžu definovat property vycházející z nějakého fieldu
+	- C# 10 umožňuje u record class automaticky vygenerovat vlastnosti tímto způsobem – u record class (v C# 11) jsou vlastnosti immutable (mají get, init), u record struct jsou vlastnosti mutable (mají get a set)
+	- pro readonly record struct se generují immutable vlastnosti (?)
+- klíčové slovo record se hodí na vytváření jednoduchých „datonosných“ tříd
+- nullable hodnotové typy – pomocí otazníku, vytvoří se generická struktura Nullable, je tam boolean vlastnost HasValue
+	- lze přetěžovat porovnání, takže někdy může být problém porovnávat s nullem → může se hodit použít operátor `is` nebo `is not`
