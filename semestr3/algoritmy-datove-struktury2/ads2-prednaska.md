@@ -45,3 +45,9 @@
 		- pole Zkratka(stav) – číslo stavu, kam vede zkratková hrana
 	- algoritmus
 		- …
+- Robinův-Karpův algoritmus
+	- hledání jedné jehly (?)
+	- zahashuju si posloupnost $J$ znaků a porovnám s hashem jehly
+	- postupně přehashovávám pro každý takový úsek sena (hashování v lineárním čase, přehashování v konstantním)
+	- průměrná časová složitost $\Theta(J+S+JV+{SJ\over M})$ pro rovnoměrnou hashovací funkci
+	- přesnější odhad nebude na zkoušce
