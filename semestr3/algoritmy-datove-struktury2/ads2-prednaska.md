@@ -29,4 +29,19 @@
 	- můžeme po nenalezení přeskočit dál → nefunguje, viz seno "clanekokokosu", jehla "kokos"
 	- postupně si vytváříme seno
 		- df: stav algoritmu := nejdelší prefix jehly, který je suffixem sena
-		- 
+		- …
+- hledání více jehel v kupce sena – algoritmus Aho-Corasicková
+	- automat = trie
+		- stavy = prefixy jehel
+		- dopředné hrany = přidání jednoho znaku na konec ($\alpha\to\alpha x$)
+		- konce jehel (označíme v trii)
+		- zpětné hrany – vedou z $\alpha$ do nejdelšího vlastního suffixu $\alpha$, který je stavem (tohle obvykle v trii nebývá)
+		- zkratkové hrany – vedou z $\alpha$ do nejbližšího stavu dosažitelného po zpětných hranách, kde končí jehla
+	- reprezentace automatu
+		- stavy očíslujeme – kořen má číslo 0, ostatní vrcholy libovolná různá
+		- pole Dopředu(stav, písmenko) – obsahuje další stav (podle dopředné hrany)
+		- pole Slovo(stav) – končí v daném stavu slovo?
+		- pole Zpět(stav) – číslo stavu, kam vede zpětná hrana (kromě kořene je vždy právě jedno)
+		- pole Zkratka(stav) – číslo stavu, kam vede zkratková hrana
+	- algoritmus
+		- …
