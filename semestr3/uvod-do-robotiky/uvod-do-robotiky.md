@@ -23,3 +23,86 @@
 	- uvažovat robota s limity a omezenými informacemi  
 	- zákon je formulovaný slovně, můžeme v úkolu popsat, jak ty věci chápeme  
 	- nemusí to být extra dlouhé, máme se zamyslet a popsat nějakou myšlenku
+
+## Kinematika
+
+- póza = poloha + orientace
+	- ale občas se póza zaměňuje s polohou
+	- typicky nás zajímá stav robota, tzn. poloha, orientace, stav nabití baterie, …
+- dopředná úloha kinematiky – víme, o kolik jsme pohli manipulátorem, zajímá nás, kam se dostal
+- zpětná úloha kinematiky – víme, kam se chceme dostat, zajímá nás, jak to uděláme
+- kinematika = pohyb jednotlivých částí robota bez vztahu k silám
+- obvykle nás zajímá ještě dynamika
+- dopředná úloha kinematiky je vlastně násobení transformačních matic
+- ve zpětné úloze kinematiky počítáme úhly pomocí původních a cílových souřadnic
+- stupně volnosti
+	- stupeň volnosti = počet nezávislých proměnných v systému
+	- často se mluví o stupni volnosti v prostoru
+		- na přímce 2 (pohyb, dopředu/dozadu)
+		- v rovině 3 (pohyb, dopředu/dozadu, natočení)
+	- ve 2D
+		- 3 stupně volnosti (DOF = Degrees of Freedom)
+		- kartézská soustava souřadnic $[x,y,\alpha]$
+	- ve 3D
+		- 6 stupňů volnosti
+		- $[x,y,z,\alpha,\beta,\gamma]$
+		- někdy se jeden úhel nepočítá vůči rovině, ale vůči ose otáčení daného nástroje (např. šroubováku)
+		- natočení
+			- podle $x$ = roll, náklon
+			- podle $y$ = pitch, sklon, zdvih, sklopení
+			- podle $z$ = yaw, otočení, směr (to není úplně vhodné označení)
+		- používáme pravotočivý systém (pravou rukou, prsty ukazují směrem $x$, zavřením dlaně je otočím k ose $y$, palec ukazuje směr osy $z$)
+		- kladný směr otáčení je proti směru hodinových ručiček
+- manipulátor vs. robot
+	- manipulátor – je připraven pro vykonávání dané operace
+	- robot – je snadno přeprogramovatelný
+- manipulátor
+	- stav jednoho kloubu popisuje jedna proměnná (joint variable $q_i$)
+		- může být vícesložková
+	- stavový vektor (joints state) $q=[q_1,q_2,\dots,q_n]$
+		- $n$ stupňů volnosti
+	- pracovní prostor (working space) – kartézský součin všech proměnných
+	- lokální vs. globální souřadný systém (local × global coordinate system – LCS, GCS)
+		- lokální systém je někdy výhodnější – pokud se něco změní u jednoho kloubu, stačí to softwarově změnit pouze u něj
+		- typicky nás zajímají globální souřadnice
+	- typy kloubů
+		- otočný (revolute) – 1 stupeň volnosti
+		- prismatický = píst (prismatic) – 1 stupeň volnosti
+		- šroub (helical) – 1 stupeň volnosti
+		- cylindrical – 2 stupně volnosti
+		- spherical – 3 stupně volnosti (pohyb kolem dvou os + otáčení)
+		- planar – 3 stupně volnosti (posun ve dvou osách + otáčení)
+	- obvykle se používají prismatický a otočný
+	- poloha … stavový vektor o tolika složkách, kolik jich potřebujeme
+	- rotace
+		- $P$ … poloha
+		- $R$ … rotační matice
+		- $P'=R\cdot P$
+		- $R_{x,\phi}=\begin{bmatrix}1&&0&&0\\0&&\cos\phi&&-\sin\phi\\0&&\sin\phi&&\cos\phi\end{bmatrix}$
+			- rotace podle osy $x$
+		- používáme písmenka fí $\phi$, psí $\psi$, xí $\xi$
+	- rotace a translace
+		- $P'=R\cdot P+T$
+		- místo $T$ (translation) se někdy píše $D$ jako displacement
+	- jak to kombinovat?
+		- $P'=R_2\cdot(R\cdot P+T)+T_2$
+		- …
+	- homogenní souřadnice ve 2D
+		- bod vyjádřím jako $p=(x,y,w)^T$
+		- kde $w$ je projekce do nějaké roviny
+		- budeme pracovat s $w=1$
+		- rotace v rovině vypadá stejně jako rotace podle osy $z$ v prostoru (takže u třetí souřadnice bude identita)
+		- translaci $p'=p+\mathcal D_p$ uděláme pomocí násobení matic
+		- $(x',y',w')^T=\begin{pmatrix}1&&0&&d_x\\0&&1&&d_y\\0&&0&&1\end{pmatrix}\cdot\begin{pmatrix}x\\ y\\ w\end{pmatrix}$
+	- dopředná kinematika ve 3D
+		- $P=f(q)$
+		- $q=[q_1,q_2,\dots,q_6]$
+		- $P=[x,y,z,\alpha,\beta,\gamma]$
+	- složení systému
+		- obecné
+			- každý kloub je reprezentován svou geometrickou transformací
+			- přechod mezi lokálními souřadnicovými systémy
+			- může být těžké vytvořit celkovou zkombinovanou transformační matici
+		- Denavit-Hartenberg
+			- fiktivní pohyby spojující dva systémy – rotate, move, move, rotate
+			- v libovolně dlouhé sekvenci
