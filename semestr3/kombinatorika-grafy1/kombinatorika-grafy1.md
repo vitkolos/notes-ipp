@@ -122,4 +122,30 @@
 - důsledek
 	- pro $d\in\mathbb N_0:\frac1{(1-x)^d}=(1+(-x))^{-d}=_{\text{ZBV}}$
 	- …
-- 
+- důsledek důsledku
+	- $\frac\alpha{(\beta+\gamma x)^d}=\frac\alpha{\beta^d}\cdot\frac1{(1-(-\frac\gamma\beta x))^d}=\sum_{n=0}^\infty\frac{\alpha}{\beta^d}{n+d-1\choose d-1}(-\frac\gamma\beta)^nx^n$
+	- čeho je vytvořující funkce $f(x)=\frac\alpha{\gamma x}$? ničeho, protože $f(x)$ nelze spojitě dodefinovat v nule (kromě $\alpha=0$, potom $f(x)=0$)
+- df: pro $d\in\mathbb N$ a $\rho\in\mathbb R$, parciální zlomek stupně $d$ pro kořen $\rho$ je výraz tvaru $\frac{\alpha}{(x-\rho)^d}$, kde $\alpha$ je reálná konstanta
+- poznámka: pokud $p\neq 0$, tak parciální zlomek lze přepsat do tvaru $\frac{\alpha}{(1-\frac x\rho)}\cdot\frac1{(-\rho)^d}=\frac{\tilde\alpha}{(1-\frac{x}{\rho})^d}=\sum_{n=0}^\infty\tilde\alpha\frac1{\rho^n}{n+d-1\choose d-1}x^n$
+- fakt
+	- mějme funkci $f(x)=\frac{P(x)}{Q(x)}$, kde $P(x)$ a $Q(x)$ jsou polynomy a stupeň $P(x)$ je menší než stupeň $Q(x)$
+	- nechť $Q(x)$ má navzájem různé reálné kořeny $\rho_1,\rho_2,\dots,\rho_k$ a nechť $n_i$ označuje násobnost kořenu $\rho_i$
+	- předpokládejme, že $Q(x)$ nemá nereálné kořeny, tedy $Q(x)=\gamma\cdot(x-\rho_1)^{n_1}\cdot(x-\rho_2)^{n_2}\cdot\ldots\cdot(x-\rho_k)^{n_k}$, kde $\gamma\in\mathbb R$
+	- potom $f(x)$ se dá vyjádřit jako součet parciálního zlomků pro kořeny $\rho_1,\dots,\rho_k$, kde parciální zlomky pro $\rho_i$ mají stupeň nejvýš $n_i$
+	- jinými slovy $\exists\alpha_{ij}\in\mathbb R:f(x)=\sum_{i=1}^k\sum_{j=1}^{n_i}\frac{\alpha_{ij}}{(x-\rho_i)^j}$
+	- tohle je „dětská verze“ parciálních zlomků, důkaz nemusíme znát
+	- poznámka
+		- pokud $P(x)$ má aspoň tak velký stupeň jako $Q(x)$, tak pomocí dělení se zbytkem lze $P(x)$ vyjádřit jako $P'(x)\cdot Q(x)+Z(x)$ pro nějaké $P'(x)$ a $Z(x)$, kde $Z(x)$, kde $Z(x)$ má menší stupeň než $Q(x)$, a tedy $\frac{P(x)}{Q(x)}=P'(x)+\frac{Z(x)}{Q(x)}$
+	- tohle všechno nám umožňuje najít posloupnost k dané vytvořující funkci (která je podílem dvou polynomů)
+- příklad: Fibonacciho čísla $f(x)=\sum F_nx^n=\frac x{1-x-x^2}$
+	- kořeny $1-x-x^2:\rho_1=\frac{1-\sqrt5}{-2}=\frac{\sqrt5-1}{2},\,\rho_2=\frac{1+\sqrt5}{-2}=\frac{-1-\sqrt5}2$
+	- $1-x-x^2=\gamma(x-\rho_1)(x-\rho_2)=-(x-\rho_1)(x-\rho_2)=$
+	- $=-\rho_1\rho_2(1-\frac x{\rho_1})(1-\frac x{\rho_2})=(1-\frac x{\rho_1})(1-\frac x{\rho_2})$
+	- $\frac{x}{1-x-x^2}=\frac{\alpha}{1-\frac{x}{\rho_1}}+\frac{\beta}{1-\frac x{\rho_2}}$ pro nějaké $\alpha,\beta\in\mathbb R$
+	- $x=\alpha(1-\frac{x}{\rho_2})+\beta(1-\frac{x}{\rho_1})$
+		- dosazením $x=0:\quad0=\alpha+\beta$
+		- dosazením $x=\rho_2:\quad\rho_2=\beta(1-\frac{\rho_2}{\rho_1})$
+		- z toho se dá vyjádřit $\alpha$ i $\beta$ pomocí $\rho$
+	- $\alpha=\frac1{\sqrt5}$
+	- $\beta=-\frac1{\sqrt5}$
+	- tak se dá dojít k explicitnímu vzorci pro Fibonacciho čísla
