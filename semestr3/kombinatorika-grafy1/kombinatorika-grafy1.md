@@ -137,6 +137,7 @@
 	- poznámka
 		- pokud $P(x)$ má aspoň tak velký stupeň jako $Q(x)$, tak pomocí dělení se zbytkem lze $P(x)$ vyjádřit jako $P'(x)\cdot Q(x)+Z(x)$ pro nějaké $P'(x)$ a $Z(x)$, kde $Z(x)$, kde $Z(x)$ má menší stupeň než $Q(x)$, a tedy $\frac{P(x)}{Q(x)}=P'(x)+\frac{Z(x)}{Q(x)}$
 	- tohle všechno nám umožňuje najít posloupnost k dané vytvořující funkci (která je podílem dvou polynomů)
+	- (jednodušší) rozklad na parciální zlomky bychom mohli umět ke zkoušce
 - příklad: Fibonacciho čísla $f(x)=\sum F_nx^n=\frac x{1-x-x^2}$
 	- kořeny $1-x-x^2:\rho_1=\frac{1-\sqrt5}{-2}=\frac{\sqrt5-1}{2},\,\rho_2=\frac{1+\sqrt5}{-2}=\frac{-1-\sqrt5}2$
 	- $1-x-x^2=\gamma(x-\rho_1)(x-\rho_2)=-(x-\rho_1)(x-\rho_2)=$
