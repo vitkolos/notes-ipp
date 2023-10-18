@@ -1,0 +1,63 @@
+# C# cvičení
+
+- podmínky zápočtu
+	- součástí zápočťáku je dokumentace, předvedení zápočťáku může být i online
+	- zápočťák se teoreticky může dělat i ve skupině, ale není to praktické
+	- body navíc za kvalitní řešení domácích úkolů
+	- je třeba splnit úlohu tak, aby prošly všechny testy
+	- kdybychom fakt nevěděli, kde je problém, můžeme napsat Kliberovi
+	- používat .NET verze 7.0
+- ukládání do paměti
+	- padding v lokální paměti
+		- když překladač sází dvě 14B struktury vedle sebe do paměti, přičemž jejich první (vnitřní) proměnná má 8 B, tak mezi ně obvykle dá dva nulové bajty, ale struktury pořád vnímáme jako 14B (nebo jako 16B)
+		- zároveň se snaží si struktury nějak přeházet, aby v paměti zabíraly co nejméně místa a vycházelo mu dobře zarovnání (podle toho, co se hodí procesoru)
+	- u pole se ukládá informace o jeho délce (4 nebo 8 B), je to klasicky součástí dat (jako první je v paměti délka pole, pak jsou postupně jeho prvky)
+	- struktura obsahující jeden int se v paměti ukládá stejně jako jeden int
+- úkoly
+	- můžeme používat knihovní funkce
+	- máme si všímat společných aspektů úloh, udělat to tak, aby psaní složitější úlohy nezahrnovalo mazání kódu z jednodušší úlohy, pouze přidávání nového kódu
+	- kód psát samostatně, můžeme nad úkolem společně přemýšlet a bavit se o něm
+	- nepoužívat jazykové modely k psaní kódu
+- řešení by mělo být
+	- funkční
+	- efektivní
+	- „hezké“ (udržovatelné)
+- nepoužívat `var` úplně všude, kde to jde
+- k prvnímu úkolu
+	- `File.ReadAllText(fileName) → string`
+	- `File.OpenText(fileName) → StreamReader`
+		- `StreamReader` obsahuje nějaký stream dat
+			- lepší volat jeho konstruktor, má víc možností
+		- je to potomek třídy `TextReader`
+			- dá se použít s konzolí (`Console.In`)
+			- dá se použít se stringem (`StringReader`)
+	- obecně lepší načítat po jednom znaku než po řádcích nebo celý soubor najednou
+		- `Read` vrací `int`, aby mohl dát najevo, že soubor skončil
+			- takže potřebujeme rozsah 2 B (pro char) + 1 bit, tudíž 4 B
+	- jak najít slova
+		- `String.Split(" ", "\t") → string[]` … nic moc, vrací prázdné stringy, když je tam víc mezer
+			- pozor, funkce se dá konfigurovat tak, aby do pole nedávala prázdné stringy
+		- při načítání jednoho znaku můžeme dělat `string += char` nebo použít `StringBuilder` (lepší varianta)
+	- očekávaná dekompozice
+		- třída WordReader
+			- metoda ReadWord slova posílá dál (do WordCounter nebo WordFrequencyCounter)
+			- WordReader dostane zvenku nějaký TextReader
+			- WordCounter/WordFrequencyCounter dostane zvenku nějaký TextWriter
+		- metoda ArgumentsCheck
+- v pátek se v ReCodExu objeví dvě úlohy
+	- odstavcové počítání slov
+		- odstavec je blok řádků, kde něco je (mezi odstavci jsou bloky prázdných řádků)
+		- výstupem bude počet slov pro každý odstavec
+		- definice slova zůstává stejná z minula
+		- kompletní zadání bude až v pátek (do té doby se máme zamyslet nad dekompozicí)
+	- sčítat, či nesčítat?
+		- na každém řádku souboru stejné množství slov
+		- jakoby tabulka
+		- první řádek indikuje jména sloupců
+		- dostaneme 3 parametry (vstup.txt vystup.txt jmeno)
+		- máme vypsat součet hodnot ve sloupci označeném daným jménem
+		- budeme sčítat jenom čísla, slova zatím nemusíme řešit (to pak bude v zadání)
+	- když k těm úlohám dodáme integrační testy, tak dostaneme bonusové body
+		- přidat soubor Tests.cs, celý ho zakomentovat (na začátek `/*`, na konec `*/`)
+	- bonusové body jsou taky za kvalitu řešení
+	- obecně je vhodné čtení po znacích

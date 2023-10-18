@@ -78,7 +78,7 @@
 		- $P$ … poloha
 		- $R$ … rotační matice
 		- $P'=R\cdot P$
-		- $R_{x,\phi}=\begin{bmatrix}1&&0&&0\\0&&\cos\phi&&-\sin\phi\\0&&\sin\phi&&\cos\phi\end{bmatrix}$
+		- $R_{x,\phi}=\begin{bmatrix}1&0&0\\0&\cos\phi&-\sin\phi\\0&\sin\phi&\cos\phi\end{bmatrix}$
 			- rotace podle osy $x$
 		- používáme písmenka fí $\phi$, psí $\psi$, xí $\xi$
 	- rotace a translace
@@ -93,7 +93,7 @@
 		- budeme pracovat s $w=1$
 		- rotace v rovině vypadá stejně jako rotace podle osy $z$ v prostoru (takže u třetí souřadnice bude identita)
 		- translaci $p'=p+\mathcal D_p$ uděláme pomocí násobení matic
-		- $(x',y',w')^T=\begin{pmatrix}1&&0&&d_x\\0&&1&&d_y\\0&&0&&1\end{pmatrix}\cdot\begin{pmatrix}x\\ y\\ w\end{pmatrix}$
+		- $(x',y',w')^T=\begin{pmatrix}1&0&d_x\\0&1&d_y\\0&0&1\end{pmatrix}\cdot\begin{pmatrix}x\\ y\\ w\end{pmatrix}$
 	- dopředná kinematika ve 3D
 		- $P=f(q)$
 		- $q=[q_1,q_2,\dots,q_6]$

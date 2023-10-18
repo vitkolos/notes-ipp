@@ -100,3 +100,26 @@
 	- $=a_1x(f(x)-(a_0+a_1x+\dots+a_{d-2}x^{d-2}))+$
 	- $+a_2x^2(f(x)-(a_0+\dots+a_{d-3}x^{d-3}))+\dots+a_dx^df(x)$
 	- …
+- pro $\alpha,\beta,\gamma\in\mathbb R,\,\beta\neq0:\frac\alpha{\beta+\gamma x}=\frac\alpha\beta\cdot\frac1{1-(-\frac\gamma\beta x)}$
+	- z toho už umím najít původní vzorec vytvořující funkce pomocí $\frac1{1-x}$
+- víme: binomická věta
+	- pro $d\in\mathbb N_0:(1+x)^d=\sum_{n=0}^d{d\choose n}x^n$
+	- tedy $(1+x)^d$ je vytvořující funkcí pro ${d\choose 0},{d\choose1},{d\choose2},\dots,{d\choose d},0,0,0,\dots$
+- df: pro $\delta\in\mathbb R$ a $n\in\mathbb N_0$ definujeme zobecněné kombinační číslo ${\delta\choose n}:=\frac{\delta(\delta-1)\cdot(\delta-2)\cdot\ldots\cdot(\delta-n+1)}{n!}$
+- věta: zobecněná binomická věta
+	- pro $\delta\in\mathbb R$ platí $(1+x)^\delta=\sum_{n=0}^\infty{\delta\choose n}x^n$
+	- nekonečno bychom mohli použít i u základní binomické věty, pokud bychom použili zobecněné kombinační číslo
+	- celkově ignorujeme otázky konvergence, ale aby věta platila, tak bychom chtěli $|x|\lt1$
+- dk: označme $f(x)=(1+x)^\delta$
+	- vidíme
+		- $f'(x)=\delta(1+x)^{\delta-1}$
+		- $f''(x)=\delta(\delta-1)(1+x)^{\delta-2}$
+		- $\quad\vdots$
+		- $f^{(n)}(x)=\delta(\delta-1)\cdot\ldots\cdot(\delta-n+1)(1+x)^{\delta-n}$
+		- $\quad\vdots$
+	- nechť $a_0,a_1,\dots$ je posloupnost s vytvořující funkcí $f(x)$
+	- potom $a_n=\frac{f^{(n)}(0)}{n!}={\delta\choose n}\quad\square$
+- důsledek
+	- pro $d\in\mathbb N_0:\frac1{(1-x)^d}=(1+(-x))^{-d}=_{\text{ZBV}}$
+	- …
+- 

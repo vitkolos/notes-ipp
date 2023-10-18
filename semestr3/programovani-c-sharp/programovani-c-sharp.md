@@ -1,13 +1,6 @@
 # Programování v C\#
 
 - zkouška bude podobná jako u Principů
-- poznámky z cvičení
-	- součástí zápočťáku je dokumentace, předvedení zápočťáku může být i online
-	- zápočťák se teoreticky může dělat i ve skupině, ale není to praktické
-	- body navíc za kvalitní řešení domácích úkolů
-	- je třeba splnit úlohu tak, aby prošly všechny testy
-	- kdybychom fakt nevěděli, kde je problém, můžeme napsat Kliberovi
-	- používat .NET verze 7.0
 - principy Pythonu
 	- přiřazení do proměnné vytvoří objekt na garbage-collectované haldě s daty, jejich délkou a overheadem (obsahuje ref. count a datový typ)
 	- odkaz (reference) na tento objekt se uloží do lokální paměti na místo vyhrazené dané proměnné
@@ -63,17 +56,9 @@
 	- při běhu se takové třídy/struktury chovají klasicky
 	- umožní nám to psát méně boilerplate kódu, protože nám C# překladač vytvoří nějaké chytré metody (např. lepší ToString)
 	- místo `record class` se dá napsat jenom `record`
-- poznámky z cvičení
-	- padding v lokální paměti
-		- když překladač sází dvě 14B struktury vedle sebe do paměti, přičemž jejich první (vnitřní) proměnná má 8 B, tak mezi ně obvykle dá dva nulové bajty, ale struktury pořád vnímáme jako 14B (nebo jako 16B)
-		- zároveň se snaží si struktury nějak přeházet, aby v paměti zabíraly co nejméně místa a vycházelo mu dobře zarovnání (podle toho, co se hodí procesoru)
-	- u pole se ukládá informace o jeho délce (4 nebo 8 B), je to klasicky součástí dat (jako první je v paměti délka pole, pak jsou postupně jeho prvky)
-	- struktura obsahující jeden int se v paměti ukládá stejně jako jeden int
-	- úkoly
-		- můžeme používat knihovní funkce
-		- máme si všímat společných aspektů úloh, udělat to tak, aby psaní složitější úlohy nezahrnovalo mazání kódu z jednodušší úlohy, pouze přidávání nového kódu
-		- kód psát samostatně, můžeme nad úkolem společně přemýšlet a bavit se o něm
-		- nepoužívat jazykové modely k psaní kódu
+
+---
+
 - jak rozlišit, kdy použít referenční a kdy hodnotový typ
 - syntaktický cukr – `var` a `new()`
 - fields a ochrana přístupu (public, readonly, …)
