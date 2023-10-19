@@ -125,4 +125,6 @@
 			- každý interface u třídy vytvoří jakoby tabulku metod, ta se zaplní reálnými implementacemi (respektive ukazateli na implementace)
 			- obecně může nastat, že rodič interface neimplementuje, ale syn ano
 			- tabulky jsou uloženy v instanci třídy Type (v overheadu daného objektu na haldě)
-			- 
+			- typ proměnné rozhoduje, jakou metodu volám
+				- je to důležité při překrývání metod pomocí `new`
+				- pokud je to interfacová metoda, tak záleží na tom, kam ukazuje tabulka, což vyplývá z toho, která třída implementuje interface
