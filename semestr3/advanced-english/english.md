@@ -30,3 +30,14 @@
 		- was the animal choice logical
 		- how would the animals react to them being involved there
 		- retell the story
+- heagle
+	- to heagle (v., intransitive) = to panic around, to panic and run around like a blue-arsed fly, to be in a state of confusion and run around because of that
+		- You're heagling around!
+		- Susan was very confused and started to heagle.
+		- There's no need to heagle!
+		- Heagle! at the Disco
+- more verbs
+	- dread: dislike (ing), dread to think… / dread to imagine… (to do)
+	- see + obj.: part of the process (ing), the whole process (do)
+	- forget = don't remember; memory (ing), not remember (to do)
+	- hate: dislike (ing), statement (to do; I hate to tell you…)
