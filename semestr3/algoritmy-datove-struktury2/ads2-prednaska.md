@@ -51,3 +51,25 @@
 	- postupně přehashovávám pro každý takový úsek sena (hashování v lineárním čase, přehashování v konstantním)
 	- průměrná časová složitost $\Theta(J+S+JV+{SJ\over M})$ pro rovnoměrnou hashovací funkci
 	- přesnější odhad nebude na zkoušce
+- toky v síti
+	- graf
+	- máme zdroj a spotřebič (vrcholy)
+	- trubky (hrany) mají kapacitu (ohodnocení)
+	- trubky jsou orientované
+	- df: síť je čtveřice
+		- orientovaný graf $(V,E)$
+			- BÚNO symetrický ($uv\in E\implies vu\in E$)
+			- chybějící hrana má jakoby nulovou kapacitu
+		- zdroj $z\in V$
+		- spotřebič $s\in V,\,s\neq z$
+		- kapacity $c:E\to\mathbb R_0^+$
+	- df: tok je funkce $f:E\in\mathbb R_0^+$ taková, že
+		- $\forall e\in E:f(e)\leq c(e)$
+		- Kirchhoffův zákon (zákon zachování, tekutina se nám nikam neztrácí) … $\forall v\in V,\,v\neq z,s:f^\Delta(v)=0$
+	- df: pro $v\in V$
+		- přítok $f^+(v):=\sum_{uv\in E} f(uv)$
+		- odtok $f^-(v):=\sum_{vw\in E}f(vw)$
+		- přebytek $f^\Delta(v):=f^+(v)-f^-(v)$
+	- df: velikost toku $|f|:=f^\Delta(s)$
+	- pozorování: $f^\Delta(s)=-f^\Delta(z)$
+	- 
