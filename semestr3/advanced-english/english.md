@@ -42,6 +42,4 @@
 	- forget = don't remember; memory (ing), not remember (to do)
 	- hate: dislike (ing), statement (to do; I hate to tell you…)
 - heagle's natural habitat
-	- Los Angeles
-	- feeds on fentanyl
 	- When I stepped foot in the streets of Los Angeles for the first time, I was petrified by the scene. I saw junkies riding heagles all around the place. The poor animals had to leave their original habitat due to the lack of food and this place became their new home. Now, they are used by the omnipresent drug adicts as a mean of transport and they feed on fentanyl. It is rather dangerous to approach them as their beak is a powerful weapon.
