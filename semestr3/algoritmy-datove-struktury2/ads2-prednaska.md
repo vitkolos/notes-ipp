@@ -72,4 +72,4 @@
 		- přebytek $f^\Delta(v):=f^+(v)-f^-(v)$
 	- df: velikost toku $|f|:=f^\Delta(s)$
 	- pozorování: $f^\Delta(s)=-f^\Delta(z)$
-	- 
+	- …
