@@ -81,3 +81,48 @@
 - klíčové slovo record se hodí na vytváření jednoduchých „datonosných“ tříd
 - nullable hodnotové typy – pomocí otazníku, vytvoří se generická struktura Nullable, je tam boolean vlastnost HasValue
 	- lze přetěžovat porovnání, takže někdy může být problém porovnávat s nullem → může se hodit použít operátor `is` nebo `is not`
+
+---
+
+- `null` původně vychází z referenčních typů
+	- `null` = neplatná reference
+	- `null` se dá běžně používat u referenčních typů
+	- proměnná jakoby odkazuje na adresu 0 (což je ale v operačním systému neplatné mapování)
+- runtimu dotnetu se říká CLR (Common Language Runtime)
+- CLR u dereferencí proměnných (vlastností apod.) uvnitř proměnných referenčních typů kontroluje, jestli referenční proměnné nejsou null (tedy např. `x = null; Console.WriteLine(x.y);` vyhodí NullReferenceException)
+- pokud se pokusíme vypsat null, tak Console.WriteLine automaticky vypíše prázdný řetězec a nevolá ToString (kdybychom ToString zavolali ručně, tak to při kontrole – viz výše)
+- trik s rychlým překomentováním pomocí `/**/` a `/*/`
+- nová sémantika referenčních typů od C# 8
+	- v ReCodExu je vypnutá, ve Visual Studiu je obvykle zapnutá
+	- když do zdrojáku napíšu `#nullable enable`, tak se zapne nová sémantika
+	- jakmile se zapne, referenční typy nejsou nullable, je potřeba to zapínat otazníkem u každé proměnné
+	- pak se můžu spolehnout na invariant, že daná proměnná nikdy nebude null
+	- pokud do non-nullable referenční proměnné přiřadím null, tak to vypíše warning
+		- statická analýza neumí říct stoprocentně správně, jestli je přiřazení nullu v danou chvíli špatně, takže nevrací error, ale jenom warning
+- koncepční rozdíl mezi C# a Pythonem
+	- Python – duck typing
+		- ke kachní poště nepotřebujme kachnu, ale něco, co je kachně dostatečně podobné v těch důležitých vlastnostech
+		- implicitně kódem sděluju, co potřebuju od dané proměnné
+		- můžu danému kódu přiřadit cokoliv, co dané vlastnosti splňuje (kontroluje se to až za runtimu)
+		- duck typing funguje i v C++ u generických typů (ale nejčastěji se objevuje v dynamicky typovaných jazycích)
+	- C#
+		- definuju si kontrakt
+			- někdo ho implemenuje (slibuje, že má minimálně metody předepsané kontraktem)
+			- někdo ho využívá (slib, že používá maximálně metody z kontraktu)
+			- lze to vynucovat více způsoby, ale nejtypičtější jsou interfacy
+		- interface – referenční typ
+			- konvence psát na začátek názvu `I`
+			- dovnitř se píšou metody / method-like věci (třeba props), nesmí tam být fields
+			- jeden řádek může být např. `public int m(int a, int b);`
+			- dříve muselo být všechno public, dneska je dobré tam to public explicitně psát (i když defaultně je pořád všechno public)
+			- názvy parametrů metod v interfacu slouží k dokumentaci
+			- nemůže existovat instance interfacu, pouze proměnná s typem interfacu (ta může být nullable)
+			- `class Kachna : IPostovniZvire {…}`
+			- `IPostovniZvire zvire1 = new Kachna();`
+			- třída může implementovat víc interfaců
+		- přístup CLR k implementaci metod
+			- synovská třída dědí implementaci metody u rodiče
+			- každý interface u třídy vytvoří jakoby tabulku metod, ta se zaplní reálnými implementacemi (respektive ukazateli na implementace)
+			- obecně může nastat, že rodič interface neimplementuje, ale syn ano
+			- tabulky jsou uloženy v instanci třídy Type (v overheadu daného objektu na haldě)
+			- 
