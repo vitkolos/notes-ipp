@@ -104,5 +104,28 @@
 			- přechod mezi lokálními souřadnicovými systémy
 			- může být těžké vytvořit celkovou zkombinovanou transformační matici
 		- Denavit-Hartenberg
-			- fiktivní pohyby spojující dva systémy – rotate, move, move, rotate
+			- pokud jsou systémy šikovně navrženy
+			- funguje ve 3D
+			- fiktivní pohyby spojující dva systémy – rotate (podle osy $z$), move (po ose $z$), move (po ose $x$), rotate (podle osy $x$)
 			- v libovolně dlouhé sekvenci
+- Denavit-Hartenberg (DH) systém
+	- systém je složen z rotačních a posuvných kloubů, mezi klouby jsou spoje
+	- vztah mezi $LCS_{i-1}$ a $LCS_i$ je složená trasformace
+		- natočení osy $x_{i-1}$ kolem osy $z_{i-1}$ o úhel $\vartheta_i$
+		- posunutí osy $x_{i-1}$ ve směru osy $z_{i-1}$ o vzdálenost $d_i$
+		- posunutí počátku $LCS_{i-1}$ podél osy $x_i$ o vzdálenost $a_i$
+		- natočení osy $z_{i-1}$ kolem osy $x_i$ o úhel $\alpha_i$
+	- DH parametry $\vartheta_i,d_i,a_i,\alpha_i$
+		- $\vartheta_i$ … úhel mezi osami $x$ kolem $z_{i-1}$
+		- $d_i$ … vzdálenost mezi osami $x$
+		- $a_i$ … vzdálenost mezi osami $z$
+		- $\alpha_i$ … úhel mezi
+	- osy $z$ jsou dány tím, jak to kdo vyrobil
+	- osu $x$ si zvolím tak, aby byla kolmá na $z_i$ a $z_{i-1}$
+	- $\vartheta_i$ a $d_i$ jsou proměnné, zbytek jsou konstanty (?)
+	- konstrukce D-H řetězce
+		- očíslování kloubů $0$ až $n$ ($0$ je první, pevný)
+		- očíslování článků $1$ až $n$ (článek $i$ spojuje klouby $i-1$ a $i$)
+		- používáme ortonormální pravotočivý souřadný systém
+		- …
+	- někdy je potřeba přeznačit osy – v takové situaci bude jeden řádek tabulky bez proměnné
