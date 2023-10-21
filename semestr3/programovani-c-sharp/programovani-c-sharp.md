@@ -128,3 +128,7 @@
 			- typ proměnné rozhoduje, jakou metodu volám
 				- je to důležité při překrývání metod pomocí `new`
 				- pokud je to interfacová metoda, tak záleží na tom, kam ukazuje tabulka, což vyplývá z toho, která třída implementuje interface
+			- pokud chci s nějakým objektem (typicky z interfacu nebo taky u syna rodičovské třídy) zacházet speciálně podle konkrétní třídy, jejíž je instancí, můžu použít operátor `is` a pak ho castnout
+				- klasický zápis: `if (a is B) {B b = (b)a; …}`
+				- zkrácený zápis: `if (a is B b) {…}`
+				- pokud C dědí od B, přičemž B dědí od A, pak instanci třídy C lze takto castnout do B i C (a samozřejmě i do A) – tzn. pro všechny tyto typy vrací operátor `is` hodnotu `true`
