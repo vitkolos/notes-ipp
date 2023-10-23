@@ -150,3 +150,5 @@
 	- $\alpha=\frac1{\sqrt5}$
 	- $\beta=-\frac1{\sqrt5}$
 	- tak se dá dojít k explicitnímu vzorci pro Fibonacciho čísla
+
+## Odhady na kombinatorické funkce
