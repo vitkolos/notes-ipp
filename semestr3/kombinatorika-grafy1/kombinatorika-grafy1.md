@@ -178,4 +178,45 @@
 		- konstanta nám ovlivňuje koeficient u $C_0$, můžeme se jí zbavit
 	- $=-\frac12[x^{n+1}]\sqrt{1-4x}=$
 		- …
+
+## Projektivní roviny
+
+- df: hypergraf je dvojice $(V,H)$, kde $H$ je množina podmnožin $V$, tj. $H\subseteq\mathcal P(V)$
+	- prvky $V$ … vrcholy
+	- prvky $H$ … hyperhrany
+	- graf incidence hypergrafu $(V,H)$ je bipartitní graf s partitami $V$ a $H$, kde mezi $x\in V$ a $h\in H$ vede hrana $\iff x\in h$
+	- hyperhrany jsou jakoby množiny vrcholů
+- df: projektivní rovina je hypergraf $(X,\mathcal P)$ takový, že platí tři axiomy:
+	- A1: $(\forall x,y\in X,\;x\neq y)(\exists! p\in\mathcal P):\set{x,y}\subseteq p$
+		- dva různé body určují právě jednu přímku
+	- A2: $\forall p,q\in\mathcal P,\;p\neq q:|p\cap q|=1$
+		- každé dvě přímky mají jeden průsečík
+	- A3: $(\exists Č\subseteq X,\;|Č|=4)(\forall p\in\mathcal P):|p\cap Č|\leq 2$
+		- existuje množina čtyř bodů „v obecné poloze“ (žádné tři z nich neleží na přímce)
+	- prvky $X$ … body
+	- prvky $\mathcal P$ … přímky
+- df: konečná projektivní rovina (KPR) je projektivní rovina $(X,\mathcal P)$, v níž $X$ je konečná (a tudíž i $\mathcal P$ je konečná)
+- příklady projektivních rovin
+	- Fanova rovina
+	- rozšířená reálná eukleidovská rovina
+		- musíme dodefinovat „body v nekonečnu“ – pro každý možný směr rovnoběžek přidáme abstraktní bod, tyhle abstraktní body spojíme přímkou
+	- karetní hra Dobble (splňuje alespoň jeden axiom – možná všechny?)
+- příklad projektivní roviny
+	- mějme body $a,b,c,d$
+	- přímky
+		- $\set{a,b,e}$
+		- $\set{b,c,g}$
+		- $\set{c,d,e}$
+		- $\set{a,d,g}$
+		- $\set{a,c,f}$
+		- $\set{b,d,f}$
+	- $e,f,g$ jsou průsečíky kvůli druhému axiomu
+	- musíme dodat přímku $\set{e,f,g}$
+	- tím dostáváme Fanovu rovinu (7 bodů, 7 přímek)
+- značení: pro $(X,\mathcal P)$ KPR, $x,y\in X,\; x\neq y:\overline{xy}$ značí přímku obsahující $x$ a $y$
+- tvrzení: v každé KPR mají všechny přímky stejný počet bodů
+- dk: sporem
+	- nechť v KPR $(X,\mathcal P)$ existují přímky $p,q$ takové, že $|p|\lt |q|$
+	- označme $x$ společný bod $p,q$
+	- nechť $p$ obsahuje body $x,y_1,y_2,\dots,y_k$ a $q$ obsahuje body $x,z_1,z_2,\dots,z_l$, kde $k\lt l$
 	- 

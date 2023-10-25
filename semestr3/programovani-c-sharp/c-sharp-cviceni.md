@@ -100,3 +100,8 @@
 	- body z ReCodExu se po odevzdání nového řešení snížit nemůžou
 	- když napíšeme dost testů (aspoň třeba 10), tak můžeme dostat až 5 dalších bodů
 	- když si úlohu přepracujeme podle tohohle hezčího objektového návrhu, tak se nám to může hodit k příští úloze
+	- z dotazů
+		- vracení boolů se hůř implementuje
+		- je vhodné vyhazovat exceptions
+		- je lepší si vytvořit vlastní typ exception
+			- pak je v zásadě jedno, jestli se vracím různé typy nebo používám jenom message k rozlišení
