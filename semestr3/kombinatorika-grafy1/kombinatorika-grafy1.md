@@ -150,3 +150,32 @@
 	- $\alpha=\frac1{\sqrt5}$
 	- $\beta=-\frac1{\sqrt5}$
 	- tak se dá dojít k explicitnímu vzorci pro Fibonacciho čísla
+- df: binární strom je zakořeněný strom, jehož každý vnitřní vrchol má 2 potomky, na pořadí potomků záleží
+	- $C_n$ … počet binární stromů s $n$ vnitřními vrcholy
+		- $C_0=1$
+		- $C_1=1$
+		- $C_2=2$
+		- $C_3=5$
+	- $(C_n)_{n=0}^\infty$ jsou Catalanova čísla
+	- $C(x):=\sum_{n=0}^\infty C_nx^n$
+	- $C_0=1$
+	- mějme kořen, levý syn je list, pravý podstrom má $n-1$ vnitřních vrcholů → počet možných pravých podstromů je $C_{n-1}$
+	- nebo levý podstrom má jeden vnitřní vrchol a pravý $n-2$, pak $C_1\cdot C_{n-2}$ možností
+	- obecně levý podstrom $i$ vnitřních vrcholů, pravý $n-1-i$ vnitřních vrcholů, pak $C_i\cdot C_{n-1-i}$ možností
+	- $C_n=C_0C_{n-1}+C_1C_{n-2}+\dots+C_{n-1}C_0=\sum_{i=0}^{n-1}C_iC_{n-1-i}$
+		- pro $n\geq 1$
+	- $\sum_{n=1}^\infty C_nx^n=\sum_{n=1}^\infty\left(\sum_{i=0}^{n-1}C_iC_{n-1-i}\right)x^n$
+	- $C(x)-1=x\sum_{n=0}^\infty\left(\sum_{i=0}^{n}C_iC_{n-i}\right)x^n$
+	- $C(x)-1=x\cdot C^2(x)$
+	- $xC^2(x)-C(x)+1=0$
+	- 2 řešení
+		- $\frac{1+\sqrt{1-4x}}{2x}=:C^+(x)$
+		- $\frac{1-\sqrt{1-4x}}{2x}=:C^-(x)$
+	- chceme $C(0)=C_0=1$
+	- $C^-(x)$ lze spojitě dodefinovat v nule, takže $C(x)=C^-(x)$
+	- značení: $[x^n]f(x)$ je člen s indexem $n$ v posloupnosti, jejíž vytvořující funkce je $f(x)$
+	- $C_n:=[x^n]\frac{1-\sqrt{1-4x}}{2x}=[x^{n+1}]\frac{1-\sqrt{1-4x}}{2}=[x^{n+1}](\frac12-\frac{\sqrt{1-4x}}{2x})=$
+		- konstanta nám ovlivňuje koeficient u $C_0$, můžeme se jí zbavit
+	- $=-\frac12[x^{n+1}]\sqrt{1-4x}=$
+		- …
+	- 
