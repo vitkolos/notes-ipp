@@ -61,3 +61,42 @@
 		- přidat soubor Tests.cs, celý ho zakomentovat (na začátek `/*`, na konec `*/`)
 	- bonusové body jsou taky za kvalitu řešení
 	- obecně je vhodné čtení po znacích
+- objektový návrh
+	- WordReader
+		- WordReaderByChars nebo WordReaderByLines
+		- v konstruktoru definuju stream
+		- padají z něj slova
+		- ty se zpracovávají
+		- posílají se do WordProcessoru
+	- WordProcessor
+		- WordCounter
+		- WordFreqCounter
+		- ParaWordCounter
+		- TableSummator
+	- metoda ProcessAllWords
+		- dám jí libovolný reader a libovolný procesor a ona bude pořád fungovat
+		- to udělám pomocí interfacu
+		- IWordReader
+			- string? ReadWord()
+				- vracíme "word" … pro slovo
+				- null … pro konec souboru
+				- "\\n" … pro konec řádku
+					- lze použít, protože "\\n" není validní slovo
+				- může být vhodné použít konstanty
+					- const string EoI = null
+				- ještě lepší je enum
+				- takže budeme vracet strukturu Token
+					- TokenType type
+					- string? word
+						- null bude když bude type jiný než Word
+						- nebo se to dá ošetřit konstruktorem
+		- IWordProcessor
+			- void ProcessWord(string word)
+			- void Report(TextWriter writer)
+		- ale TableSummator (a ParaWordCounter taky) potřebuje informaci o konci řádku (viz ReadWord)
+		- když to předěláme na tokeny, tak WordReader přejmenujeme na TokenReader…
+	- vymyslet, jestli Token má být struktura nebo třída
+	- vymyslet, jak udělat TokenCounter, abych do WordCounteru nemusel vrtat
+	- body z ReCodExu se po odevzdání nového řešení snížit nemůžou
+	- když napíšeme dost testů (aspoň třeba 10), tak můžeme dostat až 5 dalších bodů
+	- když si úlohu přepracujeme podle tohohle hezčího objektového návrhu, tak se nám to může hodit k příští úloze
