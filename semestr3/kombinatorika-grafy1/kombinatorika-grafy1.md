@@ -224,4 +224,6 @@
 	- pokud $Č\subseteq p\cup q$, pak $|Č\cap p| = |Č\cap q|=2$, BÚNO $Č=\set{y_1,y_2,z_1,z_2}$
 		- v tom případě zvolíme za $w$ společný bod $\overline{y_1z_1}$ a $\overline{y_2z_2}$
 	- kdyby $w\in p$, tak $w$ je jediný společný bod $p$ a $\overline{y_1z_1}$, a tedy $w=y_1$, ale $w\in\overline{y_2z_2}$, tedy $y_1=w\in\overline{y_2z_2}$, tedy $|Č\cap \overline{y_2z_2}|\geq |\set{y_1,y_2,z_2}|=3$, což je spor s volbou $Č$
-	- uvažme přímky $\overline{w,z_1},\overline{w,z_2},\dots,\overline{w,z_l},\overline{w,x}$, každá z nich protíná $p$
+	- uvažme přímky $\overline{w,z_1},\overline{w,z_2},\dots,\overline{w,z_l},\overline{w,x}$, každá z nich protíná $p$, jsou navzájem různé, tedy existuje bod $v\in p$, který je obsažen v aspoň dvou z těch přímek $\overline{wz_1},\dots,\overline{wz_l},\overline{wx}$
+	- spor: $w$ a $v$ mají aspoň 2 společné přímky $\quad\square$
+- def: KPR má řád $n\in\mathbb N$, pokud každá její přímka má $n+1$ bodů
