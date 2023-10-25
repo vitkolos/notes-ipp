@@ -219,4 +219,9 @@
 	- nechť v KPR $(X,\mathcal P)$ existují přímky $p,q$ takové, že $|p|\lt |q|$
 	- označme $x$ společný bod $p,q$
 	- nechť $p$ obsahuje body $x,y_1,y_2,\dots,y_k$ a $q$ obsahuje body $x,z_1,z_2,\dots,z_l$, kde $k\lt l$
-	- 
+	- tvrdím, že existuje bod $w\in X$, který nepatří do $p\cup q$: volme $Č$ dle A3
+	- pokud $Č\setminus(p\cup q)\neq\emptyset$, volme $w\in Č\setminus(p\cup q)$
+	- pokud $Č\subseteq p\cup q$, pak $|Č\cap p| = |Č\cap q|=2$, BÚNO $Č=\set{y_1,y_2,z_1,z_2}$
+		- v tom případě zvolíme za $w$ společný bod $\overline{y_1z_1}$ a $\overline{y_2z_2}$
+	- kdyby $w\in p$, tak $w$ je jediný společný bod $p$ a $\overline{y_1z_1}$, a tedy $w=y_1$, ale $w\in\overline{y_2z_2}$, tedy $y_1=w\in\overline{y_2z_2}$, tedy $|Č\cap \overline{y_2z_2}|\geq |\set{y_1,y_2,z_2}|=3$, což je spor s volbou $Č$
+	- uvažme přímky $\overline{w,z_1},\overline{w,z_2},\dots,\overline{w,z_l},\overline{w,x}$, každá z nich protíná $p$
