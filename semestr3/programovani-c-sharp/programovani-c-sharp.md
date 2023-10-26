@@ -132,3 +132,81 @@
 				- klasický zápis: `if (a is B) {B b = (b)a; …}`
 				- zkrácený zápis: `if (a is B b) {…}`
 				- pokud C dědí od B, přičemž B dědí od A, pak instanci třídy C lze takto castnout do B i C (a samozřejmě i do A) – tzn. pro všechny tyto typy vrací operátor `is` hodnotu `true`
+
+---
+
+- C++
+	- zdrojáky .cpp, jeden po druhém je překládáme, vznikají object fily .obj (nebo .o), tam je přímo strojový kód
+		- ty se linkerem zpracují do jednoho .exe souboru
+	- strojový kód typicky cílí na konkrétní platformu
+	- kdybych chtěl, aby program běžel na jiné platformě, vezmu zdrojový kód a celý ho znova přeložím
+	- 64bitové Windows podporují 32bitové programy
+	- uživatelé musí vědět, jakou verzi programu si mají vybrat
+	- knihovny
+		- překladač programu používá hlavičkové soubory knihoven
+- Apple
+	- Apple 6502 → Motorola 68000 (32bit) → IBM PowerPC (32bit) → Intel x86 (32bit) → Intel x64 (64bit) → Apple M1/M2 (ARM64, 64bit)
+	- vymysleli fat binary (universal executable) – jeden spustitelný soubor, v něm je více verzí programu najednou
+	- řeší to problém zpětné kompatibility, ne dopředné
+- C\#
+	- soubory .cs
+	- .csproj, předává se build systému dotnetu, ten pustí C# compiler csc.exe (dnes css.dll)
+	- vypadne z toho executable, uvnitř je CIL kód (common intermediate language)
+	- ke spuštění programu potřebujeme CLR (common language runtime), obvykle je tam JIT (just-in-time) překladač, ten zajišťuje překlad a spuštění pro konkrétní platformu
+	- CLR … virtual machine (VM)
+	- CIL kód … managed/řízený kód
+	- dotnet executable soubor … assembly
+	- Java to má podobně
+		- Java intermediate language = Java bytecode
+	- všechny programovací jazyky dotnetu se překládají do CIL kódu
+	- optimalizace dělá až JIT
+		- ale má na to omezený čas, aby se program spustil dostatečně rychle
+	- JIT používá překlad po metodách
+	- ale dá se použít AOT (ahead of time) překlad – takže pak v .exe souboru je nejen assembly (ten se použije pro nepodporované platformy), ale taky přímo strojový kód, který tak může být efektivnější
+		- některé věci tam nefungují
+	- knihovna se překládá velmi podobně
+		- .csproj + .cs soubory
+		- csc přeloží na .dll soubor
+		- rozdíl mezi .exe a .dll není skoro žádný, akorát .exe má entry point (dneska může být i executable .dll s entry pointem, takže podle přípony to není poznat)
+	- v .exe/.dll souboru je vždy CIL kód a metadata
+	- když v programu používám knihovnu, odkazuju se při překladu přímo na její .dll soubor (metadata uvnitř)
+	- v metadatech musí být v zásadě celá hlavička metody (včetně názvů parametrů – kvůli dokumentaci a explicitnímu přiřazení)
+	- od dotnetu 5
+		- a.exe soubor … Windows loader
+			- spustí správný soubor clr.dll
+			- jeho pomocí spoustí a.dll soubor
+		- nástroj dotnet
+			- obsahuje SDK toolchain
+			- provádí nalezení správného souboru clr.dll a spuštění a.dll souboru (to je užitečné hlavně mimo Windows)
+			- stačí napsat `dotnet a.dll`
+			- `dotnet a.exe` nefunguje, protože exe soubor se nedá spustit jako dotnetí
+	- pomocí nástroje ildasm.exe se můžeme podívat dovnitř metadat a CIL kódu
+	- ILSpy je dekompiler, který zkouší obnovit původní kód
+	- kromě dll a exe souboru se k programu obvykle generuje i .pdb soubor s informacemi k debugování (typicky názvy lokálních proměnných)
+		- ten pak používá i ILSpy, pokud je k dispozici
+- dědičnost/inheritance
+	- class A
+	- class B : A
+	- dědění (kopírování dat) probíhá až v JIT
+	- v B je všechno, co bylo v A, kromě konstruktoru
+		- instanční
+			- fields
+			- methods
+		- statické
+			- fields
+			- methods
+	- instanční metoda má implicitní parametr this, který je typu dané třídy
+	- u rodiče se někdy hodí klíčové slovo abstract, to zakazuje vytváření instancí dané třídy
+	- třída může implementovat libovolné množství interfaců
+	- každá třída má právě jednoho předka (pokud jsme žádného nedefinovali, tak je to Object)
+	- typy v C# (kromě pointerů) tvoří strom
+	- konstruktory se nedědí
+		- konstruktor můžu chápat jako instanční metodu
+		- volání rodičovského konstruktoru zajišťuje klíčové slovo base
+			- `public B(params1):base(params2) {`
+			- není to optional, rodičovský konstruktor se volá pokaždé (defaultně bez parametrů)
+		- konstruktor předka se vždy volá před konstruktorem potomka
+	- `a is B` vs. `a.GetType() == typeof(B)`
+		- první varianta se ptá, jestli to, co je v `a`, je přiřaditelné do typu `B`
+		- druhá varianta se ptá, jestli typy přesně odpovídají
+		- druhá varianta je mírně rychlejší
