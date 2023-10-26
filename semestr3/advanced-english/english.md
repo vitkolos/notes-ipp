@@ -43,3 +43,60 @@
 	- hate: dislike (ing), statement (to do; I hate to tell you…)
 - heagle's natural habitat
 	- When I stepped foot in the streets of Los Angeles for the first time, I was petrified by the scene. I saw junkies riding heagles all around the place. The poor animals had to leave their original habitat due to the lack of food and this place became their new home. Now, they are used by the omnipresent drug adicts as a mean of transport and they feed on fentanyl. It is rather dangerous to approach them as their beak is a powerful weapon.
+- word transformation
+	- spectacle
+		- spectacles
+		- spectacular
+		- spectator
+	- action
+		- reaction, interaction
+		- to act
+		- to overact
+		- inaction
+		- active
+		- activity
+	- appear
+		- disappear
+		- reappear
+		- appearance
+		- apparent
+	- king
+		- kingpin
+		- kingfisher (ledňáček)
+		- kingdom
+		- kingslayer
+		- kingly
+	- similar
+		- dissimilar
+		- dissimilarity
+		- similarity
+	- play
+		- playful
+		- gameplay
+		- replay
+		- player
+		- playground
+		- playback
+		- to outplay
+	- supreme
+		- supremacy
+		- supremely
+	- like
+		- likelihood, likeliness
+		- likely
+		- alike
+		- likeminded
+		- dislike
+		- unlike
+		- take a liking
+- grammar
+	- as … as
+	- as much as
+	- as many as
+	- as … as possible
+	- as … as ever
+	- well-under
+	- well-over
+	- virtually all
+	- a tiny minority
+	- a large majority
