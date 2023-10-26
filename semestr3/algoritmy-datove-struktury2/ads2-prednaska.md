@@ -149,4 +149,7 @@
 	- $f(\_)\leftarrow0$
 	- $\forall zv\in E: f(zv)\leftarrow c(zv)$
 	- $h(\_)\leftarrow 0,\;h(z)\leftarrow n$
-	- …
+	- dokud $\exists v\neq z,s:f^\Delta(v)\gt 0$
+		- pokud $\exists vw\in E:r(vw)\gt 0\land h(v)\gt h(w)$
+			- převedeme po $vw$
+		- jinak $h(v)\leftarrow h(v)+1$
