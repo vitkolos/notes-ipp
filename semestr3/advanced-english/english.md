@@ -100,3 +100,10 @@
 	- virtually all
 	- a tiny minority
 	- a large majority
+- heagle marketing
+	- as big as a horse
+	- as american as an eagle
+	- as quick as a cheetah
+	- as friendly as Pikatchu
+	- as cute as a puppy
+	- as protective as a pitbull
