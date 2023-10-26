@@ -51,25 +51,102 @@
 	- postupně přehashovávám pro každý takový úsek sena (hashování v lineárním čase, přehashování v konstantním)
 	- průměrná časová složitost $\Theta(J+S+JV+{SJ\over M})$ pro rovnoměrnou hashovací funkci
 	- přesnější odhad nebude na zkoušce
-- toky v síti
-	- graf
-	- máme zdroj a spotřebič (vrcholy)
-	- trubky (hrany) mají kapacitu (ohodnocení)
-	- trubky jsou orientované
-	- df: síť je čtveřice
-		- orientovaný graf $(V,E)$
-			- BÚNO symetrický ($uv\in E\implies vu\in E$)
-			- chybějící hrana má jakoby nulovou kapacitu
-		- zdroj $z\in V$
-		- spotřebič $s\in V,\,s\neq z$
-		- kapacity $c:E\to\mathbb R_0^+$
-	- df: tok je funkce $f:E\in\mathbb R_0^+$ taková, že
-		- $\forall e\in E:f(e)\leq c(e)$
-		- Kirchhoffův zákon (zákon zachování, tekutina se nám nikam neztrácí) … $\forall v\in V,\,v\neq z,s:f^\Delta(v)=0$
-	- df: pro $v\in V$
-		- přítok $f^+(v):=\sum_{uv\in E} f(uv)$
-		- odtok $f^-(v):=\sum_{vw\in E}f(vw)$
-		- přebytek $f^\Delta(v):=f^+(v)-f^-(v)$
-	- df: velikost toku $|f|:=f^\Delta(s)$
-	- pozorování: $f^\Delta(s)=-f^\Delta(z)$
+
+## Toky v síti
+
+- graf
+- máme zdroj a spotřebič (vrcholy)
+- trubky (hrany) mají kapacitu (ohodnocení)
+- trubky jsou orientované
+- df: síť je čtveřice
+	- orientovaný graf $(V,E)$
+		- BÚNO symetrický ($uv\in E\implies vu\in E$)
+		- chybějící hrana má jakoby nulovou kapacitu
+	- zdroj $z\in V$
+	- spotřebič $s\in V,\,s\neq z$
+	- kapacity $c:E\to\mathbb R_0^+$
+- df: tok je funkce $f:E\in\mathbb R_0^+$ taková, že
+	- $\forall e\in E:f(e)\leq c(e)$
+	- Kirchhoffův zákon (zákon zachování, tekutina se nám nikam neztrácí) … $\forall v\in V,\,v\neq z,s:f^\Delta(v)=0$
+- df: pro $v\in V$
+	- přítok $f^+(v):=\sum_{uv\in E} f(uv)$
+	- odtok $f^-(v):=\sum_{vw\in E}f(vw)$
+	- přebytek $f^\Delta(v):=f^+(v)-f^-(v)$
+- df: velikost toku $|f|:=f^\Delta(s)$
+- pozorování: $f^\Delta(s)=-f^\Delta(z)$
+- …
+- df: toku $f$ přiřadíme průtok $f^*$
+	- $f^*(uv):=f(uv)-f(vu)$
+	- pozorování
+		- $f^*(uv)=-f^*(vu)$
+		- $f^*(uv)\leq c(uv)$
+		- $-c(vu)\leq f^*(uv)$
+		- $\forall v\neq z,s:\sum_{uv\in E}f^*(uv)=0$
+			- tzn. pro takové $v$ platí $\sum_{uv\in E}f^*(uv)=f^\Delta(v)$
+	- $r(uv):=c(uv)-f(uv)+f(vu)=c(uv)-f^*(uv)$
+- lemma: pokud funkce $f^*:E\to\mathbb R$ splňuje tato pozorování, pak existuje tok $f$, jehož průtokem je $f^*$
+- důkaz
+	- $uv,vu\in E$
+	- BÚNO $f^*(uv)\geq 0$
+	- $f(uv):=f^*(uv)$
+	- $f(vu)=0$
+- takže můžeme místo s toky počítat s průtoky, přičemž si to pak ekvivalentně převedeme na toky
+- df: k síti $(V,E,z,s,c)$ a toku $f$ v ní je síť rezerv $(V,E,z,s,r)$, kde $r=c-f^*$
+- lemma: pro každý tok $f$ v síti $S$ a každý tok $g$ v síti $R(S,f)$ existuje tok $h$ v síti $S$ takový, že $|h|=|f|+|g|$ a $h$ lze najít v čase $O(m)$
+	- $m$ … počet hran
+- důkaz: $h^*:=f^*+g^*$
+	- $h^*(uv)=f^*(uv)+g^*(uv)$
+	- $g^*(uv)\leq r(uv)\leq c(uv)-f^*(uv)$
+	- …
+- df: tok $f$ je blokující $\equiv$ pro každou cestu $P$ ze $z$ do $s$ existuje $e\in P$ taková, že $f(e)=c(e)$
+- df: síť $S$ je vrstevnatá (pročištěná) $\equiv$ každý vrchol i hrana leží na nějaké nejkratší cestě ze $z$ do $s$
+- Dinicův algoritmus $O(n^2m)$
+	- $f\leftarrow$ všude nulový tok
+	- opakujeme (tyto kroky tvoří jednu fázi)
+		- $R\leftarrow$ síť rezerv vzhledem k $f$
+		- smažeme z $R$ nulové hrany
+		- pročistíme $R$
+			- pokud $R=\emptyset$, skončíme
+		- $g\leftarrow$ blokující tok v $R$
+		- vylepšíme $f$ pomocí $g$
+	- vrátíme $f$
+- čištění sítě $O(m)$
+	- pomocí BFS ze $z$ rozdělíme graf na vrstvy
+	- smažeme vrstvy za $s$
+	- smažeme hrany, které nevedou o vrstvu vpřed (tzn. ty, které vedou o vrstvu zpět a které vedou uvnitř vrstvy)
+	- smažeme slepé uličky (pomocí fronty)
+		- každý vrchol a každá hrana se účastní nejvýš jednou
+- blokující tok $O(nm)$
+	- $g\leftarrow 0$ (tok, který je všude nulový)
+	- dokud existuje $P$ cesta ze $z$ do $s$ v $R$
+		- $\varepsilon\leftarrow\min_{e\in P}(r(e)-g(e))$
+		- $\forall e\in P: g(e)\leftarrow g(e)+\varepsilon$ a pokud $g(e)=r(e)$, hranu $e$ smažeme
+		- dočistíme síť (kdykoliv smažu hranu, musím se zbavit slepých uliček)
+	- vrátíme $g$
+	- složitost
+		- krok cyklu (bez čistění) v $O(n)$, cyklus poběží nejvýše $m$-krát, protože pokaždé smažu alespoň jednu hranu
+		- čištění sítě je za všechny iterace $O(m)$
+- lemma: během každé fáze vzroste počet vrstev pročištěné sítě aspoň o jedna
+	- důsledek: počet fází $\leq n$
+	- intuitivní důkaz (zablokovali jsme cesty dané délky) nefunguje – mezi fázemi nám mohly vzrůst rezervy
+	- rezerva vzroste těm hranám, které vedou o vrstvu zpět
+	- nahlédneme, že žádná cesta, která použije alespoň jednu zpětnou hranu nemůže být krátká
+		- nově vzniklá cesta bude mít aspoň o 2 větší délku než nejkratší cesty
+- df: $f$ je vlna $\equiv$
+	- $\forall e\in E:f(e)\leq c(e)$
+	- $\forall v\neq z,s: f^\Delta(v)\geq 0$
+- převedení přebytku
+	- $f^\Delta(u)\gt 0$
+	- $r(uv)\gt 0$
+	- $\delta:=\min(f^\Delta(u),r(uv))$
+	- $f'(uv):=f(uv)+\delta$
+	- důsledky
+		- $f$ zůstane vlnou
+		- $f^\Delta(u)\mathrel{-}=\delta,\;f^\Delta(v)\mathrel{+}=\delta$
+		- $r(uv)\mathrel{-}=\delta,\;r(vu)\mathrel{+}=\delta$
+- výška $h:V\to\mathbb N$
+- Goldbergův algoritmus
+	- $f(\_)\leftarrow0$
+	- $\forall zv\in E: f(zv)\leftarrow c(zv)$
+	- $h(\_)\leftarrow 0,\;h(z)\leftarrow n$
 	- …
