@@ -129,3 +129,37 @@
 		- používáme ortonormální pravotočivý souřadný systém
 		- …
 	- někdy je potřeba přeznačit osy – v takové situaci bude jeden řádek tabulky bez proměnné
+
+## Mobilní zařízení (motion model)
+
+- holonomní / neholonomní vozidla
+- Heinrich Hertz – stupně volnosti
+	- vozidlo je holonomní, pokud se počet lokálních stupňů volnosti rovná počtu globálních stupňů volnosti
+	- opak = přezadaný systém, v reálném světě se některá kola smýkají
+- vlak … holonomní (v 1D prostoru jezdí dopředu a dozadu)
+- auto … neholonomní (v 2D prostoru jezdí dopředu a dozadu, otáčí kola, ale nemůže jet do boku)
+- pokud chceme najít výslednou polohu, integrujeme přes čas
+- Ackermannovo řízení
+	- neholonomní
+	- natáčím jednu soupravu (jako u auta)
+	- v zatáčce je potřeba, aby vnitřní kolo bylo natočeno jinak než vnější kolo (tzn. nelze natáčet přímo osu, na které jsou kola – v takovém případě se kola smýkají)
+	- zatáčí se posouváním tyče rovnoběžné s přední osou, ta je ke kolům připojena tyčemi, jejichž prodloužení se protínají uprostřed zadní osy („delta“?)
+	- v praxi se používá složitější konstrukce
+- differential steering (diferenciální řízení?)
+	- neholonomní
+	- zatáčím rozdílem rychlosti levého a pravého kola (jako u tanku)
+	- použití v praxi
+		- obecnou trajektorii nahradím sérií úseček nebo oblouků
+		- musím rozumně určit $\Delta t$ – ne moc malé, abych pořád nepočítal, ale ne moc velké, abych dostal rozumné výsledky (situace: obě kola ujely stejně, ale nejdřív jedno stálo a druhé se točilo a pak naopak)
+		- musím změřit vzdálenost
+- omnidirectional steering
+	- holonomní
+	- kola mohou jet libovolným směrem
+	- příklady
+		- swerve/crab drive – lze otáčet kolem o 360 stupňů
+		- omniwheel – kolo má po obvodu válečky, které mohou volně prokluzovat ve směru kolmém na směr otáčení kola
+		- mecanum wheel – velmi podobné jako omniwheel, ale válečky jsou otočeny o 45 stupňů; když točím kolem, tak výsledný pohyb směřuje šikmo (rovněž pod úhlem 45 stupňů)
+		- …
+		- syncrodrive – není úplně omnidirectional, všechny kola jsou natočeny stejným směrem
+	- špatná prostupnost terénem
+	- jednoduchá mechanická konstrukce pro omniwheels a mecanum wheels
