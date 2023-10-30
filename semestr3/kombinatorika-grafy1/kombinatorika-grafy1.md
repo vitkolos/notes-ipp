@@ -174,7 +174,7 @@
 	- chceme $C(0)=C_0=1$
 	- $C^-(x)$ lze spojitě dodefinovat v nule, takže $C(x)=C^-(x)$
 	- značení: $[x^n]f(x)$ je člen s indexem $n$ v posloupnosti, jejíž vytvořující funkce je $f(x)$
-	- $C_n:=[x^n]\frac{1-\sqrt{1-4x}}{2x}=[x^{n+1}]\frac{1-\sqrt{1-4x}}{2}=[x^{n+1}](\frac12-\frac{\sqrt{1-4x}}{2x})=$
+	- $C_n:=[x^n]\frac{1-\sqrt{1-4x}}{2x}=[x^{n+1}]\frac{1-\sqrt{1-4x}}{2}=[x^{n+1}](\frac12-\frac{\sqrt{1-4x}}{2})=$
 		- konstanta nám ovlivňuje koeficient u $C_0$, můžeme se jí zbavit
 	- $=-\frac12[x^{n+1}]\sqrt{1-4x}=$
 		- …
