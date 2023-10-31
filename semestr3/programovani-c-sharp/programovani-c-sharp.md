@@ -210,3 +210,23 @@
 		- první varianta se ptá, jestli to, co je v `a`, je přiřaditelné do typu `B`
 		- druhá varianta se ptá, jestli typy přesně odpovídají
 		- druhá varianta je mírně rychlejší
+	- `is` za runtimu vyhodnocuje, zda instance splňuje nějakou podmínku
+		- `a is PODMINKA-NA-INSTANCI`
+		- `a is null`
+		- skládání podmínek se provádí pomocí „slovních“ operátorů `and`, `or`, `not`
+		- pro nullable typ `Person?` můžu provést kontrolu pomocí `is not null` nebo `is Person person`
+		- operátor `.` vs. null-forgiving operátor `?.`
+			- `a.Length` vs. `a?.Length`
+			- obdobně `a[index]` vs. `a?[index]`
+			- typ výsledku se liší v nullabilitě (pokud by `a.Length` bylo typu `X`, `a?.Length` bude typu `X?`)
+		- příklad použití ke zpřehlednění kódu
+			- zadání: nemá platit, že x je menší než 4
+			- implementace 1: `x >= 4`
+			- implementace 2: `!(x < 4)`
+			- implementace 3: `x is not < 4`
+			- skládání: `x is not null and not < 4`
+				- pokud by `x` byla vlastnost (property), tak se getter zavolá pouze jednou (pro klasické boolovské výrazy by se volal dvakrát: `x != null && x >= 4`)
+		- dá se použít syntaktická zkratka `person is { FirstName: "Vít", LastName: "Kološ" }`
+		- občas se místo not null používá `is {}`, ale není to moc praktické
+		- dá se to složit na `person is Employee { Salary: > 500, LastName: "Kološ" } employee`
+		- zároveň můžu rovnou přiřadit do proměnné `person is Employee { Salary: > 500, Salary: var salary, LastName: "Kološ" } employee`
