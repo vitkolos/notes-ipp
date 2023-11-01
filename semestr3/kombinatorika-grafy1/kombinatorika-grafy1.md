@@ -227,3 +227,68 @@
 	- uvažme přímky $\overline{w,z_1},\overline{w,z_2},\dots,\overline{w,z_l},\overline{w,x}$, každá z nich protíná $p$, jsou navzájem různé, tedy existuje bod $v\in p$, který je obsažen v aspoň dvou z těch přímek $\overline{wz_1},\dots,\overline{wz_l},\overline{wx}$
 	- spor: $w$ a $v$ mají aspoň 2 společné přímky $\quad\square$
 - def: KPR má řád $n\in\mathbb N$, pokud každá její přímka má $n+1$ bodů
+	- tedy řád KPR := velikost přímky – 1
+- lemma: v projektivní rovině $(X,\mathcal P)$ platí $(\forall x\in X)(\exists p\in\mathcal P):x\notin p$
+- důkaz
+	- volme Č dle A3
+	- volme 3 různé body $a,b,c\in Č\setminus\set x$
+	- tvrdím, že alespoň jedna z přímek $\overline{ab},\overline{ac}$ neobsahuje $x$
+	- jinak by $\set{a,x}\subseteq\overline{ac}\cap\overline{ab}$, což je spor
+- tvrzení: pro KPR $(X,\mathcal P)$ řádu $n$ platí následující
+	- každý do patří do právě $n+1$ přímek
+	- $|X|=n^2+n+1$
+	- $|\mathcal P|=n^2+n+1$
+- důkaz
+	- první bod
+		- volme $x\in X$
+		- dle lemmatu $\exists p\in\mathcal P:x\notin p$
+		- označme $p=\set{y_1,y_2,\dots,y_{n+1}}$
+		- definujme přímky $q_1,q_2,\dots,q_{n+1}$, kde $q_i=\overline{xy_i}$
+		- tvrdíme, že pro $i\neq j$ je $q_i\neq q_j$
+			- kdyby ne, tak $\set{y_i,y_j}\subseteq q_i\cap p$, což je spor
+		- tvrdíme, že $\forall r\in\mathcal P:$ pokud $x\in r$, tak $r\in\set{q_1,\dots,q_{n+1}}$
+		- volme $r\in\mathcal P$ takovou, že $x\in r$, jistě $|r\cap p|=1$, nechť $y_i$ je prvek $r\cap p$, potom $r=\overline{xy_i}=q_i$
+		- tedy bodem $x$ prochází právě $n+1$ přímek
+	- druhý bod
+		- volme $x\in X$, nechť $p_i$ jsou přímky procházející $x$
+		- všimněme si, že každý bod $y\in X\setminus\set{x}$ patří do právě jedné z přímek $p_i$
+		- $|X|=|\set{x}|+|p_1\setminus\set{x}|+|p_2\setminus\set{x}|+\dots+|p_{n+1}\setminus\set{x}|=$
+		- $=1+(n+1)\cdot n=n^2+n+1$
+	- třetí bod
+		- graf incidence – bipartitní graf, nahoře přímky, dole body
+		- každý vrchol dolní partity má stupeň $n+1$
+		- každý vrchol horní partity má stupeň $n+1$
+		- celá dolní partita má $n^2+n+1$ vrcholů
+		- to už stačí
+		- počítání dvěma způsoby
+			- počítáme počet dvojic $(x,p)\in X\times \mathcal P$ takových, že $x\in p$
+				- těch je $|X|\cdot(n+1)=(n^2+n+1)(n+1)$
+				- je jich taky $|\mathcal P|\cdot(n+1)$
+				- tudíž $(n^2+n+1)(n+1)=|\mathcal P|\cdot(n+1)$
+				- proto $|\mathcal P|=(n^2+n+1)$
+- df: mějme projektivní rovinu $(X,\mathcal P)$; potom duální projektivní rovina k $(X,\mathcal P)$ je hypergraf $(X^*,\mathcal P^*)$, kde
+	- $X^*=\mathcal P$,
+	- pro $x\in X$ definujme $x^*:=\set{p\in\mathcal P:x\in p}$
+	- $\mathcal P^*=\set{x^*:x\in X}$
+- tvrzení: $(X^*,\mathcal P^*)$ je projektivní rovina
+	- důkaz viz záznam
+	- idea: první dva axiomy stačí prohodit
+	- A3: nejvýše dvě přímky z Č* (množina 4 přímek) procházejí skrz x
+		- existuje množina 4 přímek takových, že žádné tři z nich neprocházejí jedním bodem
+		- máme 4 body z A3 v původní projektivní rovině – označíme $a,b,c,d$
+		- zvolíme přímky $\overline{ab},\overline{bc},\overline{cd}$
+			- průnik prvních dvou je $b$
+			- průnik druhých dvou je $c$
+			- společný bod nemají
+- konstrukce KPR řádu $n\in \mathbb N$
+	- nechť $T$ je konečné těleso s $n$ prvky (tedy $n$ musí být kladná celá mocnina prvočísla), uvažujme vektorový prostor $V=T^3=\set{(x,y,z):x,y,z\in T}$, $|V|=n^3$
+	- nechť $X$ je mmnožina podprostorů dimenze 1 ve $V$
+	- $|X|=\frac{n^3-1}{n-1}$
+		- protože máme $n^3-1$ nenulových vektorů, každý patří do jednoho podprostoru dimenze 1
+		- podprostor dimenze 1 má $n-1$ nenulových vektorů
+	- $|X|=\frac{n^3-1}{n-1}=n^2+n+1$
+	- pro každý podprostor $p\subseteq V$ dimenze 2 definuji $\tilde{p}:=\set{x\in X: x\subseteq p}$
+	- $\mathcal P=\set{\tilde p:p\text{ je podprostor V dimenze 2}}$
+	- $|\mathcal P|=|X|$, protože podprostor dimenze 2 je ortogonálním doplňkem podprostoru dimenze 1 a protože existuje bijekce mezi podprostory a jejich ortogonálními doplňky
+	- $(X,\mathcal P)$ je projektivní rovina
+		- důkaz jednoduchý, viz záznam
