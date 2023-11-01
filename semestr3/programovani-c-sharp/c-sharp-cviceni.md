@@ -109,3 +109,46 @@
 	- v recodexu dotnet 6, c# 10
 	- můžeme používat global using (ale nefungují implicitní global usings)
 	- funkce nullable reference types (ruší nullability referenčních typů) je defaultně vypnutá – ale funguje `#nullable enable`, takže si můžeme u každého .cs zdrojáku tuhle funkci zapnout
+- Person
+	- Customer
+	- Employee
+	- Helper
+- příklad podmínky pomocí is: `person is not (Employee or Helper)`
+- `public required Role Role { get; init; }`
+- tři přístupy k rolím
+	- každá role dědí z abstraktní třídy Person
+		- je důležité vhodně označit abstraktní třídy
+	- enum Role
+	- třída Role
+- chceme metodu, která funguje pro Employee a Helper
+	- varianta 1: přetížení metody pro dva různé typy
+	- varianta 2: interface
+	- varianta 3: abstraktní třída PersonWithSalary, od které dědí Employee a Helper
+- immutabilitu enumu zajistíme pomocí readonly
+- příklad s Tokenem: `readonly record struct Token(Token Type, string? Word = null) { public Token(string word) : this(TokenType.Word, word) {} }`
+- máme TokenReader, který neumí detekovat konec odstavce
+	- uděláme třídu ParagraphDetectingTokenReaderDecorator
+		- návrhový vzor dekorátor (wrapper)
+	- bude mít metodu ReadToken, která bude používat ReadToken našeho hloupého TokenReaderu
+	- když potká EndOfLine, zkusí načíst další Token a podle toho nakonec vrátí EndOfLine nebo EndOfParagraph
+- když budeme chtít logovat typy tokenů, tak to budeme dělat v Mainu mezi načtením a zpracováním tokenu
+	- použijeme k tomu nějakou metodu Log, která bude pravděpodobně obsahovat Console.WriteLine
+	- můžeme mít konstantu `debug`
+	- ještě vhodnější by mohlo být použít dekorátor DebugPrintingTokenReaderDecorator, který bude provádět logování
+		- při takové implementaci můžu do dekorátoru zabalit taky původní hloupý TokenReader
+- k implementaci části úkolu bychom mohli použít LLM
+	- typicky u TokenReaderu
+	- ale je potřeba to uvést v kódu, ideálně připojit odkaz na konverzaci s chatbotem
+- jak zjišťovat, jestli znak je bílý
+	- můžeme mít List znaků a použít Contains
+		- O(n)
+	- nebo radši HashSet, Contains
+		- O(1)
+		- ale hashování může být časově složité – budeme mít velkou konstantu
+	- nebo taky přímo pomocí pole a funkce Array.IndexOf
+		- O(n)
+	- nejrychlejší (pro 3 nebo 4 whitespaces) bude asi varianta s polem
+	- existuje taky metoda char.IsWhiteSpace(c), akorát té nevysvětlíme, co je whitespace
+		- takže máme možná problém v zadání – řešení je zajít za zákazníkem a vysvětlit mu, že by chtěl podporovat více whitespaců
+		- tahle metoda je ještě rychlejší než pole
+			- indexuje do pole, kde má u každého znaku uloženy jeho vlastnosti (pro prvních asi 256 znaků)
