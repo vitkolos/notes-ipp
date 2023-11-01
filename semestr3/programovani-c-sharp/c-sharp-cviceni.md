@@ -152,3 +152,9 @@
 		- takže máme možná problém v zadání – řešení je zajít za zákazníkem a vysvětlit mu, že by chtěl podporovat více whitespaců
 		- tahle metoda je ještě rychlejší než pole
 			- indexuje do pole, kde má u každého znaku uloženy jeho vlastnosti (pro prvních asi 256 znaků)
+- úloha na příště
+	- na vstupu jsou slova v odstavcích (jako u počítání slov)
+	- chceme přeformátovat odstavce a zarovnat je do bloku
+	- na každém řádku výstupu bude právě $n$ znaků
+	- narvu mezi slova mezery
+	- 8 bodů za splnění zadání v ReCodExu + 3 body za 10 hezkých integračních testů (můžeme i unit testy) + 2 body, pokud první odevzdání budou testy
