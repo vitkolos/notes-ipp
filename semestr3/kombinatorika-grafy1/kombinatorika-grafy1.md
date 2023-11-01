@@ -292,3 +292,4 @@
 	- $|\mathcal P|=|X|$, protože podprostor dimenze 2 je ortogonálním doplňkem podprostoru dimenze 1 a protože existuje bijekce mezi podprostory a jejich ortogonálními doplňky
 	- $(X,\mathcal P)$ je projektivní rovina
 		- důkaz jednoduchý, viz záznam
+- neví se, jestli existuje projektivní rovina řádu 12
