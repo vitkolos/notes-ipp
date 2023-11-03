@@ -19,7 +19,7 @@
 	- .NET
 		- běhové prostředí (runtime), mj. alokátor proměti
 		- standardní knihovny
-	- v dotnetu může (kromě C#) běžet víc jazyků – Visual Basic .NET, F#, …
+	- v dotnetu může (kromě C#) běžet víc jazyků – např. Visual Basic .NET, F#, …
 	- jsou věci, které platí pro C#, a věci, které platí pro .NET
 
 ## Typy
@@ -56,9 +56,6 @@
 	- při běhu se takové třídy/struktury chovají klasicky
 	- umožní nám to psát méně boilerplate kódu, protože nám C# překladač vytvoří nějaké chytré metody (např. lepší ToString)
 	- místo `record class` se dá napsat jenom `record`
-
----
-
 - jak rozlišit, kdy použít referenční a kdy hodnotový typ
 - syntaktický cukr – `var` a `new()`
 - fields a ochrana přístupu (public, readonly, …)
@@ -81,9 +78,6 @@
 - klíčové slovo record se hodí na vytváření jednoduchých „datonosných“ tříd
 - nullable hodnotové typy – pomocí otazníku, vytvoří se generická struktura Nullable, je tam boolean vlastnost HasValue
 	- lze přetěžovat porovnání, takže někdy může být problém porovnávat s nullem → může se hodit použít operátor `is` nebo `is not`
-
----
-
 - `null` původně vychází z referenčních typů
 	- `null` = neplatná reference
 	- `null` se dá běžně používat u referenčních typů
@@ -99,6 +93,9 @@
 	- pak se můžu spolehnout na invariant, že daná proměnná nikdy nebude null
 	- pokud do non-nullable referenční proměnné přiřadím null, tak to vypíše warning
 		- statická analýza neumí říct stoprocentně správně, jestli je přiřazení nullu v danou chvíli špatně, takže nevrací error, ale jenom warning
+
+## Kontrakt a rozhraní (interfaces)
+
 - koncepční rozdíl mezi C# a Pythonem
 	- Python – duck typing
 		- ke kachní poště nepotřebujme kachnu, ale něco, co je kachně dostatečně podobné v těch důležitých vlastnostech
@@ -133,7 +130,7 @@
 				- zkrácený zápis: `if (a is B b) {…}`
 				- pokud C dědí od B, přičemž B dědí od A, pak instanci třídy C lze takto castnout do B i C (a samozřejmě i do A) – tzn. pro všechny tyto typy vrací operátor `is` hodnotu `true`
 
----
+## Překlad a distribuce programů
 
 - C++
 	- zdrojáky .cpp, jeden po druhém je překládáme, vznikají object fily .obj (nebo .o), tam je přímo strojový kód
@@ -184,6 +181,9 @@
 	- ILSpy je dekompiler, který zkouší obnovit původní kód
 	- kromě dll a exe souboru se k programu obvykle generuje i .pdb soubor s informacemi k debugování (typicky názvy lokálních proměnných)
 		- ten pak používá i ILSpy, pokud je k dispozici
+
+## Dědičnost
+
 - dědičnost/inheritance
 	- class A
 	- class B : A
@@ -230,3 +230,50 @@
 		- občas se místo not null používá `is {}`, ale není to moc praktické
 		- dá se to složit na `person is Employee { Salary: > 500, LastName: "Kološ" } employee`
 		- zároveň můžu rovnou přiřadit do proměnné `person is Employee { Salary: > 500, Salary: var salary, LastName: "Kološ" } employee`
+
+---
+
+- občas je praktické uložit nějakou hodnotu jako konstantu
+- konstanty uvnitř tříd
+	- `readonly int x1;` – ukládá se u každé instance, což se nám nehodí
+	- `static readonly int x2;`
+		- je uložený pouze jednou, ale pracuje se s ním jako s proměnnou (ve strojovém kódu se vykonává load z paměti…)
+	- `const int x3 = 5;`
+		- je to konstanta pro celou třídu, nezabírá to místo, hodnota je uložena přímo v metadatech, překladač optimalizuje počítání s konstantami (takže předem provede některé výpočty)
+		- do takové konstanty lze uložit jen základní hodnotové typy a pro stringy – pokud nám to nestačí, tak musíme použít static readonly
+		- pokud konstanty používáme v knihovnách, tak se může stát, že vydáme novou verzi knihovny, někdo si ji stáhne, ale přitom bude mít starou verzi programu, v níž bude „zakompilovaná“ stará konstanta ze staré verze knihovny
+- class constructor
+	- metoda bez parametrů, volá ji automaticky CLR
+	- zavolá se před prvním použitím toho typu jako takového
+	- není úplně jasné, kdy přesně se zavolá
+	- pokud se daný typ používá a je možné, že jeho class constructor ještě nebyl zavolán, provede se kontrola tohoto zavolání a následně se přípradně zavolá
+		- může nastat situace, že by se tato kontrola prováděla při každém volání funkce, kterou je ale potřeba volat mnohokrát – v takovém případě může být vhodné této kontrole zabránit např. vytvořením zbytečné (prázdné) instance objektu daného typu někdy na začátku programu
+	- class konstruktor se generuje automaticky, ale dá se napsat ručně – název metody odpovídá názvu třídy, použije se klíčové slovo static, viditelnost se neuvádí
+- každá třída má právě jeden konstruktor, který inicializuje danou instanci – ostatní musí volat nějaký jiný konstruktor pomocí this()
+	- dovnitř se automaticky generují inicializace fieldů u objektu
+	- kód ve složených závorkách za this() se provede až po volání tohoto konstruktoru
+	- nejdřív se inicializují fieldy a volají se funkce potřebné k jejich inicializaci → pak se volá this() nebo base() → pak se provádí kód ve složených závorkách
+	- tohle je vlastnost C#, ne CLR
+	- když zkusíme během inicializace fieldů přistoupit k neinicializovanému fieldu, tak tam bude nula (tzn. 0, null nebo false)
+- konstruktor se v CLR označuje jako `.ctor`, class konstruktor jako `.cctor`
+- namespaces jsou syntaktická zkratka C#, CLR zná třídy pouze pod jejich celými jmény (tzn. namespace.třída), přičemž pro něj tečka nemá žádný speciální význam (pro C# samozřejmě ano)
+- dalším výrazem, jehož hodnota se generuje za překladu, je nameof(proměnná)
+	- typické použití k uvedení jména argumentu při vyhození ArgumentException
+	- nameof(x) je ekvivalentní se zápisem "x", ale když proměnnou x přejmenuju, tak na "x" snadno zapomenu
+- když píšu číslo a chci ho zpřehlednit, tak můžu použít podtržítko
+	- např. `int speed = 300_000;`
+- výčtové typy (enum)
+	- hodnotový typ
+	- předává se jako int (nebo jiný základní typ)
+	- s proměnnými můžu provádět aritmetické operace, ale musím hlídat, jestli se nedostanu mimo definované hodnoty (pak se s proměnnou zachází jako s klasickým číslem)
+	- metoda ToString defaultně vrací název dané hodnoty v enumu (pro nedefinovanou hodnotu vrátí číslo)
+	- lze ručně nastavit hodnoty, pokud danou hodnotu nenastavím, tak se vezme předchozí hodnota a zvýší se o jedna
+		- hodnoty můžou být i stejné – pak se tyto hodnoty při porovnání rovnají, ToString vypíše tu, která je v seznamu uvedena jako první
+		- někdy se enum používá jako bitová maska – takže jako hodnoty přiřadíme mocniny dvojky, s označením `[Flags]` tento přístup podporuje i ToString (vypíše seznam „zvolených hodnot“)
+	- existuje *hodně pomalá* metoda Enum.Parse, která pro zadaný název hodnoty v enumu dokáže najít číslo (funguje i pro Flags)
+		- používá koncept reflection
+- klíčové slovo using umožňuje nastavit alias pro název typu (např. `using X = Console;`), funguje i global using
+	- má to smysl jen ve výjimečných situacích (pokud má něco krkolomný název)
+- situace: chceme mít uložený řádek a sloupec tabulky a chceme předejít tomu, abychom ta dvě čísla zaměnili
+	- je vhodné řešení pomocí struktur (takže budu mít např. `Row.Value`)
+	- není až tak rozumné použít enum
