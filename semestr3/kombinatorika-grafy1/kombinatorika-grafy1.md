@@ -293,3 +293,62 @@
 	- $(X,\mathcal P)$ je projektivní rovina
 		- důkaz jednoduchý, viz záznam
 - neví se, jestli existuje projektivní rovina řádu 12
+
+## Toky v sítích
+
+- tokovou síť tvoří
+	- $V$ … množina vrcholů
+	- $E$ … množina orientovaných hran, $E\subseteq V\times V$
+	- $z\in V$ … zdroj
+	- $s\in V\setminus\set{z}$ … spotřebič / stok
+	- $c:E\to [0,+\infty)$ … $c(e)$ je kapacita hrany $e$
+- definice umožňuje mít hrany oběma směry, připouští také smyčky, ty však z hlediska toků v sítí nejsou nijak užitečné
+- poznámka: ze stoku může vycházet orientovaná hrana, podobně do zdroje může vést hrana
+- tok v síti $(V,E,z,s,c)$ je funkce $f:E\to[0,+\infty)$ splňující
+	- $\forall e\in E:0\leq f(e)\leq c(e)$
+	- $\forall x\in V\setminus \set{z,s}:$ součet toků do vrcholu $x$ se rovná součtu toků z vrcholu (formálně pomocí sum) … Kirchhoffův zákon
+- konvence: $f(x,y)$ je zkratka pro $f((x,y))$
+- pro vrchol $x\in V$:
+	- $\text{In}(x):=\set{(y,x)\in E}$
+	- $\text{Out}(x):=\set{(x,y)\in E}$
+- pro $A\subseteq V$:
+	- $\text{In}(A):=\set{(u,v)\in E;\,u\notin A,\, v\in A}$
+	- $\text{Out}(A):=\set{(u,v)\in E;\,u\in A,\, v\notin A}$
+- pro $F\subseteq E:f[F]:=\sum_{e\in F}f(e)$
+- tj. Kirchhoffův zákon lze vyjádřit takto $\forall x\in V\setminus \set{z,s}:f[\text{In}(x)]=f[\text{Out}(x)]$
+- df: velikost toku $f$ v síti $(V,E,z,s,c)$ je $w(f):=f[\text{Out}(z)]-f[\text{In}(z)]$
+- maximální tok je tok, který má největší velikost
+- fakt: v každé tokové síti existuje maximální tok
+	- poznámka: obecně na přednášce uvažujeme konečné tokové sítě, grafy apod.
+	- idea důkazu: mějme síť, očíslujme hrany (od $1$ do $m$), tok $f$ reprezentujme jako uspořádanou $m$-tici hodnot → množina všech toků je uzavřená a omezená podmnožina $\mathbb R^m$, je tedy kompaktní; funkce, která toku $f$ přiřadí $w(f)$, je spojitá; víme z analýzy, že spojitá funkce na kompaktní množině nabývá maxima
+- lemma: pro tok $f$ v síti $(V,E,z,s,c)$ a pro množinu $A\subseteq V$ takovou, že $z\in A$ a $s\notin A$ platí $w(f)=f[\text{Out}(A)]-f[\text{In}(A)]$
+- důkaz
+	- víme
+		- $w(f)=f[\text{Out}(z)]-f[\text{In}(z)]$
+		- $\forall x\in A\setminus\set{z}:0=f[\text{Out}(x)]-f[\text{In}(x)]$
+	- sečteme rovnosti: $w(f)=\sum_{x\in A}f[\text{Out}(x)]-\sum_{x\in A}f[\text{In}(x)]$
+	- $\sum_{x\in A}f[\text{Out}(x)]$ … sčítá všechny hrany, které vycházejí ze všech vrcholů $A$ – tyto hrany jsou dvou typů, buď končí opět v $A$, nebo končí mimo $A$
+	- $E_A:=\set{(u,v)\in E:u\in A,\,v\in A}=E\cap(A×A)$ (hrany, které začínají v $A$ a končí v $A$)
+	- $w(f)=f[\text{Out}(A)]+f[E_A]-(f[\text{In}(A)]+f[E_A])$
+- df: řez v síti $(V,E,z,s,c)$ je množina hran $R\subseteq E$ taková, že každá orientovaná cesta ze $z$ do $s$ obsahuje aspoň jednu hranu $R$
+- kapacita řezu $R:c(R)=\sum_{e\in R}c(e)$
+- minimální řez je řez, který má ze všech řezů nejmenší kapacitu
+- nechť $A\subseteq V$ je množina vrcholů taková, že $z\in A$ a $s\notin A$; potom zjevně $\text{Out}(A)$ tvoří řez; každý takový řez je elementární řez
+- lemma: každý řez $R$ obsahuje nějaký elementární řez jako podmnožinu
+- dk: nechť $R$ je řez; $A:=\set{x\in V:\text{existuje orientovaná cesta ze }z\text{ do }x\text{ neobsahující hrany }R}$
+- zjevně $z\in A$, zjevně $s\notin A$ (z definice řezu), zjevně $\text{Out}(A)\subseteq R$
+- lemma: nechť $f$ je tok a $R$ je řez v síti $(V,E,z,s,c)$; potom $w(f)\leq c(R)$
+- df: nechť $f$ je tok v síti $(V,E,z,s,c)$; nenasycená cesta pro $f$ je neorientovaná cesta $x_1e_1x_2e_2\dots x_ke_kx_{k+1}$, kde $\forall i:$ buď $e_i=(x_i,x_{i+1})$ ($e_i$ je dopředná hrana), nebo $e_i=(x_{i+1},x_i)$ ($e_i$ je zpětná hrana) a navíc platí
+	- pro každou dopřednou hranu $e_i$ platí $f(e_i)\lt c(e_i)$
+	- pro každou zpětnou hranu $e_i$ platí $f(e_i)\gt 0$
+- zlepšující cesta pro $f$ je nenasycená cesta ze $z$ do $s$
+- pozorování: pokud má tok $f$ zlepšující cestu, tak není maximální
+- dk: máme zlepšující cestu pro tok $f$, označme $\varepsilon$ možné zlepšení (je to minimum přes všechny rozdíly od kapacit na dopředných hranách a od nuly na zpětných hranách), přičtením/odečtením $\varepsilon$ dostaneme lepší tok $g$, takže $f$ nemohl být maximální
+- důkaz, že $w(f)\leq c(R)$
+	- definujme $A:=$ vrcholy $x\in V$ takové, že existuje orientovaná cesta ze $z$ do $x$ nepoužívající hrany $R$
+	- $z\in A$, $s\notin A$, $\text{Out}(A)\subseteq R$
+	- $w(f)=f[\text{Out}(A)]-f[\text{In}(A)]\leq f[\text{Out}(a)]\leq c(\text{Out}(A)) \leq c(R)$
+- věta: nechť $f$ je tok v síti; potom následující tvrzení ekvivalentní
+	- $f$ je maximální
+	- $f$ nemá zlepšující cestu
+	- existuje řez $R$ takový, že $w(f)=c(R)$
