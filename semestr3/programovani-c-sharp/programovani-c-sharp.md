@@ -263,6 +263,7 @@
 - když píšu číslo a chci ho zpřehlednit, tak můžu použít podtržítko
 	- např. `int speed = 300_000;`
 - výčtové typy (enum)
+	- `enum Season { Spring, Summer, Autumn, Winter }`
 	- hodnotový typ
 	- předává se jako int (nebo jiný základní typ)
 	- s proměnnými můžu provádět aritmetické operace, ale musím hlídat, jestli se nedostanu mimo definované hodnoty (pak se s proměnnou zachází jako s klasickým číslem)

@@ -158,3 +158,36 @@
 	- na každém řádku výstupu bude právě $n$ znaků
 	- narvu mezi slova mezery
 	- 8 bodů za splnění zadání v ReCodExu + 3 body za 10 hezkých integračních testů (můžeme i unit testy) + 2 body, pokud první odevzdání budou testy
+- co když uvnitř programu používám velká data, ale v určitou chvíli je přestanu potřebovat a chci, aby je GC zahodil
+	- můžu do proměnné s odkazem na objekt přiřadit null
+- když chci do stringu přidávat znaky, použiju StringBuilder
+- nesmíme používat System.Linq
+	- metoda Count() pro všechny kolekce spočítá prvky kolekce v lineárním čase (vs. vlastnost Count vrátí počet v konstantním čase – ale není přítomná u všech kolekcí)
+- naming convention
+	- metody, vlastnosti (properties), typy, veřejné fieldy – PascalCase
+	- lokální proměnné, argumenty funkcí, privátní fieldy – camelCase
+	- privátní fieldy (obvyklý zápis) – \_camelCase
+	- interfacy – IPascalCase
+	- výjimky – PascalCaseException
+	- atributy – PascalCaseAttribute
+	- testy – PascalCase_PascalCase_… (umožňuje rozlišování katgorií apod.)
+- při opakování stringů používat konstanty
+- chyby
+	- zotavitelné × nezotavitelné
+	- při nezotavitelné chybě se program ukončí
+		- nepoužívat Environment.Exit
+		- jediný správný způsob je return ve funkci Main (explicitně nebo tím, že se doběhne na konec těla funkce)
+		- je vhodné se do Mainu dostat pomocí výjimky
+	- zotavitelné chyby by vhodným přístupem mohla být jakási kontrolní metoda Assert
+	- výjimky (vyhazování a chytání) jsou poměrně neefektivní, proto je třeba s nimi šetřit
+	- typicky chceme rozlišovat mezi interní reprezentací chyby a její prezentací uživateli
+		- takže rozlišujeme mezi typem výjimky a chybovou hláškou
+		- např. `class InvalidFileFormatException : ApplicationException { int lineNum; }`
+		- výjimkových typů v C# je hodně – základní dělení
+			- bugy v programu
+			- chyby uživatele – typ ApplicationException
+- unit testy
+	- metodu ProcessWord můžu testovat pomocí falešného WordReaderu (fake, mock, mockup)
+- úkol na příště
+	- rozmyslet, jak přeházet kód uvnitř TableSummatorProcessoru, aby se dal testovat
+	- rozmyslet, jak ParagraphDetectingTokenReaderDecorator funguje – jak vypadají vstupní a výstupní tokeny, jak to má vlastně vypadat, napsat na to unit testy, najít chyby v Kliberově implementaci, opravit je (a nahrát do ReCodExu)
