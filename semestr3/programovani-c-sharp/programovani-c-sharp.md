@@ -278,3 +278,49 @@
 - situace: chceme mít uložený řádek a sloupec tabulky a chceme předejít tomu, abychom ta dvě čísla zaměnili
 	- je vhodné řešení pomocí struktur (takže budu mít např. `Row.Value`)
 	- není až tak rozumné použít enum
+
+---
+
+- balíčkovací systém pro distribuci knihoven – NuGet (nuget.org)
+- balíček je tam nahraný ve formě souboru .nupkg, je to v podstatě ZIP soubor, jsou tam i metadata k balíčku, je tam nějaké verzování
+
+## Měření rychlosti
+
+- benchmark
+- na celý program nebo konkrétní metodu
+- microbenchmark – zkouší malý kus kódu
+- framework BenchmarkDotNet – distribuuje se jako nugetový balíček
+- poznámka: hranaté závorky nad názvem metody/třídy označují atribut (odpovídá tomu třída; do metadat té metody se zapíše, že má daný atribut)
+- obvykle používám debug build – jakmile dělám benchmark, tak chci použít release build, aby JIT udělal optimalizace
+- benchmark se spustí několikát a statisticky se vyhodnotí
+- metody se označují atributem `[Benchmark]`
+- kdybych chtěl měřit spotřebu paměti, celé třídě s benchmarky můžu dát atribut `[MemoryDiagnoser]` (ale pak to může ovlivnit naměřené časy apod.)
+- měření rychlostí sčítání
+	- `public static int a = 1;`
+	- `public static int b = 2;`
+	- `[Benchmark]`
+	- `public int Add() { return a + b; }`
+	- pozor, je potřeba, aby benchmarkovací funce vracela výsledek operací, které měřím, aby JIT nezahodil operace jako takové
+	- pozor, kdybych používal private nebo readonly hodnoty, tak by to JIT mohl optimalizovat do konstant, takže by operace neprováděl
+		- běžně se provádí constant-folding, tzn. sčítání konstant 1+2 se přeloží jako 3, tudíž by něco podobného mohlo nastat i tady
+- každá funkce má ve strojovém kódu prolog, tělo a epilog
+- pokud funkci volám opakovaně (v cyklu), většinu času zabere běh prologu a epilogu – řešením by bylo to tělo funkce zkopírovat přímo do cyklu, což by ale bylo v rozporu s guidelines
+	- JIT dělá tuhle optimalizaci za nás (**method inlining**) – ale jen tam, kde to dává smysl
+	- kdybychom funkce moc inlinovali, tak by procesor musel pro instrukce sahat do nižší úrovně cache, takže by se program řádově zpomalil
+	- když má CIL kód méně než 20 bajtů, tak je to kandidát pro inlinování
+	- např. rekurzivní funkce nebo metody na instancích s určitým interfacem se nedají inlinovat
+	- pokud chci ručně ovlivnit inlining, tak můžu použít `System.Runtime.CompilerServices` a jeho atributy `[MethodImpl(…)]`, kde parametr může být `MethodImplOptions.AggressiveInlining` nebo taky `MethodImplOptions.NoInlining` (další varianty se týkají třeba optimalizace)
+		- tohle jsou mikrooptimalizace – ty nemáme dělat, pokud k tomu nemáme opravdu pádný důvod
+
+## Virtuální metody
+
+- už umíme zakrýt metodu rodiče pomocí klíčového slova `new`
+- při volání metody pak rozhoduje typ proměnné – pokud je v B zakrytá metoda m(), ale instance B je typu A, tak `inst.m()` volá původní metodu `A.m()` – kdybych chtěl volat `B.m()`, musím instanci nejdříve přetypovat
+- virtuální metoda `A.f()`
+	- má implementaci v A
+	- pomocí override definujeme implementaci v B
+	- opět se podle typu výrazu rozhoduje první krok – bude se volat metoda `A.f()`, ale na úrovni CIL kóu se použije virtuální volání (callvirt)
+	- na úrovni CIL kódu není poznat, která implementace se bude volat – to se rozhoduje za runtimu
+	- každý typ s virtuálními metodami má tabulku virtuálních metod (VMT), ta se při dědění kopíruje (a prodlužuje), u overridnutých virtuálních metod se změní odkaz na implementaci
+	- takže to, která implementace se reálně zavolá, závisí na třídě, jejíž instanci jsme vytvořili (nehledě na typ)
+- oba přístupy se dají kombinovat
