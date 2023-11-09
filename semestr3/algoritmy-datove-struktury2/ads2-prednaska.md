@@ -153,3 +153,97 @@
 		- pokud $\exists vw\in E:r(vw)\gt 0\land h(v)\gt h(w)$
 			- převedeme po $vw$
 		- jinak $h(v)\leftarrow h(v)+1$
+- vlna: $f:E\to\mathbb R_0^+$
+	- $f\leq c,\,\forall v\neq z,s:f^\Delta(v)\geq 0$
+- převedení po hraně $uv$
+	- když $f^\Delta(u)\gt 0,\,r(uv)\gt 0$
+		- $h(u)\gt h(v)$
+	- tak na hraně $uv$ zvýšíme o $\delta :=\min(r(uv),f^\Delta(u))$
+- invariant A (základní)
+	- $f$ je vlna
+	- $\forall v: h(v)$ neklesá
+	- $h(z)=n,\, h(s)=0$
+	- $\forall v\neq z:f^\Delta(v)\geq 0$
+- invariant S (o spádu)
+	- $\nexists uv\in E:r(uv)\gt 0\land h(u)\gt h(v)+1$
+		- na začátku platí
+		- rozbít se to můžu zvednutím (to se nestane – místo toho se provede převedení) nebo převedením (ale to zvyšuje rezervu jenom do kopce – takže se to taky nemůže stát)
+- lemma K (korektnosti)
+	- pokud se algoritmus zastaví, finální $f$ je maximální tok
+- důkaz
+	- $f$ je tok
+	- $f$ je maximální
+	- kdyby nebyl maximální → podle FF existuje nenasycená cesta ze zdroje do spotřebiče
+	- zdroj je ve výšce $n$, spotřebič ve výšce 0, délka cesty je maximálně $n-1$, tudíž tam bude hrana se spádem aspoň dva, která ale na nenasycené cestě nemůže existovat
+- invariant C (cesta do zdroje)
+	- $\forall v:f^\Delta(v)\gt 0$
+	- $\exists P$ nenasycená cesta z $v$ do $z$
+	- důkaz
+		- $A:=\set{t\in V\mid\exists\text{ nenasycená cesta }v\to t}$
+		- chceme ukázat $z\in A$
+		- $\sum_{a\in A}f^\Delta(a)=\underbrace{f(\overline A,A)}_{0}-\underbrace{f(A,\overline A)}_{\geq 0}$
+		- tudíž suma je nekladná
+		- ale v sumě je aspoň jeden prvek kladný
+		- takže tam musí být záporný člen – to je pouze zdroj
+- invariant V (o výšce)
+	- $\forall v: h(v)\geq 2n$
+	- invariant C $\implies$ invariant V
+		- uvažme první porušení – zvedáme $v\in V$ z výšky $2n$
+		- tehdy $f^\Delta(v)\gt 0\implies\exists P$ nenasycená cesta $v\to z$
+			- $z$ ve výšce $n$, $v$ ve výšce $2n$, umíme dostat spor podobně jako v důkazu lemmatu K
+- lemma Z (zvednutí)
+	- počet zvednutí je nejvýš $2n^2$
+	- protože každý z $n$ vrcholů vystoupá nejvýše do výšky $2n$ (z invariantu V)
+- df: převedení je nasycené $\equiv$ vynuluje rezervu
+- pozorování: nenasycené převedení po hraně $uv$ vynuluje $f^\Delta(u)$
+- lemma S („sytá“ převedení)
+	- počet nasycených převedení $\leq n\cdot m$
+- důkaz
+	- uvažme hranu $uv$
+	- těsně po sytém převedení je $r(uv)=0$ a $uv$ vede z kopce
+	- před dalším sytým převedení $r(uv)\gt 0$
+	- mezitím se muselo převést v protisměru … tedy $uv$ do kopce
+	- tzn. posloupnost
+		- syté převedení u→v
+		- aspoň 2 zvednutí $v$
+		- převedení v→u
+		- aspoň 2 zvednutí $u$
+		- až pak může přijít další syté převedení u→v
+	- podle invariantu V toto max. $n$-krát
+- df: potenciál $\Phi:=\sum_{v\neq z,s:f^\Delta(v)\gt0}h(v)$
+	- $\Phi\geq 0$
+	- na počátku $\Phi=0$
+	- zvednutí: zvýší $\Phi$ o 1
+		- celkem $\leq 2n^2$
+	- sytá převedení po hraně $uv$: změní možná o $-h(u)$ a možná o $+h(v)$, takže se $\Phi$ zvýší nejvýš o $2n$
+		- celkem $\leq 2n^2m$
+	- nenasycená převedení po hraně $uv$: určitě změní o $-h(u)$ a možná o $+h(v)$, přičemž $h(u)=h(v)+1$, takže se $\Phi$ sníží aspoň o 1
+- lemma N (nenasycená převedení)
+	- počet nenasycených převedení $\in O(n^2m)$
+- implementace
+	- $S:=$ seznam vrcholů s přebytkem
+		- údržba O(1) při změně přebytku
+		- výběr v kroku 3 v algoritmu … v O(1)
+	- $\forall v:K(v):=$ seznam hran s nenulovou rezervou, které z vrcholu $v$ vedou z kopce
+		- převedení po $uv$ … O(1)
+		- zvednutí $u$ … O(n)
+- rozbor složitosti
+	- inicializace v čase $O(m)$
+	- čas celkem $O(2n^2\cdot n+nm\cdot 1+n^2m\cdot 1)=O(n^2m)$
+- **vylepšení Goldbergova algoritmu**
+- lemma N'
+	- v algoritmu s výběrem nejvyššího $v$ s $f^\Delta(v)\gt 0$ nastane $O(n^3)$ nenasycených převedení
+- důkaz
+	- $H:=\max\set{h(x)\mid f^\Delta(v)\gt 0,\;v\neq z,s}$
+	- fáze končí změnou $H$
+		- zvýšení zvednutím
+			- max. $2n^2$-krát
+			- $H$ vždy roste o 1
+		- snížení aspoň o 1
+			- max. $2n^2$-krát (klesá právě tolikrát, kolikrát roste)
+	- pozorování: během jedné fáze se každý vrchol účastní maximálně jednoho nenasyceného převedení
+		- nenasycené převedení vynuluje přebytek
+		- převádí se z kopce → nemůže se zvýšit jeho přebytek
+	- tudíž během fáze je všech nenasycených převedení nejvýš $n$
+	- fází je $O(n^2)$, takže složitost algoritmus je $O(n^3)$
+		- odhad není optimální, lze ukázat $O(n^2\sqrt m)$
