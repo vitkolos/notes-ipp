@@ -163,3 +163,28 @@
 		- syncrodrive – není úplně omnidirectional, všechny kola jsou natočeny stejným směrem
 	- špatná prostupnost terénem
 	- jednoduchá mechanická konstrukce pro omniwheels a mecanum wheels
+## Elektromotory
+
+- …
+- servo motor
+	- je to vlastně motor + nějaká další elektronika zajišťující zjištění pozice osy a nějaké řízení (tzv. zpětná vazba)
+	- neurčujeme rychlost (otáčky), ale natočení hřídele
+	- RC servo
+		- otáčí se podle délky pulzů
+		- má omezení – nemůže se otáčet kolem dokola (obvykle kvůli potenciometru)
+		- obsahuje převodovku
+		- pulzní signál má dlouhé mezery – aby se dalo ovládat více servomotorů
+	- na principu servomotoru funguje třeba naklápění světel v autě
+	- je možné mít i víceotáčková serva
+	- RC „digitální servo“ – dva typy
+		- jedno podobné jako analogové (jen elektronika uvnitř používá digitální signál, tudíž může mít hladší chod než analogové – lze ho bez problémů vyměnit s analogovým)
+		- druhé komunikuje digitálně s ovladačem, je programovatelné
+	- „hacknuté“ servo
+		- místo potenciometru použijeme pevný odpor – řekneme servu, že je v půlce
+			- někdy je potřeba doladit, aby se servo opravdu netočilo (kvůli nepřesnostem při výrobě odporů apod.)
+		- takže když mu řekneme, kam se má otočit, ono se tam bude točit (ale nikdy tam nedojde)
+		- tudíž místo natočení udáváme rychlost
+		- u digitálních serv to nelze (rozhodně ne u druhého typu, u prvního typu někdy)
+
+## Senzory
+
