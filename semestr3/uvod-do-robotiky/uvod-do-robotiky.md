@@ -188,3 +188,59 @@
 
 ## Senzory
 
+- někdy mě zajímá jen detekce, jindy měření hodnoty
+- senzory
+	- lokální – taktilní (např. nárazník, měření elektrického signálu)
+	- bezdotykové – měříme vzdálenost, světlo apod.
+	- virtuální – měříme „vlastnosti robota“, např. proud, který jde do motoru, z toho zjistíme, že narazil na překážku → nepotřebujeme koncové senzory
+- pokročilé – radar, lidar, kamera, hloubková kamera, IMU, …
+- aktivní × pasivní měření
+- oblíbené senzory v robotice
+	- taktilní – mikrospínače, koncové spínače, „nárazníky“
+	- elektrické – měření spotřeby proudu motorem, měření indukovaným proudem
+	- směrové akustické, optické – měření detekcí odraženého paprsku (detekce překážek, mapování prostředí)
+	- liniové senzory – směrové měření multiplexované v čase
+	- kamery – zpracování obrazu
+	- MEMS
+- měření pomocí odrazu signálu
+	- metody
+		- direct TOF
+			- měřím čas, jak dlouho signál letí
+			- je potřeba přesně měřit čas
+			- pomocí světla se malé vzdálenosti měří těžko – lepší je zvuk
+		- pulsed TOF
+			- přenáším pulzy
+			- měřím poměr signálu, který se vrátil před a po události
+		- phase-shift
+			- počítám vzdálenost z fázového posunu
+	- typy signálu – infračervené záření, laser, radar, ultrazvuk
+	- signál se musí odrazit, jinak nic nezměřím
+	- měření je aktivní
+		- jsem závislý na prostředí, ve kterém měřím
+		- může tam být interference s jiným senzorem stejného typu
+		- je to detekovatelné nepřítelem (ve vojenském prostředí)
+- měření pomocí přerušení signálu
+	- pomocí brány – dvě části na sebe „svítí“, pokud signál nedoletí, tak mezi nimi něco je
+	- lze detekovat odražení signálu nebo absenci odražení…
+	- typicky se hodí informace o intenzitě signálu
+	- někdy takhle fungují kolečka na myších (fungovaly tak kuličkové myši)
+- ultrazvuk
+	- přímé měření času letu signálu je možné
+	- typicky měří v rozsahu 1 cm – 10 m
+	- používá se neslyšitelné spektrum (vhodné jsou hodnoty kolem 40 kHz, aby to neslyšela ani zvířata)
+	- měří to do kuželu, dokonce i trochu do stran a dozadu
+- infračervené senzory
+	- krátký dosah
+	- svítí tam infra LED
+	- odraz se detekuje pomocí fotorezistoru
+	- PSD – měří vzdálenost až v jednotkách metrů, problém s osvětlením (horší měření venku apod.)
+- laser & lidar
+	- 1D, 2D, 3D
+	- až 20 km
+	- dnes se používají i solid-state lidary, mají víc jednotek, takže není potřeba, aby se lidar otáčel
+- MEMS – micro electro mechanical systems
+	- používají mikroskopické jevy
+	- akcelerometry
+	- gyroskopy
+	- senzory tlaku
+	- displeje, pumpy, motory
