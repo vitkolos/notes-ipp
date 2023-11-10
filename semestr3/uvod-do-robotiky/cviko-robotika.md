@@ -1,0 +1,39 @@
+- na cviko od dvou můžou přijít lidi, na které vyjde místo
+- podobně ve čtvrtek večer
+- bude to hlavně naše vlastní práce, takže můžeme přijít
+- můžeme zůstat i na to cvičení potom, abychom si ladili, co potřebujeme
+- předchozí domácí úkoly byly v pohodě, drobné chybky domyslet a opravit
+	- řádek v DH tabulce bez proměnné je špatně
+	- směry os z a x jsou dané
+	- u rovnoběžných os z osa x směřuje stejně
+	- u mimoběžek bude tak, aby posun byl kladný
+	- u různoběžek bude tak, aby rotace byla kladná
+- čtyři podvozy
+	- ackermann – jediná potíž byla, když jsme u více kol použili stejný poloměr otáčení
+		- výchozí pozice měla být tak, že přední kolo bude v počátku, vozítko bude natočené směrem osy x
+	- u mecanum vzdálenost vyjde 1 metr, odmocnina ze dvou je špatně
+	- omniwheel
+		- slide Robot movement
+			- když chci, aby se střed pohyboval nějakým směrem s nějakou rotací, tak v libovolném bodě je posun stejný, rotace je komá na displacement a …
+		- slide Omniwheel drive
+			- potřebuju zjistit složku ve směru otáčení, což zjistím tak, že provedu skalární součin s jednotkovým vektorem
+		- vyjádříme rovnice pro rychlost (viz sešit)
+		- na závěr máme tři rovnice o třech neznámých
+		- rychlé řešení – sčítáním rovnic
+		- máme rychlosti (1, 2, 3)
+		- chceme zjistit translaci a rotaci
+		- vozítko se hýbe po kružnici (nebo po přímce)
+		- translace a rotace mi dávají tu kružnici, je to podobná úloha jako ackermann
+- příště projdeme opravy a trajektorii robota
+- pak už budeme programovat roboty
+- boebot
+	- stačí nám senzory
+	- arduino se vypíná vytažením napájecího kontektoru
+	- zlomené piny hlásit
+	- arduino
+		- setup, loop
+		- delay je zlo
+		- standardní a contributed knihovny bývají použitelné
+		- user-contributed věci nepoužívat, obvykle je to blbě napsané a nefunguje to
+		- nepoužívat moc softwarovou část Arduina
+		- nenechávat moc práce runtimu
