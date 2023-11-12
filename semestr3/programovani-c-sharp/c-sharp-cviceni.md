@@ -106,7 +106,7 @@
 		- je lepší si vytvořit vlastní typ exception
 			- pak je v zásadě jedno, jestli se vracím různé typy nebo používám jenom message k rozlišení
 - specifika recodexu
-	- v recodexu dotnet 6, c# 10
+	- v recodexu dotnet 7, c# 11
 	- můžeme používat global using (ale nefungují implicitní global usings)
 	- funkce nullable reference types (ruší nullability referenčních typů) je defaultně vypnutá – ale funguje `#nullable enable`, takže si můžeme u každého .cs zdrojáku tuhle funkci zapnout
 - Person
