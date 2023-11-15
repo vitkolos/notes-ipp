@@ -352,3 +352,55 @@
 	- $f$ je maximální
 	- $f$ nemá zlepšující cestu
 	- existuje řez $R$ takový, že $w(f)=c(R)$
+- dk
+	- $1\implies 2:$ jednoduše obměnou
+	- $3\implies 1:$ pro libovolný řez $R'$ a libovolný tok $f'$ platí, že $w(f')\leq c(R')$; kdyby $f$ nebyl maximální, tak existuje $f^+$ tok splňující $w(f^+)\gt w(f)$, potom pro každý řez $R$ platí, že $c(R)\geq w(f^+)\gt w(f)$, tedy neexistuje žádný řez $R$ splňující $c(R)=w(f)$
+	- $2\implies 3$
+		- nechť $f$ je tok, který nemá zlepšující cestu
+		- definujme množinu $A:=\set{x\in V,\,\text{ze }z\text{ do }x\text{ vede nenasycená cesta}}$
+		- zjevně $z\in A,\,s\notin A$
+		- definujme $R:=\text{Out}(A)=\set{uv\in E,\,u\in A,\,v\notin A}$
+		- všimněme si $\forall e\in\text{Out}(A):f(e)=c(e)$
+		- $\forall e'\in\text{In}(A):f(e')=0$
+		- z lemmatu výše víme, že pro $A\subseteq V$, kde $z\in A,\,s\notin A$, platí $w(f)=\underbrace{f[\text{Out}(A)]}_{c(\text{Out}(A))=c(R)}-\underbrace{f[\text{In}(A)]}_{0}=c(R)\quad\square$
+- důsledek („Minimaxová věta o toku a řezu“): nechť $f_\max$ je maximální tok a $R_\min$ je minimální řez v $(V,E,z,s,c)$, potom $w(f_\max)=c(R_\min)$
+- dk: $w(f_\max)\leq c(R_\min)$ – víme, viz výše; $w(f_\max)\geq c(R_\min)$ … dle věty $w(f_\max)=c(R)\geq c(R_\min)$
+- důsledek 2: v síti, kde všechny kapacity jsou celočíselné, Fordův-Fulkersonův algoritmus najde maximální tok, který bude celočíselný (celočíselnost vyvozujeme ze znalosti FF algoritmu)
+
+### Aplikace toků
+
+- df: párování v grafu $G=(V,E)$ je množina hran $M\subseteq E$ taková, že žádný vrchol nepatří do více než jedné hrany $M$
+- df: vrcholové pokrytí v $G=(V,E)$ je množina hran $C\subseteq V$ taková, že každá hrana obsahuje aspoň 1 vrchol z $C$
+- pozorování: pokud $M$ je párování a $C$ vrcholové pokrytí v $G=(V,E)$, tak $|M|\leq |C|$; to proto, že každá hrana z $M$ musí být pokrytá vrcholem z $C$, zároveň každý vrchol z $C$ pokryje nejvýš 1 hranu z $M$
+- věta (Kőnig-Egerváry): v každém **bipartitním** grafu má největší párování stejnou velikost jako nejmenší vrcholové pokrytí
+- dk:
+	- nechť $G=(V,E)$ je bipartitní graf s partitami $A,B$
+	- vytvořme tokovou síť $(V\cup\set{z,s},E^+,z,s,c)$, kde $E^+=\set{zx\mid x\in A}\cup\set{ys\mid y\in B}\cup \set{xy\mid \set{x,y}\in E\land x\in A\land y\in B}$ (nestačí použít $E$, protože orientujeme hrany z ) a $c(zx)=c(ys)=1$ pro $x\in A,\,y\in B$ a $c(xy)=|A|+|B|+1$ (prakticky nekonečno)
+	- nechť $C_\min$ je nejmenší vrcholové pokrytí v $G$, $M\max$ největší párování v $G$
+	- jistě $|M_\max|\leq |C_\min|$
+	- nechť $f$ je maximální tok v té síti a $R$ minimální řez
+	- dle minimaxové věty $w(f)=c(R)$
+	- BÚNO $f$ má celočíselné hodnoty
+	- definujme $M_f:=\set{\set{x,y}\in E:f(xy)\gt 0}$
+		- jistě $M_f$ párování v $G$, navíc $|M_f|=w(f)$
+	- definujme $C_R:=\set{x\in A:zx\in R}\cup\set{y\in B:ys\in R}$
+		- pozorování: $R$ neobsahuje žádnou hranu z $A$ do $B$
+		- jistě $C_R$ je vrcholové pokrytí $G$
+		- kdyby $C_R$ nebylo pokrytí, tak existuje nepokrytá hrana $\set{x,y}\in E$, potom cesta $z\to x\to y\to s$ je ve sporu s tím, že $R$ je řez
+		- navíc $|C_R|=|R|=c(R)$
+		- máme $|C_\min|\leq |C_R|=c(R)=w(f)=|M_f|\leq |M_\max|\leq |C_\min|$
+- pozorování: v bipartitním grafu s partitami $A,B$ má každé párování velikost nejvýše $|A|$ (i nejvýše $|B|$)
+- df: pro graf $G=(V,E)$ a množinu $X\subseteq V$ označím $N(X):=\set{y\in V\setminus X\mid \exists x\in X:\set{x,y}\in E}$
+- věta (Hallova věta … grafová verze): nechť $G$ je bipartitní graf s partitami $A,B$, potom $G$ má párování velikosti $|A|\iff\forall X\subseteq A:\underbrace{|N(X)|\geq |X|}_{\text{„Hallova podmínka“}}$
+- dk:
+	- $\implies$
+		- pokud existuje párování velikosti $|A|$, tak pro každou $X\subseteq A$ existuje $|X|$ vrcholů spárovaných s $X$, ty patří do $N(X)$, tedy $|N(X)|\geq |X|$
+	- $\impliedby$
+		- nechť $M$ je největší párování v $G$, $|M|\lt|A|$
+		- dle K-E věty: existuje pokrytí $C$, kde $|C|=|M|\lt |A|$
+		- $C_A:= C\cap A$
+		- $C_B:=C\cap B$
+		- $X:=A\setminus C_A$
+		- zjistím, že $N(X)\subseteq C_B$
+		- navíc $|X|=|A|-|C_A|\gt |C_B|\geq |N(x)|$
+		- to je spor s Hallovou podmínkou$\quad\square$

@@ -191,3 +191,36 @@
 - úkol na příště
 	- rozmyslet, jak přeházet kód uvnitř TableSummatorProcessoru, aby se dal testovat
 	- rozmyslet, jak ParagraphDetectingTokenReaderDecorator funguje – jak vypadají vstupní a výstupní tokeny, jak to má vlastně vypadat, napsat na to unit testy, najít chyby v Kliberově implementaci, opravit je (a nahrát do ReCodExu)
+- virtual, override, abstract
+	- virtual = nový záznam VMT
+	- override = přepis existujícího záznamu VMT
+	- abstract => virtual, ale hodnota záznamu se nastaví na `null`
+- pokud má třída abstraktní metodu, musí být abstraktní
+- neabstraktní potomek abstraktní třídy musí implementovat všechny abstraktní metody rodiče
+- abstraktní třídy vs. interfacy
+	- abstraktní třídy můžou nést data
+	- u interfaců funguje vícenásobná dědičnost
+- TDD (test-driven development)
+	- nejdřív napíšu testy, pak dělám implementaci
+	- někdy to může být vhodný přístup k psaní kódu
+- úkoly na příště
+	- četnost slov v souboru (druhá úloha semestru)
+		- WordFrequencyCounter
+		- potřebujeme si pro slovo pamatovat četnost
+		- třeba přes `SortedList<string,int>`
+		- nebo `SortedDictionary<string,int>`
+		- nebo `Dictionary<string,int>`, posléze seřadit (vykopírovat klíče a použít Sort)
+		- chceme benchmarkem zjistit, co z toho je nejrychlejší
+		- použijeme Benchmark.NET
+		- ke zdrojáku do komentáře máme dát tabulku, kterou nám benchmark vygeneroval
+		- a napsat pár vět, co nám vyšlo, že je lepší
+		- je na nás, jestli budeme mít jeden text nebo víc různých
+	- druhá část úkolu, kterou je vhodné dělat nejdřív
+		- pokud použijeme Dictionary
+		- tři možnosti
+			- zkusím ++, pokud klíč není, vyhodí se výjimka a nstavím na 1
+			- ContainsKey
+			- TryGetValue → value++ → = value
+		- z toho mi vyjde, která varianta je nejlepší, tu budu používat v první části úkolu
+- v testech můžu jednoduchou metodu napsat jenom jednou a pak ji používat v každém testu v sekci Act
+- pokud nechci pořád psát new Token(Token.EndOfLine), tak můžu použít konstanty
