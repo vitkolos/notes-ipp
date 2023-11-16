@@ -247,3 +247,30 @@
 	- tudíž během fáze je všech nenasycených převedení nejvýš $n$
 	- fází je $O(n^2)$, takže složitost algoritmus je $O(n^3)$
 		- odhad není optimální, lze ukázat $O(n^2\sqrt m)$
+
+## Rychlá Fourierova transformace
+
+- $P(x) := \sum_{j=0}^{n-1} p_jx^j$
+- $\vec{p}=(p_0,p_1,\dots,p_{n-1})$
+- $n$ … velikost polynomu
+- normalizace: $p_{n-1}\neq 0$ nebo $n=0$
+- $(n-1)$ … stupeň polynomu
+- násobení polynomů
+	- $R=P\cdot Q$
+	- …
+	- konvoluce vektorů (získání koeficientu $r_t$) … $\Theta(n)$
+	- násobení vektorů (získání všech koeficientů $r_*$) … $\Theta(n^2)$
+- rovnost polynomů – dvě možnosti
+	- identita $P\equiv Q$ – stejné vektory koeficientů po normalizaci
+	- rovnost funkcí – $\forall x:P(x)=Q(x)$
+	- identita $\implies$ rovnost funkcí … jednoduchá
+	- identita $\impliedby$ rovnost funkcí … podle věty
+- věta: nechť $P,Q$ jsou polynomy stupně maximálně $d$ a $P(x_j)=Q(x_j)$ pro navzájem různá čísla $x_0,\dots,x_d$, potom $P\equiv Q$
+	- polynom stupně $d$ je určený $d+1$ body
+- lemma: pro polynom $P$ stupně $d\geq 0$ je počet $x$ takových, že $P(x)=0$ nejvýše $d$
+- dk:
+	- $R:=P-Q$
+	- $\forall j: R(x_j)=P(x_j)-Q(x_j)=0$
+	- stupeň $R\leq d$
+	- podle lemmatu $R\equiv 0$, takže $P\equiv Q$
+- …
