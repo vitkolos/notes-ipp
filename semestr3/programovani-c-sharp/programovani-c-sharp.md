@@ -123,7 +123,7 @@
 			- obecně může nastat, že rodič interface neimplementuje, ale syn ano
 			- tabulky jsou uloženy v instanci třídy Type (v overheadu daného objektu na haldě)
 			- typ proměnné rozhoduje, jakou metodu volám
-				- je to důležité při překrývání metod pomocí `new`
+				- je to důležité při zakrývání metod pomocí `new`
 				- pokud je to interfacová metoda, tak záleží na tom, kam ukazuje tabulka, což vyplývá z toho, která třída implementuje interface
 			- pokud chci s nějakým objektem (typicky z interfacu nebo taky u syna rodičovské třídy) zacházet speciálně podle konkrétní třídy, jejíž je instancí, můžu použít operátor `is` a pak ho castnout
 				- klasický zápis: `if (a is B) {B b = (b)a; …}`
@@ -315,6 +315,7 @@
 ## Virtuální metody
 
 - už umíme zakrýt metodu rodiče pomocí klíčového slova `new`
+	- synovská třída pak má dvě metody s daným názvem – jednu svoji a jednu od rodiče
 - při volání metody pak rozhoduje typ proměnné – pokud je v B zakrytá metoda m(), ale instance B je typu A, tak `inst.m()` volá původní metodu `A.m()` – kdybych chtěl volat `B.m()`, musím instanci nejdříve přetypovat
 - virtuální metoda `A.f()`
 	- má implementaci v A
@@ -324,3 +325,41 @@
 	- každý typ s virtuálními metodami má tabulku virtuálních metod (VMT), ta se při dědění kopíruje (a prodlužuje), u overridnutých virtuálních metod se změní odkaz na implementaci
 	- takže to, která implementace se reálně zavolá, závisí na třídě, jejíž instanci jsme vytvořili (nehledě na typ)
 - oba přístupy se dají kombinovat
+- u zakrytí metody se používá klíčové slovo `new` – bez něj nám překladač vyhodí warning
+	- bez warningů by mohlo dojít k tomu, že by se – po zakrytí metody – kód v jiné části programu začal chovat divně a nevěděli bychom proč
+	- ale error to není, protože se může stát, že se v knihovně objeví metoda, která tam původně nebyla → najednou zakrýváme metodu → museli bychom opravovat kód
+- abstraktní metoda (klíčové slovo abstract) – je to virtuální metoda bez implementace
+	- nesmíme vyrábět instance třídy s abstraktní metodou, takže třída musí být abstraktní
+- JIT: call vs. callvirt
+	- `callvirt` → `call [… VMT[…]]`
+	- výkonostně to vychází podobně
+	- ale nevirtuální volání se dá inlinovat (virtuální ne), takže u častého volání krátkých metod může být vhodné používat nevirtuální metody, aby JIT mohl optimalizovat inlinováním
+	- je vhodné defaultně používat nevirtuální metody (a virtuální jen tehdy, kdy to dává smysl)
+- C++ … podobná syntax jako v C#, jen override u virtuálních metod má hodně způsobů zápisu (nenapíšu nic nebo napíšu virtual nebo v novějších verzích napíšu override)
+- Java
+	- všechny metody jsou automaticky virtuální
+	- proč je to špatně
+		- když píšeme metody v třídě A, které se navzájem volají, tak obvykle spoléháme na to, jakým způsobem tyto metody ovlivňují vnitřní stav
+		- takže nahrazení nějaké z metod může tu třídu rozbít
+- označení metody jako virtuální → slibujeme rozšiřitelnost (tedy to, že tu metodu můžeme nahradit jinou implementací a nic se nerozbije)
+- někdy můžeme chtít tento slib pro virtuální přepsanou metodu zrušit – použijeme klíčové slovo sealed (v Javě final)
+- někdy dává smysl použít sealed u třídy (respektive obecně u typu), pokud nechceme, aby ji někdo rozšiřoval
+- pozorování: pokud použijeme sealed metodu, tak ji JIT může v určitých situacích devirtualizovat, nebo dokonce inlinovat
+- virtuální metody vs. interfaces
+	- každý typ má tabulku virtuálních metod (VMT)
+		- ta obsahuje odkazy na implementace virtuálních metod
+	- každý typ, který implementuje interface (a jeho potomci), má tabulku pro každý interface
+		- ta obsahuje odkazy na metody odpovídající metodám z interfacu
+- jeden interface může rozšiřovat jiný interface (zápis jako u dědění/implementace)
+- abstract method vs. interface
+	- vynucení kontraktu – interface ho vynucuje hned
+	- veřejný kontrakt – abstraktní metody můžou být protected
+	- slib rozšiřitelnosti – u virtuální metody je to opt-out (pomocí sealed), u interfaců opt-in (musím znova říct, že implementuju interface)
+	- data – u interfaců nelze (kvůli vícenásobné dědičnosti)
+	- vícenásobná dědičnost – nelze u abstraktních metod
+- volání jiné implementace virtuální metody
+	- řešením by bylo použít protected metodu a tu volat z public metody, ale to se obvykle nedělá
+	- lepší je použít base.m()
+	- base je jako this, ale přímý předek
+	- pokud metodu voláme jako base.m(), tak se metoda volá nevirtuálně
+	- takže base.m() volá metodu m() přímého předka (nehledě na to, jestli je virtuální)
