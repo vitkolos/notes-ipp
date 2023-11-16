@@ -273,4 +273,30 @@
 	- $\forall j: R(x_j)=P(x_j)-Q(x_j)=0$
 	- stupeň $R\leq d$
 	- podle lemmatu $R\equiv 0$, takže $P\equiv Q$
-- …
+		- kdyby byl $d\geq 0$, tak by to byl spor s lemmatem, protože se $R(x)$ rovná nule v $d+1$ bodech → $d=-1$ → $R\equiv 0$
+- graf polynomu
+	- …
+- násobení polynomů a grafy
+	- …
+	- postřehy
+		- násobením polynomů dostaneme polynom s dvojnásobným stupněm, takže řekneme, že u násobených polynomů je horních $\frac n2$ koeficientů nulových
+- teorie ke komplexním číslům
+	- …
+	- df: $\omega\in\mathbb C$ je primitivní $n$-tá odmocnina z 1 $\equiv\omega^n=1$ a $\omega^1,\dots,\omega^{n-1}\neq 1$
+	- pozorování: $\omega^j\neq\omega^k$ pro $0\leq j\lt k\lt n$
+		- kdyby $\omega^j=\omega^k$, pak $\underbrace{\omega^k\over\omega^j}_{\omega^{k-j}}=1$, což je spor
+	- pozorování: pro sudé $n$ … $\omega^{n/2}=-1$
+		- protože kroužím od $1$ k $1$
+	- pro $|x|=1:x^{-1}=\overline x$
+	- pozorování: $\omega^2$ je primitivní $n/2$-tá odmocnina z 1
+- algoritmus FFT
+	- vstup
+		- $n=2^k$
+		- $\omega$ … primitivní $n$-tá odmocnina z 1
+		- $(p_0,\dots,p_{n-1})$ … koeficienty polynomu
+	- výstup
+		- $(y_0,\dots,y_{n-1})$ … graf polynomu $P$ v bodech $(\omega^0,\dots,\omega^{n-1})$
+	- algoritmus
+		- …
+- inverzní Fourierovu transformaci můžeme počítat jako tu dopřednou, jen vydělením $n$
+- celé násobení polynomů umíme v čase $\Theta(n\log n)$
