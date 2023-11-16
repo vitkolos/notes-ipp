@@ -107,3 +107,18 @@
 	- as friendly as Pikatchu
 	- as cute as a puppy
 	- as protective as a pitbull
+- bear under
+	- underbear – a wrong word (or very archaic)
+- entrant – enters a competition
+- captivate someone's attention
+- yay × nay
+	- naysayer
+- ržát – neigh
+	- gentle neight – whinny, nicker
+- fit to be tied – angry
+- amble – walk aimlessly
+- fable about heagle
+
+Once upon a time, there were a horse and an eagle which agains all odds really loved each other. A child came from their love, hence heagle was born. However, it was not popular among eagles nor horses as it didn't ressemble any of them. Thus it didn't really belong anywhere and it was devastated.
+
+One day, there was a big fire. The eagles flew away into safety. The horses managed to survive the fire but all the grass burnt down. Thenceforth the horses started to die one by one. But not the heagle, it feasted on their flesh.
