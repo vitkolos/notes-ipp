@@ -391,7 +391,7 @@
 		- máme $|C_\min|\leq |C_R|=c(R)=w(f)=|M_f|\leq |M_\max|\leq |C_\min|$
 - pozorování: v bipartitním grafu s partitami $A,B$ má každé párování velikost nejvýše $|A|$ (i nejvýše $|B|$)
 - df: pro graf $G=(V,E)$ a množinu $X\subseteq V$ označím $N(X):=\set{y\in V\setminus X\mid \exists x\in X:\set{x,y}\in E}$
-- věta (Hallova věta … grafová verze): nechť $G$ je bipartitní graf s partitami $A,B$, potom $G$ má párování velikosti $|A|\iff\forall X\subseteq A:\underbrace{|N(X)|\geq |X|}_{\text{„Hallova podmínka“}}$
+- věta (Hallova věta … bipartitní grafová verze): nechť $G$ je bipartitní graf s partitami $A,B$, potom $G$ má párování velikosti $|A|$ $\iff\underbrace{\forall X\subseteq A:|N(X)|\geq |X|}_{\text{„Hallova podmínka“}}$
 - dk:
 	- $\implies$
 		- pokud existuje párování velikosti $|A|$, tak pro každou $X\subseteq A$ existuje $|X|$ vrcholů spárovaných s $X$, ty patří do $N(X)$, tedy $|N(X)|\geq |X|$
@@ -404,3 +404,41 @@
 		- zjistím, že $N(X)\subseteq C_B$
 		- navíc $|X|=|A|-|C_A|\gt |C_B|\geq |N(x)|$
 		- to je spor s Hallovou podmínkou$\quad\square$
+- další verze Hallovy věty
+	- df: systém různých reprezentantů (SRR) v hypergrafu $H=(V,E)$ je funkce $r:E\to V$ taková, že
+		- $\forall e\in E: r(e)\in e$
+		- $\forall e,v\in E:e\neq f\implies r(e)\neq r(f)$ … tj. $r$ je prostá
+	- $r(e)$ … „reprezentant hypergrany $e$“
+	- analogie s předsedy spolků
+	- jakmile uvnitř hypergrafu je množina čtyř hyperhran, které ve svém sjednocení mají tři vrcholy, tak nemůžu najít systém různých reprezentantů
+		- platí to obecně pro množinu $k$ hyperhran – když budou mít ve sjednocení méně než $k$ vrcholů, tak nenajdu SRR
+		- implikace platí i obráceně, lze vyslovit jako větu
+	- Hallova věta (hypergrafová verze): Hypergraf $H=(V,E)$ má SRR, právě když $\forall F\subseteq E:\left|\bigcup_{e\in F} e\right|\geq |F|$
+	- důkaz
+		- nechť $H=(V,E)$ je hypergraf, nechť $I_H$ je jeho graf incidence
+		- pozorování: $H$ má SRR $\iff$ $I_H$ má párování velikosti $|E|$
+		- pozorování: Hallova podmínka pro $H$: $\forall F\subseteq E: \left|\bigcup_{e\in F}e\right|\geq |F|\iff$ bipartitní Hallova podmínka pro $I_H$ a partitu $E$
+
+### Hranová a vrcholová souvislost grafů
+
+- mějme $G=(V,E)$ neorientovaný konečný graf, přičemž $|V|\geq 2$
+- df
+	- pro $F\subseteq E:G-F:=(V,E\setminus F)$
+	- $F\subseteq E$ je hranový řez v $G$, pokud $G-F$ je nesouvislý
+	- $G$ je hranově $k$-souvislý, pokud neobsahuje žádný hranový řez velikosti menší než $k$
+- pozorování: $G$ je hranově 1-souvislý $\iff$ $G$ je souvislý
+- pozorování: $G$ je hranově $k$-souvislý, $k\geq 2\implies G$ je hranově $(k-1)$-souvislý
+- df: stupeň hranové souvislosti (nebo jen hranová souvislost) grafu $G$, značený $k_e(G)$, je největší $k$ takové, že $G$ je hranově $k$-souvislý
+- pozorování: $k_e(G)=$ velikost nejmenšího hranového řezu v $G$
+- df: pokud $x,y$ jsou různé vrcholy $G$, tak hranový $xy$-řez je množina $F\subseteq E$ taková, že $x$ a $y$ jsou v různých komponentách $G-F$
+- věta (Menger, hranová $xy$-verze): pro dva různé vrcholy $x,y$ grafu $G$ platí, že $G$ obsahuje $k$ hranově disjunktních cest z $x$ do $y$ $\iff G$ neobsahuje hranový $xy$-řez velikosti menší než $k$
+- důkaz
+	-  $\implies:$ pokud máme $k$ hranově disjunktních cest z $x$ do $y$, tak každý hranový $xy$-řez musí obsahovat aspoň jednu hranu z každé té cesty
+	- $\impliedby$
+		- nechť $G$ neobsahuje hranový $xy$-řez velikosti menší než $k$
+		- vyrobíme tokovou síť $(V,\vec E,x,y,c)$, kde $\vec E=\set{uv,vu\mid \set{u,v}\in E},\; \forall e\in \vec E: c(e)=1$
+		- pozorování: v té síti není žádný řez velikosti menší než $k$
+		- tedy v té síti existuje tok velikosti aspoň $k$
+		- nechť $f$ je celočíselný maximální tok
+		- navíc mezi všemi celočíselnými maximální toky volme $f$ tak, aby množina $\underbrace{\set{e\in\vec E:f(e)=1}}_{S(f)}$ byla co nejmenší
+		- pozorování: $S(f)$ neobsahuje žádný orientovaný cyklus

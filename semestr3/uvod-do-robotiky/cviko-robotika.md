@@ -8,7 +8,7 @@
 	- u rovnoběžných os z osa x směřuje stejně
 	- u mimoběžek bude tak, aby posun byl kladný
 	- u různoběžek bude tak, aby rotace byla kladná
-- čtyři podvozy
+- čtyři podvozky
 	- ackermann – jediná potíž byla, když jsme u více kol použili stejný poloměr otáčení
 		- výchozí pozice měla být tak, že přední kolo bude v počátku, vozítko bude natočené směrem osy x
 	- u mecanum vzdálenost vyjde 1 metr, odmocnina ze dvou je špatně
