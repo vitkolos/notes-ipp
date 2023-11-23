@@ -343,3 +343,14 @@
 		- $\Theta(\log n)$ vrstev
 		- $\Theta(n)$ hradel
 - binární sčítání
+	- $z_i=x_i\oplus y_i\oplus c_i$
+		- kde $\oplus$ je XOR
+	- $c_{i+1}=\text{Majorita}(x_i,y_i,c_i)$
+	- jednoduchá implementace má $\Theta(n)$ hladin a $\Theta(n)$ hradel – musíme čekat na přenosy ($c_i$)
+	- jak předpovídat přenosy?
+	- blok – souvislá posloupnost bitů
+	- chování bloku – závislost $c_\text{out}$ na $c_{\text{in}}$
+	- fáze (ručního?) výpočtu
+		- chování kanonických bloků
+		- zahušťuji přenosy
+		- finální XORy (jedna vrstva)
