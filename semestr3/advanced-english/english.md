@@ -122,3 +122,13 @@
 Once upon a time, there were a horse and an eagle which agains all odds really loved each other. A child came from their love, hence heagle was born. However, it was not popular among eagles nor horses as it didn't ressemble any of them. Thus it didn't really belong anywhere and it was devastated.
 
 One day, there was a big fire. The eagles flew away into safety. The horses managed to survive the fire but all the grass burnt down. Thenceforth the horses started to die one by one. But not the heagle, it feasted on their flesh.
+
+- is global warming caused by people?
+	- yay
+	- nay
+		- volcanoes cause more greenhouse gas emissions than cars
+		- it's a cycle, it's natural
+		- we don't have enough strength to change the climate
+		- the Earth is so old that…
+		- it's a God's plan
+- futuristic dystopia – heated disagreement (very short conversation, illustrate the chosen word)
