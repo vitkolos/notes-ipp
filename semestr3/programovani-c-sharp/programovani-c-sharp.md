@@ -363,3 +363,89 @@
 	- base je jako this, ale přímý předek
 	- pokud metodu voláme jako base.m(), tak se metoda volá nevirtuálně
 	- takže base.m() volá metodu m() přímého předka (nehledě na to, jestli je virtuální)
+- může nastat problém při volání virtuální metody z konstruktoru – např. když její synovská implementace spoléhá na nějakou vlastnost/field, která se přiřazuje v synovském konstruktoru, který se v danou chvíli ještě nespustil
+
+### Přístup překladače k (ne)virtuálním metodám
+
+- ve hře Stardew Valley zasadíme semínko, vyroste strom, ten plodí jablka
+- kvalita semínka ovlivňuje kvalitu plodů
+- návrhový vzor Factory
+- AppleFactory v konstruktoru dostane kvalitu jablek
+- strom dostane instanci AppleFactory
+- AppleFactory má metodu Create, která vrátí jablko (instanci třídy Apple) dané kvality
+- ze stromu můžou padat i zlatá jablka
+	- metoda Eat třídy Apple bude virtuální
+	- GoldenApple je potomek Apple, přepisuje virtuální metodu Eat
+- problém, když budeme mít jablečnou logiku v knihovně a.dll a jejich jezení v knihovně b.dll
+	- b.dll jsme překládali vůči starší verzi a.dll
+	- takže i zlatá jablka budeme jíst nevirtuálně?
+	- C# překladač dělá trik, že i nevirtuální metody volá virtuálně – tedy se rozhodnutí přesouvá na JIT
+	- tedy i nevirtuální metody mají v CIL kódu instrukci callvirt
+	- fungování virtuálních a nevirtuálních metod to nijak nemění, jen to řeší poměrně častý problém, který nastává při nezávislém vývoji knihoven a kompilaci na nich závislých programů
+
+## Vlastnosti
+
+- properties, mají getter a setter
+- už známe auto-implemented props
+- často bychom si tělo getteru a setteru chtěli napsat sami
+- z getteru se v CIL kódu vygeneruje metoda `int get_X()` (pro vlastnost `int X`)
+- ze setteru se vygeneruje metoda `void set_X(int value)`
+	- value … kontextové klíčové slovo (je klíčovým slovem pouze v setteru vlastnosti)
+- často dává smysl v setteru kontrolovat podmínky pro omezení hodnot
+- syntaktická zkratka pro deklaraci jednoduché metody
+	- `void f() => return x;`
+	- ale nepoužívat uvnitř metod – to jsou lambda funkce, což je poměrně složitý koncept
+- vlastnost s getterem se dá zapsat různě
+	- `int X { get { return x; } }`
+	- `int X { get => x; } }`
+	- `int X => x;`
+- obecně k vlastnostem přistupujeme jako k ekvivalentu fieldu – takže je potřeba na to při jejich implementaci myslet (gettery a settery by měly běžet rychle, typicky konstantní čas)
+- když by nějaký getter měl běžet dlouho, tak ho budu implementovat jako metodu, ne jako property
+- vlastnosti se obvykle pojmenovávají podstatnými jmény, metody slovesy (respektive začínají slovesem – třeba Get)
+	- Length vs. GetLength()
+	- problém s Count a Count()
+		- lepší by bylo Count a GetCount()
+- boolean vlastnosti obvykle začínají slovesem Has, Can, Is, Should…
+- vlastnosti můžou být v interfacech
+	- když v interfacu požaduju jen getter, můžu v jeho implementaci přidat i setter
+- u knihovny může dávat smysl rovnou použít vlastnost, než začít s fieldem a později ho předělat na vlastnost
+	- změna fieldu na vlastnost mění rozhraní knihovny (a je potřeba opravit/překompilovat programy, které ji používají)
+- property Length u vektoru
+	- spočítám jen jednou, budu cachovat
+	- potřebuju uložit „neplatnout hodnotu“ (abych věděl, že ještě nemám spočítáno)
+		- mohl bych použít null, ale typ double podporuje i hodnotu not a number (NaN), která by tady byla vhodnější (protože nullabilita fieldu zvětšuje velikost celé struktury)
+		- při porovnávání NaN je třeba myslet na to, že existuje víc variant NaN (takže je lepší použít metodu double.IsNaN)
+	- u vlastností X, Y je potřeba přidat settery, které budou kromě nastavení hodnoty backing fieldu invalidovat délku
+		- pokud jsem X, Y definoval jako auto-implemented properties, je potřeba přidat backing fieldy
+- vlastnosti můžou být i virtuální (nebo abstraktní)
+	- můžu overridovat getter i setter nebo jen jeden z nich
+	- ale když mám virtuální vlastnost s getterem, tak v jejím overridu nemůžu přidat setter
+- pozor, pokud použiju syntaxi auto-implemented props s výchozí hodnotou, tak se ta hodnota jednou přiřadí do backing fieldu
+	- pokud je výchozí hodnota nějaký field, tak pak pozdější změna hodnoty fieldu neovlivní hodnotu té vlastnosti
+- pozor na side-effects
+	- vlastnost by neměla mít side-effects (i kdyby byla rychlá)
+	- je vhodnější, aby to byla metoda
+
+## Viditelnost
+
+- klíčová slova
+	- public – přístup není omezen
+	- private – přístup je omezen na kód v daném typu
+		- C# podporuje vnořené typy – takže kód ve vnořeném typu má taky přístup k private položkám typu, v němž je vnořen
+	- protected – přístup je omezen na daný typ a typy, které z něj dědí
+	- internal – přístup je omezen na aktuální sestavení
+	- protected internal – přístup je omezen na aktuální sestavení ***nebo*** odvozené typy
+	- private protected – přístup je omezen na aktuální sestavení ***a*** odvozené typy
+	- file – přístup je omezen na aktuální zdroják (v C# 11)
+- výchozí viditelnost – private ve třídě, public v interfacu
+- životnost lokální proměnných (scope)
+	- `int a = 5;` se dá rozdělit na `int a;` a `a = 5;`
+	- `int a;` … deklarace proměnné
+	- lokální proměnná vzniká v místě deklarace
+	- nadřazené složené závorky odpovídají životnosti proměnné
+	- takže třeba ve while cyklu se proměnná s daným názvem vytváří v každé iteraci
+		- na začátku cyklu `ALLOC → SUB SP,4`
+		- na konci cyklu `FREE → ADD SP,4`
+	- JIT může udělat optimalizaci, že alokaci a dealokaci vystrčí mimo cyklus
+		- někdy taky dané místo na zásobníku recykluje pro různé proměnné
+	- pokud lokální proměnnou nepotřebuju sdílet mezi různými iteracemi cyklu, nedává smysl se to snažit mikrooptimalizovat vystrčením deklarace mimo cyklus
