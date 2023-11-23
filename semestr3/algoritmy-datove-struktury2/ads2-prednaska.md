@@ -300,3 +300,46 @@
 		- …
 - inverzní Fourierovu transformaci můžeme počítat jako tu dopřednou, jen vydělením $n$
 - celé násobení polynomů umíme v čase $\Theta(n\log n)$
+- $\Omega_{jk}=\omega^{jk}$
+- lemma: $\Omega^{-1}=\frac 1n\cdot\overline{\Omega}$
+- důkaz
+- poznámka k FFT – dá se implementovat nerekurzivně; lze nahlédnout, že tam vzniká permutace odpovídající seřazení binárních čísel pozpátku
+- věta: nechť $x\in\mathbb R^n$ a $y=\mathcal F(x)$; potom $y_j=\overline{y_{n-j}}$ pro všechna $j$
+- tím pádem můžeme každý reálný vektor zapsat jako lineární kombinaci navzorkovaných sinů a kosinů
+
+## Paralelní algoritmy
+
+- hradlo arity $k$ má $k$ vstupů a jeden výstup
+- počítá funkci $f:\Sigma^k\to\Sigma$
+- $\Sigma$ … konečná abeceda, typicky $\set{0,1}$
+- booleovská hradla
+	- binární: AND, OR, XOR, $\leq$ (implikace), … (je jich 16)
+	- unární: NOT (a „buffer“)
+	- nulární, konstanty: 0, 1
+- $\text{Majorita}(x, y, z)=(x\land y)\lor(x\land z)\lor(y\land z)$
+- hradlová síť obsahuje
+	- hradla
+	- vstupní porty
+	- výstupní porty
+	- acyklické propojení
+- výpočet probíhá v taktech
+	- 0. takt: ohodnotíme vstupní porty a konstanty
+	- $(i+1).$ takt: ohodnotíme hradla a porty, jejichž vstupy byly ohodnoceny nejpozději v $i.$ taktu
+- tak dostáváme rozklad sítě na vrstvy, kde v $i$-té vrstvě jsou hradla a porty, které byly ohodnoceny v $i.$ taktu
+- čas = počet vrstev
+- prostor = počet hradel
+	- nemohli bychom použít počet hradel v největší vrstvě, protože ne všechny hrany vedou o jednu vrstvu (někdy je potřeba, aby si hradlo pamatovalo svůj výsledek během několika taktů)
+- je nutné omezit počet vstupů a výstupů – jinak bychom mohli cokoliv počítat v konstantním čase
+- kombinační obvody … na obecné abecedě $\Sigma$
+- booleovské obvody … $\Sigma=\set{0,1}$
+- hradlová síť má pevnou velikost vstupu
+- tedy ekvivalent programu ve světě hradlových sítí by byla sada různých hradlových sítí pro různé velikosti vstupu
+	- tedy výpočetní model je neuniformní
+- chceme tyto sítě efektivně generovat – ale stačí nám polynomiální čas
+- co se týče časové složitosti hradlových sítí – obvykle chceme polylogaritmickou složitost (tedy nějakou mocninu logaritmu)
+- $\text{OR}(x_1,\dots,x_n)$
+	- lze v lineárním čase – vždycky vezmeme výsledek a přiORujeme $x_i$
+	- nebo v logaritmickém čase – ORujeme po dvojicích
+		- $\Theta(\log n)$ vrstev
+		- $\Theta(n)$ hradel
+- binární sčítání
