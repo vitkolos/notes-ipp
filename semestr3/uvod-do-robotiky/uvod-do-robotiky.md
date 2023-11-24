@@ -244,3 +244,71 @@
 	- gyroskopy
 	- senzory tlaku
 	- displeje, pumpy, motory
+- odometrie
+	- měření ujeté vzdálenosti
+	- možnosti
+		- pomocí otáček kol – ale kola můžou prokluzovat
+		- pomocí otáček motoru – pozor na převodovku a na chvíle, kdy motor zabírá, ale kola se neotáčí
+		- pozorováním prostředí
+	- počítání
+		- mechanické
+		- jazýčkový spínač (reed switch)
+		- induktivní a kapacitní (detekce magnetickým polem)
+		- resolver, synchro (vinutí kolem motoru – generuje proud)
+		- optický snímač (třeba u počítačových myší)
+		- Hallův jev
+		- Dopplerův jev (frekvenční posun)
+		- snímání povrchu
+	- enkodéry
+		- relativní – říkají nám změnu měření od předchozího stavu, neříkají nám úhel
+			- rate – senzor sleduje změnu mezi dvěma hodnotami (sleduje černobílý terč), frekvence změn indikuje rychlost, počet změn indikuje úhel rotace; nelze zjistit směr rotace
+			- quadrature – dva senzory, snímají i směr, více možností
+				- dvě stopy posunuté o půl kroku, senzory vedle sebe
+				- jedna stopa, senzory posunuté o půl kroku
+		- absolutní
+			- binární – více senzorů v různých stopách, každý úhel odpovídá jinému binárnímu číslu, problém nastává v situaci, kdy mám nepřesné senzory
+			- Grayův kód – v každém kroku se mění jeden bit
+				- lze snadno sestavit (vezmu nulu, přidám sekvenci, vezmu jedničku, přidám sekvenci pozpátku)
+				- je potřeba aspoň 9 stop pro 1° přesnost
+			- single-track Gray code
+				- N. B. Spedding ukázal pětisenzorový jednostopý kód
+				- Hiltgen a Paterson ukázali 9senzorový kód (pro 360 pozic)
+	- reálné enkodéry
+		- na staré počítačové myši – ozubené kolečko přerušuje optický signál
+		- Austria Microsystems AS5035 – magnetický, ale používá quadrature výstup
+		- twist & push rotační enkodér – kovové ozubené kolečko, tři kontakty se ho dotýkají, jeden trvale, další dva vzájemně posunuté → kvadraturní signál
+	- Hallův jev
+		- proud protéká polovodičem, když je to v magnetickém poli, tak se proud vychyluje
+		- používá se v ABS v autě
+	- Dopplerův jev
+		- pohybující se vysílač a přijímač, měří se fázový posun odraženého signálu
+		- je jednodušší měřit rázovou frekvenci
+
+## Regulace a řízení
+
+- u reálného motoru do hry vstupuje spousta jevů – je potřeba tomu přizpůsobovat vstup
+- typicky použijeme nějakou zpětnou vazbu a podle toho budeme měnit vstup
+- např. servo je lineární jen v určitém frekvenčním rozsahu
+- triviálně bez feedbacku – experimentálně zjistím, jaká je skutečná maximální hodnota (v lineárním rozsahu), pak to natvrdo zapíšu do kódu
+- řešení s feedbackem
+	- řízení motoru nastavím na rozdíl mezi reálnou a požadovanou hodnotou (rozdíl = chyba)
+	- ten rozdíl násobím ještě nějakou ladicí konstantou
+- druhý pokus
+	- budu upravovat řízení podle chyby (rozdílu mezi reálnou a požadovanou hodnotou)
+	- = integral controller
+	- nevýhody
+		- oscilace
+		- 
+		- přestřelení
+	- chtěl bych nepřestřelit
+		- budu derivovat
+		- PD regulátor (proportional + derivative controller)
+- třetí pokus
+	- budu přímo počítat řízení
+	- ladicí konstanta bude jiná u minulých chyb než u aktuální chyby
+	- proportional + integral controller
+- PID controller
+	- e = req_speed - cur_speed
+	- sum_e = += e
+	- control = P\*e + I\*sum_e - D\*(cur_speed - last_speed)
+	- parametry P, I, D jsou platné pro jeden typ procesu
