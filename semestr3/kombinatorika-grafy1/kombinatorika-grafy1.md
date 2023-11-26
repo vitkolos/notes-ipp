@@ -370,7 +370,7 @@
 ### Aplikace toků
 
 - df: párování v grafu $G=(V,E)$ je množina hran $M\subseteq E$ taková, že žádný vrchol nepatří do více než jedné hrany $M$
-- df: vrcholové pokrytí v $G=(V,E)$ je množina hran $C\subseteq V$ taková, že každá hrana obsahuje aspoň 1 vrchol z $C$
+- df: vrcholové pokrytí v $G=(V,E)$ je množina vrcholů $C\subseteq V$ taková, že každá hrana obsahuje aspoň 1 vrchol z $C$
 - pozorování: pokud $M$ je párování a $C$ vrcholové pokrytí v $G=(V,E)$, tak $|M|\leq |C|$; to proto, že každá hrana z $M$ musí být pokrytá vrcholem z $C$, zároveň každý vrchol z $C$ pokryje nejvýš 1 hranu z $M$
 - věta (Kőnig-Egerváry): v každém **bipartitním** grafu má největší párování stejnou velikost jako nejmenší vrcholové pokrytí
 - dk:
