@@ -224,3 +224,45 @@
 		- z toho mi vyjde, která varianta je nejlepší, tu budu používat v první části úkolu
 - v testech můžu jednoduchou metodu napsat jenom jednou a pak ji používat v každém testu v sekci Act
 - pokud nechci pořád psát new Token(Token.EndOfLine), tak můžu použít konstanty
+- unit testování table summator processor (TSP)
+	- sekvence tokenů → TSP → report
+	- rozdělím na části
+		- sekvence tokenů → HeaderProcessor → columnCount, columnId
+			- metoda ProcessToken
+			- ColumnCount a ColumnId jako veřejné vlastnosti se soukromým setterem
+		- sekvence tokenů, columnCount, columnId → DataColumnSummator → sum
+			- ctor(int, int)
+			- metoda ProcessToken
+		- sum, columnId → "Reporter" → report
+- benchmarkování
+	- zvyšování hodnoty ve slovníku
+		- když tam to slovo je
+			-  vyrobíme dictionary
+			- v tom benchmarku budu inkrementovat (benchmark to udělá mnohokrát)
+			- poznámka: vstup do try bloku není drahý
+		- když tam to slovo není
+			- zařídím, aby se slovo měnilo
+			- mohl bych v každém benchmarku vytvořit dictionary, použít for cyklus a volat ToString na číslo
+			- ale ToString trvá dlouho
+			- tak bychom si mohli připravit stringy bokem a pak je jenom vkládat
+			- existují atributy `[GlobalSetup]` a `[IterationSetup]`
+			- ale když použiju IterationSetup, tak se vypne opakování, takže je potřeba použít ManualConfig a nastavit tam InterationCount
+	- porovnání datových struktur
+		- nástroj source.dot.net na hledání ve zdrojáku
+- stardew valley
+	- používat anglické identifikátory – přitom volit taková slova, aby byla srozumitelná (takže IFeedable může být lepší než IFodder)
+	- návrhový vzor Abstract Factory – několik Factory sdílí interface
+	- návrhový vzor Strategy – Factory, která dostane jednu nebo více Factories a nějaké je používá
+- domácí úkol
+	- zarovnáváme do bloku více souborů
+	- cílem je vyrobit jeden soubor, který bude zarovnaný do bloku
+	- konec souboru odpovídá mezeře (ohraničuje slovo, ale ne odstavec)
+	- máme očekávat, že vstupní soubory se generují až za běhu aplikace – při zpracovávání prvního souboru ten druhý ještě neexistuje, je potřeba ty soubory otevírat postupně
+	- pokud soubor nejde otevřít, tak ho přeskočím
+	- za řešení 5 bodů + 5 bodů za unit testy nové funkcionality (vícesouborového zpracování nebo zvýraznění bílých znaků nebo obojího)
+	- zahrát si dyna blaster, zaměřit se na to, jaké tam jsou obrazovky (hlavně v battle módu, ale i jinde)
+	- máme vyrobit graf, kde vrcholy grafu jsou různé obrazovky ve hře a hrany jsou možné přechody mezi nimi (v battle módu)
+		- pro každou hranu zanalyzovat, jaká data tam tečou
+		- která data jsou globální stav
+		- tohle budeme odevzdávat, za pět bodů
+		- specifikace přijde mailem
