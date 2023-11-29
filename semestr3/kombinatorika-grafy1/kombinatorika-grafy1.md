@@ -456,3 +456,57 @@
 - df: vrcholová souvislost grafu $G$, značená $k_v(G)$, je největší $k$ takové, že $G$ je vrcholově $k$-souvislý
 - pozorování: $k_v(K_n)=n-1$
 - pozorování: $G$ není úplný … $k_v(G)=$ velikost nejmenšího vrcholového řezu
+- df: pro dva různé vrcholy $x,y\in V$, vrcholový $xy$-řez je množina $A\subseteq V\setminus\set{x,y}$ taková, že $x$ a $y$ jsou v různých komponentách $G-A$
+- df: dvě cesty v $G$ z $x$ do $y$ jsou navzájem vnitřně vrcholově disjunktní (VVD), pokud nemají žádný společný vrchol kromě $x,y$
+- pozorování: dvě VVD cesty z $x$ do $y$ jsou i hranově disjunktní
+- věta ($xy$-verze Mengerovy věty pro vrcholovou souvislost): nechť $G=(V,E)$ je graf, nechť $x,y$ jsou různé **nesousední** vrcholy, nechť $k\in\mathbb N$; potom $G$ obsahuje $k$ navzájem VVD cest z $x$ do $y\iff G$ neobsahuje vrcholový $xy$-řez velikosti $\lt k$
+- dk:
+	- $\implies$ zřejmá
+	- $\impliedby$
+		- nechť $G$ nemá vrcholový $xy$-řez velikosti $\lt k$
+		- vyrobíme síť $\mathcal S$ takto
+			- za každý vrchol $u\in V$ dáme do $\mathcal S$ dva vrcholy $u^+,u^-$ a hranu $u^+u^-$ s kapacitou 1
+			- za každou hranu $\set{u,v}\in E$ dáme do $\mathcal S$ dvě orientované hrany $u^-v^+$ a $v^-u^+$ s kapacitami "$\infty$"
+			- zdroj: $x^-$, stok: $y^+$
+		- tvrdím, že $\mathcal S$ nemá řez kapacity $c\lt k$
+			- sporem: nechť takový řez existuje
+			- potom všechny jeho hrany jsou tvaru $u^+u^-$ pro nějaké $u\in V$ a odpovídající vrcholy v $G$ tvoří vrcholový $xy$-řez velikosti $c\lt k$, což je spor
+		- podle minimaxové věty o toku a řezu v $\mathcal S$ existuje tok velikosti $\geq k$, BÚNO je ten tok celočíselný, říkejme mu $f$
+		- z existence takového $f$ plyne, že $\mathcal S$ obsahuje $k$ hranově disjunktních cest z $x^-$ do $y^+$ (viz hranová verze), označme je $\vec P_1,\dots,\vec P_k$
+		- ty cesty $\vec P_1,\dots,\vec P_k$ jsou i vnitřně vrcholově disjunktní, protože každá cesta (orientovaná) z $x^-$ do $y^+$ v $\mathcal S$, která obsahuje vrchol $u^+$ nebo $u^-$ pro nějaké $u\in V\setminus\set{x,y}$, musí obsahovat i hranu $u^+u^-$
+		- když v cestách $\vec P_1,\dots,\vec P_k$ nahradíme každou hranu tvaru $u^+u^-$ jedním vrcholem $u$, tak dostaneme $k$ VVD cest z $x$ do $y$ v $G\quad\square$
+- lemma: nechť $G=(V,E)$ je graf s hranou $e=\set{x,y}$; nechť $G^-:=(V,E\setminus\set e)$; potom $k_v(G^-)\geq k_v(G)-1$
+- dk:
+	- nechť $A$ je nejmenší vrcholový řez v $G^-$ 
+	- potom $k_v(G^-)=|A|$
+	- chceme $k_v(G)\leq k_v(G^-)+1=|A|+1$
+	- rozlišme případy
+		- pokud existuje komponenta $G^--A$, která neobsahuje $x$ ani $y$, tak $A$ je vrcholový řez v $G$, tedy $k_v(G)\leq |A|$
+		- jinak má $G^--A$ 2 komponenty, jedna obsahuje $x$ (říkejme jí $G^-_x$), druhá $y$ ($=: G_y^-$)
+		- (zbytek viz záznam)
+- věta (vrcholová globální verze Mengerovy věty): $G$ je vrcholově $k$-souvislý $\iff$ mezi každými dvěma různými vrcholy $x,y$ existuje $k$ navzájem VVD cest
+- dk:
+	- pro $K_n$ věta zjevně platí (jedna cesta je přímá, další vždy přes jiný vrchol, těch je $n-2$)
+	- nechť $G$ není úplný (byť by tahle větev důkazu fungovala i pro $K_n$)
+		- $\impliedby:$ mezi každými dvěma vrchol je $k$ VVD cest $\implies$ G má $\geq k+1$ vrcholů, žádný řez velikosti $\lt k\implies G$ je $k$-souvislý
+		- $\implies:$ nechť $x,y$ jsou různé vrcholy; případy
+			- $\set{x,y}\notin E$ … viz $xy$-verze M. věty
+			- $\set{x,y}\in E:$ nechť $G^-:=(V,E\setminus\set e)$
+				- podle lemmatu: $k_v(G^-)\geq k-1$
+				- podle $xy$-verze M. věty pro $G^-$ existuje $k-1$ VVD cest $x\to y$
+				- přidám k nim hranu $e$ a mám $k$ VVD cest $x\to y\quad\square$
+- konvence: „$k$-souvislý graf“ znamená „vrcholově $k$-souvislý“
+- df: přidání ucha ke grafu $G=(V,E)$ je tato operace
+	- zvol dva různé vrcholy $x,y\in V$
+	- pro $d\geq 0$ přidej vrcholy $z_1,z_2,\dots,z_d$
+	- přidej hranu cesty $xz_1z_2\dots z_dy$
+- věta („lemma o uších“): graf $G$ je 2-souvislý $\iff G$ se dá vyrobit z kružnice pomocí přidávání uší
+- důkaz
+	- $\impliedby$ kružnice je 2-souvislá a přidání ucha nevytvoří řez velikosti $\leq 1$
+	- $\implies$
+		- nechť $G=(V,E)$ je 2-souvislý, nechť $C$ je libovolná kružnice v $G$, nechť $G_\max=(V_\max,E_\max)$ je největší podgraf $G$, který se dá vyrobit přidáváním uší k $C$
+		- tvrdíme, že $G_\max=G$
+		- kdyby ne:
+			- $V_\max=V,\,E_\max\subsetneq E:$ spor s maximalitou $G_\max$, protože přidání hrany je přidání ucha
+			- $V_\max\subsetneq V:G$ je souvislý, tak $\exists e=\set{xy}\in E$ taková, že $x\in V_\max$ a $y\notin V_\max$
+			- (zbytek viz záznam)
