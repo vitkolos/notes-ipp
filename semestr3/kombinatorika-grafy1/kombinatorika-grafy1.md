@@ -509,4 +509,6 @@
 		- kdyby ne:
 			- $V_\max=V,\,E_\max\subsetneq E:$ spor s maximalitou $G_\max$, protože přidání hrany je přidání ucha
 			- $V_\max\subsetneq V:G$ je souvislý, tak $\exists e=\set{xy}\in E$ taková, že $x\in V_\max$ a $y\notin V_\max$
-			- (zbytek viz záznam)
+			- $G-x$ je souvislý, protože $G$ je 2-souvislý
+			- takže bude existovat ještě další cesta do $V_\max$
+			- tato cesta + hrana $xy$ = další ucho
