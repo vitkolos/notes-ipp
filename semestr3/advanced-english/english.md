@@ -132,3 +132,14 @@ One day, there was a big fire. The eagles flew away into safety. The horses mana
 		- the Earth is so old that…
 		- it's a God's plan
 - futuristic dystopia – heated disagreement (very short conversation, illustrate the chosen word)
+- reported speech
+	- it is safer to use past tense
+	- we can use present if we are sure those things still apply
+- tentative
+	- I've been wandering…
+	- I was thinking…
+- I feel it's a good idea × I'm feeling tired
+- I see your point × I'm seeing my professor tomorrow
+- I'll be working till about 8 p.m. – plan
+- I'll work till about 8 p.m. – decision
+- describe a society that is taylor made for idlers × strivers

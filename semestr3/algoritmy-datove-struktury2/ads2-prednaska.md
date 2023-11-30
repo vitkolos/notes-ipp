@@ -354,3 +354,59 @@
 		- chování kanonických bloků
 		- zahušťuji přenosy
 		- finální XORy (jedna vrstva)
+- binární násobení
+	- pomocí ANDu a bitového posunu v $O(1)$ dostaneme $n$ mezivýsledků, ty chceme sčítat
+	- kdybychom sčítali po dvojicích, dostali bychom se na $O(\log^2n)$
+	- ale my ke sčítání použijeme kompresor – ze 3 sčítanců uděláme dva
+		- v první vrstvě $n$ čísel, v druhé $\frac 23 n$ čísel, ve třetí $(\frac 23)^2 n$ čísel, …, v poslední 2 čísla, ty sečteme klasickou sčítačkou
+		- kompresorových vrstev bude $O(\log n)$, hloubka kompresoru je $O(1)$
+		- závěrečná sčítačka bude $O(\log n)$
+	- takže celková složitost násobení bude $O(\log n)$
+	- v reálných počítačích se používá hradlová síť založena na Fourierově transformaci, protože má menší prostorovou složitost
+- komparátorová síť
+	- má $n$ vstupů a $n$ výstupů
+	- výstupem je setříděná posloupnost vstupních dat
+	- mezi vrstvami se vždy převádí permutace vstupu – BÚNO výstupy se nevětví
+	- bubble sort lze paralelizovat v $\Theta(n)$ vrstvách
+- df: posloupnost $x_0,\dots,x_{n-1}$ je
+	- čistě bitonická $\equiv\exists k:x_0\lt x_1\lt \dots\lt x_k\gt \dots\gt x_{n-1}$
+	- bitonická $\equiv$ má čistě bitonickou rotaci
+		- tedy $\exists l: x_l,x_{l+1},\dots,x_{l+n-1}$ (kde indexy jsou modulo $n$) je čistě bitonická
+- separátor $S_n$
+	- na vstupu bitonická posloupnost
+	- na výstupu dvě poloviční bitonické posloupnosti, kde všechny prvky jedné jsou menší než všechny prvky druhé
+	- princip
+		- rozdělím vstup na poloviny
+		- nainstaluju komparátory mezi $i$-tým prvkem v první polovině a $i$-tým prvkem v druhé polovině (takže vlastně $x_i$ a $x_{n/2+i}$)
+		- prvky rozdělím na horu ($n/2$ největších prvků) a údolí ($n/2$ nejmenších prvků)
+		- hora i údolí jsou souvislé
+		- $x_k$ … prvek, kterým začíná hora
+		- $x_{k+n/2}$ … prvek, kterým končí hora
+		- $k$ je BÚNO menší než $n/2$
+		- jak fungují komparátory?
+			- pro $i\lt k$ neprohazujeme
+			- pro $i\geq k$ prohazujeme
+			- levý výstup = rotace údolí
+			- pravý výstup = rotace hory
+- bitonická třídička $B_n$
+	- na vstupu bitonická posloupnost
+	- na výstupu rostoucí posloupnost
+	- čas $O(\log n)$
+	- prostor $O(n\log n)$
+- slévačka $M_n$
+	- vstup: dvě monotónní rostoucí posloupnosti o $n$ prvcích
+	- výstup: monotónní posloupnost o $2n$ prvcích
+	- jednu z nich otočíme na klesající → dostaneme bitonickou posloupnost, proženeme ji $B_{2n}$
+- třidička $S_n$
+	- na vstupu je $n$ prvků
+	- na výstupu je monotónní rostoucí posloupnost $n$ prvků
+	- budeme mít $\log n$ pater slévaček, každá má nejhůř $\log n$ pater, takže celkem $O(\log^2n)$
+	- prostorová složitost $O(n\log^2n)$
+	- pozorování: prostorová složitost komparátorové sítě může být nejhůř $n$-krát větší než časová složitost
+- pozorování: z dolního odhadu složitosti třídění plyne, že hloubka každé třídicí sítě je $\Omega(\log n)$
+	- dá se to $O(\log n)$, ale konstanta je obrovská
+- algoritmy odvozené od komparátorových sítí se velmi snadno vektorizují
+
+## Dvojrozměrné úlohy
+
+
