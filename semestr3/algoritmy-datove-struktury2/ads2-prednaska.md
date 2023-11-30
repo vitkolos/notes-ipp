@@ -409,4 +409,22 @@
 
 ## Dvojrozměrné úlohy
 
-
+- oplocení jabloní
+- nejlevější jabloň určitě bude součástí plotu
+- ukotvíme polopřímku v jabloni, otáčíme jí, než se dotkne další jabloně
+- tenhle postup opakujeme, nakonec dostaneme konvexní obal množiny $x_1,\dots,x_n\in\mathbb R^2$
+- předpokládáme body v obecné poloze
+- budeme „zametat“ rovinu – rovinu přejíždíme přímkou, body na jedné straně jsme zpracovali, body na druhé budeme zpracovávat, bod na přímce právě zpracováváme
+- máme konvexní obal zpracovaných bodů
+	- $H$ … horní obálka – stáčí se doprava
+	- $D$ … dolní obálka – stáčí se doleva
+- přidáváme bod
+	- pro obě obálky zkontrolujeme, zda do nich bod můžeme přidat, aniž bychom porušili konvexnost
+	- jinak z dané obálky odstraňujeme body tak dlouho, dokud bod nepůjde napojit
+- časová složitost
+	- třídění bodů podle $x$-ové souřadnice v $\Theta(n\log n)$
+	- odstraňování bodů v $O(n)$ … každý bod odstraníme nejvýše jednou
+- jak poznat, zda můžu napojit bod (neboli kam se křivka stáčí) – pomocí znaménka determinantu matice složené ze souřadnic posledních dvou vektorů
+- jak řešit body, které nejsou v obecné poloze?
+	- představíme si pootočení soustavy souřadnic o $\varepsilon$
+	- tedy nebudeme třídit body zleva doprava, ale lexikograficky podle souřadnic (zleva doprava, shora dolů)
