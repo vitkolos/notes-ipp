@@ -449,3 +449,61 @@
 	- JIT může udělat optimalizaci, že alokaci a dealokaci vystrčí mimo cyklus
 		- někdy taky dané místo na zásobníku recykluje pro různé proměnné
 	- pokud lokální proměnnou nepotřebuju sdílet mezi různými iteracemi cyklu, nedává smysl se to snažit mikrooptimalizovat vystrčením deklarace mimo cyklus
+- deklarace lokálních proměnných
+	- některé jazyky umožňují uvnitř bloku deklarovat již deklarovanou proměnnou, která bude nezávislá na té deklarované výše – v C# to nejde
+	- nelze redeklarovat parametr funkce
+	- nelze redeklarovat proměnnou deklarovanou výše ve vnějším bloku
+	- nelze redeklarovat proměnnou deklarovanou výše ve vnitřním bloku
+- nelze přistupovat k neinicializované proměnné
+	- situace, kdy inicializuju v podmíněném bloku – je potřeba nějak zajistit default inicializaci (ideálně s komentářem, pokud se ta hodnota nikdy nepoužívá; taky je vhodné rozumně umístit vyhození výjimky)
+	- příklad s `if (x is int a)` – chová se jako deklarace uvnitř podmíněného bloku
+- lze omezit životnost proměnných pomocí složených závorek
+
+---
+
+- co může být v proměnné
+	- hodnota (u hodnotových typů)
+		- velikost odpovídá velikosti datového typu
+		- u struktur lze použít `new`, které nic nealokuje, ale zavolá konstruktor
+	- reference (u referenčních typů)
+		- je tam uložená adresa, takže velikost odpovídá velikosti adres
+		- adresa vede na GC haldu
+		- adresa ukazuje na celý objekt
+		- explicitní alokace pomocí `new`
+		- tu adresu nelze zjistit (zčásti proto, že GC objekty na haldě někdy přesouvá, proto se adresa může měnit)
+- každý hodnotový typ je potomkem objectu
+- tedy do proměnné typu object musí jít přiřadit proměnnou hodnotového typu
+- při takovém přiřazení se provádí boxing – je to implicitní alokace na GC haldě, alokuje se tam instance hodnotového typu (bude tam standardní overhead)
+	- pozor: v Javě jsou dva různé typy, int (hodnotový) a Integer (referenční) – v C# je to ten samý typ System.Int32
+- co můžu dělat s proměnnou typu object?
+	- můžu volat ToString()
+- unboxing – hodnotový typ alokovaný na haldě uložený referencí se uloží jako hodnota
+- není vhodné používat object pro slabé typování – vlastně takhle implementujeme duck typing
+- co když máme long, zaboxujeme a chtěli bychom unboxovat do intu
+	- nejde to, unboxing konverzi nelze kombinovat s truncation konverzí
+	- vyhodí to runtime exception
+	- musíme napsat obě konverze: `(int)(long)o`
+- když potřebujeme hodnotový typ předávat referencí, tak object nedává smysl, vhodnější je použít jednoduchou třídu
+- boxování a unboxing nullable typů funguje tak, jak bychom čekali
+- pointery
+	- pointer = adresa
+	- `int* a, b;` – hvězdička se váže k typu, ne k identifikátoru (takže se nepíše `int *a, *b;`)
+	- `a = &c;`
+	- `*a = d;`
+	- `Console.Write(*a);`
+	- žádná omezení – podobně jako v C++
+		- může ukazovat kamkoliv
+	- hodí se to k low-level programování nebo komunikaci s nějakými nativními funkcemi
+	- pointery nesleduje garbage collector
+- někdy by se nám hodilo něco mezi referencemi a pointery
+	- tracking reference
+	- GC je sleduje
+	- můžou ukazovat pouze na data – na GC haldu, statické fieldy nebo lokální proměnné
+	- tracking reference = adresa, nelze ji zjistit
+	- automatická dereference
+	- může to vést doprostřed objektu, ale musí to ukazovat na celý field
+- jazyk C++/CLI
+	- sjednocení všech funkcí dotnetu a C++
+	- to nejhorší z obou světů
+	- tracking reference se deklarují `int%`
+	- obecné tracking reference jsou pořád příliš nebezpečné na to, aby se s nimi dobře programovalo
