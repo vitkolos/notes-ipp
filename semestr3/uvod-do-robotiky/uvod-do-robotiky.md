@@ -312,3 +312,67 @@
 	- sum_e = += e
 	- control = P\*e + I\*sum_e - D\*(cur_speed - last_speed)
 	- parametry P, I, D jsou platné pro jeden typ procesu
+- ladění parametrů
+	- manuálně
+	- ze zkušenosti
+	- pomocí magie
+	- pomocí vědy
+		- Ziegler-Nichols
+		- Cohen-Coon
+		- Tyreus-Luyben
+		- Chien-Hrones-Reswick Autotuning
+	- výsledky vědeckého bádání se hodí použít – pak to obykle stačí jen trochu doladit
+- rychlé manuální ladění
+	- I=0, D=0
+	- zvyšuju P, dokud to nezačne oscilovat
+	- nastavím P na polovinu
+	- ^ tohle obvykle stačí, pokud ne, tak začnu ladit další složky
+		- obvykle se ladí I
+		- D se používá pro tlumení nebo vyhlazení šumu
+	- zvyšuju I, dokud se mi nelíbí doba trvání procesu
+	- …
+- pozorování: když to má být rychlé, tak to obvykle přestřelí
+- Ziegler-Nichols
+	- velkou roli hraje čas mezi změnou a zaznamenáním změny (= „perioda“?)
+	- je potřeba najít Pc a Tc
+		- Pc … kritické P, kdy to začíná oscilovat s nulovými I, D
+		- Tc … perioda
+- Chien-Hrones-Reswick
+	- …
+- pozorování: je lepší používat jednodušší přístup – někdy stačí P, PI nebo PD
+- implementační problémy: nedokonalé informace (měření, rozlišení enkodéru, filtrování dat), rozsah proměnných, aritmetika (když bude akumulovaná chyba moc velká, tak může být problém s přičítáním/odčítáním)
+- u boebotů nedává smysl měnit rychlost motorů vícekrát než 20× za sekundu
+- implementace v reálném světě
+	- mechanická – páčka, pružina, hmotnost
+	- elektrická (analogová) – zesilovač, kondendzátor, odpor
+	- digitální – výpočet v mikrokontrolerech FPGA, PLC, …
+
+## Řídicí systémy
+
+- omezeny na konkrétní situaci v konkrétním čase
+- starší průmyslová robotika – roboti se nepřizpůsobují okolním podmínkám (takže to vlastně nebyli roboti, ale spíše mechanická zařízení)
+- robot control = sensing (načtení informací z okolí) → processing (zpracování informací) → executing (vykonání reakcí na podněty)
+- konečný stavový automat (finite state machine)
+	- chybí tam výstup – chování robota
+- implementace FSM
+	- definuju stavy jako výčtový typ
+	- nastavím počáteční stav
+	- implementuju přechod mezi stavy (třeba pomocí switche)
+	- pozor na časování
+- složitější implementace – pomocí tabulky stavů a vychodnocovacích funkcí
+- Petriho síť
+	- orientovaný bipartitní graf
+	- vrcholy … přechody a místa
+	- graf je vhodný na znázornění nezávislých událostí a synchronizace
+- Grafcet
+	- GRAphe Fonctionnel de Commande Etapes/Transitions
+	- založen na binárních Petriho sítích
+	- je vhodný pro asynchronní paralelní spouštění
+- Sequential Function Chart
+- Node-RED
+	- low-code programování pro událostmi řízené aplikace
+- implementace na střední úrovni – middleware
+	- propojuje moduly na nízké úrovni, které ovládají hardware, s high level algoritmy a rozhodovacími procesy
+	- např. ROS (potřebuje operační systém, na kterém by mohl běžet; poskytuje spoustu užitečných nástrojů a balíčků)
+- implementace průmyslového řízení – podle technických norem
+- architektury vyšší úrovně řízení
