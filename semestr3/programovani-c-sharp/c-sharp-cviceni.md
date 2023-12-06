@@ -222,6 +222,7 @@
 			- ContainsKey
 			- TryGetValue → value++ → = value
 		- z toho mi vyjde, která varianta je nejlepší, tu budu používat v první části úkolu
+- návrhový vzor adaptér
 - v testech můžu jednoduchou metodu napsat jenom jednou a pak ji používat v každém testu v sekci Act
 - pokud nechci pořád psát new Token(Token.EndOfLine), tak můžu použít konstanty
 - unit testování table summator processor (TSP)
@@ -266,3 +267,64 @@
 		- která data jsou globální stav
 		- tohle budeme odevzdávat, za pět bodů
 		- specifikace přijde mailem
+- úloha zarovnání do bloku
+	- TextReader, z něj padají znaky do ITokenReaderu
+	- ITokenReader, z něj (v Mainu) padají tokeny do ITokenProcessoru
+	- z ITokenProcessoru padají seznamy stringů do BlockJustify nebo do LeftJustify
+	- odtamtud se zapisuje do TextWriteru
+- highlighting
+	- udělám si jednodušší interface IStringWriter
+	- udělám adaptér pro TextWriter
+	- odekoruju
+- více souborů
+	- MultiSourceTokenReader
+	- factory na TokenReader
+	- MultiSourceTokenReader přijme seznam tokenReaderFactories
+- dynablaster
+	- screenshoty obrazovek jsou hezké
+	- když je nemám, tak si je načrtnu
+	- neplést do toho imlementaci v C#
+	- některé přechody se dějí samy od sebe
+- objektový návrh
+	- Screen
+		- vstup: klávesy
+		- výstup: data (výběr herního režimu apod.)
+	- MainController
+		- currentScreen
+		- pamatuje si graf obrazovek a řeší přechody
+		- screen1.Deactivate, screen2.Activate
+		- vstup: klávesy
+		- klávesy předává obrazovce
+		- obrazovka komunikuje s Controllerem
+	- BattleConfigController
+	- MatchController
+	- BattleConfig
+	- MatchStats
+- návrhový vzor MVC (Model – View – Controller)
+	- Model … data
+	- View … obrazovka
+	- Controller … stará se o zobrazování Views a předávání dat
+	- někdy View zprostředkovává uživatelský vstup a předává o tom informaci Controlleru
+- vyděláváme peníze
+	- potřebujeme nápad
+		- prodávání knížek
+		- vyrobíme internetové knihkupectví
+	- zvučné jméno
+		- dobrá knihkupectví se jmenují podle řek
+		- Nežárka
+	- doména – nezarka.net
+	- zaregistrovat + zaplatit doménu
+	- design
+	- specifikace – v ReCodExu
+	- implementace
+	- ?
+	- profit
+- implementace
+	- na vstupu dostaneme model
+	- budou chodit „requesty“ (taky dostaneme na vstupu)
+	- pro každý request vypsat HTML (dohromady na výstupu)
+	- náš obchod by měl být rozšiřitelný (ne na úplně jiný obchod)
+	- počet obrazovek se bude rozšiřovat
+	- máme použít MVC
+	- máme vyrobit C# kód, který HTML tiskne
+	- konverzi HTML do C# kódu máme nějak automatizovat
