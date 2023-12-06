@@ -512,3 +512,71 @@
 			- $G-x$ je souvislý, protože $G$ je 2-souvislý
 			- takže bude existovat ještě další cesta do $V_\max$
 			- tato cesta + hrana $xy$ = další ucho
+
+## Cayleyho vzorec
+
+- strom … souvislý graf bez kružnic
+- $s_n:=$ počet stromů na množině vrcholů $[n]:=\set{1,2,\dots,n}$
+- $s_1=1,\;s_2=1,\;s_3=3,\;s_4 = 16,\;s_5 = 125$
+- věta (Cayleyho vzorec, Borchardt)
+	- $s_n=n^{n-2}$
+- důkaz
+	- nebudu počítat stromy, ale kořenové stromy
+	- df: kořenový strom je strom, ve kterém se jeden vrchol určil jako kořen a všechny hrany se zorientovaly směrem ke kořeni
+	- $k_n:=$ počet kořenových stromů
+	- pozorování: $k_n=n\cdot s_n$
+	- pozorování: pokud ve stromě zorientuji hrany tak, aby z každého vrcholu odcházela nejvýš jedna hrana, tak potom existuje právě jeden vrchol („kořen“), z něhož žádná hrana neodchází, a navíc všechny hrany jsou orientované směrem ke kořeni
+	- df: povykos (postup vytváření kořenového stromu) je posloupnost $n-1$ orientovaných hran $(e_1,e_2,\dots,e_{n-1})$ na vrcholech $[n]$ taková, že $([n],\set{e_1,\dots,e_{n-1}})$ je kořenový strom
+	- $p_n:=$ počet povykosů
+	- pozorování: $p_n=(n-1)!\cdot k_n$
+	- pozorování (pravidla): posloupnost orientovaných hran $(e_1,e_2,\dots,e_{n-1})$ je povykos $\iff\forall k\in[n-1]:$
+		- hrana $e_k$ spojuje vrcholy z různých komponent grafu tvořeného hranami $e_1,\dots,e_{k-1}$
+		- hrana $e_k$ vychází z vrcholu, z něhož nevychází žádná z hran $e_1,\dots,e_{k-1}$
+	- chci vyrobit povykos $(e_1,\dots,e_{n-1})$
+		- mám $n\cdot (n-1)$ možností, jak zvolit $e_1$
+			- vybírám dva vrcholy, mezi kterými povedu hranu
+		- mám $n\cdot (n-2)$ možností, jak zvolit $e_2$, když už znám $e_1$
+			- mám $n$ možností, jak zvolit konec hrany
+			- začátek hrany musí být v jiné komponentě než konec
+			- je tam $n-2$ komponent, které můžu zvolit (dohromady je komponent $n-1$, z toho jednu zvolit nemůžu)
+			- v každé komponentě je „kořen komponenty“ (vrchol, z nějž žádná hrana nevychází)
+			- hrana musí nutně začínat v „kořeni komponenty“ (podle druhého pravidla)
+			- tedy mám $n-2$ možností, jak zvolit začátek hrany
+		- pokud už jsem vybral $e_1,\dots,e_{k-1}$ v souladu s oběma pravidly, tak mám $n\cdot (n-k)$ možností, jak vybrat $e_k$
+			- $n$ … vyberu konec $e_k$
+			- $n-k$ … vyberu začátek v kořeni nějaké komponenty neobsahující konec $e_k$
+			- $p_n=n\cdot(n-1)\cdot n\cdot(n-2)\cdot\ldots\cdot n\cdot 1=$
+			- $=\prod_{k=1}^{n-1}n(n-k)=n^{n-1}(n-1)!$
+			- $k_n=\frac{p_n}{(n-1!)}=n^{n-1}$
+			- $s_n=\frac{k_n}{n}=n^{n-2}\quad\square$
+
+## Počítání dvěma způsoby
+
+- pozorování: když $G=(V,E)$ je bipartitní graf s partitami $A,B$, tak $|E|=\sum_{x\in A}\deg(x)=\sum_{y\in B}\deg(y)$
+- příklad: fakulta má 1000 studujících, 50 předmětů, každý studující má zapsáno $\geq 10$ předmětů; dokažte, že existuje předmě, který má zapsáno $\geq 200$ lidí
+	- řešení: sporem, nechť každý předmět má zapsáno $\lt 200$ lidí
+	- počítejme počet dvojic $(x,y)$, kde $x$ je studující, $y$ je předmět, $x$ má zapsán předmět $y$, dvěma způsoby
+		- první způsob: těch dvojic je $\geq 1000\cdot 10$
+		- druhý způsob: těch dvojic je $\lt 50\cdot 200$
+	- to je spor
+- značení
+	- $\mathcal P([n])$ … množina všech podmnožin množiny $[n]$
+	- ${[n]\choose k}$ … množina všech $k$-prvkových podmnožin $[n]$
+- df: antiřetězec v $\mathcal P([n])$ je množina $\mathcal A\subseteq\mathcal P([n])$ taková, že $\forall M,M'\in\mathcal A:M\neq M'\implies M\not\subseteq M'\land M'\not\subseteq M$
+- věta (Sperner): největší antiřetězec v $\mathcal P([n])$ má velikost ${n\choose\lfloor n/2\rfloor}={n\choose\lceil n/2\rceil}$
+- důkaz
+	- antiřetězec velikosti ${n\choose\lfloor n/2\rfloor}$ je např. ${[n]\choose\lfloor n/2\rfloor}$
+	- dokažme, že neexistuje větší antiřetězec
+		- nechť $\mathcal A$ je aniřetězec, označme $\mathcal A=\set{A_1,A_2,\dots,A_k}$, kde $k=|\mathcal A|$, chceme $k\leq{n\choose\lfloor n/2\rfloor}$
+		- df: nasycený řetězec v $\mathcal P([n])$ je posloupnost $M_0,M_1,\dots,M_n\subseteq[n]$, kde $M_0\subseteq M_1\subseteq\dots\subseteq M_n\subseteq [n]$ a $|M_i|=i$
+		- máme $n!$ nasycených řetězců v $\mathcal P([n])$
+		- každý nasycený řetězec obsahuje nejvýš jednu množinu $\mathcal A$
+		- počítejme dvěma způsoby dvojice $(A,\mathcal R)$, kde $A\in\mathcal A$, $\mathcal R$ je nasycený řetězec, $A\in\mathcal R$
+			- první způsob: dvojic je $\leq n!$
+			- druhý způsob: pro $A\in\mathcal A$ mám $|A|!\cdot(n-|A|)!$ nasycených řetězců obsahujících $A$
+				- mám množinu $A$
+				- mám $|A|$ možností, který prvek z ní odeberu
+				- postupně odebírám prvky, až se dostanu k prázdné množině → $|A|!$ možností
+				- podobně $(n-|A|)!$ možností, jak dotvořit řetězec přidáváním prvků
+			- $n!\geq\sum_{A\in\mathcal A}|A|!(n-|A|)!\implies 1\geq\sum_{A\in\mathcal A}\frac{|A|!(n-|A|)!}{n!}=\sum_{A\in\mathcal A}\frac1{n\over|A|}\geq\sum\frac1{n\choose\lfloor}$
+			- pokračování viz záznam
