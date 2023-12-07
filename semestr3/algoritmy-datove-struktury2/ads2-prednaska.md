@@ -410,21 +410,77 @@
 ## Dvojrozměrné úlohy
 
 - oplocení jabloní
-- nejlevější jabloň určitě bude součástí plotu
-- ukotvíme polopřímku v jabloni, otáčíme jí, než se dotkne další jabloně
-- tenhle postup opakujeme, nakonec dostaneme konvexní obal množiny $x_1,\dots,x_n\in\mathbb R^2$
-- předpokládáme body v obecné poloze
-- budeme „zametat“ rovinu – rovinu přejíždíme přímkou, body na jedné straně jsme zpracovali, body na druhé budeme zpracovávat, bod na přímce právě zpracováváme
-- máme konvexní obal zpracovaných bodů
-	- $H$ … horní obálka – stáčí se doprava
-	- $D$ … dolní obálka – stáčí se doleva
-- přidáváme bod
-	- pro obě obálky zkontrolujeme, zda do nich bod můžeme přidat, aniž bychom porušili konvexnost
-	- jinak z dané obálky odstraňujeme body tak dlouho, dokud bod nepůjde napojit
-- časová složitost
-	- třídění bodů podle $x$-ové souřadnice v $\Theta(n\log n)$
-	- odstraňování bodů v $O(n)$ … každý bod odstraníme nejvýše jednou
-- jak poznat, zda můžu napojit bod (neboli kam se křivka stáčí) – pomocí znaménka determinantu matice složené ze souřadnic posledních dvou vektorů
-- jak řešit body, které nejsou v obecné poloze?
-	- představíme si pootočení soustavy souřadnic o $\varepsilon$
-	- tedy nebudeme třídit body zleva doprava, ale lexikograficky podle souřadnic (zleva doprava, shora dolů)
+	- nejlevější jabloň určitě bude součástí plotu
+	- ukotvíme polopřímku v jabloni, otáčíme jí, než se dotkne další jabloně
+	- tenhle postup opakujeme, nakonec dostaneme konvexní obal množiny $x_1,\dots,x_n\in\mathbb R^2$
+	- předpokládáme body v obecné poloze
+	- budeme „zametat“ rovinu – rovinu přejíždíme přímkou, body na jedné straně jsme zpracovali, body na druhé budeme zpracovávat, bod na přímce právě zpracováváme
+	- máme konvexní obal zpracovaných bodů
+		- $H$ … horní obálka – stáčí se doprava
+		- $D$ … dolní obálka – stáčí se doleva
+	- přidáváme bod
+		- pro obě obálky zkontrolujeme, zda do nich bod můžeme přidat, aniž bychom porušili konvexnost
+		- jinak z dané obálky odstraňujeme body tak dlouho, dokud bod nepůjde napojit
+	- časová složitost
+		- třídění bodů podle $x$-ové souřadnice v $\Theta(n\log n)$
+		- odstraňování bodů v $O(n)$ … každý bod odstraníme nejvýše jednou
+	- jak poznat, zda můžu napojit bod (neboli kam se křivka stáčí) – pomocí znaménka determinantu matice složené ze souřadnic posledních dvou vektorů
+	- jak řešit body, které nejsou v obecné poloze?
+		- představíme si pootočení soustavy souřadnic o $\varepsilon$
+		- tedy nebudeme třídit body zleva doprava, ale lexikograficky podle souřadnic (zleva doprava, shora dolů)
+- průsečíky $n$ úseček
+	- průsečíků je $\Theta(n^2)$
+	- chceme složitost $O(\text{hezká funkce}(n+p))$
+	- $p$ … počet průsečíků
+	- předpokládáme obecnou polohu úseček (v daném bodě se protínají právě dvě přímky, žádná z nich nekončí v průsečíku)
+	- zametáme přímkou shora dolů
+		- události: začátky, konce, průsečíky
+		- v danou chvíli máme průřez $\equiv$ množina úseček proťatých zametací přímkou
+		- průřez je seřazen zleva doprava
+	- pozorování: těsně před zametením průsečíku sousedí protínající se úsečky v průřezu
+	- kalendář událostí
+	- algoritmus
+		- …
+	- reprezentace
+		- …
+	- celkem $O((n+p)\log n)$ čas
+	- $O(n)$ paměť
+	- umí se $O(n\log n+p)$ čas
+- Voroného diagram
+	- místa a oblasti
+	- oblast $o_i$ odpovídá místu $x_i$, je to část roviny, jejíž body jsou k místu $x_i$ blíže než k jinému místu
+	- Voroného diagram je rozkladem roviny na mnohoúhelníkové oblasti, z nichž některé jsou otevřené do nekonečna
+		- mezi nekonečnými paprsky se dá binárně vyhledávat, takže si to zjednodušíme na konečnou verzi
+	- oblast je určena průnikem polorovin
+	- lze zkonstruovat v čase $O(n\log n)$, ale algoritmus přeskočíme
+- lokalizace bodu
+	- datová struktura pro rozklad roviny na oblasti – mnohoúhelníky
+	- dotaz: do jaké oblasti patří zadaný bod?
+	- přístup 1
+		- nařežeme rozklad roviny na vodorovné pásy podle vrcholů mnohoúhelníků
+		- takže pro daný dotaz nejdříve binárně vyhledáváme, ve kterém pásu se bod nachází
+		- a potom v pásu binárně vyhledáváme, mezi jaké dvě přímky se bod trefil
+		- dotaz v $O(\log n)$
+		- paměť $O(n^2)$
+	- přístup 2
+		- použijeme algoritmus z průsečíků přímek
+		- použijeme (semi)perzistentní datovou strukturu
+			- pamatuje si historii
+			- zápis → nová verze
+			- dotaz: dostane verzi
+		- umí se semiperzistentní BVS
+			- $O(\log n)$ čas na operaci
+			- $O(\log n)$ paměť na verzi
+			- časová složitost algoritmu
+				- $O(n)$ operací s průřezem → čas $O(n \log n)$
+				- $O(n)$ verzí → prostor $O(n\log n)$
+			- perzistence stromu kopírováním cest
+			- AVL vyvažování taky funguje u perzistentního stromu
+			- umí se i konstantní paměť na verzi
+
+## Složitost algoritmů
+
+- rozhodovací problém $\equiv$ funkce $f:\set{0,1}^*\to\set{0,1}$
+- problém existence párování velikosti $k$
+	- vstup: bipartitní graf a $k\in\mathbb N$
+	- 
