@@ -459,7 +459,7 @@
 	- příklad s `if (x is int a)` – chová se jako deklarace uvnitř podmíněného bloku
 - lze omezit životnost proměnných pomocí složených závorek
 
----
+## Pointery a reference
 
 - co může být v proměnné
 	- hodnota (u hodnotových typů)
@@ -507,3 +507,49 @@
 	- to nejhorší z obou světů
 	- tracking reference se deklarují `int%`
 	- obecné tracking reference jsou pořád příliš nebezpečné na to, aby se s nimi dobře programovalo
+- nebezpečný scénář – tracking reference má delší životnost než věc, na kterou ukazuje
+- bezpečný scénář – tracking reference má kratší životnost než věc, na kterou ukazuje
+	- tracking referenci typicky předáváme jako argument funkce
+	- věc, na kterou tracking reference ukazuje může být
+		- static
+		- lokální proměnná
+		- GC halda
+			- garbage collector objekt nesebere, dokud na něj směřuje tracking reference
+- klíčové slovo `ref` – používá se u parametrů funkcí, uvádí se dvakrát, v hlavičce funkce i při volání
+- u referenčních typů obvykle nedává smysl používat tracking referenci
+	- výjimečným případem, kdy to smysl dává, je třeba zvětšení pole – vyrobím nové pole, položky překopíruju a do tracking reference přiřadím nové pole
+- když používám `ref`, tak proměnná musí být inicializovaná (aby se z ní dalo číst)
+- proto se u výstupních parametrů funkcí používá klíčové slovo `out` – na úrovni CIL kódu je to to samé, ale nevyžaduje to, aby proměnné byly inicializované
+	- uvnitř funkce s výstupními parametry se s nimi zachází jako s neinicializovanými (dá se z nich číst až po prvním zápisu)
+	- před standardním ukončením funkce s výstupními parametry se do každého z nich musí alespoň jednou zapsat
+	- pokud funkce skončí výjimkou, tak se do výstupních parametrů zapsat nemusí, ale to není problém, protože catch blok nemůže spoléhat na inicializaci v try bloku
+	- pokud proměnnou deklaruju nad try/catch, v try bloku ji inicializuji a v catch bloku vyhodím výjimku dál (pomocí `throw;`), tak pod try/catch můžu proměnnou považovat za inicializovanou
+	- pokud napíšu `if (int.Parse(s, out int x))`, tak se proměnná deklaruje před ifem
+- discard
+	- když mě výstupní hodnota nebo návratová hodnota funkce nezajímá, tak použiju podtržítko jako název lokální proměnné
+	- pozor, pokud je někde v kontextu funkce proměnná/funkce s identifikátorem `_`, tak se vypne discard syntaxe a používá se jako standardní identifikátor proměnné
+- středník
+	- zakončuje příkaz, což je jeden nebo více výrazů
+	- výraz `a = 1` má hodnotu 1
+	- `a = b = c = 123;`
+	- středník říká, že se má zahodit hodnota výrazu
+	- pokud volám funkci, která není voidová, tak je vhodné její návratovou hodnotu zahodit pomocí přiřazení do discardu (z dokumentačních důvodů)
+- klíčové slovo `in` … proměnná uvnitř funkce funguje jako readonly (podobně celá struktura funguje jako readonly)
+	- při volání funkce se dá volat i hodnotově bez klíčového slova
+	- `in` má smysl u výkonnostních optimalizací hodnotových typů (typicky u počítačových her)
+- místo `in` se dá použít taky `ref readonly` – je to něco velmi podobného
+- tracking reference se dají používat i jinde (nejen jako parametry funkcí) – je lepší je moc nepoužívat
+
+## Interfaces a objekty podruhé
+
+- interfacy nejsou potomky objectu, třídy ano
+- graf dědičnosti interfaců je nezávislý na grafu dědičnosti tříd
+- ale `.ToString()` se dá volat na každém objektu
+	- v případě `I i1 = new A();`, kde `I` je interface, tedy funguje `i1.ToString();`
+- všechny hodnotové typy jsou implicitně sealed
+	- kdybychom měli dva structy, kde by jeden dědil od druhého a jeden by byl větší, tak by nefungovalo přiřazení jednoho do typu druhého (protože by neseděla velikost)
+	- proto je dědičnost structů zakázána
+- new je u structů jenom volání konstruktoru – nic se nealokuje
+- metoda v objektu typu C má skrytý parametr this typu C
+- metoda ve struktuře typu S má skrytý parametr this typu `ref S`
+- stejný interface může být implementován objektem i strukturou
