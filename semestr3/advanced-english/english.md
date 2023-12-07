@@ -143,3 +143,13 @@ One day, there was a big fire. The eagles flew away into safety. The horses mana
 - I'll be working till about 8 p.m. – plan
 - I'll work till about 8 p.m. – decision
 - describe a society that is taylor made for idlers × strivers
+- fronting
+	- My reaction was bad, even worse was my colleagues reaction.
+	- Climbing in through the window is very hard, much easier is using the door.
+		- Having no privacy was bad, even worse was having to pay high taxes.
+	- (As) quick as they were, they still couldn't outrun the robot dog.
+		- As communist as the society was, it still wasn't communist enough for Ida Auken.
+	- I don't know where I can go. → Where I can go, I don't know.
+		- How an infinite energy glitch became a thing, I don't know.
+	- The trouble is, the AI guard will not let us leave this room.
+		- The question is, how high the taxes need to be to pay for all the "free" stuff.
