@@ -376,3 +376,90 @@
 	- např. ROS (potřebuje operační systém, na kterém by mohl běžet; poskytuje spoustu užitečných nástrojů a balíčků)
 - implementace průmyslového řízení – podle technických norem
 - architektury vyšší úrovně řízení
+	- deliberative control
+		- nejdřív se posbírají všechny indicie
+		- rozhodne se, co se má dělat
+		- a pak se to vykoná
+		- problém – dynamické prostředí
+	- SPA architektura
+		- sense, plan, act
+		- podobné jako předchozí
+	- reaktivní řízení
+		- nepřemýšlej – konej
+		- tenhle princip používáme u boebotů
+		- takhle funguje spousta rostlin a živočichů (mají přirozené reflexy)
+		- těsný vztah mezi senzory a aktuátory
+		- typicky se takové systémy popisují systémem pravidel – když se něco stane, tak něco udělej
+		- minimální vnitřní stav
+		- v čisté formě nemá reaktivní systém žádnou paměť, nepamatujeme si globální stav
+		- pořád se používá
+	- subsumption architecture
+		- Rodney Brooks, firma iRobot
+		- několik úrovní kontroly – vyšší úrovně řeší problémy, které nižší nezvládnou vyřešit
+		- vyšší úrovně přepisujou vstupy a výstupy nižších úrovní
+	- hybridní řízení
+		- mysli a konej
+		- reaktivita v reálném čase
+		- racionální rozhodování
+		- interakce obou komponent
+			- reactive – okamžité potřeby
+			- deliberative – dlouhodobé potřeby
+		- můžou být v konfliktu – používá se třetí úroveň, která to koordinuje
+	- behaviour control
+		- mysli tak, jak se chováš
+		- sada distribuovaných a interagujících modulů
+		- je to sada jednotlivých „chování“ (behaviours)
+		- behaviours ovlivňují chování robota
+		- decentralizované řízení
+		- jako behaviours se dají použít i neuronové sítě apod.
+		- adaptabilní způsob řízení
+
+## Reprezentace prostředí, mapy
+
+- dělení podle způsobu vytvoření mapy
+	- manuální – trvá to dlouho, není přesná
+	- (částečně) automatické
+- podle času vytvoření – offline (předem), online (v průběhu činnosti)
+- fixní/adaptivní mapa
+- metrické/topologické mapy – topologické reprezentují svět jako objekty a vztahy mezi nimi
+- podle úrovně abstrakce – senzorická (popis objektů podle senzorů), geometrická (popis objektů podle jejich rozměrů, hmotností apod.), topologická (objekty a jejich atributy), symbolická („tohle je židle“)
+- metrické mapy mají referenční souřadnicový systém
+	- objekt je charakterizován tím, jaké místo na mapě zabírá
+	- příklady: turistické mapy, někdy městské mapy (ale např. všechny ulice jsou zobrazeny stejně široké)
+- topologické mapy
+	- neuvádějí obvykle informaci o pozici, ale pouze informace o vztazích mezi objekty
+- v robotice se často používají oba přístupy, které se kombinují
+- bereme v úvahu rozměry robota – nasnímané překážky tedy „rozšíříme“, aby do nich robot nenarazil (pak to může vypadat, že se chová zvláštně)
+- při delším pohybu robota někdy vznikají v mapách chyby – řeší se to „uzavřením“ mapy (loop closure), které vychází z toho, že zdi na sebe navazují
+- senzorická mapa
+	- spojení vstupů ze senzorů
+	- typickým příkladem je occupancy grid
+		- pravidelná nebo nepravidelná
+		- zachycuje volný prostor, překážky a neznámý prostor
+	- obvykle jen částečná, ne globální
+- geometrická mapa
+	- objekty se skládají z geometrických primitiv (křivek, přímek, hranolů, válců, koulí)
+	- problém – automatické vytvoření geometrické mapy
+- topologická mapa
+	- zobecněná geometrická mapa do obecného grafu
+	- typické příklady
+		- vrcholy … objekty, hrany … vztahy mezi nimi
+		- vrcholy … objekty a vztahy mezi nimi, hrany … přiřazení objektů a vztahů
+- symbolická mapa
+	- pro přímou komunikaci člověk – robot
+- occupancy grid / mřížka obsazenosti
+	- přímý přístup
+		- měření ze senzorů
+		- těžké na vytváření a údržbu
+	- pravděpodobnostní přístup
+		-  vede na bayesovské metody
+	- plausibility approach (věrohodnostní přístup)
+		- zachycuje více různých možností – různé úrovně jistoty
+	- fuzzy přístup
+		- s daty se špatně pracuje
+		- „je hotel blízko pláže?“ – co je to blízko?
+	- neuronové sítě, genetické algoritmy
+		- problém s trénováním a neočekávanými událostmi
+- roboto-centrická senzorika
+	- senzory se hýbou s robotem
+	- musíme data přepočítávat
