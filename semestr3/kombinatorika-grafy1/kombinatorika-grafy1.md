@@ -580,3 +580,56 @@
 				- podobně $(n-|A|)!$ možností, jak dotvořit řetězec přidáváním prvků
 			- $n!\geq\sum_{A\in\mathcal A}|A|!(n-|A|)!\implies 1\geq\sum_{A\in\mathcal A}\frac{|A|!(n-|A|)!}{n!}=\sum_{A\in\mathcal A}\frac1{n\over|A|}\geq\sum\frac1{n\choose\lfloor}$
 			- pokračování viz záznam
+- věta: Nechť $G=(V,E)$ je graf na $n$ vrcholech, který neobsahuje $C_4$ jako podgraf. Potom $|E|\leq O(n^{3/2})$.
+- důkaz:
+	- nechť $G=(V,E)$ je graf bez $C_4$, $|V|=n$
+	- označme $H$ počet dvojic $(x,\set{y,z})$ takových, že $x,y,z\in V$, $y\neq z$, $x$ je soused $y$ i $z$
+	- počítejme $H$ dvěma způsoby
+		- pro dané $x\in V$ mám přesně ${\deg x\choose 2}$ možností, jak zvolit $y$ a $z$
+			- tedy $H=\sum_{x\in V}{\deg x\choose 2}\geq\sum_{x\in V}\frac{(\deg x-1)^2}2$
+		- pro dané $\set{y,z}\in{V\choose 2}$ existuje nejvýše jeden společný soused $x\in V$, jinak by $G$ obsahoval $C_4$
+			- tedy $H\leq{n\choose 2}\leq\frac{n^2}2$
+	- tedy $\frac{n^2}2\geq \sum_{x\in V}\frac{(\deg x-1)^2}2$
+	- z toho plyne, že $n^2\geq \sum_{x\in V}{(\deg x-1)^2}$
+	- chci $|E|=\frac 12\sum_{x\in V}\deg x\leq O(n^{3/2})$
+	- uvažme funkci $f(x)=(x-1)^2$, ta je konvexní, tedy pro každé $x_1,x_2,\dots,x_n\in\mathbb R: f(\frac{x_1+\dots+x_n}n)\leq\frac{f(x_1)+f(x_2)+\dots+f(x_n)}n$
+	- tedy $n\geq\frac{\sum_{x\in V}{(\deg x-1)^2}}n\geq\left(\frac{\sum_{x\in V}\deg x}n-1\right)^2$
+		- počet hran je polovina ze součtu stupňů
+	- $\sqrt n\geq\frac{2|E|}n-1$
+	- $n^{3/2}\geq 2|E|-n$
+	- $\frac12(n^{3/2}+n)\geq|E|\quad\square$
+- poznámka: odhad je těsný
+	- mějme incidenční graf konečné projektivní roviny řádu $k$
+	- …
+
+## Ramseyovy věty
+
+- df: klika v grafu $G=(V,E)$ je množina vrcholů taková, že každé dva jsou spojené hranou
+- df: nezávislá množina v grafu $G=(V,E)$ je množina vrcholů taková, že žádné dvě vrcholy nejsou spojené hranou
+- motivační tvrzeníčko: v každém grafu na 6 vrcholech existuje klika velikosti 3 nebo nezávislá množina velikosti 3
+	- vezmu vrchol $v$ – zbývá pět vrcholů
+	- $v$ je buď spojený se třemi vrcholy, nebo je nespojený se třemi vrcholy
+	- pokud je spojený, dívám se na hrany mezi nimi
+- ekvivalentně: když v úplném grafu $K_6$ obarvím hrany červeně a modře, tak vždy vznikne jednobarevný trojúhelník (červeně jsou hrany původního grafu na šesti vrcholech, modře jsou nehrany)
+- Ramseyova věta, grafová verze: $\forall k\in\mathbb N\;\forall\ell\in\mathbb N\;\exists N\in\mathbb N$ takové, že $\forall$ graf $G$ na $N$ vrcholech obsahuje kliku velikosti $k$ nebo nezávislou množinu velikosti $\ell$
+- označme $R(k,\ell)$ nejmeší $N$, pro které platí závěr té věty
+- už víme: $R(3,3)\leq 6$
+- pozorování: $R(3,3)=5$, protože $C_5$ neobsahuje ani kliku, ani nezávislou množinu velikosti 3
+- $R(k,\ell)$ se nazývá Ramseyovo číslo
+- důkaz indukcí podle $k+\ell$
+	- pozorování: $R(k,1)=1=R(1,\ell)$
+	- pozorování: $R(k,2)=k=R(2,k)$
+	- mějme $k\geq 3,\,l\geq 3$, definujme $N:=R(k,\ell-1)+R(k-1,\ell)$
+	- nechť máme dán graf $G$ na $N$ vrcholech
+	- nechť $x$ je libovolný vrchol $G$
+	- označme $S$ množinu sousedů vrcholu $x$ a $T=V\setminus (S\cup\set{x})$
+	- protože $|S|+|T|=N-1=R(k,\ell-1)+R(k-1,\ell)-1$, tak platí buď $|S|\geq R(k-1,\ell)$, nebo $|T|\geq R(k,\ell-1)$
+	- předpokládejme, že $|S|\geq R(k-1,\ell)$, označme $G_S$ podgraf $G$ indukovaý $S$
+	- tedy $G_S$ obsahuje kliku velikosti $k-1$ nebo nezávislou množinu velikosti $\ell$
+	- pokud $G_S$ obsahuje nezávislou množinu velikosti $\ell$, tak i $G$ ji obsahuje, hotovo
+	- pokud $G_S$ obsahuje kliku velikosti $k-1$, tak ta klika spolu s $x$ tvoří kliku velikosti $k$ v $G$, hotovo
+	- případ $|T|\geq R(k,\ell-1)$ je analogický
+	- $V(G)=S\cup T\cup\set{x}$
+- důsledek (symetrická verze Ramseyovy věty): $\forall m\;\exists N\;\forall G$ na $N$ vrcholech má kliku nebo nezávislou množinu velikosti $m$
+- ekvivalentní 2-barevná verze Ramseyovy věty: $\forall m\;\exists N\;\forall$obarvení hran $K_N$ červeně a modře existuje jednobarevná klika velikosti $m$
+- věta (vícebarevná verze Ramseyovy věty): $\forall b\in\mathbb N\;\forall m\in\mathbb N\;\exists N\in\mathbb N\;\forall$obarvení hran $K_N$ pomocí $b$ barev množina $m$ vrcholů taková, že všechny hrany mezi nimi mají stejnou barvu
