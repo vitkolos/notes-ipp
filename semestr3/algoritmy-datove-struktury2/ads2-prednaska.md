@@ -483,4 +483,94 @@
 - rozhodovací problém $\equiv$ funkce $f:\set{0,1}^*\to\set{0,1}$
 - problém existence párování velikosti $k$
 	- vstup: bipartitní graf a $k\in\mathbb N$
-	- 
+- df: problém A je převoditelný na problém B $\equiv\exists f:\set{0,1}^*\to\set{0,1}^*$ taková, že $\forall\alpha\in\set{0,1}^*:A(\alpha)=B(f(\alpha))$ a $f$ lze spočítat v čase polynomiálním v $|\alpha|$
+	- začíme $A\to B$ nebo $A\leq_P B$
+- příklad
+	- párování
+		- dán bipartitní graf $G$ a $k\in\mathbb N$
+		- existuje párování velikosti aspoň $k$?
+	- tok
+		- dána síť $S$ a $t\in\mathbb N$
+		- existuje tok velikosti $\geq t$?
+	- párování $\to$ tok
+- lemma
+	- nechť $A\to B$, $B$ řešitelné v polynomiálním čase
+	- potom $A$ je řešitelné v polynomiálním čase
+- princip
+	- vstup pro $A$ $\xrightarrow{f}$ vstup pro B $\xrightarrow{\text{ALG}(B)}$ výstup
+	- algoritmus pro $B$ je polynomiální, ale k délce vstupu pro $B$ (což je výstup $f$)
+- důkaz
+	- …
+- vlastnosti relace převoditelnosti ($\to$)
+	- $A\to A$
+	- $A\xrightarrow{f} B\land B\xrightarrow{g} C\implies A\xrightarrow{f\circ g} C$
+	- $\exists A,B:A\to B\land B\to A$
+		- $A$: vstup má sudou délku
+		- $B$: vstup má lichou délku
+		- není to antisymetrické
+	- $\exists A,B:A\not\to B\land B\not\to A$
+		- $A$: konstantní 0
+		- $B$: konstantní 1
+	- částečné kvaziuspořádání
+
+### SAT
+
+- splnitelnost booleovských formulí
+- vstup: formule v CNF
+	- CNF … konjunkce klauzulí
+	- klauzule … disjunkce literálů
+	- literál … proměnná nebo její negace
+- výstup: $\exists$ dosazení za proměnné takové, že formule je pravdivá (= splňující ohodnocení)
+- 3-SAT: navíc každá klauzule obsahuje max. 3 literály
+- problém: nezávislá množina (NzMna)
+	- …
+- pozor: převoditelnost z 3-SAT na SAT není identita
+	- je potřeba zvalidovat vstup, jestli je 3-SAT – pro nevalidní vstupy chceme vrátit NE
+- zajímavější je převod SAT → 3-SAT
+	- vyrábíme ekvisplnitelnou formuli
+	- $(\alpha\lor\beta)\to(\alpha\lor\zeta)\land(\beta\lor\neg\zeta)$
+	- převod funguje i naopak (viz rezoluce)
+	- jak rozštípnout dlouhou klauzuli délky $\ell$?
+		- $\alpha$ nechť má délku 2
+		- $\beta$ nechť má délku $\ell-2$
+		- po přidání $\zeta$ dostanu konjunkci klauzulí délky 3 a $\ell-1$
+		- klauzuli délky $\ell-1$ štípu dál (pokud je moc dlouhá)
+	- počet štípnutí je shora omezen délkou formule
+	- v polynomiálním čase postupně rozštípeme všechny dlouhé klauzule při zachování splnitelnosti
+- 3-SAT → NzMna
+	- …
+- NzMna → SAT
+	- BÚNO $V(G)=[n]$
+	- $\forall i\in[n]:x_i=1\iff i\in$ NzMna
+	- $\forall ij\in E:(\neg x_i\lor\neg x_j)$
+	- vytvoříme si tabulku pro nezávislou množinu
+		- $y_{ij}=1\equiv$ vrchol $j$ je $i$-tým v NzMna
+			- $i=1,\dots,k$
+			- $j=1,\dots,n$
+		- ve sloupci je maximálně 1 jednička
+			- $\forall i,i',j:(\neg y_{ij}\lor\neg y_{i'j})$
+		- v řádku je právě jedna jednička
+			- $\forall i,j,j':(\neg y_{ij}\lor\neg y_{ij'})$
+			- $\forall i:(y_{i1}\lor y_{i2}\lor\dots\lor y_{in})$
+	- propojíme klauzule
+		- $\forall ij:(y_{ij}\implies x_j)\sim(\neg y_{ij}\lor x_j)$
+- tedy umíme SAT ↔ 3-SAT → NzMna → SAT
+- nahlédneme NzMna ↔ Klika
+- 3,3-SAT … každá proměnná se vyskytuje v nejvýše třech klauzulích
+- převod 3,3-SAT → 3-SAT je opět identita s kontrolou syntaxe
+- 3-SAT → 3,3-SAT
+	- nechť $x$ je proměnná s $k\gt 3$ výskyty
+	- pro každý výskyt si pořídíme nové proměnné $x_1,\dots,x_k$
+	- ekvivalenci všech $x_i$ zajistíme řetězcem implikací
+		- $x_1\implies x_2$
+		- $x_2\implies x_3$
+		- $\quad\vdots$
+		- $x_k\implies x_1$
+	- každá proměnná $x_i$ se tudíž vyskytne třikrát
+- 3,3-SAT* … navíc každý literál max. 2×
+	- použijeme předchozí algoritmus pro všechny proměnné s $\geq 3$ výskyty
+- 3D-párování
+	- vstup: konečné množiny $H,D,K$ + množina $T\subseteq H\times D\times K$
+	- výstup: $\exists T'\subseteq T$ taková, že každý prvek $H,D,K$ je v právě jedné trojici v $T'$
+	- ukážeme 3,3-SAT → 3D-párování
+	- za cvičení 3D-párování → 3,3-SAT
