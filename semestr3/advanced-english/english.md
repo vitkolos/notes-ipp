@@ -153,3 +153,14 @@ One day, there was a big fire. The eagles flew away into safety. The horses mana
 		- How an infinite energy glitch became a thing, I don't know.
 	- The trouble is, the AI guard will not let us leave this room.
 		- The question is, how high the taxes need to be to pay for all the "free" stuff.
+- conjugate (verb) vs. conjugate (noun) \[…it\]
+- infer – vyvodit (z dat)
+	- we can infer from the data that…
+	- the data imply that…
+- use one word from each section
+- take one of these statements and apply it to matfyz and explain why it is true
+	- or make up our own
+- It's often better to be in chains than to be free.
+	- It has been estimated that around 90% of Matfyz students are happier than the average person. **And yet** they have only five minutes of free time a day on average.
+	- The data **suggest** the students don't have time to think about being unhappy.
+	- That's because their timetables are deliberately constructed in a way that prevents them from having any free time.
