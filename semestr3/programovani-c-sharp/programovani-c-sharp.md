@@ -554,6 +554,90 @@
 - metoda ve struktuře typu S má skrytý parametr this typu `ref S`
 - stejný interface může být implementován objektem i strukturou
 
----
+## Pole
 
+- v dotnetu vždy referenčního typu
+- fixní délka
+	- alokuje se na GC haldě
+	- kdyby se délka měnila, pro GC by to bylo moc komplikované
+	- podobně i u jiných objektů se velikost po alokaci nemění
+- na haldě je uložen overhead (syncblock + type), délka a jednotlivé hodnoty
+	- v poli můžou být přímo hodnoty u hodnotových typů nebo adresy u referenčních typů
+- i při zjednodušeném zápisu se vždy nejdříve alokuje vynulované pole a pak se do něj postupně přiřadí hodnoty
+- na prvek pole lze vytvořit tracking referenci
+	- pozor, u objektů s indexerem tohle nefunguje
+- každé pole je potomkem typu Array
+	- ale obvykle není dobrý nápad to používat
+- ale na typu Array existují velmi užitečné statické metody (Copy, Sort, …)
+- vícerozměrná pole
+	- zubatá (jagged)
+		- pole polí
+			- `int[][] a = new int[2][];`
+			- `a[0] = new int[3];`
+			- `a[1] = new int[4];`
+			- `int x = a[0][1];`
+		- jako v Javě
+		- nevýhoda: každé pole má svůj vlastní overhead
+	- obdélníková (rectangular)
+		- mezi hranaté závorky napíšu jednu nebo více čárek
+		- `int[,] a = new int[2, 3];`
+		- `int x = a[0, 1];`
+		- jako v C/C++
+		- v dotnetu je s nimi problém kvůli Visual Basicu .NET
+			- Visual Basic umožňuje začínat od libovolného indexu
+			- to by snížilo efektivitu
+		- v dotnetu
+			- jednodimenzionální pole jsou striktně indexovaná od nuly
+			- vícedimenzionální pole umožňují začínat od libovolného indexu
+				- VB.NET je používá i pro jednodimenzionální pole
+				- ale jsou pomalejší – i v C#
+	- závěr
+		- jagged jsou obecně rychlejší (cca 2×)
+			- ale pokud už s každou naindexovanou položkou pole budu provádět nějaký výpočet, tak tam nebude velký rozdíl v rychlosti
+		- obdélníková jsou paměťově úspornější (v určitých situacích), lépe se zapisují
+- poznámka: `default(T)`vrací výchozí hodnotu pro typ T (dá se používat i zkráceně pomocí `default`)
+	- po inicializaci pole jsou všechny hodnoty nastaveny na default
+- všechna pole mají runtimový range check
+	- nedá se z nich vytéct ven
+	- JIT se snaží range check optimalizovat – typicky u cyklů
+- struktury v poli vs. v seznamu (List)
+	- metoda na struktuře má implicitní parametr – tracking referenci na strukturu
+	- když budu mít metodu MultiplyBy, která upravuje hodnoty ve struktuře, tak `points[0].MultiplyBy(3)` se bude chovat různě v případě pole a listu – opět viz problém s tracking referencemi a indexery
+	- proto dává smysl, aby struktury byly immutable
+	- mutable struktury jsou divné
+- tracking reference se dá vrátit z metody – pokud ukazuje na něco jiného než na lokální proměnnou
+	- tedy by se takhle dal implementovat List – indexer by vracel tracking referenci
+	- C# to takhle nedělá, getter indexeru vrací hodnotu a setter modifikuje hodnotu
+- ve strukturách nešlo inicializovat fieldy hodnotami kvůli implicitnímu volání bezparametrického konstruktoru nulujícího paměť
+	- když se vytváří pole struktur (nebo se definuje lokální proměnná daného typu), tak se to tváří, jako by se volal implicitní bezparametrický konstruktor struktury (ale ve skutečnosti se nevolá – jen se nuluje paměť)
+	- od C# 9 můžou mít fieldy výchozí hodnotu
+		- jsou tam dva bezparametrické konstruktory – jeden implicitní, druhý můj
+		- výchozí hodnoty se přiřazují jen když volám explicitně konstruktor (ten svůj)
+- překladač kontroluje inicializaci jednotlivých fieldů struktury
+	- takže není potřeba volat konstruktor
+- dokud nejsou inicializované všechny fieldy struktury, tak nemůžu používat vlastnosti – protože getteru se předává tracking reference na celou strukturu
 
+## Goto
+
+- syntax
+	- `goto skocSem;`
+	- label – `skocSem:`
+- na úrovni strojového kódu je to JMP
+- problém: může výrazně snížit přehlednost kódu
+- pravidla
+	- nesmí se skákat mimo funkce
+	- nesmí se skákat do složených závorek
+- rozumné použití
+	- break z vnořeného cyklu
+	- skočení zpátky před cyklus
+	- stavový automat
+		- alternativa: příkaz switch
+- switch (jako void příkaz)
+	- každá větev musí končit příkazem break/return/goto
+	- větev může mít několik `case` labelů
+	- JIT ho může optimalizovat – tedy bývá efektivnější než kaskáda ifů
+	- pomocí goto se dá skočit na konkrétní case (z vnitřku switche)
+- switch jako výraz
+	- `int result = x switch { > 10 and < 20 => 1000, int b => b + 10, null => -1 };`
+	- místo case se píšou šipky
+	- místo default se píše `_ =>`
