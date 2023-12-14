@@ -556,37 +556,4 @@
 
 ---
 
-- všechno v C# se defaultně předává hodnotou (ta hodnota může být i adresa)
-- je vhodné na netriviální část zadání napsat unit testy
-- za unit testy jsou bonusové body
-- to, že něco chybí, se z kódu vykoukat nedá
-- klíčové slovo `partial` nám umožňuje rozdělit třídu do dvou souborů
-	- není to dobrý nápad – kód pak může divně interagovat, když si nedáme pozor při psaní (kvůli scopu/namespacu)
-- Nežárka – implementace
-	- načtení modelu
-	- přečtení requestu
-	- parsování requestu
-	- zpracování requestu
-		- modifikace modelu
-		- výběr podmnožiny modelu
-	- zobrazení modelu
-- dává smysl rozdělit controller, mít MasterController, BooksController a ShoppingCartController
-- při testování můžu nafejkovat BooksController a ShoppingCartController a jenom testovat, jestli se na nich volají správné funkce (když chci testovat parsování requestů)
-- dává smysl mít model staticky globálně?
-	- možná jo
-	- ale může být užitečné být schopný řešit situaci, kdy je modelů víc
-- opakované stringy dává smysl vytáhnout do konstant
-- dává smysl, aby implementace práce s daty byla v modelu
-	- pozn.: když přidávám knížku do košíku, tak bych měl asi přidávat `Book book`, ne `int bookId`
-- parametrizace view pro účely testování nebo přepínání formátů (HTML, JSON, …)
-	- pomocí factory
-- úkol na příště
-	- kódovací algoritmus Huffman
-	- úloha bude mít dvě až tři části
-	- binární soubor – řešíme bajty
-	- stavíme binární strom
-	- je důležité rozlišovat, který vrchol patří doleva a který doprava
-	- strom procházíme v prefixovém pořadí
-	- je potřeba ten strom opravdu postavit v paměti – nestačí ho vypsat
-	- triviální integrační test – podívat se na číslo v kořeni (bude tam velikost souboru)
-	- cílem je používat O(1) paměti
+
