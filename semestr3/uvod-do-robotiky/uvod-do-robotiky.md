@@ -463,3 +463,57 @@
 - roboto-centrická senzorika
 	- senzory se hýbou s robotem
 	- musíme data přepočítávat
+- cíle lokalizace
+	- abychom zjistili robotovu pozici a orientaci
+		- vzhledem k mapě
+		- v daném prostředí
+	- někdy chceme získat pozici a orientaci jednotlivých částí robota
+	- pozice + orientace = „póza robota“
+- problém transformace souřadnic mezi globálním a lokálním systémem
+- dělení lokalizace
+	- absolutní (globální) / relativní (lokální) – relativní se typicky vztahuje k nějaké poloze v minulosti
+	- pasivní / aktivní – při aktivním přístupu se při lokalizaci můžu pohybovat (např. jsem v dlouhé chodbě, nevím, ve které, tak zkusím popojet)
+	- ve statickém / dynamickém prostředí
+- absolutní lokalizace
+	- nebere v úvahu předchozí pozici
+	- obvykle technicky nebo výpočetně složitější
+	- řeší situaci, kdy nemáme informaci o předchozí pozici
+		- wake-up problem (robota jsme zapnuli)
+		- kidnap problem (poloha robota se změnila, ale robot to neví)
+	- používáme vlastnosti prostředí – landmarks (aktivní vs. pasivní)
+		- aktivní – vysílají informaci, ze které lze něco zjistit
+	- GPS (Navstar), Glonass, Compass (BeiDou), Galileo
+- relativní lokalizace
+	- měříme změnu od minule
+	- problém – akumulace chyby
+	- používá se odometrie a inerciální navigace
+	- dead reckoning – tradiční námořní navigační postupy (směr + rychlost + čas)
+	- odometrie – měření rotací kol
+- typicky se setkáváme s problémy při reálné lokalizaci
+- řešení reálných problémů s lokalizací
+	- přesnější měření – „model based“, nejistotu eliminuju
+	- nespoléhám se na to, že znám přesnou pozici robota – pravděpodobnostní lokalizace
+		- pozice robota je náhodná proměnná
+		- používají se principy teorie pravděpodobnosti
+		- odhad pózy robota je funkce $\text{Bel}:l\to\set{0,1}$
+			- kde $\text{Bel}$ … belief, $l$ … pozice
+		- nesnažíme se odstranit nejistotu
+		- hodnoty z minulých měření kombinujeme s aktuálním měřením
+		- nepotřebujeme spojitost, takže máme jistou granularitu
+		- topologický graf – vrcholy = možné pozice, hrany = možné přechody
+			- $\text{Bel}(l)$ odpovídá pravděpodobnosti, že je robot ve vrcholu $l$
+		- Monte Carlo lokalizace
+			- sledujeme množinu bodů, které mají nějakou pravděpodobnost (váhy)
+			- součet vah = 1
+			- algoritmus
+				- predikční krok – pohnu se všemi vzorky (pokud vím, že robotovi prokluzují kolečka, tak pohnu každým vzorkem trochu jinak)
+				- korekční krok – změním váhu vzorků na základě měření
+				- převzorkování – upravím množinu vzorků tak, že losuju ze vzorků, přičemž vyšší váha odpovídá vyšší pravděpodobnosti vybrání (ostatní zahodím); taky bývá vhodné nějaké vzorky přidávat nebo někdy dává smysl všechny vzorky zahodit a začít znova
+			- nejlepších výsledků se dosahuje se senzory, které nejsou moc nepřesné, ale ani moc přesné
+			- MCL (Monte Carlo lokalizace) může kombinovat informace z více senzorů
+			- pozorování
+				- MCL je imunní vůči chybám v odometrii
+				- MCL je imunní vůči nepřesnosti GPS
+	- žádná lokalizace
+- SLAM
+	- simultánní lokalizace a mapování
