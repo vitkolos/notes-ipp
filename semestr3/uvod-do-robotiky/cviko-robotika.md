@@ -37,3 +37,6 @@
 		- user-contributed věci nepoužívat, obvykle je to blbě napsané a nefunguje to
 		- nepoužívat moc softwarovou část Arduina
 		- nenechávat moc práce runtimu
+- závěrečný úkol
+	- točit se kratším směrem
+	- když robot vyjede, tak je to chyba toho, kdo zadal choreografii špatně

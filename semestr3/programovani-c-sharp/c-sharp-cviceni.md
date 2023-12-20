@@ -365,3 +365,41 @@
 	- je potřeba ten strom opravdu postavit v paměti – nestačí ho vypsat
 	- triviální integrační test – podívat se na číslo v kořeni (bude tam velikost souboru)
 	- cílem je používat O(1) paměti
+- Huffman
+	- čtení bajtů
+		- BinaryReader
+			- je to adaptér
+			- používá se na Streamu (to je posloupnost bajtů)
+			- vezme posloupnost bajtů a vrátí z nich nějaký typ (int, ulong apod.)
+			- ReadByte
+				- má tam podmínku, která kontroluje, jestli je stav v pořádku, jinak vyhodí výjimku
+				- volá ReadByte na Streamu
+		- StreamReader (opět adaptér na Stream) převádí posloupnost bajtů na posloupnost znaků
+		- typicky si vyrobím nějaký Stream (FileStream nebo NetworkStream) a ten obalím readerem
+		- FileStream má taky metodu ReadByte
+			- používá buffer
+			- pořád tam jsou zbytečné podmínky
+		- možná dává smysl použít metodu `int Read(byte[] bufer, int offset, int count)`
+			- bacha, na konci souboru se vrátí nula
+			- jinak se může vrátit libovolné množství dat
+		- je rozumné číst bajty podle velikosti sektoru – 4096 bajtů (dříve 512)
+		- je fajn se podívat do FileStreamu, tam je DefaultBufferSize 4096
+	- počítání četností pomocí pole
+	- jedno Node na všechno?
+		- rozšiřovat to nepotřebujeme
+		- zákazník bude dlouho čekat
+		- asi to můžeme implementovat dohromady
+		- kdyby nám vadilo, že je jeden konstruktor na všechno, tak si uděláme dvě statické metody na typu Node a zprivátníme konstruktor
+	- nepotřebujeme haldu ani timestamp
+	- stačí nám stabilní sort (triviální insertsort)
+- Huffman 2
+	- ukládání nul a jedniček ve stringu není efektivní
+	- pozor na chování shiftů
+		- shiftuje se o modulo délkou typu
+		- posun odpovídá znaménkovosti typu (aritmetický vs. logický posun)
+	- do souboru uložíme strom
+	- zajímavé třídy
+		- BinaryWriter
+		- BitConverter – FromInt32, ToInt32
+	- ReCodEx je LittleEndian, nemusíme to řešit
+		- kdybychom chtěli, tak BitConverter.IsLittleEndian
