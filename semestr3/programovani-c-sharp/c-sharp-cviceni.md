@@ -403,3 +403,5 @@
 		- BitConverter – FromInt32, ToInt32
 	- ReCodEx je LittleEndian, nemusíme to řešit
 		- kdybychom chtěli, tak BitConverter.IsLittleEndian
+- excelovský úkol
+	- vyhodnocujeme vzorce

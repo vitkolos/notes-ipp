@@ -632,4 +632,56 @@
 	- $V(G)=S\cup T\cup\set{x}$
 - důsledek (symetrická verze Ramseyovy věty): $\forall m\;\exists N\;\forall G$ na $N$ vrcholech má kliku nebo nezávislou množinu velikosti $m$
 - ekvivalentní 2-barevná verze Ramseyovy věty: $\forall m\;\exists N\;\forall$obarvení hran $K_N$ červeně a modře existuje jednobarevná klika velikosti $m$
-- věta (vícebarevná verze Ramseyovy věty): $\forall b\in\mathbb N\;\forall m\in\mathbb N\;\exists N\in\mathbb N\;\forall$obarvení hran $K_N$ pomocí $b$ barev množina $m$ vrcholů taková, že všechny hrany mezi nimi mají stejnou barvu
+- věta (vícebarevná verze Ramseyovy věty): $\forall b\in\mathbb N\;\forall m\in\mathbb N\;\exists N\in\mathbb N\;\forall$obarvení hran $K_N$ pomocí $b$ barev existuje množina $m$ vrcholů taková, že všechny hrany mezi nimi mají stejnou barvu
+- věta: $\forall b\in\mathbb N\;\forall m\in\mathbb N\;\exists N\in\mathbb N\;\forall$obarvení hran $K_N$ pomocí $b$ barev existuje jednobarevná klika velikosti $m$
+	- $R^*_b(m)$ … nejmenší $N$ s touto vlastností
+- připomenutí: $R(k,\ell):=$ nejmenší $N$ takové, že každé obarvení hran $K_n$ červeně a modře obsahuje modrou kliku velikosti $k$ nebo červenou kliku velikosti $\ell$
+- $R^*_2(m)=R(m,m)$
+- důkaz
+	- postupujme indukcí podle $b$
+	- pro $b=1: R_1^*(m)=m$
+	- pro $b=2:R^*_2(m)=R(m,m)$
+	- nechť $b\gt 2$
+		- nechť $N=R(m,R_{b-1}^*(m))$
+		- mějme obarvení $K_N$ pomocí $b$ barev
+		- nechť ty barvy jsou 1) modrá a 2) $b-1$ odstínů červené
+		- Ramseyova věta pro 2 barvy říká, že v tom obarvení buď existuje modrá klika velikosti $m$ (jsem hotov), nebo existuje klika $X$ velikosti $R^*_{b-1}(m)$ taková, že všechny barvy hran mezi vrcholy $X$ jsou odstíny červené
+		- $X$ indukuje úplný graf na $R^*_{b-1}$, jehož hrany jsou obarveny pomocí $b-1$ barev, tedy v něm je jednobarevná klika velikosti $m$ $\square$
+- značení
+	- ${X\choose p}$ … množina $p$-prvkových podmnožin $X$
+	- $K_N^{(p)}$ … $p$-uniformní úplný hypergraf, což je hypergraf $([N],{[N]\choose p})$
+		- tedy $K_N=K_N^{(2)}$
+- pro $b\in\mathbb N:b$-obarvení $K_N^{(p)}$ je funkce ${[N]\choose p}\to[b]$
+- pro dané $b$-obarvení $\beta$ hypergrafu $K_N^{(p)}$ řeknu, že množina $X\subseteq[N]$ je jednobarevná (v obarvení $\beta$), pokud $\beta$ přiřazuje všem množinám v ${X\choose p}$ tu samou barvu
+- $K^{(p)}_\infty$ … nekonečný hypergraf $(\mathbb N,{\mathbb N\choose p})$
+- věta (Ramsey, konečná verze): $\forall p\in\mathbb N\;\forall b\in\mathbb N\;\forall m\in\mathbb N\;\exists N\in\mathbb N\;\forall\,b$-obarvení $K_N^{(p)}$ $\exists$ jednobarevná $m$-prvková podmnožina $[N]$
+- věta (Ramsey, nekonečná verze): $\forall p\in\mathbb N\;\forall b\in\mathbb N\;\forall\,b$-obarvení $K_\infty^{(p)}\;\exists$ nekonečná jednobarevná podmnožina $\mathbb N$
+- $p=1$
+	- pro dané $b,m$ stačí $N=b(m-1)+1$
+	- princip holubníku
+- dokážeme, že konečnou verzi lze odvodit z nekonečné
+- věta (Kőnigovo lemma): nechť $T$ je strom s nekonečně mnoha vrcholy, který neobsahuje žádný vrchol nekonečného stupně, nechť $x_0$ je libovolný vrchol $T$; potom $T$ obsahuje nekonečnou cestu začínající v $x_0$
+- důkaz
+	- zakořeňme $T$ ve vrcholu $x_0$
+	- indukcí definujme posloupnost vrcholů $x_0,x_1,x_2,\dots$ tak, že $x_0,x_1$ tvoří cestu a pro $\forall i\in\mathbb N_0:$ podstrom zakořeněný v $x_i$ má nekonečně mnoho vrcholů
+	- už máme $x_0$
+	- nechť už máme $x_0,x_1,\dots,x_n$, nechť $y_1,y_2,\dots,y_k$ jsou děti $x_n$
+	- aspoň jeden vrchol $y_i$ je kořenem nekonečného podstromu
+	- tedy definujeme $x_{n+1}:=y_i$
+	- posloupnost $x_0,x_1,x_2,\dots$ tvoí nekonečnou cestu v $T$
+- tvrzení: z nekonečné verz Ramseyovy věty plyne konečná verze
+- důkaz
+	- nechť neplatí konečná Ramseyova věta, tedy $\exists p\;\exists b\;\exists m\;\forall N\;\exists\,b$-obarvení $K_N^{(p)}$ neobsahující jednobarevnou podmnožinu velikosti $m$
+	- řeknu, že $b$-obarvení $\beta$ hypergrafu $K_N^{(p)}$ je záludné, pokud v něm neexistuje jednobarevná podmnožina $[N]$ velikosti $m$
+	- $Z_N$ … množina záludných obarvení $K_N^{(p)}$
+	- řeknu, že $b$-obarvení $\gamma\in Z_{N+1}$ rozšiřuje $b$-obarvení $\beta\in Z_N$, pokud pro každou $h\in{[N]\choose p}$ platí $\gamma(h)=\beta(h)$
+	- pozorování: každé $\gamma\in Z_{n+1}$ rozšiřuje právě jedno $\beta\in Z_N$
+	- definujme strom $T$ na vrcholech $Z_1\cup Z_2\cup\dots=\bigcup_{N=1}^\infty Z_N$
+	- $\set{\beta,\gamma}\in E(T)\iff\gamma$ rozšiřuje $\beta$ nebo naopak
+	- v tom stromě existuje nekonečná cesta $\beta_1,\beta_2,\beta_3,\dots$, kde $\beta_N\in Z_N$ (podle Kőnigova lemmatu)
+	- definujme obarvení $\beta:{\mathbb N\choose p}\to[b]$ takto: nechť máme dánu množinu $h\in{\mathbb N\choose p}$, volme $N\in\mathbb N$ takové, že $h\subseteq [N]$ a definujme $\beta(h):=\beta_N(h)$
+	- tvrdím, že $\beta$ je záludné obarvení pro $K_\infty^{(p)}$
+	- kdyby ne, tak $\beta$ má nějakou jednobarevnou $m$-prvkovou množinu $X\subseteq\mathbb N$
+	- volme $N$ tak, že $X\subseteq[N]$
+	- potom $\beta$ obarví ${X\choose p}$ stejně jako $\beta_N$, ale $\beta_N$ je záludné pro $K_N^{(p)}$, tedy $X$ v něm není jednobarevná
+	- tedy $\beta$ je záludné pro $K_\infty^{(p)}$, a tedy nekonečná Ramseyova věta neplatí $\quad\square$
