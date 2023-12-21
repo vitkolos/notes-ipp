@@ -574,3 +574,50 @@
 	- výstup: $\exists T'\subseteq T$ taková, že každý prvek $H,D,K$ je v právě jedné trojici v $T'$
 	- ukážeme 3,3-SAT → 3D-párování
 	- za cvičení 3D-párování → 3,3-SAT
+- 3,3-SAT → 3D-párování
+	- gadget pro proměnnou
+	- gadget pro klauzuli
+	- zbude zvířátek: 2 × počet proměnných – počet klauzulí
+		- přidáme tolik párů $k,d$ a pro ně trojice se všemi zvířátky
+		- v Průvodci je chyba
+
+### Třídy problémů
+
+- df: třída problémů P
+	- $L\in \text P\equiv\exists A$ algoritmus $\exists p$ polynom takový, že $\forall x$ vstup platí, že $A(x)$ doběhne do $p(|x|)$ kroků $\land\;A(x)=L(x)$
+- pozorování: $K\to L,\; L\in P\implies K\in P$
+- df: třída problémů NP
+	- $L\in \text{NP}\equiv\exists V\in P$ (verifikátor) $\exists g$ polynom (omezení délky certifikátů) $\forall x:L(x)=1\iff$ $\exists y$ (certifikát) $|y|\leq g(|x|)$ (krátký) $\land\;V(x,y)=1$ (schválený)
+- $\text P\subseteq\text{NP}$ (rovnost se neví)
+- df: $L$ je NP-těžký $\equiv\forall K\in\text{NP}:K\to L$
+- df: $L$ je NP-úplný $\equiv L$ je NP-těžký $\land\;L\in\text{NP}$
+- lemma: pokud $L\in P$ je NP-těžký, pak $\text P = \text{NP}$
+- důkaz
+	- nechť $K\in\text{NP}$
+	- $K\to L$ (díky NP-těžkosti)
+	- $\implies K\in P$ … proto $\text{NP}\subseteq \text P$
+- věta (Cook, Levin): SAT je NP-úplný
+- lemma: nechť $K,L\in\text{NP}$, $K\to L$, $K$ je NP-úplný, pak $L$ je NP-úplný
+- důkaz
+	- nechť $M\in\text{NP}$
+	- pak $M\to K\to L$
+	- tedy $M\to L$
+- NP-úplné problémy
+	- logické
+		- (CNF) SAT
+		- 3-SAT
+		- 3,3-SAT
+		- obvodový SAT
+	- grafové
+		- nezávislá množina
+		- klika
+		- $k$-obarvitelnost (pro $k\geq 3$)
+		- hamiltonovská cesta/kružnice
+		- 3D-párování
+	- číselné
+		- součet podmnožiny
+		- batoh
+		- 2 loupežníci
+		- nulajedničkové řešení soustavy lineárních rovnic (v $\mathbb Z$)
+- často se stává, že restrikcí polynomiálního problému dostaneme nepolynomiální
+- částečný důkaz Cookovy věty
