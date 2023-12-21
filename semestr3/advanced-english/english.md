@@ -164,3 +164,13 @@ One day, there was a big fire. The eagles flew away into safety. The horses mana
 	- It has been estimated that around 90% of Matfyz students are happier than the average person. **And yet** they have only five minutes of free time a day on average.
 	- The data **suggest** the students don't have time to think about being unhappy.
 	- That's because their timetables are deliberately constructed in a way that prevents them from having any free time.
+- Kofola society
+	- hierarchy: anarchy
+	- function:
+		- money = Kofola
+		- fuel = Kofola
+		- beverage = Kofola
+		- all you need is Kofola
+		- and we read a lot
+	- we put a little bit of poison in the Kofola in order to prevent people from drinking too much Kofola
+	- we organize some Justin Bieber concerts to gain the trust of other people living near us
