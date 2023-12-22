@@ -621,3 +621,5 @@
 		- nulajedničkové řešení soustavy lineárních rovnic (v $\mathbb Z$)
 - často se stává, že restrikcí polynomiálního problému dostaneme nepolynomiální
 - částečný důkaz Cookovy věty
+	- ukážeme, že $L\in\text{NP}$ lze převést na obvodový SAT
+	- obvodový SAT převedeme na SAT

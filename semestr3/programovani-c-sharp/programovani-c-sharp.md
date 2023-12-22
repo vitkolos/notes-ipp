@@ -641,3 +641,72 @@
 	- `int result = x switch { > 10 and < 20 => 1000, int b => b + 10, null => -1 };`
 	- místo case se píšou šipky
 	- místo default se píše `_ =>`
+	- není tam žádná magie, přeloží se to do rozumné kaskády ifů a goto
+- pattern matching
+	- `a is X {Prop1: …, Prop2: …}`
+	- `a is {…}`
+	- `a is X(…, …)`
+	- `int result = p switch { Person("Petr", var lastName) => lastName.Length, Person(var firstName, "Vesely") => firstName.Length, _ => 0 };`
+		- Person musí mít metodu Deconstruct
+		- všechny parametry jsou výstupní
+		- Person(string x, string y) se mapuje na Deconstruct(out string x, out string y)
+		- pokud vhodná metoda Deconstruct neexistuje, tak se to nepřeloží
+		- používá se ducktyping
+		- u record tříd se Deconstruct generuje automaticky
+		- metod Deconstruct může být víc
+		- dekonstruktor by neměl být výpočetně náročný
+		- další použití dekonstruktoru je u tuples – ale ty jsou složitější, takže budou v letním semestru
+	- `a is [< 2, > 1, .. int[] restArray, int x]`
+		- takové pole musí mj. mít aspoň 3 prvky
+		- do restArray se uloží kopie (ta se alokuje na GC haldě), to pole může být i prázdné
+		- pozor na konkrétní kolekci – obecně u IEnumerable nemusíme být schopní efektivně najít poslední prvek
+	- novinka v C# 12
+		- inicializace kolekcí pomocí hranatých závorek
+		- dají se tam vkládat kopie polí
+
+## Výjimky
+
+- používat výjimečně – nejsou efektivní
+- výjimka = objekt, je potomkem typu Exception
+- když ji chci vyhodit, tak vyrobím novou výjimku
+- na konec názvu výjimky je vhodné napsat Exception
+- v objektu výjimky se obvykle ukládají data
+	- Messsage
+	- StackTrace – popis toho, kde výjimka vznikla
+- informace o tom, o jakou výjimku se jedná, se dá uložit i v typu
+	- je vhodné používat rozumnou hierarchii typů, aby uživatelé typů mohli výjimky filtrovat
+- mohlo by nás napadnout předalokovat objekt výjimky
+	- ale to pak může vést k problémům se StackTracem
+	- takže je lepší napsat `throw new …`
+- vyhozená výjimka se šíří ven
+- pokud najde try blok, tak hledá vhodný catch blok a finally
+- catch blok má filtr na typ výjimky
+	- pokud je bezparametrický, tak to je to samé, jako by tam byl typ Exception (v C# 1 to znamenalo něco jiného)
+- v catch bloku
+	- můžu vyhodit jinou výjimku
+	- můžu opět vyhodit tu samou (existující) výjimku – pomocí `throw;`
+- šíření chyby se ukončí, pokud se našel vhodný catch blok a ten neobsahuje další throw
+- vyhození výjimky je drahé, protože se vyplňuje StackTrace a protože se řeší přeskakování společně s dealokacemi (na konci každých složených závorek)
+- try blok není drahý – drahé jsou jen ty výjimky
+- metoda int.Parse vyhazuje výjimky, pokud se něco nepovede
+- metoda int.TryParse nevyhazuje výjimky
+- metody začínající slovem Try počítají s tím, že neúspěch je velmi pravděpodobný – tedy nepoužívají výjimky a jsou levné
+- u metody TryParse přijdeme o informaci, co se přesně nepovedlo
+- pokud provádíme operaci na nullable hodnotových typech a jeden z nich je null, tak je výsledek taky null
+- někdy se používá přístup, že funkce Try vrací nullable hodnotu – když dopadne neúspěchem, tak vrátí null
+- v Javě se u funkcí píše, jaké výjimky vyhazují – ale to se ukázalo jako nevhodný přístup
+- pak se používají code contracts – viz pokročilejší předměty
+- poznámka k Nežárce
+	- pokud chybové stránky řešíme vyhazováním výjimek, tak to vede k větší náchylnosti na DDoS
+	- ale výjimky nám poskytují informaci o chybě
+	- tedy dává smysl vracet „silně typovanou“ strukturu ViewOrError
+		- ta má jeden field typu object, kde obsahuje View nebo Error
+		- implementujeme vlastnosti, které vrátí správný View (u Erroru speciální chybovou stránku) a Error (u normálního View vrátí null)
+- měli bychom používat vhodné typy výjimek
+	- některé se chápou jako bug
+		- OutOfRangeEx.
+		- NullReferenceEx.
+	- některé se chápou jako špatné použití funkce
+		- ArgOutOfRangeEx.
+		- ArgNullEx.
+	- někdy je vhodné definovat vlastní výjimky – jako potomky ApplicationException
