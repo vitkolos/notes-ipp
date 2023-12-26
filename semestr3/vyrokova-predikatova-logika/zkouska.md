@@ -3,6 +3,11 @@
 ## Pojmy
 
 - Model ve výrokové logice, pravdivostní funkce výroku
+	- Pravdivostní funkce výroku $\varphi$ v konečném jazyke $\mathbb P$ je funkce $f_{\varphi,\mathbb P}:\set{0,1}^{|\mathbb P|}\to\set{0,1}$ definovaná induktivně:
+		- je-li $\varphi$ $i$-tý prvovýrok z $\mathbb P$, potom $f_{\varphi,\mathbb P}(x_0,\dots,x_{n-1})=x_i$,
+		- je-li $\varphi=(\neg\varphi')$, potom $f_{\varphi,\mathbb P}(x_0,\dots,x_{n-1})=f_\neg (f_{\varphi',\mathbb P}(x_0,\dots,x_{n-1}))$,
+		- je-li $(\varphi'\circ\varphi'')$, kde $\circ\in\set{\land,\lor,\rarr,\harr}$
+	- Model jazyka $\mathbb P$ je libovolné pravdivostní ohodnocení $v:\mathbb P\to\set{0,1}$. Množinu (všech) modelů jazyka $\mathbb P$ označíme $M_\mathbb P$.
 - Sémantické pojmy (pravdivost, lživost, nezávislost, splnitelnost) v logice, vzhledem k teorii
 - Ekvivalence výroků resp. výrokových teorií, T-ekvivalence
 - Sémantické pojmy o teorii (sporná, bezesporná, kompletní, splnitelná)
