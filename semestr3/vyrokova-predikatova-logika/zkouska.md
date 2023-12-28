@@ -3,14 +3,27 @@
 ## Pojmy
 
 - Model ve výrokové logice, pravdivostní funkce výroku
-	- Pravdivostní funkce výroku $\varphi$ v konečném jazyke $\mathbb P$ je funkce $f_{\varphi,\mathbb P}:\set{0,1}^{|\mathbb P|}\to\set{0,1}$ definovaná induktivně:
-		- je-li $\varphi$ $i$-tý prvovýrok z $\mathbb P$, potom $f_{\varphi,\mathbb P}(x_0,\dots,x_{n-1})=x_i$,
-		- je-li $\varphi=(\neg\varphi')$, potom $f_{\varphi,\mathbb P}(x_0,\dots,x_{n-1})=f_\neg (f_{\varphi',\mathbb P}(x_0,\dots,x_{n-1}))$,
-		- je-li $(\varphi'\circ\varphi'')$, kde $\circ\in\set{\land,\lor,\rarr,\harr}$
-	- Model jazyka $\mathbb P$ je libovolné pravdivostní ohodnocení $v:\mathbb P\to\set{0,1}$. Množinu (všech) modelů jazyka $\mathbb P$ označíme $M_\mathbb P$.
-- Sémantické pojmy (pravdivost, lživost, nezávislost, splnitelnost) v logice, vzhledem k teorii
+	- model jazyka je určité pravdivostní ohodnocení proměnných
+	- pravdivostní funkce výroku přiřazuje konkrétnímu ohodnocení proměnných nulu nebo jedničku, definuje se induktivně pomocí binárních funkcí
+- Sémantické pojmy (pravdivost, lživost, nezávislost, splnitelnost) v logice, vzhledem k teorii
+	- pravdivý výrok platí v každém modelu (jazyka/teorie)
+		- je pravdivý v logice = platí v logice = je tautologie
+		- je pravdivý v T = platí v T = je důsledek T
+	- lživý (sporný) výrok neplatí v žádném modelu
+	- nezávislý výrok platí v nějakém modelu a neplatí v jiném modelu
+	- splnitelný výrok platí v nějakém modelu (tedy není lživý, je pravdivý nebo nezávislý)
 - Ekvivalence výroků resp. výrokových teorií, T-ekvivalence
+	- výroky/teorie jsou ekvivalentní, když se rovnají jejich množiny modelů
+	- výroky/teorie jsou T-ekvivalentní, když se rovnají jejich množiny modelů vzhledem k teorii T
+		- $\varphi\sim_T\psi\equiv M_\mathbb P(T,\varphi)=M_\mathbb P(T,\psi)$
+		- kde $M_\mathbb P(T,\varphi)\equiv M_\mathbb P(T\cup\set{\varphi})$, což odpovídá $M_\mathbb P(T)\cap M_\mathbb P(\varphi)$
 - Sémantické pojmy o teorii (sporná, bezesporná, kompletní, splnitelná)
+	- teorie je sporná, jestliže… (ekvivalentně)
+		- v ní platí spor
+		- nemá žádný model
+		- v ní platí všechny výroky
+	- teorie je bezesporná (splnitelná), pokud není sporná, tj. má nějaký model
+	- teorie je kompletní, jestliže není sporná a každý výrok je v ní pravdivý nebo lživý (tj. nemá žádné nezávislé výroky), ekvivalentně, pokud má právě jeden model
 - Extenze teorie (jednoduchá, konzervativní), odpovídající sémantická kritéria
 - Tablo z teorie, tablo důkaz
 - Kanonický model
