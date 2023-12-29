@@ -71,11 +71,51 @@
 		- výrok $\varphi_\text{CNF}$ je duální k výroku $\varphi'_\text{DNF}$ sestrojenému pro doplněk $M'=\overline M$
 			- nebo můžeme dokázat přímo – každá klauzule zakazuje právě jeden nemodel
 - 2-SAT, Algoritmus implikačního grafu, jeho korektnost
-	- 
+	- výrok $\varphi$ je v $k$-CNF, pokud je v CNF a každá klauzule má nejvýše $k$ literálů
+	- $k$-SAT se ptá, zda je formule v $k$-CNF splnitelná
+	- algoritmus implikačního grafu pro 2-SAT
+		- klauzuli $a\lor b$ vyjádříme jako dvě implikace $\overline a\to b,\;\overline b\to a$
+		- jednotkovou klauzuli $c$ zapíšeme jako $\overline c\to c$
+		- implikační graf $\mathcal G_\varphi$ je orientovaný graf, jehož vrcholy jsou všechny literály a hrany jsou dané implikacemi (viz výše)
+		- v grafu najdeme komponenty silné souvislosti
+			- všechny literály v jedné komponentě musí být ohodnoceny stejně
+		- provedeme kontrakci komponent, dostaneme orientovaný acyklický graf $\mathcal G^*_\varphi$
+			- postupujeme podle topologického uspořádání, vezmeme nejlevější neohodnocenou komponentu, ohodnotíme ji 0, opačnou komponentu ohodnotíme 1
+	- algoritmus běží v lineárním čase, protože komponenty silné souvislosti i topologické uspořádání lze nalézt v čase $O(n+m)$
+	- korektnost plyne z tvrzení, že *výrok je splnitelný, právě když žádná komponenta silné souvislosti neobsahuje dvojici opačných literálů*
+		- implikaci $\implies$ lze nahlédnout obměnou
+			- kdyby komponenta obsahovala dvojici opačných literálů, existovala by implikace $1\to 0$
+		- opačná implikace
+			- model jsme získali postupem uvedeným výše (pomocí topologického uspořádání grafu komponent)
+			- kdyby v tomto modelu původní výrok neplatil, neplatila by některá z klauzulí
+			- u jednotkových klauzulí máme hranu $\overline c\to c$ (stejná hrana je i na úrovni grafu komponent), tudíž jsme nutně ohodnotili $\overline c$ dříve než $c$, tedy $c=1$
+			- u 2-klauzulí máme dvě hrany a čtyři různé literály, dvě různé proměnné – jednu z nich jsme ohodnotili jako první, ta zaručí platnost klauzule
+			- tedy všechny klauzule platí
 - Horn-SAT, Algoritmus jednotkové propagace, jeho korektnost
-	- 
+	- výrok je hornovský, pokud je konjunkcí hornovských klauzulí, tj. klauzulí obsahujících nejvýše jeden pozitivní literál
+	- algoritmus
+		- pokud $\varphi$ obsahuje dvojici opačných jednotkových klauzulí, není splnitelný
+		- pokud $\varphi$ neobsahuje žádnou jednotkovou klauzuli, je splnitelný, ohodnotíme všechny zbývající proměnné nulou
+		- pokud $\varphi$ obsahuje jednotkovou klauzuli $\ell$, ohodnotíme literál $\ell$ hodhotou 1, provedeme jednotkovou propagaci a postup opakujeme
+	- jednotková propagace pro $\ell=1$
+		- každou klauzuli obsahující $\ell$ odstraníme (protože je takto splněna)
+		- $\overline\ell$ odstraníme ze všech klauzulí, které ho obsahují (protože $\overline\ell$ nemůže zajistit splnění dané klauzule)
+	- korektnost
+		- korektnost jednotkové propagace je popsána výše
+		- ohodnocení zbývajících proměnných nulou je zjevně korektní, neboť každá hornovská „nejednotková“ klauzule obsahuje negativní literál, který tak zajistí splnění klauzule
+	- Horn-SAT lze řešit v lineárním čase
+		- kvadratický horní odhad lze nahlédnout tak, že v každém kroku výrok procházíme jednou a jednotková propagace ho vždy zkrátí
 - Algoritmus DPLL pro řešení SAT
-	- 
+	- literál $\ell$ má čistý výskyt ve $\varphi$, pokud se $\ell$ vyskytuje ve $\varphi$ a opačný literál $\overline\ell$ se ve $\varphi$ nevyskytuje
+		- takový literál můžu nastavit na 1
+		- to neovlivní splnitelnost výroku, ale zmenší to množinu modelů, které jsem schopen nalézt
+	- algoritmus
+		- dokud $\varphi$ obsahuje jednotkovou klauzuli $\ell$, ohodnoť $\ell=1$ a proveď jednotkovou propagaci
+		- dokud existuje literál $\ell$, který má ve $\varphi$ čistý výskyt, ohodnoť $\ell=1$ a odstraň klauzule obsahující $\ell$
+		- pokud $\varphi$ neobsahuje žádnou klauzuli, je splnitelný
+		- pokud $\varphi$ obsahuje prázdnout klauzuli, není splnitelný
+		- jinak zvol dosud neohodnocenou výrokovou proměnnou $p$ a zavolej algoritmus rekurzivně na $\varphi\land p$ a na $\varphi\land\neg p$
+	- algoritmus běží v exponenciálním čase
 - Věta o konstantách
 - Vlastnosti extenze o definice
 - Vztah definovatelných množin a automorfismů
