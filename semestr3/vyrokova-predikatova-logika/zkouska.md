@@ -119,10 +119,55 @@
 		- LI-rezoluce není úplná pro obecné formule (ne každá nesplnitelná formule má LI-zamítnutí)
 		- LI-rezoluce je úplná pro Hornovy formule
 - Signatura a jazyk predikátové logiky, struktura daného jazyka
+	- signatura je dvojice $\braket{\mathcal {R,F}}$, kde $\mathcal{R,F}$ jsou disjunktní množiny symbolů (relační a funkční, ty zahrnují konstantní) spolu s danými aritami a neobsahují symbol $=$
+	- do jazyka patří…
+		- spočetně mnoho proměnných
+		- relační, funkční a konstantní symboly ze signatury a symbol $=$, jde-li o jazyk s rovností
+		- univerzální a existenční kvantifikátory pro každou proměnnou
+		- symboly pro logické spojky a závorky
+	- struktura v signatuře $\braket{\mathcal{R,F}}$ je trojice $\mathcal A=\braket{A,\mathcal{R^A,F^A}}$, kde…
+		- $A$ je neprázdná množina, říkáme jí doména (také universum)
+		- $\mathcal {R^A}$ je množina interpretací jednotlivých relačních symbolů (kde interpretace $n$-árního relačního symbolu je množina uspořádaných $n$-tic prvků z $A$)
+		- $\mathcal {F^A}$ je množina interpretací jednotlivých funkčních symbolů (kde intepretace $n$-árního funkčního symbolu odpovídá funkci přiřazující $n$-tici prvků z $A$ jeden prvek z $A$)
+			- speciálně pro konstantní symbol $c\in\mathcal F$ je $c^\mathcal A\in A$
+	- model jazyka $L$ nebo také $L$-struktura je libovolná struktura v signatuře jazyka $L$
+	- třídu všech modelů jazyka označíme $M_L$
 - Atomická formule, formule, sentence, otevřené formule
+	- termy jazyka $L$ jsou konečné nápisy definované induktivně
+		- proměnná je term
+		- konstantní symbol je term
+		- pro $n$-ární funkční symbol $f$ a termy $t_1,\dots,t_n$ je nápis $f(t_1,\dots,t_n)$ také term
+	- atomická formule jazyka $L$ je nápis $R(t_1,\dots,t_n)$, kde $R$ je $n$-ární relační symbol z $L$ (v jazyce s rovností to může být i rovnost) a $t_i$ je $L$-term
+	- formule jazyka $L$ jsou konečné nápisy definované induktivně
+		- atomická formule je formule
+		- negace formule je formule
+		- spojením dvou formulí binární logickou spojkou dostaneme formuli
+		- přidáním kvantifikátoru před formuli dostaneme formuli
+	- výskyt proměnné je vázaný, pokud jí odpovídá nějaký kvantifikátor, jinak je výskyt volný
+	- proměnná je volná, pokud má volný výskyt, je vázaná, pokud má vázaný výskyt
+	- formule je otevřená, neobsahuje-li žádný kvantifikátor
+	- formule je uzavřená (= sentence), pokud nemá žádnou volnou proměnnou
 - Instance formule, substituovatelnost, varianta formule
+	- term $t$ je substituovatelný za proměnnou $x$ ve formuli $\varphi$, pokud po simultánním nahrazení všech volných výskytů $x$ ve $\varphi$ za $t$ nevznikne ve $\varphi$ žádný vázaný výskyt proměnné z $t$
+		- v tom případě říkáme vzniklé formuli instance $\varphi$ vzniklá substitucí $t$ za $x$ a označujeme ji $\varphi(x/t)$
+	- má-li formule $\varphi$ podformuli tvaru $(Qx)\psi$ a je-li $y$ proměnná taková, že $y$ je substituovatelná za $x$ do $\psi$ a $y$ nemá volný výskyt v $\psi$, potom nahrazením podformule $(Qx)\psi$ formulí $(Qy)\psi(x/y)$ vznikne varianta formule $\varphi$ v podformuli $(Qx)\psi$
+	- poznámka: substituace = dosazování za volné výskyty proměnných, naopak varianty formulí vznikají přejmenováním vázaných výskytů (volné výskyty nelze přejmenovat, aby se nezměnilo „rozhraní“ neuzavřené formule)
 - Pravdivostní hodnota formule ve struktuře při ohodnocení, platnost formule ve struktuře
+	- hodnota termu vyplývá jednoduše z ohodnocení (u konstant nezávisí na ohodnocení, u proměnných přímo z ohodnocení, u funkcí se dosadí hodnoty termů a získá se výsledná hodnota)
+	- pravdivostní hodnoty formule při ohodnocení
+		- pravdivostní hodnota je rovna nule nebo jedné
+		- pravdivostní hodnota atomické formule vyplývá z toho, zda je daná $n$-tice (pro určité hodnoty termů) prvkem odpovídající množiny $R^\mathcal A$
+		- pro logické spojky se pravdivostní hodnota určuje standardně
+		- obecný kvantifikátor lze chápat jako hledání minima z pravdivostních hodnot (nebo jako konjunkci přes všechny prvky struktury)
+		- podobně existenční kvantifikátor hledá maximum / je to disjunkce
+	- platnost ve struktuře
+		- mějme formuli $\varphi$ a strukturu $\mathcal A$
+		- je-li $e$ ohodnocení a $\text{PH}^\mathcal A(\varphi)[e]=1$, potom říkáme, že $\varphi$ platí v $\mathcal A$ při ohodnocení $e$ a píšeme $A\models\varphi[e]$
+		- pokud $\varphi$ platí v $\mathcal A$ při každém ohodnocení $e:\text{Var}\to A$, potom říkáme, že $\varphi$ je pravdivá (platí) v $\mathcal A$, a píšeme $\mathcal A\models\varphi$
+		- naopak pokud $\mathcal A\models\neg\varphi$, tj. $\varphi$ neplatí v $\mathcal A$ při žádném ohodnocení, pak je lživá v $\mathcal A$
 - Kompletní teorie v predikátové logice, elementární ekvivalence
+	- teorie je kompletní, je-li bezesporná a každá sentence je v ní buď pravdivá, nebo lživá
+	- struktury $\mathcal{A,B}$ (v témž jazyce) jsou elementárně ekvivalentní, pokud v nich platí tytéž sentence (značíme $\mathcal A\equiv \mathcal B$)
 - Podstruktura, generovaná podstruktura, expanze a redukt struktury
 - Definovatelnost ve struktuře
 - Extenze o definice
@@ -249,3 +294,5 @@
 - Věta o konečné axiomatizovatelnosti
 - Rekurzivně axiomatizovaná teorie s rekurzivně spočetnou kompletací je rozhodnutelná
 - Nerozhodnutelnost predikátové logiky
+
+todo: doplnit pojmy z výrokové logiky o zvláštnosti z predikátové logiky
