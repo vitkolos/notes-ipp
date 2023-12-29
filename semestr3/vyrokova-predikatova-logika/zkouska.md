@@ -53,7 +53,7 @@
 		- nebo pokud je každá její položka na této větvi redukovaná a pokud větev zároveň obsahuje položku s T pro každý axiom teorie
 	- položka je redukovaná na dané větvi, pokud obsahuje pouze výrokovou proměnnou nebo se na dané větvi vyskytuje jako kořen atomického tabla (tedy došlo k jejímu rozvoji na dané větvi)
 - Kanonický model
-	- je-li $V$ bezesporná větev dokončeného tabla, potom kanonický model pro $V$ je model definovaný předpisem $v(p)=1$, pokud se na $V$ vyskytuje položka $\text Tp$, jinak $v
+	- je-li $V$ bezesporná větev dokončeného tabla, potom kanonický model pro $V$ je model definovaný předpisem $v(p) = \begin{cases} 1 &\text{pokud }V\text{ obsahuje T}p \\ 0 &\text{jinak}\end{cases}$
 - Kongruence struktury, faktorstruktura, axiomy rovnosti
 - CNF a DNF, Hornův tvar. Množinová reprezentace CNF formule, splňující ohodnocení
 - Rezoluční pravidlo, unifikace, nejobecnější unifikace
@@ -153,6 +153,27 @@
 ## Těžké otázky
 
 - Věta o korektnosti tablo metody ve výrokové logice
+	- potřebujeme lemma: shoduje-li se model teorie $T$ s položkou v kořeni tabla z teorie $T$, potom se shoduje s nějakou větví
+	- důkaz lemmatu
+		- mějme postup vytváření tabla
+		- indukcí sestrojíme větev, se kterou se model shoduje
+		- díváme se na rozdíl mezi dvěma verzemi tabla
+			- pokud nová verze vznikla bez prodloužení naší větve, necháme ji tak
+			- pokud nová verze vznikla připojením axiomu z teorie na konec naší větve, prodloužíme o něj naši větev
+				- model se s axiomem nutně shoduje
+			- pokud nová verze vznikla připojením atomického tabla na konec naší větve…
+				- model se nutně shoduje s kořenem atomického tabla
+				- model se tedy shoduje i s některou z větví atomického tabla
+				- naši větev prodloužíme o tuto větev
+	- věta o korektnosti: je-li výrok $\varphi$ tablo dokazatelný z teorie $T$, potom je $\varphi$ pravdivý v $T$, tj. $T\vdash\varphi\implies T\vDash\varphi$
+	- důkaz sporem
+		- nechť $\varphi$ v $T$ neplatí, tj. existuje protipříklad = model $v$, v němž $\varphi$ neplatí
+		- výrok $\varphi$ je dokazatelný z $T$, tedy existuje tablo důkaz (sporné tablo s $\text F\varphi$ v kořeni)
+		- model $v$ se shoduje s $\text F\varphi$, tedy podle lemmatu se shoduje s nějakou větví $V$
+		- všechny větve jsou sporné, tedy i $V$
+			- $V$ obsahuje $\text T\psi$ a $\text F\psi$
+		- model $v$ se s těmito položkami shoduje
+		- proto $v\vDash\psi$ a $v\nvDash\psi$, což je spor
 - Věta o korektnosti tablo metody v predikátové logice
 - Věta o úplnosti tablo metody ve výrokové logice
 - Věta o úplnosti tablo metody v predikátové logice
