@@ -1,7 +1,6 @@
 # Lineární algebra: cvičení
 
 - http://elif.cz/LA_2223_2.html
-- elif@kam.mff.cuni.cz
 - zápočet
 	- písemky + aktivita
 		- na začátku každého cvičení písemka na 5–10 minut, za každou lze získat 10 bodů (celkem 110)

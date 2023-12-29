@@ -25,6 +25,16 @@
 	- teorie je bezesporná (splnitelná), pokud není sporná, tj. má nějaký model
 	- teorie je kompletní, jestliže není sporná a každý výrok je v ní pravdivý nebo lživý (tj. nemá žádné nezávislé výroky), ekvivalentně, pokud má právě jeden model
 - Extenze teorie (jednoduchá, konzervativní), odpovídající sémantická kritéria
+	- extenze teorie $T$ je libovolná teorie $T'$ v jazyce $\mathbb P'\supseteq\mathbb P$ splňující $\text{Csq}_{\mathbb P}(T)\subseteq\text{Csq}_{\mathbb P'}(T')$
+	- extenze je jednoduchá, pokud $\mathbb P'=\mathbb P$
+	- extenze je konzervativní, pokud $\text{Csq}_{\mathbb P}(T)=\text{Csq}_{\mathbb P}(T')=\text{Csq}_{\mathbb P'}(T')\cap\text{VF}_\mathbb P$
+	- sémantický význam (v řeči modelů)
+		- mějme teorii $T$ v jazyce $\mathbb P$ a teorii $T'$ v jazyce $\mathbb P'$, kde $\mathbb P\subseteq\mathbb P'$
+		- $T'$ je jednoduchou extenzí $T$, právě když $\mathbb P'=\mathbb P$ a $M_\mathbb P(T')\subseteq M_\mathbb P(T)$
+		- $T'$ je extenzí $T$, právě když $M_{\mathbb P'}(T')\subseteq M_{\mathbb P'}(T)$
+		- $T'$ je konzervativní extenzí $T$, pokud je extenzí a navíc platí, že každý model $T$ lze nějak expandovat na model $T'$
+		- $T'$ je extenzí $T$ a zároveň $T$ je extenzí $T'$, právě když $T'\sim T$ (jazyky a množiny modelů se rovnají)
+		- kompletní jednoduché extenze $T$ jednoznačně až na ekvivalenci odpovídají modelům $T$
 - Tablo z teorie, tablo důkaz
 - Kanonický model
 - Kongruence struktury, faktorstruktura, axiomy rovnosti
@@ -49,9 +59,23 @@
 ## Lehké otázky
 
 - Množinu modelů nad konečným jazykem lze axiomatizovat výrokem v CNF, výrokem v DNF
+	- tvrzení
+		- mějme konečný jazyk $\mathbb P$ a libovolnou množinu modelů $M\subseteq M_\mathbb P$
+		- potom existuje výrok $\varphi_\text{DNF}$ v DNF a výrok $\varphi_\text{CNF}$ v CNF takový, že $M=M_\mathbb P(\varphi_\text{DNF})=M_\mathbb P(\varphi_\text{CNF})$
+		- konkrétně
+			- $\varphi_\text{DNF}=\bigvee_{v\in M}\bigwedge _{p\in\mathbb P} p^{v(p)}$
+			- $\varphi_\text{CNF}=\bigwedge_{v\in \overline M}\bigvee_{p\in\mathbb P} \overline{p^{v(p)}}$
+	- důkaz
+		- pro $\varphi_\text{DNF}$ jednoduché, každá elementární konjunkce popisuje jeden model
+			- stejný mechanismus se používá pro důkaz univerzálnosti $\set{\neg,\land,\lor}$
+		- výrok $\varphi_\text{CNF}$ je duální k výroku $\varphi'_\text{DNF}$ sestrojenému pro doplněk $M'=\overline M$
+			- nebo můžeme dokázat přímo – každá klauzule zakazuje právě jeden nemodel
 - 2-SAT, Algoritmus implikačního grafu, jeho korektnost
+	- 
 - Horn-SAT, Algoritmus jednotkové propagace, jeho korektnost
+	- 
 - Algoritmus DPLL pro řešení SAT
+	- 
 - Věta o konstantách
 - Vlastnosti extenze o definice
 - Vztah definovatelných množin a automorfismů
