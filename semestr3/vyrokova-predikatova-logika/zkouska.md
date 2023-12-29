@@ -36,7 +36,24 @@
 		- $T'$ je extenzí $T$ a zároveň $T$ je extenzí $T'$, právě když $T'\sim T$ (jazyky a množiny modelů se rovnají)
 		- kompletní jednoduché extenze $T$ jednoznačně až na ekvivalenci odpovídají modelům $T$
 - Tablo z teorie, tablo důkaz
+	- konečné tablo z teorie $T$ je uspořádaný, položkami označkovaný strom zkonstruovaný aplikací konečně mnoha následujících pravidel:
+		- jednoprvskový strom označkovaný libovolnou položkou je tablo z teorie $T$
+		- pro libovolnou položku $P$ na libovolné větvi $V$ můžeme na konec větve $V$ připojit atomické tablo pro položku $P$
+		- na konec libovolné větve můžeme připojit položku $\text T\alpha$ pro libovolný axiom teorie $\alpha\in T$
+	- tablo je konečné nebo nekonečné, každopádně vzniklo ve spočetně mnoha krocích
+	- tablo pro položku $P$ je tablo s položkou $P$ v kořeni
+	- tablo důkaz výroku $\varphi$ z teorie $T$ je sporné tablo z teorie $T$ s  položkou $\text F\varphi$ v kořeni
+		- pokud existuje, je $\varphi$ tablo dokazatelný z $T$, píšeme $T\vdash\varphi$
+		- podobně definujeme tablo zamítnutí s $\text T\varphi$ v kořeni, tablo zamítnutelnost se značí $T\vdash \neg\varphi$
+	- tablo je sporné, pokud je každá jeho větev sporná
+	- větev je sporná, pokud obsahuje položky $\text T\psi$ a $\text F\psi$ pro nějaký výrok $\psi$, jinak je bezesporná
+	- tablo je dokončené, pokud je každá jeho větev dokončená
+	- větev je dokončená…
+		- pokud je sporná
+		- nebo pokud je každá její položka na této větvi redukovaná a pokud větev zároveň obsahuje položku s T pro každý axiom teorie
+	- položka je redukovaná na dané větvi, pokud obsahuje pouze výrokovou proměnnou nebo se na dané větvi vyskytuje jako kořen atomického tabla (tedy došlo k jejímu rozvoji na dané větvi)
 - Kanonický model
+	- je-li $V$ bezesporná větev dokončeného tabla, potom kanonický model pro $V$ je model definovaný předpisem $v(p)=1$, pokud se na $V$ vyskytuje položka $\text Tp$, jinak $v
 - Kongruence struktury, faktorstruktura, axiomy rovnosti
 - CNF a DNF, Hornův tvar. Množinová reprezentace CNF formule, splňující ohodnocení
 - Rezoluční pravidlo, unifikace, nejobecnější unifikace
