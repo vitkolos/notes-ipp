@@ -55,10 +55,69 @@
 - Kanonický model
 	- je-li $V$ bezesporná větev dokončeného tabla, potom kanonický model pro $V$ je model definovaný předpisem $v(p) = \begin{cases} 1 &\text{pokud }V\text{ obsahuje T}p \\ 0 &\text{jinak}\end{cases}$
 - Kongruence struktury, faktorstruktura, axiomy rovnosti
+	- kongruence
+		- mějme ekvivalenci $\sim$ na množině $A$, funkci $f:A^n\to A$ a relaci $R\subseteq A^n$
+		- říkáme, že $\sim$ je kongruencí pro funkci $f$, pokud pro všechna $x_i,y_i\in A$ taková, že $x_i\sim y_i$ platí $f(x_1,\dots,x_n)\sim f(y_1,\dots,y_n)$
+		- říkáme, že $\sim$ je kongruencí pro relaci $R$, pokud pro všechna $x_i,y_i\in A$ taková, že $x_i\sim y_i$ platí $R(x_1,\dots,x_n)$, právě když $R(y_1,\dots,y_n)$
+	- kongruence struktury $\mathcal A$ je ekvivalence $\sim$ na množině $A$, která je kongruencí pro všechny funkce a relace $\mathcal A$
+	- faktorstruktura
+		- mějme strukturu $\mathcal A$ a její kongruenci $\sim$
+		- faktorstruktura (podílová struktura) $\mathcal A$ podle $\sim$ je struktura $A/_\sim$ v témž jazyce, jejíž univerzum $A/_\sim$ je množina všech rozkladových tříd $A$ podle $\sim$ a jejíž funkce a relace jsou definované pomocí reprezentantů, tj.:
+			- $f^{\mathcal A/_\sim}([x_1]_\sim,\dots,[x_n]_\sim)=[f^\mathcal A(x_1,\dots,x_n)]_\sim$, pro každý $n$-ární funkční symbol $f$
+			- $R^{\mathcal A/_\sim}([x_1]_\sim,\dots,[x_n]_\sim)$, právě když $R^\mathcal A(x_1,\dots,x_n)$, pro každý $n$-ární relační symbol $R$
+	- axiomy rovnosti pro jazyk $L$ s rovností jsou
+		- $x=x$
+		- $x_1=y_1\land\dots\land x_n=y_n\to f(x_1,\dots,x_n)=f(y_1,\dots,y_n)$ pro každý $n$-ární funkční symbol $f$ jazyka $L$
+		- $x_1=y_1\land\cdots\land x_n=y_n\to \left(R(x_1,\dots,x_n)\to R(y_1,\dots,y_n)\right)$ pro každý $n$-ární relační symbol $R$ jazyka $L$ včetně rovnosti
+	- z 1. a 3. axiomu plyne, že relace $=^\mathcal A$ je ekvivalence na $A$ (symetrie a tranzitivita plyne z 3. axiomu)
+	- 2. a 3. axiom vyjadřují, že $=^\mathcal A$ je kongruencí $\mathcal A$
 - CNF a DNF, Hornův tvar. Množinová reprezentace CNF formule, splňující ohodnocení
+	- tvary výroků
+		- literál je prvovýrok nebo negace prvovýroku
+			- pro literál $\ell$ označuje $\overline\ell$ literál k němu opačný (tedy jeho negaci)
+		- klauzule je disjunkce literálů
+			- jednotková klauzule je samotný literál
+			- prázdná klauzule je $\bot$
+		- výrok je v konjunktivní normální formě (CNF), pokud je konjunkcí klauzulí
+			- prázdný výrok v CNF je $\top$
+		- elementární konjunkce je konjunkce literálů
+			- jednotková elementární konjunkce je samotný literál
+			- prázdná elementární konjunkce je $\top$
+		- výrok je v disjunktivní normální formě (DNF), pokud je disjunkcí elementárních konjunkcí
+			- prázdný výrok v DNF je $\bot$
+		- výrok je hornovský (v Hornově tvaru), pokud je konjunkcí hornovských klauzulí, tj. klauzulí obsahujících nejvýše jeden pozitivní literál
+	- množinová reprezentace
+		- klauzule je konečná množina literálů
+			- prázdnou klauzuli označíme $\square$, není nikdy splněna
+		- CNF formule je (konečná nebo nekonečná) množina klauzulí
+			- prázdná formule $\emptyset$ je vždy splněna
+	- ohodnocení
+		- v množinové reprezentaci odpovídají modely množinám literál, které obsahují pro každou výrokovou proměnnou $p$ právě jeden z literálů $p,\neg p$
+		- (částečné) ohodnocení $\mathcal V$ je libovolná množina literálů, která je konzistentní, tj. neobsahuje dvojici opačných literálů
+		- ohodnocení je úplné, pokud obsahuje pozitivní nebo negativní literál pro každou výrokovou proměnnou
+		- ohodnocení $\mathcal V$ splňuje formuli $S$, píšeme $\mathcal V\models S$, pokud $\mathcal V$ obsahuje nějaký literál z každé klauzule v $S$, tj.: $\forall C\in S:\mathcal V\cap C\neq\emptyset$
+		- splňující ohodnocení nemusí být úplné, ale lze jej rozšířit libovolným literálem pro chybějící proměnné
 - Rezoluční pravidlo, unifikace, nejobecnější unifikace
+	- rezoluční pravidlo
+		- mějme klauzule $C_1,C_2$ a literál $\ell$, přičemž $\ell\in C_1$ a $\overline\ell\in C_2$
+		- potom rezolventa klauzulí $C_1$ a $C_2$ přes literál $\ell$ je klauzule $C=(C_1\setminus\set{\ell})\cup(C_2\setminus\set{\overline\ell})$
+	- unifikace
+		- todo
+	- nejobecnější unifikace
+		- todo
 - Rezoluční důkaz a zamítnutí, rezoluční strom
+	- rezoluční důkaz (odvození) klauzule $C$ z formule $S$ je konečná posloupnost klauzulí $C_0,C_1,\dots,C_n=C$ taková, že pro každé $i$ je buď $C_i\in S$ nebo $C_i$ je rezolventou nějakých $C_j,C_k$, kde $j\lt i$ a $k\lt i$
+	- pokud rezoluční důkaz existuje, říkáme, že $C$ je rezolucí dokazatelná z $S$ a píšeme $S\vdash_R C$
+	- rezoluční zamítnutí formule $S$ je rezoluční důkaz $\square$ z $S$, v tom případě je $S$ rezolucí zamítnutelná
+	- rezoluční strom klauzule $C$ z formule $S$ je konečný binární strom s vrcholy označenými klauzulemi, kde v kořeni je $C$, v listech jsou klauzule z $S$ a v každém vnitřním vrcholu je rezolventa klauzulí ze synů tohoto vrcholu
 - Vysvětlete rozdíl mezi rezolučním důkazem, lineárním důkazem, a LI-důkazem
+	- lineární důkaz i LI-důkaz jsou zvláštními případy rezolučního důkazu
+	- lineární důkaz vypadá tak, že vždy nějakou centrální klauzuli rezolvujeme s boční klauzulí, čímž vznikne další centrální klauzule
+		- centrální klauzule vznikají rezolucí předchozí dvojice klauzulí
+		- boční klauzule jsou z $S$ nebo se jedná o minulé centrální klauzule (vzniklé rezolucí)
+	- LI-důkaz požaduje, aby všechny boční klauzule byly z $S$
+		- LI-rezoluce není úplná pro obecné formule (ne každá nesplnitelná formule má LI-zamítnutí)
+		- LI-rezoluce je úplná pro Hornovy formule
 - Signatura a jazyk predikátové logiky, struktura daného jazyka
 - Atomická formule, formule, sentence, otevřené formule
 - Instance formule, substituovatelnost, varianta formule
