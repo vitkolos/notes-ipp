@@ -169,8 +169,49 @@
 	- teorie je kompletní, je-li bezesporná a každá sentence je v ní buď pravdivá, nebo lživá
 	- struktury $\mathcal{A,B}$ (v témž jazyce) jsou elementárně ekvivalentní, pokud v nich platí tytéž sentence (značíme $\mathcal A\equiv \mathcal B$)
 - Podstruktura, generovaná podstruktura, expanze a redukt struktury
+	- $\mathcal B$ je (indukovaná) podstruktura $\mathcal A$, když je $B$ neprázdnou podmnožinou $A$, každá množina opovídající interpretaci relace je omezena na $n$-tice z $B$ a podobně funkce směřují z $B$ do $B$, zároveň interpretace všech konstantních symbolů musí být v $B$
+	- pozorování: univerzum podstruktury musí být uzavřené na všechny funkce původní struktury
+	- podstruktura struktury $\mathcal A$ generovaná množinou $X$ se značí $\mathcal A\langle X\rangle$, její univerzum je nejmenší podmnožina $A$, která obsahuje množinu $X$ a je uzavřená na všechny funkce struktury $\mathcal A$ (tedy rovněž obsahuje všechny konstanty), tuto podmnožinu označme jako $B$
+		- takovou podstrukturu lze také zapsat jako $\mathcal A\restriction B$
+		- pokud $\mathcal A$ nemá žádné funkce ani konstanty (např. je to graf nebo uspořádání), tak není čím generovat, tedy $\mathcal A\langle X\rangle=\mathcal A\restriction X$
+	- expanze a redukt jsou dvě struktury se stejnou doménou, kde expanze je nad větším jazykem, přičemž všechny symboly z menšího jazyka jsou v obou strukturách interpretovány stejně (jako relační/funkční/konstantní)
 - Definovatelnost ve struktuře
+	- množina definovaná formulí = množina uspořádaných $n$-tic, ktré splňují danou formuli
+		- $\varphi^\mathcal A(\overline x)=\set{\overline a\in A^n\mid\mathcal A\models\varphi[e(\overline x/\overline a)]}$
+		- kde $|\overline x|=n$, $\varphi$ má $n$ volných proměnných $x_1,\dots,x_n$
+		- příklady
+			- $\neg(\exists y)E(x,y)$ … izolované vrcholy v grafu
+			- $x\leq y\land \neg(x=y)$ … relace ostrého uspořádání
+	- množina definovaná formulí s parametry = množina uspořádaných $n$-tic, které splňují danou formuli s určenými parametry
+		- $\varphi^{\mathcal A,\overline b}(\overline x,\overline y)=\set{\overline a\in A^n\mid\mathcal A\models\varphi[e(\overline x/\overline a,\overline y/\overline b)]}$
+		- kde $|\overline x|=n$, $|\overline y|=k$, $\varphi$ má $n+k$ volných proměnných
+		- příklad: pro $\varphi(x,y)=E(x,y)$ je $\varphi^{\mathcal G,v}(x,y)$ množina všech sousedů vrcholu $v$
+	- pro strukturu $\mathcal A$ a podmnožinu $B\subseteq A$ označíme $\text{Df}^n(\mathcal A, B)$ množinu všech množin definovatelných ve struktuře $\mathcal A$ s parametry pocházejícími z $B$
 - Extenze o definice
+	- definice relačního symbolu
+		- $T$ a $\psi$ jsou v jazyce $L$
+		- rozšíříme jazyk o nový relační symbol $R$, dostaneme $L'$
+		- extenze teorie $T$ o definici $R$ formulí $\psi$ je $L'$-teorie $T'=T\cup\set{R(x_1,\dots,x_n)\leftrightarrow\psi(x_1,\dots,x_n)}$
+		- např. $x_1\leq x_2\leftrightarrow(\exists y)(x_1+y=x_2)$
+	- definice funkčního symbolu
+		- mějme $T$ a formuli $\psi(x_1,\dots,x_n,y)$ v jazyce $L$
+		- rozšíříme $L$ o funkční symbol $f$, dostaneme $L'$
+		- nechť v $T$ platí…
+			- axiom existence $(\exists y)\psi(x_1,\dots,x_n,y)$
+			- axiom jednoznačnosti $\psi(x_1,\dots,x_n,y)\land\psi(x_1,\dots,x_n,z)\to y=z$
+		- potom extenze teorie $T$ o definici $f$ formulí $\psi$ je $L'$-teorie $T'=T\cup\set{f(x_1,\dots,x_n)=y\leftrightarrow\psi(x_1,\dots,x_n,y)}$
+		- např. $x_1-_b x_2=y\leftrightarrow x_1+(-x_2)=y$
+	- definice konstantního symbolu
+		- jako funkční symbol
+		- axiom existence $(\exists y)\psi(y)$
+		- axiom jednoznačnosti $\psi(y)\land\psi(z)\to y=z$
+		- $T'=T\cup\set{c=y\leftrightarrow\psi(y)}$
+		- např. $1/2=y\leftrightarrow y\cdot (1+1)=1$
+	- $T'$ je extenzí $T$ o definice, pokud vznikla z $T$ postupnou extenzí o definice relačních a funkčních (případně konstantních) symbolů
+	- vlastnosti extenzí o definice
+		- každý model teorie $T$ lze jednoznačně expandovat na model $T'$
+		- $T'$ je konzervativní extenze $T$
+		- pro každou $L'$-formuli $\varphi'$ existuje $L$-formule $\varphi$ taková, že $T'\models\varphi'\leftrightarrow\varphi$
 - Prenexní normální forma, Skolemova varianta
 - Izomorfismus struktur, izomorfní spektrum, ω-kategorická teorie
 - Axiomatizovatelnost, konečná axiomatizovatelnost, otevřená axiomatizovatelnost
@@ -238,6 +279,18 @@
 		- jinak zvol dosud neohodnocenou výrokovou proměnnou $p$ a zavolej algoritmus rekurzivně na $\varphi\land p$ a na $\varphi\land\neg p$
 	- algoritmus běží v exponenciálním čase
 - Věta o konstantách
+	- věta
+		- mějme formuli $\varphi$ v jazyce $L$ s volnými proměnnými $x_1,\dots,x_n$
+		- označme $L'$ rozšíření jazyka o nové konstantní symboly $c_1,\dots,c_n$ a buď $T'$ stejná teorie jako $T$, ale v jazyce $L'$
+		- potom platí $T\models\varphi$, právě když $T'\models\varphi(x_1/c_1,\dots,x_n/c_n)$
+	- poznámka: funguje to, protože nové konstantní symboly můžou být v modelech interpretovány jako libovolné prvky
+	- důkaz $\implies$
+		- je-li $\mathcal A'$ model teorie $T'$, nechť $\mathcal A$ je jeho redukt na $L$
+		- jelikož $\mathcal A\models\varphi[e]$ pro každé ohodnocení $e$, pak to platí i pro ohodnocení, kde hodnoty proměnných odpovídají konstantám z $\mathcal A'$
+	- důkaz $\impliedby$
+		- je-li $\mathcal A$ model teorie $T$ a $e$ ohodnocení, nechť $\mathcal A'$ je expanze $\mathcal A$ na $L'$ o konstanty $c_i^{A'}=e(x_i)$
+		- jelikož $\mathcal A'\models\varphi(x_1/c_1,\dots,x_n/c_n)[e']$ pro libovolné $e'$, platí i $\mathcal A'\models\varphi[e]$
+		- protože konstantní symboly jsou nové, platí i $\mathcal A\models\varphi[e]$
 - Vlastnosti extenze o definice
 - Vztah definovatelných množin a automorfismů
 - Tablo metoda v jazyce s rovností
@@ -295,4 +348,4 @@
 - Rekurzivně axiomatizovaná teorie s rekurzivně spočetnou kompletací je rozhodnutelná
 - Nerozhodnutelnost predikátové logiky
 
-todo: doplnit pojmy z výrokové logiky o zvláštnosti z predikátové logiky
+todo: doplnit pojmy z výrokové logiky o zvláštnosti z predikátové logiky, doplnit pojmy o příklady
