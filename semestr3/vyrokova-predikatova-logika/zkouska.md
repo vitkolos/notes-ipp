@@ -53,7 +53,14 @@
 		- nebo pokud je každá její položka na této větvi redukovaná a pokud větev zároveň obsahuje položku s T pro každý axiom teorie
 	- položka je redukovaná na dané větvi, pokud obsahuje pouze výrokovou proměnnou nebo se na dané větvi vyskytuje jako kořen atomického tabla (tedy došlo k jejímu rozvoji na dané větvi)
 - Kanonický model
-	- je-li $V$ bezesporná větev dokončeného tabla, potom kanonický model pro $V$ je model definovaný předpisem $v(p) = \begin{cases} 1 &\text{pokud }V\text{ obsahuje T}p \\ 0 &\text{jinak}\end{cases}$
+	- ve výrokové logice
+		- je-li $V$ bezesporná větev dokončeného tabla, potom kanonický model pro $V$ je model definovaný předpisem $v(p) = \begin{cases} 1 &\text{pokud }V\text{ obsahuje T}p \\ 0 &\text{jinak}\end{cases}$
+	- v predikátové logice
+		- doména $A$ je množina všech konstantních $L_C$-termů (tzn. s termy zacházíme jako s řetězci)
+		- termy jsou v relaci, právě když daná relace je na větvi $V$ s T
+		- funkce jsou definovány přímočaře, `f("a", "b") = "f(a, b)"`
+		- konstantní symboly jsou definovány přímočaře
+		- u jazyků s rovností definujeme kanonický model jako faktorstrukturu (přičemž tablo je z teorie rozšířené o axiomy rovnosti)
 - Kongruence struktury, faktorstruktura, axiomy rovnosti
 	- kongruence
 		- mějme ekvivalenci $\sim$ na množině $A$, funkci $f:A^n\to A$ a relaci $R\subseteq A^n$
@@ -213,6 +220,14 @@
 		- $T'$ je konzervativní extenze $T$
 		- pro každou $L'$-formuli $\varphi'$ existuje $L$-formule $\varphi$ taková, že $T'\models\varphi'\leftrightarrow\varphi$
 - Prenexní normální forma, Skolemova varianta
+	- PNF = kvantifikátory jsou před formulí, formule se dělí na kvantifikátorový prefix a otevřené jádro
+	- převod na PNF – postupně kvantifikátory vytahuju (podle pravidel), v případě potřeby přejmenuju proměnnou, tím vznikne varianta (pokud je v druhé části formule volná proměnná se stejným názvem)
+	- Skolemova varianta sentence vzniká z původní PNF sentence skolemizací
+		- skolemizace spočívá v tom, že tyto kroky iterujeme přes všechny existenční kvantifikátory $(\exists y_i)$
+			- odstraníme z prefixu existenční kvantifikátor $(\exists y_i$)
+			- za proměnnou $y_i$ substituujeme term $f_i(x_1,x_{n_i})$, kde $x_1,\dots,x_{n_i}$ jsou proměnné, jejichž univerzální kvantifikátory předcházejí $(\exists y_i)$
+		- začínáme s $L$-sentencí v PNF, jejíž všechny vázané proměnné jsou různé
+		- dostaneme $L'$-sentenci v PNF, kde $L'$ je rozšíření $L$ o nové $n_i$-ární funkční symboly
 - Izomorfismus struktur, izomorfní spektrum, ω-kategorická teorie
 - Axiomatizovatelnost, konečná axiomatizovatelnost, otevřená axiomatizovatelnost
 - Rekurzivní axiomatizace, rekurzivní axiomatizovatelnost, rekurzivně spočetná kompletace
