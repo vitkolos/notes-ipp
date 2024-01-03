@@ -1,5 +1,7 @@
 # Zkouška
 
+výpisky neobsahují kompletní definice pojmů, pouze jejich zjednodušení
+
 ## Pojmy
 
 - Model ve výrokové logice, pravdivostní funkce výroku
@@ -108,10 +110,18 @@
 	- rezoluční pravidlo
 		- mějme klauzule $C_1,C_2$ a literál $\ell$, přičemž $\ell\in C_1$ a $\overline\ell\in C_2$
 		- potom rezolventa klauzulí $C_1$ a $C_2$ přes literál $\ell$ je klauzule $C=(C_1\setminus\set{\ell})\cup(C_2\setminus\set{\overline\ell})$
+	- substituce
+		- substituce je konečná množina $\sigma=\set{x_1/t_1,\dots,x_n/t_n}$, kde $x_i$ jsou navzájem různé proměnné a $t_i$ jsou termy, přičemž vyžadujeme, aby $t_i\neq x_i$
+		- substituce je základní, jsou-li všechny $t_i$ konstantní
+		- substituce je přejmenování proměnných, jsou-li všechny $t_i$ navzájem různé proměnné
+		- substituce lze skládat (klasicky v pořadí zleva doprava), skládání je asociativní
 	- unifikace
-		- todo
+		- mějme konečnou množinu výrazů $S=\set{E_1,\dots,E_n}$
+		- substituce $\sigma$ je unifikace pro $S$, pokud $E_1\sigma=E_2\sigma=\dots=E_n\sigma$, neboli $S\sigma$ obsahuje jediný výraz
+		- pokud existuje, říkáme, že $S$ je unifikovatelná
 	- nejobecnější unifikace
-		- todo
+		- unifikace pro $S$ je nejobecnější, pokud pro každou unifikaci $\tau$ pro $S$ existuje substituce $\lambda$ taková, že $\tau=\sigma\lambda$
+		- nejobecnějších unifikací může být více, liší se přejmenováním proměnných
 - Rezoluční důkaz a zamítnutí, rezoluční strom
 	- rezoluční důkaz (odvození) klauzule $C$ z formule $S$ je konečná posloupnost klauzulí $C_0,C_1,\dots,C_n=C$ taková, že pro každé $i$ je buď $C_i\in S$ nebo $C_i$ je rezolventou nějakých $C_j,C_k$, kde $j\lt i$ a $k\lt i$
 	- pokud rezoluční důkaz existuje, říkáme, že $C$ je rezolucí dokazatelná z $S$ a píšeme $S\vdash_R C$
