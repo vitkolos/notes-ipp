@@ -427,3 +427,14 @@
 	- k parsování názvů buněk nepoužívat TryParse, radši Hornerovo schéma
 		- chybné vstupy: -1, 0, +123, 0123
 - v reálném Excelu je chyba s rokem 1900
+- do příště nová úloha Vyhodnocování výrazů (I a II)
+	- cílem je vyrobit knihovnu pro práci s výrazy
+	- do budoucna bychom chtěli mít ve výrazech proměnné
+	- chtěli bychom mít v paměti uložený výraz, ten vyhodnocovat
+	- např. + 1 + a 0 bychom chtěli zjednodušit na + 1 a
+	- chtěli bychom třeba přidat operátor modulo
+	- čísla budou vždycky inty
+	- vyhodnocovat to budeme rekurzivně
+	- zamyslet se nad viditelností objektů, aby to mohla být knihovna
+	- za úlohu je 5 bodů
+	- za kvalitní objektový návrh 5 bodů navíc
