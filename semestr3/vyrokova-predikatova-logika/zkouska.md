@@ -185,6 +185,7 @@ výpisky neobsahují kompletní definice pojmů, pouze jejich zjednodušení
 - Kompletní teorie v predikátové logice, elementární ekvivalence
 	- teorie je kompletní, je-li bezesporná a každá sentence je v ní buď pravdivá, nebo lživá
 	- struktury $\mathcal{A,B}$ (v témž jazyce) jsou elementárně ekvivalentní, pokud v nich platí tytéž sentence (značíme $\mathcal A\equiv \mathcal B$)
+		- zjevně $\mathcal A\equiv \mathcal B\iff\text{Th}(\mathcal A)=\text{Th}(\mathcal B)$
 - Podstruktura, generovaná podstruktura, expanze a redukt struktury
 	- $\mathcal B$ je (indukovaná) podstruktura $\mathcal A$, když je $B$ neprázdnou podmnožinou $A$, každá množina opovídající interpretaci relace je omezena na $n$-tice z $B$ a podobně funkce směřují z $B$ do $B$, zároveň interpretace všech konstantních symbolů musí být v $B$
 	- pozorování: univerzum podstruktury musí být uzavřené na všechny funkce původní struktury
@@ -239,9 +240,43 @@ výpisky neobsahují kompletní definice pojmů, pouze jejich zjednodušení
 		- začínáme s $L$-sentencí v PNF, jejíž všechny vázané proměnné jsou různé
 		- dostaneme $L'$-sentenci v PNF, kde $L'$ je rozšíření $L$ o nové $n_i$-ární funkční symboly
 - Izomorfismus struktur, izomorfní spektrum, ω-kategorická teorie
+	- izomorfismus struktur
+		- mějme struktury $\mathcal{A,B}$ jazyka $L=\braket{\mathcal{R,F}}$
+		- izomorfismus $\mathcal{A}$ a $\mathcal B$ je bijekce $h:A\to B$ splňující následující vlastnosti:
+			- $(\forall f\in\mathcal F)(\forall a_i\in A):h(f^\mathcal A(a_1,\dots,a_n))=f^\mathcal B(h(a_1,\dots,h(a_n))$
+			- $(\forall R\in\mathcal R)(\forall a_i\in A):$ $R^\mathcal A(a_1,\dots,a_n)\iff R^\mathcal B(h(a_1),\dots,h(a_n))$
+		- pak píšeme $\mathcal A\simeq \mathcal B$
+	- izomorfní spektrum
+		- izomorfní spektrum teorie $T$ je počet $I(\kappa,T)$ modelů $T$ kardinality $\kappa$ až na izomorfismus pro každou kardinalitu $\kappa$
+		- teorie $T$ je $\kappa$-kategorická, pokud $I(\kappa,T)=1$
+		- např.
+			- $I(\kappa,DeLO^*)=0$ pro $\kappa\in\mathbb N$
+			- $I(\omega,DeLO^*)=4$
+			- $I(\omega,DeLO)=1\implies DeLO$ je $\omega$-kategorická
+	- $\omega$-kategorická teorie má jeden spočetně nekonečný model až na izomorfismus
 - Axiomatizovatelnost, konečná axiomatizovatelnost, otevřená axiomatizovatelnost
+	- mějme třídu struktur $K\subseteq M_L$ v jazyce $L$
+	- říkáme, že $K$ je…
+		- axiomatizovatelná, pokud existuje $L$-teorie $T$ taková, že $M_L(T)=K$
+		- konečně axiomatizovatelná, pokud je axiomatizovatelná konečnou teorií
+		- otevřeně axiomatizovatelná, pokud je axiomatizovatelná otevřenou teorií
+	- o $L$-teorii $T'$ říkáme, že je konečně/otevřeně axiomatizovatelná, pokud to platí o třídě modelů $K=M_L(T')$
+	- příklady
+		- grafy nebo částečná uspořádání jsou konečně i otevřeně axiomatizovatelné
+		- tělesa jsou konečně, ale ne otevřeně axiomatizovatelná
+		- nekonečné grupy jsou axiomatizovatelné, ale ne konečně
+		- konečné grafy nejsou axiomatizovatelné
 - Rekurzivní axiomatizace, rekurzivní axiomatizovatelnost, rekurzivně spočetná kompletace
+	- teorie $T$ je rekurzivně axiomatizovaná, pokud existuje algoritmus, který pro každou vstupní formuli $\varphi$ doběhne a odpoví, zda $\varphi\in T$
+	- třída $L$-struktur $K\subseteq M_L$ je rekurzivně axiomatizovatelná, pokud existuje rekurzivně axiomatizovaná $L$-teorie $T$ taková, že $K=M_L(T)$
+	- teorie $T'$ je rekurzivně axiomatizovatelná, pokud je rekurzivně axiomatizovatelná třída jejích modelů, neboli pokud je $T'$ ekvivalentní nějaké rekurzivně axiomatizované teorii
+	- řekneme, že teorie $T$ má rekurzivně spočetnou kompletaci, pokud (nějaká) množina (až na ekvivalenci) všech jednoduchých kompletních extenzí teorie $T$ je rekurzivně spočetná, tj. existuje algoritmus, který pro danou vstupní dvojici přirozených čísel $(i,j)$ vypíše na výstup $i$-tý axiom $j$-té extenze (v nějakém pevně daném uspořádání), nebo odpoví, že takový axiom už neexistuje
 - Rozhodnutelná a částečně rozhodnutelná teorie
+	- o teorii $T$ říkáme, že je…
+		- rozhodnutelná, pokud existuje algoritmus, který pro každou vstupní formuli $\varphi$ doběhne a odpoví, zda $T\models\varphi$
+		- částečně rozhodnutelná, pokud existuje algoritmus, který pro každou vstupní formuli $\varphi$…
+			- pokud $T\vDash\varphi$, doběhne a odpoví „ano“
+			- pokud $T\nvDash\varphi$, buď nedoběhne, nebo doběhne a odpoví „ne“
 
 ## Lehké otázky
 
@@ -313,10 +348,22 @@ výpisky neobsahují kompletní definice pojmů, pouze jejich zjednodušení
 		- je-li $\mathcal A'$ model teorie $T'$, nechť $\mathcal A$ je jeho redukt na $L$
 		- jelikož $\mathcal A\models\varphi[e]$ pro každé ohodnocení $e$, pak to platí i pro ohodnocení, kde hodnoty proměnných odpovídají konstantám z $\mathcal A'$
 	- důkaz $\impliedby$
-		- je-li $\mathcal A$ model teorie $T$ a $e$ ohodnocení, nechť $\mathcal A'$ je expanze $\mathcal A$ na $L'$ o konstanty $c_i^{A'}=e(x_i)$
+		- je-li $\mathcal A$ model teorie $T$ a $e$ libovolné ohodnocení, nechť $\mathcal A'$ je expanze $\mathcal A$ na $L'$ o konstanty $c_i^{A'}=e(x_i)$
 		- jelikož $\mathcal A'\models\varphi(x_1/c_1,\dots,x_n/c_n)[e']$ pro libovolné $e'$, platí i $\mathcal A'\models\varphi[e]$
 		- protože konstantní symboly jsou nové, platí i $\mathcal A\models\varphi[e]$
 - Vlastnosti extenze o definice
+	- je-li $T'$ extenze teorie $T$ o definice, potom platí:
+		- každý model teorie $T$ lze jednoznačně expandovat na model $T'$
+		- $T'$ je konzervativní extenze $T$
+		- pro každou $L'$-formuli $\varphi'$ existuje $L$-formule $\varphi$ taková, že $T'\models\varphi'\leftrightarrow\varphi$
+	- důkaz
+		- k expanzi modelu stačí přidat odpovídající relační a funkční symboly
+		- konzervativní extenze
+			- tvrzení:
+				- mějme jazyky $L\subseteq L'$, teorii $T$ v $L$ a teorii $T'$ v $L'$
+				- $T'$ je extenzí $T$, právě když redukt každého modelu $T'$ na $L$ je modelem $T$
+				- pokud je $T'$ extenzí $T$ a každý model $T$ lze expandovat do $L'$ na nějaký model $T'$, potom je $T'$ konzervativní extenzí $T$
+			- 
 - Vztah definovatelných množin a automorfismů
 - Tablo metoda v jazyce s rovností
 - Věta o kompaktnosti a její aplikace
