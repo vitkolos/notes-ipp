@@ -737,3 +737,12 @@
 	- ověřme 2)
 		- kdyby $\exists x\neq x'\in\mathbb Z_2^k:f(x)=f(x')$
 		- tak $xG=x'G\iff \underbrace{(x-x')}_{\neq 0}G=\underline 0$, což nemůže nastat, protože řádky $G$ jsou lineárně nezávislé
+- df: dekódování $(n,k,d)$-kódu $C$ je funkce $g:\mathbb Z_2^n\to C$ taková, že $\forall x\in\mathbb Z_2^n:d(x,g(x))=\min_{y\in C}d(x,y)$
+- pro $C_1:g(x)$ vrací 000 nebo 111 podle $\Vert x\Vert$
+- pro $C_2:$ přepneme první bit, pokud nesedí parita
+- df: pro $x,y$ definuji $\braket{x,y}=x_1y_1\oplus\dots\oplus x_ny_n$
+- pozor, může se stát, že pro $x\neq 0:\braket{x,x}=0$
+- $C^\perp:=\set{y\in\mathbb Z_2^n:\forall x\in C:\braket{x,y}=0}$ … duální kód k $C$
+- fakt
+	- pokud $C$ je podprostor dimenze $k$, tak $C^\perp$ je podprostor dimenze $n-k$
+	- $(C^\perp)^\perp=C$, pokud $C$ je podprostor $\mathbb Z_2^n$
