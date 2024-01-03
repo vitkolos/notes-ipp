@@ -438,3 +438,4 @@
 	- zamyslet se nad viditelností objektů, aby to mohla být knihovna
 	- za úlohu je 5 bodů
 	- za kvalitní objektový návrh 5 bodů navíc
+	- silné typování – typy operátorů apod.
