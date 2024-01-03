@@ -405,3 +405,25 @@
 		- kdybychom chtěli, tak BitConverter.IsLittleEndian
 - excelovský úkol
 	- vyhodnocujeme vzorce
+
+---
+
+- můžeme se mrknout na 11,5 cvičení (bonusově)
+	- součástí je zadání bonusových úloh
+- funkce, co převádí název buňky na číslo sloupce a číslo řádku (nebo možná spíš na jakýsi identifikátor buňky, který má řádek a sloupec jako vlastnosti)
+	- napsat unit test pro buňku ABC123
+- benchmarkování pomocí třídy Stopwatch
+- metoda ToString by neměla mít side effects
+	- debugger ji volá během ladění, aby mohl vypsat informace o stavu jednotlivých proměnných a tříd
+	- takže se pak může stát, že se při debuggování kód chová jinak
+- v C++ může mít metoda klíčové slovo const, takže pak nemůže modifikovat objekt
+- v C# lze u struktur mít readonly metody (ale asi jen při práci s readonly fieldy?)
+- bug v Log4j
+- Excel
+	- máme např. větvení IsEmptyCell / IsFormulaCell / IsNumberCell
+		- je vhodné používat přístup fast-fail (tedy rychle detekovat, co je buňka zač, a až pak ji nějak víc zpracovávat)
+	- u regulárních výrazů je vhodné je předkompilovat
+	- A = 1, protože AAAA není 0000
+	- k parsování názvů buněk nepoužívat TryParse, radši Hornerovo schéma
+		- chybné vstupy: -1, 0, +123, 0123
+- v reálném Excelu je chyba s rokem 1900
