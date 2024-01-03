@@ -685,3 +685,55 @@
 	- volme $N$ tak, že $X\subseteq[N]$
 	- potom $\beta$ obarví ${X\choose p}$ stejně jako $\beta_N$, ale $\beta_N$ je záludné pro $K_N^{(p)}$, tedy $X$ v něm není jednobarevná
 	- tedy $\beta$ je záludné pro $K_\infty^{(p)}$, a tedy nekonečná Ramseyova věta neplatí $\quad\square$
+
+## Samoopravné kódy
+
+- naše omezení
+	- nad abecedou $\mathbb Z_2$
+	- informace je rozdělená na slova pevné délky $k$, každé se zakóduje do slova délky $n$
+	- chyby při přenosu nemění počet symbolů
+- příklady
+	- trojnásobné opakování
+		- 0 → 000
+		- 1 → 111
+		- dekódování: 011 → 111 → 1
+	- kontrola parity
+		- když posílám 3 bity, tak 4. se rovná XORu těch prvních tří (tedy součtu nad $\mathbb Z_2$)
+- df: $\mathbb Z_2^n$ … množina slov délky $n$ nad $\mathbb Z_2$, slova píšu jako řádkové vektory: $x=(x_1,x_2,\dots,x_n)$
+- $\oplus$ … sčítání nad $\mathbb Z_2$
+- $x\oplus y=(x_1\oplus y_1,\dots,x_n\oplus y_n)$
+- $\underline 0$ … nulový vektor v $\mathbb Z_n^2$
+- Hammingova vzdálenost $d(x,y):=$ počet $i$ takových, že $x_i\neq y_i$
+- Hammingova váha $\Vert x\Vert:=$ počet $i$ takových, že $x_i\neq 0$
+- pozorování
+	- $\Vert x\Vert=d(x,0)$
+	- $d(x,y)=\Vert x\oplus y\Vert$
+- df: kód je podmnožina $\mathbb Z_2^n$ (pro nějaké $n$)
+- pro kód $C\subseteq\mathbb Z_2^n$ je minimální vzdálenost $\Delta(C):=\min_{x, y\in C,\;x\neq y} d(x,y)$
+- $(n,k,d)$-kód je množina $C\subseteq\mathbb Z_2^n$ taková, že $|C|=2^k$ a $\Delta(C)=d$
+- např.
+	- $C_1=\set{000,111}$ je $(3,1,3)$-kód
+	- $C_2=\set{x\in\mathbb Z_2^4;\Vert x\Vert\text{ je sudá}}$ je $(4,3,2)$-kód … tohle odpovídá kontrole parity
+- kód $C\in\mathbb Z_2^n$ je lineární, pokud je to vektorový podprostor $\mathbb Z_2^n$ (ekvivalentně $\underline 0\in C$ a $\forall x,y\in C:x\oplus y\in C$)
+- $C_1,C_2$ jsou lineární
+- pro lineární $(n,k,d)$-kód je $k$ jeho dimenze
+- $k$ taky odpovídá počtu bitů informace, které jsem schopný zakódovat do jednoho kódového slova
+- pozorování: pokud $C$ je lineární, tak $\Delta(C)=\min_{x\in C\setminus{\underline 0}} d(x,\underline 0)=\min_{x\in C\setminus\set{\underline 0}}\Vert x\Vert$, protože pokud $x,y\in C$ jsou takové, že $d(x,y)=\Delta(C)$, tak potom $d(x,y)=d(x\oplus y,\underline 0)$
+- nechť $C$ je $(n,k,d)$-kód pro $k\in\mathbb N$, tak kódování pro $C$ je bijekce $\mathbb Z_2^k\to C$
+- pro lineární $(n,k,d)$-kód $C$ je generující matice $G\in\mathbb Z_2^{k\times n}$, jejíž řádky tvoří bázi $C$
+- tvrzení: pokud $G$ je generující matice $(n,k,d)$-kódu $C$, tak zobrazení, které vektoru $x=(x_1,x_2,\dots,x_k)\in\mathbb Z_2^k$ přiřadí vektor $xG$ je kódování pro $C$
+- pro $C_1:$
+	- $(0)(111)=(000)$
+	- $(1)(111)=(111)$
+- pro $C_2:(x_1,x_2,x_3)G_2=(x_1,x_2,x_3,x_1\oplus x_2\oplus x_3)$
+- dk
+	- uvažujeme zobrazení $f:\mathbb Z_2^k\to \mathbb Z_2^n$ definované $f(x)=xG$
+	- stačí ověřit
+		1) $\forall x\in\mathbb Z_2^k:f(x)\in C$
+		2) $f$ je prosté
+	- ověřme 1)
+		- nechť $r_1,\dots,r_k$ jsou řádky $G$, tedy $r_1,\dots,r_k\in C$
+		- potom pro každé $x=(x_1,\dots,x_k)$ platí $xG=x_1r_1\oplus x_2r_2\oplus\dots\oplus x_kr_k$, což je lineární kombinace prvků $C$, tedy prvek $C$
+	- ověřme 2)
+		- kdyby $\exists x\neq x'\in\mathbb Z_2^k:f(x)=f(x')$
+		- tak $xG=x'G\iff \underbrace{(x-x')}_{\neq 0}G=\underline 0$, což nemůže nastat, protože řádky $G$ jsou lineárně nezávislé
