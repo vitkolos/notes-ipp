@@ -729,6 +729,7 @@
 			- pozor, `catch (Exception ex)` v kombinaci s `throw ex;` není ekvivalentní, protože se přepíše stack trace
 				- může to dávat smysl, pokud je to server a stack trace by byl vidět na internetu
 	- finally blok
+		- provádí se až po catch bloku (nebo po try bloku)
 		- u streamu typicky používáme buffer, ten se splachuje pomocí Flush – to se hodí mít ve finally bloku
 		- když vypisujeme XML, vypisujeme např. řádky tabulky a nějaký řádek selže, tak chceme uzavřít tabulku – taky ve finally bloku
 		- zavírání souborů
@@ -753,4 +754,32 @@
 	- to obvykle v C# neděláme
 	- tedy stačí implementovat IDisposable pomocí jednoduché metody Dispose
 	- v metodě Dipose je potřeba detekovat, že už Dispose bylo jednou zavoláno – nemá se provést nic
-	- je potřeba počítat s tím, že po zavolání 
+	- je potřeba počítat s tím, že po zavolání Dispose bude někdo chtít k objektu přistupovat – v takovém případě vracet ObjectDisposedException (asi detekovat pomocí bool fieldu)
+- když ve třídě používám disposable zdroje, tak může dávat smysl, aby třída byla tranzitivně také disposable a v dispose volat dispose na zdrojích
+	- to dává smysl, pokud je třída vlastníkem toho zdroje
+	- jinak (typicky u writerů) není dobrý nápad soubor implicitně zavírat
+- kde vznikají výjimky
+	- metody – `new StreamReader`, `int.Parse`
+		- zachytíme konkrétním catch blokem pro danou výjimku
+		- catch bloky se kontrolují postupně shora dolů – vezme se první, který matchuje
+	- rethrow v catch bloku
+		- typicky v catch bloku je UNDO (obnovení invariantů) a nějaké logování
+	- u metody LoginUser máme nějakou implementaci – třeba pomocí souborů, takže když uživatel neexistuje, vyhodí se FileNotFoundException
+		- druh výjimky ale potom souvisí s implementačním detailem
+		- chceme tu výjimku nahradit nějakou hezčí výjimkou
+		- budeme mít try catch blok, který zachytí FileNotFoundException a vyhodí ProfileNotFoundException
+		- přepíše se nám tak ale stack trace
+		- naštěstí má Exception vlastnost InnerException, kterou bychom měli nastavit vždy, když rethrowujeme nějakou jinou výjimku
+		- InnerException se typicky nastavuje v konstruktoru
+			- např. `catch (FileNotFoundException ex) { throw new ProfileNotFoundException(ex); }`
+- zpracování výjimky v CLR
+	- nejprve se hledá místo ošetření (1. fáze)
+		- výjimky umožňují exception filtry pomocí klíčového slova when
+		- exception filtry můžou obsahovat volání funkcí
+		- tyhle funkce se volají během hledání místa ošetření (v 1. fázi)
+		- kolem metody Main je try s always-true exception filtrem, který obsahuje výpis „unhandled exception“
+			- ten se liší podle verze dotnetu a operačního systému (v dotnet frameworku se zobrazí dialogové okno – takže se může stát, že se finally vůbec nezavolá)
+	- šíření výjimky (2. fáze)
+- rozlišování výjimek
+	- zachytím obecnou výjimku, pomocí ifu zkontroluju typ výjimky a případně rethrowuju
+	- pomocí when
