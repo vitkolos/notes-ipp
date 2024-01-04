@@ -710,3 +710,47 @@
 		- ArgOutOfRangeEx.
 		- ArgNullEx.
 	- někdy je vhodné definovat vlastní výjimky – jako potomky ApplicationException
+
+---
+
+- někdy upravujeme datovou strukturu
+	- před úpravou platí invarianty o datech ve struktuře (např. platnost ID)
+	- po úpravě také
+	- během úprav invarianty neplatí
+	- co když se vyhodí výjimka během úprav?
+		- výsledkem jsou vadná data v datové struktuře
+	- typický příklad
+		- do nákupního košíku přidám knížku, pak jí nastavím ID a počet
+		- pokud selže parsování ID, v seznamu se objeví knížka s nulovým ID a počtem, což porušuje invariant
+	- někdy dává smysl přístup defenzivního programování – zabránit tomu, aby situace vůbec mohla nastat (nejdřív vytvořím knížku, až pak ji přidám do seznamu)
+	- dalším řešením je zrušit akce, které jsme provedli
+		- pomocí catch bloku – tady dává smysl zachytávat úplně všechny výjimky, zrušit provedené akce (UNDO) a pokračovat v šíření výjimky
+			- rethrow – pomocí `throw;`
+			- pozor, `catch (Exception ex)` v kombinaci s `throw ex;` není ekvivalentní, protože se přepíše stack trace
+				- může to dávat smysl, pokud je to server a stack trace by byl vidět na internetu
+	- finally blok
+		- u streamu typicky používáme buffer, ten se splachuje pomocí Flush – to se hodí mít ve finally bloku
+		- když vypisujeme XML, vypisujeme např. řádky tabulky a nějaký řádek selže, tak chceme uzavřít tabulku – taky ve finally bloku
+		- zavírání souborů
+			- soubory jsou cenné zdroje
+			- file lock (aplikace mají výhradní přístup k souboru)
+		- tedy zavírání souborů bychom chtěli dělat ve finally blocku
+		- každá věc, kterou bychom měli včas zavírat, by měla implementovat rozhraní IDisposable (má metodu Dispose)
+		- protože se try & finally s Dispose používá často, tak můžeme používat using blok, což je syntaktická zkratka
+		- alternativa místo using = nullable objekt a klasický try + finally (tohle umožňuje použít i catch blok)
+		- jak řešit několik usingů?
+			- napsat je pod sebe bez středníků a složených závorek – jako vnořené bloky (poslední z nich už má klasicky složené závorky)
+			- using jako deklarace – Dispose se zavolá na konci složených závorek (tzn. tam, kde končí životnost proměnné)
+				- pozor, tohle často svádí k tomu, že se objekt disposuje pozdě
+- k čemu dalšímu se používá using
+	- platí pouze ve zdrojáku (pomocí global using v celém projektu)
+	- `using System;` … namespace
+	- `using C = Console;` … alias pro určitý typ
+		- často vede k menší čitelnosti kódu
+		- v C# 12 lze i pro generické typy (dřív ne)
+		- může to vést k tomu, že vytvoříme dva aliasy pro tu samou třídu – čímž ztrácíme silnou typovanost
+- implementace IDisposable podle dokumentace (s destruktorem apod.) dává smysl pouze pokud mám pointer na externí unmanaged resource
+	- to obvykle v C# neděláme
+	- tedy stačí implementovat IDisposable pomocí jednoduché metody Dispose
+	- v metodě Dipose je potřeba detekovat, že už Dispose bylo jednou zavoláno – nemá se provést nic
+	- je potřeba počítat s tím, že po zavolání 
