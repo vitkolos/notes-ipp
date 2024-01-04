@@ -363,7 +363,7 @@ výpisky neobsahují kompletní definice pojmů, pouze jejich zjednodušení
 				- mějme jazyky $L\subseteq L'$, teorii $T$ v $L$ a teorii $T'$ v $L'$
 				- $T'$ je extenzí $T$, právě když redukt každého modelu $T'$ na $L$ je modelem $T$
 				- pokud je $T'$ extenzí $T$ a každý model $T$ lze expandovat do $L'$ na nějaký model $T'$, potom je $T'$ konzervativní extenzí $T$
-			- 
+			- todo
 - Vztah definovatelných množin a automorfismů
 - Tablo metoda v jazyce s rovností
 - Věta o kompaktnosti a její aplikace

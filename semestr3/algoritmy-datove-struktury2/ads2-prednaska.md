@@ -623,3 +623,104 @@
 - částečný důkaz Cookovy věty
 	- ukážeme, že $L\in\text{NP}$ lze převést na obvodový SAT
 	- obvodový SAT převedeme na SAT
+
+### Co s NP-úplným problémem?
+
+- triky a přístupy
+	- uvědomit si, že vstupy, pro něž problém potřebujeme řešit, jsou malé
+	- zjistit, že naše vstupy jsou něčím speciální
+		- např. v případě grafových problémů je náš graf vždycky strom nebo třeba bipartitní
+		- může se stát, že algoritmus bude pro naše vstupy polynomiální
+	- spokojíme se s řešením, které není optimální, ale je blízko optimu – použijeme aproximační algoritmus
+		- typicky jsme schopni dokázat, jak daleko bude výsledek od optimálního řešení
+	- použijeme heuristiku
+		- o takových algoritmech typicky neumíme nic moc dokázat
+	- vše dohromady
+- největší nezávislá množina ve stromu
+	- lemma: Je-li $T$ strom a $\ell$ jeho list, pak aspoň jedna největší nezávislá množina obsahuje $\ell$.
+	- důkaz
+		- nechť $M$ je nějaká největší nezávislá množina
+		- pokud $\ell\in M$, pak máme hotovo
+		- pokud $\ell\notin M$, pak $\ell$ má souseda $s$
+			- pokud $s\notin M$, můžu $\ell$ přidat do $M$, což je spor, protože $M$ je největší
+			- pokud $s\in M$, můžu z $M$ odebrat $s$ a přidat tam $\ell$, čímž zachovám velikost $\quad\square$
+	- hladový algoritmus
+	- DFS(v):
+		- nz(v) <- ANO
+		- Pro s syny v:
+			- DFS(s)
+			- Pokud nz(s)=ANO:
+				- nz(v) <- NE
+	- složitost $O(n)$
+- plánování přednášek
+	- známe časový plán přednášek (jednotlivé intervaly)
+	- zjišťujeme, kolik potřebujeme poslucháren
+	- chceme intervalový graf omezit nejmenším počtem barviček
+		- $V:=$ intervaly
+		- $\set{u,v}\in E\equiv u\cap v\neq\emptyset$
+	- budeme zametat přímku bodem
+	- předpokládejme, že intervaly nezačínají/nekončí stejně (obecná poloha) – z analýzy algoritmu vyplývá, že:
+		- když začínají stejně, nezáleží na pořadí
+		- když končí stejně, nezáleží na pořadí
+		- když jeden začíná a druhý končí ve stejnou chvíli, pořadí zpracování vyplývá z rozhodnutí, jak s takovou situací nakládat (můžeme intervaly chápat jako uzavřené nebo jako otevřené)
+	- udržujeme množinu volných barviček, postupně procházíme po přímce – pokud potkáme začátek intervalu, vezmeme barvičku (když není žádná volná přidáme novou), pokud potkáme konec intervalu, vrátíme barvičku
+	- algoritmus barvení intervalového grafu minimálním počtem barev
+		- setřídíme začátky i konce intervalů $[x_i,y_i]$
+		- b <- 0, V <- $\emptyset$
+		- procházíme začátky a konce:
+			- $x_i:$
+				- pokud $V\neq\emptyset:b_i\leftarrow$ libovolný prvek odebraný z $V$
+				- jinak
+					- $b\leftarrow b+1$
+					- $b_i\leftarrow b$
+			- $y_i:$ do $V$ přidáme $b_i$
+	- třídění v $O(n\log n)$
+	- průchod začátků a konců v $2n$ krocích
+	- takže celkem $O(n\log n)$
+- batoh
+	- předměty $1,\dots,n$
+	- hmotnosti $h_1,\dots,h_n$
+	- ceny $c_1,\dots,c_n$
+	- nosnost batohu $H$
+	- chceme $I\subseteq\set{1,\dots,n}$ takovou, že $h(I)\leq H$, $c(I)$ je maximální
+	- chceme algoritmus polynomiální v $n$, $C=\sum_i c_i$
+	- df: $A_k(c):=$ minimální hmotnost podmnožiny z $\set{1,\dots,k}$, která má cenu $c$
+		- může být $+\infty$, pokud taková podmnožina neexistuje
+	- sestavujeme tabulku z hodnot $A_k(c)$, kde po řádcích roste $k$ a po sloupcích roste $c$
+		- v prvním sloupci $c=0$, v prvním řádku $k=0$
+		- v posledním sloupci $c=C$, v posledním řádku $k=n$
+	- $A_0(0)=0$
+	- $A_0(c)=+\infty$ pro $c\gt 0$
+	- $A_k(c)=\min(A_k-1(c),A_{k-1}(c-c_k)+h_k)$
+		- varianta s $A_{k-1}$ připadá v úvahu, jen pokud $c-c_k\geq 0$
+	- celou tabulku vyplníme v čase $O(nC)$
+	- maximální dosažielná cena $c^*:=\max\set{c\mid A_n(c)\leq H}$
+	- rekonstrukce optimální množiny
+		- tak, že si u každého políčka tabulky pamatujeme maximální prvek dané podmnožiny
+		- stačí projít konstrukci pozpátku (nejsou potřeba ukazatele, stačí jít zpátky odečtením ceny aktuálního maximálního prvku)
+		- nebo se to dá udělat pomocí ukazatelů
+	- problém batohu řešíme v čase $O(nC)$ … pseudopolynomiální
+	- celý algoritmus lze otočit na počítání maximální ceny pro určitou hmotnost a počet předmětů, pak to bude $O(nH)$
+- TSP (problém obchodního cestujícího)
+	- v ohodnoceném grafu hledáme nejkratší hamiltonovskou kružnici (každý vrchol navštíví právě jednou)
+	- omezení
+		- úplný graf
+		- délky hran splňují trojúhelníkovou nerovnost
+	- aproximační algoritmy
+		- máme množinu přípustných řešení, mezi nimi nějaké optimum
+		- máme cenovou funkci $c$, která jednotlivá řešení ohodnocuje reálnými čísly
+		- chceme přípustné řešení s minimální (někdy naopak maximální) cenou
+		- aproximační poměr $\alpha$
+			- $c(\text{výstup})\leq\alpha\cdot\text{optimum}$
+			- …
+	- 2-aproximace TSP s $\Delta$ nerovností
+		- T <- min. kostra
+		- obejdeme kostru, nachodíme 2T
+		- akorát vrcholy navštěvujeme víckrát
+		- takže přidáme zkratky
+		- díky trojúhelníkové nerovnosti si tím neublížíme
+		- zkratky … $\leq 2T$
+		- pozorování: $T\leq$ optimum
+		- výstup $\leq 2T\leq 2$ opt.
+	- umí se $1.5$-aproximace
+	- dokážeme, že bez trojúhelníkové nerovnosti nelze obchodního cestujícího aproximovat
