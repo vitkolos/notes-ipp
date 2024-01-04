@@ -261,11 +261,13 @@ výpisky neobsahují kompletní definice pojmů, pouze jejich zjednodušení
 		- konečně axiomatizovatelná, pokud je axiomatizovatelná konečnou teorií
 		- otevřeně axiomatizovatelná, pokud je axiomatizovatelná otevřenou teorií
 	- o $L$-teorii $T'$ říkáme, že je konečně/otevřeně axiomatizovatelná, pokud to platí o třídě modelů $K=M_L(T')$
+		- tzn. existuje nějaká teorie, která má danou vlastnost (je konečná/otevřená) a popisuje danou třídu modelů
 	- příklady
 		- grafy nebo částečná uspořádání jsou konečně i otevřeně axiomatizovatelné
 		- tělesa jsou konečně, ale ne otevřeně axiomatizovatelná
 		- nekonečné grupy jsou axiomatizovatelné, ale ne konečně
 		- konečné grafy nejsou axiomatizovatelné
+			- jsme schopni axiomatizovat grafy na $k$ vrcholech, ale ne všechny konečné grafy
 - Rekurzivní axiomatizace, rekurzivní axiomatizovatelnost, rekurzivně spočetná kompletace
 	- teorie $T$ je rekurzivně axiomatizovaná, pokud existuje algoritmus, který pro každou vstupní formuli $\varphi$ doběhne a odpoví, zda $\varphi\in T$
 	- třída $L$-struktur $K\subseteq M_L$ je rekurzivně axiomatizovatelná, pokud existuje rekurzivně axiomatizovaná $L$-teorie $T$ taková, že $K=M_L(T)$
