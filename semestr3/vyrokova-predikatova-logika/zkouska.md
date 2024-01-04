@@ -398,8 +398,27 @@ výpisky neobsahují kompletní definice pojmů, pouze jejich zjednodušení
 - Kompletní jednoduché extenze DeLO*
 - Existence spočetného algebraicky uzavřeného tělesa
 - Tělesa charakteristiky 0 nejsou konečně axiomatizovatelná
+	- tvrzení: třída $K$ těles charakteristiky 0 není konečně axiomatizovatelná
+	- důkaz
+		- podle věty o konečné axiomatizovatelnosti stačí ukázat, že $\overline K$ (tělesa nenulové charakteristiky a netělesa) není axiomatizovatelná
+		- sporem: $\overline K=M(S)$
+		- potom $S'=S\cup T_0$ má model, neboť každá konečná část má model
+		- todo
 - Kritérium otevřené axiomatizovatelnosti
+	- tvrzení: je-li $T$ otevřeně axiomatizovatelná, potom je každá podstruktura modelu $T$ také modelem $T$
+	- důkaz
+		- buď $T'$ otevřená aximatizace $T$, $\mathcal A$ model $T'$, $\mathcal {B\subseteq A}$
+		- pro každou $\varphi\in T'$ platí $\mathcal B\models\varphi$ ($\varphi$ je otevřená)
+		- tedy i $\mathcal B\models T'$
+	- příklady
+		- DeLO není otevřeně axiomatizovatelná – konečná podstruktura nemůže být hustá
+		- teorie těles není otevřeně axiomatizovatelná – podstruktura $\mathbb Z$ nemá inverzní prvek k 2 vůči násobení
 - Rekurzivně axiomatizovaná teorie je částečně rozhodnutelná, kompletní je rozhodnutelná
+	- tvrzení: je-li $T$ rekurzivně axiomatizovaná, potom je částečně rozhodnutelná, je-li navíc kompletní, je rozhodnutelná
+	- důkaz
+		- rek. ax. → č. r.
+			- algoritmus konstruuje systematické tablo z $T$ pro $\text F\varphi$
+		- todo
 - Teorie konečné struktury v konečném jazyce s rovností je rozhodnutelná
 - Gödelovy věty o neúplnosti a jejich důsledky (bez důkazů)
 
