@@ -441,6 +441,11 @@ výpisky neobsahují kompletní definice pojmů, pouze jejich zjednodušení
 - ω-kategorické kritérium kompletnosti
 - Neaxiomatizovatelnost konečných modelů
 - Věta o konečné axiomatizovatelnosti
+	- věta: $K\subseteq M_L$ je konečně axiomatizovatelná, právě když $K$ i $\overline K$ jsou axiomatizovatelné
+	- důkaz $\implies$
+		- pokud $K$ axiomatizují sentence $\varphi_1,\dots,\varphi_n$, pak $\overline K$ axiomatizuje $\neg(\varphi_1\land\dots\land\varphi_n)$
+	- důkaz $\impliedby$
+		- todo
 - Rekurzivně axiomatizovaná teorie s rekurzivně spočetnou kompletací je rozhodnutelná
 - Nerozhodnutelnost predikátové logiky
 
