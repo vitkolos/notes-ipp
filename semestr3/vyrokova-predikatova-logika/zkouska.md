@@ -359,12 +359,34 @@ výpisky neobsahují kompletní definice pojmů, pouze jejich zjednodušení
 	- důkaz
 		- k expanzi modelu stačí přidat odpovídající relační a funkční symboly
 		- konzervativní extenze
-			- tvrzení:
+			- vyplývá z tvrzení
 				- mějme jazyky $L\subseteq L'$, teorii $T$ v $L$ a teorii $T'$ v $L'$
-				- $T'$ je extenzí $T$, právě když redukt každého modelu $T'$ na $L$ je modelem $T$
-				- pokud je $T'$ extenzí $T$ a každý model $T$ lze expandovat do $L'$ na nějaký model $T'$, potom je $T'$ konzervativní extenzí $T$
-			- todo
+				- (i) $T'$ je extenzí $T$, právě když redukt každého modelu $T'$ na $L$ je modelem $T$
+				- (ii) pokud je $T'$ extenzí $T$ a každý model $T$ lze expandovat do $L'$ na nějaký model $T'$, potom je $T'$ konzervativní extenzí $T$
+			- důkaz todo
+		- $T'\models\varphi'\leftrightarrow\varphi$
+			- pro relační symbol $R$
+				- v definici máme ekvivalenci $R\leftrightarrow\psi$
+				- $\varphi$ vznikne tak, že nahradíme atomické podformule s novým symbolem $R$ formulí $\psi'$, což je varianta $\psi$ zaručující substituovatelnost všech termů
+					- tedy $R(t_1,\dots,t_n)$ nahradíme $\psi'(x_1/t_1,\dots,x_n/t_n)$
+				- substituovatelnost se dá zaručit třeba přejmenováním všech vázaných proměnných $\psi$ na zcela nové
+			- pro funkční symbol $f$
+				- v definici máme $f(x_1,\dots,x_n)=y\leftrightarrow\psi(x_1,\dots,x_n,y)$
+				- u více výskytů $f$ aplikujeme tento postup několikrát, v případě vnoření postupujeme od vnitřních
+				- jako $\varphi^*$ označíme formuli vzniklou z $\varphi'$ nahrazením termu $f(t_1,\dots,t_n)$ novou proměnnou $z$
+				- $\varphi$ dostaneme takto: $(\exists z)(\varphi^*\land\psi'(x_1/t_1,\dots,x_n/t_n,y/z))$
+				- opět $\psi'$ je varianta zaručující substituovatelnost
+				- díky této konstrukci a vlastnostem $T$ (axiomům jednoznačnosti a existence $z$) platí $T'\models\varphi'\leftrightarrow\varphi$
 - Vztah definovatelných množin a automorfismů
+	- tvrzení
+		- je-li $D\subseteq A^n$ definovatelná ve struktuře $\mathcal A$, potom pro každý automorfismus $h\in\text{Aut}(\mathcal A)$ platí $h[D]=D$, kde $h[D]$ značí $\set{h(\overline a)\mid\overline a\in D}$
+		- je-li $D$ definovatelná s parametry $\overline b$, platí totéž pro automorfismy identické na $\overline b$, tj. takové, že $h(\overline b)=\overline b$ (neboli $\forall i:h(b_i)=b_i$)
+	- důkaz (pro verzi s parametry)
+		- nechť $D=\varphi^{\mathcal A,\overline b}(\overline x,\overline y)$
+		- potom pro každé $\overline a \in A^n$ platí
+			- $\overline a\in D$
+			- $\iff\mathcal A\models\varphi[e(\overline x/\overline a,\overline y/\overline b)]$
+			- todo
 - Tablo metoda v jazyce s rovností
 - Věta o kompaktnosti a její aplikace
 - Věta o korektnosti rezoluce ve výrokové logice
