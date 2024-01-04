@@ -783,3 +783,12 @@
 - rozlišování výjimek
 	- zachytím obecnou výjimku, pomocí ifu zkontroluju typ výjimky a případně rethrowuju
 	- pomocí when
+- dodatek k výjimkám
+	- vstup do catch bloku pausne šíření výjimky
+	- vstup do finally bloku pausne šíření výjimky
+	- CLR udržuje zásobník pausnutých výjimek
+	- při opuštění finally bloku se buď 1) odpausne výjimka pausnutá tímto blokem, nebo se 2) tato výjimka odstraní a místo ní se propaguje nová výjimka (pokud uvnitř finally bloku vznikla nová výjimka)
+	- při opuštění catch bloku se stane jedna z těchto věcí
+		- zruší se výjimka pausnutá tímto blokem (pokud nevznikla nová výjimka)
+		- odpausne se výjimka pausnutá tímto blokem (v případě rethrowování pomocí `throw;`)
+		- odstraní se výjimka pausnutá tímto blokem a místo ní se propaguje nová výjimka (pokud je vyhozena nová výjimka)
