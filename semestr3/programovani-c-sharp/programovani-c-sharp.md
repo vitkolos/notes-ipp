@@ -738,11 +738,13 @@
 		- tedy zavírání souborů bychom chtěli dělat ve finally blocku
 		- každá věc, kterou bychom měli včas zavírat, by měla implementovat rozhraní IDisposable (má metodu Dispose)
 		- protože se try & finally s Dispose používá často, tak můžeme používat using blok, což je syntaktická zkratka
+			- `using (var f1 = new FileStream("...")) { ... }`
 		- alternativa místo using = nullable objekt a klasický try + finally (tohle umožňuje použít i catch blok)
 		- jak řešit několik usingů?
 			- napsat je pod sebe bez středníků a složených závorek – jako vnořené bloky (poslední z nich už má klasicky složené závorky)
 			- using jako deklarace – Dispose se zavolá na konci složených závorek (tzn. tam, kde končí životnost proměnné)
 				- pozor, tohle často svádí k tomu, že se objekt disposuje pozdě
+				- `using var f1 = new FileStream("...");`
 - k čemu dalšímu se používá using
 	- platí pouze ve zdrojáku (pomocí global using v celém projektu)
 	- `using System;` … namespace

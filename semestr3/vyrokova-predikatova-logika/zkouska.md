@@ -388,12 +388,81 @@ výpisky neobsahují kompletní definice pojmů, pouze jejich zjednodušení
 		- potom pro každé $\overline a \in A^n$ platí
 			- $\overline a\in D$
 			- $\iff\mathcal A\models\varphi[e(\overline x/\overline a,\overline y/\overline b)]$
-			- todo
+			- $\iff\mathcal A\models\varphi[(e\circ h)(\overline x/\overline a,\overline y/\overline b)]$
+				- protože to je izomorfismus
+			- $\iff\mathcal A\models\varphi[e(\overline x/h(\overline a),\overline y/h(\overline b))]$
+			- $\iff\mathcal A\models\varphi[e(\overline x/h(\overline a),\overline y/\overline b)]$
+				- protože na $\overline b$ je v automorfismu identita
+			- $\iff h(\overline a)\in D$
 - Tablo metoda v jazyce s rovností
+	- chceme, aby v nějakém modelu $\mathcal A$ teorie $T$ v jazyce s rovností byla relace $=^\mathcal A$ kongruencí
+		- toho docílíme tak, že k teorii $T$ přidáme axiomy rovnosti – tablo sestavíme z výsledné teorie $T^*$
+	- kongruence nám ale nestačí, chceme, aby rovnost byla identita, proto budeme všechny $=^\mathcal A$-ekvivalentní prvky „identifikovat“ do jednoho
+		- tak vznikne faktorstruktura podle kongruence $=^\mathcal A$
+	- definice
+		- je-li $T$ teorie v jazyce $L$ s rovností, potom označme jako $T^*$ rozšíření teorie $T$ o generální uzávěry axiomů rovnosti pro jazyk $L$
+		- tablo důkaz z teorie $T$ je tablo důkaz z $T^*$, podobně pro tablo zamítnutí (a obecně jakékoliv tablo)
+	- pozorování: jestliže $\mathcal A\models T^*$, potom platí i $\mathcal A/_{=^\mathcal A}\models T^*$
 - Věta o kompaktnosti a její aplikace
+	- věta: teorie má model, právě když každá její konečná část má model
+	- důkaz
+		- $\implies:$ model teorie je zřejmě modelem každé její části
+		- $\impliedby$ obměnou, chceme: pokud $T$ nemá model, existuje její konečná část, která nemá model
+			- pokud $T$ nemá model, je sporná, tedy $T\vdash\perp$
+			- vezměme nějaký konečný tablo důkaz $\perp$ z $T$
+				- podle věty o konečnosti sporu
+			- k jeho konstrukci stačí konečně mnoho axiomů $T$
+			- ty tvoří konečnou podteorii $T'\subseteq T$, která nemá model
 - Věta o korektnosti rezoluce ve výrokové logice
+	- věta: je-li formule $S$ rezolucí zamítnutelná, potom je $S$ nesplnitelná
+	- důkaz
+		- nechť $S\vdash_R\square$ a vezměme nějaký rezoluční důkaz $C_0,C_1,\dots,C_n=\square$
+		- předpokládejme pro spor, že $S$ je splnitelná
+		- tedy $\mathcal V\models S$ pro nějaké ohodnocení $\mathcal V$
+		- indukcí podle $i$ dokážeme, že $\mathcal V\models C_i$
+		- pro $i=0$ to platí, neboť $C_0\in S$
+		- pro $i\gt 0$ máme dva případy
+			- $C_i\in S$, potom $\mathcal V\models C_i$ plyne z předpokladu, že $\mathcal V\models S$
+			- $C_i$ je rezolventou nějakých dvou předchozích klauzulí, pro obě z nich z indukčního předpokladu platí, že ohodnocení $\mathcal V$ je splňuje, takže $\mathcal V\models C_i$ plyne z korektnosti rezolučního pravidla
+		- indukcí dojdeme k tomu, že $\mathcal V\models\square$, což je spor
 - Věta o korektnosti rezoluce v predikátové logice
+	- korektnost rezolučního pravidla
+		- v klauzuli $C_1$ jsou mj. výrazy $A_1,\dots,A_n$
+		- v klauzuli $C_2$ jsou mj. výrazy $\neg B_1,\dots,\neg B_m$
+		- množina výrazů $S=\set{A_1,\dots,A_n,B_1,\dots,B_m}$ má nejobecnější unifikaci $\sigma$ takovou, že $S\sigma=\set{A_1\sigma}$
+		- $C_1,C_2$ jsou otevřeně formule platné v $\mathcal A$, takže platí i jejich instance po substituci, proto $\mathcal A\vDash C_1\sigma$ a $\mathcal A\vDash C_2\sigma$
+		- pokud $\mathcal A\vDash A_1\sigma[e]$, potom $\mathcal A\nvDash\neg A_1\sigma [e]$ a musí být $\mathcal A\vDash C_2'\sigma[e]$
+			- kde $C'_2$ je část formule bez negací $B_i$
+		- tedy $\mathcal A\vDash C[e]$
+		- podobně to funguje i naopak – pokud $\mathcal A\nvDash A_1\sigma[e]$
+	- věta: pokud je CNF formule $S$ rezolucí zamítnutelná, potom je nesplnitelná
+	- důkaz
+		- víme, že $S\vdash_R\square$, vezměme tedy nějaký rezoluční důkaz $\square$ z $S$
+		- kdyby existoval model $\mathcal A\models S$, díky korektnosti rezolučního pravidla bychom mohli dokázat indukcí podle délky důkazu, že i $\mathcal A\models\square$, což ale není možné
 - Souvislost stromu dosazení a splnitelnosti CNF formule
+	- lemma: $S$ je splnitelná, právě když je splnitelná $S^\ell$ nebo $S^\overline\ell$
+	- důkaz lemmatu
+		- $\implies$
+			- mějme ohodnocení $\mathcal V\models S$
+			- to nemůže obsahovat $\ell$ i $\overline\ell$ (musí být konzistentní)
+			- BÚNO $\overline\ell\notin\mathcal V$
+			- vezmeme klauzuli v $S^\ell$, ta je ve tvaru $C\setminus\set{\overline\ell}$ pro klauzuli $C\in S$ neobsahující $\ell$
+			- víme, že $\mathcal V\models C$
+			- $\mathcal V$ nebosahuje $\overline\ell$, takže $\mathcal V$ splnitlo nějaký jiný literál $C$, takže platí i $\mathcal V\models C\setminus\set{\overline\ell}$
+		- $\impliedby$
+			- BÚNO existuje $\mathcal V\models S^\ell$
+			- $\overline\ell$ se nevyskytuje v $S^\ell$, takže platí $\mathcal V\setminus\set{\overline\ell}\models S^\ell$
+			- ohodnocení $\mathcal V'=(\mathcal V\setminus\set{\overline\ell})\cup\set{\ell}$ splňuje každou $C\in S$
+				- pokud $\ell\in C$, klauzule je splněna díky $\ell$ v $\mathcal V'$
+				- pokud $\ell\notin C$, pak $\mathcal V\setminus\set{\overline\ell}\models C\setminus\set{\overline\ell}\in S^\ell$
+	- tvrzení: formule $S$ (nad spočetným jazykem) je nesplnitelná, právě když každá větev stromu dosazení obsahuje prázdnou klauzuli $\square$
+	- důkaz tvrzení
+		- pro konečnou formuli lze dokázat indukcí podle počtu proměnných pomocí lemmatu
+		- pro nekonečnou formuli
+			- je-li $S$ nekonečná a splnitelná, potom má splňující ohodnocení
+			- to se shoduje s odpovídající nekonečnou větví ve stromu dosazení
+			- je-li $S$ nekonečná a nesplnitelná, potom podle věty o kompaktnosti existuje nesplnitelná konečná část $S'\subseteq S$
+			- po dosazení pro všechny proměnné bude v každé větvi $\square$ (po konečně mnoha krocích)
 - Nestandardní model přirozených čísel
 - Kompletní jednoduché extenze DeLO*
 - Existence spočetného algebraicky uzavřeného tělesa
