@@ -464,15 +464,48 @@ výpisky neobsahují kompletní definice pojmů, pouze jejich zjednodušení
 			- je-li $S$ nekonečná a nesplnitelná, potom podle věty o kompaktnosti existuje nesplnitelná konečná část $S'\subseteq S$
 			- po dosazení pro všechny proměnné bude v každé větvi $\square$ (po konečně mnoha krocích)
 - Nestandardní model přirozených čísel
+	- nechť $\underline{\mathbb N}=\braket{\mathbb N,S,+,\cdot,0,\leq}$ je standardní model přirozených čísel
+	- označme $\text{Th}(\underline{\mathbb N})$ množinu všech sentencí pravdivých v $\underline{\mathbb N}$ (tzv. teorii struktury $\underline{\mathbb N}$)
+	- pro $n\in\mathbb N$ definujme $n$-tý numerál jako term $\underline n=S(S(\dots S(0)\dots))$, kde $S$ je aplikováno $n$-krát
+	- vezměme nový konstantní symbol $c$ a vyjádřeme, že je ostře větší než každý $n$-tý numerál: $T=\text{Th}(\underline{\mathbb N})\cup\set{\underline n\lt c\mid n\in\mathbb N}$
+	- každá konečná část $T$ má model
+	- podle věty kompaktnosti má i $T$ model, říkáme mu nestandardní model
+	- platí v něm tytéž sentence, jako ve standardním modelu, ale zároveň obsahuje prvek $c^\mathcal A$, který je větší než každé $n\in\mathbb N$
 - Kompletní jednoduché extenze DeLO*
+	- teorie hustého lineárního uspořádání (DeLO*) je extenze teorie uspořádání (reflexivita, antisymetrie, tranzitivita) o axiom linearity (dichotomie) a axiom hustoty (mezi libovolnými dvěma prvky existuje třetí), někdy se přidává axiom netriviality (zakazuje jednoprvkový model)
+	- mějme sentenci $\varphi$ vyjadřující existenci minimálního prvku a sentenci $\psi$ vyjadřující existenci maximálního prvku
+	- následující čtyři teorie jsou právě všechny kompletní jednoduché extenze teorie DeLO*
+		- $DeLO=DeLO^*\cup\set{\neg\varphi,\neg\psi}$
+		- $DeLO^+=DeLO^*\cup\set{\neg\varphi,\psi}$
+		- $DeLO^-=DeLO^*\cup\set{\varphi,\neg\psi}$
+		- $DeLO^\pm=DeLO^*\cup\set{\varphi,\psi}$
+	- stačí ukázat, že tyto čtyři teorie jsou kompletní – potom žádná další kompletní jednoduchá extenze DeLO* nemůže existovat
+	- jejich kompletnost plyne z toho, že jsou $\omega$-kategorické
 - Existence spočetného algebraicky uzavřeného tělesa
+	- těleso je algebraicky uzavřené, pokud každý polynom nenulového stupně v něm má kořen
+	- nespočetné těleso $\mathbb C$ je algebraicky uzavřené ($\mathbb R,\mathbb Q$ nejsou)
+	- algebraickou uzavřenost pro každé $n\gt 0$ vyjádříme sentencí $\psi_n=(\forall x_{n-1})\dots(\forall x_0)(\exists y)(y^n+x_{n-1}\cdot y^{n-1}+\dots+x_1\cdot y+x_0)=0$
+		- kde $y^k$ je zkratka za term $\underbrace{y\cdot y\cdot\ldots\cdot y}_{k}$
+		- $y$ tady odpovídá hledanému kořenu polynomu (obvykle se označuje jako $x$), naopak $x_i$ odpovídají koeficientům
+	- z Löwenheim-Skolemovy věty s rovností vyplývá důsledek, že ke každé nekonečné $L$-struktuře (kde $L$ je spočetný jazyk s rovností) existuje elementárně ekvivalentní spočetně nekonečná struktura
+	- tedy existuje spočetně nekonečná struktura $\mathcal A$ elementárně ekvivalentní tělesu $\mathbb C$
+	- $\mathbb C$ je těleso a $\forall n\gt 0:\mathbb C\models\psi_n\implies\mathcal A$ je algebraicky uzavřené těleso
 - Tělesa charakteristiky 0 nejsou konečně axiomatizovatelná
+	- těleso charakteristiky 0 … sečtením prvočíselného počtu jedniček nikdy nedostanu nulu
+		- $T$ … teorie těles
+		- $T_0$ … teorie axiomatizující třídu těles charakteristiky 0
+		- $T_0=T\cup\set{\neg p1=0\mid p \text{ je prvočíslo}}$
+			- $p1$ … $\underbrace{1+1+\dots+1}_p$
 	- tvrzení: třída $K$ těles charakteristiky 0 není konečně axiomatizovatelná
 	- důkaz
 		- podle věty o konečné axiomatizovatelnosti stačí ukázat, že $\overline K$ (tělesa nenulové charakteristiky a netělesa) není axiomatizovatelná
 		- sporem: $\overline K=M(S)$
 		- potom $S'=S\cup T_0$ má model, neboť každá konečná část má model
-		- todo
+			- pro konečné části $S$ jednoduché
+			- pro konečné části $T_0$ vezmeme těleso prvočíselné charakteristiky větší než jakékoliv $p$ z axiomu $T'$ tvaru $\neg p1=0$
+		- nechť $\mathcal A$ je model $S'$
+		- potom je i modelem $S$, takže $\mathcal A\in\overline K$
+		- zároveň je ale modelem $T_0$, takže $\mathcal A\in K$, což je spor
 - Kritérium otevřené axiomatizovatelnosti
 	- tvrzení: je-li $T$ otevřeně axiomatizovatelná, potom je každá podstruktura modelu $T$ také modelem $T$
 	- důkaz
@@ -485,11 +518,34 @@ výpisky neobsahují kompletní definice pojmů, pouze jejich zjednodušení
 - Rekurzivně axiomatizovaná teorie je částečně rozhodnutelná, kompletní je rozhodnutelná
 	- tvrzení: je-li $T$ rekurzivně axiomatizovaná, potom je částečně rozhodnutelná, je-li navíc kompletní, je rozhodnutelná
 	- důkaz
-		- rek. ax. → č. r.
+		- rekurzivní axiomatizovanost → částečná rozhodnutelnost
 			- algoritmus konstruuje systematické tablo z $T$ pro $\text F\varphi$
-		- todo
+			- pokud $T\vDash\varphi$, konstrukce skončí v konečně mnoha krocích
+			- jinak konstrukce nemusí skončit
+		- rekurzivní axiomatizovanost & kompletnost → rozhodnutelnost
+			- z kompletnosti plyne, že buď $T\vdash\varphi$ nebo $T\vdash\neg\varphi$
+			- algoritmus současně konstruuje tablo pro $\text F\varphi$ a tablo pro $\text T\varphi$
+			- jedna z konstrukcí po konečně mnoha krocích skončí
 - Teorie konečné struktury v konečném jazyce s rovností je rozhodnutelná
+	- tvrzení: je-li $\mathcal A$ konečná struktura v konečném jazyce s rovností, potom je teorie $\text{Th}(\mathcal A)$ rekurzivně axiomatizovatelná
+	- důkaz
+		- očíslujme prvku domény jako $A=\set{a_1,\dots,a_n}$
+		- $\text{Th}(\mathcal A)$ lze axiomatizovat sentencí, která je tvaru „existuje právě $n$ prvků $a_1,\dots,a_n$ splňujících právě ty základní vztahy o funkčních hodnotách a relacích, které platí v $\mathcal A$“
+	- $\text{Th}(\mathcal A)$ (množina všech $L$-sentencí platných v $\mathcal A$) je zjevně kompletní (podle pozorování 9.1.3)
+	- rekurzivní axiomatizovanost & kompletnost → rozhodnutelnost
 - Gödelovy věty o neúplnosti a jejich důsledky (bez důkazů)
+	- První věta o neúplnosti: Pro každou bezespornou rekurzivně axiomatizovanou extenzi $T$ Robinsonovy aritmetiky existuje sentence, která je pravdivá v $\underline{\mathbb N}$, ale není dokazatelná v $T$.
+	- důsledek 1.1: je-li $T$ rekurzivně axiomatizovaná extenze Robinsonovy aritmetiky a je-li navíc $\underline{\mathbb N}$ modelem teorie $T$, potom $T$ není kompletní
+	- důsledek 1.2: teorie $\text{Th}(\underline{\mathbb N})$ není rekurzivně axiomatizovatelná
+		- kdyby byla, nemohla by být kompletní – ale ona kompletní je
+	- věta (Rosserův trik): v každé bezesporné rekurzivně axiomatizované extenzi Robinsonovy aritmetiky existuje nezávislá sentence – tedy taková není kompletní
+	- Druhá věta o neúplnosti: Pro každou bezespornou rekurzivně axiomatizovanou extenzi $T$ Peanovy aritmetiky platí, že $Con_T$ není dokazatelná v $T$.
+	- $Con_T$ … sentence vyjadřující bezespornost (konzistence) teorie $T$
+		- $Con_T=\neg(\exists y)Prf_T(\underline{0=S(0)},y)$
+		- $Prf_T(x,y)$ … $y$ je důkaz $x$ v $T$
+	- důsledek 2.1: existuje model Peanovy aritmetiky (PA), ve kterém platí sentence $(\exists y)Prf_{PA}(\underline{0=S(0)},y)$
+	- důsledek 2.2: existuje bezesporná rekurzivně axiomatizovaná extenze $T$ Peanovy aritmetiky, která dokazuje svou spornost, tj. taková, že $T\vdash\neg Con_T$
+	- důsledek 2.3: je-li teorie množin ZFC bezesporná, nemůže být sentence $Con_{ZFC}$ v teorii ZFC dokazatelná
 
 ## Těžké otázky
 
