@@ -495,6 +495,7 @@
 	- nespoléhám se na to, že znám přesnou pozici robota – pravděpodobnostní lokalizace
 		- pozice robota je náhodná proměnná
 		- používají se principy teorie pravděpodobnosti
+		- Markovovský řetězec – historie pohybu neovlivňuje budoucnost pohybu
 		- odhad pózy robota je funkce $\text{Bel}:l\to\set{0,1}$
 			- kde $\text{Bel}$ … belief, $l$ … pozice
 		- nesnažíme se odstranit nejistotu
@@ -515,5 +516,88 @@
 				- MCL je imunní vůči chybám v odometrii
 				- MCL je imunní vůči nepřesnosti GPS
 	- žádná lokalizace
-- SLAM
-	- simultánní lokalizace a mapování
+		- předprogramované automaty
+		- reaktivní systémy
+		- evoluční algoritmy
+- SLAM – simultánní lokalizace a mapování
+- když známe vzdálenosti od landmarků
+	- vzdálenost od dvou landmarků nám dává dvě symetrická řešení, jedno z nich typicky můžeme zahodit, protože nedává smysl
+- když známe úhly k landmarkům
+	- dva landmarky nám dají jeden (obvodový) úhel → máme kružnici (pokud známe pozici landmarků na mapě)
+	- když máme třetí landmark, máme tři úhly (tři trojúhelníky) a dostaneme bod
+- plánování cesty
+	- zadání: najdi cestu ze startu do cíle nebo řekni, že cesta neexistuje
+	- bereme v úvahu, jestli je cesta vůbec proveditelná, vyhýbáme se překážkám na cestě
+	- zajímá nás složitost algoritmu, případně jestli najde optimální cestu
+	- zajímá nás úplnost algoritmu
+	- algoritmy
+		- grafové
+		- mřížkové / metody s potenciálovým polem
+	- algoritmus nezáleží na typu mapy – lze přecházet mezi typy algoritmů
+	- dělení algoritmů podle nalezeného řešení
+		- přesné (exaktní)
+		- aproximace
+		- pravděpodobnostní řešení
+	- bug algoritmy
+		- žádný globální model
+			- žádná mapa ani známé překážky
+			- nevíme, jestli se dá vůbec dostat do cíle
+		- známe pozici cíle vzhledem k pozici startu
+		- máme senzory (omezené)
+		- předpoklady
+			- 2D statické prostředí
+			- konečné parametry (tyhle všechny věci musí být konečné, aby byl algoritmus úplný)
+				- lokální počet překážek
+				- obvod překážky
+				- tloušťka překážky
+				- počet překážek, které protíná přímka
+			- překážky se nedotýkají, jinak je můžeme sloučit do jedné překážky
+		- Bug0
+			- běž k cíli, dokud nenarazíš na překážku
+			- pokud narazíš na překážku, obcházej ji, dokud nemůžeš jít zase rovně k cíli
+				- je jedno, jestli budeme všechny překážky obcházet zleva nebo se budeme rozhodovat náhodně
+			- robot nemá paměť, překážka ve tvaru C ho zacyklí
+		- Bug1
+			- řešením by bylo obcházet překážku tak dlouho, dokud nebudu blíž cíli než v místě, kde jsem do ní narazil
+			- tady už potřebujeme paměť
+			- hledáme místo na obvodu překážky, které je nejblíž k cíli (?)
+			- je Bug1 úplný?
+				- lemma 1-1: brouk se nevrací k překážce, kterou opustil
+				- důkaz
+					- $H_i$ … hit point, $L_i$ … leave point
+					- brouk se pohybuje od startu přes H1, L1, H2, L2, …, Hn, Ln do cíle
+					- …
+				- lemma 1-2: brouk potká konečný počet překážek
+				- důkaz: v kruhu se středem v cíli a s poloměrem odpovídajícím vzdálenosti startu a cíle je konečný počet překážek, cesty mezi Li a Hi jsou uvnitř kruhu
+		- Bug2
+			- máme úsečku ze startu do cíle
+			- obcházíme tak dlouho, dokud tu úsečku nepotkáme znova
+			- pokud se obcházením dostaneme na místo, kde už jsme byli, na dané křižovatce se příště musíme rozhodnout jinak
+		- Bug2 je hladový
+		- area of sight improvement
+			- brouk obchází překážky kratší trasou
+			- tangent bug
+- nejkratší cesta
+	- Djikstra
+	- A*
+	- D*
+	- náhodné stromy
+	- potential field planning
+		- pustíme vodu z robota
+		- cíl je prohlubeň
+		- překážky jsou vyvýšené
+- další úloha – bez překážek, obejít dané body
+- používají se spliny, hermitovské křivky
+
+## Více robotů
+
+- úkol je příliš komplexní pro jednoho robota
+- aplikace
+	- sklady
+	- virtuální roje
+- centralizovaná architektura
+	- jeden point-of-failure
+	- velká komunikační zátěž
+- hierarchie
+- decentralizovaná kontrola
+- hybridní řízení

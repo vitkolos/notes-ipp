@@ -392,7 +392,7 @@ výpisky neobsahují kompletní definice pojmů, pouze jejich zjednodušení
 				- protože to je izomorfismus
 			- $\iff\mathcal A\models\varphi[e(\overline x/h(\overline a),\overline y/h(\overline b))]$
 			- $\iff\mathcal A\models\varphi[e(\overline x/h(\overline a),\overline y/\overline b)]$
-				- protože na $\overline b$ je v automorfismu identita
+				- protože na $\overline b$ je v tomhle automorfismu identita (z předpokladů tvrzení)
 			- $\iff h(\overline a)\in D$
 - Tablo metoda v jazyce s rovností
 	- chceme, aby v nějakém modelu $\mathcal A$ teorie $T$ v jazyce s rovností byla relace $=^\mathcal A$ kongruencí
