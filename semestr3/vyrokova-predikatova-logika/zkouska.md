@@ -555,13 +555,13 @@ výpisky neobsahují kompletní definice pojmů, pouze jejich zjednodušení
 	- důsledek 1.2: teorie $\text{Th}(\underline{\mathbb N})$ není rekurzivně axiomatizovatelná
 		- kdyby byla, nemohla by být kompletní – ale ona kompletní je
 	- věta (Rosserův trik): v každé bezesporné rekurzivně axiomatizované extenzi Robinsonovy aritmetiky existuje nezávislá sentence – tedy taková není kompletní
-	- Druhá věta o neúplnosti: Pro každou bezespornou rekurzivně axiomatizovanou extenzi $T$ Peanovy aritmetiky platí, že $Con_T$ není dokazatelná v $T$.
-	- $Con_T$ … sentence vyjadřující bezespornost (konzistence) teorie $T$
-		- $Con_T=\neg(\exists y)Prf_T(\underline{0=S(0)},y)$
-		- $Prf_T(x,y)$ … $y$ je důkaz $x$ v $T$
-	- důsledek 2.1: existuje model Peanovy aritmetiky (PA), ve kterém platí sentence $(\exists y)Prf_{PA}(\underline{0=S(0)},y)$
-	- důsledek 2.2: existuje bezesporná rekurzivně axiomatizovaná extenze $T$ Peanovy aritmetiky, která dokazuje svou spornost, tj. taková, že $T\vdash\neg Con_T$
-	- důsledek 2.3: je-li teorie množin ZFC bezesporná, nemůže být sentence $Con_{ZFC}$ v teorii ZFC dokazatelná
+	- Druhá věta o neúplnosti: Pro každou bezespornou rekurzivně axiomatizovanou extenzi $T$ Peanovy aritmetiky platí, že $\mathit{Con_T}$ není dokazatelná v $T$.
+	- $\mathit{Con_T}$ … sentence vyjadřující bezespornost (konzistence) teorie $T$
+		- $\mathit{Con_T}=\neg(\exists y)\mathit{Prf_{T}}(\underline{0=S(0)},y)$
+		- $\mathit{Prf_{T}}(x,y)$ … $y$ je důkaz $x$ v $T$
+	- důsledek 2.1: existuje model Peanovy aritmetiky (PA), ve kterém platí sentence $(\exists y)\mathit{Prf_{PA}}(\underline{0=S(0)},y)$
+	- důsledek 2.2: existuje bezesporná rekurzivně axiomatizovaná extenze $T$ Peanovy aritmetiky, která dokazuje svou spornost, tj. taková, že $T\vdash\neg \mathit{Con_T}$
+	- důsledek 2.3: je-li teorie množin ZFC bezesporná, nemůže být sentence $\mathit{Con_{ZFC}}$ v teorii ZFC dokazatelná
 
 ## Těžké otázky
 
