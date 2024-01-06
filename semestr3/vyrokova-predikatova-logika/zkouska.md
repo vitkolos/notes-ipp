@@ -1,8 +1,6 @@
 # Zkouška
 
-výpisky neobsahují kompletní definice pojmů, pouze jejich zjednodušení
-
-TODO: doplnit pojmy z výrokové logiky o zvláštnosti z predikátové logiky, doplnit pojmy o příklady
+výpisky neobsahují kompletní definice pojmů, pouze jejich zjednodušení; k pojmům je vhodné znát příklady
 
 ## Pojmy
 
