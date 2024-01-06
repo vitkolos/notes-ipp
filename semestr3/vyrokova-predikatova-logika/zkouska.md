@@ -588,11 +588,83 @@ výpisky neobsahují kompletní definice pojmů, pouze jejich zjednodušení
 		- model $v$ se s těmito položkami shoduje
 		- proto $v\vDash\psi$ a $v\nvDash\psi$, což je spor
 - Věta o korektnosti tablo metody v predikátové logice
+	- lemma: shoduje-li se model $\mathcal A$ teorie $T$ s položkou v kořeni tabla z teorie $T$ (v jazyce $L$), potom lze $\mathcal A$ expandovat do jazyka $L_C$ tak, že se shoduje s některou větví v tablu
+	- důkaz
+		- podobně jako ve výrokové logice postupně vytváříme větev
+		- navíc postupně expandujeme model $\mathcal A$ o konstanty $c^\mathcal A\in C$
+	- věta o korektnosti: je-li sentence $\varphi$ tablo dokazatelná z teorie $T$, potom je $\varphi$ pravdivá v $T$, tj. $T\vdash\varphi\implies T\vDash\varphi$
+	- důkaz sporem
+		- nechť $T\nvDash\varphi$, tj. existuje $\mathcal A\models T$ takový, že $\mathcal A\nvDash\varphi$
+		- protože $T\vdash\varphi$, existuje sporné tablo z $T$ s $\text F\varphi$ v kořeni
+		- model $\mathcal A$ se shoduje s $\text F\varphi\implies$ podle lemmatu lze $\mathcal A$ expandovat do jazyka $L_C$ tak, že se expanze shoduje s nějakou větví
+		- všechny větve jsou ale sporné
 - Věta o úplnosti tablo metody ve výrokové logice
+	- lemma: kanonický model pro bezespornou dokončenou větev $V$ se shoduje s $V$
+		- důkaz se konstruuje indukcí, jejímž základem jsou položky s prvovýroky
+	- věta: je-li výrok $\varphi$ pravdivý v teorii $T$, potom je tablo dokazatelný z $T$, tj. $T\vDash\varphi\implies T\vdash\varphi$
+	- důkaz sporem
+		- kdyby tablo z $T$ s položkou $\text F\varphi$ v kořeni nebylo sporné, existovala by bezesporná (dokončená) větev $V$
+		- $V$ obsahuje $\text T\alpha$ pro všechny axiomy $\alpha\in T$
+		- uvažme kanonický model $v$ pro větev $V$
+		- $v$ se podle lemmatu shoduje se všemi položkami na $V$
+		- splňuje tedy všechny axiomy a máme $v\vDash T$
+		- $v$ se ale shoduje i s položkou $\text F\varphi$ v kořeni, tedy $v\nvDash\varphi$, tudíž i $T\nvDash\varphi$, což je spor
+		- tablo tedy muselo být sporné, tj. být tablo důkazem $\varphi$ z $T$
 - Věta o úplnosti tablo metody v predikátové logice
+	- lemma: kanonický model pro bezespornou dokončenou větev $V$ se shoduje s $V$
+		- důkaz se konstruuje indukcí, jejímž základem jsou položky s atomickými sentencemi
+	- věta: je-li sentence $\varphi$ pravdivá v teorii $T$, potom je tablo dokazatelná z $T$, tj. $T\vDash\varphi\implies T\vdash\varphi$
+	- důkaz sporem
+		- uvažujme dokončené tablo z $T$ s položkou $\text F\varphi$ v kořeni, které není sporné
+		- v takovém tablu bude dokončená větev $V$
+		- mějme kanonický model $\mathcal A_C$ pro tuto větev, jako $\mathcal A$ označme jeho redukt na jazyk $L$
+		- $V$ obsahuje $\text T\alpha$ pro všechny axiomy $\alpha\in T$
+		- $\mathcal A_C$ se podle lemmatu shoduje se všemi položkami na $V$
+		- splňuje tedy všechny axiomy a máme i $\mathcal A\vDash T$
+		- $\mathcal A_C$ se ale shoduje i s položkou $\text F\varphi$ v kořeni, tedy i $\mathcal A\nvDash\varphi$, tudíž $T\nvDash\varphi$ což je spor
+		- tablo tedy muselo být sporné, tj. být tablo důkazem $\varphi$ z $T$
 - Věta o konečnosti sporu, důsledky o konečnosti a systematičnosti důkazů
+	- Königovo lemma: nekonečný, konečně větvící strom má nekonečnou větev
+	- věta: je-li $\tau=\bigcup_{i\geq 0}\tau_i$ sporné tablo, potom existuje $n\in\mathbb N$ takové, že $\tau_n$ je sporné konečné tablo
+	- důkaz
+		- uvažme množinu $S$ všech vrcholů stromu $\tau$, které nad sebou naobsahují spor, tj. dvojici položek $\text T\psi,\text F\psi$
+		- kdyby $S$ byla nekonečná, podle Königova lemmatu bychom měli nekonečnou bezespornou větev v $S$
+		- tedy bychom měli bezespornou větev v $\tau$, což je ve sporu s tím, že $\tau$ je sporné
+		- $S$ je tedy konečná
+		- proto existuje $d\in\mathbb N$ takové, že $S$ leží v hloubce nejvýše $d$
+		- zvolme $n$ tak, že $\tau_n$ už obsahuje všechny vrcholy $\tau$ z prvních $d+1$ úrovní, každá větev v $\tau_n$ je tedy sporná
+	- důsledek: pokud při konstrukci tabla neprodlužujeme sporné větve, potom je sporné tablo konečné
+		- důkaz: máme $\tau=\tau_n$, sporné tablo už neměníme
+	- důsledek: pokud $T\vdash\varphi$, potom existuje konečný tablo důkaz $\varphi$ z $T$
+		- důkaz: při konstrukci $\tau$ ignorujeme kroky, které by prodloužily spornou větev
+	- důsledek: pokud $T\vdash\varphi$, potom systematické tablo je konečným tablo důkazem $\varphi$ z $T$
+		- důkaz
+			- pokud $T\vdash \varphi$, potom $T\models\varphi$ (dle věty o korektnosti) = neexistuje protipříklad
+			- kdyby systematické tablo mělo bezespornou větev, existoval by protipříklad
 - Věta o úplnosti rezoluce ve výrokové logice
+	- věta: je-li $S$ nesplnitelná, je rezolucí zamítnutelná (tj. $S\vdash_R\square$)
+	- důkaz
+		- předpokládejme, že $S$ je konečná
+			- nekonečná $S$ by měla konečnou nesplnitelnou část, přičemž její rezoluční zamítnutí by bylo rezolučním zamítnutím $S$
+		- postupujeme indukcí podle počtu proměnných v $S$
+		- pro nula proměnných je jediná nesplnitelná formule $S=\set{\square}$
+		- jinak vybereme $p\in\text{Var}(S)$
+		- podle lemmatu o stromu dosazení jsou $S^p$ i $S^\overline p$ nesplnitelné
+		- mají o jednou proměnnou méně, tedy podle indukčního předpokladu existují rezoluční stromy $T$ a $T'$ s rezolučním zamítnutím
+		- ze stromu $T$ pro $S^p\vdash_R\square$ vypěstujeme strom $\widehat T$ pro $S\vdash_R\neg p$
+			- na každém listu je klauzule $C\in S^p$
+			- pro tuhle klauzuli platí buď $C\in S$, nebo $C\cup\set{\neg p}\in S$
+			- v druhém případě přidáme do $C$ a do všech klauzulí nad tímto listem literál $\neg p$
+		- podobně vypěstujeme $\widehat{T'}$ pro $S\vdash_R p$ a oba stromy připojíme ke kořeni $\square$
 - Věta o úplnosti LI-rezoluce pro výrokové Hornovy formule
+	- pozorování: pokud je Hornova formule (která neobsahuje prázdnou klauzuli) nesplnitelná, pak obsahuje fakt i cíl
+		- fakt = pozitivní jednotková klauzule
+		- cíl = neprázdná klauzule bez pozitivního literálu
+		- kdyby neobsahovala fakt, ohodnotíme všechny proměnné 0
+		- kdyby neobsahovala cíl, ohodnotíme všechny proměnné 1
+	- věta: je-li Hornova formule $T$ splnitelná a $T\cup\set{G}$ je nesplnitelná pro cíl $G$, potom $T\cup\set{G}\vdash_{LI}\square$, a to LI-zamítnutím, které začíná cílem $G$
+	- důkaz
+		- 
 - Věta o úplnosti rezoluce v predikátové logice (Lifting lemma stačí vyslovit)
 - Skolemova věta
 - Herbrandova věta
