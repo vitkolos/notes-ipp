@@ -360,12 +360,28 @@ výpisky neobsahují kompletní definice pojmů, pouze jejich zjednodušení
 		- pro každou $L'$-formuli $\varphi'$ existuje $L$-formule $\varphi$ taková, že $T'\models\varphi'\leftrightarrow\varphi$
 	- důkaz
 		- k expanzi modelu stačí přidat odpovídající relační a funkční symboly
-		- konzervativní extenze
-			- vyplývá z tvrzení
-				- mějme jazyky $L\subseteq L'$, teorii $T$ v $L$ a teorii $T'$ v $L'$
-				- (i) $T'$ je extenzí $T$, právě když redukt každého modelu $T'$ na $L$ je modelem $T$
-				- (ii) pokud je $T'$ extenzí $T$ a každý model $T$ lze expandovat do $L'$ na nějaký model $T'$, potom je $T'$ konzervativní extenzí $T$
-			- důkaz todo
+		- konzervativní extenze – vyplývá z tvrzení:
+			- mějme jazyky $L\subseteq L'$, teorii $T$ v $L$ a teorii $T'$ v $L'$
+			- (i) $T'$ je extenzí $T$, právě když redukt každého modelu $T'$ na $L$ je modelem $T$
+				- důkaz $\implies$
+					- mějme $\mathcal A'\models T'$ a $\mathcal A$, což je redukt $\mathcal A'$ na jazyk $L$
+					- $T'$ je extenzí $T$, takže v $T'$ platí každý axiom $\varphi\in T$
+					- tudíž $\mathcal A'\models\varphi$
+					- proto i $\mathcal A\models\varphi$, neboť $\varphi$ obsahuje jen symboly z $L$
+					- takže $\mathcal A\models T$
+				- důkaz $\impliedby$
+					- mějme $L$-sentenci $\varphi$ takovou, že $T\models\varphi$
+					- pro libovolný model $\mathcal A'\models T'$ víme, že jeho $L$-redukt $\mathcal A$ je modelem $T$
+					- tedy $\mathcal A\models\varphi$
+					- proto $\mathcal A'\models\varphi$
+					- tedy i $T'\models\varphi$
+			- (ii) pokud je $T'$ extenzí $T$ a každý model $T$ lze expandovat do $L'$ na nějaký model $T'$, potom je $T'$ konzervativní extenzí $T$
+				- důkaz $\implies$
+					- vezměme libovolnou $L$-sentenci $\varphi$, která platí v $T'$
+					- každý model $\mathcal A\models T$ lze expandovat na nějaký model $\mathcal A'\models T'$
+					- víme, že $\mathcal A'\models\varphi$
+					- takže i $\mathcal A\models\varphi$
+					- tudíž $T\models\varphi$
 		- $T'\models\varphi'\leftrightarrow\varphi$
 			- pro relační symbol $R$
 				- v definici máme ekvivalenci $R\leftrightarrow\psi$
