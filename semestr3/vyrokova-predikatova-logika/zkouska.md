@@ -80,7 +80,7 @@ výpisky neobsahují kompletní definice pojmů, pouze jejich zjednodušení; k�
 		- $x_1=y_1\land\dots\land x_n=y_n\to f(x_1,\dots,x_n)=f(y_1,\dots,y_n)$ pro každý $n$-ární funkční symbol $f$ jazyka $L$
 		- $x_1=y_1\land\cdots\land x_n=y_n\to \left(R(x_1,\dots,x_n)\to R(y_1,\dots,y_n)\right)$ pro každý $n$-ární relační symbol $R$ jazyka $L$ včetně rovnosti
 	- z 1. a 3. axiomu plyne, že relace $=^\mathcal A$ je ekvivalence na $A$ (symetrie a tranzitivita plyne z 3. axiomu)
-	- 2. a 3. axiom vyjadřují, že $=^\mathcal A$ je kongruencí $\mathcal A$
+	- 2\. a 3. axiom vyjadřují, že $=^\mathcal A$ je kongruencí $\mathcal A$
 - CNF a DNF, Hornův tvar. Množinová reprezentace CNF formule, splňující ohodnocení
 	- tvary výroků
 		- literál je prvovýrok nebo negace prvovýroku
