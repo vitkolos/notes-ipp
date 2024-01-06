@@ -101,12 +101,14 @@ výpisky neobsahují kompletní definice pojmů, pouze jejich zjednodušení; k�
 			- prázdnou klauzuli označíme $\square$, není nikdy splněna
 		- CNF formule je (konečná nebo nekonečná) množina klauzulí
 			- prázdná formule $\emptyset$ je vždy splněna
-	- ohodnocení
-		- v množinové reprezentaci odpovídají modely množinám literál, které obsahují pro každou výrokovou proměnnou $p$ právě jeden z literálů $p,\neg p$
+	- ohodnocení ve výrokové logice
+		- v množinové reprezentaci odpovídají modely množinám literálů, které obsahují pro každou výrokovou proměnnou $p$ právě jeden z literálů $p,\neg p$
 		- (částečné) ohodnocení $\mathcal V$ je libovolná množina literálů, která je konzistentní, tj. neobsahuje dvojici opačných literálů
 		- ohodnocení je úplné, pokud obsahuje pozitivní nebo negativní literál pro každou výrokovou proměnnou
 		- ohodnocení $\mathcal V$ splňuje formuli $S$, píšeme $\mathcal V\models S$, pokud $\mathcal V$ obsahuje nějaký literál z každé klauzule v $S$, tj.: $\forall C\in S:\mathcal V\cap C\neq\emptyset$
 		- splňující ohodnocení nemusí být úplné, ale lze jej rozšířit libovolným literálem pro chybějící proměnné
+	- ohodnocení v predikátové logice je funkce $e:\text{Var}\to A$
+		- kde $\text{Var}$ je množina všech proměnných jazyka a $A$ je doména
 - Rezoluční pravidlo, unifikace, nejobecnější unifikace
 	- rezoluční pravidlo ve výrokové logice
 		- mějme klauzule $C_1,C_2$ a literál $\ell$, přičemž $\ell\in C_1$ a $\overline\ell\in C_2$
