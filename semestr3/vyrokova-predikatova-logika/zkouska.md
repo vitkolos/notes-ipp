@@ -184,6 +184,7 @@ výpisky neobsahují kompletní definice pojmů, pouze jejich zjednodušení
 		- naopak pokud $\mathcal A\models\neg\varphi$, tj. $\varphi$ neplatí v $\mathcal A$ při žádném ohodnocení, pak je lživá v $\mathcal A$
 - Kompletní teorie v predikátové logice, elementární ekvivalence
 	- teorie je kompletní, je-li bezesporná a každá sentence je v ní buď pravdivá, nebo lživá
+	- pozorování: teorie je kompletní, právě když má právě jeden model až na elementární ekvivalenci
 	- struktury $\mathcal{A,B}$ (v témž jazyce) jsou elementárně ekvivalentní, pokud v nich platí tytéž sentence (značíme $\mathcal A\equiv \mathcal B$)
 		- zjevně $\mathcal A\equiv \mathcal B\iff\text{Th}(\mathcal A)=\text{Th}(\mathcal B)$
 - Podstruktura, generovaná podstruktura, expanze a redukt struktury
@@ -239,7 +240,7 @@ výpisky neobsahují kompletní definice pojmů, pouze jejich zjednodušení
 			- za proměnnou $y_i$ substituujeme term $f_i(x_1,x_{n_i})$, kde $x_1,\dots,x_{n_i}$ jsou proměnné, jejichž univerzální kvantifikátory předcházejí $(\exists y_i)$
 		- začínáme s $L$-sentencí v PNF, jejíž všechny vázané proměnné jsou různé
 		- dostaneme $L'$-sentenci v PNF, kde $L'$ je rozšíření $L$ o nové $n_i$-ární funkční symboly
-- Izomorfismus struktur, izomorfní spektrum, ω-kategorická teorie
+- Izomorfismus struktur, izomorfní spektrum, $\omega$-kategorická teorie
 	- izomorfismus struktur
 		- mějme struktury $\mathcal{A,B}$ jazyka $L=\braket{\mathcal{R,F}}$
 		- izomorfismus $\mathcal{A}$ a $\mathcal B$ je bijekce $h:A\to B$ splňující následující vlastnosti:
@@ -510,7 +511,7 @@ výpisky neobsahují kompletní definice pojmů, pouze jejich zjednodušení
 	- těleso charakteristiky 0 … sečtením prvočíselného počtu jedniček nikdy nedostanu nulu
 		- $T$ … teorie těles
 		- $T_0$ … teorie axiomatizující třídu těles charakteristiky 0
-		- $T_0=T\cup\set{\neg p1=0\mid p \text{ je prvočíslo}}$
+		- $T_0=T\cup\set{\neg p1=0\mid p \text{ je prvo\v{c}íslo}}$
 			- $p1$ … $\underbrace{1+1+\dots+1}_p$
 	- tvrzení: třída $K$ těles charakteristiky 0 není konečně axiomatizovatelná
 	- důkaz
@@ -706,17 +707,116 @@ výpisky neobsahují kompletní definice pojmů, pouze jejich zjednodušení
 	- důsledek: ke každé teorii můžeme pomocí skolemizace najít ekvisplnitelnou otevřenou teorii
 		- tu pak můžeme převést do CNF
 - Herbrandova věta
+	- definice (Herbrandův model)
+		- mějme jazyk $L=\braket{\mathcal{R,F}}$ s alespoň jedním konstantním symbolem
+		- $L$-struktura $\mathcal A=\braket{A,\mathcal{R^A,F^A}}$ je Herbrandův model, jestliže…
+			- $A$ je množina všech konstantních $L$-termů (tzv. Herbrandovo univerzum)
+			- pro každý $n$-ární funkční symbol $f\in\mathcal F$ a konstantní termy $''t_1'',\dots,{''t_n''}\in A$ platí $f^\mathcal A(''t_1'',\dots,{''t_n''})={''f(t_1,\dots,t_n)''}$
+			- speciálně, pro každý konstantní symbol $c\in\mathcal F$ je $c^\mathcal A={''c''}$
+		- na interpretace relačních symbolů neklademe žádné podmínky
+	- Herbrandova věta
+		- mějme otevřenou teorii $T$ v jazyce $L$ bez rovnosti a s alespoň jedním konstantním symbolem
+		- potom buď má $T$ Herbrandův model, nebo existuje konečně mnoho základních instancí axiomů $T$, jejichž konjunkce je nesplnitelná
+	- důkaz
+		- označme jako $T_\text{ground}$ s množinu všech základních instancí axiomů teorie $T$
+		- zkonstruujeme tablo (takové, kde neprodlužujeme sporné větve – třeba to systematické) z teorie $T_\text{ground}$ s položkou $\text F{\perp}$ v kořeni, ale z jazyka $L$ (tedy bez rozšíření o pomocné konstantní symboly na jazyk $L_C$, nejsou totiž potřeba, protože $T$ je otevřená)
+		- pokud tablo obsahuje bezespornou větev, potom je kanonický model pro tuto větev (opět bez přidání pomocných konstantních symbolů) Herbrandovým modelem $T$
+		- v opačném případě máme tablo důkaz sporu, tedy $T_\text{ground}$ i $T$ jsou nesplnitelné
+		- tablo důkaz je konečný, takže existuje konečně mnoho základních instancí axiomů $T$, jejichž konjunkce je nesplnitelná
 - Löwenheim-Skolemova věta včetně varianty s rovností, jejich důsledky
+	- věta: je-li $L$ spočetný jazyk bez rovnosti, potom každá bezesporná $L$-teorie má spočetně nekonečný model
+	- důkaz
+		- vezměme nějaké dokončené tablo z teorie $T$ s položkou $\text F{\perp}$ v kořeni
+		- $T$ je bezesporná → není v ní dokazatelný spor → tablo obsahuje bezespornou větev
+		- hledaný spočetně nekonečný model je $L$-redukt kanonického modelu pro tuto větev
+	- důsledek: je-li $L$ spočetný jazyk bez rovnosti, potom ke každé nekonečené $L$-struktuře existuje elementárně ekvivalentní spočetně nekonečná struktura
+		- mějme $L$-strukturu $\mathcal A$
+		- teorie $\text{Th}(\mathcal A)$ je bezesporná (má model $\mathcal A$)
+		- tedy dle Löwenheim-Skolemovy věty má spočetně nekonečný model $\mathcal B\models\text{Th}(\mathcal A)$
+		- to znamená, že $\mathcal B\equiv\mathcal A$
+	- věta s rovností: je-li $L$ spočetný jazyk s rovností, potom každá bezesporná $L$-teorie má spočetný model (tj. konečný nebo spočetně nekonečný)
+		- spočetně nekonečný model najdeme stejným způsobem jako v případě varianty bez rovnosti, pak ho faktorizujeme podle kongruence $=^\mathcal A$
+	- důsledek: je-li $L$ spočetný jazyk s rovností, potom ke každé nekonečené $L$-struktuře existuje elementárně ekvivalentní spočetně nekonečná struktura
+		- opět najdeme spočetně nekonečnou $\mathcal B\equiv\mathcal A$
+		- v $\mathcal A$ neplatí žádná sentence vyjadřující „existuje nejvýše $n$ prvků“, takže neplatí ani v $\mathcal B$, proto $\mathcal B$ nemůže být konečná struktura
+	- důsledek: existuje spočetné algebraicky uzavřené těleso
 - Vztah izomorfismu a elementární ekvivalence
-- ω-kategorické kritérium kompletnosti
+	- tvrzení: bijekce $h:A\to B$ je izomorfismus $\mathcal A$ a $\mathcal B$, právě když…
+		- pro každý $L$-term $t$ a ohodnocení proměnných $e:\text{Var}\to A$ platí $h(t^\mathcal A[e])=t^\mathcal B[e\circ h]$
+		- pro každou $L$-formuli $\varphi$ a ohodnocení proměnných $e:\text{Var}\to A$ platí $A\models\varphi[e]$ právě když $\mathcal B\models\varphi[e\circ h]$
+	- důkaz
+		- je-li $h$ izomorfismus, vlastnosti dokážeme indukcí podle struktury termu/formule
+		- je-li $h$ bijekce splňující vlastnosti, dosazením $f$ za $t$ a $R$ za $\varphi$ dostáváme vlastnosti z definice izomorfismu
+	- důsledek: $\mathcal {A\simeq B}\implies\mathcal {A\equiv B}$
+	- obrácená implikace obecně neplatí, protože uspořádané množiny racionálních a reálných čísel jsou elementárně ekvivalentní, ale neexistuje mezi nimi bijekce, tedy nejsou izomorfní (jedna je spočetná, druhá nespočetná)
+	- tvrzení: je-li $L$ jazyk s rovností a $\mathcal{A,B}$ konečné $L$-struktury, potom platí $\mathcal{A\simeq B\iff A\equiv B}$
+	- důkaz $\implies$ výše
+	- důkaz $\impliedby$
+		- předpokládejme, že $\mathcal {A,B}$ jsou elementárně ekvivalentní (ukážeme, že jsou izomorfní)
+		- $L$ je s rovností, takže můžeme vyjádřit sentencí, že „existuje právě $n$ prvků“
+		- proto $|A|=|B|$
+		- expanzi $\mathcal A$ o jména prvků z $A$ označíme jako $\mathcal A'$, pro každý prvek v podstatě přidáme konstantu
+		- ukážeme, že lze $\mathcal B$ expandovat na $L'$-strukturu $\mathcal B'$ tak, že $\mathcal A'\equiv\mathcal B'$
+		- to se (asi) dělá tak, že konkrétní prvek $a\in A$ zajišťuje platnost určitých sentencí – tyto sentence jakýmsi způsobem definují zobrazení prvku $a$ do $B$
+- $\omega$-kategorické kritérium kompletnosti
+	- věta
+		- mějme $\omega$-kategorickou teorii ve spočetném jazyce $L$
+		- pokud
+			- $L$ je bez rovnosti
+			- nebo $L$ je s rovností a nemá konečné modely
+		- potom je teorie $T$ kompletní
+	- důkaz
+		- použijeme důsledky Löwenheim-Skolemovy věty – ke každé nekonečené $L$-struktuře existuje elementárně ekvivalentní spočetně nekonečná struktura
+		- z $\omega$-kategoricity vyplývá, že spočetně nekonečný model dané teorie je právě jeden (až na izomorfismus)
+		- důsledek Löwenheim-Skolemovy pro jazyk s rovností by umožňoval konečné modely, ale ty jsme zakázali
 - Neaxiomatizovatelnost konečných modelů
+	- věta
+		- pokud má teorie libovolně velké konečné modely, potom má i nekonečný model
+		- v tom případě není třída všech jejích konečných modelů axiomatizovatelná (tohle je zjevný důsledek, ten nedokazujeme)
+	- důkaz
+		- pro jazyk bez rovnosti stačí vzít kanonický model pro některou bezespornou větev v tablu z $T$ pro položku $\text F{\perp}$
+			- tenhle trik se používá i v jiných důkazech
+			- $T$ je bezesporná, neboť má „libovolně velké konečné modely“, tedy tablo není sporné
+		- pro jazyk s rovností mějme extenzi $T'$ teorie $T$ do jazyka rozšířeného o spočetně mnoho konstantních symbolů $c_i$
+		- $T'=T\cup\set{\neg c_i=c_j\mid i\neq j\in \mathbb N}$
+		- každá konečná část teorie $T'$ má zjevně model → dle věty o kompaktnosti má $T'$ model, ten je nutně nekonečný
+		- jeho redukt na původní jazyk je nekonečným modelem $T$
 - Věta o konečné axiomatizovatelnosti
 	- věta: $K\subseteq M_L$ je konečně axiomatizovatelná, právě když $K$ i $\overline K$ jsou axiomatizovatelné
 	- důkaz $\implies$
 		- pokud $K$ axiomatizují sentence $\varphi_1,\dots,\varphi_n$, pak $\overline K$ axiomatizuje $\neg(\varphi_1\land\dots\land\varphi_n)$
 	- důkaz $\impliedby$
-		- todo
+		- nechť $T$ a $S$ jsou teorie takové, že $M(T)=K$ a $M(S)=\overline K$
+		- uvažme teorii $T\cup S$, ta je sporná, neboť $M(T\cup S)=M(T)\cap M(S)=K\cap \overline K=\emptyset$
+		- podle věty o kompaktnosti existují konečné podteorie $T'\subseteq T$ a $S'\subseteq S$ takové, že $\emptyset=M(T'\cup S')=M(T')\cap M(S')$
+		- platí $M(T)\subseteq M(T')\subseteq\overline{M(S')}\subseteq\overline{M(S)}=M(T)$
+		- tedy $M(T)=M(T')$, tedy $T'$ je hledanou konečnou axiomatizací $K$
 - Rekurzivně axiomatizovaná teorie s rekurzivně spočetnou kompletací je rozhodnutelná
+	- tvrzení: pokud je teorie $T$ rekurzivně axiomatizovaná a má rekurzivně spočetnou kompletaci, potom je $T$ rozhodnutelná
+	- důkaz
+		- pro danou sentenci $\varphi$ buď $T\vdash\varphi$, nebo existuje protipříklad $\mathcal A\nvDash\varphi$, tedy existuje kompletní jednoduchá extenze $T_i$ teorie $T$ taková, že $T_i\nvdash\varphi$
+		- z kompletnosti plyne, že $T_i\vdash\neg\varphi$
+		- náš algoritmus bude paralelně konstruovat tablo důkaz $\varphi$ z $T$ a (postupně) tablo důkazy $\neg\varphi$ ze všech kompletních jednoduchých extenzí $T_1,T_2,\dots$ teorie $T$
+			- pomocí dovetailingu
+		- víme, že alespoň jedno z paralelně konstruovaných tabel je sporné a můžeme předpokládat, že je i konečné (když neprodlužujeme sporné větve), takže ho algoritmus po konečně mnoha krocích zkonstruuje
 - Nerozhodnutelnost predikátové logiky
+	- mějme formuli $\varphi$ ve tvaru $(\exists x_1)\dots(\exists x_n) \;p(x_1,\dots,x_n)=q(x_1,\dots,x_n)$
+		- kde $p$ a $q$ jsou polynomy s přirozenými koeficienty
+	- věta (bez důkazu): problém existence celočíselného řešení dané diofantické rovnice s celočíselnými koeficienty je (algoritmicky) nerozhodnutelný
+	- důsledek: neexistuje algoritmus, který by pro danou dvojici polynomů s přirozenými koeficienty rozhodl, zda mají přirozené řešení, tj. zda platí $\underline{\mathbb N}\vDash\varphi$
+	- důkaz důsledku
+		- každé celé číslo lze vyjádřit jako rozdíl dvojice přirozených čísel
+		- každé přirozené číslo lze vyjádřit jako součet čtyř čtverců
+		- každou diofantickou rovnici lze tedy transformovat na rovnici z důsledku a naopak
+	- věta: neexistuje algoritmus, který by pro danou vstupní formuli $\varphi$ rozhodl, zda je logicky platná (tedy zda je tautologie)
+	- důkaz
+		- dle tvrzení 10.2.3 (bez důkazu) platí $\underline{\mathbb N}\vDash\varphi\iff Q\vdash\varphi$
+			- $Q$ … Robinsonova aritmetika
+			- tvrzení se dá použít, protože $\varphi$ je existenční formule a hledáme přirozená řešení
+		- konjunkci (generálních uzávěrů) všech axiomů $Q$ označme jako $\psi_Q$
+		- zřejmě $Q\vdash\varphi\iff\psi_Q\vdash\varphi\iff\vdash\psi_Q\to\varphi\iff\vDash\psi_Q\to\varphi$
+			- poslední ekvivalence dle věty o úplnosti
+		- tedy $\underline{\mathbb N}\vDash\varphi\iff\vDash\psi_Q\to\varphi$
+		- pokud by existoval algoritmus rozhodující logickou platnost, bylo by to ve sporu s důsledkem výše
 
 todo: doplnit pojmy z výrokové logiky o zvláštnosti z predikátové logiky, doplnit pojmy o příklady
