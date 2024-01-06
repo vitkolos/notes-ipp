@@ -2,6 +2,8 @@
 
 výpisky neobsahují kompletní definice pojmů, pouze jejich zjednodušení
 
+TODO: doplnit pojmy z výrokové logiky o zvláštnosti z predikátové logiky, doplnit pojmy o příklady
+
 ## Pojmy
 
 - Model ve výrokové logice, pravdivostní funkce výroku
@@ -25,7 +27,7 @@ výpisky neobsahují kompletní definice pojmů, pouze jejich zjednodušení
 		- nemá žádný model
 		- v ní platí všechny výroky
 	- teorie je bezesporná (splnitelná), pokud není sporná, tj. má nějaký model
-	- teorie je kompletní, jestliže není sporná a každý výrok je v ní pravdivý nebo lživý (tj. nemá žádné nezávislé výroky), ekvivalentně, pokud má právě jeden model
+	- teorie je kompletní jestliže není sporná a každý výrok (respektive sentence) je v ní pravdivý nebo lživý (tj. nemá žádné nezávislé výroky), ekvivalentně, pokud má právě jeden model (až na elementární ekvivalenci v predikátové logice)
 - Extenze teorie (jednoduchá, konzervativní), odpovídající sémantická kritéria
 	- extenze teorie $T$ je libovolná teorie $T'$ v jazyce $\mathbb P'\supseteq\mathbb P$ splňující $\text{Csq}_{\mathbb P}(T)\subseteq\text{Csq}_{\mathbb P'}(T')$
 	- extenze je jednoduchá, pokud $\mathbb P'=\mathbb P$
@@ -39,7 +41,7 @@ výpisky neobsahují kompletní definice pojmů, pouze jejich zjednodušení
 		- kompletní jednoduché extenze $T$ jednoznačně až na ekvivalenci odpovídají modelům $T$
 - Tablo z teorie, tablo důkaz
 	- konečné tablo z teorie $T$ je uspořádaný, položkami označkovaný strom zkonstruovaný aplikací konečně mnoha následujících pravidel:
-		- jednoprvskový strom označkovaný libovolnou položkou je tablo z teorie $T$
+		- jednoprvkový strom označkovaný libovolnou položkou je tablo z teorie $T$
 		- pro libovolnou položku $P$ na libovolné větvi $V$ můžeme na konec větve $V$ připojit atomické tablo pro položku $P$
 		- na konec libovolné větve můžeme připojit položku $\text T\alpha$ pro libovolný axiom teorie $\alpha\in T$
 	- tablo je konečné nebo nekonečné, každopádně vzniklo ve spočetně mnoha krocích
@@ -54,6 +56,7 @@ výpisky neobsahují kompletní definice pojmů, pouze jejich zjednodušení
 		- pokud je sporná
 		- nebo pokud je každá její položka na této větvi redukovaná a pokud větev zároveň obsahuje položku s T pro každý axiom teorie
 	- položka je redukovaná na dané větvi, pokud obsahuje pouze výrokovou proměnnou nebo se na dané větvi vyskytuje jako kořen atomického tabla (tedy došlo k jejímu rozvoji na dané větvi)
+	- v predikátové logice navíc řešíme kvantifikátory – položky typu *svědek* a *všichni*
 - Kanonický model
 	- ve výrokové logice
 		- je-li $V$ bezesporná větev dokončeného tabla, potom kanonický model pro $V$ je model definovaný předpisem $v(p) = \begin{cases} 1 &\text{pokud }V\text{ obsahuje T}p \\ 0 &\text{jinak}\end{cases}$
@@ -107,9 +110,15 @@ výpisky neobsahují kompletní definice pojmů, pouze jejich zjednodušení
 		- ohodnocení $\mathcal V$ splňuje formuli $S$, píšeme $\mathcal V\models S$, pokud $\mathcal V$ obsahuje nějaký literál z každé klauzule v $S$, tj.: $\forall C\in S:\mathcal V\cap C\neq\emptyset$
 		- splňující ohodnocení nemusí být úplné, ale lze jej rozšířit libovolným literálem pro chybějící proměnné
 - Rezoluční pravidlo, unifikace, nejobecnější unifikace
-	- rezoluční pravidlo
+	- rezoluční pravidlo ve výrokové logice
 		- mějme klauzule $C_1,C_2$ a literál $\ell$, přičemž $\ell\in C_1$ a $\overline\ell\in C_2$
 		- potom rezolventa klauzulí $C_1$ a $C_2$ přes literál $\ell$ je klauzule $C=(C_1\setminus\set{\ell})\cup(C_2\setminus\set{\overline\ell})$
+	- rezoluční pravidlo v predikátové logice
+		- mějme klauzule $C_1,C_2$ s disjunktními množinami proměnných
+		- v klauzuli $C_1$ jsou mj. výrazy $A_1,\dots,A_n$
+		- v klauzuli $C_2$ jsou mj. výrazy $\neg B_1,\dots,\neg B_m$
+		- množina výrazů $S=\set{A_1,\dots,A_n,B_1,\dots,B_m}$ má nejobecnější unifikaci $\sigma$ takovou, že $S\sigma=\set{A_1\sigma}$
+		- rezolventa klauzulí $C_1$ a $C_2$ je klauzule $C=C'_1\sigma\cup C_2'\sigma$, kde $C'_*$ odpovídá zbytku klauzule po odstranění výrazů $A_i$, respektive $\neg B_i$
 	- substituce
 		- substituce je konečná množina $\sigma=\set{x_1/t_1,\dots,x_n/t_n}$, kde $x_i$ jsou navzájem různé proměnné a $t_i$ jsou termy, přičemž vyžadujeme, aby $t_i\neq x_i$
 		- substituce je základní, jsou-li všechny $t_i$ konstantní
@@ -123,7 +132,10 @@ výpisky neobsahují kompletní definice pojmů, pouze jejich zjednodušení
 		- unifikace pro $S$ je nejobecnější, pokud pro každou unifikaci $\tau$ pro $S$ existuje substituce $\lambda$ taková, že $\tau=\sigma\lambda$
 		- nejobecnějších unifikací může být více, liší se přejmenováním proměnných
 - Rezoluční důkaz a zamítnutí, rezoluční strom
-	- rezoluční důkaz (odvození) klauzule $C$ z formule $S$ je konečná posloupnost klauzulí $C_0,C_1,\dots,C_n=C$ taková, že pro každé $i$ je buď $C_i\in S$ nebo $C_i$ je rezolventou nějakých $C_j,C_k$, kde $j\lt i$ a $k\lt i$
+	- rezoluční důkaz (odvození) klauzule $C$ z formule $S$ je konečná posloupnost klauzulí $C_0,C_1,\dots,C_n=C$ taková, že
+		- pro každé $i$ je buď $C_i\in S$
+			- v predikátové logice dovolujeme přejmenování proměnných: $C_i=C_i'\sigma$ pro $C'_i\in S$ a přejmenování proměnných $\sigma$
+		- nebo $C_i$ je rezolventou nějakých $C_j,C_k$, kde $j\lt i$ a $k\lt i$
 	- pokud rezoluční důkaz existuje, říkáme, že $C$ je rezolucí dokazatelná z $S$ a píšeme $S\vdash_R C$
 	- rezoluční zamítnutí formule $S$ je rezoluční důkaz $\square$ z $S$, v tom případě je $S$ rezolucí zamítnutelná
 	- rezoluční strom klauzule $C$ z formule $S$ je konečný binární strom s vrcholy označenými klauzulemi, kde v kořeni je $C$, v listech jsou klauzule z $S$ a v každém vnitřním vrcholu je rezolventa klauzulí ze synů tohoto vrcholu
@@ -425,8 +437,8 @@ výpisky neobsahují kompletní definice pojmů, pouze jejich zjednodušení
 	- důkaz
 		- $\implies:$ model teorie je zřejmě modelem každé její části
 		- $\impliedby$ obměnou, chceme: pokud $T$ nemá model, existuje její konečná část, která nemá model
-			- pokud $T$ nemá model, je sporná, tedy $T\vdash\perp$
-			- vezměme nějaký konečný tablo důkaz $\perp$ z $T$
+			- pokud $T$ nemá model, je sporná, tedy $T\vdash\bot$
+			- vezměme nějaký konečný tablo důkaz $\bot$ z $T$
 				- podle věty o konečnosti sporu
 			- k jeho konstrukci stačí konečně mnoho axiomů $T$
 			- ty tvoří konečnou podteorii $T'\subseteq T$, která nemá model
@@ -719,14 +731,14 @@ výpisky neobsahují kompletní definice pojmů, pouze jejich zjednodušení
 		- potom buď má $T$ Herbrandův model, nebo existuje konečně mnoho základních instancí axiomů $T$, jejichž konjunkce je nesplnitelná
 	- důkaz
 		- označme jako $T_\text{ground}$ s množinu všech základních instancí axiomů teorie $T$
-		- zkonstruujeme tablo (takové, kde neprodlužujeme sporné větve – třeba to systematické) z teorie $T_\text{ground}$ s položkou $\text F{\perp}$ v kořeni, ale z jazyka $L$ (tedy bez rozšíření o pomocné konstantní symboly na jazyk $L_C$, nejsou totiž potřeba, protože $T$ je otevřená)
+		- zkonstruujeme tablo (takové, kde neprodlužujeme sporné větve – třeba to systematické) z teorie $T_\text{ground}$ s položkou $\text F\bot$ v kořeni, ale z jazyka $L$ (tedy bez rozšíření o pomocné konstantní symboly na jazyk $L_C$, nejsou totiž potřeba, protože $T$ je otevřená)
 		- pokud tablo obsahuje bezespornou větev, potom je kanonický model pro tuto větev (opět bez přidání pomocných konstantních symbolů) Herbrandovým modelem $T$
 		- v opačném případě máme tablo důkaz sporu, tedy $T_\text{ground}$ i $T$ jsou nesplnitelné
 		- tablo důkaz je konečný, takže existuje konečně mnoho základních instancí axiomů $T$, jejichž konjunkce je nesplnitelná
 - Löwenheim-Skolemova věta včetně varianty s rovností, jejich důsledky
 	- věta: je-li $L$ spočetný jazyk bez rovnosti, potom každá bezesporná $L$-teorie má spočetně nekonečný model
 	- důkaz
-		- vezměme nějaké dokončené tablo z teorie $T$ s položkou $\text F{\perp}$ v kořeni
+		- vezměme nějaké dokončené tablo z teorie $T$ s položkou $\text F\bot$ v kořeni
 		- $T$ je bezesporná → není v ní dokazatelný spor → tablo obsahuje bezespornou větev
 		- hledaný spočetně nekonečný model je $L$-redukt kanonického modelu pro tuto větev
 	- důsledek: je-li $L$ spočetný jazyk bez rovnosti, potom ke každé nekonečené $L$-struktuře existuje elementárně ekvivalentní spočetně nekonečná struktura
@@ -774,7 +786,7 @@ výpisky neobsahují kompletní definice pojmů, pouze jejich zjednodušení
 		- pokud má teorie libovolně velké konečné modely, potom má i nekonečný model
 		- v tom případě není třída všech jejích konečných modelů axiomatizovatelná (tohle je zjevný důsledek, ten nedokazujeme)
 	- důkaz
-		- pro jazyk bez rovnosti stačí vzít kanonický model pro některou bezespornou větev v tablu z $T$ pro položku $\text F{\perp}$
+		- pro jazyk bez rovnosti stačí vzít kanonický model pro některou bezespornou větev v tablu z $T$ pro položku $\text F\bot$
 			- tenhle trik se používá i v jiných důkazech
 			- $T$ je bezesporná, neboť má „libovolně velké konečné modely“, tedy tablo není sporné
 		- pro jazyk s rovností mějme extenzi $T'$ teorie $T$ do jazyka rozšířeného o spočetně mnoho konstantních symbolů $c_i$
@@ -818,5 +830,3 @@ výpisky neobsahují kompletní definice pojmů, pouze jejich zjednodušení
 			- poslední ekvivalence dle věty o úplnosti
 		- tedy $\underline{\mathbb N}\vDash\varphi\iff\vDash\psi_Q\to\varphi$
 		- pokud by existoval algoritmus rozhodující logickou platnost, bylo by to ve sporu s důsledkem výše
-
-todo: doplnit pojmy z výrokové logiky o zvláštnosti z predikátové logiky, doplnit pojmy o příklady
