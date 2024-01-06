@@ -664,8 +664,25 @@ výpisky neobsahují kompletní definice pojmů, pouze jejich zjednodušení
 		- kdyby neobsahovala cíl, ohodnotíme všechny proměnné 1
 	- věta: je-li Hornova formule $T$ splnitelná a $T\cup\set{G}$ je nesplnitelná pro cíl $G$, potom $T\cup\set{G}\vdash_{LI}\square$, a to LI-zamítnutím, které začíná cílem $G$
 	- důkaz
-		- 
+		- podobně jako ve větě o půlnosti rezoluce můžeme díky větě o kompaktnosti předpokládat konečnost
+		- důkaz provedem indukcí podle počtu proměnných v $T$
+		- z pozorování plyne, že $T$ obsahuje fakt $\set p$ pro nějakou proměnnou $p$
+		- $T\cup\set G$ je nesplnitelná $\implies$ podle lemmatu je nesplnitelná také $(T\cup\set G)^p=T^p\cup\set{G^p}$, kde $G^p=G\setminus\set{\neg p}$
+		- základ indukce: pokud $G^p=\square$, potom $G=\set{\neg p}$
+			- víme, že $\set p\in T$, takže máme jednokrokové LI-zamítnutí
+		- jinak je $T^p$ splnitelná (stejným ohodnocením jako $T$, protože to musí obsahovat $p$ kvůli faktu $\set p$) a má méně proměnných než $T$
+		- podle IP existuje LI-odvození $\square$ z $T^p\cup\set{G^p}$ začínající $G^p$
+		- LI-zamítnutí $T\cup\set{G}$ začínající $G$ zkonstruujeme obdobně jako ve větě o úplnosti rezoluce
+			- nejprve přidáme $\neg p$ do všech listů, které nejsou v $T\cup\set G$, a do všech vrcholů nad nimi
+			- tím dostaneme $T\cup\set G\vdash_{LI}\neg p$
+			- na závěr přidáme boční klauzuli $\set p$ a odvodíme $\square$
 - Věta o úplnosti rezoluce v predikátové logice (Lifting lemma stačí vyslovit)
+	- Lifting lemma
+		- mějme klauzule $C_1,C_2$ s disjunktními množinami proměnných
+		- jsou-li $C_1^*$ a $C_2^*$ základní instance klauzulí $C_1$ a $C_2$ a je-li $C^*$ rezolventou $C_1^*$ a $C_2^*$, potom existuje rezolventa $C$ klauzulí $C_1,C_2$ taková, že $C^*$ je základní instancí $C$
+	- věta: je-li CNF formule S nesplnitelná, potom je zamítnutelná rezolucí
+	- důkaz
+		- 
 - Skolemova věta
 - Herbrandova věta
 - Löwenheim-Skolemova věta včetně varianty s rovností, jejich důsledky
