@@ -677,13 +677,34 @@ výpisky neobsahují kompletní definice pojmů, pouze jejich zjednodušení
 			- tím dostaneme $T\cup\set G\vdash_{LI}\neg p$
 			- na závěr přidáme boční klauzuli $\set p$ a odvodíme $\square$
 - Věta o úplnosti rezoluce v predikátové logice (Lifting lemma stačí vyslovit)
-	- Lifting lemma
+	- instance $\varphi(x_1/t_1,\dots,x_n/t_n)$ otevřené formule $\varphi$ je základní, jsou-li všechny termy $t_1,\dots,t_n$ konstantní
+	- Lifting lemma (ukazuje, že rezoluční důkaz na úrovni výrokové logiky je možné zvednout na úroveň predikátové logiky)
 		- mějme klauzule $C_1,C_2$ s disjunktními množinami proměnných
 		- jsou-li $C_1^*$ a $C_2^*$ základní instance klauzulí $C_1$ a $C_2$ a je-li $C^*$ rezolventou $C_1^*$ a $C_2^*$, potom existuje rezolventa $C$ klauzulí $C_1,C_2$ taková, že $C^*$ je základní instancí $C$
+	- důsledek Lifting lemmatu
+		- mějme CNF formuli $S$ a množinu všech jejích základních instancí $S^*$
+		- pokud $S^*\vdash_R C^*$ pro nějakou základní klauzuli $C^*$, potom existuje klauzule $C$ a základní substituce $\sigma$ taková, že $C^*=C\sigma$ a $S\vdash_R C$
 	- věta: je-li CNF formule S nesplnitelná, potom je zamítnutelná rezolucí
 	- důkaz
-		- 
+		- označme $S^*$ množinu všech základních instancí klauzulí z $S$
+		- $S$ je nesplnitelná → díky Herbrandově větě je nesplnitelná i $S^*$
+		- z věty o úplnosti výrokové rezoluce víme, že $S^*\vdash_R\square$
+		- z důsledku Lifting lemmatu dostáváme $C$ a $\sigma$ takové, že $C\sigma=\square$ a $S\vdash_R C$
+		- ale protože prázdná klauzule $\square$ je instancí $C$, musí být $C=\square$
+		- tím jsme našli rezoluční zamítnutí $S\vdash_R\square$
 - Skolemova věta
+	- lemma: pro $L$-sentenci $\varphi$ a její Skolemovu variantu $\varphi'$ platí, že $L$-redukt každého modelu $\varphi'$ je modelem $\varphi$ a že každý model $\varphi$ lze expandovat na model $\varphi'$
+		- model $\varphi'$ v univerzu obsahuje prvek, který splňuje existenční kvantifikátor (je to ten prvek, který vrací funkce $f$, kterou jsme existenční kvantifikátor nahradili)
+		- expanzi modelu $\varphi$ na model $\varphi'$ provedeme tak, že funkci $f$ nadefinujeme tak, aby vracela prvky, které splňují existenční kvantifikátor
+	- věta: každá teorie má otevřenou konzervativní extenzi
+	- důkaz
+		- mějme $L$-teorii $T$
+		- každý axiom nahradíme jeho generálním uzávěrem a převedeme do PNF, tím získáme ekvivalentní teorii $T'$
+		- každý axiom teorie $T'$ nahradíme jeho Skolemovou variantou, tím získáme teorii $T''$ v rozšířeném jazyce $L'$
+		- z lemmatu plyne, že $L$-redukt každého modelu $T''$ je modelem $T'$, tedy $T''$ je extenzí $T'$, a že každý model $T'$ lze expandovat do jazyka $L'$ na model $T''$, tedy jde o konzervativní extenzi
+		- $T''$ je axiomatizována univerzálními sentencemi, tedy odstraněním kvantifikátorových prefixů dostaneme otevřenou teorii $T'''$, která je ekvivalentní s $T''$, a tedy je také konzervativní extenzí $T$
+	- důsledek: ke každé teorii můžeme pomocí skolemizace najít ekvisplnitelnou otevřenou teorii
+		- tu pak můžeme převést do CNF
 - Herbrandova věta
 - Löwenheim-Skolemova věta včetně varianty s rovností, jejich důsledky
 - Vztah izomorfismu a elementární ekvivalence
