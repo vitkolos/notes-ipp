@@ -250,7 +250,7 @@ výpisky neobsahují kompletní definice pojmů, pouze jejich zjednodušení; k�
 	- Skolemova varianta sentence vzniká z původní PNF sentence skolemizací
 		- skolemizace spočívá v tom, že tyto kroky iterujeme přes všechny existenční kvantifikátory $(\exists y_i)$
 			- odstraníme z prefixu existenční kvantifikátor $(\exists y_i$)
-			- za proměnnou $y_i$ substituujeme term $f_i(x_1,x_{n_i})$, kde $x_1,\dots,x_{n_i}$ jsou proměnné, jejichž univerzální kvantifikátory předcházejí $(\exists y_i)$
+			- za proměnnou $y_i$ substituujeme term $f_i(x_1,\dots,x_{n_i})$, kde $x_1,\dots,x_{n_i}$ jsou proměnné, jejichž univerzální kvantifikátory předcházejí $(\exists y_i)$
 		- začínáme s $L$-sentencí v PNF, jejíž všechny vázané proměnné jsou různé
 		- dostaneme $L'$-sentenci v PNF, kde $L'$ je rozšíření $L$ o nové $n_i$-ární funkční symboly
 - Izomorfismus struktur, izomorfní spektrum, $\omega$-kategorická teorie
