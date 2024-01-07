@@ -186,7 +186,7 @@ výpisky neobsahují kompletní definice pojmů, pouze jejich zjednodušení; k�
 	- hodnota termu vyplývá jednoduše z ohodnocení (u konstant nezávisí na ohodnocení, u proměnných přímo z ohodnocení, u funkcí se dosadí hodnoty termů a získá se výsledná hodnota)
 	- pravdivostní hodnoty formule při ohodnocení
 		- pravdivostní hodnota je rovna nule nebo jedné
-		- pravdivostní hodnota atomické formule vyplývá z toho, zda je daná $n$-tice (pro určité hodnoty termů) prvkem odpovídající množiny $R^\mathcal A$
+		- pravdivostní hodnota atomické formule vyplývá z toho, zda je daná $n$-tice (pro určité hodnoty termů) prvkem odpovídající množiny z $R^\mathcal A$
 		- pro logické spojky se pravdivostní hodnota určuje standardně
 		- obecný kvantifikátor lze chápat jako hledání minima z pravdivostních hodnot (nebo jako konjunkci přes všechny prvky struktury)
 		- podobně existenční kvantifikátor hledá maximum / je to disjunkce
