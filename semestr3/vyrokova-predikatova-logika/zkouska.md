@@ -28,6 +28,7 @@ výpisky neobsahují kompletní definice pojmů, pouze jejich zjednodušení; k�
 	- teorie je kompletní jestliže není sporná a každý výrok (respektive sentence) je v ní pravdivý nebo lživý (tj. nemá žádné nezávislé výroky), ekvivalentně, pokud má právě jeden model (až na elementární ekvivalenci v predikátové logice)
 - Extenze teorie (jednoduchá, konzervativní), odpovídající sémantická kritéria
 	- extenze teorie $T$ je libovolná teorie $T'$ v jazyce $\mathbb P'\supseteq\mathbb P$ splňující $\text{Csq}_{\mathbb P}(T)\subseteq\text{Csq}_{\mathbb P'}(T')$
+		- kde $\text{Csq}_\mathbb P(T)$ je množina všech důsledků teorie (výroků/sentencí pravdivých v teorii $T$ v jazyce $\mathbb P$)
 	- extenze je jednoduchá, pokud $\mathbb P'=\mathbb P$
 	- extenze je konzervativní, pokud $\text{Csq}_{\mathbb P}(T)=\text{Csq}_{\mathbb P}(T')=\text{Csq}_{\mathbb P'}(T')\cap\text{VF}_\mathbb P$
 	- sémantický význam (v řeči modelů)
