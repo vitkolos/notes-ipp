@@ -569,9 +569,11 @@ výpisky neobsahují kompletní definice pojmů, pouze jejich zjednodušení; k�
 - Gödelovy věty o neúplnosti a jejich důsledky (bez důkazů)
 	- První věta o neúplnosti: Pro každou bezespornou rekurzivně axiomatizovanou extenzi $T$ Robinsonovy aritmetiky existuje sentence, která je pravdivá v $\underline{\mathbb N}$, ale není dokazatelná v $T$.
 	- důsledek 1.1: je-li $T$ rekurzivně axiomatizovaná extenze Robinsonovy aritmetiky a je-li navíc $\underline{\mathbb N}$ modelem teorie $T$, potom $T$ není kompletní
+		- pro sentenci, která není dokazatelná v $T$, nemůže být dokazatelná ani její negace (byl by to spor s její pravdivostí v $\underline{\mathbb N}$)
 	- důsledek 1.2: teorie $\text{Th}(\underline{\mathbb N})$ není rekurzivně axiomatizovatelná
 		- kdyby byla, nemohla by být kompletní – ale ona kompletní je
 	- věta (Rosserův trik): v každé bezesporné rekurzivně axiomatizované extenzi Robinsonovy aritmetiky existuje nezávislá sentence – tedy taková není kompletní
+		- v podstatě plyne z důsledku 1.1, jen se zbavuje $\underline{\mathbb N}$ 
 	- Druhá věta o neúplnosti: Pro každou bezespornou rekurzivně axiomatizovanou extenzi $T$ Peanovy aritmetiky platí, že $\mathit{Con_T}$ není dokazatelná v $T$.
 	- $\mathit{Con_T}$ … sentence vyjadřující bezespornost (konzistence) teorie $T$
 		- $\mathit{Con_T}=\neg(\exists y)\mathit{Prf_{T}}(\underline{0=S(0)},y)$
