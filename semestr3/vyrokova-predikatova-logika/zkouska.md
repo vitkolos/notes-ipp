@@ -130,7 +130,7 @@ výpisky neobsahují kompletní definice pojmů, pouze jejich zjednodušení; k�
 		- substituce $\sigma$ je unifikace pro $S$, pokud $E_1\sigma=E_2\sigma=\dots=E_n\sigma$, neboli $S\sigma$ obsahuje jediný výraz
 		- pokud existuje, říkáme, že $S$ je unifikovatelná
 	- nejobecnější unifikace
-		- unifikace pro $S$ je nejobecnější, pokud pro každou unifikaci $\tau$ pro $S$ existuje substituce $\lambda$ taková, že $\tau=\sigma\lambda$
+		- unifikace $\sigma$ pro $S$ je nejobecnější, pokud pro každou unifikaci $\tau$ pro $S$ existuje substituce $\lambda$ taková, že $\tau=\sigma\lambda$
 		- nejobecnějších unifikací může být více, liší se přejmenováním proměnných
 - Rezoluční důkaz a zamítnutí, rezoluční strom
 	- rezoluční důkaz (odvození) klauzule $C$ z formule $S$ je konečná posloupnost klauzulí $C_0,C_1,\dots,C_n=C$ taková, že
@@ -181,7 +181,7 @@ výpisky neobsahují kompletní definice pojmů, pouze jejich zjednodušení; k�
 	- term $t$ je substituovatelný za proměnnou $x$ ve formuli $\varphi$, pokud po simultánním nahrazení všech volných výskytů $x$ ve $\varphi$ za $t$ nevznikne ve $\varphi$ žádný vázaný výskyt proměnné z $t$
 		- v tom případě říkáme vzniklé formuli instance $\varphi$ vzniklá substitucí $t$ za $x$ a označujeme ji $\varphi(x/t)$
 	- má-li formule $\varphi$ podformuli tvaru $(Qx)\psi$ a je-li $y$ proměnná taková, že $y$ je substituovatelná za $x$ do $\psi$ a $y$ nemá volný výskyt v $\psi$, potom nahrazením podformule $(Qx)\psi$ formulí $(Qy)\psi(x/y)$ vznikne varianta formule $\varphi$ v podformuli $(Qx)\psi$
-	- poznámka: substituace = dosazování za volné výskyty proměnných, naopak varianty formulí vznikají přejmenováním vázaných výskytů (volné výskyty nelze přejmenovat, aby se nezměnilo „rozhraní“ neuzavřené formule)
+	- poznámka: substituce = dosazování za volné výskyty proměnných, naopak varianty formulí vznikají přejmenováním vázaných výskytů (volné výskyty nelze přejmenovat, aby se nezměnilo „rozhraní“ neuzavřené formule)
 - Pravdivostní hodnota formule ve struktuře při ohodnocení, platnost formule ve struktuře
 	- hodnota termu vyplývá jednoduše z ohodnocení (u konstant nezávisí na ohodnocení, u proměnných přímo z ohodnocení, u funkcí se dosadí hodnoty termů a získá se výsledná hodnota)
 	- pravdivostní hodnoty formule při ohodnocení
@@ -201,14 +201,14 @@ výpisky neobsahují kompletní definice pojmů, pouze jejich zjednodušení; k�
 	- struktury $\mathcal{A,B}$ (v témž jazyce) jsou elementárně ekvivalentní, pokud v nich platí tytéž sentence (značíme $\mathcal A\equiv \mathcal B$)
 		- zjevně $\mathcal A\equiv \mathcal B\iff\text{Th}(\mathcal A)=\text{Th}(\mathcal B)$
 - Podstruktura, generovaná podstruktura, expanze a redukt struktury
-	- $\mathcal B$ je (indukovaná) podstruktura $\mathcal A$, když je $B$ neprázdnou podmnožinou $A$, každá množina opovídající interpretaci relace je omezena na $n$-tice z $B$ a podobně funkce směřují z $B$ do $B$, zároveň interpretace všech konstantních symbolů musí být v $B$
+	- $\mathcal B$ je (indukovaná) podstruktura $\mathcal A$, když je $B$ neprázdnou podmnožinou $A$, každá množina odpovídající interpretaci relace je omezena na $n$-tice z $B$ a podobně funkce směřují z $B$ do $B$, zároveň interpretace všech konstantních symbolů musí být v $B$
 	- pozorování: univerzum podstruktury musí být uzavřené na všechny funkce původní struktury
 	- podstruktura struktury $\mathcal A$ generovaná množinou $X$ se značí $\mathcal A\langle X\rangle$, její univerzum je nejmenší podmnožina $A$, která obsahuje množinu $X$ a je uzavřená na všechny funkce struktury $\mathcal A$ (tedy rovněž obsahuje všechny konstanty), tuto podmnožinu označme jako $B$
 		- takovou podstrukturu lze také zapsat jako $\mathcal A\restriction B$
 		- pokud $\mathcal A$ nemá žádné funkce ani konstanty (např. je to graf nebo uspořádání), tak není čím generovat, tedy $\mathcal A\langle X\rangle=\mathcal A\restriction X$
 	- expanze a redukt jsou dvě struktury se stejnou doménou, kde expanze je nad větším jazykem, přičemž všechny symboly z menšího jazyka jsou v obou strukturách interpretovány stejně (jako relační/funkční/konstantní)
 - Definovatelnost ve struktuře
-	- množina definovaná formulí = množina uspořádaných $n$-tic, ktré splňují danou formuli
+	- množina definovaná formulí = množina uspořádaných $n$-tic, které splňují danou formuli
 		- $\varphi^\mathcal A(\overline x)=\set{\overline a\in A^n\mid\mathcal A\models\varphi[e(\overline x/\overline a)]}$
 		- kde $|\overline x|=n$, $\varphi$ má $n$ volných proměnných $x_1,\dots,x_n$
 		- příklady
@@ -334,7 +334,7 @@ výpisky neobsahují kompletní definice pojmů, pouze jejich zjednodušení; k�
 	- algoritmus
 		- pokud $\varphi$ obsahuje dvojici opačných jednotkových klauzulí, není splnitelný
 		- pokud $\varphi$ neobsahuje žádnou jednotkovou klauzuli, je splnitelný, ohodnotíme všechny zbývající proměnné nulou
-		- pokud $\varphi$ obsahuje jednotkovou klauzuli $\ell$, ohodnotíme literál $\ell$ hodhotou 1, provedeme jednotkovou propagaci a postup opakujeme
+		- pokud $\varphi$ obsahuje jednotkovou klauzuli $\ell$, ohodnotíme literál $\ell$ hodnotou 1, provedeme jednotkovou propagaci a postup opakujeme
 	- jednotková propagace pro $\ell=1$
 		- každou klauzuli obsahující $\ell$ odstraníme (protože je takto splněna)
 		- $\overline\ell$ odstraníme ze všech klauzulí, které ho obsahují (protože $\overline\ell$ nemůže zajistit splnění dané klauzule)
@@ -351,7 +351,7 @@ výpisky neobsahují kompletní definice pojmů, pouze jejich zjednodušení; k�
 		- dokud $\varphi$ obsahuje jednotkovou klauzuli $\ell$, ohodnoť $\ell=1$ a proveď jednotkovou propagaci
 		- dokud existuje literál $\ell$, který má ve $\varphi$ čistý výskyt, ohodnoť $\ell=1$ a odstraň klauzule obsahující $\ell$
 		- pokud $\varphi$ neobsahuje žádnou klauzuli, je splnitelný
-		- pokud $\varphi$ obsahuje prázdnout klauzuli, není splnitelný
+		- pokud $\varphi$ obsahuje prázdnou klauzuli, není splnitelný
 		- jinak zvol dosud neohodnocenou výrokovou proměnnou $p$ a zavolej algoritmus rekurzivně na $\varphi\land p$ a na $\varphi\land\neg p$
 	- algoritmus běží v exponenciálním čase
 - Věta o konstantách
@@ -470,7 +470,7 @@ výpisky neobsahují kompletní definice pojmů, pouze jejich zjednodušení; k�
 		- víme, že $S\vdash_R\square$, vezměme tedy nějaký rezoluční důkaz $\square$ z $S$
 		- kdyby existoval model $\mathcal A\models S$, díky korektnosti rezolučního pravidla bychom mohli dokázat indukcí podle délky důkazu, že i $\mathcal A\models\square$, což ale není možné
 - Souvislost stromu dosazení a splnitelnosti CNF formule
-	- lemma: $S$ je splnitelná, právě když je splnitelná $S^\ell$ nebo $S^\overline\ell$
+	- lemma: $S$ je splnitelná, právě když je splnitelná $S^\ell$ nebo $S^{\overline{\ell}}$
 	- důkaz lemmatu
 		- $\implies$
 			- mějme ohodnocení $\mathcal V\models S$
@@ -478,7 +478,7 @@ výpisky neobsahují kompletní definice pojmů, pouze jejich zjednodušení; k�
 			- BÚNO $\overline\ell\notin\mathcal V$
 			- vezmeme klauzuli v $S^\ell$, ta je ve tvaru $C\setminus\set{\overline\ell}$ pro klauzuli $C\in S$ neobsahující $\ell$
 			- víme, že $\mathcal V\models C$
-			- $\mathcal V$ nebosahuje $\overline\ell$, takže $\mathcal V$ splnitlo nějaký jiný literál $C$, takže platí i $\mathcal V\models C\setminus\set{\overline\ell}$
+			- $\mathcal V$ neobsahuje $\overline\ell$, takže $\mathcal V$ splnilo nějaký jiný literál $C$, takže platí i $\mathcal V\models C\setminus\set{\overline\ell}$
 		- $\impliedby$
 			- BÚNO existuje $\mathcal V\models S^\ell$
 			- $\overline\ell$ se nevyskytuje v $S^\ell$, takže platí $\mathcal V\setminus\set{\overline\ell}\models S^\ell$
@@ -539,7 +539,7 @@ výpisky neobsahují kompletní definice pojmů, pouze jejich zjednodušení; k�
 - Kritérium otevřené axiomatizovatelnosti
 	- tvrzení: je-li $T$ otevřeně axiomatizovatelná, potom je každá podstruktura modelu $T$ také modelem $T$
 	- důkaz
-		- buď $T'$ otevřená aximatizace $T$, $\mathcal A$ model $T'$, $\mathcal {B\subseteq A}$
+		- buď $T'$ otevřená axiomatizace $T$, $\mathcal A$ model $T'$, $\mathcal {B\subseteq A}$
 		- pro každou $\varphi\in T'$ platí $\mathcal B\models\varphi$ ($\varphi$ je otevřená)
 		- tedy i $\mathcal B\models T'$
 	- příklady
@@ -641,7 +641,7 @@ výpisky neobsahují kompletní definice pojmů, pouze jejich zjednodušení; k�
 	- Königovo lemma: nekonečný, konečně větvící strom má nekonečnou větev
 	- věta: je-li $\tau=\bigcup_{i\geq 0}\tau_i$ sporné tablo, potom existuje $n\in\mathbb N$ takové, že $\tau_n$ je sporné konečné tablo
 	- důkaz
-		- uvažme množinu $S$ všech vrcholů stromu $\tau$, které nad sebou naobsahují spor, tj. dvojici položek $\text T\psi,\text F\psi$
+		- uvažme množinu $S$ všech vrcholů stromu $\tau$, které nad sebou neobsahují spor, tj. dvojici položek $\text T\psi,\text F\psi$
 		- kdyby $S$ byla nekonečná, podle Königova lemmatu bychom měli nekonečnou bezespornou větev v $S$
 		- tedy bychom měli bezespornou větev v $\tau$, což je ve sporu s tím, že $\tau$ je sporné
 		- $S$ je tedy konečná
@@ -663,7 +663,7 @@ výpisky neobsahují kompletní definice pojmů, pouze jejich zjednodušení; k�
 		- postupujeme indukcí podle počtu proměnných v $S$
 		- pro nula proměnných je jediná nesplnitelná formule $S=\set{\square}$
 		- jinak vybereme $p\in\text{Var}(S)$
-		- podle lemmatu o stromu dosazení jsou $S^p$ i $S^\overline p$ nesplnitelné
+		- podle lemmatu o stromu dosazení jsou $S^p$ i $S^{\overline{p}}$ nesplnitelné
 		- mají o jednou proměnnou méně, tedy podle indukčního předpokladu existují rezoluční stromy $T$ a $T'$ s rezolučním zamítnutím
 		- ze stromu $T$ pro $S^p\vdash_R\square$ vypěstujeme strom $\widehat T$ pro $S\vdash_R\neg p$
 			- na každém listu je klauzule $C\in S^p$
@@ -678,8 +678,8 @@ výpisky neobsahují kompletní definice pojmů, pouze jejich zjednodušení; k�
 		- kdyby neobsahovala cíl, ohodnotíme všechny proměnné 1
 	- věta: je-li Hornova formule $T$ splnitelná a $T\cup\set{G}$ je nesplnitelná pro cíl $G$, potom $T\cup\set{G}\vdash_{LI}\square$, a to LI-zamítnutím, které začíná cílem $G$
 	- důkaz
-		- podobně jako ve větě o půlnosti rezoluce můžeme díky větě o kompaktnosti předpokládat konečnost
-		- důkaz provedem indukcí podle počtu proměnných v $T$
+		- podobně jako ve větě o úplnosti rezoluce můžeme díky větě o kompaktnosti předpokládat konečnost
+		- důkaz provedeme indukcí podle počtu proměnných v $T$
 		- z pozorování plyne, že $T$ obsahuje fakt $\set p$ pro nějakou proměnnou $p$
 		- $T\cup\set G$ je nesplnitelná $\implies$ podle lemmatu je nesplnitelná také $(T\cup\set G)^p=T^p\cup\set{G^p}$, kde $G^p=G\setminus\set{\neg p}$
 		- základ indukce: pokud $G^p=\square$, potom $G=\set{\neg p}$
@@ -742,14 +742,14 @@ výpisky neobsahují kompletní definice pojmů, pouze jejich zjednodušení; k�
 		- vezměme nějaké dokončené tablo z teorie $T$ s položkou $\text F\bot$ v kořeni
 		- $T$ je bezesporná → není v ní dokazatelný spor → tablo obsahuje bezespornou větev
 		- hledaný spočetně nekonečný model je $L$-redukt kanonického modelu pro tuto větev
-	- důsledek: je-li $L$ spočetný jazyk bez rovnosti, potom ke každé nekonečené $L$-struktuře existuje elementárně ekvivalentní spočetně nekonečná struktura
+	- důsledek: je-li $L$ spočetný jazyk bez rovnosti, potom ke každé nekonečné $L$-struktuře existuje elementárně ekvivalentní spočetně nekonečná struktura
 		- mějme $L$-strukturu $\mathcal A$
 		- teorie $\text{Th}(\mathcal A)$ je bezesporná (má model $\mathcal A$)
 		- tedy dle Löwenheim-Skolemovy věty má spočetně nekonečný model $\mathcal B\models\text{Th}(\mathcal A)$
 		- to znamená, že $\mathcal B\equiv\mathcal A$
 	- věta s rovností: je-li $L$ spočetný jazyk s rovností, potom každá bezesporná $L$-teorie má spočetný model (tj. konečný nebo spočetně nekonečný)
 		- spočetně nekonečný model najdeme stejným způsobem jako v případě varianty bez rovnosti, pak ho faktorizujeme podle kongruence $=^\mathcal A$
-	- důsledek: je-li $L$ spočetný jazyk s rovností, potom ke každé nekonečené $L$-struktuře existuje elementárně ekvivalentní spočetně nekonečná struktura
+	- důsledek: je-li $L$ spočetný jazyk s rovností, potom ke každé nekonečné $L$-struktuře existuje elementárně ekvivalentní spočetně nekonečná struktura
 		- opět najdeme spočetně nekonečnou $\mathcal B\equiv\mathcal A$
 		- v $\mathcal A$ neplatí žádná sentence vyjadřující „existuje nejvýše $n$ prvků“, takže neplatí ani v $\mathcal B$, proto $\mathcal B$ nemůže být konečná struktura
 	- důsledek: existuje spočetné algebraicky uzavřené těleso
@@ -779,7 +779,7 @@ výpisky neobsahují kompletní definice pojmů, pouze jejich zjednodušení; k�
 			- nebo $L$ je s rovností a nemá konečné modely
 		- potom je teorie $T$ kompletní
 	- důkaz
-		- použijeme důsledky Löwenheim-Skolemovy věty – ke každé nekonečené $L$-struktuře existuje elementárně ekvivalentní spočetně nekonečná struktura
+		- použijeme důsledky Löwenheim-Skolemovy věty – ke každé nekonečné $L$-struktuře existuje elementárně ekvivalentní spočetně nekonečná struktura
 		- z $\omega$-kategoricity vyplývá, že spočetně nekonečný model dané teorie je právě jeden (až na izomorfismus)
 		- důsledek Löwenheim-Skolemovy pro jazyk s rovností by umožňoval konečné modely, ale ty jsme zakázali
 - Neaxiomatizovatelnost konečných modelů
