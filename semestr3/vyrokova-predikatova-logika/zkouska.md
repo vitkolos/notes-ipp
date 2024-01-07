@@ -537,10 +537,13 @@ výpisky neobsahují kompletní definice pojmů, pouze jejich zjednodušení; k�
 		- potom je i modelem $S$, takže $\mathcal A\in\overline K$
 		- zároveň je ale modelem $T_0$, takže $\mathcal A\in K$, což je spor
 - Kritérium otevřené axiomatizovatelnosti
+	- pozorování: je-li $\mathcal B\subseteq\mathcal A$, potom pro každou otevřenou formuli $\varphi$ a ohodnocení $e:\text{Var}\to B$ platí $\mathcal B\models\varphi[e]\iff\mathcal A\models\varphi[e]$
+		- protože prvky z $B$ jsou i v $A$
+		- lze dokázat indukcí podle struktury formule
 	- tvrzení: je-li $T$ otevřeně axiomatizovatelná, potom je každá podstruktura modelu $T$ také modelem $T$
 	- důkaz
 		- buď $T'$ otevřená axiomatizace $T$, $\mathcal A$ model $T'$, $\mathcal {B\subseteq A}$
-		- pro každou $\varphi\in T'$ platí $\mathcal B\models\varphi$ ($\varphi$ je otevřená)
+		- pro každou $\varphi\in T'$ platí $\mathcal B\models\varphi$ ($\varphi$ je otevřená, použijeme pozorování)
 		- tedy i $\mathcal B\models T'$
 	- příklady
 		- DeLO není otevřeně axiomatizovatelná – konečná podstruktura nemůže být hustá
