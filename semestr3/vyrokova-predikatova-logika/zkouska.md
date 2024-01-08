@@ -753,14 +753,14 @@ výpisky neobsahují kompletní definice pojmů, pouze jejich zjednodušení; k�
 		- vezměme nějaké dokončené tablo z teorie $T$ s položkou $\text F\bot$ v kořeni
 		- $T$ je bezesporná → není v ní dokazatelný spor → tablo obsahuje bezespornou větev
 		- hledaný spočetně nekonečný model je $L$-redukt kanonického modelu pro tuto větev
-	- důsledek: je-li $L$ spočetný jazyk bez rovnosti, potom ke každé nekonečné $L$-struktuře existuje elementárně ekvivalentní spočetně nekonečná struktura
+	- důsledek: je-li $L$ spočetný jazyk bez rovnosti, potom ke každé $L$-struktuře existuje elementárně ekvivalentní spočetně nekonečná struktura
 		- mějme $L$-strukturu $\mathcal A$
 		- teorie $\text{Th}(\mathcal A)$ je bezesporná (má model $\mathcal A$)
 		- tedy dle Löwenheim-Skolemovy věty má spočetně nekonečný model $\mathcal B\models\text{Th}(\mathcal A)$
 		- to znamená, že $\mathcal B\equiv\mathcal A$
 	- věta s rovností: je-li $L$ spočetný jazyk s rovností, potom každá bezesporná $L$-teorie má spočetný model (tj. konečný nebo spočetně nekonečný)
 		- spočetně nekonečný model najdeme stejným způsobem jako v případě varianty bez rovnosti, pak ho faktorizujeme podle kongruence $=^\mathcal A$
-	- důsledek: je-li $L$ spočetný jazyk s rovností, potom ke každé nekonečné $L$-struktuře existuje elementárně ekvivalentní spočetně nekonečná struktura
+	- důsledek: je-li $L$ spočetný jazyk s rovností, potom ke každé **nekonečné** $L$-struktuře existuje elementárně ekvivalentní spočetně nekonečná struktura
 		- opět najdeme spočetně nekonečnou $\mathcal B\equiv\mathcal A$
 		- v $\mathcal A$ neplatí žádná sentence vyjadřující „existuje nejvýše $n$ prvků“, takže neplatí ani v $\mathcal B$, proto $\mathcal B$ nemůže být konečná struktura
 	- důsledek: existuje spočetné algebraicky uzavřené těleso
@@ -790,9 +790,11 @@ výpisky neobsahují kompletní definice pojmů, pouze jejich zjednodušení; k�
 			- nebo $L$ je s rovností a nemá konečné modely
 		- potom je teorie $T$ kompletní
 	- důkaz
-		- použijeme důsledky Löwenheim-Skolemovy věty – ke každé nekonečné $L$-struktuře existuje elementárně ekvivalentní spočetně nekonečná struktura
-		- z $\omega$-kategoricity vyplývá, že spočetně nekonečný model dané teorie je právě jeden (až na izomorfismus)
+		- bez rovnosti
+			- použijeme důsledky Löwenheim-Skolemovy věty – ke každé $L$-struktuře existuje elementárně ekvivalentní spočetně nekonečná struktura
+			- z $\omega$-kategoricity vyplývá, že spočetně nekonečný model dané teorie je právě jeden (až na izomorfismus)
 		- důsledek Löwenheim-Skolemovy pro jazyk s rovností by umožňoval konečné modely, ale ty jsme zakázali
+		- všechny modely $T$ jsou tedy elementárně ekvivalentní právě jednomu spočetně nekonečnému modelu, což znamená, že $T$ je kompletní
 - Neaxiomatizovatelnost konečných modelů
 	- věta
 		- pokud má teorie libovolně velké konečné modely, potom má i nekonečný model
