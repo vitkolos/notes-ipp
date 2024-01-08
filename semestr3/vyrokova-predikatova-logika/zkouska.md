@@ -443,6 +443,12 @@ výpisky neobsahují kompletní definice pojmů, pouze jejich zjednodušení; k�
 				- podle věty o konečnosti sporu
 			- k jeho konstrukci stačí konečně mnoho axiomů $T$
 			- ty tvoří konečnou podteorii $T'\subseteq T$, která nemá model
+	- aplikace
+		- popíšeme požadovanou vlastnost nekonečného objektu pomocí (nekonečné) výrokové teorie
+		- z konečné části teorie sestrojíme konečný podobjekt mající danou vlastnost
+	- příklad
+		- spočetně nekonečný graf je bipartitní $\iff$ každý jeho konečný podgraf je bipartitní
+			- $T=\set{p_u\to\neg p_v\mid\set{u,v}\in E(G)}$
 - Věta o korektnosti rezoluce ve výrokové logice
 	- věta: je-li formule $S$ rezolucí zamítnutelná, potom je $S$ nesplnitelná
 	- důkaz
@@ -795,6 +801,7 @@ výpisky neobsahují kompletní definice pojmů, pouze jejich zjednodušení; k�
 		- pro jazyk bez rovnosti stačí vzít kanonický model pro některou bezespornou větev v tablu z $T$ pro položku $\text F\bot$
 			- tenhle trik se používá i v jiných důkazech
 			- $T$ je bezesporná, neboť má „libovolně velké konečné modely“, tedy tablo není sporné
+			- kanonický model bude nekonečný, protože pomocných konstantních symbolů jsme přidali spočetně nekonečno
 		- pro jazyk s rovností mějme extenzi $T'$ teorie $T$ do jazyka rozšířeného o spočetně mnoho konstantních symbolů $c_i$
 		- $T'=T\cup\set{\neg c_i=c_j\mid i\neq j\in \mathbb N}$
 		- každá konečná část teorie $T'$ má zjevně model → dle věty o kompaktnosti má $T'$ model, ten je nutně nekonečný
