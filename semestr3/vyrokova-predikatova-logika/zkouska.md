@@ -466,7 +466,7 @@ výpisky neobsahují kompletní definice pojmů, pouze jejich zjednodušení; k�
 		- v klauzuli $C_1$ jsou mj. výrazy $A_1,\dots,A_n$
 		- v klauzuli $C_2$ jsou mj. výrazy $\neg B_1,\dots,\neg B_m$
 		- množina výrazů $S=\set{A_1,\dots,A_n,B_1,\dots,B_m}$ má nejobecnější unifikaci $\sigma$ takovou, že $S\sigma=\set{A_1\sigma}$
-		- $C_1,C_2$ jsou otevřeně formule platné v $\mathcal A$, takže platí i jejich instance po substituci, proto $\mathcal A\vDash C_1\sigma$ a $\mathcal A\vDash C_2\sigma$
+		- $C_1,C_2$ jsou otevřené formule platné v $\mathcal A$, takže platí i jejich instance po substituci, proto $\mathcal A\vDash C_1\sigma$ a $\mathcal A\vDash C_2\sigma$
 		- pokud $\mathcal A\vDash A_1\sigma[e]$, potom $\mathcal A\nvDash\neg A_1\sigma [e]$ a musí být $\mathcal A\vDash C_2'\sigma[e]$
 			- kde $C'_2$ je část formule bez negací $B_i$
 		- tedy $\mathcal A\vDash C[e]$
