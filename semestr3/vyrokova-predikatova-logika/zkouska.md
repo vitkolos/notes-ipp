@@ -784,10 +784,10 @@ výpisky neobsahují kompletní definice pojmů, pouze jejich zjednodušení; k�
 		- to se (asi) dělá tak, že konkrétní prvek $a\in A$ zajišťuje platnost určitých sentencí – tyto sentence jakýmsi způsobem definují zobrazení prvku $a$ do $B$
 - $\omega$-kategorické kritérium kompletnosti
 	- věta
-		- mějme $\omega$-kategorickou teorii ve spočetném jazyce $L$
+		- mějme $\omega$-kategorickou teorii $T$ ve spočetném jazyce $L$
 		- pokud
 			- $L$ je bez rovnosti
-			- nebo $L$ je s rovností a nemá konečné modely
+			- nebo $L$ je s rovností a $T$ nemá konečné modely
 		- potom je teorie $T$ kompletní
 	- důkaz
 		- bez rovnosti
