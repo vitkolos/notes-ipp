@@ -746,3 +746,56 @@
 - fakt
 	- pokud $C$ je podprostor dimenze $k$, tak $C^\perp$ je podprostor dimenze $n-k$
 	- $(C^\perp)^\perp=C$, pokud $C$ je podprostor $\mathbb Z_2^n$
+
+### Dekódování
+
+- postup
+	- máme $x\in\mathbb Z_2^{k}$
+	- kódováním pomocí funkce $f$ dostaneme $y\in C\subseteq\mathbb Z_2^n$
+	- přenosem dostaneme $\tilde y\in C$
+	- dekódováním pomocí funkce $g$ dostaneme $\bar y\in C$
+	- z $\bar y$ pomocí funkce $f^{-1}$ dostaneme $\bar x\in\mathbb Z_2^{k}$
+- $f$ je bijekce mezi $\mathbb Z_2^{k}$ a $C$
+- $(n,k,d)$-kód
+- pozorování: pokud se při přenosu změní nejvýše $d-1$ bitů, tak poznám, zda došlo k chybě
+- pozorování: pokud se při přenosu změní nejvýše $\left\lfloor\frac{d-1}2\right\rfloor$ bitů, tak jsem schopen chybu jednoznačně opravit
+- df: nechť je $C$ lineární $(n,k,d)$-kód, pak kontrolní matice kódu $C$ je matice, jejíž řádky tvoří bázi $C^\perp$
+- pozorování: kontrolní matice lienárního $(n,k,d)$-kódu má $n-k$ řádků a $n$ sloupců
+- příklad
+	- $C_1=\set{000,111}$, lineární $(3,1,3)$-kód
+	- $C_1^\perp=\set{000,110,101,011}$
+	- $C_1$ má kontrolní matici např. ${110\choose 011}$
+- tvrzení: nechť $C$ je lineární $(n,k,d)$-kód s kontrolní maticí $K$, potom $\forall x\in\mathbb Z_2^n:x\in C\iff Kx^T=\underline 0$
+- důkaz
+	- nechť $r_1,r_2,\dots,r_{n-k}\in\mathbb Z_2^n$ jsou řádky $K$
+	- potom $x\in C\iff x\in(C^\perp)^\perp\iff\forall y\in C^\perp:\braket{x,y}=0$ $\iff \forall i\in\set{1,\dots,n-k}:\braket{x,r_i}=0\iff Kx^T=\underline 0$
+- nechť $C$ je lineární $(n,k,d)$-kód s kontrolní maticí $K$
+- víme: $d=\Delta(C)=\min_{x\in C\setminus\set{0}}||x||$
+- pozorování: navíc $\Delta(C)$ je nejmenší $t\geq 1$ takové, že v $K$ lze najít $t$ sloupců, jejichž součet je $\underline 0\in\mathbb Z_2^{n-k}$
+- důsledky
+	- $\Delta(C)\geq 2\iff K$ má všechny sloupce nenulové
+	- $\Delta(C)\geq 3\iff K$ má všechny sloupce nenulové a navíc každé dva sloupce různé
+- df: nechť $r\in\mathbb N,\,t\geq 2$, nechť $K_r$ je matice s $r$ řádky a $2^r-1$ sloupci, jejíž sloupce jsou nenulové a různé; nechť $H_r$ je kód s kontrolní maticí $K_r$; kódům $H_r$ se říká Hammingovy kódy
+- konvence (?): $i$-tý sloupec $K$ odpovídá binárnímu zápisu čísla $i$
+- pozorování: $H_r$ je lineární $(n,k,d)$-kód, kde $n=2^r-1,\;k=2^r-1-r,\;d=3$
+- tvrzení: $\forall r\geq 2$, pro $n=2^r-1$, $\forall x\in\mathbb Z_2^n$; existuje právě jedno $y\in H_r$ takové, že $d(x,y)\leq 1$
+- navíc to $y\in H_r$ lze najít následujícím algoritmem
+	- spočítej $K_rx^T=:s$
+	- pokud $s=\underline 0$, tak $x\in H_r$, tedy $y:=x$
+	- pokud $s\neq\underline 0$, tak nechť $i\in\set{1,\dots,n}$ je takové, ž $i$-tý sloupec $K_r$ je roven $s$; potom nechť $y$ je vektor, který vznikne z $x$ změnou $i$-tého bitu
+- důkaz přeskočíme
+- Hammingovy kódy umí opravit jednu chybu, jsou mnohem úspornější než trojnásobné opakování
+- tvrzení (Singletonův odhad): pokud existuje $(n,k,d)$-kód $C$, tak $k+d\leq n+1$
+- důkaz
+	- nechť $C$ je $(n,k,d)$-kód
+	- definujme funkci $\psi:\mathbb Z_2^n\to\mathbb Z_2^{n-d+1}$
+	- $\psi(x_1,\dots,x_n)=(x_1,\dots,x_{n-d+1})$
+	- pro $x,y\in C$, $x\neq y$, tak $\psi(x)\neq\psi(y)$
+	- tedy $|C|\leq 2^{n-d+1}$
+	- tedy $k\leq n-d+1$, tj. $k+d\leq n+1$
+	- stručně: $d$ označuje počet bitů, ve kterých se dvě různá slova liší, takže když jich smažeme $d-1$, tak se pořád budou lišit
+- značení: $B(x,t):=\set{y\in\mathbb Z_2^n:d(x,y)\leq t}$, $V(t):=|B(x,t)|={n\choose 0}+{n\choose1}+{n\choose2}+\dots+{n\choose t}$
+- tvrzení (Hammingův odhad): pokud existuje $(n,k,d)$-kód $C$, tak $|C|\leq\frac{2^n}{V(\lfloor\frac{d-1}2\rfloor)}$
+- důkaz: plyne z toho, že pro $x,y\in C$, $x\neq y$: $B(x,\lfloor\frac{d-1}2\rfloor)\cap B(y,\lfloor\frac{d-1}2\rfloor)=\emptyset$
+- tvrzení (Gilbert-Varshamovův odhad): $\forall n,d,d\lt n$ existuje kód $C$ taková, že $|C|\geq 2^n/V(d-1)$
+- důkaz: hledejme $C$ hladově
