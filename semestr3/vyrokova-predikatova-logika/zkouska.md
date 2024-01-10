@@ -742,7 +742,7 @@ výpisky neobsahují kompletní definice pojmů, pouze jejich zjednodušení; k�
 		- mějme otevřenou teorii $T$ v jazyce $L$ bez rovnosti a s alespoň jedním konstantním symbolem
 		- potom buď má $T$ Herbrandův model, nebo existuje konečně mnoho základních instancí axiomů $T$, jejichž konjunkce je nesplnitelná
 	- důkaz
-		- označme jako $T_\text{ground}$ s množinu všech základních instancí axiomů teorie $T$
+		- označme jako $T_\text{ground}$ množinu všech základních instancí axiomů teorie $T$
 		- zkonstruujeme tablo (takové, kde neprodlužujeme sporné větve – třeba to systematické) z teorie $T_\text{ground}$ s položkou $\text F\bot$ v kořeni, ale z jazyka $L$ (tedy bez rozšíření o pomocné konstantní symboly na jazyk $L_C$, nejsou totiž potřeba, protože $T$ je otevřená)
 		- pokud tablo obsahuje bezespornou větev, potom je kanonický model pro tuto větev (opět bez přidání pomocných konstantních symbolů) Herbrandovým modelem $T$
 		- v opačném případě máme tablo důkaz sporu, tedy $T_\text{ground}$ i $T$ jsou nesplnitelné
