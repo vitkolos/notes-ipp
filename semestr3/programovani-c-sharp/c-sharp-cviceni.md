@@ -439,3 +439,64 @@
 	- za úlohu je 5 bodů
 	- za kvalitní objektový návrh 5 bodů navíc
 	- silné typování – typy operátorů apod.
+- řešení Vyhodnocování výrazů
+	- typová hierarchie
+		- abstract Expression
+			- abstract ValueExpression – vlastnost: abstract int Value
+				- sealed ConstantExpression
+				- VariableExpression
+			- abstract OperatorExpression – metoda: abstract Expression GetOperand(int index) (dá se implementovat pomocí indexeru), vlastnost: abstract int Arity (tyhle dvě věci použijeme při výpisu stromu výrazu – chceme je vypisovat z nějaké metody OperatorExpression)
+				- abstract BinaryOperatorExpression – field: left, right, vlastnost: sealed override int Arity => 2 (lepší než použít Arity {get} = 2, protože si tu aritu nemusíme pamatovat v paměti)
+					- PlusExpression
+					- MinusExpression
+					- …
+				- abstract UnaryOperatorExpression – field: operand, vlastnost: sealed override int Arity => 1
+					- UnaryMinusExpression
+				- abstract FunctionOperatorExpression – field: pole operandů
+	- vyhodnocení
+		- rozdělíme vykonání operace a získání operandů k operaci
+		- každý binání operátor bude mít metodu EvaluateBinaryOperator(int leftOperand, int right Operand)
+			- to zajistíme abstraktní metodou u binárního operátoru
+		- Expression bude mít abstraktní metodu Evaluate
+			- BinaryOperatorExpression bude mít sealed override int Evaluate, který zavolá EvaluateBinaryOperator(left.Evaluate(), right.Evaluate())
+		- u ValueExpression
+			- přidáme taky funkci Evaluate, ta bude vracet Value, bude sealed
+			- to, že má něco hodnotu, a to, že má něco nějaké vyhodnocení, jsou dva různé koncepty
+			- takže Value necháme – zároveň nám to zachová hezké API pro uživatele
+	- statická třída expression parser
+		- poznámka: moje řešení neřeší nevalidní vstup, kdy uživatel zadal méně položek, než je potřeba
+		- vytváříme instanci operátoru – použijeme switch expression podle znaku operátoru
+	- rozšíření
+		- ve stromu výrazů budou cená čísla
+		- vyhodnocení může být v reálných číslech
+		- 5 bodů za funkční rozšíření, 5 bodů za vhodnou implementaci, 5 bodů za rozumné řešení parsování (jak zařídit přidání operátoru modulo do parsovacího algoritmu)
+	- třída EvalInReal
+		- Process(PlusEx e)
+		- Process(MinusEx e)
+			- vrátím Process(e.Left) - Process(e.Right)
+		- …
+		- Process(ValueEx e)
+		- Process(Expression e)
+			- podle typu `e` (třeba pomocí GetType nebo pattern matchingu) zavolám konkrétní Process
+			- tohle nechceme, protože to při překladu nekontroluje implementaci modula
+		- druhá verze
+			- máme třídu Expression
+			- uděláme v ní funkci abstract A
+			- takže PlusExpression bude mít override A
+		- takže místo Process(e.Left) - Process(e.Right) bude ve funkci Process(MinusEx e) tohle: e.Left.A(this) - e.Right.A(this)
+		- funkce A(EvalInReal alg) zavolá alg.Process(this)
+	- ale nemusí být různé fejkové funkce pro různé algoritmy
+		- protože return hodnoty není jediný způsob, jak ji předat
+	- návrhový vzor Visitor Pattern
+		- tomu EvalInReal se typicky říká Visitor
+		- funkci process se říká Visit
+		- fejkové funkci A se říká Accept
+			- AcceptInReal
+	- proč je to lepší než switch
+		- když přidám ModuloExpression
+		- musím dodat implementaci abstraktních věcí (Evaluate – i když ten nebudeme potřebovat, chceme to pomocí visitorů – a AcceptInReal)
+		- dokud nedodáme implementaci modula v evalinreal, tak se to nepřeloží
+	- body
+		- 5 za fungování
+		- 5 za dva visitory (celá a reálná čísla)
+		- 5 za parsování (rozšiřitelné bez úpravy knihovny – jak se vyhnout tomu switchi)
