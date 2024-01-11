@@ -724,3 +724,36 @@
 		- výstup $\leq 2T\leq 2$ opt.
 	- umí se $1.5$-aproximace
 	- dokážeme, že bez trojúhelníkové nerovnosti nelze obchodního cestujícího aproximovat
+- věta: pokud pro $t\geq 1$ existuje algoritmus $t$-aproximující TSP v úplných grafech bez trojúhelníkové nerovnosti v polynomiálním čase, pak P = NP
+- důkaz: $t$-aproximace $\implies$ polynomiální algoritmus pro hamiltonovskou kružnici $\implies$ P = NP
+	- zadaný graf $G$ doplníme na $G'$ úplný graf s ohodnocením hran
+	- hrana v $G$ → hrana v $G'$ délky 1
+	- nehrana v $G$ → hrana v $G'$ délky $c$
+	- původní hamiltonovské kružnice budou mít délku $n$ (počet vrcholů)
+	- nové hamiltonovské kružnice budou mít délku $\geq n-1+c$
+	- potřeujeme $tn\lt n-1+c$
+	- $c\gt tn-n+1=(t-1)n+1$
+	- splníme $c=tn$
+- batoh
+	- umíme řešit v čase $O(nC)$, kde $C=\sum_ic_i,\;C\leq n\cdot c_\max$
+	- chceme menší $C$
+	- idea: $\set{0,\dots,c_\max}\to\set{0,\dots,M}$
+		- $\hat {c_i}:= c_i\cdot\frac M{c_\max}$
+	- chyba pro jeden předmět $\leq\frac{c_\max}M$
+	- chyba celkem $\leq\frac{c_\max\cdot n}M\overset{\text{chceme}}\leq\varepsilon\cdot c^*$
+	- po zahození předmětů s $h_i\gt H$ bude $c^*\geq c_\max$
+	- …
+	- ceny můžeme zaokrouhlovat (dostaneme aproximaci), hmotnosti ne, protože by se nám to rozbilo
+	- $(1-\varepsilon)$-aproximace batohu
+		- odstraníme předměty s $h_i\gt H$
+		- $c_\max\leftarrow\max_ic_i$
+		- $M\leftarrow\lceil n/\varepsilon\rceil$
+		- …
+	- analýza chyby
+		- P … optimální řešení původní úlohy
+		- Q … optimální přeškálované úlohy
+		- chceme $c(Q)\geq(1-\varepsilon)\cdot c(P)$
+		- $\hat c(P)=\sum_{i\in P}\lfloor c_i\cdot \frac M{c_\max}\rfloor\geq\sum_{i\in P}(c_i\cdot\frac M{c_\max}-1)\geq$
+		- $\geq(\frac M{c_\max}\underbrace{\sum_{i\in P}c_i}_{c(P)})-n$
+		- $c(Q)=\sum_{i\in Q}c_i\geq\sum_{i\in Q}\hat{c_i}\cdot\frac{c_\max}M=\frac{c_\max}M\cdot\hat c(Q)\geq\frac{c_\max}M\cdot\hat c(P)$
+		- …
