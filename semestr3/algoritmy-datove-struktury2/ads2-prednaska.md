@@ -757,3 +757,5 @@
 		- $\geq(\frac M{c_\max}\underbrace{\sum_{i\in P}c_i}_{c(P)})-n$
 		- $c(Q)=\sum_{i\in Q}c_i\geq\sum_{i\in Q}\hat{c_i}\cdot\frac{c_\max}M=\frac{c_\max}M\cdot\hat c(Q)\geq\frac{c_\max}M\cdot\hat c(P)$
 		- …
+- df: polynomiální aproximační schéma (PTAS) $\equiv$ algoritmus, který pro vstup velikosti $n$ a $\varepsilon\gt 0$ najde aproximaci s chybou $\leq\varepsilon$ v čase pro každé $\varepsilon$ polynomiálním
+- df: plně polynomiální aproximační schéma (FPTAS) … čas O(poly(n,1/$\varepsilon$))
