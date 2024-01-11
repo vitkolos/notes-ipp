@@ -858,3 +858,38 @@
 	- nejdřív se dělá collection gen 0, pokud je potřeba další paměť, tak gen 1 a případně nakonec gen 2
 	- pokud objekt přežije garbage collection, tak se přesune do další generace
 	- invariant: po každé collection je generace 0 prázdná
+	- long living objekt skončí v gen 2
+		- pokud vede reference z long living objektu do short lived objektu, tak na něj dlouho nepřijdeme, že se může uvolnit
+- large object heap se collectuje, jen když se collectuje gen 2 u small object heap
+- memory leaky
+	- když máme long living objekt, co ukazuje na short lived objekt
+	- když zapomenu na nějakou referenci
+		- někdy je vhodné explicitně přiřadit null
+- příklad: List\<T>, implementujeme metodu Clear
+	- máme hodnotu Count a pole referencí na T
+	- přístup 1: Clear vynuluje Count v O(1) – špatná implementace, vede k memory leaku, zůstanou tam reference na objekty uvnitř listu
+	- přístup 2: v O(n) přiřadit všem objektům null
+- o každém segmentu se ví, v jaké je generaci
+
+## Stringy
+
+- délka a pole charů
+- escape sekvence se resolvují za překladu
+- je lepší používat string než String (protože String se dá zadefinovat jinak)
+- jsou immutable
+	- ToUpper vytvoří nový string
+	- Substring vytvoří nový string
+		- v Javě se použije původní string a ukazuje se na jeho část
+- StringBuilder … mutable string
+- StringBuilder dělá podobný trik jako List – alokuje víc místa než potřebuje
+- ale konkatenace stringů je přehlednější než StringBuilder a má menší overhead, takže pokud jich provádíme málo, tak je to lepší řešení
+- string i StringBuilder mají spoustu optimalizací
+- StringBuilder Append má spoustu přetížení na čísla apod.
+- Appendy se dají řetězit
+	- sb.Append("x").Append("y");
+	- protože Append vrací instanci StringBuilder
+- string.Format (pomocí `{0}`, `{1}` apod.) vs. konkatenace
+	- pozor na míchání přístupů – pokud uživatel zadá `{0}`, tak se to může rozbít
+- interpolace pomocí `$"xyz"`
+	- používá se StringHandler
+	- InterpolatedStringHandler používá duck typing (najde se vhodný handler podle typu, do kterého výsledek interpolace přiřazujeme)
