@@ -794,3 +794,67 @@
 		- zruší se výjimka pausnutá tímto blokem (pokud nevznikla nová výjimka)
 		- odpausne se výjimka pausnutá tímto blokem (v případě rethrowování pomocí `throw;`)
 		- odstraní se výjimka pausnutá tímto blokem a místo ní se propaguje nová výjimka (pokud je vyhozena nová výjimka)
+
+## Garbage collector
+
+- C-like
+	- malloc/new → free/delete
+	- ownership
+	- problém nemazání (memory leaků) a dvojitého mazání
+- C++ (volitelně)
+	- unique_ptr
+	- shared_ptr (ref_count)
+- Rust (povinně)
+	- Rc\<T> (ref_count)
+- odlišný přístup: garbage collection (GC)
+	- v managovaném prostředí, kde má runtime velkou kontrolu nad programem
+	- paměť se spravuje efektivněji
+- GC v dotnetu vytvořila Maoni Stephens – má ráda kočky
+- Small Object Heap (SOH)
+- Large Object Heap (LOH)
+	- když má objekt víc než 85 000 B
+- když mám pole velkých objektů, tak to pole nemusí skončit na LOH, protože pole obsahuje reference
+- adresový prostor
+	- fyzický adresový prostor (PA) – jedna jednotka je rámec
+	- u virtuálního adresového prostoru (VA) – stránka
+- proces nějak používá virtuální adresový prostor
+- operační systém virtuální adresový prostor nějak mapuje na ten fyzický
+- reserve VA (parametr: počet bajtů) → kernel vrátí volnou adresu ve VA
+- commit VA (adresa a počet bajtů) = alokace PA
+- bloku paměti se v dotnetu říká segment/region
+- garbage collector vrací paměť operačnímu systému, když ji nepotřebuje
+	- decommit = free
+- módy: workstation × server
+	- ve workstation módu je halda sdílená, takže když běží garbage collector, tak se všechna vlákna zapauzují
+	- v server módu garbage collector běží ve více vláknech
+		- v některých situacích může garbage collection běžet na pozadí
+- garbage collector se pouští na základě alokace paměti
+	- Windowsy vysílají broadcast zprávu, když dochází paměť počítači, takže i v této situaci se spouští garbage collection
+- graf objektů
+	- kde jsou reference
+		- ve statických proměnných
+		- na zásobníku (lokální proměnné a tracking reference)
+		- uvnitř (live) objektů
+	- každá reference odpovídá hraně v grafu
+	- garbage collector označí dosažitelné objekty jako live
+- kdyby se mazaly mrtvé objekty z haldy, tak by vznikly díry
+- proto se provádí heap compacting
+	- přeskupí se objekty na haldě
+	- opraví se reference (proto se nedá získat adresa referencí)
+- heaptop = vrchol haldy (kam se přidává nový objekt)
+	- po heap compactingu se sníží
+- pomocí GCSettings se dá ovlivnit chování GC
+- existuje metoda GC.Collect, ale největší chyba je, že ji lidi volají příliš často
+- udržuje se ukazatel na heaptop, při alokaci se jenom posune o velikost alokace
+	- výhoda tohohle přístupu je to, že je alokace rychlá
+	- akorát se ta paměť při alokaci musí nulovat
+	- GC se pouští, když paměť na haldě „dojde“
+- short lived objekty
+	- jsou fajn, protože žádný objekt nepřežije garbage collection, takže může proběhnout rychle a nemusí se dělat heap compacting
+- generační GC
+	- gen 0 → gen 1 → gen 2
+	- když objekt vznikne, tak je v generaci 0
+	- garbage collection se dělá po generacích
+	- nejdřív se dělá collection gen 0, pokud je potřeba další paměť, tak gen 1 a případně nakonec gen 2
+	- pokud objekt přežije garbage collection, tak se přesune do další generace
+	- invariant: po každé collection je generace 0 prázdná
