@@ -27,10 +27,9 @@
 			- spouštíme pro seno a automat nad jehlou, postupně jsou hlášeny jednotlivé výskyty
 			- iterujeme přes všechny znaky sena a spouštíme KmpKrok
 			- pokud se stav rovná délce jehly, ohlásíme výskyt
-			- složitost
+			- časová složitost $\Theta(S)$
 				- pro každý znak se prochází nejvýše po jedné dopředné hraně
 				- každá zpětná hrana vede aspoň o jeden stav doleva – tedy průchodů po zpětných hranách bude nejvýše tolik, po kolika dopředných hranách jsme prošli
-				- časová složitost $\Theta(S)$
 		- KmpKonstrukce
 			- nastavíme zpětnou hranu ze stavu 1 do stavu 0
 			- provádíme jakoby KmpHledej, akorát jako seno použijeme jehlu bez prvního znaku
