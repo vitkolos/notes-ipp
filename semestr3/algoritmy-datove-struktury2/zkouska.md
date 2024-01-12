@@ -37,8 +37,55 @@
 			- časová složitost $\Theta(J)$
 	- celkem čas $\Theta(J+S)$
 - Algoritmus: Aho-Corasicková (více jehel v seně)
+	- automat = trie
+		- stavy = prefixy jehel
+		- dopředné hrany = přidání jednoho znaku na konec ($\alpha\to\alpha x$)
+		- konce jehel (označíme v trii)
+		- zpětné hrany – vedou z $\alpha$ do nejdelšího vlastního suffixu $\alpha$, který je stavem (tohle obvykle v trii nebývá)
+		- zkratkové hrany – vedou z $\alpha$ do nejbližšího stavu dosažitelného po zpětných hranách, kde končí jehla (použijeme při hlášení výskytů)
+	- reprezentace automatu
+		- stavy očíslujeme – kořen má číslo 0, ostatní vrcholy libovolná různá
+		- pole Dopředu(stav, písmenko) – obsahuje další stav (podle dopředné hrany)
+		- pole Slovo(stav) – končí v daném stavu slovo?
+		- pole Zpět(stav) – číslo stavu, kam vede zpětná hrana (kromě kořene je vždy právě jedno)
+		- pole Zkratka(stav) – číslo stavu, kam vede zkratková hrana
+	- algoritmy/procedury
+		- AcKrok
+			- na vstupu aktuální stav a přečtený znak, na výstupu nový stav
+			- projde dopředu po jedné hraně z aktuálního stavu nebo zkouší procházet po zpětných hranách, dokud nebude moct projít dopředu (přinejhorším vrátí kořen)
+		- AcHledej
+			- na vstupu seno a automat, postupně ohlašuje výskyty
+			- spouští AcKrok pro každý znak sena
+			- pokud je v daném stavu označen konec jehly, hlásí výskyt
+			- prochází po zkratkových hranách a hlásí jednotlivé výskyty
+			- složitost $\Theta(S+V)$, kde $S$ je délka sena a $V$ je počet výskytů
+		- AcKonstrukce
+			- nejdříve sestrojíme trii
+			- zpětné hrany můžou vést křížem mezi větvemi stromu
+			- proto je konstruujeme po hladinách (BFS, pomocí fronty)
+			- pro vrchol $v$ a rodiče $r$ zkusíme k vrcholu Zpět(r) přidat písmeno na hraně $rv$, čímž dostaneme Zpět(v)
+			- pokud pokud je Zpět(v) konec jehly, tak Zkratka(v) nastavíme na Zpět(v), jinak nastavíme Zkratka(v) na Zkratka(Zpět(v))
+			- algoritmus jakoby hledá všechny jehly (jako u KMP)
+			- složitost $\Theta(J)$, kde $J$ je součet délek jednotlivých jehel
+	- celkem čas $\Theta(J+S+V)$
 - Algoritmus: Rabin-Karp (okénkové hešování)
+	- hledání jedné jehly
+	- zahashuju si posloupnost $J$ znaků a porovnám s hashem jehly
+	- hashovací funkce pro řetězec $x_1\dots x_J$
+		- $h(x_1,\dots,x_J)=x_1P^{J-1}+x_2P^{J-2}+\dots+x_JP^0\mod M$
+	- postupně přehashovávám pro každý takový úsek sena (hashování v lineárním čase, přehashování v konstantním)
+		- $h(x_2,\dots,x_{J+1})=P\cdot h(x_1,\dots,x_j)-x_1 P^J+x_{J+1}\mod M$
+	- pokud se hash posloupnosti znaků shoduje s hashem jehly, ověříme, zda je to opravdu jehla
+	- průměrná časová složitost $\Theta(J+S+JV+{SJ\over M})$ pro rovnoměrnou hashovací funkci
+		- jehlu hashujeme lineárně Hornerovým schématem
+		- provádíme $S$ přepočítání hashovací funkce
+		- nahlášení každého výskytu trvá $JV$ (ověřujeme, zda je to jehla)
+		- pro dvě různé posloupnosti znaků se hashe shodují s pravděpodobností $1/M$ (viz věta o počtu kolizí) – takže průměrně $\Theta({SJ\over M})$ strávíme kontrolou falešně pozitivních výsledků
+		- chceme $M\in\Omega(SJ)$, abychom minimalizovali vliv kolizí
+	- naše polynomiální hashovací funkce není dokonale rovnoměrná (místo $1/M$ bude pravděpodobnost kolize $J/M$), ale podrobnější analýza nebude zkoušena
 - Věta: Počet kolizí u okénkového hešování
+	- pro dokonale rovnoměrnou hashovací funkci $1/M$ pro $M$ okének
+	- přesnější odhad nebude na zkoušce
 
 ## Toky v sítích
 
