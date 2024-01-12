@@ -90,10 +90,55 @@
 ## Toky v sítích
 
 - Definice: Síť, tok, přebytek, velikost toku
+	- síť je čtveřice
+		- orientovaný graf $(V,E)$
+			- BÚNO symetrický ($uv\in E\implies vu\in E$)
+			- chybějící hrana má jakoby nulovou kapacitu
+		- zdroj $z\in V$
+		- spotřebič $s\in V,\,s\neq z$
+		- kapacity $c:E\to\mathbb R_0^+$
+	- tok je funkce $f:E\in\mathbb R_0^+$ taková, že
+		- $\forall e\in E:f(e)\leq c(e)$
+		- Kirchhoffův zákon
+			- zákon zachování, tekutina se nám nikam neztrácí
+			- $\forall v\in V\setminus\set{z,s}:f^\Delta(v)=0$
+	- pro $v\in V$
+		- přítok $f^+(v):=\sum_{uv\in E} f(uv)$
+		- odtok $f^-(v):=\sum_{vw\in E}f(vw)$
+		- přebytek $f^\Delta(v):=f^+(v)-f^-(v)$
+	- velikost toku $|f|:=f^\Delta(s)$
 - Definice: Řez, kapacita řezu
+	- $E(A,B):=E\cap (A\times B)$
+	- tedy $E(A,B)=\set{uv\in E\mid u\in A\land v\in B}$
+	- řez je $E(A,B)$ pro $A\subseteq V,\;B=V\setminus A$
+		- přičemž $z\in A,\;s\in B$
+	- kapacita řezu $c(A,B):=\sum_{e\in E(A,B)} c(e)$
+	- $f(A,B):=\sum_{e\in E(A,B)} f(e)$
+	- $f^\Delta(A,B):=f(A,B)-f(B,A)$
 - Věta: Velikost toku se dá měřit na každém řezu
+	- lemma: pro každý řez $E(A,B)$ a každý tok $f$ platí $f^\Delta(A,B)=|f|$
+	- důkaz
+		- $\sum_{v\in B}f^\Delta(v)=f^\Delta(s)=|f|$
+			- podle Kirchhoffova zákona
+		- $\sum_{v\in B}f^\Delta(v)=f(A,B)-f(B,A)=f^\Delta(A,B)$
+			- hrany zleva doprava přispívají kladně
+			- hrany zprava doleva přispívají záporně
+			- ostatní hrany nepřispívají
 - Definice: Rezerva hrany, nasycená hrana
+	- rezerva hrany $uv$
+		- $r(uv):=c(uv)-f(uv)+f(vu)$
+	- hrana je nasycená $\equiv$ má nulovou rezervu
+	- hrana je nenasycená $\equiv$ má kladnou rezervu
 - Algoritmus: Ford-Fulkerson (zlepšující cesty)
+	- cesta je nenasycená $\equiv$ žádná její hrana není nasycená / všechny mají kladné rezervy
+	- algoritmus
+		- iterujeme, dokud existuje nenasycená cesta ze zdroje do stoku
+		- spočítáme rezervu celé cesty (minimum přes rezervy hran cesty)
+		- pro každou hranu upravíme tok – v protisměru odečteme co nejvíc, zbytek přičteme po směru
+	- pro celočíselné kapacity vrátí celočíselný tok
+	- racionální kapacity převedeme na celočíselné
+	- pro iracionální kapacity se může rozbít
+	- … (todo)
 - Definice: Minimální řez je stejně velký jako maximální tok
 - Definice: Průtok (čistý tok)
 - Příklad: Celočíselná síť má celočíselný maximální tok
