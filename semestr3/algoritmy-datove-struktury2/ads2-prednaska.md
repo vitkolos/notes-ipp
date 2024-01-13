@@ -186,7 +186,7 @@
 		- ale v sumě je aspoň jeden prvek kladný
 		- takže tam musí být záporný člen – to je pouze zdroj
 - invariant V (o výšce)
-	- $\forall v: h(v)\geq 2n$
+	- $\forall v: h(v)\leq 2n$
 	- invariant C $\implies$ invariant V
 		- uvažme první porušení – zvedáme $v\in V$ z výšky $2n$
 		- tehdy $f^\Delta(v)\gt 0\implies\exists P$ nenasycená cesta $v\to z$

@@ -103,18 +103,18 @@
 			- zákon zachování, tekutina se nám nikam neztrácí
 			- $\forall v\in V\setminus\set{z,s}:f^\Delta(v)=0$
 	- pro $v\in V$
-		- přítok $f^+(v):=\sum_{uv\in E} f(uv)$
-		- odtok $f^-(v):=\sum_{vw\in E}f(vw)$
-		- přebytek $f^\Delta(v):=f^+(v)-f^-(v)$
-	- velikost toku $|f|:=f^\Delta(s)$
+		- přítok $f^+(v)\coloneqq \sum_{uv\in E} f(uv)$
+		- odtok $f^-(v)\coloneqq \sum_{vw\in E}f(vw)$
+		- přebytek $f^\Delta(v)\coloneqq f^+(v)-f^-(v)$
+	- velikost toku $|f|\coloneqq f^\Delta(s)$
 - Definice: Řez, kapacita řezu
-	- $E(A,B):=E\cap (A\times B)$
+	- $E(A,B)\coloneqq E\cap (A\times B)$
 	- tedy $E(A,B)=\set{uv\in E\mid u\in A\land v\in B}$
 	- řez je $E(A,B)$ pro $A\subseteq V,\;B=V\setminus A$
 		- přičemž $z\in A,\;s\in B$
-	- kapacita řezu $c(A,B):=\sum_{e\in E(A,B)} c(e)$
-	- $f(A,B):=\sum_{e\in E(A,B)} f(e)$
-	- $f^\Delta(A,B):=f(A,B)-f(B,A)$
+	- kapacita řezu $c(A,B)\coloneqq \sum_{e\in E(A,B)} c(e)$
+	- $f(A,B)\coloneqq \sum_{e\in E(A,B)} f(e)$
+	- $f^\Delta(A,B)\coloneqq f(A,B)-f(B,A)$
 - Věta: Velikost toku se dá měřit na každém řezu
 	- lemma: pro každý řez $E(A,B)$ a každý tok $f$ platí $f^\Delta(A,B)=|f|$
 	- důkaz
@@ -126,7 +126,7 @@
 			- ostatní hrany nepřispívají
 - Definice: Rezerva hrany, nasycená hrana
 	- rezerva hrany $uv$
-		- $r(uv):=c(uv)-f(uv)+f(vu)$
+		- $r(uv)\coloneqq c(uv)-f(uv)+f(vu)$
 	- hrana je nasycená $\equiv$ má nulovou rezervu
 	- hrana je nenasycená $\equiv$ má kladnou rezervu
 - Algoritmus: Ford-Fulkerson (zlepšující cesty)
@@ -156,7 +156,7 @@
 	- pokud $|f|=c(A,B)$, pak je tok $f$ maximální a řez $E(A,B)$ minimální
 	- z analýzy Fordova-Fulkersonova algoritmu plyne, že velikost maximálního toku je rovna kapacitě minimálního řezu
 - Definice: Průtok (čistý tok)
-	- toku $f$ přiřadíme průtok $f^*$ takto: $f^*(uv):=f(uv)-f(vu)$
+	- toku $f$ přiřadíme průtok $f^*$ takto: $f^*(uv)\coloneqq f(uv)-f(vu)$
 	- pozorování
 		- $f^*(uv)=-f^*(vu)$
 		- $f^*(uv)\leq c(uv)$
@@ -166,7 +166,7 @@
 	- lemma: pokud funkce $f^*:E\to\mathbb R$ splňuje tato pozorování, pak existuje tok $f$, jehož průtokem je $f^*$
 		- $uv,vu\in E$
 		- BÚNO $f^*(uv)\geq 0$
-		- $f(uv):=f^*(uv)$
+		- $f(uv)\coloneqq f^*(uv)$
 		- $f(vu)=0$
 	- takže můžeme místo s toky počítat s průtoky, přičemž si to pak ekvivalentně převedeme na toky
 - Příklad: Celočíselná síť má celočíselný maximální tok
@@ -241,8 +241,118 @@
 			- nově vzniklá cesta bude mít aspoň o 2 větší délku než nejkratší cesty
 	- fáze trvá $O(nm)$, takže Dinicův algoritmus najde maximální tok v čase $O(n^2m)$
 - Definice: Vlna, převedení přebytku po hraně
+	- $f$ je vlna $\equiv$
+		- $\forall e\in E:f(e)\leq c(e)$
+		- $\forall v\neq z,s: f^\Delta(v)\geq 0$
+	- převedení přebytku
+		- $f^\Delta(u)\gt 0$
+		- $r(uv)\gt 0$
+		- $\delta\coloneqq \min(f^\Delta(u),r(uv))$
+		- $f'(uv)\coloneqq f(uv)+\delta$
+		- důsledky
+			- $f$ zůstane vlnou
+			- $f^\Delta(u)\mathrel{-}=\delta,\;f^\Delta(v)\mathrel{+}=\delta$
+			- $r(uv)\mathrel{-}=\delta,\;r(vu)\mathrel{+}=\delta$
 - Algoritmus: Goldbergův algoritmus (výšky a přebytky)
+	- výška $h:V\to\mathbb N$
+	- algoritmus
+		- nastavíme počáteční výšky – zdroji nastavíme výšku $n$, ostatním vrcholům 0
+		- vytvoříme počáteční vlnu – $f$ je všude nulová kromě hran ze zdroje, ty nastavíme na maximum (tedy nechť se $f$ rovná jejich kapacitě)
+		- dokud existuje vrchol $u\neq z,s$, který má $f^\Delta(u)\gt 0:$
+			- pokud může přebytek někam „stéct“ (existuje hrana $uv$ s nenulovou rezervou a $u$ je výš než $v$), převedeme přebytek po $uv$
+			- pokud přebytek nemůže nikam stéct, zvedneme $u$ o 1
+	- invariant A (základní)
+		- $f$ je vlna
+		- výška vrcholů neklesá
+		- výška zdroje a stoku se nemění
+		- přebytek ve všech vrcholech kromě zdroje je větší roven 0
+	- invariant S (o spádu)
+		- neexistuje hrana s nenulovou rezervou, která by vedla o více než jednu úroveň dolů
+			- na začátku to platí
+			- rozbít se to můžu zvednutím (to se nestane – místo toho se provede převedení) nebo převedením (ale to zvyšuje rezervu jenom do kopce – takže se to taky nemůže stát)
+	- lemma K (o korektnosti)
+		- pokud se algoritmus zastaví, finální $f$ je maximální tok
+			- $f$ je tok
+			- $f$ je maximální
+			- kdyby nebyl maximální, pak podle Fordova-Fulkersonova algoritmu existuje nenasycená cesta ze zdroje do spotřebiče
+			- zdroj je ve výšce $n$, spotřebič ve výšce 0, délka cesty je maximálně $n-1$, tudíž tam bude hrana se spádem aspoň dva, která ale na nenasycené cestě nemůže existovat
+	- invariant C (cesta do zdroje)
+		- mějme vrchol, jehož přebytek je kladný
+		- pak existuje nenasycená cesta z tohoto vrcholu do zdroje
+		- důkaz
+			- $A:=\set{t\in V\mid\exists\text{ nenasycená cesta }v\to t}$
+			- chceme ukázat $z\in A$
+			- $\sum_{a\in A}f^\Delta(a)=\underbrace{f(\overline A,A)}_{0}-\underbrace{f(A,\overline A)}_{\geq 0}$
+				- $f(\overline A,A)=0$, protože jinak by existovala nenasycená cesta $v\to x$, kde $x$ je nějaký vrchol v $\overline A$, což by byl spor
+			- tudíž suma je nekladná
+			- ale v sumě je aspoň jeden prvek kladný
+			- takže tam musí být záporný člen – to je pouze zdroj
+	- invariant V (o výšce)
+		- $\forall v: h(v)\leq 2n$
+		- invariant C $\implies$ invariant V
+			- uvažme první porušení – zvedáme $v\in V$ z výšky $2n$
+			- tehdy $f^\Delta(v)\gt 0\implies\exists P$ nenasycená cesta $v\to z$
+				- $z$ ve výšce $n$, $v$ ve výšce $2n$, umíme dostat spor podobně jako v důkazu lemmatu K
+	- lemma Z (zvednutí)
+		- počet zvednutí je nejvýš $2n^2$
+		- protože každý z $n$ vrcholů vystoupá nejvýše do výšky $2n$ (z invariantu V)
+	- lemma S (sytá převedení)
+		- převedení je nasycené (syté) $\equiv$ vynuluje rezervu
+		- pozorování: nenasycené převedení po hraně $uv$ vynuluje $f^\Delta(u)$
+		- lemma: počet sytých převedení $\leq n\cdot m$
+		- důkaz
+			- uvažme hranu $uv$
+			- těsně po sytém převedení je $r(uv)=0$ a $uv$ vede z kopce
+			- před dalším sytým převedení $r(uv)\gt 0$
+			- mezitím se muselo převést v protisměru … tedy $uv$ do kopce
+			- tzn. posloupnost
+				- syté převedení u→v
+				- aspoň 2 zvednutí $v$
+				- převedení v→u
+				- aspoň 2 zvednutí $u$
+				- až pak může přijít další syté převedení u→v
+			- podle invariantu V toto max. $n$-krát
+	- potenciál $\Phi$ definujeme jako součet výšek vrcholů různých od zdroje a stoku, které mají kladný přebytek
+		- na počátku je nulový
+		- zvednutí ho zvýší o 1
+			- celkem $\leq 2n^2$
+		- syté převedení po hraně $uv$ ho možná sníží o $h(u)$ a možná zvýší o $h(v)$, takže se $\Phi$ zvýší nejvýš o $2n$
+			- celkem $\leq 2n^2m$
+		- nenasycené převedení po hraně $uv$ o určitě sníží o $h(u)$ a možná ho zvýší o $h(v)$, přičemž $h(u)=h(v)+1$, takže se $\Phi$ sníží aspoň o 1
+	- lemma N (nenasycená převedení)
+		- počet nenasycených převedení $\in O(n^2m)$
+		- rozbor viz potenciál (snižovat o 1 můžeme nejvýš tolikrát, kolikrát jsme zvyšovali o 1)
+	- implementace
+		- seznam vrcholů s kladným přebytkem
+			- údržba v $O(1)$ při změně přebytku
+			- nalezení nějakého vrcholu s kladným přebytkem v $O(1)$
+		- pro každý vrchol seznam hran s kladnou rezervou, které z něj vedou z kopce
+			- převedení v $O(1)$
+			- zvednutí vrcholu v $O(n)$
+	- složitost
+		- inicializace v čase $O(m)$
+		- $\leq 2n^2$ zvedání v $O(n)$
+		- $\leq mn$ sytých převedení v $O(1)$
+		- $O(n^2m)$ nenasycených převedení v $O(1)$
+		- celkem čas $O(n^2m)$
 - Algoritmus: Goldbergův algoritmus s výběrem nejvyššího vrcholu
+	- rozšíření původního Goldbergova algoritmu
+	- lemma N'
+		- když vybereme vždy nejvyšší $v$ s kladným přebytkem, tak nastane $O(n^3)$ nenasycených převedení
+	- důkaz
+		- $H$ … výška nejvyššího vrcholu s kladným přebytkem
+		- fáze končí změnou $H$
+			- zvýšení zvednutím
+				- max. $2n^2$-krát
+				- $H$ vždy roste o 1
+			- snížení aspoň o 1
+				- max. $2n^2$-krát (klesá právě tolikrát, kolikrát roste)
+	- pozorování: během jedné fáze se každý vrchol účastní maximálně jednoho nenasyceného převedení
+		- nenasycené převedení vynuluje přebytek
+		- převádí se z kopce → nemůže se zvýšit jeho přebytek
+	- tudíž během fáze je všech nenasycených převedení nejvýš $n$
+	- fází je $O(n^2)$, takže složitost algoritmu je $O(n^3)$
+		- odhad není optimální, lze ukázat $O(n^2\sqrt m)$
 
 ## Algebraické algoritmy
 
