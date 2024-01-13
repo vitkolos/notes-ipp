@@ -156,7 +156,19 @@
 	- pokud $|f|=c(A,B)$, pak je tok $f$ maximální a řez $E(A,B)$ minimální
 	- z analýzy Fordova-Fulkersonova algoritmu plyne, že velikost maximálního toku je rovna kapacitě minimálního řezu
 - Definice: Průtok (čistý tok)
-	- $f^*(uv):=f(uv)-f(vu)$
+	- toku $f$ přiřadíme průtok $f^*$ takto: $f^*(uv):=f(uv)-f(vu)$
+	- pozorování
+		- $f^*(uv)=-f^*(vu)$
+		- $f^*(uv)\leq c(uv)$
+		- $-c(vu)\leq f^*(uv)$
+		- $\forall v\neq z,s:\sum_{uv\in E}f^*(uv)=0$
+			- tzn. pro takové $v$ platí $\sum_{uv\in E}f^*(uv)=f^\Delta(v)$
+	- lemma: pokud funkce $f^*:E\to\mathbb R$ splňuje tato pozorování, pak existuje tok $f$, jehož průtokem je $f^*$
+		- $uv,vu\in E$
+		- BÚNO $f^*(uv)\geq 0$
+		- $f(uv):=f^*(uv)$
+		- $f(vu)=0$
+	- takže můžeme místo s toky počítat s průtoky, přičemž si to pak ekvivalentně převedeme na toky
 - Příklad: Celočíselná síť má celočíselný maximální tok
 	- vzhledem k operacím, které Fordův-Fulkersonův algoritmus provádí, nemůže z celých čísel vytvořit necelá
 	- z analýzy Fordova-Fulkersonova algoritmu plyne, že síť s celočíselnými kapacitami má aspoň jeden z maximálních toků celočíselný a Fordův-Fulkersonův algoritmus takový tok najde
@@ -186,6 +198,48 @@
 	- tok $f$ je blokující $\equiv$ pro každou cestu $P$ ze $z$ do $s$ existuje $e\in P$ taková, že $f(e)=c(e)$
 	- síť $S$ je vrstevnatá (pročištěná) $\equiv$ každý vrchol i hrana leží na nějaké nejkratší cestě ze $z$ do $s$
 - Algoritmus: Dinicův algoritmus (zlepšující toky)
+	- k síti $(V,E,z,s,c)$ a toku $f$ v ní je síť rezerv $(V,E,z,s,r)$, kde $r(uv)=c(uv)-f^*(uv)$
+	- lemma o zlepšování toků: pro tok $f$ v síti a tok $g$ v odpovídající síti rezerv existuje tok $h$ v původní síti takový, že $|h|=|f|+|g|$ a lze ho najít v čase $O(m)$
+		- toky přímo sčítat nemůžeme (mohli bychom se dostat přes kapacitu hrany), ale průtoky ano
+	- algoritmus
+		- začneme s nulovým tokem $f$
+		- opakujeme (tyto kroky tvoří jednu fázi)
+			- sestrojíme síť rezerv a smažeme z ní nulové hrany
+			- pročistíme síť rezerv (pokud je prázdná, skončíme)
+			- najdeme v síti rezerv blokující tok $g$
+			- vylepšíme $f$ pomocí $g$
+		- vrátíme $f$
+	- pročištění sítě rezerv
+		- pomocí BFS ze zdroje rozdělíme graf na vrstvy
+		- smažeme vrstvy za stokem
+		- smažeme hrany, které nevedou o vrstvu vpřed
+		- smažeme slepé uličky
+			- všechny vrcholy, které nemají odchozí hrany, naházíme do fronty
+			- vrcholy ve frontě postupně mažeme
+			- pokud jsme přitom vytvořili další vrchol bez odchozích hran, vložíme ho do fronty
+			- každý vrchol a každá hrana se účastní nejvýš jednou – v čase $O(m)$
+		- čas $O(m)$
+	- nalezení blokujícího toku
+		- začneme s nulovým tokem $g$
+		- dokud existuje $P$ cesta ze $z$ do $s$ v $R$
+			- $\varepsilon\leftarrow\min_{e\in P}(r(e)-g(e))$
+			- $\forall e\in P: g(e)\leftarrow g(e)+\varepsilon$ a pokud $g(e)=r(e)$, hranu $e$ smažeme
+			- dočistíme síť (kdykoliv smažu hranu, musím se zbavit slepých uliček)
+		- vrátíme $g$
+		- čas $O(nm)$
+			- síť je vrstevnatá $\implies$ krok cyklu (bez čistění) v $O(n)$
+			- cyklus poběží nejvýše $m$-krát, protože pokaždé smažu alespoň jednu hranu
+			- čištění sítě je za všechny iterace $O(m)$
+	- lemma: pokud se algoritmus zastaví, vydá maximální tok
+		- algoritmus se zastaví, když už neexistuje cesta ze zdroje do stoku po hranách s kladnou rezervou
+		- tehdy by se zastavil i Fordův-Fulkersonův algoritmus, který je korektní
+	- lemma: během každé fáze vzroste počet vrstev pročištěné sítě aspoň o jedna
+		- důsledek: počet fází $\leq n$
+		- intuitivní důkaz (zablokovali jsme cesty dané délky) nefunguje – mezi fázemi nám mohly vzrůst rezervy
+		- rezerva vzroste těm hranám, které vedou o vrstvu zpět
+		- nahlédneme, že žádná cesta, která použije alespoň jednu zpětnou hranu nemůže být krátká
+			- nově vzniklá cesta bude mít aspoň o 2 větší délku než nejkratší cesty
+	- fáze trvá $O(nm)$, takže Dinicův algoritmus najde maximální tok v čase $O(n^2m)$
 - Definice: Vlna, převedení přebytku po hraně
 - Algoritmus: Goldbergův algoritmus (výšky a přebytky)
 - Algoritmus: Goldbergův algoritmus s výběrem nejvyššího vrcholu
