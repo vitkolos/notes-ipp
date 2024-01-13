@@ -138,12 +138,53 @@
 	- pro celočíselné kapacity vrátí celočíselný tok
 	- racionální kapacity převedeme na celočíselné
 	- pro iracionální kapacity se může rozbít
-	- … (todo)
-- Definice: Minimální řez je stejně velký jako maximální tok
+	- lemma: pokud se algoritmus zastaví, vydá maximální tok
+		- algoritmus se zastavil
+		- množinu vrcholů, do nichž existuje nenasycená cesta ze zdroje označíme jako $A$, ostatní vrcholy budou v množině $B$
+		- všimneme si, že $E(A,B)$ je řez
+		- hrany řezu mají zjevně nulovou rezervu
+		- po hranách řezu vedoucích z A do B teče tok rovný kapacitě, po hranách z B do A neteče nic
+		- nalezli jsme tedy řez $E(A,B)$, pro nějž $f^\Delta(A,B)=c(A,B)$
+		- tedy tento řez je minimální a tok $f$ maximální
+	- věta: pro každou síť s racionálními kapacitami se Fordův-Fulkersonův algoritmus zastaví a vydá maximální tok a minimální řez
+		- vzhledem k operacím, které algoritmus provádí, nemůže z celých čísel vytvořit necelá
+	- důsledek: velikost maximálního toku je rovna kapacitě minimálního řezu
+	- důsledek: síť s celočíselnými kapacitami má aspoň jeden z maximálních toků celočíselný a Fordův-Fulkersonův algoritmus takový tok najde
+- Věta: Minimální řez je stejně velký jako maximální tok
+	- pro každý tok $f$ a každý řez $E(A,B)$ platí $|f|\leq c(A,B)$
+	- důkaz: $|f|=f^\Delta(A,B)=f(A,B)-f(B,A)\leq f(A,B)\leq c(A,B)$
+	- pokud $|f|=c(A,B)$, pak je tok $f$ maximální a řez $E(A,B)$ minimální
+	- z analýzy Fordova-Fulkersonova algoritmu plyne, že velikost maximálního toku je rovna kapacitě minimálního řezu
 - Definice: Průtok (čistý tok)
+	- $f^*(uv):=f(uv)-f(vu)$
 - Příklad: Celočíselná síť má celočíselný maximální tok
+	- vzhledem k operacím, které Fordův-Fulkersonův algoritmus provádí, nemůže z celých čísel vytvořit necelá
+	- z analýzy Fordova-Fulkersonova algoritmu plyne, že síť s celočíselnými kapacitami má aspoň jeden z maximálních toků celočíselný a Fordův-Fulkersonův algoritmus takový tok najde
 - Algoritmus: Největší párování v bipartitním grafu
+	- z bipartitního grafu vytvoříme síť
+		- nalezneme partity grafu, budeme jim říkat levá a pravá
+		- hrany zorientujeme zleva doprava
+		- přidáme zdroj a vedeme z něj hrany do všech vrcholů levé partity
+		- přidáme spotřebič a vedeme do něj hrany ze všech vrcholů pravé partity
+		- všem hranám nastavíme jednotkovou kapacitu
+	- najdeme maximální celočíselný tok
+	- je to párování?
+		- kdyby nebylo, dvě hrany by měly společný vrchol
+		- z každého vrcholu levé partity může vytékat maximálně jedna jednotka (víc jich nemůže přitéct)
+		- podobně pro vrchol pravé partity
+		- tedy dvě hrany nemůžou mít společný vrchol
+	- je párování největší?
+		- z každého toku umíme vytvořit párování, z každého párování umíme vytvořit tok
+		- tedy existuje bijekce, ta zachovává velikost
+		- největší tok proto musí odpovídat největšímu párování
+	- časová složitost
+		- úvodní konstrukce v čase $O(n+m)$
+		- jedna iterace v čase $O(n+m)$ – nenasycenou cestu najdeme pomocí BFS, tok zlepšíme v čase lineárním s délkou cesty
+		- každá iterací zlepší tok aspoň o 1, takže iterací bude nejvýš $n$
+		- celkem $O(nm)$
 - Definice: Blokující tok, vrstevnatá síť
+	- tok $f$ je blokující $\equiv$ pro každou cestu $P$ ze $z$ do $s$ existuje $e\in P$ taková, že $f(e)=c(e)$
+	- síť $S$ je vrstevnatá (pročištěná) $\equiv$ každý vrchol i hrana leží na nějaké nejkratší cestě ze $z$ do $s$
 - Algoritmus: Dinicův algoritmus (zlepšující toky)
 - Definice: Vlna, převedení přebytku po hraně
 - Algoritmus: Goldbergův algoritmus (výšky a přebytky)
