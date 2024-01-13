@@ -357,7 +357,23 @@
 ## Algebraické algoritmy
 
 - Věta: Reprezentace polynomu grafem
+	- graf … vyhodnocení polynomu v několika bodech (vektor)
+		- mějme pevné $x_0,\dots,x_{n-1}$
+		- mějme polynom $P$ stupně $n-1$ (tedy velikosti $n$)
+		- jeho graf je vektor $(P(x_0),\dots,P(x_{n-1}))$
+	- věta
+		- buďte $P,Q$ polynomy stupně nejvýše $d$
+		- pokud platí $P(x_i)=Q(x_i)$ pro navzájem různá čísla $x_0,\dots,x_d$, pak $P$ a $Q$ jsou identické
+			- tedy polynom stupně $d$ je určený $d+1$ body
+	- lemma (důkaz případně v Průvodci): pro polynom $P$ stupně $d\geq 0$ je počet $x$ takových, že $P(x)=0$, nejvýše $d$
+	- důkaz věty
+		- $R(x)\coloneqq P(x)-Q(x)$
+		- $\forall j: R(x_j)=P(x_j)-Q(x_j)=0$
+		- stupeň $R\leq d$
+		- podle lemmatu $R\equiv 0$, takže $P\equiv Q$
+			- kdyby byl $d\geq 0$, tak by to byl spor s lemmatem, protože se $R(x)$ rovná nule v $d+1$ bodech $\implies d=-1\implies R\equiv 0$
 - Definice: Primitivní n-tá odmocnina z jedničky
+	- komplexní číslo $x$ je primitivní $n$-tá odmocnina z 1, pokud $x^n=1$ a žádné z čísel $x^1,x^2,\dots,x^{n-1}$ není rovno 1
 - Věta: Rychlá Fourierova transformace a její inverze
 - Věta: Násobení polynomů pomocí Fourierovy transformace
 

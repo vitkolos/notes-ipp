@@ -820,7 +820,12 @@
 - proces nějak používá virtuální adresový prostor
 - operační systém virtuální adresový prostor nějak mapuje na ten fyzický
 - reserve VA (parametr: počet bajtů) → kernel vrátí volnou adresu ve VA
+	- rezervuju určitou část virtuálního adresového prostoru, abych měl zaručeno, že ji nebudou chtít použít ostatní části mého programu (procesu)
+	- tím způsobem můžu mít jistotu, že budu používat kontinuální rozsah adres (v téhle konkrétní části svého programu)
+	- nesouvisí to s přidělením fyzické paměti (dokonce jí ani nemusí být dostatek)
 - commit VA (adresa a počet bajtů) = alokace PA
+	- commituju část rezervovaného adresového prostoru
+	- může selhat, když není dostatek fyzické paměti
 - bloku paměti se v dotnetu říká segment/region
 - garbage collector vrací paměť operačnímu systému, když ji nepotřebuje
 	- decommit = free
