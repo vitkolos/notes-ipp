@@ -670,9 +670,25 @@
 ## Převody problémů
 
 - Definice: Rozhodovací problém
+	- rozhodovací problém $\equiv$ funkce $f:\set{0,1}^*\to\set{0,1}$
 - Příklad: Bipartitní párování jako rozhodovací problém, kódování vstupu
+	- problém: existuje v zadaném grafu párování, které obsahuje alespoň $k$ hran?
+		- je jedno, jestli chceme alespoň $k$ hran nebo právě $k$ hran, protože podmnožina párování je párování
+	- vstup musíme zapsat řetězcem bitů
+		- na začátku kódu budou jedničky a nula, počet jedniček určí, v kolika bitech je uloženo $n$ a $k$
+		- následují dvojkově zapsané $n$ a $k$ a matice sousednosti grafu
+	- budeme kontrolovat syntaxi vstupu, na všechny chybné vstupy odpovíme nulou
 - Definice: Převod mezi problémy
+	- mějme rozhodovací problémy $A,B$
+	- problém $A$ je převoditelný na problém $B$ právě tehdy, když existuje funkce $f:\set{0,1}^*\to\set{0,1}^*$ taková, že $\forall\alpha\in\set{0,1}^*:A(\alpha)=B(f(\alpha))$ a $f$ lze spočítat v čase polynomiálním vzhledem k $|\alpha|$
+	- začíme $A\to B$ nebo $A\leq_P B$
+	- funkci $f$ říkáme převod (případně redukce)
 - Věta: Vlastnosti převoditelnosti (reflexivita, tranzitivita apod.)
+	- je reflexivní $(A\to A)$ … $f$ je identita
+	- je tranzitivní $(A\to B\land B\to C\implies A\to C)$ … když $f$ převádí $A$ na $B$ a $g$ převádí $B$ na $C$, tak $g\circ f$ převádí $A$ na $C$ (přičemž složení polynomiálně vyčíslitelných funkcí je polynomiálně vyčíslitelná funkce)
+	- není antisymetrická – např. problémy „na vstupu je řetězec začínající nulou“ a „na vstupu je řetězec končící nulou“ lze mezi sebou převádět oběma směry
+	- existují navzájem nepřevoditelné problémy – např. mezi problémy „na každý vstup odpověz 0“ a „na každý vstup odpověz 1“ nemůže existovat převod
+	- převoditelnost je částečné kvaziuspořádání na množině všech problémů
 - Definice: Problémy: klika, nezávislá množina, SAT, 3-SAT, 3,3-SAT, 3D-párování
 - Algoritmus: Převod klika ↔ nezávislá množina
 - Algoritmus: Převod SAT → 3-SAT → 3,3-SAT
