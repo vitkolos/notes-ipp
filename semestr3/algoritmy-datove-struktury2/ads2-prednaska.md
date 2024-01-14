@@ -391,6 +391,10 @@
 - bitonická třídička $B_n$
 	- na vstupu bitonická posloupnost
 	- na výstupu rostoucí posloupnost
+	- $\log n$ pater separátorů
+		- na začátku jeden separátor délky $n$
+		- každý z výsledků pošleme do separátoru délky $n/2$
+		- nakonec dostaneme $n$ posloupností délky 1, které jsou vzájemně setříděné
 	- čas $O(\log n)$
 	- prostor $O(n\log n)$
 - slévačka $M_n$

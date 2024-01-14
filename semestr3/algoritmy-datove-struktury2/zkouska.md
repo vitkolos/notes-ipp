@@ -375,23 +375,297 @@
 - Definice: Primitivní n-tá odmocnina z jedničky
 	- komplexní číslo $x$ je primitivní $n$-tá odmocnina z 1, pokud $x^n=1$ a žádné z čísel $x^1,x^2,\dots,x^{n-1}$ není rovno 1
 - Věta: Rychlá Fourierova transformace a její inverze
+	- algoritmus násobení polynomů
+		- jsou dány polynomy $P,Q$ velikosti $n$ určené svými koeficienty
+		- BÚNO horních $n/2$ koeficientů je nulových, takže jejich součin bude polynom velikosti $n$
+		- zvolíme navzájem různá čísla $x_0,\dots,x_{n-1}$
+		- spočítáme grafy polynomů $P$ a $Q$
+		- z toho vypočteme graf součinu $R$ vynásobením po složkách $R(x_i)=P(x_i)\cdot Q(x_i)$
+		- podle grafu najdeme koeficienty polynomu $R$
+	- algoritmus vyhodnocení polynomů
+		- použijeme metodu Rozděl a panuj
+		- polynom $P$ velikosti $n$ chceme vyhodnotit v $n$ bodech
+		- body zvolíme tak, aby byly spárované = tvořily dvojice lišící se znaménkem: $\pm x_0,\pm x_1,\dots,\pm x_{n/2-1}$
+		- polynom $P$ rozložíme na dva polynomy $P_s$ a $P_\ell$
+			- $P(x)=p_0x^0+p_1x^1+\dots+p_{n-1}x^{n-1}$
+			- $P(x)=(p_0x^0+p_2x^2+\dots+p_{n-2}x^{n-2})$ $+\,(p_1x^1+p_3x^3+\dots+p_{n-1}x^{n-1})$
+			- $P(x)=(p_0x^0+p_2x^2+\dots+p_{n-2}x^{n-2})$ $+\,x\cdot (p_1x^0+p_3x^2+\dots+p_{n-1}x^{n-2})$
+			- $P(x)=P_s(x^2)+x\cdot P_\ell(x^2)$
+		- navíc $P(-x)=P_s(x^2)-x\cdot P_\ell(x^2)$
+		- vyhodnocení polynomu $P$ v bodech $\pm x_0,\dots,\pm x_{n/2-1}$ lze tedy převést na vyhodnocení polynomů $P_s,P_\ell$ poloviční velikosti v bodech $x_0^2,\dots,x^2_{n/2-1}$
+		- na to bychom mohli rekurzivně použít stejný algoritmus
+		- to by vedlo na algoritmus s časovou složitosti $T(n)=2T(n/2)+\Theta(n)$
+			- tedy $T(n)=\Theta(n\log n)$ podle Master theorem
+		- v $\mathbb R$ jsou však druhé mocniny nezáporné, tedy je uvnitř rekurze nelze spárovat
+	- rychlá Fourierova transformace
+		- polynomy doplníme nulami tak, aby jejich velikost $n$ byla mocninou dvojky
+		- zvolíme nějakou primitivní $n$-tou odmocninu z jedničky $\omega$
+			- pro obecné $n\gt 2$ existují alespoň dvě primitivní odmocniny: $\omega=e^{2\pi i/n},\,\overline\omega=e^{-2\pi i/n}$
+		- polynom vyhodnocujeme v bodech $\omega^0,\omega^1,\dots,\omega^{n-1}$
+		- $\omega^{n/2},\dots,\omega^{n-1}$ se od $\omega^0,\dots,\omega^{n/2-1}$ liší pouze znaménkem, tedy jsou správně spárované
+		- $\omega^2$ je primitivní $(n/2)$-tá odmocnina z jedničky, takže i v rekurzi bude existovat správné párování
+		- použijeme původní algoritmus vyhodnocení polynomů, teď již běží v $\Theta(n\log n)$
+		- algoritmu chybí ještě základní případ pro $n=1$, ten je potřeba doplnit, aby to fungovalo (graf konstantní funkce pro libovolné $x$ odpovídá koeficientu konstantního členu)
+	- inverze FFT
+		- nahlédneme, že diskrétní Fourierova transformace (DFT) je zobrazení $\mathcal F:\mathbb C^n\to \mathbb C^n$, které vektoru $x$ přiřadí vektor $y$ daný předpisem $y_j=\sum_{k=0}^{n-1}x_k\cdot\omega^{jk}$
+			- $y$ se označuje jako Fourierův obraz vektoru $x$
+			- $\omega$ je nějaká pevně zvolená primitivní $n$-tá odmocnina z jedné
+		- v našem případě – pro $p$ vektor koeficientů polynomu je $\mathcal F(p)$ graf tohoto polynomu
+		- DFT (tedy $\mathcal F$) je lineární zobrazení, takže ho lze zapsat jako násobení $x$ maticí $\Omega$, kde $\Omega_{jk}=\omega^{jk}$
+		- hledáme $\Omega^{-1}$, abychom mohli najít inverzní funkci
+		- platí $\omega^{-1}=\overline \omega$ (protože $\omega$ je komplexní jednotka)
+		- lemma: $\Omega^{-1}=\frac1n\cdot\overline\Omega$
+		- důkaz
+			- chceme $\Omega\cdot\overline\Omega=n\cdot E_n$
+			- $(\Omega\cdot\overline\Omega)_{jk}=\sum_\ell(\Omega_{j\ell}\cdot\overline\Omega_{\ell k})=\sum\omega^{j\ell}\omega^{-\ell k}=\sum\omega^{(j-k)\ell}$
+			- poslední suma je geometrická řada
+			- když $j=k$, jsou všechny členy rovny jedné, takže se sečtou na $n$
+			- když $j\neq k$ použijeme vzorec pro součet geometrické řady pro $q=\omega^{j-k}$
+				- $\sum_\ell q^\ell=\frac{q^n-1}{q-1}=\frac{\omega^{(j-k)n}-1}{\omega^{j-k}-1}=\frac{1^{j-k}-1}{\omega^{j-k}-1}=0$
+				- protože $\omega^n=1$
+		- $\overline\omega=\omega^{-1}$ je také primitivní $n$-tou odmocninou z jedničky, takže inverzi FFT lze spočítat stejným algoritmem, jenom výsledek musíme vydělit $n$
+	- věta: je-li $n$ mocnina dvojky, lze v čase $\Theta(n\log n)$ spočítat DFT v $\mathbb C^n$ i její inverzi
 - Věta: Násobení polynomů pomocí Fourierovy transformace
+	- věta: polynomy velikosti $n$ nad tělesem $\mathbb C$ lze násobit v čase $\Theta(n\log n)$
+	- důkaz
+		- nejprve vektory koeficientů doplníme nulami tak, aby jejich délka byla mocnina dvojky (a aspoň $2n$)
+		- pomocí DFT v čase $\Theta(n\log n)$ převedeme oba polynomy na grafy
+		- v $\Theta(n)$ vynásobíme grafy po složkách
+		- pomocí inverzní DFT v čase $\Theta(n\log n)$ převedeme výsledný graf zpátky na koeficienty polynomu
 
 ## Paralelní algoritmy
 
 - Definice: Hradlová síť
+	- hradlo arity $k$ má $k$ vstupů a jeden výstup
+		- počítá funkci $f:\Sigma^k\to\Sigma$
+	- $\Sigma$ … konečná abeceda, typicky $\set{0,1}$
+	- booleovská hradla
+		- binární: AND, OR, XOR, $\leq$ (implikace), … (je jich 16)
+		- unární: NOT (a „buffer“)
+		- nulární, konstanty: 0, 1
+	- hradlová síť obsahuje
+		- hradla
+		- vstupní porty
+		- výstupní porty
+		- acyklické propojení
+	- výpočet probíhá v taktech
+		- 0. takt: ohodnotíme vstupní porty a konstanty
+		- $(i+1).$ takt: ohodnotíme hradla a porty, jejichž vstupy byly ohodnoceny nejpozději v $i.$ taktu
+	- tak dostáváme rozklad sítě na vrstvy, kde v $i$-té vrstvě jsou hradla a porty, které byly ohodnoceny v $i.$ taktu
+	- čas = počet vrstev
+	- prostor = počet hradel
+		- nemohli bychom použít počet hradel v největší vrstvě, protože ne všechny hrany vedou o jednu vrstvu (někdy je potřeba, aby si hradlo pamatovalo svůj výsledek během několika taktů)
+	- je nutné omezit počet vstupů a výstupů – jinak bychom mohli cokoliv počítat v konstantním čase
+	- kombinační obvody … na obecné abecedě $\Sigma$
+	- booleovské obvody … $\Sigma=\set{0,1}$
+	- hradlová síť má pevnou velikost vstupu
+	- tedy ekvivalent programu ve světě hradlových sítí by byla sada různých hradlových sítí pro různé velikosti vstupu
+		- tedy výpočetní model je neuniformní
+	- chceme tyto sítě efektivně generovat – ale stačí nám polynomiální čas
+	- co se týče časové složitosti hradlových sítí – obvykle chceme polylogaritmickou složitost (tedy nějakou mocninu logaritmu)
 - Algoritmus: Sčítání přirozených čísel hradlovou sítí
+	- čísla označíme $x,y$, jejich výsledek jako $z$
+	- $c_i$ … přenos z $(i-1)$-ního řádu do $i$-tého
+	- $z_i=x_i\oplus y_i\oplus c_i$
+		- kde $\oplus$ je XOR
+	- $c_{i+1}=\text{Majorita}(x_i,y_i,c_i)$
+		- $\text{Majorita}(x, y, z)=(x\land y)\lor(x\land z)\lor(y\land z)$
+	- jednoduchá implementace má $\Theta(n)$ hladin a $\Theta(n)$ hradel – musíme čekat na přenosy ($c_i$)
+	- jak předpovídat přenosy?
+	- blok = souvislá posloupnost bitů
+		- počítá součet bitů $x_i\dots x_j$ a $y_i\dots y_j$
+	- chování bloku – závislost $c_\text{out}$ na $c_{\text{in}}$
+		- na blok se můžeme dívat jako na funkci, která dostane přenos zespoda a vydá přenos nahoru
+		- takové funkce (tedy „chování bloku“) existují čtyři
+			- $f(x)=0$
+			- $f(x)=1$
+			- $f(x)=x$
+			- $f(x)=\neg x$
+		- jednobitové bloky se chovají jednoduše
+			- hodnoty … odpovídající funkce
+			- 00 … 0
+			- 01 … x
+			- 10 … x
+			- 11 … 1
+		- větší blok můžeme rozdělit na dva podbloky – horní (levý) a dolní (pravý)
+			- když hornímu podbloku odpovídá konstantní funkce, tak výsledná funkce pro celý blok je opět konstantní
+			- naopak když hornímu podbloku odpovídá funkce identita (tzn. $f(x)=x$, tedy horní podblok kopíruje přenos), tak výsledná funkce pro celý blok odpovídá funkci spodního podbloku
+	- nejdříve tedy v logartimickém čase zanalyzujeme chování podbloků
+		- od jednotkových k jednomu velkém bloku
+	- pak v logaritmickém čase spočítáme všechny přenosy
+		- od jednoho bloku k jednotkovým
+	- nakonec v konstantním čase provedeme samotné XORování
+	- takže umíme sčítat v čase $O(\log n)$
 - Algoritmus: Násobení přirozených čísel hradlovou sítí
+	- pomocí ANDu a bitového posunu v $O(1)$ dostaneme $n$ mezivýsledků, ty chceme sčítat
+	- kdybychom sčítali po dvojicích, dostali bychom se na $O(\log^2n)$
+	- ale my ke sčítání použijeme kompresor – ze 3 sčítanců uděláme dva
+		- v první vrstvě $n$ čísel, v druhé $\frac 23 n$ čísel, ve třetí $(\frac 23)^2 n$ čísel, …, v poslední 2 čísla, ty sečteme klasickou sčítačkou
+		- kompresorových vrstev bude $O(\log n)$, hloubka kompresoru je $O(1)$
+		- závěrečná sčítačka bude $O(\log n)$
+	- takže celková složitost násobení bude $O(\log n)$
+	- v reálných počítačích se používá hradlová síť založena na Fourierově transformaci, protože má menší prostorovou složitost
 - Definice: Komparátorová síť
+	- má $n$ vstupů a $n$ výstupů
+	- výstupem je setříděná posloupnost vstupních dat
+	- mezi vrstvami se vždy převádí permutace vstupu – BÚNO výstupy se nevětví
+	- bubble sort lze paralelizovat v $\Theta(n)$ vrstvách
 - Algoritmus: Bitonické třídění komparátorovou sítí
+	- posloupnost $x_0,\dots,x_{n-1}$ je
+		- čistě bitonická $\equiv\exists k:x_0\lt x_1\lt \dots\lt x_k\gt \dots\gt x_{n-1}$
+		- bitonická $\equiv$ má čistě bitonickou rotaci
+			- tedy $\exists l: x_l,x_{l+1},\dots,x_{l+n-1}$ (kde indexy jsou modulo $n$) je čistě bitonická
+	- separátor $S_n$
+		- na vstupu bitonická posloupnost
+		- na výstupu dvě poloviční bitonické posloupnosti, kde všechny prvky jedné jsou menší než všechny prvky druhé
+		- princip
+			- rozdělím vstup na poloviny
+			- nainstaluju komparátory vždy mezi $i$-tým prvkem v levé polovině a $i$-tým prvkem v pravé polovině
+				- takže vlastně mezi $x_i$ a $x_{n/2+i}$
+		- proč to funguje
+			- prvky rozdělím na horu ($n/2$ největších prvků) a údolí ($n/2$ nejmenších prvků)
+			- hora i údolí jsou souvislé
+			- $x_k$ … prvek, kterým začíná hora
+			- $x_{k+n/2}$ … prvek, kterým končí hora
+			- $k$ je BÚNO menší než $n/2$
+			- jak fungují komparátory?
+				- pro $i\lt k$ neprohazujeme
+				- pro $i\geq k$ prohazujeme
+				- levý výstup = rotace údolí
+				- pravý výstup = rotace hory
+		- čas $O(1)$
+		- prostor $O(n)$
+	- bitonická třídička $B_n$
+		- na vstupu bitonická posloupnost
+		- na výstupu rostoucí posloupnost
+		- $\log n$ pater separátorů
+			- na začátku jeden separátor délky $n$
+			- každý z výsledků pošleme do separátoru délky $n/2$
+			- nakonec dostaneme $n$ posloupností délky 1, které jsou vzájemně setříděné
+		- čas $O(\log n)$
+		- prostor $O(n\log n)$
+	- slévačka $M_n$
+		- vstup: dvě monotónní rostoucí posloupnosti o $n$ prvcích
+		- výstup: monotónní posloupnost o $2n$ prvcích
+		- jednu z nich otočíme na klesající → dostaneme bitonickou posloupnost, proženeme ji $B_{2n}$
+	- třidička $S_n$
+		- na vstupu je $n$ prvků
+		- na výstupu je monotónní rostoucí posloupnost $n$ prvků
+		- budeme mít $\log n$ pater slévaček, každá má nejhůř $\log n$ pater, takže celkem $O(\log^2n)$
+		- prostorová složitost $O(n\log^2n)$
+		- pozorování: prostorová složitost komparátorové sítě může být nejhůř $n$-krát větší než časová složitost
+	- pozorování: z dolního odhadu složitosti třídění plyne, že hloubka každé třídicí sítě je $\Omega(\log n)$
+		- dá se to $O(\log n)$, ale konstanta je obrovská
+	- algoritmy odvozené od komparátorových sítí se velmi snadno vektorizují
 
 ## Geometrické algoritmy
 
 - Algoritmus: Konvexní obal
+	- princip
+		- nejlevější bod určitě bude součástí obalu
+		- ukotvíme v něm polopřímku, otáčíme jí, než se dotkne dalšího bodu
+		- tenhle postup opakujeme, nakonec dostaneme konvexní obal množiny $x_1,\dots,x_n\in\mathbb R^2$
+	- předpokládáme body v obecné poloze
+	- budeme „zametat“ rovinu – rovinu přejíždíme přímkou, body na jedné straně jsme zpracovali, body na druhé budeme zpracovávat, bod na přímce právě zpracováváme
+	- máme konvexní obal zpracovaných bodů
+		- $H$ … horní obálka – stáčí se doprava
+		- $D$ … dolní obálka – stáčí se doleva
+	- přidáváme bod
+		- pro obě obálky zkontrolujeme, zda do nich bod můžeme přidat, aniž bychom porušili konvexnost
+		- jinak z dané obálky odstraňujeme body tak dlouho, dokud bod nepůjde napojit
+	- časová složitost
+		- třídění bodů podle $x$-ové souřadnice v $\Theta(n\log n)$
+		- odstraňování bodů v $O(n)$ … každý bod odstraníme nejvýše jednou
+	- jak poznat, zda můžu napojit bod (neboli kam se křivka stáčí) – pomocí znaménka determinantu matice složené ze souřadnic posledních dvou vektorů
+	- jak řešit body, které nejsou v obecné poloze?
+		- představíme si pootočení soustavy souřadnic o $\varepsilon$
+		- tedy nebudeme třídit body zleva doprava, ale lexikograficky podle souřadnic (zleva doprava, shora dolů)
 - Algoritmus: Průsečíky úseček
+	- průsečíků je $\Theta(n^2)$
+	- chceme složitost $O(\text{hezká funkce}(n+p))$
+	- $p$ … počet průsečíků
+	- předpokládáme obecnou polohu úseček (v daném bodě se protínají právě dvě přímky, žádná z nich nekončí v průsečíku)
+	- zametáme přímkou shora dolů
+		- události: začátky, konce, průsečíky
+			- budeme mít kalendář událostí
+		- v danou chvíli máme průřez $\equiv$ množina úseček proťatých zametací přímkou
+		- průřez je seřazen zleva doprava
+	- pozorování: těsně před zametením průsečíku sousedí protínající se úsečky v průřezu (takže na žádný průsečík nezapomeneme)
+	- algoritmus
+		- inicializujeme průřez na $\emptyset$
+		- do kalendáře vložíme začátky a konce všech úseček
+		- dokud kalendář není prázdný
+			- odebereme nejvyšší událost
+			- je to začátek úsečky → zatřídíme novou úsečku do průřezu
+			- je to konec úsečky → odebereme ji z průřezu
+			- je to průsečík → nahlásíme ho a prohodíme tyto dvě úsečky v průřezu
+			- přepočítáme průsečíkové události v kalendáři (protože změna v průřezu mohla změnit sousednosti)
+				- pokud jsme zrušili sousednost, zrušíme průsečík z kalendáře (pokud existoval)
+					- tohle není potřeba z hlediska korektnosti algoritmu (viz [strana 7, poznámka 1](https://people.scs.carleton.ca/~michiel/lecturenotes/ALGGEOM/bentley-ottmann.pdf)), použijeme to pouze při analýze složitosti
+				- pokud jsme přidali sousednost, přidáme průsečík do kalendáře
+				- takto odebereme nejvýše dvě události a nejvýše dvě přidáme
+	- reprezentace
+		- průřez
+			- BVS s úsečkami jako klíči nad lineárním uspořádáním úseček, kde $x\lt y\equiv$ $x$ je vlevo od $y$
+			- maximálně $n$ úseček
+			- každá operace v $O(\log n)$
+		- kalendář
+			- halda nebo BVS
+			- maximálně $3n$ událostí
+				- začátky a konce úseček ($2n$)
+				- průsečíky pro každou dvojici sousedních úseček v průřezu (úseček je nejvýš $n$, takže počet průsečíků $\lt n$)
+			- každá operace v $O(\log n)$
+				- tady se vlastně ukazuje, že asymptoticky stejné složitosti bychom dosáhli, i kdybychom v kalendáři měli všechny průsečíky
+	- při vyhodnocení každé události provedeme konstantní počet logaritmických operací s datovými strukturami
+	- celkem $O((n+p)\log n)$ čas
+	- $O(n)$ paměť
+	- umí se $O(n\log n+p)$ čas
 - Definice: Voroného diagram
+	- místa a oblasti
+	- oblast $o_i$ odpovídá místu $x_i$, je to část roviny, jejíž body jsou k místu $x_i$ blíže než k libovolnému jinému místu
+	- Voroného diagram je rozkladem roviny na mnohoúhelníkové oblasti, z nichž některé jsou otevřené do nekonečna
+		- mezi nekonečnými paprsky se dá binárně vyhledávat, takže si to zjednodušíme na konečnou verzi
+	- oblast je určena průnikem polorovin
+	- lze zkonstruovat v čase $O(n\log n)$, ale algoritmus přeskočíme
 - Algoritmus: Lokalizace bodu v mnohoúhelníkové síti
+	- datová struktura pro rozklad roviny na oblasti – mnohoúhelníky
+	- dotaz: do jaké oblasti patří zadaný bod?
+	- přístup 1
+		- nařežeme rozklad roviny na vodorovné pásy podle vrcholů mnohoúhelníků (těch je $n$)
+		- použijeme algoritmus z průsečíků přímek – pro každý pás uložíme „průřez“
+		- takže pro daný dotaz nejdříve binárně vyhledáváme, ve kterém pásu se bod nachází
+		- a potom v pásu binárně vyhledáváme, mezi jaké dvě přímky se bod trefil
+			- uvnitř pásu se žádné přímky nekříží
+		- dotaz v $O(\log n)$
+		- paměť $O(n^2)$ – to je moc
+			- předzpracování v čase $O(n^2)$
+	- přístup 2
+		- použijeme semipersistentní binární vyhledávací strom
+		- budeme udržovat průřez v persistentním stromu
+		- pro každý pás uložíme identifikátor verze persistentního stromu
+		- předzpracování Voroného diagramu a vytvoření persistentního stromu
+			- $O(n)$ operací s průřezem → čas $O(n \log n)$
+			- $O(n)$ verzí → prostor $O(n\log n)$
+		- dotaz v $O(\log n)$
+			- nejprve vyhledáme správný pás
+			- pak se příslušné verze stromu zeptáme na přímky
 - Algoritmus: Semipersistentní binární vyhledávací strom
+	- (semi)persistentní datová struktura
+		- pamatuje si historii
+		- provedením operace, která mění stav datové struktury, vzniká nová verze
+	- semipersistentní BVS
+		- jeho vrcholy nebudeme měnit
+		- místo toho si vždycky pořídíme kopii vrcholu a tu změníme
+		- musíme změnit i ukazatel na daný vrchol, aby ukazoval na kopii
+		- tedy zkopírujeme otce vrcholu a upravíme v něm ukazatel
+		- takhle postupně zkopírujeme všechny předky až ke kořeni (a upravíme ukazatele)
+			- tedy zkopírujeme celou cestu $P$ z upravovaného vrcholu do kořene, ta má délku $O(\log n)$
+			- tato cesta se odkazuje na podstromy z minulé verze
+		- kopie kořene se stane identifikátorem nové verze
+		- $O(\log n)$ čas na operaci
+		- $O(\log n)$ paměť na verzi
+			- umí se i $O(1)$ amortizovaně
+		- po každé operaci následuje vyvážení stromu, ale to upravuje pouze vrcholy v konstantní vzdálenosti od cesty $P$, takže to složitost nemění
 
 ## Převody problémů
 
