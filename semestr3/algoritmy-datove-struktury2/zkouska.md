@@ -906,12 +906,18 @@
 	- máme množinu přípustných řešení, mezi nimi nějaké optimum
 	- máme cenovou funkci $c$, která jednotlivá řešení ohodnocuje reálnými čísly
 	- chceme přípustné řešení s minimální cenou $c^*$
-	- vystačíme si s jeho $\alpha$-aproximací, tedy s přípustným řešením s cenou $c'\leq\alpha c^*$ pro nějakou konstantu $\alpha\gt 1$
-	- tedy relativní chyba $\frac{c'-c^*}{c^*}$ nepřekročí $\alpha-1$
-		- $c'\leq\alpha c^*$
-		- $c'-c^*\leq\alpha c^*-c^*$
-		- $\frac{c'-c^*}{c^*}\leq\alpha-1$
-	- $\alpha$ … aproximační poměr
+		- vystačíme si s jeho $\alpha$-aproximací, tedy s přípustným řešením s cenou $c'\leq\alpha c^*$ pro nějakou konstantu $\alpha\gt 1$
+		- tedy relativní chyba $\frac{c'-c^*}{c^*}$ nepřekročí $\alpha-1$
+			- $c'\leq\alpha c^*$
+			- $c'-c^*\leq\alpha c^*-c^*$
+			- $\frac{c'-c^*}{c^*}\leq\alpha-1$
+		- $\alpha$ … aproximační poměr
+		- $\alpha-1=\varepsilon$ … relativní chyba aproximace
+	- jindy chceme maximalizovat cenu $c^*$
+		- $\alpha$-aproximace je řešení s cenou $c'\geq\alpha c^*$ pro $\alpha\in (0,1)$
+		- $\frac{c^*-c'}{c^*}\leq1-\alpha$
+		- $1-\alpha=\varepsilon$
+	- $c$ minimalizujeme u TSP, naopak ho maximalizujeme u batohu
 - Algoritmus: 2-aproximace obchodního cestujícího v metrickém prostoru
 	- mějme úplný graf
 	- nechť platí trojúhelníková nerovnost
@@ -946,7 +952,50 @@
 			- $c\gt tn-n+1=(t-1)n+1$
 			- splníme $c=tn$
 - Definice: Polynomiální aproximační schéma (PTAS)
-	- PTAS $\equiv$ algoritmus, který pro vstup velikosti $n$ a $\varepsilon\gt 0$ najde aproximaci s chybou $\leq\varepsilon$  (tedy $(1+\varepsilon)$-aproximaci) v čase polynomiálním vůči konkrétnímu $\varepsilon$
+	- PTAS $\equiv$ algoritmus, který pro vstup velikosti $n$ a $\varepsilon\gt 0$ najde aproximaci s chybou $\leq\varepsilon$ v čase $O(\text{polynom}(n))$ pro každé $\varepsilon$
+	- složitost se může výrazně měnit v závislosti na $\varepsilon$
+		- proto se zavádí FPTAS, kde je složitost polynomiální i vůči $\frac 1\varepsilon$
 - Definice: Plně polynomiální aproximační schéma (FPTAS)
-	- FPTAS $\equiv$ algoritmus, který pro vstup velikosti $n$ a $\varepsilon\gt 0$ najde aproximaci s chybou $\leq\varepsilon$  (tedy $(1+\varepsilon)$-aproximaci) v čase polynomiálním vůči $n$ a $\frac1\varepsilon$
+	- FPTAS $\equiv$ algoritmus, který pro vstup velikosti $n$ a $\varepsilon\gt 0$ najde aproximaci s chybou $\leq\varepsilon$ v čase $O(\text{polynom}(n,\frac1\varepsilon))$
 - Algoritmus: FPTAS pro problém batohu
+	- umíme řešit v čase $O(nC)$, kde $C=\sum_ic_i,\;C\leq n\cdot c_\max$
+	- chceme menší $C$
+	- idea: $\set{0,\dots,c_\max}\to\set{0,\dots,M}$
+		- $\hat c_i:= c_i\cdot\frac M{c_\max}$
+		- $\hat c_i$ … přeškálovaná cena $i$-tého předmětu
+	- chyba pro jeden předmět $\leq\frac{c_\max}M$
+		- když dělíme nějakým $k$, tak je to ekvivalentní zaokrouhlení na násobky $k$, takže chyba je nejvýš $k$
+	- chyba celkem $\leq n\cdot \frac{c_\max}M\overset{\text{chceme}}\leq\varepsilon\cdot c^*$
+	- pozorování: po zahození předmětů s $h_i\gt H$ bude $c^*\geq c_\max$
+		- chyba celkem $\leq n\cdot\frac{c_\max}M\leq n\cdot\frac{c^*}{M}\overset{\text{chceme}}\leq\varepsilon\cdot c^*$
+		- takže musíme zvolit $M\geq \frac n\varepsilon$
+	- časová složitost
+		- škálování v lineárním čase
+		- nově $C\leq n\cdot M$
+		- takže algoritmus poběží v $O(n^2M)=O(n^3/\varepsilon)$
+	- ceny můžeme zaokrouhlovat (dostaneme aproximaci), hmotnosti ne, protože by se nám to rozbilo
+	- tak jsme získali $(1-\varepsilon)$-aproximaci batohu
+		- jen je při implementaci potřeba dávat pozor na horní a dolní celé části
+	- algoritmus
+		- odstraníme předměty s $h_i\gt H$
+		- najdeme $c_\max$
+		- určíme $M$ jako $\lceil n/\varepsilon\rceil$
+		- určíme $\hat c_i$ jako $\left\lfloor c_i\cdot \frac M{c_\max}\right\rfloor$
+		- použijeme dynamické programování (tedy nám známý pseudopolynomiální algoritmus)
+	- analýza chyby
+		- P … optimální řešení původní úlohy
+		- Q … optimální přeškálované úlohy
+		- chceme $c(Q)\geq(1-\varepsilon)\cdot c(P)$
+		- $\hat c(P)=\sum_{i\in P}\left\lfloor c_i\cdot \frac M{c_\max}\right\rfloor\geq\sum_{i\in P}(c_i\cdot\frac M{c_\max}-1)\geq$
+		- $\geq(\frac M{c_\max}\underbrace{\sum_{i\in P}c_i}_{c(P)})-n$
+			- protože $|P|\leq n$
+		- $c(Q)=\sum_{i\in Q}c_i\geq\sum_{i\in Q}\hat c_i\cdot\frac{c_\max}M=\frac{c_\max}M\cdot\hat c(Q)\geq\frac{c_\max}M\cdot\hat c(P)$
+			- poslední nerovnost platí, protože $Q$ je optimální řešení přeškálované úlohy, zatímco $P$ je *nějaké* řešení přeškálované úlohy
+		- dohromady dostaneme
+			- $c(Q)\geq\frac{c_\max}M\left(\frac M{c_\max}c(P)-n\right)=c(P)-n\cdot\frac{c_\max}M$
+			- $\geq c(P)-\varepsilon c_\max$
+				- protože $M\geq n/\varepsilon$
+			- $\geq c(P)-\varepsilon c(P)$
+				- protože $c(P)\geq c_\max$
+			- tudíž $c(Q)\geq(1-\varepsilon)\cdot c(P)$, což jsme chtěli
+	- takto jsme vyrobili plně polynomiální aproximační schéma, protože algoritmus má složitost $O(n^3/\varepsilon)$
