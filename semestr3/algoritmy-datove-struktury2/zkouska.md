@@ -349,11 +349,12 @@
 				- $H$ vždy roste o 1
 			- snížení aspoň o 1
 				- max. $2n^2$-krát (klesá právě tolikrát, kolikrát roste)
-	- pozorování: během jedné fáze se každý vrchol účastní maximálně jednoho nenasyceného převedení
-		- nenasycené převedení vynuluje přebytek
-		- převádí se z kopce → nemůže se zvýšit jeho přebytek
-	- tudíž během fáze je všech nenasycených převedení nejvýš $n$
-	- fází je $O(n^2)$, takže složitost algoritmu je $O(n^3)$
+		- pozorování: během jedné fáze se každý vrchol účastní maximálně jednoho nenasyceného převedení
+			- nenasycené převedení vynuluje přebytek
+			- převádí se z kopce → nemůže se zvýšit jeho přebytek
+		- tudíž během fáze je všech nenasycených převedení nejvýš $n$
+		- fází je $O(n^2)$, takže nenasycených převedení je $O(n^3)$
+	- složitost algoritmu je $O(n^3)$
 		- odhad není optimální, lze ukázat $O(n^2\sqrt m)$
 
 ## Algebraické algoritmy
@@ -451,7 +452,7 @@
 		- výstupní porty
 		- acyklické propojení
 	- výpočet probíhá v taktech
-		- 0. takt: ohodnotíme vstupní porty a konstanty
+		- 0\. takt: ohodnotíme vstupní porty a konstanty
 		- $(i+1).$ takt: ohodnotíme hradla a porty, jejichž vstupy byly ohodnoceny nejpozději v $i.$ taktu
 	- tak dostáváme rozklad sítě na vrstvy, kde v $i$-té vrstvě jsou hradla a porty, které byly ohodnoceny v $i.$ taktu
 	- čas = počet vrstev
