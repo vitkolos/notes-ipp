@@ -577,6 +577,7 @@
 	- přidáváme bod
 		- pro obě obálky zkontrolujeme, zda do nich bod můžeme přidat, aniž bychom porušili konvexnost
 		- jinak z dané obálky odstraňujeme body tak dlouho, dokud bod nepůjde napojit
+		- bod přidáme do obou obálek (z jedné nebo z obou z nich ho později možná odstraníme)
 	- časová složitost
 		- třídění bodů podle $x$-ové souřadnice v $\Theta(n\log n)$
 		- odstraňování bodů v $O(n)$ … každý bod odstraníme nejvýše jednou
