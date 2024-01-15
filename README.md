@@ -15,3 +15,4 @@
 - [Programování 2 (zkouška)](semestr2/programovani2/zkouska.md)
 - [Matematická analýza 1 (zkouška)](semestr2/matematicka-analyza1/zkouska.md)
 - [Výroková a predikátová logika (zkouška)](semestr3/vyrokova-predikatova-logika/zkouska.md)
+- [Algoritmy a datové struktury 2 (zkouška)](semestr3/algoritmy-datove-struktury2/zkouska.md)
