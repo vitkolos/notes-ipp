@@ -758,7 +758,8 @@
 		- kdyby se vyskytoval třikrát, mohli bychom proměnnou v ohodnocení nastavit na 0/1 (podle literálu) a všechny výskyty ve formuli smazat
 	- gadget pro proměnnou
 		- 2 kluci, 2 děvčata, 4 zvířátka
-		- volba kompatibilních dvojic odpovídá trojúhelníčkům ![](prilohy/Pasted%20image%2020240115105518.png)
+		- volba kompatibilních dvojic odpovídá trojúhelníčkům
+		- ![gadget pro proměnnou](prilohy/gadget-promenna.png)
 		- 2 stavy
 			- 0 … $\blacktriangle$, z2 a z4 jsou volné
 			- 1 … $\triangle$, z1 a z3 jsou volné
@@ -766,7 +767,7 @@
 		- pro klauzuli $k$ přidáme 1 kluka a 1 děvče a připojíme je (jako kompatibilní trojice) ke třem (již existujícím) zvířátkům
 		- tato tři zvířátka odpovídají třem literálům v klauzuli
 		- např. $z_a$ tedy bude zvířátko, které je volné, když je první literál v klauzuli splněn
-		- ![](prilohy/Pasted%20image%2020240115110716.png)
+		- ![gadget pro klauzuli](prilohy/gadget-klauzule.png)
 	- nějaká zvířátka zbydou
 		- zbude zvířátek: 2 × počet proměnných – počet klauzulí
 			- každá proměnná přidá čtyři zvířátka, z toho dvě ubytuje
