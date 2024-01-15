@@ -760,7 +760,7 @@
 	- $K$ kluci, $D$ děvčata, $Z$ zvířátka
 	- $T$ … kompatibilní trojice
 	- BÚNO každý literál se vyskytuje maximálně dvakrát
-		- kdyby se vyskytoval třikrát, mohli bychom proměnnou v ohodnocení nastavit na 0/1 (podle literálu) a všechny výskyty ve formuli smazat
+		- kdyby se vyskytoval třikrát, mohli bychom proměnnou v ohodnocení nastavit na 0/1 (podle literálu) a všechny výskyty ve formuli smazat (respektive smazat celé takové klauzule – jde v podstatě o jednotkovou propagaci)
 	- gadget pro proměnnou
 		- 2 kluci, 2 děvčata, 4 zvířátka
 		- volba kompatibilních dvojic odpovídá trojúhelníčkům
