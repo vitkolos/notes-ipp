@@ -249,7 +249,8 @@
 		- $f^\Delta(u)\gt 0$
 		- $r(uv)\gt 0$
 		- $\delta\coloneqq \min(f^\Delta(u),r(uv))$
-		- $f'(uv)\coloneqq f(uv)+\delta$
+		- po hraně $uv$ navíc pošleme $\delta$
+			- $f^*(uv)\mathrel{+}=\delta$
 		- důsledky
 			- $f$ zůstane vlnou
 			- $f^\Delta(u)\mathrel{-}=\delta,\;f^\Delta(v)\mathrel{+}=\delta$
