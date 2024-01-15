@@ -164,7 +164,8 @@
 		- $\forall v\neq z,s:\sum_{uv\in E}f^*(uv)=0$
 			- tzn. pro takové $v$ platí $\sum_{uv\in E}f^*(uv)=f^\Delta(v)$
 	- lemma: pokud funkce $f^*:E\to\mathbb R$ splňuje tato pozorování, pak existuje tok $f$, jehož průtokem je $f^*$
-		- $uv,vu\in E$
+	- důkaz lemmatu
+		- mějme $uv,vu\in E$
 		- BÚNO $f^*(uv)\geq 0$
 		- $f(uv)\coloneqq f^*(uv)$
 		- $f(vu)=0$
