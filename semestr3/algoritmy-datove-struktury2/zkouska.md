@@ -503,6 +503,7 @@
 	- pomocí ANDu a bitového posunu v $O(1)$ dostaneme $n$ mezivýsledků, ty chceme sčítat
 	- kdybychom sčítali po dvojicích, dostali bychom se na $O(\log^2n)$
 	- ale my ke sčítání použijeme kompresor – ze 3 sčítanců uděláme dva
+		- kompresor funguje tak, že pro tři sčítané bity na $i$-té pozici spočítá součet a carry – součty se píšou do jednoho řádku, carry do druhého (tak vzniknou dva sčítance)
 		- v první vrstvě $n$ čísel, v druhé $\frac 23 n$ čísel, ve třetí $(\frac 23)^2 n$ čísel, …, v poslední 2 čísla, ty sečteme klasickou sčítačkou
 		- kompresorových vrstev bude $O(\log n)$, hloubka kompresoru je $O(1)$
 		- závěrečná sčítačka bude $O(\log n)$
