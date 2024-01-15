@@ -695,7 +695,7 @@
 		- v posledním sloupci $c=C$, v posledním řádku $k=n$
 	- $A_0(0)=0$
 	- $A_0(c)=+\infty$ pro $c\gt 0$
-	- $A_k(c)=\min(A_k-1(c),A_{k-1}(c-c_k)+h_k)$
+	- $A_k(c)=\min(A_{k-1}(c),A_{k-1}(c-c_k)+h_k)$
 		- varianta s $A_{k-1}$ připadá v úvahu, jen pokud $c-c_k\geq 0$
 	- celou tabulku vyplníme v čase $O(nC)$
 	- maximální dosažielná cena $c^*:=\max\set{c\mid A_n(c)\leq H}$

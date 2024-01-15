@@ -685,7 +685,7 @@
 	- funkci $f$ říkáme převod (případně redukce)
 - Věta: Vlastnosti převoditelnosti (reflexivita, tranzitivita apod.)
 	- je reflexivní $(A\to A)$ … $f$ je identita
-	- je tranzitivní $(A\to B\land B\to C\implies A\to C)$ … když $f$ převádí $A$ na $B$ a $g$ převádí $B$ na $C$, tak $g\circ f$ převádí $A$ na $C$ (přičemž složení polynomiálně vyčíslitelných funkcí je polynomiálně vyčíslitelná funkce)
+	- je tranzitivní $(A\to B\land B\to C\implies A\to C)$ … když $f$ převádí $A$ na $B$ a $g$ převádí $B$ na $C$, tak $f\circ g$ převádí $A$ na $C$ (přičemž složení polynomiálně vyčíslitelných funkcí je polynomiálně vyčíslitelná funkce)
 	- není antisymetrická – např. problémy „vstup má sudou délku“ a „vstup má lichou délku“ lze mezi sebou převádět oběma směry
 	- existují navzájem nepřevoditelné problémy – např. mezi problémy „na každý vstup odpověz 0“ a „na každý vstup odpověz 1“ nemůže existovat převod
 	- převoditelnost je částečné kvaziuspořádání na množině všech problémů
@@ -779,21 +779,174 @@
 ## NP-úplnost
 
 - Definice: Třídy složitosti P a NP
+	- problém $L\in \text P\equiv\exists A$ algoritmus $\exists p$ polynom takový, že $\forall x$ vstup platí, že $A(x)$ doběhne do $p(|x|)$ kroků $\land\;A(x)=L(x)$
+	- problém $L\in \text{NP}\equiv\exists V\in P$ (verifikátor) $\exists g$ polynom (omezení délky certifikátů) $\forall x:L(x)=1\iff$ $\exists y$ certifikát $|y|\leq g(|x|)$ (krátký) $\land\;V(x,y)=1$ (schválený)
+	- $\text P\subseteq\text{NP}$ (rovnost se neví)
 - Definice: NP-těžké a NP-úplné problémy
+	- $L$ je NP-těžký $\equiv\forall K\in\text{NP}:K\to L$
+	- $L$ je NP-úplný $\equiv L$ je NP-těžký $\land\;L\in\text{NP}$
 - Věta: Pokud $A\to B$ a $B\in \text P$, pak $A\in \text P$
+	- máme převodní funkci $f$, kterou lze spočítat v $O(n^c)$
+	- máme algoritmus pro $B$, který běží v $O(m^d)$
+		- kde $m$ je délka převedeného vstupu
+	- tedy $m$ je délka výstupu převodní funkce
+	- algoritmus běžící v čase $t$ nemůže vyrobit výstup delší než $t$
+	- takže $m\in O(n^c)$
+	- tudíž $f$ složená s algoritmem pro $B$ běží v čase $O(n^c+(n^c)^d)\subseteq O(n^{cd})$
 - Věta: Pokud $A→B$, $B\in \text{NP}$ a $A$ je NP-úplný, pak $B$ je NP-úplný
-- Věta: Cookova věta: SAT je NP-úplný (náznak důkazu)
+	- $\forall Z\in\text{NP}:Z\to A$
+	- převoditelnost je tranzitivní, takže $Z\to B$
+- Věta: (Cook, Levin) SAT je NP-úplný (náznak důkazu)
+	- ukážeme, že $L\in\text{NP}$ lze převést na obvodový SAT
+	- obvodový SAT převedeme na SAT
+	- lemma: pro každý problém $L\in \text P$ existuje polynomiální algoritmus, který pro každou délku vstupu sestaví hradlovou síť řešící $L$
+	- důkaz lemmatu odmáváme
+		- počítače jsou velké hradlové sítě
+		- budeme mít polynomiálně mnoho kopií počítače
+		- s každým tikem hodin pošle jedna kopie mezivýsledek té druhé
+		- počítač potřebuje polynomiálně mnoho paměti
+	- věta: obvodový SAT je NP-úplný
+	- důkaz
+		- evidentně obvodový SAT $\in$ NP
+		- mějme $L\in\text{NP}$
+		- máme verifikátor $V$ a omezující polynom $g$ dle definice NP
+		- BÚNO chceme certifikáty délky rovné $g(n)$
+			- $n$ je délka vstupu
+			- certifikáty doplníme o jedničku a samé nuly
+		- z použití lemmatu na $V$ dostaneme hradlovou síť s $n+g(n)$ vstupy
+			- tato hradlová síť kontroluje, zda je cerifikát správný
+		- do hradlové sítě zadrátujeme konkrétní vstup
+		- vyjde nám hradlová síť, která má $g(n)$ vstupů a 1 výstup (výsledná hodnota „formule“)
+			- jakmile najdeme splňující ohodnocení vstupů, našli jsme řešení problému
+	- nakonec použijeme lemma o převodu obvodového SATu na 3-SAT
 - Algoritmus: Převod obvodového SATu na SAT
+	- lemma: obvodový SAT lze převést na 3-SAT
+	- důkaz
+		- převedeme obvod, aby měl jen AND a NOT
+		- zavedeme proměnné pro výstupy hradel
+		- $x\to\boxed{\neg}\to z$
+			- přidáme klauzule:
+			- $x\implies\neg z$
+			- $\neg x\implies z$
+		- $x,y\to\boxed{\land}\to z$
+			- přidáme klauzule:
+			- $x\land y\implies z$
+			- $\neg x\implies\neg z$
+			- $\neg y\implies\neg z$
+		- implikace převedeme na disjunkce
 - Příklad: Klasické NP-úplné problémy
+	- logické: (CNF) SAT, 3-SAT, 3,3-SAT, obvodový SAT
+	- grafové: nezávislá množina, klika, $k$-obarvitelnost (pro $k\geq 3$), hamiltonovská cesta/kružnice, 3D-párování
+	- číselné: součet podmnožiny, batoh, 2 loupežníci, nulajedničkové řešení soustavy lineárních rovnic (v $\mathbb Z$)
 
 ## Jak zvládnout těžký problém
 
 - Algoritmus: Nezávislá množina ve stromu
+	- lemma: Je-li $T$ strom a $\ell$ jeho list, pak aspoň jedna největší nezávislá množina obsahuje $\ell$.
+	- důkaz
+		- nechť $M$ je nějaká největší nezávislá množina
+		- pokud $\ell\in M$, pak máme hotovo
+		- pokud $\ell\notin M$, pak $\ell$ má souseda $s$
+			- pokud $s\notin M$, můžu $\ell$ přidat do $M$, což je spor, protože $M$ je největší
+			- pokud $s\in M$, můžu z $M$ odebrat $s$ a přidat tam $\ell$, čímž zachovám velikost
+	- hladový algoritmus
+	- algoritmus (DFS) pro vrchol $v$
+		- přidáme $v$ do NzMna
+		- pro každého syna $s$ vrcholu $v$
+			- rekurzivně spustíme algoritmus pro $s$
+			- pokud $s\in$ NzMna, odebereme $v$ z NzMna
+	- složitost $O(n)$
 - Algoritmus: Barvení intervalového grafu
+	- známe časový plán přednášek (jednotlivé intervaly)
+	- zjišťujeme, kolik potřebujeme poslucháren
+	- chceme intervalový graf omezit nejmenším počtem barviček
+		- $V:=$ intervaly
+		- $\set{u,v}\in E\equiv u\cap v\neq\emptyset$
+	- budeme zametat přímku bodem
+	- předpokládejme, že intervaly nezačínají/nekončí stejně (obecná poloha) – z analýzy algoritmu vyplývá, že:
+		- když začínají stejně, nezáleží na pořadí
+		- když končí stejně, nezáleží na pořadí
+		- když jeden začíná a druhý končí ve stejnou chvíli, pořadí zpracování vyplývá z rozhodnutí, jak s takovou situací nakládat (můžeme intervaly chápat jako uzavřené nebo jako otevřené)
+	- udržujeme množinu volných barviček, postupně procházíme po přímce
+		- pokud potkáme začátek intervalu, vezmeme barvičku (když není žádná volná přidáme novou)
+		- pokud potkáme konec intervalu, vrátíme barvičku
+	- procházení po přímce = procházení kalendáře událostí
+		- události = začátky a konce intervalů
+	- třídění v $O(n\log n)$
+	- průchod začátků a konců v $2n$ krocích
+	- takže celkem $O(n\log n)$
 - Algoritmus: Pseudopolynomiální algoritmus pro problém batohu
+	- máme
+		- předměty $1,\dots,n$
+		- hmotnosti $h_1,\dots,h_n$
+		- ceny $c_1,\dots,c_n$
+		- nosnost batohu $H$
+	- chceme $I\subseteq\set{1,\dots,n}$ takovou, že $h(I)\leq H$, $c(I)$ je maximální
+	- chceme algoritmus polynomiální v $n$, $C=\sum_i c_i$
+	- $A_k(c):=$ minimální hmotnost podmnožiny z $\set{1,\dots,k}$, která má cenu $c$
+		- může být $+\infty$, pokud taková podmnožina neexistuje
+	- sestavujeme tabulku z hodnot $A_k(c)$, kde po řádcích roste $k$ a po sloupcích roste $c$
+		- v prvním sloupci $c=0$, v prvním řádku $k=0$
+		- v posledním sloupci $c=C$, v posledním řádku $k=n$
+	- $A_0(0)=0$
+	- $A_0(c)=+\infty$ pro $c\gt 0$
+	- $A_k(c)=\min(A_{k-1}(c),A_{k-1}(c-c_k)+h_k)$
+		- první varianta: předmět $k$ nepoužijeme
+		- druhá varianta: předmět $k$ použijeme
+			- připadá v úvahu, jen pokud $c-c_k\geq 0$
+	- celou tabulku vyplníme v čase $O(nC)$
+	- maximální dosažielná cena $c^*:=\max\set{c\mid A_n(c)\leq H}$
+	- rekonstrukce optimální množiny
+		- tak, že si u každého políčka tabulky pamatujeme maximální prvek dané podmnožiny
+		- stačí projít konstrukci pozpátku (nejsou potřeba ukazatele, stačí jít zpátky odečtením ceny aktuálního maximálního prvku)
+		- nebo se to dá udělat pomocí ukazatelů
+	- problém batohu řešíme v čase $O(nC)$ … pseudopolynomiální
+	- celý algoritmus lze otočit na počítání maximální ceny pro určitou hmotnost a počet předmětů, pak to bude $O(nH)$
 - Definice: Aproximační algoritmus
+	- máme množinu přípustných řešení, mezi nimi nějaké optimum
+	- máme cenovou funkci $c$, která jednotlivá řešení ohodnocuje reálnými čísly
+	- chceme přípustné řešení s minimální cenou $c^*$
+	- vystačíme si s jeho $\alpha$-aproximací, tedy s přípustným řešením s cenou $c'\leq\alpha c^*$ pro nějakou konstantu $\alpha\gt 1$
+	- tedy relativní chyba $\frac{c'-c^*}{c^*}$ nepřekročí $\alpha-1$
+		- $c'\leq\alpha c^*$
+		- $c'-c^*\leq\alpha c^*-c^*$
+		- $\frac{c'-c^*}{c^*}\leq\alpha-1$
+	- $\alpha$ … aproximační poměr
 - Algoritmus: 2-aproximace obchodního cestujícího v metrickém prostoru
+	- mějme úplný graf
+	- nechť platí trojúhelníková nerovnost
+	- do jednoho vrcholu se nesmíme vrátit víckrát (kromě toho, kde jsme začali)
+	- najdeme minimální kostru
+	- $T$ … součet délek hran minimální kostry
+	- obchodní cestující ať obejde minimální kostru
+		- nachodí $2T$
+		- vrcholy navštěvuje víckrát
+	- přidáme zkratky
+		- z posloupnosti měst $A,B,A,C$ uděláme $A,B,C$
+		- díky trojúhelníkové nerovnosti si tím neublížíme
+		- obchodní cestující nachodí $\leq 2T$
+	- pozorování: $T\leq$ optimum
+	- výstup $\leq 2T\leq 2$ opt.
+	- tedy jsme našli $2$-aproximaci
+	- umí se $1.5$-aproximace
 - Věta: Neaproximovatelnost obchodního cestujícího bez trojúhelníkové nerovnosti
+	- věta: pokud pro $t\geq 1$ existuje algoritmus $t$-aproximující TSP v úplných grafech bez trojúhelníkové nerovnosti v polynomiálním čase, pak $\text P=\text {NP}$
+	- princip důkazu: $t$-aproximace $\implies$ polynomiální algoritmus pro hamiltonovskou kružnici $\implies\text P=\text{NP}$
+		- TSP v podstatě odpovídá hledání vhodné hamiltonovské kružnice v úplném grafu
+		- hamiltonovská kružnice (tedy zda v daném grafu existuje) je NP-úplná, takže kdyby existoval polynomiální algoritmus, tak by pro libovolný problém z NP existoval polynomiální algoritmus (protože je převoditelný na hamiltonovskou kružnici)
+	- důkaz
+		- mějme algoritmus, který v polynomiální čase $t$-aproximuje TSP v úplných grafech bez trojúhelníkové nerovnosti
+		- zadaný graf $G$ doplníme na $G'$ úplný graf s ohodnocením hran
+		- hrana v $G$ → hrana v $G'$ délky 1
+		- nehrana v $G$ → hrana v $G'$ délky $c$
+		- původní hamiltonovské kružnice budou mít délku $n$ (počet vrcholů)
+		- nové hamiltonovské kružnice budou mít délku $\geq n-1+c$
+		- podle délky nejkratší hamiltonovské kružnice poznáme, zda v $G$ existuje
+			- potřebujeme $tn\lt n-1+c$, abychom to poznali i přes zkreslení způsobené aproximací
+			- $c\gt tn-n+1=(t-1)n+1$
+			- splníme $c=tn$
 - Definice: Polynomiální aproximační schéma (PTAS)
+	- PTAS $\equiv$ algoritmus, který pro vstup velikosti $n$ a $\varepsilon\gt 0$ najde aproximaci s chybou $\leq\varepsilon$  (tedy $(1+\varepsilon)$-aproximaci) v čase polynomiálním vůči konkrétnímu $\varepsilon$
 - Definice: Plně polynomiální aproximační schéma (FPTAS)
+	- FPTAS $\equiv$ algoritmus, který pro vstup velikosti $n$ a $\varepsilon\gt 0$ najde aproximaci s chybou $\leq\varepsilon$  (tedy $(1+\varepsilon)$-aproximaci) v čase polynomiálním vůči $n$ a $\frac1\varepsilon$
 - Algoritmus: FPTAS pro problém batohu
