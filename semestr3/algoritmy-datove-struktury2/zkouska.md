@@ -493,7 +493,7 @@
 		- větší blok můžeme rozdělit na dva podbloky – horní (levý) a dolní (pravý)
 			- když hornímu podbloku odpovídá konstantní funkce, tak výsledná funkce pro celý blok je opět konstantní
 			- naopak když hornímu podbloku odpovídá funkce identita (tzn. $f(x)=x$, tedy horní podblok kopíruje přenos), tak výsledná funkce pro celý blok odpovídá funkci spodního podbloku
-	- nejdříve tedy v logartimickém čase zanalyzujeme chování podbloků
+	- nejdříve tedy v logaritmickém čase zanalyzujeme chování podbloků
 		- od jednotkových k jednomu velkém bloku
 	- pak v logaritmickém čase spočítáme všechny přenosy
 		- od jednoho bloku k jednotkovým
@@ -552,7 +552,7 @@
 		- vstup: dvě monotónní rostoucí posloupnosti o $n$ prvcích
 		- výstup: monotónní posloupnost o $2n$ prvcích
 		- jednu z nich otočíme na klesající → dostaneme bitonickou posloupnost, proženeme ji $B_{2n}$
-	- třidička $S_n$
+	- třídička $S_n$
 		- na vstupu je $n$ prvků
 		- na výstupu je monotónní rostoucí posloupnost $n$ prvků
 		- budeme mít $\log n$ pater slévaček, každá má nejhůř $\log n$ pater, takže celkem $O(\log^2n)$
@@ -686,7 +686,7 @@
 - Definice: Převod mezi problémy
 	- mějme rozhodovací problémy $A,B$
 	- problém $A$ je převoditelný na problém $B$ právě tehdy, když existuje funkce $f:\set{0,1}^*\to\set{0,1}^*$ taková, že $\forall\alpha\in\set{0,1}^*:A(\alpha)=B(f(\alpha))$ a $f$ lze spočítat v čase polynomiálním vzhledem k $|\alpha|$
-	- začíme $A\to B$ nebo $A\leq_P B$
+	- značíme $A\to B$ nebo $A\leq_P B$
 	- funkci $f$ říkáme převod (případně redukce)
 - Věta: Vlastnosti převoditelnosti (reflexivita, tranzitivita apod.)
 	- je reflexivní $(A\to A)$ … $f$ je identita
@@ -819,7 +819,7 @@
 			- $n$ je délka vstupu
 			- certifikáty doplníme o jedničku a samé nuly
 		- z použití lemmatu na $V$ dostaneme hradlovou síť s $n+g(n)$ vstupy
-			- tato hradlová síť kontroluje, zda je cerifikát správný
+			- tato hradlová síť kontroluje, zda je certifikát správný
 		- do hradlové sítě zadrátujeme konkrétní vstup
 		- vyjde nám hradlová síť, která má $g(n)$ vstupů a 1 výstup (výsledná hodnota „formule“)
 			- jakmile najdeme splňující ohodnocení vstupů, našli jsme řešení problému
@@ -900,7 +900,7 @@
 		- druhá varianta: předmět $k$ použijeme
 			- připadá v úvahu, jen pokud $c-c_k\geq 0$
 	- celou tabulku vyplníme v čase $O(nC)$
-	- maximální dosažielná cena $c^*:=\max\set{c\mid A_n(c)\leq H}$
+	- maximální dosažitelná cena $c^*:=\max\set{c\mid A_n(c)\leq H}$
 	- rekonstrukce optimální množiny
 		- tak, že si u každého políčka tabulky pamatujeme maximální prvek dané podmnožiny
 		- stačí projít konstrukci pozpátku (nejsou potřeba ukazatele, stačí jít zpátky odečtením ceny aktuálního maximálního prvku)
