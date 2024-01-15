@@ -686,22 +686,101 @@
 - Věta: Vlastnosti převoditelnosti (reflexivita, tranzitivita apod.)
 	- je reflexivní $(A\to A)$ … $f$ je identita
 	- je tranzitivní $(A\to B\land B\to C\implies A\to C)$ … když $f$ převádí $A$ na $B$ a $g$ převádí $B$ na $C$, tak $g\circ f$ převádí $A$ na $C$ (přičemž složení polynomiálně vyčíslitelných funkcí je polynomiálně vyčíslitelná funkce)
-	- není antisymetrická – např. problémy „na vstupu je řetězec začínající nulou“ a „na vstupu je řetězec končící nulou“ lze mezi sebou převádět oběma směry
+	- není antisymetrická – např. problémy „vstup má sudou délku“ a „vstup má lichou délku“ lze mezi sebou převádět oběma směry
 	- existují navzájem nepřevoditelné problémy – např. mezi problémy „na každý vstup odpověz 0“ a „na každý vstup odpověz 1“ nemůže existovat převod
 	- převoditelnost je částečné kvaziuspořádání na množině všech problémů
 - Definice: Problémy: klika, nezávislá množina, SAT, 3-SAT, 3,3-SAT, 3D-párování
+	- klika: existuje úplný podgraf grafu $G$ na alespoň $k$ vrcholech?
+	- nezávislá množina: existuje nezávislá množina vrcholů grafu $G$ velikosti aspoň $k$?
+		- množina vrcholů grafu je nezávislá $\equiv$ žádné dva vrcholy ležící v této množině nejsou spojeny hranou
+	- SAT: existuje dosazení 0 a 1 za proměnné tak, aby $\psi(\dots)=1$?
+		- kde $\psi$ je v CNF
+	- 3-SAT: jako SAT, akorát každá klauzule formule $\psi$ obsahuje nejvýše tři literály
+	- 3,3-SAT: jako 3-SAT, akorát se každá proměnná vyskytuje v maximálně třech literálech
+	- 3D-párování
+		- vstup: tři množiny $A,B,C$ a množina kompatibilních trojic $T\subseteq A\times B\times C$
+		- výstup: existuje perfektní podmnožina trojic? tzn. existuje taková podmnožina, v níž se každý prvek množin $A,B,C$ účastní právě jedné trojice
 - Algoritmus: Převod klika ↔ nezávislá množina
+	- pokud v grafu prohodíme hrany a nehrany, stane se z každé kliky nezávislá množina a naopak
+	- převodní funkce zneguje hrany
 - Algoritmus: Převod SAT → 3-SAT → 3,3-SAT
+	- vyrábíme ekvisplnitelnou formuli
+	- SAT → 3-SAT
+		- $(\alpha\lor\beta)\to(\alpha\lor\zeta)\land(\beta\lor\neg\zeta)$
+		- převod funguje i naopak (viz rezoluce)
+		- jak rozštípnout dlouhou klauzuli délky $\ell$?
+			- $\alpha$ nechť má délku 2
+			- $\beta$ nechť má délku $\ell-2$
+			- po přidání $\zeta$ dostanu konjunkci klauzulí délky 3 a $\ell-1$
+			- klauzuli délky $\ell-1$ štípu dál (pokud je moc dlouhá)
+		- počet štípnutí je shora omezen délkou formule
+		- v polynomiálním čase postupně rozštípeme všechny dlouhé klauzule při zachování splnitelnosti
+	- 3-SAT → 3,3-SAT
+		- nechť $x$ je proměnná s $k\gt 3$ výskyty
+		- pro každý výskyt si pořídíme nové proměnné $x_1,\dots,x_k$
+		- ekvivalenci všech $x_i$ zajistíme řetězcem implikací
+			- $x_1\implies x_2$
+			- $x_2\implies x_3$
+			- $\quad\vdots$
+			- $x_k\implies x_1$
+		- každá proměnná $x_i$ se tudíž vyskytne třikrát
+	- 3,3-SAT* … navíc každý literál max. 2×
+		- použijeme předchozí algoritmus pro všechny proměnné s $k \geq 3$ výskyty
 - Algoritmus: Převod 3-SAT → nezávislá množina
-- Algoritmus: Převod nezávislá množina → SAT
+	- pro každou z $k$ klauzulí formule vytvoříme trojúhelník a jeho vrcholům přiřadíme literály klauzule
+		- pokud klauzule obsahuje méně než tři literály, tak přebývající vrcholy smažeme
+	- spojíme hranami všechny dvojice konfliktních literálů
+	- v takovém grafu existuje nezávislá množina velikosti alespoň $k$ právě tehdy, když je formule splnitelná
+		- máme-li splňující ohodnocení, můžeme z každé klauzule vybrat jeden pravdivý literál – ty umístíme do nezávislé množiny
+		- máme-li nezávislou množinu velikosti $k$, vybereme literály odpovídající těmto vrcholům a podle nich nastavíme odpovídající proměnné
+			- v nezávislé množině velikosti $k$ nemůžou být dva vrcholy ze stejného trojúhelníku – tedy z každého trojúhelníku (klauzule) bude v množině právě jeden vrchol
+			- v nezávislé množině nemohou být dva vrcholy s opačnými literály, protože takové vrcholy jsou spojeny hranou
+- Algoritmus: Převod nezávislá množina (NzMna) → SAT
+	- BÚNO $V(G)=[n]$ (očíslujeme vrcholy grafu 1 až $n$)
+	- $\forall i\in[n]:x_i=1\iff i\in$ NzMna
+	- $\forall ij\in E:(\neg x_i\lor\neg x_j)$ … zajistí, že vrcholy v nezávislé množině nebudou spojeny hranou
+	- navíc potřebujeme zkontrolovat, že NzMna je dostatečně velká
+	- vytvoříme si tabulku pro nezávislou množinu
+		- $y_{ij}=1\equiv$ vrchol $j$ je $i$-tým v NzMna
+			- $i=1,\dots,k$
+			- $j=1,\dots,n$
+		- ve sloupci je maximálně 1 jednička
+			- $\forall i,i',j:(\neg y_{ij}\lor\neg y_{i'j})$
+		- v řádku je právě jedna jednička
+			- $\forall i,j,j':(\neg y_{ij}\lor\neg y_{ij'})$
+			- $\forall i:(y_{i1}\lor y_{i2}\lor\dots\lor y_{in})$
+	- propojíme klauzule
+		- $\forall ij:(y_{ij}\implies x_j)\sim(\neg y_{ij}\lor x_j)$
 - Algoritmus: Převod 3,3-SAT → 3D-párování
+	- $K$ kluci, $D$ děvčata, $Z$ zvířátka
+	- $T$ … kompatibilní trojice
+	- BÚNO každý literál se vyskytuje maximálně dvakrát
+		- kdyby se vyskytoval třikrát, mohli bychom proměnnou v ohodnocení nastavit na 0/1 (podle literálu) a všechny výskyty ve formuli smazat
+	- gadget pro proměnnou
+		- 2 kluci, 2 děvčata, 4 zvířátka
+		- volba kompatibilních dvojic odpovídá trojúhelníčkům ![](prilohy/Pasted%20image%2020240115105518.png)
+		- 2 stavy
+			- 0 … $\blacktriangle$, z2 a z4 jsou volné
+			- 1 … $\triangle$, z1 a z3 jsou volné
+	- gadget pro klauzuli
+		- pro klauzuli $k$ přidáme 1 kluka a 1 děvče a připojíme je (jako kompatibilní trojice) ke třem (již existujícím) zvířátkům
+		- tato tři zvířátka odpovídají třem literálům v klauzuli
+		- např. $z_a$ tedy bude zvířátko, které je volné, když je první literál v klauzuli splněn
+		- ![](prilohy/Pasted%20image%2020240115110716.png)
+	- nějaká zvířátka zbydou
+		- zbude zvířátek: 2 × počet proměnných – počet klauzulí
+			- každá proměnná přidá čtyři zvířátka, z toho dvě ubytuje
+			- každá klauzule ubytuje právě jedno zvířátko
+		- přidáme tolik párů $k,d$
+		- pro každý takový pár přidáme trojice se všemi zvířátky
+		- poznámka: v Průvodci je chyba
 
 ## NP-úplnost
 
 - Definice: Třídy složitosti P a NP
 - Definice: NP-těžké a NP-úplné problémy
-- Věta: Pokud A→B a B∈P, pak A∈P
-- Věta: Pokud A→B, B∈NP a A je NP-úplný, pak B je NP-úplný
+- Věta: Pokud $A\to B$ a $B\in \text P$, pak $A\in \text P$
+- Věta: Pokud $A→B$, $B\in \text{NP}$ a $A$ je NP-úplný, pak $B$ je NP-úplný
 - Věta: Cookova věta: SAT je NP-úplný (náznak důkazu)
 - Algoritmus: Převod obvodového SATu na SAT
 - Příklad: Klasické NP-úplné problémy
