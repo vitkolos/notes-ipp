@@ -31,7 +31,7 @@ U následujících pojmů byste měli umět zformulovat definici a na jednoduch�
 - klika a nezávislá množina v grafu
 - Hammingova vzdálenost a Hammingova váha
 - minimální vzdálenost kódu
-- (n, k, d)-kód
+- $(n, k, d)$-kód
 - lineární kód
 - generující matice
 - kódování
@@ -44,7 +44,7 @@ U následujících pojmů byste měli umět zformulovat definici a na jednoduch�
 
 U následujících tvrzení se očekává, že je budete umět zformulovat a (není-li uvedeno jinak) i dokázat.
 
-- Odhady kombinatorických funkcí:
+- Odhady kombinatorických funkcí: $e(n/e)^n\leq n!\leq en(n/e)^n$, $(n/k)^k\leq{n\choose k}\leq(en/k)^k$, $\frac{2^{2m}}{2\sqrt m}\leq{2m\choose m}\leq\frac{2^{2m}}{\sqrt{2m}}$
 - Odvození vytvořující funkce pro rekurentně zadanou posloupnost
 - Zobecněná binomická věta
 - Rozklad racionální funkce na parciální zlomky (bez důkazu) a jeho využití při práci s vyvořujícími funkcemi
@@ -58,7 +58,7 @@ U následujících tvrzení se očekává, že je budete umět zformulovat a (ne
 - Souvislost mezi velikostí největšího párování a nejmenšího vrcholového pokrytí v obecném grafu
 - Kőnigova–Egerváryho věta
 - Hallova věta v grafové a hypergrafové verzi
-- Mengerovy věty pro hranovou a vrcholovou souvislost (Mengerova věta pro hranovou souvislost je též někdy označována jako “Fordova–Fulkersonova věta”)
+- Mengerovy věty pro hranovou a vrcholovou souvislost (Mengerova věta pro hranovou souvislost je též někdy označována jako „Fordova–Fulkersonova věta“)
 - Lemma o uších pro 2-souvislé grafy
 - Cayleyho vzorec pro počet stromů na n vrcholech
 - Spernerova věta
