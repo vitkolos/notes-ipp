@@ -467,7 +467,7 @@
 		- poznámka: moje řešení neřeší nevalidní vstup, kdy uživatel zadal méně položek, než je potřeba
 		- vytváříme instanci operátoru – použijeme switch expression podle znaku operátoru
 	- rozšíření
-		- ve stromu výrazů budou cená čísla
+		- ve stromu výrazů budou celá čísla
 		- vyhodnocení může být v reálných číslech
 		- 5 bodů za funkční rozšíření, 5 bodů za vhodnou implementaci, 5 bodů za rozumné řešení parsování (jak zařídit přidání operátoru modulo do parsovacího algoritmu)
 	- třída EvalInReal
