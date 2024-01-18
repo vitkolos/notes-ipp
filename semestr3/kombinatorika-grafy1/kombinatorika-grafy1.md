@@ -74,7 +74,7 @@
 ### Řešení rekurencí
 
 - Fibonacciho čísla $F_0:=0,\,F_1:=1,\,F_n:=F_{n-1}+F_{n-2}$ pro $n\geq 2$
-	- chceme získat explicietní vzorec pro $f(x)=\sum_{n=0}^\infty F_nx^n$
+	- chceme získat explicitní vzorec pro $f(x)=\sum_{n=0}^\infty F_nx^n$
 	- obecná metoda řešení rekurencí
 		- vezmi rekurenci pro $n\geq n_0$
 		- vynásob ji $x^n$
@@ -93,7 +93,7 @@
 			- $f(x)-xf(x)-x^2f(x)=F_0+F_1x-F_0x$
 			- $f(x)\cdot(1-x-x^2)=F_0+F_1x-F_0x$
 			- $f(x)=\frac{F_0+F_1x-F_0x}{1-x-x^2}=\frac x{1-x-x^2}$
-- obecnější příklad – mějme posloupnost $a_0,a_1,a_2,\dots$, která splňuje $a_n=\alpha_1a_{n-1}+\alpha_2a_{n-2}+\dots+\alpha_da_{n-d}$ pro každé $n\geq d$, kde $d\in\mathbb N$, $\alpha_1,\dots,\alpha_d\in\mathbb R,\,\alpha_d\neq 0$; najďeme vzorec pro $f(x)=\sum_{n=0}^\infty a_nx^n$
+- obecnější příklad – mějme posloupnost $a_0,a_1,a_2,\dots$, která splňuje $a_n=\alpha_1a_{n-1}+\alpha_2a_{n-2}+\dots+\alpha_da_{n-d}$ pro každé $n\geq d$, kde $d\in\mathbb N$, $\alpha_1,\dots,\alpha_d\in\mathbb R,\,\alpha_d\neq 0$; najděme vzorec pro $f(x)=\sum_{n=0}^\infty a_nx^n$
 	- $\sum_{n=d}^\infty a_nx^n=$
 	- $=\sum_{n=d}^\infty\alpha_1a_{n-1}x^n+\sum_{n=d}^\infty\alpha_2a_{n-2}x^n+\dots+\sum_{n=d}^\infty\alpha_da_{n-d}x^n$
 	- $f(x)-(a_0+a_1x+\dots+a_{d-1}x^{d-1})=$

@@ -134,16 +134,60 @@ U následujících tvrzení se očekává, že je budete umět zformulovat a (ne
 
 - Odhady kombinatorických funkcí: $e(n/e)^n\leq n!\leq en(n/e)^n$, $(n/k)^k\leq{n\choose k}\leq(en/k)^k$, $\frac{2^{2m}}{2\sqrt m}\leq{2m\choose m}\leq\frac{2^{2m}}{\sqrt{2m}}$
 	- věta: $e(\frac ne)^n\leq n!\leq en(\frac ne)^n$
-	- důkaz: odhad pomocí integrálu $\ln(n!)=\sum_{i=1}^n\ln(i)=\sum_{i=2}^n\ln(i)$
-		- schodovitá plocha, kde schod má šířku 1 a výšku $\ln(i)$ má obsah daný uvedeným součtem
+	- důkaz: odhad pomocí integrálu
+		- $\ln(n!)=\sum_{i=1}^n\ln(i)=\sum_{i=2}^n\ln(i)$
+			- protože $\ln(1)=0$
+		- schodovitá plocha, kde schod má šířku 1 a výšku $\ln(i)$, má obsah daný uvedeným součtem
 		- obsah schodovité plochy je zdola odhadnutý obsahem plochy pod křivkou logaritmu
 		- $\ln(n!)\geq\int_1^n\ln(x)\,dx=[x\ln(x)-x]^n_1=(n\ln n-n+1)=:I_n$
 		- $n!\geq e^{I_n}=e^{n\ln n-n+1}=e(\frac ne)^n$
 		- obdobně horní odhad
 			- $\ln((n-1)!)\leq I_n$
 			- $e^{I_n}\geq(n-1)!\implies n\cdot e^{I_n}\geq n!\implies n\cdot e(\frac ne)^n\geq n!$
+		- obrázek zachycuje situaci pro $n=7$
+		- ![odhad faktoriálu pomocí integrálu](prilohy/faktorial.png)
 - Odvození vytvořující funkce pro rekurentně zadanou posloupnost
+	- obecný postup
+		- vezmi rekurenci pro $n\geq n_0$
+		- vynásob ji $x^n$
+		- sečti pro $n\geq n_0$
+		- vyjádři všechny sumy pomocí hledané vytvořující funkce $f(x)$
+		- dopočítej $f(x)$
+	- aplikace na Fibonacciho čísla
+		- $F_0:=0,\,F_1:=1,\,F_n:=F_{n-1}+F_{n-2}$ pro $n\geq 2$
+		- chceme získat explicitní vzorec pro $f(x)=\sum_{n=0}^\infty F_nx^n$
+		- $F_n=F_{n-1}+F_{n-2}$ pro $n\geq 2$
+		- $F_nx^n=F_{n-1}x^n+F_{n-2}x^n$ pro $n\geq 2$
+		- $\underbrace{\sum_{n=2}^\infty F_nx^n}_{S_1}=\underbrace{\sum_{n=2}^\infty F_{n-1}x^n}_{S_2}+\underbrace{\sum_{n=2}^\infty F_{n-2}x^n}_{S_3}$
+			- $S_1=F_2x^2+F_3x^3+F_4x^4+\dots=f(x)-F_0-F_1x$
+			- $S_2=F_1x^2+F_2x^3+F_3x^4+\dots=x(f(x)-F_0)$
+			- $S_3=F_0x^2+F_1x^3+F_2x^4+\dots=x^2f(x)$
+			- $S_1=S_2+S_3$
+			- $f(x)-F_0-F_1x=x(f(x)-F_0)+x^2f(x)$
+			- $f(x)-xf(x)-x^2f(x)=F_0+F_1x-F_0x$
+			- $f(x)\cdot(1-x-x^2)=F_0+F_1x-F_0x$
+			- $f(x)=\frac{F_0+F_1x-F_0x}{1-x-x^2}=\frac x{1-x-x^2}$
 - Zobecněná binomická věta
+	- fakt: pokud se dá posloupnost shora odhadnout nějakou exponenciální funkcí, tak $a_n=\frac{1}{n!} f^{(n)}(0)$
+		- kde $f(x)$ je její vytvořující funkce
+	- binomická věta
+		- pro $d\in\mathbb N_0:(1+x)^d=\sum_{n=0}^d{d\choose n}x^n$
+		- tedy $(1+x)^d$ je vytvořující funkcí pro ${d\choose 0},{d\choose1},{d\choose2},\dots,{d\choose d},0,0,0,\dots$
+	- pro $\delta\in\mathbb R$ a $n\in\mathbb N_0$ definujeme zobecněné kombinační číslo ${\delta\choose n}:=\frac{\delta(\delta-1)\cdot(\delta-2)\cdot\ldots\cdot(\delta-n+1)}{n!}$
+	- věta: zobecněná binomická věta
+		- pro $\delta\in\mathbb R$ platí $(1+x)^\delta=\sum_{n=0}^\infty{\delta\choose n}x^n$
+		- nekonečno bychom mohli použít i u základní binomické věty, pokud bychom použili zobecněné kombinační číslo (protože pro $n\gt\delta$ bude v součinu v čitateli jeden člen nulový)
+		- celkově ignorujeme otázky konvergence, ale aby věta platila, tak bychom chtěli $|x|\lt1$
+	- důkaz
+		- označme $f(x)=(1+x)^\delta$
+		- zjevně
+			- $f'(x)=\delta(1+x)^{\delta-1}$
+			- $f''(x)=\delta(\delta-1)(1+x)^{\delta-2}$
+			- $\quad\vdots$
+			- $f^{(n)}(x)=\delta(\delta-1)\cdot\ldots\cdot(\delta-n+1)(1+x)^{\delta-n}$
+			- $\quad\vdots$
+		- nechť $a_0,a_1,\dots$ je posloupnost s vytvořující funkcí $f(x)$
+		- potom $a_n=\frac{f^{(n)}(0)}{n!}={\delta\choose n}\quad\square$
 - Rozklad racionální funkce na parciální zlomky (bez důkazu) a jeho využití při práci s vyvořujícími funkcemi
 - Odvození vzorečku pro Catalanova čísla, definovaná jako počet binárních zakořeněných stromů
 - Odvození vlastností konečných projektivních rovin: počet bodů, počet přímek, počet bodů v jedné přímce, počet přímek procházejících jedním bodem
