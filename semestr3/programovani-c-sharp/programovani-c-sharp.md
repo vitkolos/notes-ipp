@@ -231,7 +231,7 @@
 		- dá se to složit na `person is Employee { Salary: > 500, LastName: "Kološ" } employee`
 		- zároveň můžu rovnou přiřadit do proměnné `person is Employee { Salary: > 500, Salary: var salary, LastName: "Kološ" } employee`
 
----
+## Konstanty, konstruktory, výčty
 
 - občas je praktické uložit nějakou hodnotu jako konstantu
 - konstanty uvnitř tříd
@@ -278,9 +278,6 @@
 - situace: chceme mít uložený řádek a sloupec tabulky a chceme předejít tomu, abychom ta dvě čísla zaměnili
 	- je vhodné řešení pomocí struktur (takže budu mít např. `Row.Value`)
 	- není až tak rozumné použít enum
-
----
-
 - balíčkovací systém pro distribuci knihoven – NuGet (nuget.org)
 - balíček je tam nahraný ve formě souboru .nupkg, je to v podstatě ZIP soubor, jsou tam i metadata k balíčku, je tam nějaké verzování
 
@@ -710,9 +707,6 @@
 		- ArgOutOfRangeEx.
 		- ArgNullEx.
 	- někdy je vhodné definovat vlastní výjimky – jako potomky ApplicationException
-
----
-
 - někdy upravujeme datovou strukturu
 	- před úpravou platí invarianty o datech ve struktuře (např. platnost ID)
 	- po úpravě také

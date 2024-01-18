@@ -133,6 +133,15 @@ U následujících pojmů byste měli umět zformulovat definici a na jednoduch�
 U následujících tvrzení se očekává, že je budete umět zformulovat a (není-li uvedeno jinak) i dokázat.
 
 - Odhady kombinatorických funkcí: $e(n/e)^n\leq n!\leq en(n/e)^n$, $(n/k)^k\leq{n\choose k}\leq(en/k)^k$, $\frac{2^{2m}}{2\sqrt m}\leq{2m\choose m}\leq\frac{2^{2m}}{\sqrt{2m}}$
+	- věta: $e(\frac ne)^n\leq n!\leq en(\frac ne)^n$
+	- důkaz: odhad pomocí integrálu $\ln(n!)=\sum_{i=1}^n\ln(i)=\sum_{i=2}^n\ln(i)$
+		- schodovitá plocha, kde schod má šířku 1 a výšku $\ln(i)$ má obsah daný uvedeným součtem
+		- obsah schodovité plochy je zdola odhadnutý obsahem plochy pod křivkou logaritmu
+		- $\ln(n!)\geq\int_1^n\ln(x)\,dx=[x\ln(x)-x]^n_1=(n\ln n-n+1)=:I_n$
+		- $n!\geq e^{I_n}=e^{n\ln n-n+1}=e(\frac ne)^n$
+		- obdobně horní odhad
+			- $\ln((n-1)!)\leq I_n$
+			- $e^{I_n}\geq(n-1)!\implies n\cdot e^{I_n}\geq n!\implies n\cdot e(\frac ne)^n\geq n!$
 - Odvození vytvořující funkce pro rekurentně zadanou posloupnost
 - Zobecněná binomická věta
 - Rozklad racionální funkce na parciální zlomky (bez důkazu) a jeho využití při práci s vyvořujícími funkcemi
