@@ -79,20 +79,54 @@ U následujících pojmů byste měli umět zformulovat definici a na jednoduch�
 - vrcholové pokrytí v grafu
 	- vrcholové pokrytí v $G=(V,E)$ je množina vrcholů $C\subseteq V$ taková, že každá hrana obsahuje aspoň 1 vrchol z $C$
 - systém různých reprezentantů v hypergrafu
+	- systém různých reprezentantů (SRR) v hypergrafu $H=(V,E)$ je funkce $r:E\to V$ taková, že
+		- $\forall e\in E: r(e)\in e$
+		- $\forall e,f\in E:e\neq f\implies r(e)\neq r(f)$ … tj. $r$ je prostá
+	- $r(e)$ … „reprezentant hypergrany $e$“
+	- analogie s předsedy spolků
 - hranový a vrcholový řez v grafu
+	- $F\subseteq E$ je hranový řez v $G$, pokud $G-F$ je nesouvislý
+		- kde $G-F\coloneqq(V,E\setminus F)$
+	- $A\subseteq V$ je vrcholový řez, pokud $G-A$ je nesouvislý
+		- kde $G-A=(V\setminus A,E\cap {V\setminus A\choose 2})$
 - hranová a vrcholová souvislost grafu
-- hranově a vrcholově k-souvislý graf
+	- stupeň hranové souvislosti (nebo jen hranová souvislost) grafu $G$, značený $k_e(G)$, je největší $k$ takové, že $G$ je hranově $k$-souvislý
+		- pozorování: $k_e(G)=$ velikost nejmenšího hranového řezu v $G$
+	- vrcholová souvislost grafu $G$, značená $k_v(G)$, je největší $k$ takové, že $G$ je vrcholově $k$-souvislý
+		- pozorování: $k_v(K_n)=n-1$
+		- pozorování: $G$ není úplný … $k_v(G)=$ velikost nejmenšího vrcholového řezu
+- hranově a vrcholově $k$-souvislý graf
+	- graf je hranově $k$-souvislý, pokud neobsahuje žádný hranový řez velikosti menší než $k$
+	- graf je vrcholově $k$-souvislý, pokud má aspoň $k+1$ vrcholů a neobsahuje žádný vrcholový řez velikosti menší než $k$
 - klika a nezávislá množina v grafu
+	- klika v grafu je množina vrcholů taková, že každé dva jsou spojené hranou
+	- nezávislá množina v grafu je množina vrcholů taková, že žádné dvě vrcholy nejsou spojené hranou
 - Hammingova vzdálenost a Hammingova váha
+	- slovo $x\in\mathbb Z^n_2$ lze chápat jako řádkový vektor $x=(x_1,x_2,\dots,x_n)$
+	- Hammingova vzdálenost $d(x,y)\coloneqq$ počet $i$ takových, že $x_i\neq y_i$
+	- Hammingova váha $\Vert x\Vert\coloneqq$ počet $i$ takových, že $x_i\neq 0$
 - minimální vzdálenost kódu
+	- pro kód $C\subseteq\mathbb Z_2^n$ je minimální vzdálenost $\Delta(C)\coloneqq\min^{x, y\in C}_{x\neq y} d(x,y)$
 - $(n, k, d)$-kód
+	- $(n,k,d)$-kód je množina $C\subseteq\mathbb Z_2^n$ taková, že $|C|=2^k$ a $\Delta(C)=d$
 - lineární kód
+	- kód $C\in\mathbb Z_2^n$ je lineární, pokud je to vektorový podprostor $\mathbb Z_2^n$ (ekvivalentně $\underline 0\in C$ a $\forall x,y\in C:x\oplus y\in C$)
+	- pro lineární $(n,k,d)$-kód je $k$ jeho dimenze
 - generující matice
+	- pro lineární $(n,k,d)$-kód $C$ je generující matice $G\in\mathbb Z_2^{k\times n}$, jejíž řádky tvoří bázi $C$
 - kódování
+	- nechť $C$ je $(n,k,d)$-kód pro $k\in\mathbb N$, tak kódování pro $C$ je bijekce $\mathbb Z_2^k\to C$
 - dekódování
+	- dekódování $(n,k,d)$-kódu $C$ je funkce $g:\mathbb Z_2^n\to C$ taková, že $\forall x\in\mathbb Z_2^n:d(x,g(x))=\min_{y\in C}d(x,y)$
 - duální kód
+	- $C^\perp\coloneqq\set{y\in\mathbb Z_2^n:(\forall x\in C)\braket{x,y}=0}$ … duální kód k $C$
 - kontrolní matice lineárního kódu
+	- nechť je $C$ lineární $(n,k,d)$-kód, pak kontrolní matice kódu $C$ je matice, jejíž řádky tvoří bázi $C^\perp$
 - Hammingovy kódy
+	- nechť $r\in\mathbb N,\,t\geq 2$
+	- nechť $K_r$ je matice s $r$ řádky a $2^r-1$ sloupci, jejíž sloupce jsou nenulové a různé
+	- nechť $H_r$ je kód s kontrolní maticí $K_r$
+	- kódům $H_r$ se říká Hammingovy kódy
 
 ## Tvrzení
 

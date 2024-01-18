@@ -452,7 +452,7 @@
 - dk: $G$ je hranově $k$-souvislý $\iff$ neexistuje hranový řez velikosti menší než $k\iff\forall x,y$ různé: neexistuje hranový $xy$-řez velikosti menší než $k\iff\forall x,y$ různé: $\exists k$ hranově disjunktních cest z $x$ do $y$ $\quad\square$
 - df: $G=(V,E),\;A\subseteq V,\; G-A=(V\setminus A,E\cap {V\setminus A\choose 2})$; $A\subseteq V$ je vrcholový řez, pokud $G-A$ je nesouvislý
 - pozorování: $K_n$ nemá vrcholový řez
-- df: graf $G$ je vrcholově $k$-souvislý, poku d má aspoň $k+1$ vrcholů a neobsahuje žádný vrcholový řez velikosti menší než $k$
+- df: graf $G$ je vrcholově $k$-souvislý, pokud má aspoň $k+1$ vrcholů a neobsahuje žádný vrcholový řez velikosti menší než $k$
 - df: vrcholová souvislost grafu $G$, značená $k_v(G)$, je největší $k$ takové, že $G$ je vrcholově $k$-souvislý
 - pozorování: $k_v(K_n)=n-1$
 - pozorování: $G$ není úplný … $k_v(G)=$ velikost nejmenšího vrcholového řezu
