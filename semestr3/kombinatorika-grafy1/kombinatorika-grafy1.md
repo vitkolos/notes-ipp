@@ -302,7 +302,7 @@
 	- $z\in V$ … zdroj
 	- $s\in V\setminus\set{z}$ … spotřebič / stok
 	- $c:E\to [0,+\infty)$ … $c(e)$ je kapacita hrany $e$
-- definice umožňuje mít hrany oběma směry, připouští také smyčky, ty však z hlediska toků v sítí nejsou nijak užitečné
+- definice umožňuje mít hrany oběma směry, připouští také smyčky, ty však z hlediska toků v sítích nejsou nijak užitečné
 - poznámka: ze stoku může vycházet orientovaná hrana, podobně do zdroje může vést hrana
 - tok v síti $(V,E,z,s,c)$ je funkce $f:E\to[0,+\infty)$ splňující
 	- $\forall e\in E:0\leq f(e)\leq c(e)$
