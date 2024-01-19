@@ -146,6 +146,26 @@ U následujících tvrzení se očekává, že je budete umět zformulovat a (ne
 			- $e^{I_n}\geq(n-1)!\implies n\cdot e^{I_n}\geq n!\implies n\cdot e(\frac ne)^n\geq n!$
 		- obrázek zachycuje situaci pro $n=7$
 		- ![odhad faktoriálu pomocí integrálu](prilohy/faktorial.png)
+	- věta: $(\frac nk)^k\leq{n\choose k}\leq(e\cdot\frac nk)^k$
+		- kde ${n\choose k}=\frac{n!}{k!\cdot(n-k)!}$ pro $0\leq k\leq n$
+	- důkaz
+		- dolní odhad
+			- ${n\choose k}=\frac{n\cdot(n-1)\cdot\ldots\cdot(n-k+1)}{k\cdot(k-1)\cdot\ldots\cdot 1}=\frac nk\cdot\frac{n-1}{k-1}\cdot\ldots\cdot\frac{n-k+1}{1}\geq(\frac nk)^k$
+			- neboť $\frac nk\leq\frac{n-1}{k-1}\leq\dots\leq\frac{n-k+1}1$
+		- horní odhad
+			- ${n\choose k}=\frac{\overbrace{n\cdot(n-1)\cdot\ldots\cdot(n-k+1)}^{k}}{k!}\leq\frac{n^k}{(\frac ke)^k}=(\frac{en}k)^k$
+			- používáme $(\frac ne)^n\leq n!$
+	- věta: $\frac{2^{2m}}{2\sqrt{m}}\leq {2m\choose m}\leq {2^{2m}\over\sqrt{2m}}$
+	- důkaz
+		- definujme $P:=\frac{2m\choose m}{2^{2m}}$ a dokažme $\frac1{2\sqrt{m}}\leq P\leq \frac{1}{\sqrt{2m}}$
+		- $P=\frac{2m\choose m}{2^{2m}}=\frac{\frac{(2m)!}{m!\cdot m!}}{\underbrace{2\cdot2\cdot\ldots\cdot2}_{2m}}=\frac{1\cdot2\cdot3\cdot\ldots\cdot 2m}{(2\cdot4\cdot 6\cdot\ldots\cdot 2m)(2\cdot 4\cdot6\cdot\ldots\cdot 2m)}=\frac{1\cdot 3\cdot 5\cdot\ldots\cdot(2m-1)}{2\cdot4\cdot6\cdot\ldots\cdot 2m}$
+		- $P^2=\frac{1\cdot1\cdot3\cdot3\cdot\ldots\cdot(2m-1)\cdot(2m-1)}{2\cdot2\cdot4\cdot4\cdot\ldots\cdot 2m\cdot2m}=1\cdot\frac{1\cdot 3}{2\cdot 2}\cdot\frac{3\cdot 5}{4\cdot 4}\cdot\ldots\cdot\frac{(2m-3)(2m-1)}{(2m-2)(2m-2)}\cdot\frac{2m-1}{2m\cdot 2m}$
+		- používáme postřeh $\forall k\in\mathbb N:\frac{(k-1)(k+1)}{k\cdot k}=\frac{k^2-1}{k^2}\lt 1$
+		- tedy $P^2\lt\frac{2m-1}{2m\cdot 2m}\lt\frac1{2m}$
+		- podobně $P^2=\frac{1\cdot1}{2}\cdot\frac{3\cdot 3}{2\cdot 4}\cdot\ldots\cdot\frac{(2m-1)(2m-1)}{(2m-2)(2m)}\cdot\frac1{2m}$
+		- zjevně $\frac{k\cdot k}{(k-1)(k+1)}\gt 1$
+		- proto $P^2\gt\frac1{4m}$
+		- máme $\frac 1{4m}\leq P^2\leq\frac 1{2m}$, z toho $\frac1{2\sqrt{m}}\leq P\leq \frac{1}{\sqrt{2m}}$
 - Odvození vytvořující funkce pro rekurentně zadanou posloupnost
 	- obecný postup
 		- vezmi rekurenci pro $n\geq n_0$
@@ -170,6 +190,11 @@ U následujících tvrzení se očekává, že je budete umět zformulovat a (ne
 - Zobecněná binomická věta
 	- fakt: pokud se dá posloupnost shora odhadnout nějakou exponenciální funkcí, tak $a_n=\frac{1}{n!} f^{(n)}(0)$
 		- kde $f(x)$ je její vytvořující funkce
+		- „odvození“
+			- $f(x)=a_0+a_1x+a_2x^2+a_3x^3+\dots$
+			- $f'(x)=a_1+2a_2x+3a_3x^2+\dots$
+			- $f''(x)=2a_2+3\cdot 2a_3+\dots$
+			- $f^{(n)}(x)=n!\cdot a_n+\dots$
 	- binomická věta
 		- pro $d\in\mathbb N_0:(1+x)^d=\sum_{n=0}^d{d\choose n}x^n$
 		- tedy $(1+x)^d$ je vytvořující funkcí pro ${d\choose 0},{d\choose1},{d\choose2},\dots,{d\choose d},0,0,0,\dots$
@@ -183,12 +208,21 @@ U následujících tvrzení se očekává, že je budete umět zformulovat a (ne
 		- zjevně
 			- $f'(x)=\delta(1+x)^{\delta-1}$
 			- $f''(x)=\delta(\delta-1)(1+x)^{\delta-2}$
-			- $\quad\vdots$
 			- $f^{(n)}(x)=\delta(\delta-1)\cdot\ldots\cdot(\delta-n+1)(1+x)^{\delta-n}$
-			- $\quad\vdots$
 		- nechť $a_0,a_1,\dots$ je posloupnost s vytvořující funkcí $f(x)$
 		- potom $a_n=\frac{f^{(n)}(0)}{n!}={\delta\choose n}\quad\square$
 - Rozklad racionální funkce na parciální zlomky (bez důkazu) a jeho využití při práci s vyvořujícími funkcemi
+	- modelový příklad: našli jsme $f(x)=\frac{1-2x}{(1-3x)(1-x)}$
+	- chceme znát explicitní vzorec pro $a_n$ (známe rekurentní)
+	- $\frac{1-2x}{(1-3x)(1-x)}=\frac\alpha{1-3x}+\frac\beta{1-x}$
+	- ${\alpha\over1-3x}$ odpovídá posloupnosti $\alpha,3\alpha,9\alpha,\dots,3^n\alpha,\dots$
+	- $\beta\over 1-x$ odpovídá posloupnosti $\beta,\beta,\beta,\dots,\beta,\dots$
+	- tedy $a_n=3^n\alpha+\beta$
+	- $\alpha,\beta$ lze spočítat…
+		- pomocí prvních několika členů posloupnosti
+			- $a_0=1=3^0\alpha+\beta=\alpha+\beta$
+			- $a_1=2=3^1\alpha+\beta=3\alpha+\beta$
+		- rozkladem na parciální zlomky (viz např. [Math Tutor](https://math.fel.cvut.cz/mt/txtd/3/txc3db3i.htm))
 - Odvození vzorečku pro Catalanova čísla, definovaná jako počet binárních zakořeněných stromů
 - Odvození vlastností konečných projektivních rovin: počet bodů, počet přímek, počet bodů v jedné přímce, počet přímek procházejících jedním bodem
 - Duální projektivní rovina je opravdu projektivní rovina
