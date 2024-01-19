@@ -324,7 +324,7 @@ U následujících tvrzení se očekává, že je budete umět zformulovat a (ne
 		- podprostor dimenze 1 má $n-1$ nenulových vektorů
 	- $|X|=\frac{n^3-1}{n-1}=n^2+n+1$
 	- pro každý podprostor $p\subseteq V$ dimenze 2 definuji $\tilde{p}:=\set{x\in X: x\subseteq p}$
-	- $\mathcal P=\set{\tilde p:p\text{ je podprostor V dimenze 2}}$
+	- $\mathcal P=\set{\tilde p\mid p\text{ je podprostor V dimenze 2}}$
 	- $|\mathcal P|=|X|$, protože podprostor dimenze 2 je ortogonálním doplňkem podprostoru dimenze 1 a protože existuje bijekce mezi podprostory a jejich ortogonálními doplňky
 	- intuice: kdyby to bylo v $\mathbb R^3$, tak *body* jsou přímky procházející počátkem a *přímky* jsou roviny procházející počátkem (svazky přímek)
 	- $(X,\mathcal P)$ je projektivní rovina
@@ -336,12 +336,178 @@ U následujících tvrzení se očekává, že je budete umět zformulovat a (ne
 		- A3: lze nalézt 4 nenulové vektory takové, že každé tři z nich jsou lineárně nezávislé
 			- např. $(1,0,0),(0,1,0),(0,0,1),(1,1,1)$
 - Existence maximálního toku v obecné síti (bez důkazu)
+	- fakt: v každé tokové síti existuje maximální tok
+	- poznámka: obecně na přednášce uvažujeme konečné tokové sítě, grafy apod.
+	- idea důkazu
+		- mějme síť, očíslujme hrany (od $1$ do $m$)
+		- tok $f$ reprezentujme jako uspořádanou $m$-tici hodnot
+		- množina všech toků je uzavřená a omezená podmnožina $\mathbb R^m$, je tedy kompaktní
+		- funkce, která toku $f$ přiřadí $w(f)$, je spojitá
+		- víme z analýzy, že spojitá funkce na kompaktní množině nabývá maxima
 - Charakterizace maximálního toku pomocí neexistence zlepšující cesty a pomocí řezu odpovídající kapacity; minimaxová věta o toku a řezu
+	- pozorování: pokud má tok $f$ zlepšující cestu, tak není maximální
+	- důkaz: máme zlepšující cestu pro tok $f$, označme $\varepsilon$ možné zlepšení (je to minimum přes všechny rozdíly od kapacit na dopředných hranách a od nuly na zpětných hranách), přičtením/odečtením $\varepsilon$ dostaneme lepší tok $g$, takže $f$ nemohl být maximální
+	- důkaz, že $w(f)\leq c(R)$
+		- definujme $A:=$ vrcholy $x\in V$ takové, že existuje orientovaná cesta ze $z$ do $x$ nepoužívající hrany $R$
+		- $z\in A$, $s\notin A$, $\text{Out}(A)\subseteq R$
+		- $w(f)=f[\text{Out}(A)]-f[\text{In}(A)]\leq f[\text{Out}(a)]\leq c(\text{Out}(A)) \leq c(R)$
+	- věta: nechť $f$ je tok v síti; potom následující tvrzení ekvivalentní
+		- $f$ je maximální
+		- $f$ nemá zlepšující cestu
+		- existuje řez $R$ takový, že $w(f)=c(R)$
+	- důkaz
+		- $1\implies 2:$ obměnou (viz pozorování)
+		- $3\implies 1:$ obměnou
+			- pro libovolný řez $R'$ a libovolný tok $f'$ platí, že $w(f')\leq c(R')$
+			- kdyby $f$ nebyl maximální, tak existuje $f^+$ tok splňující $w(f^+)\gt w(f)$
+			- potom pro každý řez $R$ platí, že $c(R)\geq w(f^+)\gt w(f)$
+			- tedy neexistuje žádný řez $R$ splňující $c(R)=w(f)$
+		- $2\implies 3$
+			- nechť $f$ je tok, který nemá zlepšující cestu
+			- definujme množinu $A:=\set{x\in V,\,\text{ze }z\text{ do }x\text{ vede nenasycená cesta}}$
+			- zjevně $z\in A,\,s\notin A$
+			- definujme $R:=\text{Out}(A)=\set{uv\in E,\,u\in A,\,v\notin A}$
+			- všimněme si $\forall e\in\text{Out}(A):f(e)=c(e)$
+			- $\forall e'\in\text{In}(A):f(e')=0$
+			- z lemmatu výše víme, že pro $A\subseteq V$, kde $z\in A,\,s\notin A$, platí $w(f)=\underbrace{f[\text{Out}(A)]}_{c(\text{Out}(A))=c(R)}-\underbrace{f[\text{In}(A)]}_{0}=c(R)$
+	- důsledek („Minimaxová věta o toku a řezu“): nechť $f_\max$ je maximální tok a $R_\min$ je minimální řez v $(V,E,z,s,c)$, potom $w(f_\max)=c(R_\min)$
+	- důkaz
+		- $w(f_\max)\leq c(R_\min)$ … víme, viz výše
+		- $w(f_\max)\geq c(R_\min)$ … dle věty $w(f_\max)=c(R)\geq c(R_\min)$
+	- důsledek 2: v síti, kde všechny kapacity jsou celočíselné, Fordův–Fulkersonův algoritmus najde maximální tok, který bude celočíselný (celočíselnost vyvozujeme ze znalosti FF algoritmu)
 - Fordův–Fulkersonův algoritmus, jeho důsledek pro celočíselnost maximálního toku a pro existenci maximálního toku v síti s racionálními kapacitami
+	- algoritmus
+		- iterujeme, dokud existuje zlepšující cesta
+		- spočítáme rezervu celé cesty (minimum přes rezervy hran cesty)
+		- pro každou hranu upravíme tok – v protisměru odečteme co nejvíc, zbytek přičteme po směru
+	- pro celočíselné kapacity vrátí celočíselný tok (protože i rezervy budou celočíselné)
+	- racionální kapacity převedeme na celočíselné
+	- algoritmus se zastaví, protože v takové síti musí existovat řez s konečnou kapacitou a protože se tok v každé iteraci zvětší aspoň o jedna
 - Souvislost mezi velikostí největšího párování a nejmenšího vrcholového pokrytí v obecném grafu
+	- lemma: pokud $M$ je párování a $C$ vrcholové pokrytí v $G=(V,E)$, tak $|M|\leq |C|$
+	- důkaz
+		- každá hrana z $M$ musí být pokrytá vrcholem z $C$
+		- zároveň každý vrchol z $C$ pokryje nejvýš 1 hranu z $M$
 - Kőnigova–Egerváryho věta
+	- věta: v každém **bipartitním** grafu má největší párování stejnou velikost jako nejmenší vrcholové pokrytí
+	- důkaz
+		- nechť $G=(V,E)$ je bipartitní graf s partitami $A,B$
+		- vytvořme tokovou síť $(V\cup\set{z,s},E^+,z,s,c)$
+			- $E^+=\set{zx\mid x\in A}\cup\set{ys\mid y\in B}\cup \set{xy\mid \set{x,y}\in E\land x\in A\land y\in B}$
+			- pro $x\in A$, $y\in B$
+				- $c(zx)=c(ys)=1$
+				- $c(xy)=|A|+|B|+1$ (prakticky nekonečno)
+		- nechť $C_\min$ je nejmenší vrcholové pokrytí v $G$, $M_\max$ největší párování v $G$
+			- jistě $|M_\max|\leq |C_\min|$
+		- nechť $f$ je maximální tok v té síti a $R$ minimální řez
+			- dle minimaxové věty $w(f)=c(R)$
+			- BÚNO $f$ má celočíselné hodnoty
+		- definujme $M_f:=\set{\set{x,y}\in E:f(xy)\gt 0}$
+			- jistě $M_f$ párování v $G$, navíc $|M_f|=w(f)$
+		- definujme $C_R:=\set{x\in A:zx\in R}\cup\set{y\in B:ys\in R}$
+			- pozorování: $R$ neobsahuje žádnou hranu z $A$ do $B$
+			- jistě $C_R$ je vrcholové pokrytí $G$
+			- kdyby $C_R$ nebylo pokrytí, tak existuje nepokrytá hrana $\set{x,y}\in E$, potom cesta $z\to x\to y\to s$ je ve sporu s tím, že $R$ je řez
+			- navíc $|C_R|=|R|=c(R)$
+			- máme $|C_\min|\leq |C_R|=c(R)=w(f)=|M_f|\leq |M_\max|\leq |C_\min|$
 - Hallova věta v grafové a hypergrafové verzi
+	- pozorování: v bipartitním grafu s partitami $A,B$ má každé párování velikost nejvýše $|A|$ (i nejvýše $|B|$)
+	- definice: pro graf $G=(V,E)$ a množinu $X\subseteq V$ označím $N(X):=\set{y\in V\setminus X: (\exists x\in X)\set{x,y}\in E}$
+	- Hallova věta, bipartitní grafová verze
+		- nechť $G$ je bipartitní graf s partitami $A,B$, potom $G$ má párování velikosti $|A|$ $\iff\underbrace{\forall X\subseteq A:|N(X)|\geq |X|}_{\text{„Hallova podmínka“}}$
+	- důkaz
+		- $\implies$
+			- pokud existuje párování velikosti $|A|$, tak pro každou $X\subseteq A$ existuje $|X|$ vrcholů spárovaných s $X$, ty patří do $N(X)$, tedy $|N(X)|\geq |X|$
+		- $\impliedby$
+			- nechť $M$ je největší párování v $G$
+			- pro spor nechť $|M|\lt|A|$
+			- dle Kőnigovy–Egerváryho věty existuje pokrytí $C$, kde $|C|=|M|\lt |A|$
+			- $C_A:= C\cap A$
+			- $C_B:=C\cap B$
+			- $X:=A\setminus C_A$
+			- zjistím, že $N(X)\subseteq C_B$
+				- protože nepokryté hrany musí pokrývat vrcholy v $N(X)$
+			- navíc $|X|=|A|-|C_A|\gt |C_B|\geq |N(X)|$
+			- to je spor s Hallovou podmínkou
+	- pozorování: jakmile uvnitř hypergrafu je množina čtyř hyperhran, které ve svém sjednocení mají tři vrcholy, tak nemůžu najít systém různých reprezentantů
+		- platí to obecně pro množinu $k$ hyperhran – když budou mít ve sjednocení méně než $k$ vrcholů, tak nenajdu SRR
+		- implikace platí i obráceně, lze vyslovit jako větu
+	- Hallova věta, hypergrafová verze
+		- hypergraf $H=(V,E)$ má SRR, právě když $\forall F\subseteq E:\left|\bigcup_{e\in F} e\right|\geq |F|$
+	- důkaz
+		- nechť $H=(V,E)$ je hypergraf, nechť $I_H$ je jeho graf incidence
+		- $H$ má SRR $\iff$ $I_H$ má párování velikosti $|E|$
+		- Hallova podmínka pro $H$: $\forall F\subseteq E: \left|\bigcup_{e\in F}e\right|\geq |F|\iff$ bipartitní Hallova podmínka pro $I_H$ a partitu $E$
 - Mengerovy věty pro hranovou a vrcholovou souvislost (Mengerova věta pro hranovou souvislost je též někdy označována jako „Fordova–Fulkersonova věta“)
+	- Mengerova věta, hranová $xy$-verze
+		- pro dva různé vrcholy $x,y$ grafu $G$ platí, že $G$ obsahuje $k$ hranově disjunktních cest z $x$ do $y$ $\iff G$ neobsahuje hranový $xy$-řez velikosti menší než $k$
+	- důkaz
+		-  $\implies:$ pokud máme $k$ hranově disjunktních cest z $x$ do $y$, tak každý hranový $xy$-řez musí obsahovat aspoň jednu hranu z každé té cesty
+		- $\impliedby$
+			- nechť $G$ neobsahuje hranový $xy$-řez velikosti menší než $k$
+			- vyrobíme tokovou síť $(V,\vec E,x,y,c)$, kde $\vec E=\set{uv,vu\mid \set{u,v}\in E},\; \forall e\in \vec E: c(e)=1$
+			- pozorování: v té síti není žádný řez velikosti menší než $k$
+			- tedy v té síti existuje tok velikosti aspoň $k$
+			- nechť $f$ je celočíselný maximální tok
+			- navíc mezi všemi celočíselnými maximální toky volme $f$ tak, aby množina $\underbrace{\set{e\in\vec E:f(e)=1}}_{S(f)}$ byla co nejmenší
+			- pozorování: $S(f)$ neobsahuje žádný orientovaný cyklus jinak spor s minimalitou $S(f)$
+			- pomocí $S(f)$ vyrobím $k$ hranově disjunktních cest z $x$ do $y$ takto:
+				- opakuj $k$-krát
+					- začni v $x$
+					- jdi po hranách z $S(f)$, dokud nedojdeš do $y$
+						- tenhle krok bude konečný, protože $S(f)$ neobsahuje orientované cykly
+					- použité hrany odstraň z $S(f)$
+	- Mengerova věta, globální hranová verze
+		- graf $G$ je hranově $k$-souvislý $\iff$ mezi každými dvěma různými vrcholy existuje $k$ hranově disjunktních cest
+	- důkaz
+		- $G$ je hranově $k$-souvislý
+		- $\iff$ neexistuje hranový řez velikosti menší než $k$
+		- $\iff\forall x,y$ různé: neexistuje hranový $xy$-řez velikosti menší než $k$
+		- $\iff\forall x,y$ různé: existuje $k$ hranově disjunktních cest z $x$ do $y$
+	- definice: dvě cesty v $G$ z $x$ do $y$ jsou navzájem vnitřně vrcholově disjunktní (VVD), pokud nemají žádný společný vrchol kromě $x,y$
+	- Mengerova věta, vrcholová $xy$-verze
+		- nechť $G=(V,E)$ je graf
+		- nechť $x,y$ jsou různé **nesousední** vrcholy
+		- nechť $k\in\mathbb N$
+		- potom $G$ obsahuje $k$ navzájem VVD cest z $x$ do $y\iff G$ neobsahuje vrcholový $xy$-řez velikosti $\lt k$
+	- důkaz
+		- $\implies$ zřejmá
+		- $\impliedby$
+			- nechť $G$ nemá vrcholový $xy$-řez velikosti $\lt k$
+			- vyrobíme síť $\mathcal S$ takto
+				- za každý vrchol $u\in V$ dáme do $\mathcal S$ dva vrcholy $u^+,u^-$ a hranu $u^+u^-$ s kapacitou 1
+				- za každou hranu $\set{u,v}\in E$ dáme do $\mathcal S$ dvě orientované hrany $u^-v^+$ a $v^-u^+$ s kapacitami "$\infty$"
+				- zdroj: $x^-$, stok: $y^+$
+			- tvrdím, že $\mathcal S$ nemá řez kapacity $c\lt k$
+				- sporem: nechť takový řez existuje
+				- potom všechny jeho hrany jsou tvaru $u^+u^-$ pro nějaké $u\in V$ a odpovídající vrcholy v $G$ tvoří vrcholový $xy$-řez velikosti $c\lt k$, což je spor
+			- podle minimaxové věty o toku a řezu v $\mathcal S$ existuje tok velikosti $\geq k$, BÚNO je ten tok celočíselný, říkejme mu $f$
+			- z existence takového $f$ plyne, že $\mathcal S$ obsahuje $k$ hranově disjunktních cest z $x^-$ do $y^+$ (viz hranová verze), označme je $\vec P_1,\dots,\vec P_k$
+			- ty cesty $\vec P_1,\dots,\vec P_k$ jsou i vnitřně vrcholově disjunktní, protože každá cesta (orientovaná) z $x^-$ do $y^+$ v $\mathcal S$, která obsahuje vrchol $u^+$ nebo $u^-$ pro nějaké $u\in V\setminus\set{x,y}$, musí obsahovat i hranu $u^+u^-$
+			- když v cestách $\vec P_1,\dots,\vec P_k$ nahradíme každou hranu tvaru $u^+u^-$ jedním vrcholem $u$, tak dostaneme $k$ VVD cest z $x$ do $y$ v $G$
+	- lemma: nechť $G=(V,E)$ je graf s hranou $e=\set{x,y}$; nechť $G^-:=(V,E\setminus\set e)$; potom $k_v(G^-)\geq k_v(G)-1$
+	- důkaz
+		- nechť $A$ je nejmenší vrcholový řez v $G^-$ 
+			- potom $k_v(G^-)=|A|$
+		- chceme $k_v(G)\leq k_v(G^-)+1=|A|+1$
+		- $G^-$ se po odebrání $A$ rozpadne na několik komponent, rozlišme případy:
+			- pokud existuje komponenta (v $G^--A$), která neobsahuje $x$ ani $y$, tak $A$ je vrcholový řez v $G$
+				- tedy $k_v(G)\leq |A|$
+			- jinak má $G^--A$ právě 2 komponenty, jedna obsahuje $x$, druhá $y$, označíme je jako $G^-_x,G^-_y$
+				- pokud BÚNO $G^-_x$ obsahuje ještě nějaký další vrchol $z$, tak $A\cup\set x$ je vrcholový řez v $G$, tedy $k_v(G)\leq|A|+1$
+				- pokud $G_x^-$ ani $G_y^-$ už neobsahují kromě $x$ nebo $y$ už žádný další vrchol, tak $|V|=|A|+2$, tedy $k_v(G)\leq |V|-1=|A|+1$
+	- Mengerova věta, globální vrcholová verze
+		- $G$ je vrcholově $k$-souvislý $\iff$ mezi každými dvěma různými vrcholy $x,y$ existuje $k$ navzájem VVD cest
+	- důkaz
+		- pro $K_n$ věta zjevně platí (jedna cesta je přímá, další vždy přes jiný vrchol, těch je $n-2$)
+		- nechť $G$ není úplný (byť by tahle větev důkazu fungovala i pro $K_n$)
+			- $\impliedby:$ mezi každými dvěma vrchol je $k$ VVD cest $\implies$ G má $\geq k+1$ vrcholů, žádný řez velikosti $\lt k\implies G$ je $k$-souvislý
+			- $\implies:$ nechť $x,y$ jsou různé vrcholy; případy
+				- $\set{x,y}\notin E$ … viz $xy$-verze M. věty
+				- $\set{x,y}\in E:$ nechť $G^-:=(V,E\setminus\set\set {x,y})$
+					- podle lemmatu: $k_v(G^-)\geq k-1$
+					- podle $xy$-verze M. věty pro $G^-$ existuje $k-1$ VVD cest $x\to y$
+					- přidám k nim hranu $e$ a mám $k$ VVD cest $x\to y$
 - Lemma o uších pro 2-souvislé grafy
 - Cayleyho vzorec pro počet stromů na n vrcholech
 - Spernerova věta

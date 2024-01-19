@@ -376,7 +376,7 @@
 - dk:
 	- nechť $G=(V,E)$ je bipartitní graf s partitami $A,B$
 	- vytvořme tokovou síť $(V\cup\set{z,s},E^+,z,s,c)$, kde $E^+=\set{zx\mid x\in A}\cup\set{ys\mid y\in B}\cup \set{xy\mid \set{x,y}\in E\land x\in A\land y\in B}$ (nestačí použít $E$, protože orientujeme hrany z ) a $c(zx)=c(ys)=1$ pro $x\in A,\,y\in B$ a $c(xy)=|A|+|B|+1$ (prakticky nekonečno)
-	- nechť $C_\min$ je nejmenší vrcholové pokrytí v $G$, $M\max$ největší párování v $G$
+	- nechť $C_\min$ je nejmenší vrcholové pokrytí v $G$, $M_\max$ největší párování v $G$
 	- jistě $|M_\max|\leq |C_\min|$
 	- nechť $f$ je maximální tok v té síti a $R$ minimální řez
 	- dle minimaxové věty $w(f)=c(R)$
@@ -396,7 +396,8 @@
 	- $\implies$
 		- pokud existuje párování velikosti $|A|$, tak pro každou $X\subseteq A$ existuje $|X|$ vrcholů spárovaných s $X$, ty patří do $N(X)$, tedy $|N(X)|\geq |X|$
 	- $\impliedby$
-		- nechť $M$ je největší párování v $G$, $|M|\lt|A|$
+		- nechť $M$ je největší párování v $G$
+		- pro spor nechť $|M|\lt|A|$
 		- dle K-E věty: existuje pokrytí $C$, kde $|C|=|M|\lt |A|$
 		- $C_A:= C\cap A$
 		- $C_B:=C\cap B$
