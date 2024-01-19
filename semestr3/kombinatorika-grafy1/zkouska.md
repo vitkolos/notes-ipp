@@ -660,37 +660,105 @@ U následujících tvrzení se očekává, že je budete umět zformulovat a (ne
 	- Ramseyova věta, konečná verze: $(\forall p\in\mathbb N)(\forall b\in\mathbb N)(\forall m\in\mathbb N)(\exists N\in\mathbb N)$ takové, že pro každé $b$-obarvení $K_N^{(p)}$ existuje jednobarevná $m$-prvková podmnožina $[N]$
 	- Ramseyova věta, nekonečná verze: $(\forall p\in\mathbb N)(\forall b\in\mathbb N)$ pro libovolné $b$-obarvení $K_\infty^{(p)}$ existuje nekonečná jednobarevná podmnožina $\mathbb N$
 	- $p=1$
+		- v podstatě barvíme vrcholy
 		- pro dané $b,m$ stačí $N=b(m-1)+1$
 		- princip holubníku
-	- dokážeme, že konečnou verzi lze odvodit z nekonečné
 - Kőnigovo lemma o nekonečné cestě ve stromě, jeho použití při odvození konečné Ramseyovy věty z nekonečné
-	- věta (Kőnigovo lemma): nechť $T$ je strom s nekonečně mnoha vrcholy, který neobsahuje žádný vrchol nekonečného stupně, nechť $x_0$ je libovolný vrchol $T$; potom $T$ obsahuje nekonečnou cestu začínající v $x_0$
+	- Kőnigovo lemma
+		- nechť $T$ je strom s nekonečně mnoha vrcholy, který neobsahuje žádný vrchol nekonečného stupně
+		- nechť $x_0$ je libovolný vrchol $T$
+		- potom $T$ obsahuje nekonečnou cestu začínající v $x_0$
 	- důkaz
 		- zakořeňme $T$ ve vrcholu $x_0$
 		- indukcí definujme posloupnost vrcholů $x_0,x_1,x_2,\dots$ tak, že $x_0,x_1$ tvoří cestu a pro $\forall i\in\mathbb N_0:$ podstrom zakořeněný v $x_i$ má nekonečně mnoho vrcholů
 		- už máme $x_0$
 		- nechť už máme $x_0,x_1,\dots,x_n$, nechť $y_1,y_2,\dots,y_k$ jsou děti $x_n$
 		- aspoň jeden vrchol $y_i$ je kořenem nekonečného podstromu
+			- kdyby byly všechny podstromy konečné, byl by celý strom konečný
 		- tedy definujeme $x_{n+1}:=y_i$
-		- posloupnost $x_0,x_1,x_2,\dots$ tvoí nekonečnou cestu v $T$
-	- tvrzení: z nekonečné verz Ramseyovy věty plyne konečná verze
+		- posloupnost $x_0,x_1,x_2,\dots$ tvoří nekonečnou cestu v $T$
+	- tvrzení: z nekonečné verze Ramseyovy věty plyne konečná verze
 	- důkaz
 		- nechť neplatí konečná Ramseyova věta, tedy $\exists p\;\exists b\;\exists m\;\forall N\;\exists\,b$-obarvení $K_N^{(p)}$ neobsahující jednobarevnou podmnožinu velikosti $m$
 		- řeknu, že $b$-obarvení $\beta$ hypergrafu $K_N^{(p)}$ je záludné, pokud v něm neexistuje jednobarevná podmnožina $[N]$ velikosti $m$
-		- $Z_N$ … množina záludných obarvení $K_N^{(p)}$
+			- $Z_N$ … množina záludných obarvení $K_N^{(p)}$
 		- řeknu, že $b$-obarvení $\gamma\in Z_{N+1}$ rozšiřuje $b$-obarvení $\beta\in Z_N$, pokud pro každou $h\in{[N]\choose p}$ platí $\gamma(h)=\beta(h)$
-		- pozorování: každé $\gamma\in Z_{n+1}$ rozšiřuje právě jedno $\beta\in Z_N$
+			- pozorování: každé $\gamma\in Z_{n+1}$ rozšiřuje právě jedno $\beta\in Z_N$
 		- definujme strom $T$ na vrcholech $Z_1\cup Z_2\cup\dots=\bigcup_{N=1}^\infty Z_N$
-		- $\set{\beta,\gamma}\in E(T)\iff\gamma$ rozšiřuje $\beta$ nebo naopak
-		- v tom stromě existuje nekonečná cesta $\beta_1,\beta_2,\beta_3,\dots$, kde $\beta_N\in Z_N$ (podle Kőnigova lemmatu)
+			- $\set{\beta,\gamma}\in E(T)\iff\gamma$ rozšiřuje $\beta$ nebo naopak
+			- v tom stromě existuje nekonečná cesta $\beta_1,\beta_2,\beta_3,\dots$, kde $\beta_N\in Z_N$ (podle Kőnigova lemmatu)
 		- definujme obarvení $\beta:{\mathbb N\choose p}\to[b]$ takto: nechť máme dánu množinu $h\in{\mathbb N\choose p}$, volme $N\in\mathbb N$ takové, že $h\subseteq [N]$ a definujme $\beta(h):=\beta_N(h)$
 		- tvrdím, že $\beta$ je záludné obarvení pro $K_\infty^{(p)}$
 		- kdyby ne, tak $\beta$ má nějakou jednobarevnou $m$-prvkovou množinu $X\subseteq\mathbb N$
-		- volme $N$ tak, že $X\subseteq[N]$
-		- potom $\beta$ obarví ${X\choose p}$ stejně jako $\beta_N$, ale $\beta_N$ je záludné pro $K_N^{(p)}$, tedy $X$ v něm není jednobarevná
+			- volme $N$ tak, že $X\subseteq[N]$
+			- potom $\beta$ obarví ${X\choose p}$ stejně jako $\beta_N$, ale $\beta_N$ je záludné pro $K_N^{(p)}$, tedy $X$ v něm není jednobarevná
 		- tedy $\beta$ je záludné pro $K_\infty^{(p)}$, a tedy nekonečná Ramseyova věta neplatí
 - Použití generující matice ke kódování
+	- tvrzení: pokud $G$ je generující matice $(n,k,d)$-kódu $C$, tak zobrazení, které vektoru $x=(x_1,x_2,\dots,x_k)\in\mathbb Z_2^k$ přiřadí vektor $xG$ je kódování pro $C$
+	- důkaz
+		- uvažujeme zobrazení $f:\mathbb Z_2^k\to \mathbb Z_2^n$ definované $f(x)=xG$
+		- stačí ověřit
+			1) $\forall x\in\mathbb Z_2^k:f(x)\in C$
+			2) zobrazení $f$ je prosté
+		- ověřme 1)
+			- nechť $r_1,\dots,r_k$ jsou řádky $G$, tedy $r_1,\dots,r_k\in C$
+			- potom pro každé $x=(x_1,\dots,x_k)$ platí $xG=x_1r_1\oplus x_2r_2\oplus\dots\oplus x_kr_k$, což je lineární kombinace prvků $C$, tedy prvek $C$
+		- ověřme 2)
+			- kdyby $\exists x\neq x'\in\mathbb Z_2^k:f(x)=f(x')$
+			- tak $xG=x'G\iff \underbrace{(x-x')}_{\neq 0}G=\underline 0$, což nemůže nastat, protože řádky $G$ jsou lineárně nezávislé
 - Použití kontrolní matice k ověření, zda je slovo kódové
+	- tvrzení: nechť $C$ je lineární $(n,k,d)$-kód s kontrolní maticí $K$, potom $\forall x\in\mathbb Z_2^n:x\in C\iff Kx^T=\underline 0$
+	- důkaz
+		- nechť $r_1,r_2,\dots,r_{n-k}\in\mathbb Z_2^n$ jsou řádky $K$
+		- potom $x\in C\iff x\in(C^\perp)^\perp\iff\forall y\in C^\perp:\braket{x,y}=0$ $\iff \forall i\in[n-k]:\braket{x,r_i}=0\iff Kx^T=\underline 0$
 - Souvislost minimální vzdálenosti kódu se sloupci kontrolní matice
+	- nechť $C$ je lineární $(n,k,d)$-kód s kontrolní maticí $K$
+	- pozorování: pokud $C$ je lineární, tak $d=\Delta(C)=\min_{x\in C\setminus{\set{\underline 0}}} d(x,\underline 0)=\min_{x\in C\setminus\set{\underline 0}}\Vert x\Vert$
+		- pokud $x,y\in C$ jsou takové, že $d(x,y)=\Delta(C)$, tak potom $d(x,y)=d(x\oplus y,\underline 0)$
+	- pozorování: navíc $\Delta(C)$ je nejmenší $t\geq 1$ takové, že v $K$ lze najít $t$ sloupců, jejichž součet je $\underline 0\in\mathbb Z_2^{n-k}$
+		- $x$ řeší rovnici $Kx^T=\underline 0\iff$ $x$ má jedničky na místech sloupců, které se sečtou na nulu
+	- důsledky
+		- $\Delta(C)\geq 2\iff K$ má všechny sloupce nenulové
+		- $\Delta(C)\geq 3\iff K$ má všechny sloupce nenulové a navíc každé dva sloupce různé
 - Konstrukce Hammingových kódů a jednoznačnost jejich dekódování
+	- definice
+		- nechť $r\in\mathbb N,\,t\geq 2$
+		- nechť $K_r$ je matice s $r$ řádky a $2^r-1$ sloupci, jejíž sloupce jsou nenulové a různé
+		- nechť $H_r$ je kód s kontrolní maticí $K_r$
+		- kódům $H_r$ se říká Hammingovy kódy
+	- přirozená konvence: $i$-tý sloupec $K_r$ odpovídá binárnímu zápisu čísla $i$ (ale obecně pořadí sloupců pro naše účely není důležité)
+	- pozorování: $H_r$ je lineární $(n,k,d)$-kód, kde $n=2^r-1,\;k=2^r-1-r,\;d=3$
+	- tvrzení: $\forall r\geq 2$, pro $n=2^r-1$, $\forall x\in\mathbb Z_2^n$ existuje právě jedno $y\in H_r$ takové, že $d(x,y)\leq 1$
+	- navíc to $y\in H_r$ lze najít následujícím algoritmem
+		- spočítej $K_rx^T=:s$
+		- pokud $s=\underline 0$, tak $x\in H_r$, tedy $y:=x$
+		- pokud $s\neq\underline 0$, tak nechť $i\in\set{1,\dots,n}$ je takové, ž $i$-tý sloupec $K_r$ je roven $s$
+			- potom nechť $y$ je vektor, který vznikne z $x$ změnou $i$-tého bitu
+	- důkaz přeskočíme
+	- Hammingovy kódy umí opravit jednu chybu, jsou mnohem úspornější než trojnásobné opakování
 - Singletonův, Hammingův a Gilbertův–Varshamovův odhad na parametry kódů
+	- Singletonův odhad: pokud existuje $(n,k,d)$-kód $C$, tak $k+d\leq n+1$
+	- důkaz
+		- stručně: $d$ označuje počet bitů, ve kterých se dvě různá slova liší, takže když jich smažeme $d-1$, tak se pořád budou lišit
+		- nechť $C$ je $(n,k,d)$-kód
+		- definujme funkci $\psi:\mathbb Z_2^n\to\mathbb Z_2^{n-d+1}$
+		- $\psi(x_1,\dots,x_n)=(x_1,\dots,x_{n-d+1})$
+		- pro $x,y\in C$, $x\neq y$, tak $\psi(x)\neq\psi(y)$
+		- tedy $|C|\leq 2^{n-d+1}$
+		- tedy $k\leq n-d+1$, tj. $k+d\leq n+1$
+	- značení: $B(x,t):=\set{y\in\mathbb Z_2^n:d(x,y)\leq t}$, $V(t):=|B(x,t)|={n\choose 0}+{n\choose1}+{n\choose2}+\dots+{n\choose t}$
+		- ${n\choose k}$ … počet vektorů, které se od $x$ liší v $k$ bitech
+	- Hammingův odhad: pokud existuje $(n,k,d)$-kód $C$, tak $|C|\leq\frac{2^n}{V(\lfloor\frac{d-1}2\rfloor)}$
+	- důkaz
+		- pro $x,y\in C$, $x\neq y:$ $B(x,\lfloor\frac{d-1}2\rfloor)\cap B(y,\lfloor\frac{d-1}2\rfloor)=\emptyset$
+		- jedna koule pokryje $V(\lfloor\frac{d-1}2\rfloor)$
+		- všechny koule dohromady pokryjí $|C|\cdot V(\lfloor\frac{d-1}2\rfloor)$
+		- nemůžou toho pokrýt víc, než tam toho je, proto $|C|\cdot V(\lfloor\frac{d-1}2\rfloor)\leq 2^n$
+	- Gilbert-Varshamovův odhad: $\forall n,d$, přičemž $d\lt n$, existuje kód $C$ taková, že $|C|\geq\frac{2^n}{V(d-1)}$
+	- důkaz
+		- hledám $C$ hladově
+			- dám do $C$ nějaký vektor
+			- všechny vektory, které jsou od něj do vzdálenosti $d-1$ nesmím použít
+			- tak pokračuju dál
+		- v každém kroku nejvýš $V(d-1)$ vektorů eliminuju
+		- vždycky zvládnu vybrat dohromady aspoň $\frac{2^n}{V(d-1)}$ vektorů
