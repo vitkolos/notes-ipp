@@ -617,7 +617,7 @@
 - Ramseyova věta, grafová verze: $\forall k\in\mathbb N\;\forall\ell\in\mathbb N\;\exists N\in\mathbb N$ takové, že $\forall$ graf $G$ na $N$ vrcholech obsahuje kliku velikosti $k$ nebo nezávislou množinu velikosti $\ell$
 - označme $R(k,\ell)$ nejmeší $N$, pro které platí závěr té věty
 - už víme: $R(3,3)\leq 6$
-- pozorování: $R(3,3)=5$, protože $C_5$ neobsahuje ani kliku, ani nezávislou množinu velikosti 3
+- pozorování: $R(3,3)=6$, protože $C_5$ neobsahuje ani kliku, ani nezávislou množinu velikosti 3
 - $R(k,\ell)$ se nazývá Ramseyovo číslo
 - důkaz indukcí podle $k+\ell$
 	- pozorování: $R(k,1)=1=R(1,\ell)$
