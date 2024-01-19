@@ -509,11 +509,145 @@ U následujících tvrzení se očekává, že je budete umět zformulovat a (ne
 					- podle $xy$-verze M. věty pro $G^-$ existuje $k-1$ VVD cest $x\to y$
 					- přidám k nim hranu $e$ a mám $k$ VVD cest $x\to y$
 - Lemma o uších pro 2-souvislé grafy
-- Cayleyho vzorec pro počet stromů na n vrcholech
+	- konvence: „$k$-souvislý graf“ znamená „vrcholově $k$-souvislý“
+	- definice: přidání ucha ke grafu $G=(V,E)$ je tato operace
+		- zvol dva různé vrcholy $x,y\in V$
+		- pro $d\geq 0$ přidej vrcholy $z_1,z_2,\dots,z_d$
+		- přidej hrany cesty $xz_1z_2\dots z_dy$
+	- věta: graf $G$ je 2-souvislý $\iff G$ se dá vyrobit z kružnice pomocí přidávání uší
+	- důkaz
+		- $\impliedby$ kružnice je 2-souvislá a přidání ucha nevytvoří řez velikosti $\leq 1$
+		- $\implies$
+			- nechť $G=(V,E)$ je 2-souvislý, nechť $C$ je libovolná kružnice v $G$, nechť $G_\max=(V_\max,E_\max)$ je největší podgraf $G$, který se dá vyrobit přidáváním uší k $C$
+			- tvrdíme, že $G_\max=G$
+			- kdyby ne:
+				- $V_\max=V,\,E_\max\subsetneq E:$ spor s maximalitou $G_\max$, protože přidání hrany je přidání ucha
+				- $V_\max\subsetneq V:$
+					- $G$ je souvislý, tak $\exists e=\set{xy}\in E$ taková, že $x\in V_\max$ a $y\notin V_\max$
+					- $G-x$ je souvislý, protože $G$ je 2-souvislý
+					- takže bude existovat ještě další cesta do $V_\max$
+					- tato cesta + hrana $xy$ = další ucho
+					- opět spor s maximalitou $G_\max$
+- Cayleyho vzorec pro počet stromů na $n$ vrcholech
+	- věta: $s_n=n^{n-2}$
+		- $s_n$ … počet stromů na množině vrcholů $[n]\coloneqq\set{1,2,\dots,n}$
+	- důkaz
+		- nebudu počítat stromy, ale kořenové stromy
+			- definice: kořenový strom je strom, ve kterém se jeden vrchol určil jako kořen a všechny hrany se zorientovaly směrem ke kořeni
+			- $k_n:=$ počet kořenových stromů
+			- pozorování: $k_n=n\cdot s_n$
+			- pozorování: pokud ve stromě zorientuji hrany tak, aby z každého vrcholu odcházela nejvýš jedna hrana, tak potom existuje právě jeden vrchol („kořen“), z něhož žádná hrana neodchází, a navíc všechny hrany jsou orientované směrem ke kořeni
+		- definice: povykos (postup vytváření kořenového stromu) je posloupnost $n-1$ orientovaných hran $(e_1,e_2,\dots,e_{n-1})$ na vrcholech $[n]$ taková, že $([n],\set{e_1,\dots,e_{n-1}})$ je kořenový strom
+			- $p_n:=$ počet povykosů
+			- pozorování: $p_n=(n-1)!\cdot k_n$
+		- pozorování (pravidla): posloupnost orientovaných hran $(e_1,e_2,\dots,e_{n-1})$ je povykos $\iff\forall k\in[n-1]:$
+			- hrana $e_k$ spojuje vrcholy z různých komponent grafu tvořeného hranami $e_1,\dots,e_{k-1}$
+			- hrana $e_k$ vychází z vrcholu, z něhož nevychází žádná z hran $e_1,\dots,e_{k-1}$
+		- chci vyrobit povykos $(e_1,\dots,e_{n-1})$
+			- mám $n\cdot (n-1)$ možností, jak zvolit $e_1$
+				- vybírám dva vrcholy, mezi kterými povedu hranu
+			- mám $n\cdot (n-2)$ možností, jak zvolit $e_2$, když už znám $e_1$
+				- mám $n$ možností, jak zvolit konec hrany
+				- začátek hrany musí být v jiné komponentě než konec
+				- je tam $n-2$ komponent, které můžu zvolit (dohromady je komponent $n-1$, z toho jednu zvolit nemůžu)
+				- v každé komponentě je „kořen komponenty“ (vrchol, z nějž žádná hrana nevychází)
+				- hrana musí nutně začínat v „kořeni komponenty“ (podle druhého pravidla)
+				- tedy mám $n-2$ možností, jak zvolit začátek hrany
+			- pokud už jsem vybral $e_1,\dots,e_{k-1}$ v souladu s oběma pravidly, tak mám $n\cdot (n-k)$ možností, jak vybrat $e_k$
+				- $n$ … vyberu konec $e_k$
+				- $n-k$ … vyberu začátek v kořeni nějaké komponenty neobsahující konec $e_k$
+				- $p_n=n\cdot(n-1)\cdot n\cdot(n-2)\cdot\ldots\cdot n\cdot 1=$
+				- $=\prod_{k=1}^{n-1}n(n-k)=n^{n-1}(n-1)!$
+				- $k_n=\frac{p_n}{(n-1!)}=n^{n-1}$
+				- $s_n=\frac{k_n}{n}=n^{n-2}$
 - Spernerova věta
-- Počet hran v grafu bez C4
+	- značení
+		- $\mathcal P([n])$ … množina všech podmnožin množiny $[n]$
+		- ${[n]\choose k}$ … množina všech $k$-prvkových podmnožin $[n]$
+	- definice: antiřetězec v $\mathcal P([n])$ je množina $\mathcal A\subseteq\mathcal P([n])$ taková, že $\forall M,M'\in\mathcal A:M\neq M'\implies M\not\subseteq M'\land M'\not\subseteq M$
+	- věta: největší antiřetězec v $\mathcal P([n])$ má velikost ${n\choose\lfloor n/2\rfloor}={n\choose\lceil n/2\rceil}$
+	- důkaz
+		- antiřetězec velikosti ${n\choose\lfloor n/2\rfloor}$ je např. ${[n]\choose\lfloor n/2\rfloor}$
+		- dokažme, že neexistuje větší antiřetězec
+			- nechť $\mathcal A$ je aniřetězec, označme $\mathcal A=\set{A_1,A_2,\dots,A_k}$, kde $k=|\mathcal A|$, chceme $k\leq{n\choose\lfloor n/2\rfloor}$
+			- definice: nasycený řetězec v $\mathcal P([n])$ je posloupnost $M_0,M_1,\dots,M_n\subseteq[n]$, kde $M_0\subseteq M_1\subseteq\dots\subseteq M_n\subseteq [n]$ a $|M_i|=i$
+			- v $\mathcal P([n])$ existuje $n!$ nasycených řetězců
+				- idea: začínám s prázdnou množinou, postupně do ní přidávám prvky (mám $n-i+1$ možností, jak do ní přidat $i$-tý prvek)
+			- každý nasycený řetězec obsahuje nejvýš jednu množinu $\mathcal A$
+			- počítejme dvěma způsoby dvojice $(A,\mathcal R)$, kde $A\in\mathcal A$, $\mathcal R$ je nasycený řetězec, $A\in\mathcal R$
+				- první způsob: dvojic je $\leq n!$
+				- druhý způsob: pro $A\in\mathcal A$ mám $|A|!\cdot(n-|A|)!$ nasycených řetězců obsahujících $A$
+					- mám množinu $A$
+					- mám $|A|$ možností, který prvek z ní odeberu
+					- postupně odebírám prvky, až se dostanu k prázdné množině → $|A|!$ možností
+					- podobně $(n-|A|)!$ možností, jak dotvořit řetězec přidáváním prvků
+				- $n!\geq\sum_{A\in\mathcal A}|A|!\cdot(n-|A|)!$
+				- $\implies1\geq\sum_{A\in\mathcal A}\frac{|A|!\cdot(n-|A|)!}{n!}=\sum_{A\in\mathcal A}\frac1{n\choose|A|}\geq\sum_{A\in\mathcal A}\frac1{n\choose\lfloor n/2\rfloor}=|\mathcal A|\cdot\frac1{n\choose\lfloor n/2\rfloor}$
+					- ze všech kombinačních čísel $n\choose k$ je největší $n\choose n/2$, takže ho můžu všude nahradit a hodnota výrazu se tím zmenší
+				- $\implies{n\choose\lfloor n/2\rfloor}\geq |\mathcal A|$
+- Počet hran v grafu bez $C_4$
+	- věta
+		- nechť $G=(V,E)$ je graf na $n$ vrcholech, který neobsahuje $C_4$ jako podgraf
+		- potom $|E|\leq O(n^{3/2})$
+	- důkaz
+		- nechť $G=(V,E)$ je graf bez $C_4$, $|V|=n$
+		- označme $H$ počet dvojic $(x,\set{y,z})$ takových, že
+			- $x,y,z\in V$
+			- $y\neq z$
+			- $x$ je soused $y$ i $z$
+		- poznámka: ${n\choose 2}=\frac{n(n-1)}2$
+		- počítejme $H$ dvěma způsoby
+			- pro dané $x\in V$ mám přesně ${\deg x\choose 2}$ možností, jak zvolit $y$ a $z$
+				- tedy $H=\sum_{x\in V}{\deg x\choose 2}\geq\sum_{x\in V}\frac{(\deg x-1)^2}2$
+			- pro dané $\set{y,z}\in{V\choose 2}$ existuje nejvýše jeden společný soused $x\in V$, jinak by $G$ obsahoval $C_4$
+				- tedy $H\leq{n\choose 2}\leq\frac{n^2}2$
+		- tedy $\frac{n^2}2\geq \sum_{x\in V}\frac{(\deg x-1)^2}2$
+		- z toho plyne, že $n^2\geq \sum_{x\in V}{(\deg x-1)^2}$
+		- chci $|E|=\frac 12\sum_{x\in V}\deg x\leq O(n^{3/2})$
+		- uvažme funkci $f(x)=(x-1)^2$, ta je konvexní, tedy pro každé $x_1,x_2,\dots,x_n\in\mathbb R: f(\frac{x_1+\dots+x_n}n)\leq\frac{f(x_1)+f(x_2)+\dots+f(x_n)}n$
+		- tedy $n\geq\frac{\sum_{x\in V}{(\deg x-1)^2}}n\geq\left(\frac{\sum_{x\in V}\deg x}n-1\right)^2$
+		- $\sqrt n\geq\frac{2|E|}n-1$
+			- počet hran je polovina ze součtu stupňů
+		- $n^{3/2}\geq 2|E|-n$
+		- $\frac12(n^{3/2}+n)\geq|E|\quad\square$
 - Počítání dvěma způsoby (znalost obecného postupu)
+	- typicky známe vlastnosti množin $A$ a $B$
+	- snažíme se vyjádřit hledanou veličinu pomocí dvojic, kde jeden prvek je z $A$ a druhý z $B$
+	- alternativní pohled pomocí bipartitního grafu a partitami $A$ a $B$
+		- zjistíme, že $A$ vysílá určitý počet hran a že $B$ může přijmout určitý počet hran
 - Ramseyova věta v grafové verzi a ve verzi pro barvení hran úplného grafu (i s více než dvěma barvami)
+	- Ramseyova věta, grafová verze: $(\forall k\in\mathbb N)(\forall\ell\in\mathbb N)(\exists N\in\mathbb N)$ takové, že každý graf na $N$ vrcholech obsahuje kliku velikosti $k$ nebo nezávislou množinu velikosti $\ell$
+		- $R(k,\ell)$ … Ramseyovo číslo (nejmenší $N$, pro které platí závěr věty)
+	- důkaz indukcí podle $k+\ell$
+		- pozorování: $R(k,1)=1=R(1,\ell)$
+		- pozorování: $R(k,2)=k=R(2,k)$
+		- mějme $k\geq 3,\,l\geq 3$, definujme $N:=R(k,\ell-1)+R(k-1,\ell)$
+		- nechť máme dán graf $G$ na $N$ vrcholech
+		- nechť $x$ je libovolný vrchol $G$
+		- označme $S$ množinu sousedů vrcholu $x$ a $T=V\setminus (S\cup\set{x})$
+		- protože $|S|+|T|=N-1=R(k,\ell-1)+R(k-1,\ell)-1$, tak platí buď $|S|\geq R(k-1,\ell)$, nebo $|T|\geq R(k,\ell-1)$
+		- předpokládejme, že $|S|\geq R(k-1,\ell)$, označme $G_S$ podgraf $G$ indukovaý $S$
+		- tedy $G_S$ obsahuje kliku velikosti $k-1$ nebo nezávislou množinu velikosti $\ell$
+		- pokud $G_S$ obsahuje nezávislou množinu velikosti $\ell$, tak i $G$ ji obsahuje, hotovo
+		- pokud $G_S$ obsahuje kliku velikosti $k-1$, tak ta klika spolu s $x$ tvoří kliku velikosti $k$ v $G$, hotovo
+		- případ $|T|\geq R(k,\ell-1)$ je analogický
+		- $V(G)=S\cup T\cup\set{x}$
+	- důsledek (symetrická verze Ramseyovy věty): $\forall m\;\exists N\;\forall G$ na $N$ vrcholech má kliku nebo nezávislou množinu velikosti $m$
+	- ekvivalentní 2-barevná verze Ramseyovy věty: $\forall m\;\exists N\;\forall$obarvení hran $K_N$ červeně a modře existuje jednobarevná klika velikosti $m$
+	- věta (vícebarevná verze Ramseyovy věty): $\forall b\in\mathbb N\;\forall m\in\mathbb N\;\exists N\in\mathbb N\;\forall$obarvení hran $K_N$ pomocí $b$ barev existuje množina $m$ vrcholů taková, že všechny hrany mezi nimi mají stejnou barvu
+		- $R^*_b(m)$ … nejmenší $N$ s touto vlastností
+	- připomenutí: $R(k,\ell):=$ nejmenší $N$ takové, že každé obarvení hran $K_n$ červeně a modře obsahuje modrou kliku velikosti $k$ nebo červenou kliku velikosti $\ell$
+	- $R^*_2(m)=R(m,m)$
+	- důkaz
+		- postupujme indukcí podle $b$
+		- pro $b=1: R_1^*(m)=m$
+		- pro $b=2:R^*_2(m)=R(m,m)$
+		- nechť $b\gt 2$
+			- nechť $N=R(m,R_{b-1}^*(m))$
+			- mějme obarvení $K_N$ pomocí $b$ barev
+			- nechť ty barvy jsou 1) modrá a 2) $b-1$ odstínů červené
+			- Ramseyova věta pro 2 barvy říká, že v tom obarvení buď existuje modrá klika velikosti $m$ (jsem hotov), nebo existuje klika $X$ velikosti $R^*_{b-1}(m)$ taková, že všechny barvy hran mezi vrcholy $X$ jsou odstíny červené
+			- $X$ indukuje úplný graf na $R^*_{b-1}$, jehož hrany jsou obarveny pomocí $b-1$ barev, tedy v něm je jednobarevná klika velikosti $m$ $\square$
 - Ramseyova věta pro hypergrafy v konečné a nekonečné verzi (bez důkazu)
 - Kőnigovo lemma o nekonečné cestě ve stromě, jeho použití při odvození konečné Ramseyovy věty z nekonečné
 - Použití generující matice ke kódování

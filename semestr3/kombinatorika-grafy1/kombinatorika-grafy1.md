@@ -554,7 +554,7 @@
 ## Počítání dvěma způsoby
 
 - pozorování: když $G=(V,E)$ je bipartitní graf s partitami $A,B$, tak $|E|=\sum_{x\in A}\deg(x)=\sum_{y\in B}\deg(y)$
-- příklad: fakulta má 1000 studujících, 50 předmětů, každý studující má zapsáno $\geq 10$ předmětů; dokažte, že existuje předmě, který má zapsáno $\geq 200$ lidí
+- příklad: fakulta má 1000 studujících, 50 předmětů, každý studující má zapsáno $\geq 10$ předmětů; dokažte, že existuje předmět, který má zapsáno $\geq 200$ lidí
 	- řešení: sporem, nechť každý předmět má zapsáno $\lt 200$ lidí
 	- počítejme počet dvojic $(x,y)$, kde $x$ je studující, $y$ je předmět, $x$ má zapsán předmět $y$, dvěma způsoby
 		- první způsob: těch dvojic je $\geq 1000\cdot 10$
@@ -571,6 +571,8 @@
 		- nechť $\mathcal A$ je aniřetězec, označme $\mathcal A=\set{A_1,A_2,\dots,A_k}$, kde $k=|\mathcal A|$, chceme $k\leq{n\choose\lfloor n/2\rfloor}$
 		- df: nasycený řetězec v $\mathcal P([n])$ je posloupnost $M_0,M_1,\dots,M_n\subseteq[n]$, kde $M_0\subseteq M_1\subseteq\dots\subseteq M_n\subseteq [n]$ a $|M_i|=i$
 		- máme $n!$ nasycených řetězců v $\mathcal P([n])$
+			- začínám s prázdnou množinou, postupně do ní přidávám prvky
+			- mám $n-i+1$ možností, jak do ní přidat $i$-tý prvek
 		- každý nasycený řetězec obsahuje nejvýš jednu množinu $\mathcal A$
 		- počítejme dvěma způsoby dvojice $(A,\mathcal R)$, kde $A\in\mathcal A$, $\mathcal R$ je nasycený řetězec, $A\in\mathcal R$
 			- první způsob: dvojic je $\leq n!$
@@ -634,7 +636,6 @@
 - důsledek (symetrická verze Ramseyovy věty): $\forall m\;\exists N\;\forall G$ na $N$ vrcholech má kliku nebo nezávislou množinu velikosti $m$
 - ekvivalentní 2-barevná verze Ramseyovy věty: $\forall m\;\exists N\;\forall$obarvení hran $K_N$ červeně a modře existuje jednobarevná klika velikosti $m$
 - věta (vícebarevná verze Ramseyovy věty): $\forall b\in\mathbb N\;\forall m\in\mathbb N\;\exists N\in\mathbb N\;\forall$obarvení hran $K_N$ pomocí $b$ barev existuje množina $m$ vrcholů taková, že všechny hrany mezi nimi mají stejnou barvu
-- věta: $\forall b\in\mathbb N\;\forall m\in\mathbb N\;\exists N\in\mathbb N\;\forall$obarvení hran $K_N$ pomocí $b$ barev existuje jednobarevná klika velikosti $m$
 	- $R^*_b(m)$ … nejmenší $N$ s touto vlastností
 - připomenutí: $R(k,\ell):=$ nejmenší $N$ takové, že každé obarvení hran $K_n$ červeně a modře obsahuje modrou kliku velikosti $k$ nebo červenou kliku velikosti $\ell$
 - $R^*_2(m)=R(m,m)$
