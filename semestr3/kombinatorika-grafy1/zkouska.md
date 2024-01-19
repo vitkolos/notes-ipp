@@ -210,7 +210,7 @@ U následujících tvrzení se očekává, že je budete umět zformulovat a (ne
 			- $f''(x)=\delta(\delta-1)(1+x)^{\delta-2}$
 			- $f^{(n)}(x)=\delta(\delta-1)\cdot\ldots\cdot(\delta-n+1)(1+x)^{\delta-n}$
 		- nechť $a_0,a_1,\dots$ je posloupnost s vytvořující funkcí $f(x)$
-		- potom $a_n=\frac{f^{(n)}(0)}{n!}={\delta\choose n}\quad\square$
+		- potom $a_n=\frac{f^{(n)}(0)}{n!}={\delta\choose n}$
 - Rozklad racionální funkce na parciální zlomky (bez důkazu) a jeho využití při práci s vyvořujícími funkcemi
 	- modelový příklad: našli jsme $f(x)=\frac{1-2x}{(1-3x)(1-x)}$
 	- chceme znát explicitní vzorec pro $a_n$ (známe rekurentní)
@@ -249,6 +249,56 @@ U následujících tvrzení se očekává, že je budete umět zformulovat a (ne
 	- $=(-1)^n\cdot 2^{2n+1}\cdot\frac{\frac12\cdot(-\frac12)\cdot(-\frac32)\cdot\ldots\cdot(-\frac{2n-1}2)}{(n+1)!}=2^n\cdot\frac{1\cdot3\cdot5\cdot\ldots\cdot(2n-1)}{(n+1)!}=$
 	- $=\frac{1\cdot3\cdot5\cdot\ldots\cdot(2n-1)\cdot (2^n\cdot n!)}{(n+1)!\cdot n!}=\frac{(2n)!}{(n+1)!\cdot n!}=\frac1{n+1}{2n\choose n}$
 - Odvození vlastností konečných projektivních rovin: počet bodů, počet přímek, počet bodů v jedné přímce, počet přímek procházejících jedním bodem
+	- tvrzení: v každé KPR mají všechny přímky stejný počet bodů
+	- důkaz: sporem
+		- nechť v KPR $(X,\mathcal P)$ existují přímky $p,q$ takové, že $|p|\lt |q|$
+		- označme $x$ společný bod $p,q$
+		- nechť $p$ obsahuje body $x,y_1,y_2,\dots,y_k$ a $q$ obsahuje body $x,z_1,z_2,\dots,z_l$, kde $k\lt l$
+		- tvrdím, že existuje bod $w\in X$, který nepatří do $p\cup q$: volme $Č$ dle A3
+		- pokud $Č\setminus(p\cup q)\neq\emptyset$, volme $w\in Č\setminus(p\cup q)$
+		- pokud $Č\subseteq p\cup q$, pak $|Č\cap p| = |Č\cap q|=2$, BÚNO $Č=\set{y_1,y_2,z_1,z_2}$
+			- v tom případě zvolíme za $w$ společný bod $\overline{y_1z_1}$ a $\overline{y_2z_2}$
+		- kdyby $w\in p$, tak $w$ je jediný společný bod $p$ a $\overline{y_1z_1}$, a tedy $w=y_1$, ale $w\in\overline{y_2z_2}$, tedy $y_1=w\in\overline{y_2z_2}$, tedy $|Č\cap \overline{y_2z_2}|\geq |\set{y_1,y_2,z_2}|=3$, což je spor s volbou $Č$
+		- uvažme přímky $\overline{w,z_1},\overline{w,z_2},\dots,\overline{w,z_l},\overline{w,x}$, každá z nich protíná $p$, jsou navzájem různé, tedy existuje bod $v\in p$, který je obsažen v aspoň dvou z těch přímek $\overline{wz_1},\dots,\overline{wz_l},\overline{wx}$
+		- spor: $w$ a $v$ mají aspoň 2 společné přímky
+	- lemma: v projektivní rovině $(X,\mathcal P)$ platí $(\forall x\in X)(\exists p\in\mathcal P):x\notin p$
+	- důkaz
+		- volme Č dle A3
+		- volme 3 různé body $a,b,c\in Č\setminus\set x$
+		- tvrdím, že alespoň jedna z přímek $\overline{ab},\overline{ac}$ neobsahuje $x$
+		- jinak by $\set{a,x}\subseteq\overline{ac}\cap\overline{ab}$, což je spor
+	- tvrzení: pro KPR $(X,\mathcal P)$ řádu $n$ platí následující
+		- každý bod patří do právě $n+1$ přímek
+		- $|X|=n^2+n+1$
+		- $|\mathcal P|=n^2+n+1$
+	- důkaz
+		- první bod
+			- volme $x\in X$
+			- dle lemmatu $\exists p\in\mathcal P:x\notin p$
+			- označme $p=\set{y_1,y_2,\dots,y_{n+1}}$
+			- definujme přímky $q_1,q_2,\dots,q_{n+1}$, kde $q_i=\overline{xy_i}$
+			- tvrdíme, že pro $i\neq j$ je $q_i\neq q_j$
+				- kdyby ne, tak $\set{y_i,y_j}\subseteq q_i\cap p$, což je spor
+			- tvrdíme, že $\forall r\in\mathcal P:$ pokud $x\in r$, tak $r\in\set{q_1,\dots,q_{n+1}}$
+			- volme $r\in\mathcal P$ takovou, že $x\in r$, jistě $|r\cap p|=1$, nechť $y_i$ je prvek $r\cap p$, potom $r=\overline{xy_i}=q_i$
+			- tedy bodem $x$ prochází právě $n+1$ přímek
+		- druhý bod
+			- volme $x\in X$, nechť $p_i$ jsou přímky procházející $x$
+			- všimněme si, že každý bod $y\in X\setminus\set{x}$ patří do právě jedné z přímek $p_i$
+			- $|X|=|\set{x}|+|p_1\setminus\set{x}|+|p_2\setminus\set{x}|+\dots+|p_{n+1}\setminus\set{x}|=$
+			- $=1+(n+1)\cdot n=n^2+n+1$
+		- třetí bod
+			- graf incidence – bipartitní graf, nahoře přímky, dole body
+			- každý vrchol dolní partity má stupeň $n+1$
+			- každý vrchol horní partity má stupeň $n+1$
+			- celá dolní partita má $n^2+n+1$ vrcholů
+			- to už stačí
+			- počítání dvěma způsoby
+				- počítáme počet dvojic $(x,p)\in X\times \mathcal P$ takových, že $x\in p$
+					- těch je $|X|\cdot(n+1)=(n^2+n+1)(n+1)$
+					- je jich taky $|\mathcal P|\cdot(n+1)$
+					- tudíž $(n^2+n+1)(n+1)=|\mathcal P|\cdot(n+1)$
+					- proto $|\mathcal P|=(n^2+n+1)$
 - Duální projektivní rovina je opravdu projektivní rovina
 - Konstrukce projektivních rovin z konečných těles
 - Existence maximálního toku v obecné síti (bez důkazu)

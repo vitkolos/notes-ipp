@@ -235,7 +235,7 @@
 	- tvrdím, že alespoň jedna z přímek $\overline{ab},\overline{ac}$ neobsahuje $x$
 	- jinak by $\set{a,x}\subseteq\overline{ac}\cap\overline{ab}$, což je spor
 - tvrzení: pro KPR $(X,\mathcal P)$ řádu $n$ platí následující
-	- každý do patří do právě $n+1$ přímek
+	- každý bod patří do právě $n+1$ přímek
 	- $|X|=n^2+n+1$
 	- $|\mathcal P|=n^2+n+1$
 - důkaz
