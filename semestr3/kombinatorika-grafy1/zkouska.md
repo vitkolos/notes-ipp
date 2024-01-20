@@ -609,7 +609,7 @@ U následujících tvrzení se očekává, že je budete umět zformulovat a (ne
 		- $\sqrt n\geq\frac{2|E|}n-1$
 			- počet hran je polovina ze součtu stupňů
 		- $n^{3/2}\geq 2|E|-n$
-		- $\frac12(n^{3/2}+n)\geq|E|\quad\square$
+		- $\frac12(n^{3/2}+n)\geq|E|$
 - Počítání dvěma způsoby (znalost obecného postupu)
 	- typicky známe vlastnosti množin $A$ a $B$
 	- snažíme se vyjádřit hledanou veličinu pomocí dvojic, kde jeden prvek je z $A$ a druhý z $B$
