@@ -10,7 +10,7 @@ U následujících pojmů byste měli umět zformulovat definici a na jednoduch�
 	- vytvořující funkce posloupnosti $(a_n)_{n=0}^\infty$ reálných čísel je funkce proměnné $x$ definovaná jako součet $f(x)=\sum_{n=0}^\infty a_nx^n$
 - Catalanova čísla
 	- binární strom je zakořeněný strom, jehož každý vnitřní vrchol má 2 potomky, na pořadí potomků záleží
-	- $C_n$ … počet binární stromů s $n$ vnitřními vrcholy
+	- $C_n$ … počet binárních stromů s $n$ vnitřními vrcholy
 	- $(C_n)_{n=0}^\infty$ jsou Catalanova čísla
 	- rekurentní tvar
 		- $C_0=1$
@@ -68,7 +68,7 @@ U následujících pojmů byste měli umět zformulovat definici a na jednoduch�
 	- elementární řez je $E(A,B)$ pro $A\subseteq V,\;B=V\setminus A$
 		- přičemž $z\in A,\;s\in B$
 - minimální řez
-	- minimální řez je řez, který má ze všech řezů nejmenší kapacitu
+	- minimální řez je řez, který má nejmenší kapacitu
 - nenasycená a zlepšující cesta
 	- nenasycená cesta pro $f$ je neorientovaná cesta $x_1e_1x_2e_2\dots x_ke_kx_{k+1}$, kde $\forall i:$ buď $e_i=(x_i,x_{i+1})$ ($e_i$ je dopředná hrana), nebo $e_i=(x_{i+1},x_i)$ ($e_i$ je zpětná hrana) a navíc platí
 		- pro každou dopřednou hranu $e_i$ platí $f(e_i)\lt c(e_i)$
@@ -82,7 +82,7 @@ U následujících pojmů byste měli umět zformulovat definici a na jednoduch�
 	- systém různých reprezentantů (SRR) v hypergrafu $H=(V,E)$ je funkce $r:E\to V$ taková, že
 		- $\forall e\in E: r(e)\in e$
 		- $\forall e,f\in E:e\neq f\implies r(e)\neq r(f)$ … tj. $r$ je prostá
-	- $r(e)$ … „reprezentant hypergrany $e$“
+	- $r(e)$ … „reprezentant hyperhrany $e$“
 	- analogie s předsedy spolků
 - hranový a vrcholový řez v grafu
 	- $F\subseteq E$ je hranový řez v $G$, pokud $G-F$ je nesouvislý
@@ -211,7 +211,7 @@ U následujících tvrzení se očekává, že je budete umět zformulovat a (ne
 			- $f^{(n)}(x)=\delta(\delta-1)\cdot\ldots\cdot(\delta-n+1)(1+x)^{\delta-n}$
 		- nechť $a_0,a_1,\dots$ je posloupnost s vytvořující funkcí $f(x)$
 		- potom $a_n=\frac{f^{(n)}(0)}{n!}={\delta\choose n}$
-- Rozklad racionální funkce na parciální zlomky (bez důkazu) a jeho využití při práci s vyvořujícími funkcemi
+- Rozklad racionální funkce na parciální zlomky (bez důkazu) a jeho využití při práci s vytvořujícími funkcemi
 	- modelový příklad: našli jsme $f(x)=\frac{1-2x}{(1-3x)(1-x)}$
 	- chceme znát explicitní vzorec pro $a_n$ (známe rekurentní)
 	- $\frac{1-2x}{(1-3x)(1-x)}=\frac\alpha{1-3x}+\frac\beta{1-x}$
@@ -318,7 +318,7 @@ U následujících tvrzení se očekává, že je budete umět zformulovat a (ne
 - Konstrukce projektivních rovin z konečných těles
 	- nechť $T$ je konečné těleso s $n$ prvky (tedy $n$ musí být kladná celá mocnina prvočísla)
 	- uvažujme vektorový prostor $V=T^3=\set{(x,y,z):x,y,z\in T}$, $|V|=n^3$
-	- nechť $X$ je mmnožina podprostorů dimenze 1 ve $V$
+	- nechť $X$ je množina podprostorů dimenze 1 ve $V$
 	- $|X|=\frac{n^3-1}{n-1}$
 		- protože máme $n^3-1$ nenulových vektorů, každý patří do jednoho podprostoru dimenze 1
 		- podprostor dimenze 1 má $n-1$ nenulových vektorů
@@ -569,7 +569,7 @@ U následujících tvrzení se očekává, že je budete umět zformulovat a (ne
 	- důkaz
 		- antiřetězec velikosti ${n\choose\lfloor n/2\rfloor}$ je např. ${[n]\choose\lfloor n/2\rfloor}$
 		- dokažme, že neexistuje větší antiřetězec
-			- nechť $\mathcal A$ je aniřetězec, označme $\mathcal A=\set{A_1,A_2,\dots,A_k}$, kde $k=|\mathcal A|$, chceme $k\leq{n\choose\lfloor n/2\rfloor}$
+			- nechť $\mathcal A$ je antiřetězec, označme $\mathcal A=\set{A_1,A_2,\dots,A_k}$, kde $k=|\mathcal A|$, chceme $k\leq{n\choose\lfloor n/2\rfloor}$
 			- definice: nasycený řetězec v $\mathcal P([n])$ je posloupnost $M_0,M_1,\dots,M_n\subseteq[n]$, kde $M_0\subseteq M_1\subseteq\dots\subseteq M_n\subseteq [n]$ a $|M_i|=i$
 			- v $\mathcal P([n])$ existuje $n!$ nasycených řetězců
 				- idea: začínám s prázdnou množinou, postupně do ní přidávám prvky (mám $n-i+1$ možností, jak do ní přidat $i$-tý prvek)
@@ -629,7 +629,7 @@ U následujících tvrzení se očekává, že je budete umět zformulovat a (ne
 		- označme $S$ množinu sousedů vrcholu $x$ a $T=V\setminus (S\cup\set{x})$
 		- protože $|S|+|T|=N-1=R(k,\ell-1)+R(k-1,\ell)-1$, tak platí buď $|S|\geq R(k-1,\ell)$, nebo $|T|\geq R(k,\ell-1)$
 			- právě jedna z nerovností musí platit
-		- předpokládejme, že $|S|\geq R(k-1,\ell)$, označme $G_S$ podgraf $G$ indukovaý $S$
+		- předpokládejme, že $|S|\geq R(k-1,\ell)$, označme $G_S$ podgraf $G$ indukovaný $S$
 		- tedy $G_S$ obsahuje kliku velikosti $k-1$ nebo nezávislou množinu velikosti $\ell$
 		- pokud $G_S$ obsahuje nezávislou množinu velikosti $\ell$, tak i $G$ ji obsahuje, hotovo
 		- pokud $G_S$ obsahuje kliku velikosti $k-1$, tak ta klika spolu s $x$ tvoří kliku velikosti $k$ v $G$, hotovo
