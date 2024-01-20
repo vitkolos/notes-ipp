@@ -64,7 +64,7 @@ U následujících pojmů byste měli umět zformulovat definici a na jednoduch�
 	- kapacita řezu $R$ … $c(R)=\sum_{e\in R}c(e)$
 - elementární řez
 	- $E(A,B)\coloneqq E\cap (A\times B)$
-	- tedy $E(A,B)=\set{uv\in E\mid u\in A\land v\in B}$
+	- tedy $E(A,B)=\set{uv\in E: u\in A\land v\in B}$
 	- elementární řez je $E(A,B)$ pro $A\subseteq V,\;B=V\setminus A$
 		- přičemž $z\in A,\;s\in B$
 - minimální řez
