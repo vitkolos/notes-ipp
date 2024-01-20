@@ -662,6 +662,7 @@ U následujících tvrzení se očekává, že je budete umět zformulovat a (ne
 	- $p=1$
 		- v podstatě barvíme vrcholy
 		- pro dané $b,m$ stačí $N=b(m-1)+1$
+			- při $b(m-1)$ vrcholech lze najít obarvení, kde každá barva barví přesně $m-1$ vrcholů, po přidání dalšího vrcholu už alespoň jedna barva musí barvit $m$ vrcholů
 		- princip holubníku
 - Kőnigovo lemma o nekonečné cestě ve stromě, jeho použití při odvození konečné Ramseyovy věty z nekonečné
 	- Kőnigovo lemma
