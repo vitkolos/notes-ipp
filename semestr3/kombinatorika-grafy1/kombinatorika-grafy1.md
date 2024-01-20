@@ -777,7 +777,7 @@
 - důsledky
 	- $\Delta(C)\geq 2\iff K$ má všechny sloupce nenulové
 	- $\Delta(C)\geq 3\iff K$ má všechny sloupce nenulové a navíc každé dva sloupce různé
-- df: nechť $r\in\mathbb N,\,t\geq 2$, nechť $K_r$ je matice s $r$ řádky a $2^r-1$ sloupci, jejíž sloupce jsou nenulové a různé; nechť $H_r$ je kód s kontrolní maticí $K_r$; kódům $H_r$ se říká Hammingovy kódy
+- df: nechť $r\in\mathbb N,\,r\geq 2$, nechť $K_r$ je matice s $r$ řádky a $2^r-1$ sloupci, jejíž sloupce jsou nenulové a různé; nechť $H_r$ je kód s kontrolní maticí $K_r$; kódům $H_r$ se říká Hammingovy kódy
 - konvence (?): $i$-tý sloupec $K$ odpovídá binárnímu zápisu čísla $i$
 - pozorování: $H_r$ je lineární $(n,k,d)$-kód, kde $n=2^r-1,\;k=2^r-1-r,\;d=3$
 - tvrzení: $\forall r\geq 2$, pro $n=2^r-1$, $\forall x\in\mathbb Z_2^n$; existuje právě jedno $y\in H_r$ takové, že $d(x,y)\leq 1$

@@ -100,7 +100,7 @@ U následujících pojmů byste měli umět zformulovat definici a na jednoduch�
 	- graf je vrcholově $k$-souvislý, pokud má aspoň $k+1$ vrcholů a neobsahuje žádný vrcholový řez velikosti menší než $k$
 - klika a nezávislá množina v grafu
 	- klika v grafu je množina vrcholů taková, že každé dva jsou spojené hranou
-	- nezávislá množina v grafu je množina vrcholů taková, že žádné dvě vrcholy nejsou spojené hranou
+	- nezávislá množina v grafu je množina vrcholů taková, že žádné dva vrcholy nejsou spojené hranou
 - Hammingova vzdálenost a Hammingova váha
 	- slovo $x\in\mathbb Z^n_2$ lze chápat jako řádkový vektor $x=(x_1,x_2,\dots,x_n)$
 	- Hammingova vzdálenost $d(x,y)\coloneqq$ počet $i$ takových, že $x_i\neq y_i$
@@ -123,7 +123,7 @@ U následujících pojmů byste měli umět zformulovat definici a na jednoduch�
 - kontrolní matice lineárního kódu
 	- nechť je $C$ lineární $(n,k,d)$-kód, pak kontrolní matice kódu $C$ je matice, jejíž řádky tvoří bázi $C^\perp$
 - Hammingovy kódy
-	- nechť $r\in\mathbb N,\,t\geq 2$
+	- nechť $r\in\mathbb N,\,r\geq 2$
 	- nechť $K_r$ je matice s $r$ řádky a $2^r-1$ sloupci, jejíž sloupce jsou nenulové a různé
 	- nechť $H_r$ je kód s kontrolní maticí $K_r$
 	- kódům $H_r$ se říká Hammingovy kódy
@@ -722,7 +722,7 @@ U následujících tvrzení se očekává, že je budete umět zformulovat a (ne
 		- $\Delta(C)\geq 3\iff K$ má všechny sloupce nenulové a navíc každé dva sloupce různé
 - Konstrukce Hammingových kódů a jednoznačnost jejich dekódování
 	- definice
-		- nechť $r\in\mathbb N,\,t\geq 2$
+		- nechť $r\in\mathbb N,\,r\geq 2$
 		- nechť $K_r$ je matice s $r$ řádky a $2^r-1$ sloupci, jejíž sloupce jsou nenulové a různé
 		- nechť $H_r$ je kód s kontrolní maticí $K_r$
 		- kódům $H_r$ se říká Hammingovy kódy
