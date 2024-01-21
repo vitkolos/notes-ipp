@@ -504,7 +504,7 @@ U následujících tvrzení se očekává, že je budete umět zformulovat a (ne
 			- $\impliedby:$ mezi každými dvěma vrchol je $k$ VVD cest $\implies$ G má $\geq k+1$ vrcholů, žádný řez velikosti $\lt k\implies G$ je $k$-souvislý
 			- $\implies:$ nechť $x,y$ jsou různé vrcholy; případy
 				- $\set{x,y}\notin E$ … viz $xy$-verze M. věty
-				- $\set{x,y}\in E:$ nechť $G^-:=(V,E\setminus\set\set {x,y})$
+				- $\set{x,y}\in E:$ nechť $G^-:=(V,E\setminus\set{\set{x,y}})$
 					- podle lemmatu: $k_v(G^-)\geq k-1$
 					- podle $xy$-verze M. věty pro $G^-$ existuje $k-1$ VVD cest $x\to y$
 					- přidám k nim hranu $e$ a mám $k$ VVD cest $x\to y$
