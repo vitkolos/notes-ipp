@@ -733,7 +733,7 @@ U následujících tvrzení se očekává, že je budete umět zformulovat a (ne
 	- navíc to $y\in H_r$ lze najít následujícím algoritmem
 		- spočítej $K_rx^T=:s$
 		- pokud $s=\underline 0$, tak $x\in H_r$, tedy $y:=x$
-		- pokud $s\neq\underline 0$, tak nechť $i\in\set{1,\dots,n}$ je takové, ž $i$-tý sloupec $K_r$ je roven $s$
+		- pokud $s\neq\underline 0$, tak nechť $i\in\set{1,\dots,n}$ je takové, že $i$-tý sloupec $K_r$ je roven $s$
 			- potom nechť $y$ je vektor, který vznikne z $x$ změnou $i$-tého bitu
 	- důkaz přeskočíme
 	- Hammingovy kódy umí opravit jednu chybu, jsou mnohem úspornější než trojnásobné opakování

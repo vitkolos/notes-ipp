@@ -73,8 +73,10 @@
 - u bezparametrických konstruktorů nemusím psát závorky, takže stačí `new X`
 - primary constructors – v C# 12, fieldy píšu do závorky za `class C`
 	- můžu definovat property vycházející z nějakého fieldu
-	- C# 10 umožňuje u record class automaticky vygenerovat vlastnosti tímto způsobem – u record class (v C# 11) jsou vlastnosti immutable (mají get, init), u record struct jsou vlastnosti mutable (mají get a set)
-	- pro readonly record struct se generují immutable vlastnosti (?)
+	- C# 10 umožňuje u record class automaticky vygenerovat vlastnosti tímto způsobem
+		- u record class (v C# 11) jsou vlastnosti immutable (mají get, init)
+		- u record struct jsou vlastnosti mutable (mají get, set)
+		- u readonly record struct jsou vlastnosti immutable (mají get, init)
 - klíčové slovo record se hodí na vytváření jednoduchých „datonosných“ tříd
 - nullable hodnotové typy – pomocí otazníku, vytvoří se generická struktura Nullable, je tam boolean vlastnost HasValue
 	- lze přetěžovat porovnání, takže někdy může být problém porovnávat s nullem → může se hodit použít operátor `is` nebo `is not`
@@ -84,7 +86,7 @@
 	- proměnná jakoby odkazuje na adresu 0 (což je ale v operačním systému neplatné mapování)
 - runtimu dotnetu se říká CLR (Common Language Runtime)
 - CLR u dereferencí proměnných (vlastností apod.) uvnitř proměnných referenčních typů kontroluje, jestli referenční proměnné nejsou null (tedy např. `x = null; Console.WriteLine(x.y);` vyhodí NullReferenceException)
-- pokud se pokusíme vypsat null, tak Console.WriteLine automaticky vypíše prázdný řetězec a nevolá ToString (kdybychom ToString zavolali ručně, tak to při kontrole – viz výše)
+- pokud se pokusíme vypsat null, tak Console.WriteLine automaticky vypíše prázdný řetězec a nevolá ToString (kdybychom ToString zavolali ručně, tak se vyhodí NullReferenceException)
 - trik s rychlým překomentováním pomocí `/**/` a `/*/`
 - nová sémantika referenčních typů od C# 8
 	- v ReCodExu je vypnutá, ve Visual Studiu je obvykle zapnutá
