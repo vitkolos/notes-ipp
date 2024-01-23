@@ -241,17 +241,17 @@
 	- `static readonly int x2;`
 		- je uložený pouze jednou, ale pracuje se s ním jako s proměnnou (ve strojovém kódu se vykonává load z paměti…)
 	- `const int x3 = 5;`
-		- je to konstanta pro celou třídu, nezabírá to místo, hodnota je uložena přímo v metadatech, překladač optimalizuje počítání s konstantami (takže předem provede některé výpočty)
-		- do takové konstanty lze uložit jen základní hodnotové typy a pro stringy – pokud nám to nestačí, tak musíme použít static readonly
+		- je to konstanta pro celou třídu, nezabírá to místo, hodnota je uložena přímo v metadatech, překladač optimalizuje počítání s konstantami (takže předem provede některé výpočty; této optimalizaci se říká constant folding)
+		- do takové konstanty lze uložit jen základní hodnotové typy a stringy – pokud nám to nestačí, tak musíme použít static readonly
 		- pokud konstanty používáme v knihovnách, tak se může stát, že vydáme novou verzi knihovny, někdo si ji stáhne, ale přitom bude mít starou verzi programu, v níž bude „zakompilovaná“ stará konstanta ze staré verze knihovny
 - class constructor
 	- metoda bez parametrů, volá ji automaticky CLR
 	- zavolá se před prvním použitím toho typu jako takového
 	- není úplně jasné, kdy přesně se zavolá
-	- pokud se daný typ používá a je možné, že jeho class constructor ještě nebyl zavolán, provede se kontrola tohoto zavolání a následně se přípradně zavolá
+	- pokud se daný typ používá a je možné, že jeho class constructor ještě nebyl zavolán, provede se kontrola tohoto zavolání a následně se případně zavolá
 		- může nastat situace, že by se tato kontrola prováděla při každém volání funkce, kterou je ale potřeba volat mnohokrát – v takovém případě může být vhodné této kontrole zabránit např. vytvořením zbytečné (prázdné) instance objektu daného typu někdy na začátku programu
 	- class konstruktor se generuje automaticky, ale dá se napsat ručně – název metody odpovídá názvu třídy, použije se klíčové slovo static, viditelnost se neuvádí
-- každá třída má právě jeden konstruktor, který inicializuje danou instanci – ostatní musí volat nějaký jiný konstruktor pomocí this()
+- i když to vypadá, že se volá víc konstruktorů u dané třídy (typicky pomocí `: this(…)`), tak na úrovni CIL kódu tu instanci inicializuje jenom jeden z těch konstruktorů – ten, který se volá jako první (tedy ten `this(…)`)
 	- dovnitř se automaticky generují inicializace fieldů u objektu
 	- kód ve složených závorkách za this() se provede až po volání tohoto konstruktoru
 	- nejdřív se inicializují fieldy a volají se funkce potřebné k jejich inicializaci → pak se volá this() nebo base() → pak se provádí kód ve složených závorkách
