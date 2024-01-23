@@ -594,7 +594,7 @@
 		- jagged jsou obecně rychlejší (cca 2×)
 			- ale pokud už s každou naindexovanou položkou pole budu provádět nějaký výpočet, tak tam nebude velký rozdíl v rychlosti
 		- obdélníková jsou paměťově úspornější (v určitých situacích), lépe se zapisují
-- poznámka: `default(T)`vrací výchozí hodnotu pro typ T (dá se používat i zkráceně pomocí `default`)
+- poznámka: `default(T)` vrací výchozí hodnotu pro typ T (dá se používat i zkráceně pomocí `default`)
 	- po inicializaci pole jsou všechny hodnoty nastaveny na default
 - všechna pole mají runtimový range check
 	- nedá se z nich vytéct ven
