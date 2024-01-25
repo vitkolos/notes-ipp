@@ -45,11 +45,24 @@ tyto výpisky jsou založeny na [poznámkách Viktora Soukupa, Lukáše Salaka a
 	- epsilonové okolí … $\Omega(x,\varepsilon)=\set{y\mid d(x,y)\lt\varepsilon}$
 	- obecné okolí bodu $U$ bodu $x$ je taková podmnožina, že existuje $\varepsilon\gt0$ takové, že $\Omega(x,\varepsilon)\subseteq U$
 		- nadmnožina okolí je okolí
-		- průnik okolí je okolí
+		- průnik dvou okolí je okolí
 	- $U\subseteq(X,d)$ je otevřená, je-li okolím každého svého bodu
-	- 
-- Uzávěr
-- Spojitost a vzory otevřených a uzavřených podmnožin
+		- $\emptyset$ a $X$ jsou otevřené
+		- sjednocení otevřených množin je otevřené
+		- průnik dvou otevřených množin je otevřený
+	- $V\subseteq(X,d)$ je uzavřená v $(X,d)$, jestliže každá posloupnost $(x_n)_n\subseteq V$ konvergentní v $X$ má $\lim_n x_n\in V$
+	- nejde o dichotomii
+	- tvrzení: $A\subseteq (X,d)$ je uzavřená v $(X,d)$, právě když $X\setminus A$ je otevřená
+		- když $X\setminus A$ není otevřená (má nějaký „problémový bod“ $x$, jehož libovolně malé epsilonové okolí není celé v $X\setminus A$), tak se dá najít posloupnost v $A$ s limitou v $x\notin A$
+		- když $X\setminus A$ je otevřená a kdyby existovala posloupnost v $A$ s limitou v $x\notin A$, tak epsilonové okolí $x$ není v $A$, tedy pro dost velké $n$ se prvky posloupnosti musí dostat mimo $A$, což je spor
+- Definice: Uzávěr
+	- vzdálenost bodu od množiny
+		- $d(x,A)=\inf\set{d(x,a)\mid a\in A}$
+	- uzávěr množiny $A$
+		- $\overline A=\set{x\mid d(x,A)=0}$
+	- uzávěr je množina všech limit konvergentních posloupností v dané množině
+	- uzávěr je uzavřená množina (dokonce nejmenší uzavřená množina obsahující původní množinu)
+- Věta: Spojitost a vzory otevřených a uzavřených podmnožin
 - Topologické pojmy
 - Ekvivalentní a silně ekvivalentní metriky; silně ekvivalentní metriky v $\mathbb E_n$
 - Stejnoměrná spojitost
