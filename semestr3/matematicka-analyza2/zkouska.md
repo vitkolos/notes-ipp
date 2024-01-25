@@ -19,7 +19,7 @@ tyto výpisky jsou založeny na [poznámkách Viktora Soukupa, Lukáše Salaka a
 		- prostor funkcí $(F(a,b),d)$
 			- $F(a,b)$ … množina všech omezených funkcí na intervalu $\braket{a,b}$
 			- $d(f,g)=\sup\Set{|f(x)-g(x)|\mid a\leq x\leq b}$
-- Definice: Podprostor
+- Definice: Podprostor metrického prostoru
 	- mějme $(X,d)$ metrický prostor a podmnožinu $Y\subseteq X$
 	- tato podmnožina tvoří podprostor $(Y,d')$, kde $d'(x,y)=d(x,y)$
 - Definice: Spojité zobrazení, konvergence
@@ -50,7 +50,7 @@ tyto výpisky jsou založeny na [poznámkách Viktora Soukupa, Lukáše Salaka a
 		- $\emptyset$ a $X$ jsou otevřené
 		- sjednocení otevřených množin je otevřené
 		- průnik dvou otevřených množin je otevřený
-	- $V\subseteq(X,d)$ je uzavřená v $(X,d)$, jestliže každá posloupnost $(x_n)_n\subseteq V$ konvergentní v $X$ má $\lim_n x_n\in V$
+	- $A\subseteq(X,d)$ je uzavřená v $(X,d)$, jestliže každá posloupnost $(x_n)_n\subseteq A$ konvergentní v $X$ má $\lim_n x_n\in A$
 	- nejde o dichotomii
 	- tvrzení: $A\subseteq (X,d)$ je uzavřená v $(X,d)$, právě když $X\setminus A$ je otevřená
 		- když $X\setminus A$ není otevřená (má nějaký „problémový bod“ $x$, jehož libovolně malé epsilonové okolí není celé v $X\setminus A$), tak se dá najít posloupnost v $A$ s limitou v $x\notin A$
@@ -63,14 +63,63 @@ tyto výpisky jsou založeny na [poznámkách Viktora Soukupa, Lukáše Salaka a
 	- uzávěr je množina všech limit konvergentních posloupností v dané množině
 	- uzávěr je uzavřená množina (dokonce nejmenší uzavřená množina obsahující původní množinu)
 - Věta: Spojitost a vzory otevřených a uzavřených podmnožin
-- Topologické pojmy
-- Ekvivalentní a silně ekvivalentní metriky; silně ekvivalentní metriky v $\mathbb E_n$
-- Stejnoměrná spojitost
-- Součiny a projekce
+	- věta
+		- mějme metrické prostory $(X_1,d_1),(X_2,d_2)$ a zobrazení $f:X_1\to X_2$
+		- potom jsou následující tvrzení ekvivalentní
+			1. $f$ je spojité
+			2. pro každý bod $x\in X_1$ a každé okolí $V$ bodu $f(x)$ existuje okolí $U$ bodu $x$ takové, že $f[U]\subseteq V$
+			3. pro každou otevřenou $U$ v $X_2$ je vzor $f^{-1}[U]$ otevřený v $X_1$
+			4. pro každou uzavřenou $A$ v $X_2$ je vzor $f^{-1}[A]$ uzavřený v $X_1$
+			5. pro každou $A\subseteq X_1$ je $f[\overline A]\subseteq\overline{f[A]}$
+	- důkaz
+		- $1.\iff2.$
+			- definice spojitosti říká, že ke každému okolí $\Omega(f(x),\varepsilon)$ existuje okolí $\Omega(x,\delta)$ takové, že $f[\Omega(x,\delta)]\subseteq\Omega(f(x),\varepsilon)$
+			- dále rozšíříme na obecné okolí
+		- $2.\implies 3.$
+			- máme otevřenou množinu $V$
+			- máme $x\in f^{-1}[V]$, tedy $f(x)\in V$, kde $V$ je okolí $f(x)$
+			- existuje $U$ okolí $x$ takové, že $f[U]\subseteq V$
+			- $U\subseteq f^{-1}f[U]\subseteq f^{-1}[V]$
+			- takže $f^{-1}[V]$ je okolí $x$
+			- otevřenost plyne z toho, že to platí pro všechny $f(x)\in V$ (respektive $x\in f^{-1}[V]$)
+		- $3.\iff 4.$
+			- vzorové zobrazení $M\mapsto f^{-1}[M]$ zachovává doplňky podmnožin
+		- $4.\implies 5.$
+			- $\overline M\subseteq f^{-1}[\overline{f[M]}]$ (vzor uzávěru je uzavřený)
+			- $f[\overline M]\subseteq\overline{f[M]}$
+		- $5.\implies 2.$
+			- použijeme to, že vzor zachovává doplňky
+- Definice: Topologické pojmy
+	- vzájemně jednoznačné spojité zobrazení $f:(X_1,d_1)\to(X_2,d_2)$ takové, že i inverzní $f^{-1}$ je spojité, se nazývá homeomorfismus a o $X_1,X_2$ mluvíme jako o homeomorfních prostorech
+	- vlastnost, pojem nebo definice je topologická, zachovává-li se při homeomorfismech
+	- příklady topologických vlastností a pojmů: konvergence, otevřenost a uzavřenost, uzávěr, okolí, spojitost (stejnosměrná nikoliv)
+- Definice: Ekvivalentní a silně ekvivalentní metriky; silně ekvivalentní metriky v $\mathbb E_n$
+	- $d_1,d_2$ jsou ekvivalentní, pokud je zobrazení $(X,d_1)\to(X,d_2)$ homeomorfismus
+	- $d_1,d_2$ jsou silně ekvivalentní, existují-li kladné konstanty $\alpha,\beta$ takové, že $\alpha\cdot d_1(x,y)\leq d_2(x,y)\leq\beta\cdot d_1(x,y)$
+	- silně ekvivalentní metriky v $\mathbb E_n$
+		- $d(x,y)=\sqrt{\sum_i(x_i-y_i)^2}$
+		- $\sigma(x,y)=\max_i{|x_i-y_i|}$
+	- důkaz silné ekvivalence $d$ a $\sigma$
+		- triviálně $\sigma\leq d$ … stačí vzít největší sčítanec pod odmocninou
+		- nahrazením všech sčítanců tím největším získáme $d(x,y)\leq\sqrt n\cdot\sigma(x,y)$
+- Definice: Stejnoměrná spojitost
+	- zobrazení $f:(X,d)\to(Y,d')$ je stejnoměrně spojité, pokud…
+		- $(\forall\varepsilon)(\exists\delta)(\forall x)(\forall y):d(x,y)\lt\delta\implies d'(f(x),f(y))\lt\varepsilon$
+	- rozdíl vůči (klasické) spojitosti spočívá v pořadí kvantifikátorů – u spojitosti je to $(\forall x)(\forall y)(\forall\varepsilon)(\exists\delta)$
+	- např. $f(x)=x^2$ je spojitá funkce, ale není stejnoměrně spojitá
+- Věta: Součiny a projekce
+	- pro $(X_i,d_i),\,i=1,\dots,n$ definujme na kartézském součinu $\prod_{i=1}^n X_i$ vzdálenost $d(x,y)=\max_id_i(x_i,y_i)$
+	- takto získaný prostor $(\prod_iX_i,d)=\prod_i(X_i,d_i)$ nazýváme součinem prostorů $(X_i,d_i)$
+	- věta
+		1. $\forall j\in\set{1,\dots,n}$ projekce $p_j:\prod_i(X_i,d_i)\to(X_j,d_j)$, kde $p_j(x)=x_j$, je spojité zobrazení
+		2. jsou-li $f_j:(Y,d')\to(X_j,d_j)$ libovolná spojitá zobrazení, potom jednoznačně určené zobrazení $f:(Y,d')\to\prod_i(X_i,d_i)$ splňující $p_j\circ f=f_j$, totiž zobrazení definované předpisem $f(y)=(f_1(y),\dots,f_n(y))$, je spojité
+	- důkaz
+		1. zjevně $\sigma(x_j,y_j)\leq\sigma((x_1,\dots,x_j,\dots,x_n),(y_1,\dots,y_j,\dots,y_n))$
+		2. plyne z použití zde zadefinované metriky $d(x,y)$
 
 ## Kompaktní prostory
 
-- Definice, podprostory, součiny
+- Definice: Kompaktní prostor, podprostor, součin
 - Kompaktní podprostory $\mathbb E_n$
 - Obraz kompaktního prostoru
 - Maxima a minima spojitých funkcí na kompaktních podmnožinách
