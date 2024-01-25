@@ -482,6 +482,7 @@
 	- nejde to, unboxing konverzi nelze kombinovat s truncation konverzí
 	- vyhodí to runtime exception
 	- musíme napsat obě konverze: `(int)(long)o`
+- pokud strukturu přiřadíme do proměnné typu interface, tak se zaboxuje
 - když potřebujeme hodnotový typ předávat referencí, tak object nedává smysl, vhodnější je použít jednoduchou třídu
 - boxování a unboxing nullable typů funguje tak, jak bychom čekali
 - pointery
