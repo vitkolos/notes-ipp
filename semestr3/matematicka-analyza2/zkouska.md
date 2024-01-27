@@ -212,10 +212,28 @@ tyto výpisky jsou založeny na [poznámkách Viktora Soukupa, Lukáše Salaka a
 	- pro $x\in\mathbb E_n$ definujme $\lVert x\rVert=\max_i|x_i|$
 	- funkce $f$ má totální diferenciál v bodě $x$, existuje-li funkce $\mu$ spojitá v okolí $U$ bodu $o$ taková, že $\mu(o)=0$, a čísla $A_1,\dots,A_n$, pro která $f(a+h)-f(a)=\sum_{k=1}^nA_kh_k+\lVert h\rVert\mu(h)$
 		- pomocí skalárního součinu také $f(a+h)-f(a)=\braket{A|h}+\lVert h\rVert\mu(h)$
-- Věta: Spojité parciální derivace a totální diferenciál
 	- tvrzení: nechť má funkce $f$ totální diferenciál v bodě $a$, potom je spojitá v $a$ a má všechny parciální derivace v $a$ s hodnotami $\frac{\partial f(a)}{\partial x_k}=A_k$
 	- důkaz spojitosti
-		- 
+		- chceme $\lim_{x\to y} f(x)=f(y)$, tedy $\lim_{x\to y} f(x)-f(y)=0$
+		- dosadíme do rovnice totálního diferenciálu (a+h … x, a … y)
+		- $|f(x)-f(y)|\leq|A(x-y)|+|\mu(x-y)|\cdot\lVert x-y\rVert$
+		- limita $|A(x-y)|+|\mu(x-y)|\cdot\lVert x-y\rVert$ pro $x\to y$ je rovna nule
+	- důkaz hodnot parciálních derivací
+		- z rovnice totálního diferenciálu máme $\frac{f(x_1,\dots,x_{k-1},x_k+h,x_{k+1},\dots,x_n)-f(x_1,\dots,x_n)}{h}=A_k+\frac{\lVert(0,\dots,h,\dots,0)\rVert\cdot\mu((0,\dots,h,\dots,0))}{h}$
+		- limita pravé strany je zjevně $A_k$
+- Věta: Spojité parciální derivace a totální diferenciál
+	- věta: nechť má $f$ spojité parciální derivace v okolí bodu $a$, potom má v bodě $a$ totální diferenciál
+	- důkaz
+		- položme $h^{(0)}=h,\;h^{(1)}=(0,h_2,\dots,h_n),\;h^{(2)}=(0,0,h_3,\dots,h_n),\;\dots,\;h^{(n)}=o$
+		- máme $f(a+h)-f(a)=\sum_{k=1}^n(f(a+h^{(k-1)})-f(a+h^{(k)}))=M$
+			- v té sumě se většina členů odečte, proto se to rovná výrazu nalevo
+		- podle Lagrangeovy věty (v jedné proměnné) existují $0\leq\theta_k\leq 1$ takové, že $f(a+h^{(k-1)})-f(a+h^{(k)})=\frac{\partial f(a_1,\dots,a_{k-1},a_k+\theta_kh_k,a_{k+1}+h_{k+1},\dots,a_n+h_n)}{\partial x_k}\cdot h_k$
+		- tedy $M=\sum\frac{\partial f(a_1,\dots,a_{k-1},a_k+\theta_kh_k,a_{k+1}+h_{k+1},\dots,a_n+h_n)}{\partial x_k}h_k=$
+		- $=\sum\frac{\partial f(a)}{\partial x_k}h_k+\sum\left(\frac{\partial f(a_1,\dots,a_{k-1},a_k+\theta_kh_k,a_{k+1}+h_{k+1},\dots,a_n+h_n)}{\partial x_k}-\frac{\partial f(a)}{\partial x_k}\right)h_k=$
+		- $=\sum\frac{\partial f(a)}{\partial x_k}h_k+\lVert h\rVert\sum\left(\frac{\partial f(a_1,\dots,a_{k-1},a_k+\theta_kh_k,a_{k+1}+h_{k+1},\dots,a_n+h_n)}{\partial x_k}-\frac{\partial f(a)}{\partial x_k}\right){h_k\over\lVert h\rVert}$
+		- položme $\mu(h)=\sum\left(\frac{\partial f(a_1,\dots,a_{k-1},a_k+\theta_kh_k,a_{k+1}+h_{k+1},\dots,a_n+h_n)}{\partial x_k}-\frac{\partial f(a)}{\partial x_k}\right){h_k\over\lVert h\rVert}$
+		- jelikož $\left|\frac{h_k}{\lVert h\rVert}\right|\leq 1$ a jelikož jsou funkce $\frac{\partial f}{\partial x_k}$ spojité, $\lim_{h\to o}\mu(h)=0$
+	- máme tedy implikace: spojité parciální derivace $\implies$ totální diferenciál $\implies$ parciální derivace
 - Výpočet: aritmetická pravidla
 - Složená zobrazení a řetězové pravidlo
 - Lagrangeova formule
