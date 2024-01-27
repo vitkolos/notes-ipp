@@ -149,14 +149,14 @@ tyto výpisky jsou založeny na [poznámkách Viktora Soukupa, Lukáše Salaka a
 		- zvoljme $x_n\in A$, aby $y_n=f(x_n)$
 		- posloupnost $(x_n)_n$ má konvergentní podposloupnost $(x_{k_n})_n$
 		- $(y_{k_n})_n=(f(x_{k_n}))_n$ je konvergentní podposloupnost posloupnosti $(y_n)_n$
-- Maxima a minima spojitých funkcí na kompaktních podmnožinách
+- Věta: Maxima a minima spojitých funkcí na kompaktních podmnožinách
 	- tvrzení: buď $(X,d)$ kompaktní, potom každá spojitá funkce $f:(X,d)\to\mathbb R$ nabývá maxima i minima
 	- důkaz
 		- podprostor $Y=f[X]\subseteq\mathbb R$ je kompaktní
 		- $Y$ je tedy omezená množina a musí mít supremum $a$ a infimum $b$
 		- zřejmě $d(a,Y)=d(b,Y)=0$
 		- $Y$ je uzavřená, proto $a,b\in Y$
-- Stejnoměrná spojitost v kompaktním kontextu
+- Věta: Stejnoměrná spojitost v kompaktním kontextu
 	- věta: buď $f:X\to Y$ spojité zobrazení, $X$ kompaktní, potom $f$ je stejnoměrně spojité
 	- důkaz – obměnou (zobrazení není stejnoměrně spojité, pak není spojité)
 		- uvažujme epsilon takové, že pro každé delta existuje dvojice $x,y$ takové, že jsou si blíž než delta, ale $d(f(x),f(y))\geq\varepsilon$
@@ -182,24 +182,49 @@ tyto výpisky jsou založeny na [poznámkách Viktora Soukupa, Lukáše Salaka a
 
 ## Reálné funkce více proměnných
 
-- Proč se nemůžeme omezit na spojitost v jednotlivých proměnných
-- Reálné funkce a jejich definiční obory (vhodné podprostory $\mathbb E_n$)
+- Příklad: Proč se nemůžeme omezit na spojitost v jednotlivých proměnných
+	- mějme funkci $f(x,y)=\begin{cases}\frac{(x-y)^2}{x^2+y^2}&\text{pro }(x,y)\neq(0,0)\\ 1&\text{pro }(x,y)=(0,0)\end{cases}$
+	- pokud bychom $y$ vzali jako parametr a sledovali spojitost podle $x$, funkce by byla spojitá – podobně pro $x$ jako parametr
+	- ale $f(x,x)$ se vždy rovná 0, kdežto $f(0,0)=1$
+	- nezajímá nás spojitost v jednotlivých proměnných – to jsou jen některé „procházky“ po hodnotách funkce, nás zajímají všechny takové „cesty“
+- Definice: Reálné funkce a jejich definiční obory (vhodné podprostory $\mathbb E_n$)
+	- definice: reálná funkce v $n$ proměnných … $f:D\to\mathbb R,\;D\subseteq\mathbb E_n$
+	- definiční obory jsou často poměrně složité množiny
 
 ## Parciální derivace
 
-- Definice a jejich slabost (ani spojitost není implikována)
-- Totální diferenciál, geometrická interpretace (lineární aproximace)
-	- V případě jedné proměnné existence totálního diferenciálu a derivace je totéž
-- Spojité parciální derivace a totální diferenciál
+- Definice: Parciální derivace a jejich slabost (ani spojitost není implikována)
+	- vezměme $\phi_k(t)=f(x_1,\dots,x_{k-1},t,x_{k+1},\dots,x_n)$
+	- parciální derivace funkce $f$ podle $x_k$ (v bodě $(x_1,\dots,x_{k-1},t,x_{k+1},\dots,x_n)$) je derivace funkce $\phi_k$ (v bodě $t$)
+	- tzn. $\lim_{h\to 0}\frac{f(x_1,\dots,x_{k-1},x_k+h,x_{k+1},\dots,x_n)-f(x_1,\dots,x_n)}{h}$
+	- značíme $\frac{\partial f(x_1,\dots,x_n)}{\partial x_k}$ nebo $\frac{\partial f}{\partial x_k}(x_1,\dots,x_n)$
+	- když $\frac{\partial f(x_1,\dots,x_n)}{\partial x_k}$ existuje pro všechna $(x_1,\dots,x_n)$ v nějaké oblasti $D$, máme funkci $\frac{\partial f}{\partial x_k}:D\to\mathbb R$
+	- parciální derivace tedy může být číslo (hodnota limity výše) nebo tato funkce
+	- parciální derivace geometricky odpovídá tečně funkce v daném bodě rovnoběžné s příslušnou osou
+	- existence parciálních derivací neimplikuje spojitost (viz protipříklad na spojitost v jednotlivých proměnných)
+- Definice: Totální diferenciál, geometrická interpretace (lineární aproximace)
+	- *v případě jedné proměnné existence totálního diferenciálu a derivace je totéž*
+	- tvrzení ekvivalentní s existencí standardní derivace
+		- existuje $\mu$ konvergující k 0 při $h\to 0$ a $A$ takové, že $f(x+h)-f(x)=Ah+|h|\cdot\mu(h)$
+	- geometrický pohled: $f(x+h)-f(x)=Ah$ vyjadřuje tečnu ke grafu funkce v bodě $(x,f(x))$
+	- aproximační pohled: $|h|\cdot\mu(h)$ je jakási malá chyba při aproximaci funkce $f$ v okolí bodu $x$ jako lineární funkce v $h$
+	- parciální derivace vyjadřují směry dvou tečných přímek – my chceme tečnou rovinu (tu dostaneme z totálního diferenciálu)
+	- pro $x\in\mathbb E_n$ definujme $\lVert x\rVert=\max_i|x_i|$
+	- funkce $f$ má totální diferenciál v bodě $x$, existuje-li funkce $\mu$ spojitá v okolí $U$ bodu $o$ taková, že $\mu(o)=0$, a čísla $A_1,\dots,A_n$, pro která $f(a+h)-f(a)=\sum_{k=1}^nA_kh_k+\lVert h\rVert\mu(h)$
+		- pomocí skalárního součinu také $f(a+h)-f(a)=\braket{A|h}+\lVert h\rVert\mu(h)$
+- Věta: Spojité parciální derivace a totální diferenciál
+	- tvrzení: nechť má funkce $f$ totální diferenciál v bodě $a$, potom je spojitá v $a$ a má všechny parciální derivace v $a$ s hodnotami $\frac{\partial f(a)}{\partial x_k}=A_k$
+	- důkaz spojitosti
+		- 
 - Výpočet: aritmetická pravidla
-- Složená zobrazení a Řetězové pravidlo
+- Složená zobrazení a řetězové pravidlo
 - Lagrangeova formule
 - Parciální derivace vyšších řádů
 - Záměnnost
 
 ## Věty o implicitních funkcích
 
-- Úloha, porozumění problému
+- Úloha implicitních funkcí, porozumění problému
 - Nejjednodušší případ: $F(x, y) = 0$, role $\partial F\over\partial y$
 - Jacobian a jeho role
 - Obecná věta, porozumění tomu, co se děje
