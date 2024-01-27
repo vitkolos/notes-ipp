@@ -119,13 +119,66 @@ tyto výpisky jsou založeny na [poznámkách Viktora Soukupa, Lukáše Salaka a
 
 ## Kompaktní prostory
 
-- Definice: Kompaktní prostor, podprostor, součin
-- Kompaktní podprostory $\mathbb E_n$
-- Obraz kompaktního prostoru
+- Věta: Kompaktní prostor, podprostor, součin
+	- definice: metrický prostor $(X,d)$ je kompaktní, obsahuje-li v něm každá posloupnost konvergentní podposloupnost
+	- tvrzení: podprostor kompaktního prostoru je kompaktní, právě když je uzavřený
+		- mějme posloupnost v uzavřeném podprostoru, tato posloupnost má podposloupnost s limitou v kompaktním prostoru – z uzavřenosti tato limita musí být v podprostoru
+		- mějme posloupnost v otevřeném podprostoru, ta má limitu mimo podprostor – každá její podposloupnost má tu stejnou limitu mimo podprostor, tedy daná posloupnost není konvergentní v podprostoru
+	- tvrzení: je-li podprostor $Y$ metrického prostoru $(X,d)$ kompaktní, pak je $Y$ uzavřený v $(X,d)$
+		- mějme posloupnost v kompaktním podprostoru, která konverguje k $y\in X$, potom každá její podposloupnost konverguje k $y$, tudíž musí být $y\in Y$
+	- definice: metrický prostor $(X,d)$ je omezený, jestliže pro nějaké $K$ platí $\forall x,y\in X:d(x,y)\lt K$
+	- tvrzení: každý kompaktní prostor je omezený
+		- posloupnost $(x_n)_n$, kde $d(x_0,x_n)\gt n$, nemá žádnou omezenou podposloupnost, tedy nemá konvergentní podposloupnost (neboť ta je vždy omezená), což je spor
+	- věta: součin konečně mnoha kompaktních prostorů je kompaktní
+	- důkaz – stačí pro součin dvou prostorů
+		- mějme posloupnost $((x_n,y_n))_n$ v $X\times Y$
+		- zvolíme konvergentní podposloupnost $(x_{k_n})_n$ posloupnosti $(x_n)_n$ a konvergentní podposloupnost $(y_{k_{l_n}})_n$ posloupnosti $(y_{k_n})$
+		- pak je posloupnost $((x_{k_{l_n}},y_{k_{l_n}}))_n$ zjevně konvergentní podposloupností původní posloupnosti
+- Věta: Kompaktní podprostory $\mathbb E_n$
+	- věta: podprostor euklidovského prostoru $\mathbb E_n$ je kompaktní, právě když je omezený a uzavřený
+	- důkaz
+		- již jsme dokázali, že kompaktnost implikuje uzavřenost a omezenost
+		- mějme $Y\subseteq\mathbb E_n$ omezený a uzavřený
+		- z omezenosti vyplývá, že pro dostatečně velký součin (uzavřených) intervalů $J$ platí $Y\subseteq J\subseteq\mathbb E_n$
+			- intervaly jsou kompaktní, jejich součin je taky kompaktní (viz věta výše)
+		- $Y$ je uzavřený v $\mathbb E_n$, tedy je uzavřený i v $J$
+- Věta: Obraz kompaktního prostoru
+	- tvrzení: buď $f:(X,d)\to(Y,d')$ spojité zobrazení a buď $A\subseteq X$ kompaktní, potom je $f[A]$ kompaktní
+	- důkaz
+		- buď $(y_n)_n$ posloupnost v $f[A]$
+		- zvoljme $x_n\in A$, aby $y_n=f(x_n)$
+		- posloupnost $(x_n)_n$ má konvergentní podposloupnost $(x_{k_n})_n$
+		- $(y_{k_n})_n=(f(x_{k_n}))_n$ je konvergentní podposloupnost posloupnosti $(y_n)_n$
 - Maxima a minima spojitých funkcí na kompaktních podmnožinách
+	- tvrzení: buď $(X,d)$ kompaktní, potom každá spojitá funkce $f:(X,d)\to\mathbb R$ nabývá maxima i minima
+	- důkaz
+		- podprostor $Y=f[X]\subseteq\mathbb R$ je kompaktní
+		- $Y$ je tedy omezená množina a musí mít supremum $a$ a infimum $b$
+		- zřejmě $d(a,Y)=d(b,Y)=0$
+		- $Y$ je uzavřená, proto $a,b\in Y$
 - Stejnoměrná spojitost v kompaktním kontextu
-- Cauchyovské posloupnosti a konvergence
-- Úplný prostor, kompaktnost implikuje úplnost
+	- věta: buď $f:X\to Y$ spojité zobrazení, $X$ kompaktní, potom $f$ je stejnoměrně spojité
+	- důkaz – obměnou (zobrazení není stejnoměrně spojité, pak není spojité)
+		- uvažujme epsilon takové, že pro každé delta existuje dvojice $x,y$ takové, že jsou si blíž než delta, ale $d(f(x),f(y))\geq\varepsilon$
+		- z dvojicí sestavíme posloupnosti $(x_n)_n$ a $(y_n)_n$ – obě mají konvergentní podposloupnosti, ty volíme tak, aby si odpovídaly (jako v důkazu kompaktnosti součinu), mají stejnou limitu
+		- limity funkčních hodnot se zjevně nerovnají (to je negace tvrzení ekvivalentnímu spojitosti zobrazení)
+	- tvrzení: je-li $(X,d)$ kompaktní a je-li $f:(X,d)\to(Y,d')$ vzájemně jednoznačné spojité zobrazení, je to homeomorfismus
+- Věta: Cauchyovské posloupnosti a konvergence
+	- definice: posloupnost $(x_n)_n$ v metrickém prostoru $(X,d)$ je Cauchovská, jestliže $(\forall\varepsilon\gt 0)(\exists n_0):m,n\geq n_0\implies d(x_m,x_n)\lt\varepsilon$
+	- pozorování: každá konvergentní posloupnost je Cauchyovská
+	- tvrzení: má-li Cauchyovská posloupnost konvergentní podposloupnost, potom konverguje (k limitě té posloupnosti)
+	- důkaz
+		- nechť $(x_n)_n$ je Cauchyovská a nechť $x$ je limita její konvergentní podposloupnosti $(x_{k_n})_n$
+		- od nějakého $n_1$ platí $d(x_m,x_n)\lt\varepsilon$
+		- od nějakého $n_2$ platí $d(x_{k_n},x)\lt\varepsilon$
+		- jako $n_0$ vezmeme to větší z nich, od něj pak platí $d(x_n,x)\leq d(x_n,x_{k_n})+d(x_{k_n},x)\lt 2\varepsilon$
+- Definice: Úplný prostor, kompaktnost implikuje úplnost
+	- definice: metrický prostor $(X,d)$ je úplný, jestliže v něm každá Cauchyovská posloupnost $(X,d)$ konverguje
+	- tvrzení: podprostor úplného prostoru je úplný, právě když je uzavřený
+	- tvrzení: každý kompaktní prostor je úplný
+		- Cauchyovská posloupnost má z kompaktnosti konvergentní podposloupnost, a tedy konverguje (podle tvrzení výše)
+	- věta: součin úplných prostorů je úplný; speciálně, $\mathbb E_n$ je úplný
+	- důsledek: podprostor $Y$ euklidovského prostoru $\mathbb E_n$ je úplný, právě když je tam uzavřený
 
 ## Reálné funkce více proměnných
 
