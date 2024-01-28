@@ -234,8 +234,34 @@ tyto výpisky jsou založeny na [poznámkách Viktora Soukupa, Lukáše Salaka a
 		- položme $\mu(h)=\sum\left(\frac{\partial f(a_1,\dots,a_{k-1},a_k+\theta_kh_k,a_{k+1}+h_{k+1},\dots,a_n+h_n)}{\partial x_k}-\frac{\partial f(a)}{\partial x_k}\right){h_k\over\lVert h\rVert}$
 		- jelikož $\left|\frac{h_k}{\lVert h\rVert}\right|\leq 1$ a jelikož jsou funkce $\frac{\partial f}{\partial x_k}$ spojité, $\lim_{h\to o}\mu(h)=0$
 	- máme tedy implikace: spojité parciální derivace $\implies$ totální diferenciál $\implies$ parciální derivace
-- Výpočet: aritmetická pravidla
+- Definice: Výpočet parciálních derivací – aritmetická pravidla
+	- jsou stejná jako pro obyčejné derivace
+	- pravidlo pro skládání se liší
 - Složená zobrazení a řetězové pravidlo
+	- věta
+		- nechť má $f(x)$ totální diferenciál v bodě $a$
+		- pro $k=1,\dots,n$
+			- nechť mají $g_k(t)$ derivace v bodě $b$
+			- nechť je $g_k(b)=a_k$
+		- položme $F(t)=f(g(t))=f(g_1(t),\dots,g_n(t))$
+		- potom má $F$ derivaci v $b$, totiž $F'(b)=\sum_{k=1}^n\frac{\partial f(a)}{\partial x_k}\cdot g'_k(b)$
+	- důkaz
+		- $\frac1h(F(b+h)-F(b))=\frac1h(f(g(b+h))-f(g(b)))=$
+		- $=\frac1h\biggl(f\Bigl(g(b)+(g(b+h)-g(b))\Bigl)-f(g(b))\biggr)=$
+			- do rovnice totálního diferenciálu dosazujeme: x … g(b), h … (g(b+h)-g(b))
+		- $=\sum_{k=1}^n A_k\frac{g_k(b+h)-g_k(b)}h+\mu(g(b+h)-g(b))\cdot\max_k\frac{|g_k(b+h)-g_k(b)|}h$
+		- ze spojitosti funkcí $g_k$ v $b$ vyplývá $\lim_{h\to 0}\mu(g(b+h)-g(b))=0$
+		- z toho, že $g_k$ mají derivace, vyplývá, že $\max_k\dots$ je omezené v dostatečně malém okolí nuly
+		- limita posledního sčítance je tedy nula
+		- $F'(b)=\lim_{h\to 0}\frac1h(F(b+h)-F(b))=\lim_{h\to0}\sum_{k=1}^nA_k\frac{g_k(b+h)-g_k(b)}h=$
+		- $=\sum A_k\lim\frac{g_k(b+h)-g_k(b)}h=\sum\frac{\partial f(a)}{\partial x_k}\cdot g'_k(b)$
+			- tady vycházíme z tvrzení o hodnotách parciálních derivací
+	- důsledek – řetězové pravidlo
+		- nechť má $f(x)$ totální diferenciál v bodě $a$
+		- pro $k=1,\dots,n$
+			- nechť mají funkce $g_k(t_1,\dots,t_r)$ parciální derivace v $b=(b_1,\dots,b_r)$
+			- nechť je $g_k(b)=a_k$
+		- potom má funkce $(f\circ g)(t_1,\dots,t_r)=f(g(t))=f(g_1(t),\dots,g_n(t))$ všechny parciální derivace v $b$ a platí $\frac{\partial(f\circ g)(b)}{\partial t_j}=\sum_{k=1}^n\frac{\partial f(a)}{\partial x_k}\cdot\frac{\partial g_k(b)}{\partial t_j}$
 - Lagrangeova formule
 - Parciální derivace vyšších řádů
 - Záměnnost
