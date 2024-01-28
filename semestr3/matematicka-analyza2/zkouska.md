@@ -389,9 +389,64 @@ tyto výpisky jsou založeny na [poznámkách Viktora Soukupa, Lukáše Salaka a
 	- důkaz: v podstatě stačí kroky výše – ukázali jsme, jak pomocí substituce přejít od úlohy s $n+1$ rovnicemi k úloze s $n$ rovnicemi a jak se při tom podmínka o Jacobiánu v dimenzi $n+1$ přemění na podmínku o Jakobiánu v dimenzi $n$ (pak už je třeba jenom diskutovat, jak vhodně nahradit rozměry oken, tedy $\delta,\Delta$)
 - Věta: Aplikace – lokální extrémy, věta o vázaných extrémech, jak se používá
 	- uvažujeme body, v nichž jsou všechny parciální derivace nulové, a body na okraji zkoumané oblasti (ale těch je nekonečně mnoho)
-	- 
+	- když hledáme extrémy funkce $f(x_1,\dots,x_n)$, okraj oblasti vyjádříme podmínkami $g_i(x_1,\dots,x_n)$ pro $i=1,\dots,k$
+		- pak hledáme extrémy na množině určené podmínkami – tedy jde o vázané extrémy
+	- věta
+		- buďte $f,g_1,\dots,g_k$ reálné funkce definované na otevřené množině $D\subseteq\mathbb E_n$
+		- nechť mají spojité parciální derivace
+		- nechť je hodnost matice $M$ maximální, tedy $k$, v každém bodě oboru $D$
+			- kde $M_{ij}=\frac{\partial g_i}{\partial x_j}$ (tedy řádky odpovídají funkcím $g_i$, sloupce proměnným $x_j$)
+		- jestliže funkce $f$ nabývá v bodě $a$ lokálního extrému podmíněného vazbami $g_i(x_1,\dots,x_n)=0$ pro $i=1,\dots,k$, pak existují čísla $\lambda_1,\dots,\lambda_k$ taková, že pro každé $i=1,\dots,n$ platí $\frac{\partial f(a)}{\partial x_i}+\sum_{j=1}^k\lambda_j\cdot\frac{\partial g_j(a)}{\partial x_i}=0$
+	- důkaz
+		- z lineární algebry víme, že matice $M$ má hodnost $\geq k$, právě když aspoň jedna její $k\times k$ podmatice je regulární (má nenulový determinant)
+		- $M$ má $k$ řádků a $n$ sloupců, kde $n$ bude typicky (možná vždy?) větší než $k$
+		- v matici $M$ máme tedy čtvercovou matici nalevo regulární, tedy její determinant je nenulový
+			- pro jednoduchost uvažujeme přečíslování souřadnic, aby to vyšlo hezky na první až $k$-tý sloupec matice
+		- soustava rovnic $\forall i:g_i(x)=0$ pro neznámé funkce $x_1,\dots,x_k$, v níž parametry $x_{k+1},\dots,x_n$ budou proměnnými, tedy splňuje předpoklady věty o implicitních funkcích a v okolí bodu $a$ dává funkce $\phi_i(k_{k+1},\dots,x_n)$ se spojitými parciálními derivacemi takové, že $\forall g_i(\phi_1(\tilde x),\dots,\phi_k(\tilde x),\tilde x)=0$, kde $\tilde x=(x_{k+1},\dots,x_n)$
+		- tedy lokální extrém funkce $f(x)$ v $a$ podmíněný danými vazbami se mění na lokální extrém (nepodmíněné) funkce $F(\tilde x)=f(\phi_1(\tilde x),\dots,\phi_k(\tilde x), \tilde x)$ v $\tilde a$
+		- musí tedy platit ${\partial F\over\partial x_i}(\tilde a)=0$ pro $i=k+1,\dots,n$
+		- (1) tj. podle řetízkového pravidla $\sum_{r=1}^k\frac{\partial f(a)}{\partial x_r}\cdot \frac{\partial \phi_r(\tilde a)}{\partial x_i}+\frac{\partial f(a)}{\partial x_i}=0$ pro $i=k+1,\dots,n$
+		- (2) po derivaci konstantní $g_i(\phi_1(\tilde x),\dots,\phi_k(\tilde x),\tilde x)=0$ dostaneme pro $j=1,\dots,k:$ $\sum_{r=1}^k\frac{\partial g_j(a)}{\partial x_r}\cdot \frac{\partial \phi_r(\tilde a)}{\partial x_i}+\frac{\partial g_j(a)}{\partial x_i}=0$ pro $i=k+1,\dots,n$
+			- poznámka: tenhle krok nenavazuje na ten předchozí
+		- užijeme znovu nenulový determinant – následující systém lineárních rovnic má nutně jediné řešení $\lambda_1,\dots,\lambda_k$:
+			- $\frac{\partial f(a)}{\partial x_i}+\sum_{j=1}^k\lambda_j\cdot\frac{\partial g_j(a)}{\partial x_i}=0$ pro $i=1,\dots,k$
+		- takhle jsme použili pouze prvních $k$ z $n$ rovnic, teď ještě musíme dokázat, že takto určená $\lambda_i$ vyhovují i ostatním $n-k$ rovnicím
+			- použijeme (1) a (2), první rovnost je oba kombinuje, navíc (2) sčítá přes všechna $j$
+			- uvažujeme $i\gt k$
+		- $\frac{\partial f(a)}{\partial x_i}+\sum_{j=1}^k\lambda_j\frac{\partial g_j(a)}{\partial x_i}=-\sum_{r=1}^k\frac{\partial f(a)}{\partial x_r}\cdot \frac{\partial \phi_r(\tilde a)}{\partial x_i}-\sum_{j=1}^k\lambda_j\sum_{r=1}^k\frac{\partial g_j(a)}{\partial x_r}\cdot \frac{\partial \phi_r(\tilde a)}{\partial x_i}=$
+		- $=-\sum_{r=1}^k\left(\frac{\partial f(a)}{\partial x_i}+\sum_{j=1}^k\lambda_j\cdot \frac{\partial g_j(a)}{\partial x_i}\right)\frac{\partial \phi_r(\tilde a)}{\partial x_i}=-\sum_{r=1}^n0\cdot\frac{\partial\phi_r(\tilde a)}{\partial x_i}=0$
+			- výraz v závorce odpovídá soustavě rovnic (viz výše) – proto je nulový
+	- poznámky
+		- čísla $\lambda_i$ jsou známa jako Lagrangeovy multiplikátory
+		- síla tvrzení je v tom, že zaručuje existenci čísel $\lambda_1,\dots,\lambda_k$ splňujících více než $k$ rovnic
 - Věta: Aplikace – regulární zobrazení
-	- 
+	- definice
+		- buď $U\subseteq\mathbb E_n$ otevřená a nechť mají funkce $f_i:U\to \mathbb E_n$ (pro $i=1,\dots,n$) spojité parciální derivace
+		- řekneme, že výsledné zobrazení $f=(f_1,\dots,f_n):U\to\mathbb E_n$ je regulární, jestliže je Jacobián $\frac{D(f)}{D(x)}(x)\neq 0$ pro všechny body $x\in U$
+	- tvrzení: je-li $U\to\mathbb E_n$ regulární, je obraz $f[V]$ každé otevřené podmnožiny $V\subseteq U$ otevřený
+	- důkaz
+		- vezměme $f(x^0)=y^0$
+		- definujme $F:V\times\mathbb E_n\to\mathbb E_n$ předpisem $F_i(x,y)=f_i(x)-y_i$
+		- potom je $F(x^0,y^0)=0$ a $\frac{D(F)}{D(x)}\neq 0$
+		- tudíž je možné použí větu o implicitních funkcích
+		- dostaneme $\delta,\Delta\gt 0$ taková, že pro každé $y:\lVert y-y^0\rVert\lt\delta$ existuje $x:\lVert x-x^0\rVert\lt\Delta$ a $F_i(x,y)=f_i(x)-y_i=0$
+		- tzn. máme $f(x)=y$ (pozor, $y_i$ jsou proměnné, $x_j$ hledané funkce)
+		- tedy máme $f(x)=y$
+		- zároveň $\Omega(y^0,\delta)=\set{y\mid\lVert y-y^0\rVert\lt\delta}\subseteq f[V]$
+	- tvrzení
+		- buď $f:U\to\mathbb E_n$ regulární
+		- potom pro každé $x^0\in U$ existuje otevřené okolí $V$ takové, že restrikce $f|V$ je prosté zobrazení
+		- navíc platí, že zobrazení $g:f[V]\to\mathbb E_n$ k $f|V$ inverzní je regulární
+	- důkaz
+		- vezměme $f(x^0)=y^0$
+		- znovu použijeme zobrazení $F$, kde $F_i(x,y)=f_i(x)-y_i$
+		- řešíme úlohu $F_i(x,y)=0$ s proměnnými $y_1,\dots,y_n$ a neznámými funkcemi $x_i=g_i(y_1,\dots,y_n)$
+		- pro dost malé $\Delta\gt 0$ máme jedno $x=g(y)$ takové, že $F(x,y)=0$ a $\lVert x-x^0\rVert\lt\Delta$
+		- toto $g$ má navíc spojité parciální derivace
+		- $\partial f\cdot\partial g=\partial(f\circ g)=\partial (id)=\mathbb E$
+		- tedy ${D(f)\over D(x)}\cdot{D(g)\over D(y)}=1$
+		- $\frac{D(g)}{D(y)}$ proto musí být nenulový
+	- důsledek: prosté regulární zobrazení $f:U\to V=f[U]\subseteq\mathbb E_n$ má regulární inverzní zobrazení $g:f[U]\to\mathbb E_n$
 
 ## Riemannův integrál v jedné proměnné
 
