@@ -313,11 +313,72 @@ tyto výpisky jsou založeny na [poznámkách Viktora Soukupa, Lukáše Salaka a
 
 ## Věty o implicitních funkcích
 
-- Úloha implicitních funkcí, porozumění problému
-- Nejjednodušší případ: $F(x, y) = 0$, role $\partial F\over\partial y$
-- Jacobian a jeho role
-- Obecná věta, porozumění tomu, co se děje
-- Substituční metoda aspoň pro dvě rovnice
+- Příklad: Úloha implicitních funkcí, porozumění problému
+	- jsou dány spojité reálné funkce $F_i(x_1,\dots,x_m,y_1,\dots,y_n)$ v $m+n$ proměnných pro $i=1,\dots,n$
+	- pokoušíme se řešit soustavu $n$ rovnic $F_i(\dots)=0$ v $n$ neznámých $y_i$
+	- parametry $x_i$ se stanou proměnnými, takže očekáváme řešení jako funkce $f_i\equiv y_i(x_1,\dots,x_m)$
+	- kde mohou být potíže? uvažujme $x^2+y^2=1$
+		- pro $x_0\lt -1$ řešení $F(x_0,y)=0$ vůbec neexistuje
+		- abychom mohli mluvit o funkci, potřebujeme „okénko“ kolem řešení $(x_0,y_0)$ vymezující kromě okolí $x_0$ i $y_0$
+		- pro $x_0=1$ nelze nalézt okénko, kde by $y$ bylo jednoznačné
+	- v případě jedné rovnice $F(x,y)=0$ žádné jiné potíže nenastanou
+- Věta: Nejjednodušší případ $F(x, y) = 0$, role $\partial F\over\partial y$
+	- věta
+		- buď $F(x,y)$ reálná funkce ve 2 proměnných definovaná v nějakém okolí bodu $(x_0,y_0)$
+		- nechť má $F$ spojité parciální derivace do řádu $k\geq 1$ a nechť je $F(x_0,y_0)=0$ a $\left|\frac{\partial F(x_0,y_0)}{\partial y}\right|\neq 0$
+		- potom existují $\delta\gt 0$ a $\Delta\gt 0$ takové, že ke každému $x\in(x_0-\delta,x_0+\delta)$ existuje právě jedno $y\in (y_0-\Delta,y_0+\Delta)$ splňující $F(x,y)=0$
+		- dále, označíme-li toto jediné $y$ jako $y=f(x)$, potom získaná $f:(x_0-\delta,x_0+\delta)\to\mathbb R$ má spojité derivace do řádu $k$
+	- důkaz
+		- buď třeba $\frac{\partial F(x_0,y_0)}{\partial y}\gt 0$
+		- vzhledem ke spojitosti existují $\delta_1,\Delta\gt 0$ taková, že v obdélníku $\braket{x_0-\delta_1,x_0+\delta_1}\times \braket{y_0-\Delta,y_0+\Delta}$ je ${\partial F\over\partial y}(x,y)$ stále kladná
+		- tento obdélník je kompaktní, tedy na něm spojité funkce nabývají extrémů a tudíž existují $a,K\gt 0$ taková, že  $\frac{\partial F(x,y)}{\partial y}\gt a$ a $\left|\frac{\partial F(x,y)}{\partial x}\right|\lt K$
+		- zvlášť dokážeme existenci funkce $f$ a její vlastnosti
+		- existence funkce $f$
+			- pro pevné $x\in(x_0-\delta_1,x_0+\delta_1)$ definujme funkci $\varphi_x$ na $y\in (y_0-\Delta,y_0+\Delta)$ předpisem $\varphi_x(y)=F(x,y)$
+			- tak jsme dostali funkci jedné proměnné
+			- její derivace je kladná
+				- protože $\varphi'_x(y)=\frac{\partial F(x,y)}{\partial y}\gt 0$
+				- takže $\varphi_x$ na intervalu roste
+				- proto $\varphi_{x_0}(y_0-\Delta)\lt \varphi_{x_0}(y_0)\lt\varphi_{x_0}(y_0+\Delta)$
+			- z $F(x_0,y_0)$ víme, že $\varphi_{x_0}(y_0)=0$
+				- tedy $\varphi_{x_0}(y_0-\Delta)\lt 0\lt\varphi_{x_0}(y_0+\Delta)$
+			- funkce dvou proměnných $F$ je spojitá, a tedy pro nějaké $\delta,\;0\lt\delta\leq\delta_1$:
+				- $\forall  x\in(x_0-\delta,x_0+\delta):\varphi_x(y_0-\Delta)\lt 0\lt\varphi_x(y_0+\Delta)$
+			- funkce $\varphi_x$ roste, tudíž je prostá, takže existuje právě jedno $y\in(y_0-\Delta,y_0+\Delta)$ takové, že $\varphi_x(y)=0$ (tj. $F(x,y)=0$)
+			- označme toto $y$ jako $f(x)$
+		- vlastnosti funkce $f$
+			- $0=F(t+h,f(t+h))-F(t,f(t))=$
+				- protože $\forall x:F(x,f(x))=0$
+			- $=F(t+h,f(t)+(f(t+h)-f(t)))-F(t,f(t))=$
+				- použijeme Lagrangeovu větu pro $h=(h,f(x+h)-f(x))$
+			- $=\frac{\partial F}{\partial x}(x+\theta h,f(x)+\theta(f(x+h)-f(x)))\cdot h\;+$
+			- $+\;\frac{\partial F}{\partial y}(x+\theta h,f(x)+\theta(f(x+h)-f(x)))\cdot (f(x+h)-f(x))$
+			- upravíme na $f(x+h)-f(x)=-h\cdot\frac{\partial F(\dots)\over \partial x}{\partial F(\dots)\over\partial y}$
+			- podle odvozených vlastností platí $|f(x+h)-f(x)|\lt|h|\cdot\frac Ka$
+				- $f$ je tedy spojitá v bodě $x$
+			- dále zjevně $\lim_{h\to 0}\frac{f(x+h)-f(x)}h=-\frac{{\partial F\over \partial x}(t,f(t))}{{\partial F\over\partial y}(t,f(t))}$
+			- tudíž $f'(t)=-\frac{{\partial F\over \partial x}(t,f(t))}{{\partial F\over\partial y}(t,f(t))}$
+			- tuto formuli můžeme derivovat tak dlouho, jak to existence parciálních derivací na pravé straně dovolí
+	- stejnou úvahou se ukáže věta pro funkci v $m+1$ proměnných
+- Příklad: Substituční metoda aspoň pro dvě rovnice
+	- uvažujme dvojici rovnic ($x$ může být vektor)
+		- $F_1(x,y_1,y_2)=0$
+		- $F_2(x,y_1,y_2)=0$
+	- hledáme dvě řešení v okolí bodu $(x^0,y_1^0,y_2^0)$
+	- na druhou rovnici aplikujeme větu o jedné rovnici pro $y_2$, dostaneme $y_2$ jako funkci $\psi(x,y_1)$
+	- substitujeme do první rovnice, dostaneme $G(x,y_1)=F_1(x,y_1,\psi(x,y_1))=0$
+	- řešení $y_1=f_1(x)$ v nějakém okolí bodu $(x^0,y_1^0)$ může být substituováno do $\psi$ a získáme $y_1=f_2(x)=\psi(x,f_1(x))$
+	- co jsme všechno předpokládali
+		- spojité parciální derivace funkcí $F_i$
+		- ${\partial F_2\over\partial y_2}(x^0,y_1^0,y_2^0)\neq 0$, abychom získali $\psi$
+		- ${\partial G\over\partial y_1}(x^0,y_1^0)={\partial F_1\over\partial y_1}+{\partial F_1\over\partial y_2}{\partial \psi\over\partial y_1}\neq 0$
+			- to vyplývá z řetízkového pravidla
+			- 
+- Definice: Jacobián a jeho role
+	- pro konečnou posloupnost funkcí $F_1(x,y),\dots,F_m(x,y)$ a pro $y=(y_1,\dots,y_m)$ se definuje Jacobiho determinant (Jacobián) $\frac{D(F)}{D(y)}=\det{\left(\frac{\partial F_i}{\partial y_j}\right)}_{i,j=1,\dots,m}$
+		- řádky odpovídají funkcím $F_i$, sloupce proměnným $y_j$
+- Věta: Obecná věta, porozumění tomu, co se děje
+
 - Aplikace: Lokální extrémy, věta o vázaných extrémech, jak se používá
 - Aplikace: Regulární zobrazení
 
@@ -330,8 +391,10 @@ tyto výpisky jsou založeny na [poznámkách Viktora Soukupa, Lukáše Salaka a
 
 ## Riemannův integrál ve více proměnných
 
-- Až do existence pro spojité funkce (stačí pochopit podrozdělení jako rozklad na systém cihliček) zcela analogické s jednou proměnnou
+- Až do existence pro spojité funkce zcela analogické s jednou proměnnou
+	- *stačí pochopit podrozdělení jako rozklad na systém cihliček*
 - Fubiniho věta, jak ji používáme
-- Poznámky o Lebesgueově integrálu: zejména praktická informace že smíme počítat jako s Riemannovým integrálem plus pravidlo $\int\lim f_n=\lim\int f_n$ pro stejně omezené $f_n$
+- Poznámky o Lebesgueově integrálu
+	- *zejména praktická informace, že smíme počítat jako s Riemannovým integrálem plus pravidlo $\int\lim f_n=\lim\int f_n$ pro stejně omezené $f_n$*
 - Co se dá udělat s kompaktními obory hodnot které nejsou intervaly
 - Substituce (jen intuitivně; role Jacobiánu)
