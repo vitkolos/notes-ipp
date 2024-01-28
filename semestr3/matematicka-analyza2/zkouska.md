@@ -234,10 +234,16 @@ tyto výpisky jsou založeny na [poznámkách Viktora Soukupa, Lukáše Salaka a
 		- položme $\mu(h)=\sum\left(\frac{\partial f(a_1,\dots,a_{k-1},a_k+\theta_kh_k,a_{k+1}+h_{k+1},\dots,a_n+h_n)}{\partial x_k}-\frac{\partial f(a)}{\partial x_k}\right){h_k\over\lVert h\rVert}$
 		- jelikož $\left|\frac{h_k}{\lVert h\rVert}\right|\leq 1$ a jelikož jsou funkce $\frac{\partial f}{\partial x_k}$ spojité, $\lim_{h\to o}\mu(h)=0$
 	- máme tedy implikace: spojité parciální derivace $\implies$ totální diferenciál $\implies$ parciální derivace
-- Definice: Výpočet parciálních derivací – aritmetická pravidla
+- Příklad: Výpočet parciálních derivací – aritmetická pravidla
 	- jsou stejná jako pro obyčejné derivace
-	- pravidlo pro skládání se liší
-- Složená zobrazení a řetězové pravidlo
+	- pravidlo pro skládání se liší (viz věta níže)
+	- artimetická pravidla lze odvodit z řetězového
+		- odvodíme pravidlo pro násobení
+		- $f(u,v)=u\cdot v$
+		- potom ${\partial f\over\partial u}=v,\;{\partial f\over\partial v}=u$
+		- uvažujme $u=\phi(x),\;v=\psi(x)$
+		- pak $(\phi(x)\cdot\psi(x))'={\partial f\over\partial u}\phi'(x)+{\partial f\over\partial v}\psi'(x)=\psi(x)\phi'(x)+\phi(x)\psi'(x)$
+- Věta: Složená zobrazení a řetězové pravidlo
 	- věta
 		- nechť má $f(x)$ totální diferenciál v bodě $a$
 		- pro $k=1,\dots,n$
@@ -262,9 +268,48 @@ tyto výpisky jsou založeny na [poznámkách Viktora Soukupa, Lukáše Salaka a
 			- nechť mají funkce $g_k(t_1,\dots,t_r)$ parciální derivace v $b=(b_1,\dots,b_r)$
 			- nechť je $g_k(b)=a_k$
 		- potom má funkce $(f\circ g)(t_1,\dots,t_r)=f(g(t))=f(g_1(t),\dots,g_n(t))$ všechny parciální derivace v $b$ a platí $\frac{\partial(f\circ g)(b)}{\partial t_j}=\sum_{k=1}^n\frac{\partial f(a)}{\partial x_k}\cdot\frac{\partial g_k(b)}{\partial t_j}$
-- Lagrangeova formule
-- Parciální derivace vyšších řádů
-- Záměnnost
+- Věta: Lagrangeova formule
+	- definice: podmnožina $U\subseteq\mathbb E_n$ je konvexní, jestliže $x,y\in U\implies(\forall t,\,0\leq t\leq 1)\bigl((1-t)x+ty=x+t(y-x)\in U\bigr)$
+		- tzn. úsečka mezi libovolnými dvěma body $x,y\in U$ bude celá v $U$
+	- Lagrangeova věta v jedné proměnné: nechť $f$ je spojitá na intervalu $[a,b]$ a má na $(a,b)$ derivaci, pak existuje bod $c\in(a,b)$ takový, že platí $f(b)-f(a)=f'(c)(b-a)$
+	- Lagrangeova věta ve více proměnných
+		- nechť má $f$ spojité parciální derivace v konvexní otevřené množině $U\subseteq\mathbb E_n$
+		- potom pro libovolné dva vrcholy $x,y\in D$ existuje $\theta,\,0\leq\theta\leq 1,$ takové, že $f(y)-f(x)=\sum_{j=1}^n\frac{\partial f(x+\theta(y-x))}{\partial x_j}(y_j-x_j)$
+		- nebo ekvivalentně $f(y)-f(x)=\nabla f(c)(y-x)$, kde $c=x+\theta(y-x)$
+		- alternativní tvar (kde $y=x+h$): $f(x+h)-f(x)=\sum\frac{\partial f(x+\theta h)}{\partial x_j}h_j$
+	- důkaz
+		- položme
+			- $F(t)=f(x+t(y-x))$
+			- $g_j(t)=x_j+t(y_j-x_j)$
+		- potom $F(t)=(f\circ g)(t)=f(x+t(y-x))$
+		- tudíž $F'(t)=\sum_{j=1}^n\frac{\partial f(g(t))}{\partial x_j}g'_j(t)=\sum_{j=1}^n\frac{\partial f(g(t))}{\partial x_j}(y_j-x_j)$
+		- podle klasické Lagrangeovy věty $\exists\theta:0\leq\theta\leq 1$ a díky tomu, že $f(x)=F(0)$ a $f(y)=F(1)$, dostáváme $f(y)-f(x)=F(1)-F(0)=F'(\theta)(1-0)=F'(\theta)$
+- Definice: Parciální derivace vyšších řádů
+	- když derivujeme parciální derivaci (prvního řádu), dostaneme parciální derivaci druhého řádu (apod.)
+	- $\frac{\partial^3f(x,y,z)}{\partial x\partial y\partial z}$ a $\frac{\partial^3f(x,y,z)}{\partial x\partial x\partial x}$ jsou parciální derivace třetího řádu
+- Věta: Záměnnost u parciálních derivací vyšších řádů
+	- tvrzení
+		- buď $f(x,y)$ funkce taková, že parciální derivace $\frac{\partial^2f}{\partial x\partial y}$ a $\frac{\partial^2f}{\partial y\partial x}$ jsou definovány a jsou spojité v nějakém okolí bodu $(x,y)$
+		- potom máme $\frac{\partial^2f(x,y)}{\partial x\partial y}=\frac{\partial^2f(x,y)}{\partial y\partial x}$
+	- důkaz
+		- uvažujme funkci $F(h)=\frac{f(x+h,y+h)-f(x,y+h)-f(x+h,y)+f(x,y)}{h^2}$
+		- položíme
+			- $\varphi_h(y)=f(x+h,y)-f(x,y)$
+			- $\psi_h(x)=f(x,y+h)-f(x,y)$
+		- pak dostaneme pro $F(h)$ dva výrazy
+			- $F(h)=\frac1{h^2}(\varphi_h(y+h)-\varphi_h(y))$
+			- $F(h)=\frac1{h^2}(\psi_h(x+h)-\psi_h(x))$
+		- $\varphi_h$ má derivaci $\varphi'_h(y)=\frac{\partial f(x+h,y)}{\partial y}-\frac{\partial f(x,y)}{\partial y}$
+		- $F(h)={1\over h^2}(\varphi_h(y+h)-\varphi_h(y))=\frac1h \varphi_h'(y+\theta_1h)$
+			- podle Lagrangeovy věty (viz alternativní tvar)
+		- tedy $F(h)=\frac1h\left(\frac{\partial f(x+h,y+\theta_1h)}{\partial y}-\frac{\partial f(x,y+\theta_1h)}{\partial y}\right)$
+		- znova použijeme Lagrangeovu větu a dostaneme $F(h)=\frac\partial{\partial x}\left(\frac{\partial f(x+\theta_2h,y+\theta_1h)}{\partial y}\right)$
+			- kde $\theta_1,\theta_2$ jsou mezi 0 a 1
+		- podobně z vyjádření $F(h)$ pomocí $\psi_h$ dostaneme $F(h)=\frac\partial{\partial y}\left(\frac{\partial f(x+\theta_4h,y+\theta_3h)}{\partial x}\right)$
+		- $\lim_{h\to 0}F(h)=\frac{\partial^2 f(x,y)}{\partial x\partial y}=\frac{\partial^2 f(x,y)}{\partial y\partial x}$
+	- iterováním výměn z tohoto tvrzení dostaneme následující důsledek:
+		- nechť má funkce $f$ v $n$ proměnných spojité parciální derivace do řáku $k$
+		- potom hodnoty těchto derivací záleží jen na tom, kolikrát bylo derivováno v každé z individuálních proměnných $x_1,\dots,x_n$
 
 ## Věty o implicitních funkcích
 
