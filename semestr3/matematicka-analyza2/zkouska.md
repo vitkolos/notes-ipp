@@ -373,14 +373,25 @@ tyto výpisky jsou založeny na [poznámkách Viktora Soukupa, Lukáše Salaka a
 		- ${\partial F_2\over\partial y_2}(x^0,y_1^0,y_2^0)\neq 0$, abychom získali $\psi$
 		- ${\partial G\over\partial y_1}(x^0,y_1^0)={\partial F_1\over\partial y_1}+{\partial F_1\over\partial y_2}{\partial \psi\over\partial y_1}\neq 0$
 			- to vyplývá z řetízkového pravidla
-			- 
+			- pomocí formule $f'(t)=-\frac{{\partial F\over \partial x}(t,f(t))}{{\partial F\over\partial y}(t,f(t))}$ dostaneme z této rovnice nakonec vzorec pro determinant – konkrétně pro Jacobián, který má být nenulový
+			- to stačí – druhý předpoklad vyplývá z nenulovosti Jacobiánu
 - Definice: Jacobián a jeho role
 	- pro konečnou posloupnost funkcí $F_1(x,y),\dots,F_m(x,y)$ a pro $y=(y_1,\dots,y_m)$ se definuje Jacobiho determinant (Jacobián) $\frac{D(F)}{D(y)}=\det{\left(\frac{\partial F_i}{\partial y_j}\right)}_{i,j=1,\dots,m}$
 		- řádky odpovídají funkcím $F_i$, sloupce proměnným $y_j$
+	- u implicitních funkcí budeme požadovat nenulovost Jacobiánu
+	- geometrický význam: Jacobián určuje, jak vektorová funkce  při transformaci oblasti  na  natahuje nebo stlačuje objemy malých kousků oblasti  okolo v poměru (absolutní hodnoty) Jacobiánu
 - Věta: Obecná věta, porozumění tomu, co se děje
-
-- Aplikace: Lokální extrémy, věta o vázaných extrémech, jak se používá
-- Aplikace: Regulární zobrazení
+	- věta
+		- buďte $F_i(x_1,\dots,x_n,y_1,\dots,y_m),\;i=1,\dots,m,$ funkce $n+m$ proměnných se spojitými parciálními derivacemi do řádu $k\geq 1$
+		- buď $F(x^0,y^0)=o$ a $\frac{D(F)}{D(y)}(x^0,y^0)\neq 0$
+		- potom existují $\delta\gt 0$ a $\Delta\gt 0$ takové, že pro každé $x\in (x^0_1-\delta,x_1^0+\delta)\times\dots\times(x_n^0-\delta,x_n^0+\delta)$ existuje právě jedno $y\in (y_1^0-\Delta,y_1^0+\Delta)\times\dots\times(y_m^0-\Delta,y_m^0+\Delta)$ takové, že $F(x,y)=o$
+		- píšeme-li toto $y$ jako vektorovou funkci $f(x)=(f_1(x),\dots,f_m(x))$, mají $f_i$ spojité parciální derivace do řádu $k$
+	- důkaz: v podstatě stačí kroky výše – ukázali jsme, jak pomocí substituce přejít od úlohy s $n+1$ rovnicemi k úloze s $n$ rovnicemi a jak se při tom podmínka o Jacobiánu v dimenzi $n+1$ přemění na podmínku o Jakobiánu v dimenzi $n$ (pak už je třeba jenom diskutovat, jak vhodně nahradit rozměry oken, tedy $\delta,\Delta$)
+- Věta: Aplikace – lokální extrémy, věta o vázaných extrémech, jak se používá
+	- uvažujeme body, v nichž jsou všechny parciální derivace nulové, a body na okraji zkoumané oblasti (ale těch je nekonečně mnoho)
+	- 
+- Věta: Aplikace – regulární zobrazení
+	- 
 
 ## Riemannův integrál v jedné proměnné
 
