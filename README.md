@@ -17,3 +17,4 @@
 - [Výroková a predikátová logika (zkouška)](semestr3/vyrokova-predikatova-logika/zkouska.md)
 - [Algoritmy a datové struktury 2 (zkouška)](semestr3/algoritmy-datove-struktury2/zkouska.md)
 - [Kombinatorika a grafy 1 (zkouška)](semestr3/kombinatorika-grafy1/zkouska.md)
+- [Matematická analýza 2 (zkouška)](semestr3/matematicka-analyza2/zkouska.md)
