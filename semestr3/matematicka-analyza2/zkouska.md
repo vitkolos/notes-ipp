@@ -561,7 +561,18 @@ tyto výpisky jsou založeny na [poznámkách Viktora Soukupa, Lukáše Salaka a
 		- proto $\int_{J'}F=\int_Jf$
 - Definice: Poznámky o Lebesgueově integrálu
 	- *zejména praktická informace, že smíme počítat jako s Riemannovým integrálem plus pravidlo $\int\lim f_n=\lim\int f_n$ pro stejně omezené $f_n$*
-	- 
+	- několik Lebesgueovských pravidel
+		1. je-li $J$ $n$-dimenzionální interval a jestliže Riemannův integrál $\int_Jf$ existuje, potom Lebegeův integrál je stejný
+		2. jestliže $\int_{D_n}f$ existuje pro $n=1,2,\dots$, potom existuje též $\int_{\cup D_n}f$
+		3. jestliže $\int_Df_n$ existuje a posloupnost $(f_n)_n$ je monotonní, potom je $\int_D\lim_nf_n=\lim_n\int_Df_n$
+		4. jestliže $\int_Df_n$ existuje a $|f_n|\leq g$ pro nějakou $g$, pro kterou $\int_D g$ existuje a je konečný, potom $\int_D\lim_nf_n=\lim_n\int_Df_n$
+		5. buď $U$ okolí bodu $t_0$ a buď $g$ taková, že $\int_Dg$ existuje a $\int_Df(t,x)dx$ existují a $|f(t,x)|\leq g(x)$ pro všechna $t\in U\setminus\set{t_0}$, potom je $\int_Df(t_0,x)dx=\lim{t\to t_0}\int_D f(t,x)dx$
+		6. jestliže pro integrabilní $g$ platí $\left|\frac{\partial f(t,x)}{\partial t}\right|\leq g(x)$ a jestliže v nějakém okolí $U$ bodu $t_0$ všechny symobly v následující formuli dávají smysl, potom $\int_D\frac{\partial f(t_0,-)}{\partial t}={d\over dt}\int_Df(t_0,-)$
+	- nejdůležitější pravidlo: $\int\lim f_n=\lim\int f_n$, je-li $|f_n(x)|\leq K$ pro nějaké pevné $K$
+		- je speciální případem pravidla (4)
+	- princip Lebesgueova integrálu
+		- Lebesgueův integrál je založen na spočetných součtech
+		- tedy předpokládá, že pro posloupnost disjunktních množin $A_n\subseteq\mathbb E_k$ platí $\text{vol}(\bigcup_{n=1}^\infty A_n)=\sum_{n=1}^\infty\text{vol}(A_n)$
 - Příklad: Co se dá udělat s kompaktními obory hodnot které nejsou intervaly
 	- Tietzova věta (bez důkazu): buď $Y$ uzavřený podprostor metrického prostoru $(X,d)$, potom každá spojitá funkce $f:Y\to\braket{a,b}$ se dá rozšířit na spojitou $g:X\to\braket{a,b}$
 	- pro Lebesgueův integrál platí $\int\lim f_n=\lim\int f_n$, je-li $|f_n(x)|\leq K$ pro nějaké pevné $K$
