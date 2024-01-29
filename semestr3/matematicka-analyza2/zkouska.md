@@ -450,17 +450,133 @@ tyto výpisky jsou založeny na [poznámkách Viktora Soukupa, Lukáše Salaka a
 
 ## Riemannův integrál v jedné proměnné
 
-- Opakování, geometrická interpretatce, obsahy atd.
-- Rozdělení intervalu
-- Existence pro spojité funkce, role stejnoměrné spojitosti
-- Základní věta analýzy, Riemannův integrál a primitivní funkce
+- Definice: Opakování, geometrická interpretace, obsahy atd.
+	- některým podmnožinám $A\subseteq\mathbb E_n$ umíme přiřadit objem $\text{vol}(A)$, přičemž požadujeme vlastnosti…
+		- $\text{vol}(\emptyset)=0$
+		- $A\subseteq B\implies\text{vol}(A)\leq\text{vol}(B)$
+		- $\text{vol}(A\cup B)=\text{vol}(A)+\text{vol}(B)-\text{vol}(A\cap B)$
+		- objem je zachován isometrií
+		- objem cihly $\braket{a_1,b_1}\times\dots\times\braket{a_n,b_n}$ v $\mathbb E_n$ je $(\prod_i\braket{a_i,b_i})=(b_1-a_1)\cdot\ldots\cdot(b_n-a_n)$
+	- když má nějaká cihla degenerovanou hranu ($a_i=b_i$ pro některé $i$), pak je její objem nulový
+	- objem útvarů složených z cihel, jimž se protínají jen povrchy, je stejný, jako by cihly byly disjunktní
+- Definice: Rozdělení intervalu
+	- rozdělení intervalu $\braket{a,b}$ je posloupnost $P:a=t_0\lt t_1\lt\dots\lt t_{n-1}\lt t_n=b$
+	- zjemnění $P$ je rozdělení $P':a=t'_0\lt t'_1\lt\dots\lt t'_{m-1}\lt t'_m=b$ takové, že $\set{t_j\mid j=1,\dots,n-1}\subseteq\set{t'_j\mid j=1,\dots,m-1}$
+	- jemnost rozdělení je $\mu(P)=\max_j(t_j-t_{j-1})$
+	- rozdělení intervalů je vhodnější než jako posloupnost bodů vnímat rozdělení intervalu na menší intervaly
+	- pro omezenou funkci $f:J=\braket{a,b}\to\mathbb R$ a rozdělení $P$ definujeme
+		- dolní součet $s(f,P)=\sum_{j=1}^nm_j(t_j-t_{j-1})$
+			- kde $m_j=\inf\set{f(x)\mid t_{j-1}\leq x\leq t_j}$
+		- horní součet $S(f,P)=\sum_{j=1}^n M_j(t_j-t_{j-1})$
+			- kde $M_j=\sup\set{f(x)\mid t_{j-1}\leq x\leq t_j}$
+	- když $P'$ zjemňuje $P$, dostáváme $s(f,P)\leq s(f,P')$ a $S(f,P)\geq S(f,P')$
+	- pro každá dvě $P_1,P_2$ platí $s(f,P_1)\leq S(f,P_2)$
+	- dolní Riemannův integrál: $\underline\int_a^b f(x)dx=\sup\set{s(f,P)\mid P\text{ rozd\v{e}lení}}$
+	- horní Riemannův integráL $\overline\int_a^b f(x)dx=\inf\set{S(f,P)\mid P\text{ rozd\v{e}lení}}$
+	- je-li $\underline\int_a^b f(x)dx=\overline\int_a^b f(x)dx$, pak společnou hodnotu označujeme $\int_a^b f(x)dx$
+		- Riemannův integrál funkce $f$ přes $\braket{a,b}$
+- Věta: Existence pro spojité funkce, role stejnoměrné spojitosti
+	- tvrzení: Riemannův integrál $\int_a^b f(x)dx$ existuje, právě když pro každé $\varepsilon\gt 0$ existuje rozdělení $P$ takové, že $S(f,P)-s(f,P)\lt\varepsilon$
+	- důkaz
+		- $\implies$
+			- nechť $\int_a^b f(x)dx$ existuje a $\varepsilon\gt 0$
+			- potom existují rozdělení $P_1,P_2$ taková, že $S(f,P_1)\lt \int_a^b f(x)dx+\frac\varepsilon2$ a $s(f,P_2)\gt\int_a^b f(x)dx-\frac\varepsilon2$
+			- potom pro společné zjemnění $P$ těch dvou platí $S(f,P)-s(f,P)\lt \int_a^b f(x)dx+\frac{\varepsilon}2-\left(\int_a^b f(x)dx - \frac\varepsilon2\right)=\varepsilon$
+		- $\impliedby$
+			- zvolme $\varepsilon\gt 0$ takové, že $S(f,P)-s(f,P)\lt\varepsilon$
+			- potom $\overline\int_a^b f(x)dx\leq S(f,P)\leq s(f,P)+\varepsilon\leq \underline\int_a^b f(x)dx+\varepsilon$
+			- $\varepsilon$ je libovolně malé, takže $\overline\int_a^b f(x)dx=\underline\int_a^b f(x)dx$
+	- věta: pro každou spojitou $f:\braket{a,b}\to\mathbb R$ Riemannův integrál $\int_a^b f$ existuje
+	- důkaz
+		- pro $\varepsilon\gt 0$ zvolme $\delta\gt 0$ tak, aby $|x-y|\lt\delta\implies|f(x)-f(y)|\lt\frac{\varepsilon}{b-a}$
+		- je-li $\mu(P)\lt\delta$, máme $t_j-t_{j-1}\lt\delta$ pro všechna $j$
+		- tedy pro všechna $j:$
+			- $M_j-m_j=\sup\set{f(x)\mid t_{j-1}\leq x\leq t_j}-\inf\set{f(x)\mid t_{j-1}\leq x\leq t_j}\leq$
+			- $\leq\sup\set{|f(x)-f(y)|\mid t_{j-1}\leq x,y\leq t_j}\leq\frac\varepsilon{b-a}$
+		- tudíž $S(f,P)-s(f,P)=\sum (M_j-m_j)(t_j-t_{j-1})\leq\frac\varepsilon{b-a}\sum(t_j-t_{j-1})=$
+		- $=\frac{\varepsilon}{b-a}(b-a)=\varepsilon$
+- Věta: Základní věta analýzy, Riemannův integrál a primitivní funkce
+	- integrální věta o střední hodnotě: buď $f:\braket{a,b}\to\mathbb R$ spojitá, potom existuje $c\in\braket{a,b}$ takové, že $\int_a^b f(x)dx=f(c)(b-a)$
+	- důkaz
+		- položme $m,M$ jako minimum a maximum z funkčních hodnot na intervalu
+		- zjevně $m(b-a)\leq\int_a^bf(x)dx\leq M(b-a)$
+		- tedy existuje $K$ takové, že $m\leq K\leq M$ a $\int_a^b f(x)dx=K(b-a)$
+		- ze spojitosti $f$ vyplývá, že existuje $c\in\braket{a,b}$ takové, že $K=f(c)$
+	- pozorování: pro $a\lt b\lt c:\int_a^b f+\int_b^cf=\int_a^c f$
+	- základní věta analýzy
+		- buď $f:\braket{a,b}\to\mathbb R$ spojitá
+		- pro $x\in\braket{a,b}$ definujme $F(x)=\int_a^x f(t)dt$
+		- potom je $F'(x)=f(x)$
+	- důkaz
+		- uvažujme $h\neq 0$
+		- $\frac1h(F(x+h)-F(x))=\frac1h(\int_a^{x+h}f-\int_a^xf)=\frac 1h\int_x^{x+h} f=$
+		- $=\frac 1h f(x+\theta h)h=f(x+\theta h)$
+			- kde $0\lt\theta\lt 1$
+		- ve druhé úpravě jsme použili pozorování, ve třetí integrální větu o střední hodnotě
+		- $f$ je spojitá, proto $\lim_{h\to 0}\frac1h(F(x+h)-F(x))=\lim_{h\to 0} f(x+\theta h)=f(x)$
+	- důsledek
+		- buď $f:\braket{a,b}\to\mathbb R$ spojitá
+		- potom má primitivní funkci na $(a,b)$ spojitou na $\braket{a,b}$
+		- je-li $G$ primitivní funkce $f$ na $(a,b)$ spjitá na $\braket{a,b}$, potom je $\int_a^bf(t)dt=G(b)-G(a)$
 
 ## Riemannův integrál ve více proměnných
 
-- Až do existence pro spojité funkce zcela analogické s jednou proměnnou
+- Definice: Až do existence pro spojité funkce zcela analogické s jednou proměnnou
 	- *stačí pochopit podrozdělení jako rozklad na systém cihliček*
-- Fubiniho věta, jak ji používáme
-- Poznámky o Lebesgueově integrálu
+	- cihla … kompaktní interval v $\mathbb E_n$, vypadá takto: $J=\braket{a_1,b_1}\times\dots\times\braket{a_n,b_n}$
+	- rozdělení cihly $J$ je posloupnost, jejímiž prvky jsou rozdělení jednotlivých intervalů
+	- tak jsou určeny menší intervaly, těm říkáme cihly rozdělení
+	- množina všech cihel rozdělení $\mathcal B(P)$ je soustava tvořící rozklad intervalu $J$ na skoro disjunktní sjednocení
+	- pozorování: $\text{vol}(J)=\sum\set{\text{vol}(B)\mid B\in\mathcal B(J)}$
+	- diametr intervalu $J$ … $\text{diam}(J)=\max_i(b_i-a_i)$
+	- jemnost rozdělení $P$ … $\mu(P)=\max\set{\text{diam}(B)\mid B\in\mathcal B(P)}$
+	- zjemnění je pak dodefinováno pomocí zjemnění jednotlivých intervalů v posloupnosti
+	- každá dvě rozdělení $P,Q$ $n$-rozměrného kompaktního intervalu $J$ mají společné zjemnění
+	- Riemannův integrál funkce přes $J$ značíme $\int_Jf(x)dx$
+	- většina vět je stejná jako v jedné proměnné
+	- akorát **nemáme** protějšek základní věty analýzy, zejména pak její důsledek, že známe-li primitivní funkci $G$ funkce $f$, můžeme Riemannův integrál funkce $f$ počítat jako $\int_a^b f(t)dt=G(b)-G(a)$
+	- místo toho budeme vícerozměrný Riemannův integrál počítat postupnými výpočty po jednotlivých souřadnicích (podle Fubiniovy věty)
+- Věta: Fubiniho věta, jak ji používáme
+	- věta
+		- vezměme součin $J=J'\times J''\subseteq \mathbb E_{m+n}$ intervalů $J'\subseteq\mathbb E_m,\,J''\subseteq\mathbb E_n$
+		- nechť $\int_Jf(x,y)dxy$ existuje
+		- nechť pro každé $x\in J'$ existuje $\int_{J''}f(x,y)dy$
+		- nechť pro každé $y\in J''$ existuje $\int_{J'}f(x,y)dx$
+		- potom je $\int_J f(x,y)dxy=\int_{J'}(\int_{J''}f(x,y)dy)dx=\int_{J''}(\int_{J'}f(x,y)dx)dy$
+	- důkaz
+		- položme $F(x)=\int_{J''}f(x,y)dy$
+		- dokážeme, že $\int_{J'}F$ existuje a že $\int_J f=\int_{J'}F$
+		- zvolme rozdělení $P$ intervalu $J$ tak, aby $\int f-\varepsilon\leq s(f,P)\leq S(f,P)\leq\int f+\varepsilon$
+		- toto $P$ je tvořeno rozděleními $P'$ intervalu $J'$ a $P''$ intervalu $J''$
+		- máme $\mathcal B(P)=\set{B'\times B''\mid B'\in\mathcal B(P'),B''\in\mathcal B(P'')}$
+		- každá cihla rozdělení $P$ se objeví jako právě jedno $B'\times B''$
+		- potom je $F(x)\leq \sum_{B''\in \mathcal B(P'')}\max_{y\in B''} f(x,y)\cdot \text{vol}(B'')$
+		- tudíž $S(F,P')\leq$
+		- $\leq\sum_{B'\in\mathcal B(P')}\max_{x\in B'}\left(\sum_{B''\in \mathcal B(P'')}\max_{y\in B''} f(x,y)\cdot \text{vol}(B'')\right)\cdot\text{vol}(B')\leq$
+		- $\leq\sum_{B'\in\mathcal B(P')}\sum_{B''\in\mathcal B(P'')}\max_{(x,y)\in B'\times B''}f(x,y)\cdot\text{vol}(B'')\cdot \text{vol}(B')\leq$
+		- $\leq\sum{B'\times B''\in\mathcal B(P)}\max_{z\in B'\times B''}f(z)\cdot \text{vol}(B'\times B'')=S(f,P)$
+		- takhle jsme dokázali $S(f,P)\geq S(F,P')$
+		- podobně lze dojít k $s(f,P)\leq s(F,P')$
+		- máme tedy $\int_Jf-\varepsilon\leq s(F,P')\leq \int_{J'}F\leq S(F,P')\leq \int_J f+\varepsilon$
+		- proto $\int_{J'}F=\int_Jf$
+- Definice: Poznámky o Lebesgueově integrálu
 	- *zejména praktická informace, že smíme počítat jako s Riemannovým integrálem plus pravidlo $\int\lim f_n=\lim\int f_n$ pro stejně omezené $f_n$*
-- Co se dá udělat s kompaktními obory hodnot které nejsou intervaly
-- Substituce (jen intuitivně; role Jacobiánu)
+	- 
+- Příklad: Co se dá udělat s kompaktními obory hodnot které nejsou intervaly
+	- Tietzova věta (bez důkazu): buď $Y$ uzavřený podprostor metrického prostoru $(X,d)$, potom každá spojitá funkce $f:Y\to\braket{a,b}$ se dá rozšířit na spojitou $g:X\to\braket{a,b}$
+	- pro Lebesgueův integrál platí $\int\lim f_n=\lim\int f_n$, je-li $|f_n(x)|\leq K$ pro nějaké pevné $K$
+	- co dělat s kompaktním oborem hodnot, který není cihla
+		- mějme kompaktní $D\subseteq\mathbb E_n$
+		- $D$ vložíme do cihly $J$
+		- $f$ rozšíříme nulovými hodnotami na $J\setminus D$
+			- tak dostaneme funkci $g$
+		- není jasné, zda má funkce $g$ Riemannův integrál, protože nemusí být spojitá
+		- tedy použijeme Tietzovu větu a Lebesgueův integrál
+			- definujme $J_n=\set{x\in J\mid d(x,D)\geq\frac1n}$
+			- mějme podprostor $D\cup J_n$ uzavřený v $J$
+			- na $D\cup J_n$ definujme $g'_n$ jako 0 na $J_n$ a jako $f$ na $D$
+			- to je spojitá funkce, podle Tietzeovy věty ji můžeme rozšířit na stejně omezenou $g_n$ na $J$
+			- zjevně $\lim g_n=g$
+			- tady se nám hodí Lebesgueův integrál
+- Příklad: Substituce (jen intuitivně; role Jacobiánu)
+	- 
