@@ -590,4 +590,25 @@ tyto výpisky jsou založeny na [poznámkách Viktora Soukupa, Lukáše Salaka a
 			- zjevně $\lim g_n=g$
 			- tady se nám hodí Lebesgueův integrál
 - Příklad: Substituce (jen intuitivně; role Jacobiánu)
-	- 
+	- substituce v jedné proměnné
+		- mějme rostoucí funkci $\phi$ definovanou na okolí kompaktního intervalu $\braket{a,b}$
+		- podívejme se na jeho obraz $\braket{\phi(a),\phi(b)}$
+		- nechť $\phi$ má derivaci $\phi'$
+		- buď $f$ spojitá funkce a $F$ její primitivní funkce
+		- potom máme pro složenou funkci $G=F\circ\phi:$
+			- $G'(x)=F'(\phi(x))\phi'(x)$
+		- podle základní věty analýzy:
+			- $\int_{\phi(a)}^{\phi(b)}f(x)dx=F(\phi(b))-F(\phi(a))=G(b)-G(a)=\int_a^b f(\phi(x))\phi'(x)dx$
+		- tedy výsledné pravidlo vypadá takto: $\int_{\phi(a)}^{\phi(b)}f(x)dx=\int_a^b f(\phi(x))\phi'(x)dx$
+		- geometrická interpretace
+			- rostoucí funkce $\phi$ popisuje deformaci intervalu $\braket{a,b}$, která natahuje nebo smršťuje malé intervaly $\braket{x,x+h}$ v poměru přibližně $\phi'(x)$
+			- integrál funkce $f$ chápeme jako součet objemů tenkých obdélníků o stranách $h$ a $f(x)$
+			- sčítaný obdélník v integrálu před deformací $\braket{x,x+h}$ bude odpovídat obdélníku s délkou základny $h\cdot\phi'(x)$
+			- násobení $\phi'(x)$ tedy zajišťuje jakousi kompenzaci
+	- substituce ve více proměnných
+		- buď $U$ otevřené okolí kompaktní množiny $D\subseteq\mathbb E_n$
+		- buď $\phi:U\to\mathbb E_n$ regulární zobrazení
+		- potom pro (dejme tomu spojitou) funkci $f$ máme $\int_{\phi[D]}f=\phi_Df(\phi(x))\left|\frac{D(\phi)}{D(x)}\right|dx$
+			- kde $\frac{D(\phi)}{D(x)}$ je Jakobián
+		- krychlička $\braket{x_1,x_1+h}\times\dots\times\braket{x_n,x_n+h}$ o objemu $h^n$ bude deformována na rovnoběžnostěn definovaný vektory $\phi(x)+h\cdot\left(\frac{\partial\phi_i(x)}{\partial x_1},\dots,\frac{\partial \phi_i(x)}{\partial x_n}\right)$ (pro $i=1,\dots,n$), jehož objem je $h^n\cdot\left|\frac{D(\phi(x))}{D(x)}\right|$
+		- absolutní hodnota Jakobiánu tedy hraje tutéž kompenzační roli jako hodnota $\phi'(x)$ v případě jedné proměnné
