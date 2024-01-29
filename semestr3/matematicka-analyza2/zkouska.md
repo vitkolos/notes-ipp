@@ -1,7 +1,5 @@
 # Zkouška
 
-tyto výpisky jsou založeny na [poznámkách Viktora Soukupa, Lukáše Salaka a Tomáše Slámy](https://slama.dev/poznamky/matematicka-analyza-ii/)
-
 ## Metrické prostory
 
 - Definice: Metrický prostor, příklady, $\mathbb E_n$
