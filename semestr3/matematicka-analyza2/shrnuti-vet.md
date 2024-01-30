@@ -61,6 +61,34 @@
 		- limitíme
 		- na jedné straně dostaneme vzorec pro parciální derivaci, na druhé limitu $A_k+\mu(h)$, což je $A_k$
 - spojité parciální derivace a totální diferenciál
+	- zadefinujeme si pomocné $h^{(i)}$ jako $i$ nul a dál složky z původního $h$
+	- vyjádříme $f(a+h)-f(a)$ jako součet mnoha dvojic členů, které se skoro všechny odečtou
+	- na jednu dvojici použijeme Lagrangeovu větu a zapíšeme ji jako parciální derivaci vynásobenou $h_k$
+	- ze součtu „vytáhneme“ člen $\frac{\partial f(a)}{\partial x_k}$, který tam původně nebyl, takže ho musíme zase odečíst
+	- součet vynásobíme a vydělíme $\lVert h\rVert$
+	- tím dostaneme $\mu(h)$ a zjistíme, že limití k nule
 - vázané extrémy
+	- znění
+		- mějme funkce $f,g_1,\dots,g_k$ definované na otevřené množině $D\subseteq\mathbb E_n$, přičemž $g_i$ určují oblast (jsou tam rovny nule), kde hledáme extrémy funkce $f$
+		- požadujeme spojité parciální derivace všech funkcí
+		- mějme matici $M_{ij}=\frac{\partial g_i}{\partial x_j}$ s maximální hodností ($k$) v každém bodě oboru $D$
+		- jestliže $f$ nabývá lokálního extrému, tak existují lambdy takové, že pro $i$ od jedné do $n$ platí $\frac{\partial f(a)}{\partial x_i}+\sum_{j=1}^k\lambda_j\cdot\frac{\partial g_j(a)}{\partial x_i}=0$
+	- vezmeme regulární čtvercovou podmatici z $M$ s rozměry $k\times k$ (BÚNO zleva)
+	- pomocí $g_i$ a věty o implicitních funkcích dostaneme $k$ funkcí v $n-k$ proměnných (při aplikaci používáme prvních $k$ proměnných jako $y$ a zbylých $n-k$ proměnných jako $x$)
+	- těmi nahradíme prvních $k$ proměnných v $f$, čímž dostaneme funkci $F$ v $n-k$ proměnných, jejíž parciální derivace musí být nulové, aby tam byl extrém
+	- použijeme chain rule na derivaci $F$ a na derivaci všech $g_i$, budeme to potřebovat v dalším kroku
+	- z regularity $M$ (nenulovosti determinantu) vidíme, že rovnice s lambdami funguje pro prvních $k$ sloupců, ale musíme to ještě dokázat pro zbylých $n-k$
+	- dosadíme výrazy, které nám vyšly z chain rule
+	- nakonec nám tam vyleze rovnice s lambdami, která je nulová, takže se celý výraz sečte na nulu
 - Lagrangeova věta ve více proměnných
+	- znění: $f(y)-f(x)=\sum_j\frac{\partial f(x+\theta(y-x))}{\partial x_j}(y_j-x_j)$
+	- položíme $F(t)=f(x+t(y-x))$
+	- to zderivujeme pomocí chain rule
+	- zjevně $f(x)=F(0)$ a $f(y)=F(1)$
+	- použijeme Lagrangeovu větu na $f(y)-f(x)=F(1)-F(0)=F'(\theta)(1-0)=F'(\theta)$
 - Lebesgueův integrál
+	- zásadní: pro funkce omezené $K$ platí $\lim\int f=\int\lim f$
+	- když existuje Riemannův integrál, tak je stejný jako Lebesgueův
+	- když existuje integrál pro jednotlivé množiny, tak existuje pro jejich sjednocení
+	- když existuje integrál pro každou funkci v posloupnosti a posloupnost je monotónní, tak limita integrálů je integrál limity
+	- když jsou funkce posloupnosti omezeny funkcí s konečným integrálem a jejich integrál existuje, tak je integrál limity limita integrálů
