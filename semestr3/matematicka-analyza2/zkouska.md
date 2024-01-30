@@ -552,7 +552,7 @@
 		- tudíž $S(F,P')\leq$
 		- $\leq\sum_{B'\in\mathcal B(P')}\max_{x\in B'}\left(\sum_{B''\in \mathcal B(P'')}\max_{y\in B''} f(x,y)\cdot \text{vol}(B'')\right)\cdot\text{vol}(B')\leq$
 		- $\leq\sum_{B'\in\mathcal B(P')}\sum_{B''\in\mathcal B(P'')}\max_{(x,y)\in B'\times B''}f(x,y)\cdot\text{vol}(B'')\cdot \text{vol}(B')\leq$
-		- $\leq\sum{B'\times B''\in\mathcal B(P)}\max_{z\in B'\times B''}f(z)\cdot \text{vol}(B'\times B'')=S(f,P)$
+		- $\leq\sum_{B'\times B''\in\mathcal B(P)}\max_{z\in B'\times B''}f(z)\cdot \text{vol}(B'\times B'')=S(f,P)$
 		- takhle jsme dokázali $S(f,P)\geq S(F,P')$
 		- podobně lze dojít k $s(f,P)\leq s(F,P')$
 		- máme tedy $\int_Jf-\varepsilon\leq s(F,P')\leq \int_{J'}F\leq S(F,P')\leq \int_J f+\varepsilon$
