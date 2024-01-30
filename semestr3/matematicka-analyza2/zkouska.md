@@ -429,7 +429,6 @@
 		- tudíž je možné použí větu o implicitních funkcích
 		- dostaneme $\delta,\Delta\gt 0$ taková, že pro každé $y:\lVert y-y^0\rVert\lt\delta$ existuje $x:\lVert x-x^0\rVert\lt\Delta$ a $F_i(x,y)=f_i(x)-y_i=0$
 		- tzn. máme $f(x)=y$ (pozor, $y_i$ jsou proměnné, $x_j$ hledané funkce)
-		- tedy máme $f(x)=y$
 		- zároveň $\Omega(y^0,\delta)=\set{y\mid\lVert y-y^0\rVert\lt\delta}\subseteq f[V]$
 	- tvrzení
 		- buď $f:U\to\mathbb E_n$ regulární
