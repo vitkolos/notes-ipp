@@ -493,6 +493,7 @@
 			- $\leq\sup\set{|f(x)-f(y)|\mid t_{j-1}\leq x,y\leq t_j}\leq\frac\varepsilon{b-a}$
 		- tudíž $S(f,P)-s(f,P)=\sum (M_j-m_j)(t_j-t_{j-1})\leq\frac\varepsilon{b-a}\sum(t_j-t_{j-1})=$
 		- $=\frac{\varepsilon}{b-a}(b-a)=\varepsilon$
+	- ve více proměnných uvažujeme kompaktní interval, takže je funkce rovnou stejnoměrně spojitá (což potřebujeme)
 - Věta: Základní věta analýzy, Riemannův integrál a primitivní funkce
 	- integrální věta o střední hodnotě: buď $f:\braket{a,b}\to\mathbb R$ spojitá, potom existuje $c\in\braket{a,b}$ takové, že $\int_a^b f(x)dx=f(c)(b-a)$
 	- důkaz
