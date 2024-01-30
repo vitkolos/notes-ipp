@@ -606,7 +606,7 @@
 	- substituce ve více proměnných
 		- buď $U$ otevřené okolí kompaktní množiny $D\subseteq\mathbb E_n$
 		- buď $\phi:U\to\mathbb E_n$ regulární zobrazení
-		- potom pro (dejme tomu spojitou) funkci $f$ máme $\int_{\phi[D]}f=\phi_Df(\phi(x))\left|\frac{D(\phi)}{D(x)}\right|dx$
+		- potom pro (dejme tomu spojitou) funkci $f$ máme $\int_{\phi[D]}f=\int_Df(\phi(x))\left|\frac{D(\phi)}{D(x)}\right|dx$
 			- kde $\frac{D(\phi)}{D(x)}$ je Jakobián
 		- krychlička $\braket{x_1,x_1+h}\times\dots\times\braket{x_n,x_n+h}$ o objemu $h^n$ bude deformována na rovnoběžnostěn definovaný vektory $\phi(x)+h\cdot\left(\frac{\partial\phi_i(x)}{\partial x_1},\dots,\frac{\partial \phi_i(x)}{\partial x_n}\right)$ (pro $i=1,\dots,n$), jehož objem je $h^n\cdot\left|\frac{D(\phi(x))}{D(x)}\right|$
 		- absolutní hodnota Jakobiánu tedy hraje tutéž kompenzační roli jako hodnota $\phi'(x)$ v případě jedné proměnné
