@@ -1,6 +1,7 @@
 # Shrnutí některých vět
 
 - implicitní funkce
+	- znění: pro funkci $F(x,y)=0$ definovanou v okolí nějakého bodu a rovnou nule v daném bodě, která má spojité parciální derivace (a derivace podle $y$ není nulová), můžeme najít funkci, která odpovídá $y$ a má spojité parciální derivace
 	- derivace podle $y$ je nenulová, ať je BÚNO kladná
 	- v obdélníku jsou extrémy
 	- nejdříve najdeme funkci
@@ -14,6 +15,31 @@
 		- z $f(x+h)$ uděláme $f(x)+(f(x+h)-f(x))$
 		- použijeme Lagrangeovu větu a chain rule
 		- nakonec dostaneme $\frac{f(x+h)-f(x)}h=$ minus podíl parciálních derivací
+		- z toho máme přímo derivaci a ta je spojitá, protože parciálníá derivace jsou spojité
 		- z toho můžeme odvodit i spojitost, přičemž jako $\varepsilon$ použijeme $|h|\cdot\frac Ka$
 - Fubiniho věta
-	- 
+	- znění: když místo přes součin intervalů integrujeme postupně přes každý z nich zvlášť, dosteneme správný výsledek
+	- zvolíme rozdělení velkého intervalu (tedy součinu) takové, že máme $\int f-\varepsilon\leq s(f,P)\leq S(f,P)\leq\int f+\varepsilon$
+	- jako $F(x)$ položíme integrál přes první proměnnou
+	- zjevně horní součet těchto integrálů bude menší než horní součet $S(f,P)$
+	- podobně dolní součet integrálů bude větší než dolní součet $s(f,P)$
+	- takže jsme tyhle součty narvali doprostřed té nerovnosti
+	- pro epsilon dostáváme rovnost integrálů $\int_{J'}F\int_Jf$
+- záměnnost parciálních derivací
+	- požadujeme spojitost parciálních derivací
+	- uvažujeme funkci $F(h)$, kde jakoby derivujeme podle obou proměnných zároveň
+	- položíme $\varphi_h(y)$ a $\psi_h(x)$ a s jejich pomocí získáme dvě vyjádření pro $F(h)$
+		- pro ilustraci:
+		- $\varphi_h(y)=f(x+h,y)-f(x,y)$
+		- $F(h)=\frac1{h^2}(\varphi_h(y+h)-\varphi_h(y))$
+	- dvakrát použijeme Lagrangeovu větu o střední hodnotě
+	- nakonec limitíme
+- chain rule
+	- znění: derivace složené funkce je součet přes jednotlivé proměnné vnější funkce – sčítanec je součin parciální derivace vnější funkce podle $k$-té proměnné a derivace $k$-té vnitřní funkce
+	- vnější funkce musí mít totální diferenciál
+	- začneme s $\frac1h(F(x+h)-F(x))$
+	- přepíšeme jako $f(g(\dots))$
+	- $g(x+h)$ rozepíšeme na $g(x)+(g(x+h)-g(x))$
+	- použijeme rovnici pro totální diferenciál
+	- limitíme
+	- nakonec zobecníme pro funkce více proměnných (z derivace složené funkce uděláme parciální derivaci složené funkce) a máme řetězové pravidlo
