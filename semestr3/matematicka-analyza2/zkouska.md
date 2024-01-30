@@ -208,7 +208,7 @@
 	- aproximační pohled: $|h|\cdot\mu(h)$ je jakási malá chyba při aproximaci funkce $f$ v okolí bodu $x$ jako lineární funkce v $h$
 	- parciální derivace vyjadřují směry dvou tečných přímek – my chceme tečnou rovinu (tu dostaneme z totálního diferenciálu)
 	- pro $x\in\mathbb E_n$ definujme $\lVert x\rVert=\max_i|x_i|$
-	- funkce $f$ má totální diferenciál v bodě $x$, existuje-li funkce $\mu$ spojitá v okolí $U$ bodu $o$ taková, že $\mu(o)=0$, a čísla $A_1,\dots,A_n$, pro která $f(a+h)-f(a)=\sum_{k=1}^nA_kh_k+\lVert h\rVert\mu(h)$
+	- funkce $f$ má totální diferenciál v bodě $a$, existuje-li funkce $\mu$ spojitá v okolí $U$ bodu $o$ taková, že $\mu(o)=0$, a čísla $A_1,\dots,A_n$, pro která $f(a+h)-f(a)=\sum_{k=1}^nA_kh_k+\lVert h\rVert\mu(h)$
 		- pomocí skalárního součinu také $f(a+h)-f(a)=\braket{A|h}+\lVert h\rVert\mu(h)$
 	- tvrzení: nechť má funkce $f$ totální diferenciál v bodě $a$, potom je spojitá v $a$ a má všechny parciální derivace v $a$ s hodnotami $\frac{\partial f(a)}{\partial x_k}=A_k$
 	- důkaz spojitosti
