@@ -90,7 +90,7 @@
 - Definice: Topologické pojmy
 	- vzájemně jednoznačné spojité zobrazení $f:(X_1,d_1)\to(X_2,d_2)$ takové, že i inverzní $f^{-1}$ je spojité, se nazývá homeomorfismus a o $X_1,X_2$ mluvíme jako o homeomorfních prostorech
 	- vlastnost, pojem nebo definice je topologická, zachovává-li se při homeomorfismech
-	- příklady topologických vlastností a pojmů: konvergence, otevřenost a uzavřenost, uzávěr, okolí, spojitost (stejnosměrná nikoliv)
+	- příklady topologických vlastností a pojmů: konvergence, otevřenost a uzavřenost, uzávěr, okolí, spojitost (stejnoměrná nikoliv)
 - Definice: Ekvivalentní a silně ekvivalentní metriky; silně ekvivalentní metriky v $\mathbb E_n$
 	- $d_1,d_2$ jsou ekvivalentní, pokud je zobrazení $(X,d_1)\to(X,d_2)$ homeomorfismus
 	- $d_1,d_2$ jsou silně ekvivalentní, existují-li kladné konstanty $\alpha,\beta$ takové, že $\alpha\cdot d_1(x,y)\leq d_2(x,y)\leq\beta\cdot d_1(x,y)$
