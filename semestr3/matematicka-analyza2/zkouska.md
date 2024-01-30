@@ -400,7 +400,7 @@
 		- $M$ má $k$ řádků a $n$ sloupců, kde $n$ bude typicky (možná vždy?) větší než $k$
 		- v matici $M$ máme tedy čtvercovou matici nalevo regulární, tedy její determinant je nenulový
 			- pro jednoduchost uvažujeme přečíslování souřadnic, aby to vyšlo hezky na první až $k$-tý sloupec matice
-		- soustava rovnic $\forall i:g_i(x)=0$ pro neznámé funkce $x_1,\dots,x_k$, v níž parametry $x_{k+1},\dots,x_n$ budou proměnnými, tedy splňuje předpoklady věty o implicitních funkcích a v okolí bodu $a$ dává funkce $\phi_i(k_{k+1},\dots,x_n)$ se spojitými parciálními derivacemi takové, že $\forall g_i(\phi_1(\tilde x),\dots,\phi_k(\tilde x),\tilde x)=0$, kde $\tilde x=(x_{k+1},\dots,x_n)$
+		- soustava rovnic $\forall i:g_i(x)=0$ pro neznámé funkce $x_1,\dots,x_k$, v níž parametry $x_{k+1},\dots,x_n$ budou proměnnými, tedy splňuje předpoklady věty o implicitních funkcích a v okolí bodu $a$ dává funkce $\phi_i(x_{k+1},\dots,x_n)$ se spojitými parciálními derivacemi takové, že $\forall g_i(\phi_1(\tilde x),\dots,\phi_k(\tilde x),\tilde x)=0$, kde $\tilde x=(x_{k+1},\dots,x_n)$
 		- tedy lokální extrém funkce $f(x)$ v $a$ podmíněný danými vazbami se mění na lokální extrém (nepodmíněné) funkce $F(\tilde x)=f(\phi_1(\tilde x),\dots,\phi_k(\tilde x), \tilde x)$ v $\tilde a$
 		- musí tedy platit ${\partial F\over\partial x_i}(\tilde a)=0$ pro $i=k+1,\dots,n$
 		- (1) tj. podle řetízkového pravidla $\sum_{r=1}^k\frac{\partial f(a)}{\partial x_r}\cdot \frac{\partial \phi_r(\tilde a)}{\partial x_i}+\frac{\partial f(a)}{\partial x_i}=0$ pro $i=k+1,\dots,n$
