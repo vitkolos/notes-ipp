@@ -345,16 +345,16 @@
 			- funkce $\varphi_x$ roste, tudíž je prostá, takže existuje právě jedno $y\in(y_0-\Delta,y_0+\Delta)$ takové, že $\varphi_x(y)=0$ (tj. $F(x,y)=0$)
 			- označme toto $y$ jako $f(x)$
 		- vlastnosti funkce $f$
-			- $0=F(t+h,f(t+h))-F(t,f(t))=$
-				- protože $\forall x:F(x,f(x))=0$
-			- $=F(t+h,f(t)+(f(t+h)-f(t)))-F(t,f(t))=$
+			- $0=F(x+h,f(x+h))-F(x,f(x))=$
+				- protože $\forall t:F(t,f(t))=0$
+			- $=F(x+h,f(x)+(f(x+h)-f(x)))-F(x,f(x))=$
 				- použijeme Lagrangeovu větu pro $h=(h,f(x+h)-f(x))$
 			- $=\frac{\partial F}{\partial x}(x+\theta h,f(x)+\theta(f(x+h)-f(x)))\cdot h\;+$
 			- $+\;\frac{\partial F}{\partial y}(x+\theta h,f(x)+\theta(f(x+h)-f(x)))\cdot (f(x+h)-f(x))$
 			- upravíme na $f(x+h)-f(x)=-h\cdot\frac{\partial F(\dots)\over \partial x}{\partial F(\dots)\over\partial y}$
 			- podle odvozených vlastností platí $|f(x+h)-f(x)|\lt|h|\cdot\frac Ka$
 				- $f$ je tedy spojitá v bodě $x$
-			- dále zjevně $\lim_{h\to 0}\frac{f(x+h)-f(x)}h=-\frac{{\partial F\over \partial x}(t,f(t))}{{\partial F\over\partial y}(t,f(t))}$
+			- dále zjevně $\lim_{h\to 0}\frac{f(x+h)-f(x)}h=-\frac{{\partial F\over \partial x}(x,f(x))}{{\partial F\over\partial y}(x,f(x))}$
 			- tudíž $f'(t)=-\frac{{\partial F\over \partial x}(t,f(t))}{{\partial F\over\partial y}(t,f(t))}$
 			- tuto formuli můžeme derivovat tak dlouho, jak to existence parciálních derivací na pravé straně dovolí
 	- stejnou úvahou se ukáže věta pro funkci v $m+1$ proměnných
