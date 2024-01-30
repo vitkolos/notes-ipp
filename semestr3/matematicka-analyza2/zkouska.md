@@ -144,7 +144,7 @@
 	- tvrzení: buď $f:(X,d)\to(Y,d')$ spojité zobrazení a buď $A\subseteq X$ kompaktní, potom je $f[A]$ kompaktní
 	- důkaz
 		- buď $(y_n)_n$ posloupnost v $f[A]$
-		- zvoljme $x_n\in A$, aby $y_n=f(x_n)$
+		- zvolme $x_n\in A$, aby $y_n=f(x_n)$
 		- posloupnost $(x_n)_n$ má konvergentní podposloupnost $(x_{k_n})_n$
 		- $(y_{k_n})_n=(f(x_{k_n}))_n$ je konvergentní podposloupnost posloupnosti $(y_n)_n$
 - Věta: Maxima a minima spojitých funkcí na kompaktních podmnožinách
