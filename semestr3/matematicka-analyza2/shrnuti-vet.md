@@ -43,3 +43,24 @@
 	- použijeme rovnici pro totální diferenciál
 	- limitíme
 	- nakonec zobecníme pro funkce více proměnných (z derivace složené funkce uděláme parciální derivaci složené funkce) a máme řetězové pravidlo
+- spojitá funkce na kompaktním intervalu
+	- znění: spojité zobrazení z kompaktní množiny je stejnoměrně spojité
+	- důkaz obměnou – uvažujeme zobrazení, které není stejnoměrně spojité
+	- tzn. pro dvojici $x,y$ blíž než delta jsou $f(x),f(y)$ dál než epsilon
+	- pro každou deltu existuje nějaká taková dvojice $x,y$, uděláme z nich dvě posloupnosti $(x_n)_n$ a $(y_n)_n$
+	- jejich limity se rovnají, limity jejich obrazů se nerovnají
+	- tedy zobrazení není spojité
+- totální diferenciál a spojitost + hodnoty parciálních derivací
+	- spojitost
+		- chceme $\lim_{x\to y}f(x)-f(y)$
+		- zkusíme použít rovnici pro totální diferenciál (přičemž $h=x-y$, $a+h=x$, $a=y$)
+		- zlimitíme pro $x\to y$
+	- hodnoty
+		- vezmeme $h$, co má nulové všechny složky kromě jedné
+		- dosadíme do rovnice pro totální diferenciál a podělíme tím $h_k$
+		- limitíme
+		- na jedné straně dostaneme vzorec pro parciální derivaci, na druhé limitu $A_k+\mu(h)$, což je $A_k$
+- spojité parciální derivace a totální diferenciál
+- vázané extrémy
+- Lagrangeova věta ve více proměnných
+- Lebesgueův integrál
