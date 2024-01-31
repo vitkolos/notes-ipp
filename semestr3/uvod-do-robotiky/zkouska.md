@@ -170,14 +170,81 @@ senzory, aktuátory, nízkoúrovňové řízení
 		- swerve/crab drive – lze otáčet kolem o 360 stupňů
 		- omniwheel – kolo má po obvodu válečky, které mohou volně prokluzovat ve směru kolmém na směr otáčení kola
 		- mecanum wheel – velmi podobné jako omniwheel, ale válečky jsou otočeny o 45 stupňů; když točím kolem, tak výsledný pohyb směřuje šikmo (rovněž pod úhlem 45 stupňů)
-		- …
+		- Killough / Ilon wheels
 		- syncrodrive – není úplně omnidirectional, všechny kola jsou natočeny stejným směrem
 	- špatná prostupnost terénem
 	- jednoduchá mechanická konstrukce pro omniwheels a mecanum wheels
 
-Elektromotory
+### 3.3.1 Pohonné systémy
 
-- …
+- typy elektrických motorů
+	- DC (stejnosměrný)
+		- brushed (kartáčový)
+		- brushless (bezkartáčový)
+	- AC (střídavý)
+		- synchronní
+		- asynchronní (indukční)
+	- piezoelektrický, ultrasonický, …
+	- (pneumatický, hydraulický, …)
+- hlavní princip stejnosměrných motorů
+	- elektro-mechanické zařízení
+	- magnetické pole + elektrický proud → síla
+		- podle Flemingova pravidla levé ruky
+- DC brushed
+	- v nejjednodušší formě: stator, rotor (armatura), kartáče, komutátor
+	- typy
+		- s permanentním magnetem
+		- vinutý (wound) stator
+			- shunt (paralelní) vinutí
+			- sériové vinutí
+			- složené vinutí
+	- problém – když jsou kartáčky zarovnané s mezerou mezi póly
+		- nulový točivý moment
+		- zkrat
+	- řešení – širší mezera? víc pólů
+	- kontrola rychlosti
+		- regulace napětí
+			- fixní voltáž + rychlé vypínání/zapínání → PWM
+		- regulace frekvence – pro střídavý proud
+		- PWM = pulse-width modulation (pulsně-šířková modulace)
+	- kontrola směru otáčení pomocí H-můstku (H-bridge) – určuje směr toku proudu
+- DC brushless
+	- stator z cívek, rotor z permanentního magnetu
+	- nebo SRM – switched reluctance motor (rotor je vyroben z magneticky slabého materiálu)
+	- externí komutace – přepínání cívek (je potřeba znát pozici hřídele – pomocí Hallových senzorů nebo BEMF)
+	- výhody
+		- méně opotřebovávaných částí – větší spolehlivost
+		- lehčí rotor, lepší dynamika
+		- může operovat ve vysokých otáčkách
+		- méně hluku a EMI (electromagnetic interference) než u kartáčových
+	- problémy
+		- stabilita při vysoké rychlosti
+		- kolísavost točivého momentu
+	- vlastnostmi jsou lepší než brushed (asi?)
+- krokové motory
+	- stator z cívek, rotor z magnetu
+	- zubatá konstrukce
+	- jednopólové nebo dvojpólové zapojení
+	- krokování
+		- 1f full – rotor je natočený k aktivní cívce
+		- 2f full – rotor je natočený ke dvěma aktivním cívkám
+		- half – střídají se stavy, kdy je aktivní jedna nebo dvě cívky, takže se motor otáčí po polovinách kroků
+		- mikrostepping – cívky nejsou binární, ale po nějakých krocích se jim mění proud
+	- výhody
+		- vhodné pro precizní pozicování
+		- levná kontrola, jednoduchá konstrukce
+		- k řízení nepotřebuje zpětnou vazbu = je možná open-loop kontrola
+	- problémy
+		- nízká efektivita
+		- nízký moment ve vysokých rychlostech
+		- špatná dynamika
+- brushless DC vs. stepper
+	- oba jsou bezkartáčové
+	- typicky (ne vždy)
+		- BLDC má jen pár pólů (maximálně 8), stepper jich má víc
+		- BLDC closed-loop (k řízení používá zpětnou vazbu), stepper open-loop
+		- BLDC pro vyšší otáčky, stepper pro nižší
+		- BLDC pro rotaci, stepper pro pozici
 - servo motor
 	- je to vlastně motor + nějaká další elektronika zajišťující zjištění pozice osy a nějaké řízení (tzv. zpětná vazba)
 	- neurčujeme rychlost (otáčky), ale natočení hřídele
@@ -196,10 +263,13 @@ Elektromotory
 			- někdy je potřeba doladit, aby se servo opravdu netočilo (kvůli nepřesnostem při výrobě odporů apod.)
 		- takže když mu řekneme, kam se má otočit, ono se tam bude točit (ale nikdy tam nedojde)
 		- tudíž místo natočení udáváme rychlost
+			- PWM (pulsně-šířková modulace) ovládá směr a rychlost – 1.5 ms = stop, míň nebo víc → servo se točí (daným směrem)
 		- u digitálních serv to nelze (rozhodně ne u druhého typu, u prvního typu někdy)
 
-### 3.2. Senzorické systémy
+---
+todo
 
+### 3.2. Senzorické systémy
 
 - někdy mě zajímá jen detekce, jindy měření hodnoty
 - senzory
@@ -297,7 +367,7 @@ Elektromotory
 		- pohybující se vysílač a přijímač, měří se fázový posun odraženého signálu
 		- je jednodušší měřit rázovou frekvenci
 
-### 3.3. Pohonné systémy, řízení pohybu a rychlosti
+### 3.3.2 Řízení pohybu a rychlosti
 
 
 ## Regulace a řízení
