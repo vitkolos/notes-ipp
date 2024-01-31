@@ -18,7 +18,7 @@
 		- z toho máme přímo derivaci a ta je spojitá, protože parciální derivace jsou spojité
 		- z toho můžeme odvodit i spojitost, přičemž jako $\varepsilon$ použijeme $|h|\cdot\frac Ka$
 - Fubiniho věta
-	- znění: když místo přes součin intervalů integrujeme postupně přes každý z nich zvlášť, dosteneme správný výsledek
+	- znění: když místo přes součin intervalů integrujeme postupně přes každý z nich zvlášť, dostaneme správný výsledek
 	- zvolíme rozdělení velkého intervalu (tedy součinu) takové, že máme $\int f-\varepsilon\leq s(f,P)\leq S(f,P)\leq\int f+\varepsilon$
 	- jako $F(x)$ položíme integrál přes první proměnnou
 	- zjevně horní součet těchto integrálů bude menší než horní součet $S(f,P)$
