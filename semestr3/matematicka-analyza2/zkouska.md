@@ -426,7 +426,7 @@
 		- vezměme $f(x^0)=y^0$
 		- definujme $F:V\times\mathbb E_n\to\mathbb E_n$ předpisem $F_i(x,y)=f_i(x)-y_i$
 		- potom je $F(x^0,y^0)=0$ a $\frac{D(F)}{D(x)}\neq 0$
-		- tudíž je možné použí větu o implicitních funkcích
+		- tudíž je možné použít větu o implicitních funkcích
 		- dostaneme $\delta,\Delta\gt 0$ taková, že pro každé $y:\lVert y-y^0\rVert\lt\delta$ existuje $x:\lVert x-x^0\rVert\lt\Delta$ a $F_i(x,y)=f_i(x)-y_i=0$
 		- tzn. máme $f(x)=y$ (pozor, $y_i$ jsou proměnné, $x_j$ hledané funkce)
 		- zároveň $\Omega(y^0,\delta)=\set{y\mid\lVert y-y^0\rVert\lt\delta}\subseteq f[V]$
@@ -469,7 +469,7 @@
 	- když $P'$ zjemňuje $P$, dostáváme $s(f,P)\leq s(f,P')$ a $S(f,P)\geq S(f,P')$
 	- pro každá dvě $P_1,P_2$ platí $s(f,P_1)\leq S(f,P_2)$
 	- dolní Riemannův integrál: $\underline\int_a^b f(x)dx=\sup\set{s(f,P)\mid P\text{ rozd\v{e}lení}}$
-	- horní Riemannův integráL $\overline\int_a^b f(x)dx=\inf\set{S(f,P)\mid P\text{ rozd\v{e}lení}}$
+	- horní Riemannův integrál: $\overline\int_a^b f(x)dx=\inf\set{S(f,P)\mid P\text{ rozd\v{e}lení}}$
 	- je-li $\underline\int_a^b f(x)dx=\overline\int_a^b f(x)dx$, pak společnou hodnotu označujeme $\int_a^b f(x)dx$
 		- Riemannův integrál funkce $f$ přes $\braket{a,b}$
 - Věta: Existence pro spojité funkce, role stejnoměrné spojitosti
@@ -515,7 +515,7 @@
 	- důsledek
 		- buď $f:\braket{a,b}\to\mathbb R$ spojitá
 		- potom má primitivní funkci na $(a,b)$ spojitou na $\braket{a,b}$
-		- je-li $G$ primitivní funkce $f$ na $(a,b)$ spjitá na $\braket{a,b}$, potom je $\int_a^bf(t)dt=G(b)-G(a)$
+		- je-li $G$ primitivní funkce $f$ na $(a,b)$ spojitá na $\braket{a,b}$, potom je $\int_a^bf(t)dt=G(b)-G(a)$
 
 ## Riemannův integrál ve více proměnných
 
@@ -560,12 +560,12 @@
 - Definice: Poznámky o Lebesgueově integrálu
 	- *zejména praktická informace, že smíme počítat jako s Riemannovým integrálem plus pravidlo $\int\lim f_n=\lim\int f_n$ pro stejně omezené $f_n$*
 	- několik Lebesgueovských pravidel
-		1. je-li $J$ $n$-dimenzionální interval a jestliže Riemannův integrál $\int_Jf$ existuje, potom Lebegeův integrál je stejný
+		1. je-li $J$ $n$-dimenzionální interval a jestliže Riemannův integrál $\int_Jf$ existuje, potom Lebesgueův integrál je stejný
 		2. jestliže $\int_{D_n}f$ existuje pro $n=1,2,\dots$, potom existuje též $\int_{\cup D_n}f$
-		3. jestliže $\int_Df_n$ existuje a posloupnost $(f_n)_n$ je monotonní, potom je $\int_D\lim_nf_n=\lim_n\int_Df_n$
+		3. jestliže $\int_Df_n$ existuje a posloupnost $(f_n)_n$ je monotónní, potom je $\int_D\lim_nf_n=\lim_n\int_Df_n$
 		4. jestliže $\int_Df_n$ existuje a $|f_n|\leq g$ pro nějakou $g$, pro kterou $\int_D g$ existuje a je konečný, potom $\int_D\lim_nf_n=\lim_n\int_Df_n$
 		5. buď $U$ okolí bodu $t_0$ a buď $g$ taková, že $\int_Dg$ existuje a $\int_Df(t,x)dx$ existují a $|f(t,x)|\leq g(x)$ pro všechna $t\in U\setminus\set{t_0}$, potom je $\int_Df(t_0,x)dx=\lim_{t\to t_0}\int_D f(t,x)dx$
-		6. jestliže pro integrabilní $g$ platí $\left|\frac{\partial f(t,x)}{\partial t}\right|\leq g(x)$ a jestliže v nějakém okolí $U$ bodu $t_0$ všechny symobly v následující formuli dávají smysl, potom $\int_D\frac{\partial f(t_0,-)}{\partial t}={d\over dt}\int_Df(t_0,-)$
+		6. jestliže pro integrabilní $g$ platí $\left|\frac{\partial f(t,x)}{\partial t}\right|\leq g(x)$ a jestliže v nějakém okolí $U$ bodu $t_0$ všechny symboly v následující formuli dávají smysl, potom $\int_D\frac{\partial f(t_0,-)}{\partial t}={d\over dt}\int_Df(t_0,-)$
 	- nejdůležitější pravidlo: $\int\lim f_n=\lim\int f_n$, je-li $|f_n(x)|\leq K$ pro nějaké pevné $K$
 		- je speciální případem pravidla (4)
 	- princip Lebesgueova integrálu
