@@ -15,7 +15,7 @@
 		- z $f(x+h)$ uděláme $f(x)+(f(x+h)-f(x))$
 		- použijeme Lagrangeovu větu a chain rule
 		- nakonec dostaneme $\frac{f(x+h)-f(x)}h=$ minus podíl parciálních derivací
-		- z toho máme přímo derivaci a ta je spojitá, protože parciálníá derivace jsou spojité
+		- z toho máme přímo derivaci a ta je spojitá, protože parciální derivace jsou spojité
 		- z toho můžeme odvodit i spojitost, přičemž jako $\varepsilon$ použijeme $|h|\cdot\frac Ka$
 - Fubiniho věta
 	- znění: když místo přes součin intervalů integrujeme postupně přes každý z nich zvlášť, dosteneme správný výsledek
