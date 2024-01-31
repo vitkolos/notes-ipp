@@ -162,7 +162,7 @@
 		- limity funkčních hodnot se zjevně nerovnají (to je negace tvrzení ekvivalentnímu spojitosti zobrazení)
 	- tvrzení: je-li $(X,d)$ kompaktní a je-li $f:(X,d)\to(Y,d')$ vzájemně jednoznačné spojité zobrazení, je to homeomorfismus
 - Věta: Cauchyovské posloupnosti a konvergence
-	- definice: posloupnost $(x_n)_n$ v metrickém prostoru $(X,d)$ je Cauchovská, jestliže $(\forall\varepsilon\gt 0)(\exists n_0):m,n\geq n_0\implies d(x_m,x_n)\lt\varepsilon$
+	- definice: posloupnost $(x_n)_n$ v metrickém prostoru $(X,d)$ je Cauchyovská, jestliže $(\forall\varepsilon\gt 0)(\exists n_0):m,n\geq n_0\implies d(x_m,x_n)\lt\varepsilon$
 	- pozorování: každá konvergentní posloupnost je Cauchyovská
 	- tvrzení: má-li Cauchyovská posloupnost konvergentní podposloupnost, potom konverguje (k limitě té posloupnosti)
 	- důkaz
@@ -235,7 +235,7 @@
 - Příklad: Výpočet parciálních derivací – aritmetická pravidla
 	- jsou stejná jako pro obyčejné derivace
 	- pravidlo pro skládání se liší (viz věta níže)
-	- artimetická pravidla lze odvodit z řetězového
+	- aritmetická pravidla lze odvodit z řetězového
 		- odvodíme pravidlo pro násobení
 		- $f(u,v)=u\cdot v$
 		- potom ${\partial f\over\partial u}=v,\;{\partial f\over\partial v}=u$
@@ -306,7 +306,7 @@
 		- podobně z vyjádření $F(h)$ pomocí $\psi_h$ dostaneme $F(h)=\frac\partial{\partial y}\left(\frac{\partial f(x+\theta_4h,y+\theta_3h)}{\partial x}\right)$
 		- $\lim_{h\to 0}F(h)=\frac{\partial^2 f(x,y)}{\partial x\partial y}=\frac{\partial^2 f(x,y)}{\partial y\partial x}$
 	- iterováním výměn z tohoto tvrzení dostaneme následující důsledek:
-		- nechť má funkce $f$ v $n$ proměnných spojité parciální derivace do řáku $k$
+		- nechť má funkce $f$ v $n$ proměnných spojité parciální derivace do řádu $k$
 		- potom hodnoty těchto derivací záleží jen na tom, kolikrát bylo derivováno v každé z individuálních proměnných $x_1,\dots,x_n$
 
 ## Věty o implicitních funkcích
@@ -364,7 +364,7 @@
 		- $F_2(x,y_1,y_2)=0$
 	- hledáme dvě řešení v okolí bodu $(x^0,y_1^0,y_2^0)$
 	- na druhou rovnici aplikujeme větu o jedné rovnici pro $y_2$, dostaneme $y_2$ jako funkci $\psi(x,y_1)$
-	- substitujeme do první rovnice, dostaneme $G(x,y_1)=F_1(x,y_1,\psi(x,y_1))=0$
+	- substituujeme do první rovnice, dostaneme $G(x,y_1)=F_1(x,y_1,\psi(x,y_1))=0$
 	- řešení $y_1=f_1(x)$ v nějakém okolí bodu $(x^0,y_1^0)$ může být substituováno do $\psi$ a získáme $y_1=f_2(x)=\psi(x,f_1(x))$
 	- co jsme všechno předpokládali
 		- spojité parciální derivace funkcí $F_i$
@@ -384,7 +384,7 @@
 		- buď $F(x^0,y^0)=o$ a $\frac{D(F)}{D(y)}(x^0,y^0)\neq 0$
 		- potom existují $\delta\gt 0$ a $\Delta\gt 0$ takové, že pro každé $x\in (x^0_1-\delta,x_1^0+\delta)\times\dots\times(x_n^0-\delta,x_n^0+\delta)$ existuje právě jedno $y\in (y_1^0-\Delta,y_1^0+\Delta)\times\dots\times(y_m^0-\Delta,y_m^0+\Delta)$ takové, že $F(x,y)=o$
 		- píšeme-li toto $y$ jako vektorovou funkci $f(x)=(f_1(x),\dots,f_m(x))$, mají $f_i$ spojité parciální derivace do řádu $k$
-	- důkaz: v podstatě stačí kroky výše – ukázali jsme, jak pomocí substituce přejít od úlohy s $n+1$ rovnicemi k úloze s $n$ rovnicemi a jak se při tom podmínka o Jacobiánu v dimenzi $n+1$ přemění na podmínku o Jakobiánu v dimenzi $n$ (pak už je třeba jenom diskutovat, jak vhodně nahradit rozměry oken, tedy $\delta,\Delta$)
+	- důkaz: v podstatě stačí kroky výše – ukázali jsme, jak pomocí substituce přejít od úlohy s $n+1$ rovnicemi k úloze s $n$ rovnicemi a jak se při tom podmínka o Jacobiánu v dimenzi $n+1$ přemění na podmínku o Jacobiánu v dimenzi $n$ (pak už je třeba jenom diskutovat, jak vhodně nahradit rozměry oken, tedy $\delta,\Delta$)
 - Věta: Aplikace – lokální extrémy, věta o vázaných extrémech, jak se používá
 	- uvažujeme body, v nichž jsou všechny parciální derivace nulové, a body na okraji zkoumané oblasti (ale těch je nekonečně mnoho)
 	- když hledáme extrémy funkce $f(x_1,\dots,x_n)$, okraj oblasti vyjádříme podmínkami $g_i(x_1,\dots,x_n)$ pro $i=1,\dots,k$
@@ -607,6 +607,6 @@
 		- buď $U$ otevřené okolí kompaktní množiny $D\subseteq\mathbb E_n$
 		- buď $\phi:U\to\mathbb E_n$ regulární zobrazení
 		- potom pro (dejme tomu spojitou) funkci $f$ máme $\int_{\phi[D]}f=\int_Df(\phi(x))\left|\frac{D(\phi)}{D(x)}\right|dx$
-			- kde $\frac{D(\phi)}{D(x)}$ je Jakobián
+			- kde $\frac{D(\phi)}{D(x)}$ je Jacobián
 		- krychlička $\braket{x_1,x_1+h}\times\dots\times\braket{x_n,x_n+h}$ o objemu $h^n$ bude deformována na rovnoběžnostěn definovaný vektory $\phi(x)+h\cdot\left(\frac{\partial\phi_i(x)}{\partial x_1},\dots,\frac{\partial \phi_i(x)}{\partial x_n}\right)$ (pro $i=1,\dots,n$), jehož objem je $h^n\cdot\left|\frac{D(\phi(x))}{D(x)}\right|$
-		- absolutní hodnota Jakobiánu tedy hraje tutéž kompenzační roli jako hodnota $\phi'(x)$ v případě jedné proměnné
+		- absolutní hodnota Jacobiánu tedy hraje tutéž kompenzační roli jako hodnota $\phi'(x)$ v případě jedné proměnné
