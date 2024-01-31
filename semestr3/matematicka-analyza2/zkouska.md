@@ -41,7 +41,7 @@
 			- pak $\lim_nx_n=x$, ale $(f(x_n))_n$ nemůže konvergovat k $f(x)$
 - Definice: Okolí, otevřené a uzavřené množiny
 	- epsilonové okolí … $\Omega(x,\varepsilon)=\set{y\mid d(x,y)\lt\varepsilon}$
-	- obecné okolí bodu $U$ bodu $x$ je taková podmnožina, že existuje $\varepsilon\gt0$ takové, že $\Omega(x,\varepsilon)\subseteq U$
+	- obecné okolí $U$ bodu $x$ je taková podmnožina, že existuje $\varepsilon\gt0$ takové, že $\Omega(x,\varepsilon)\subseteq U$
 		- nadmnožina okolí je okolí
 		- průnik dvou okolí je okolí
 	- $U\subseteq(X,d)$ je otevřená, je-li okolím každého svého bodu
