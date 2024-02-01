@@ -193,7 +193,7 @@
 	- typy
 		- s permanentním magnetem
 		- vinutý (wound) stator
-			- shunt (paralelní) vinutí
+			- shunt (paralelní) vinutí (= derivační motor)
 			- sériové vinutí
 			- složené vinutí
 	- problém – když jsou kartáčky zarovnané s mezerou mezi póly
