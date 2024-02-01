@@ -378,7 +378,8 @@
 - typicky použijeme nějakou zpětnou vazbu a podle toho budeme měnit vstup
 	- closed loop systém – senzor snímá stav procesu a podle toho ovlivňuje řízení
 		- regulátor → aktuátor → proces → senzor → regulátor → …
-- triviálně bez feedbacku – experimentálně zjistím, jaká je skutečná maximální hodnota (v lineárním rozsahu), pak to natvrdo zapíšu do kódu
+- možné řešení problému s nelinearitou serva – triviálně bez feedbacku
+	- experimentálně zjistím, jaká je skutečná maximální hodnota (v lineárním rozsahu), pak to natvrdo zapíšu do kódu
 - řešení s feedbackem
 	- řízení motoru nastavím na rozdíl mezi reálnou a požadovanou hodnotou (rozdíl = chyba)
 	- ten rozdíl násobím ještě nějakou ladicí konstantou
