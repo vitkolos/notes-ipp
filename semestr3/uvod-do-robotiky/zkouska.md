@@ -755,3 +755,33 @@
 ### Satelitní lokalizace
 
 - základní myšlenka
+	- měření vzdálenosti od dvou satelitů → kružnice
+	- přidání třetího satelitu → dva body
+- jednoduchá myšlenka – time of flight + trilaterace (určení polohy podle vzdáleností)
+- historie
+	- Wernher von Braun
+	- Sputnik
+	- USA
+		- Transit – námořnictvo, 5/7 satelitů, problémy s časem a pomalou lokalizací
+		- Timation – námořnictvo, 27 satelitů, přesné hodiny, problémy s rušením
+		- 621B – letectvo, konečně 3D lokalizace, pseudorandom noise kvůli odolnosti rušení, vyžadoval nepřetržité spojení se zemí
+		- kooperace několik laboratoří → vznik Navstar GPS
+- Navstar GPS
+	- původně pouze armádní
+	- záměrné snížení přesnosti na 100 metrů (pomocí Select Availability)
+		- vypnuto po sestřelení civilního letadla Sovětským svazem kvůli chybě v navigaci
+	- v květnu 2000 použití GPS pro civilní účely zpřesněno na 5–10 metrů
+	- kódový multiplex (CDMA)
+	- konstelace
+		- 6 orbitů po čtyřech slotech
+		- původně 24 slotů, nyní 27
+		- aspoň 4 satelity v každém orbitu
+			- aspoň 4 viditelné na každém místě na Zemi
+	- diferenciální GPS – umožňuje zpřesnění naměřených hodnot z GPS pomocí známých souřadnic pozemních stanic
+- další globální systémy
+	- CNSS / Compass / Beidou II (Čína)
+	- Galileo (Evropa)
+	- Glonass (Rusko)
+- doplňkové – EGNOS, GAGAN, MSAS, WASS
+- regionální – Beidou (Čína), DORIS (Francie), IRNSS (Indie), QZSS (Japonsko)
+- lokalizace uvnitř (indoor) – pomocí Wi-Fi nebo Bluetooth
