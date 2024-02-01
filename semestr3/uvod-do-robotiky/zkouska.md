@@ -367,21 +367,29 @@
 
 ### Regulace a řízení
 
+- v ideálním světě se motor otáčí podle zadané rychlosti
+	- tzv. open loop systém – kontroler zadá motoru rychlost, ten se otáčí (a tam to končí)
+		- regulátor (controller) → aktuátor → proces
 - u reálného motoru do hry vstupuje spousta jevů – je potřeba tomu přizpůsobovat vstup
+	- problémy: mechanické ztráty, nelineární chování, vlivy prostředí…
+	- např. servo je lineární jen v určitém frekvenčním rozsahu
 - typicky použijeme nějakou zpětnou vazbu a podle toho budeme měnit vstup
-- např. servo je lineární jen v určitém frekvenčním rozsahu
+	- closed loop systém – senzor snímá stav procesu a podle toho ovlivňuje řízení
+		- regulátor → aktuátor → proces → senzor → regulátor → …
 - triviálně bez feedbacku – experimentálně zjistím, jaká je skutečná maximální hodnota (v lineárním rozsahu), pak to natvrdo zapíšu do kódu
 - řešení s feedbackem
 	- řízení motoru nastavím na rozdíl mezi reálnou a požadovanou hodnotou (rozdíl = chyba)
 	- ten rozdíl násobím ještě nějakou ladicí konstantou
+	- dostáváme proporční regulátor (P)
 - druhý pokus
 	- budu upravovat řízení podle chyby (rozdílu mezi reálnou a požadovanou hodnotou)
 	- = integral controller
 	- nevýhody
 		- oscilace
-		- 
+		- pomalý nájezd
 		- přestřelení
 	- chtěl bych nepřestřelit
+		- čím víc se blížíme k cílové hodnotě, tím víc snižujeme přidávání výkonu
 		- budu derivovat
 		- PD regulátor (proportional + derivative controller)
 - třetí pokus
@@ -393,6 +401,13 @@
 	- sum_e = += e
 	- control = P\*e + I\*sum_e - D\*(cur_speed - last_speed)
 	- parametry P, I, D jsou platné pro jeden typ procesu
+	- P – základní zpětnovazebné řízení
+	- I – zajišťuje nenulový výstup pro nulovou chybu
+	- D – zabraňuje přestřelení
+	- vliv parametrů
+		- P – nastavuje citlivost na chybu
+		- I – zrychluje dosáhnutí setpointu (tedy aby vstup odpovídal realitě)
+		- D – zpomaluje a tlumí
 - ladění parametrů
 	- manuálně
 	- ze zkušenosti
@@ -407,21 +422,22 @@
 	- I=0, D=0
 	- zvyšuju P, dokud to nezačne oscilovat
 	- nastavím P na polovinu
-	- ^ tohle obvykle stačí, pokud ne, tak začnu ladit další složky
+	- ↑ tohle obvykle stačí, pokud ne, tak začnu ladit další složky
 		- obvykle se ladí I
 		- D se používá pro tlumení nebo vyhlazení šumu
-	- zvyšuju I, dokud se mi nelíbí doba trvání procesu
-	- …
-- pozorování: když to má být rychlé, tak to obvykle přestřelí
+	- zvyšuju I, dokud se mi nelíbí doba trvání procesu (abych ale nenarušil stabilitu)
+	- u hlučného procesu zvyšuju D (aby ale odpověď byla pořád dost rychlá)
+- pozorování: když to má být rychlé, tak to obvykle přestřelí (může být potřeba snížit I a P)
 - Ziegler-Nichols
 	- velkou roli hraje čas mezi změnou a zaznamenáním změny (= „perioda“?)
 	- je potřeba najít Pc a Tc
 		- Pc … kritické P, kdy to začíná oscilovat s nulovými I, D
 		- Tc … perioda
-- Chien-Hrones-Reswick
-	- …
 - pozorování: je lepší používat jednodušší přístup – někdy stačí P, PI nebo PD
-- implementační problémy: nedokonalé informace (měření, rozlišení enkodéru, filtrování dat), rozsah proměnných, aritmetika (když bude akumulovaná chyba moc velká, tak může být problém s přičítáním/odčítáním)
+- implementační problémy
+	- nedokonalé informace (měření, rozlišení enkodéru, filtrování dat)
+	- rozsah proměnných
+	- aritmetika (když bude akumulovaná chyba moc velká, tak může být problém s přičítáním/odčítáním)
 - u boebotů nedává smysl měnit rychlost motorů vícekrát než 20× za sekundu
 - implementace v reálném světě
 	- mechanická – páčka, pružina, hmotnost
@@ -430,9 +446,12 @@
 
 ## 4. Software a algoritmy řízení robotů
 
-### Řídicí systémy
+### Implementace řídicích systémů
 
-- omezeny na konkrétní situaci v konkrétním čase
+- v přírodě
+	- zaměřeny na přežití – diverzita, nepředvídatelnost, nestabilita
+	- lokálně omezené – omezené vnímání i znalost
+	- omezeny na konkrétní situaci v konkrétním čase
 - starší průmyslová robotika – roboti se nepřizpůsobují okolním podmínkám (takže to vlastně nebyli roboti, ale spíše mechanická zařízení)
 - robot control = sensing (načtení informací z okolí) → processing (zpracování informací) → executing (vykonání reakcí na podněty)
 - konečný stavový automat (finite state machine)
@@ -488,6 +507,7 @@
 			- reactive – okamžité potřeby
 			- deliberative – dlouhodobé potřeby
 		- můžou být v konfliktu – používá se třetí úroveň, která to koordinuje
+		- tři úrovně – plánovací (jak splnit misi), sekvenční (jak vykonat plán), reaktivní (vyhýbání překážkám)
 	- behaviour control
 		- mysli tak, jak se chováš
 		- sada distribuovaných a interagujících modulů
@@ -496,6 +516,11 @@
 		- decentralizované řízení
 		- jako behaviours se dají použít i neuronové sítě apod.
 		- adaptabilní způsob řízení
+- použití
+	- reaktivní – v prostředích, které vyžadují okamžitou odpověď, rychle se mění
+	- deliberative – v optimalizačně hladových úkolách, v doménách založených na strategii, při hledání a plánování
+	- hybridní – vnitřní model je potřeba, ale nejsou vysoké realtime nároky, realtime odpověď je nezávislá na vysoceúrovňovém plánování
+	- behaviour-based – významné dynamické změny, rychlá odpověď a přizpůsobitelnost je nezbytná + schopnost vyvarovat se chybám, které robot učinil dříve, a plánování dopředu
 
 ### Reprezentace prostředí
 
@@ -575,44 +600,57 @@
 	- používá se odometrie a inerciální navigace
 	- dead reckoning – tradiční námořní navigační postupy (směr + rychlost + čas)
 	- odometrie – měření rotací kol
+- pasivní lokalizace – nemůžu ovlivňovat řízení robota
+- aktivní lokalizace – když je to potřeba, řízení robota může být ovlivněno
+- lokalizace ve statickém prostřední – robot je jediný objekt, který se hýbe
+- lokalizace v dynamickém prostřední – mění se podmínky (osvětlení, umístění objektů, podoba prostředí)
 - typicky se setkáváme s problémy při reálné lokalizaci
 - řešení reálných problémů s lokalizací
 	- přesnější měření – „model based“, nejistotu eliminuju
+		- nějakou náhodu použiju – ale pouze jako techniku řešení příliš těžkých problémů při plánování (třeba k výběru vhodné trajektorie)
 	- nespoléhám se na to, že znám přesnou pozici robota – pravděpodobnostní lokalizace
 		- pozice robota je náhodná proměnná
+		- i data ze senzorů jsou náhodné proměnné
 		- používají se principy teorie pravděpodobnosti
 		- Markovovský řetězec – historie pohybu neovlivňuje budoucnost pohybu
 		- odhad pózy robota je funkce $\text{Bel}:l\to\set{0,1}$
 			- kde $\text{Bel}$ … belief, $l$ … pozice
 		- nesnažíme se odstranit nejistotu
 		- hodnoty z minulých měření kombinujeme s aktuálním měřením
-		- nepotřebujeme spojitost, takže máme jistou granularitu
-		- topologický graf – vrcholy = možné pozice, hrany = možné přechody
-			- $\text{Bel}(l)$ odpovídá pravděpodobnosti, že je robot ve vrcholu $l$
-		- Monte Carlo lokalizace
-			- sledujeme množinu bodů, které mají nějakou pravděpodobnost (váhy)
-			- součet vah = 1
-			- algoritmus
-				- predikční krok – pohnu se všemi vzorky (pokud vím, že robotovi prokluzují kolečka, tak pohnu každým vzorkem trochu jinak)
-				- korekční krok – změním váhu vzorků na základě měření
-				- převzorkování – upravím množinu vzorků tak, že losuju ze vzorků, přičemž vyšší váha odpovídá vyšší pravděpodobnosti vybrání (ostatní zahodím); taky bývá vhodné nějaké vzorky přidávat nebo někdy dává smysl všechny vzorky zahodit a začít znova
-			- nejlepších výsledků se dosahuje se senzory, které nejsou moc nepřesné, ale ani moc přesné
-			- MCL (Monte Carlo lokalizace) může kombinovat informace z více senzorů
-			- pozorování
-				- MCL je imunní vůči chybám v odometrii
-				- MCL je imunní vůči nepřesnosti GPS
-	- spojitá reprezentace – Kalmanův filr
-		- …
+		- reprezentace odhadů
+			- nepotřebujeme spojitost, takže máme jistou granularitu → diskrétní reprezentace
+				- pravděpodobnostní mřížka – rozdělení prostoru na stejně velké buňky
+				- topologický graf – vrcholy = možné pozice, hrany = možné přechody
+					- $\text{Bel}(l)$ odpovídá pravděpodobnosti, že je robot ve vrcholu $l$
+				- Monte Carlo lokalizace
+					- sledujeme množinu bodů, které mají nějakou pravděpodobnost (váhy)
+					- součet vah = 1
+					- algoritmus
+						- predikční krok – pohnu se všemi vzorky (pokud vím, že robotovi prokluzují kolečka, tak pohnu každým vzorkem trochu jinak)
+						- korekční krok – změním váhu vzorků na základě měření
+						- převzorkování – upravím množinu vzorků tak, že losuju ze vzorků, přičemž vyšší váha odpovídá vyšší pravděpodobnosti vybrání (ostatní zahodím); taky bývá vhodné nějaké vzorky přidávat nebo někdy dává smysl všechny vzorky zahodit a začít znova
+					- nejlepších výsledků se dosahuje se senzory, které nejsou moc nepřesné, ale ani moc přesné
+					- MCL (Monte Carlo lokalizace) může kombinovat informace z více senzorů
+					- pozorování
+						- MCL je imunní vůči chybám v odometrii
+						- MCL je imunní vůči nepřesnosti GPS
+			- reprezentace odhadů ve spojitém prostoru
+				- bylo by těžké získat obecnou reprezentaci
+				- Kalmanův filr
+					- odhad založen na Gaussově křivce
+					- nemožné sledovat více hypotéz
+					- příliš striktní předpoklady – měření musejí mít normální rozdělení
+	- další metody lokalizace – fuzzy logika, intervalová algebra, holistická lokalizace a navigace
 	- žádná lokalizace
 		- předprogramované automaty
 		- reaktivní systémy
 		- evoluční algoritmy
 - SLAM – simultánní lokalizace a mapování
-- když známe vzdálenosti od landmarků
-	- vzdálenost od dvou landmarků nám dává dvě symetrická řešení, jedno z nich typicky můžeme zahodit, protože nedává smysl
-- když známe úhly k landmarkům
-	- dva landmarky nám dají jeden (obvodový) úhel → máme kružnici (pokud známe pozici landmarků na mapě)
-	- když máme třetí landmark, máme tři úhly (tři trojúhelníky) a dostaneme bod
+	- když známe vzdálenosti od landmarků
+		- vzdálenost od dvou landmarků nám dává dvě symetrická řešení, jedno z nich typicky můžeme zahodit, protože nedává smysl
+	- když známe úhly k landmarkům
+		- dva landmarky nám dají jeden (obvodový) úhel → máme kružnici (pokud známe pozici landmarků na mapě)
+		- když máme třetí landmark, máme tři úhly (tři trojúhelníky) a dostaneme bod
 
 ### Plánování, navigace
 
