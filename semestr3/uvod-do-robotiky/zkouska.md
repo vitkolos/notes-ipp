@@ -194,8 +194,8 @@
 		- s permanentním magnetem
 		- vinutý (wound) stator
 			- shunt (paralelní) vinutí (= derivační motor)
-			- sériové vinutí
-			- složené vinutí
+			- sériové vinutí (= motor se sériovým buzením)
+			- paralelní i sériové vinutí (= kompaundní motor)
 	- problém – když jsou kartáčky zarovnané s mezerou mezi póly
 		- nulový točivý moment
 		- zkrat
