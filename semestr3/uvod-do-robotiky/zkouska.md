@@ -139,9 +139,7 @@
 
 ## 3. Mechanika a mechatronika
 
-senzory, aktuátory, nízkoúrovňové řízení
-
-### 3.1. Metody pohybu, modely vozidel
+### Modely vozidel
 
 - holonomní / neholonomní vozidla
 - Heinrich Hertz – stupně volnosti
@@ -175,7 +173,7 @@ senzory, aktuátory, nízkoúrovňové řízení
 	- špatná prostupnost terénem
 	- jednoduchá mechanická konstrukce pro omniwheels a mecanum wheels
 
-### 3.3.1 Pohonné systémy
+### Elektromotory
 
 - typy elektrických motorů
 	- DC (stejnosměrný)
@@ -266,12 +264,10 @@ senzory, aktuátory, nízkoúrovňové řízení
 			- PWM (pulsně-šířková modulace) ovládá směr a rychlost – 1.5 ms = stop, míň nebo víc → servo se točí (daným směrem)
 		- u digitálních serv to nelze (rozhodně ne u druhého typu, u prvního typu někdy)
 
----
-todo
+### Senzory
 
-### 3.2. Senzorické systémy
-
-- někdy mě zajímá jen detekce, jindy měření hodnoty
+- lidské smysly – není jich jen pět (dále rovnováha, zrychlení, bolest, tlak, čas, teplota, …)
+- někdy mě zajímá jen detekce (je tam překážka?), jindy měření hodnoty (jak je daleko?)
 - senzory
 	- lokální – taktilní (např. nárazník, měření elektrického signálu)
 	- bezdotykové – měříme vzdálenost, světlo apod.
@@ -284,10 +280,11 @@ todo
 	- směrové akustické, optické – měření detekcí odraženého paprsku (detekce překážek, mapování prostředí)
 	- liniové senzory – směrové měření multiplexované v čase
 	- kamery – zpracování obrazu
-	- MEMS
+	- MEMS (micro-electromechanical systems) – používají mikroskopické jevy
+	- virtuální – nepřímé měření, používají důsledky akcí k jejich detekci (např. virtuální nárazník)
 - měření pomocí odrazu signálu
 	- metody
-		- direct TOF
+		- direct TOF (time of flight)
 			- měřím čas, jak dlouho signál letí
 			- je potřeba přesně měřit čas
 			- pomocí světla se malé vzdálenosti měří těžko – lepší je zvuk
@@ -316,17 +313,17 @@ todo
 	- krátký dosah
 	- svítí tam infra LED
 	- odraz se detekuje pomocí fotorezistoru
-	- PSD – měří vzdálenost až v jednotkách metrů, problém s osvětlením (horší měření venku apod.)
+	- PSD (infrared position sensitive detector) – měří vzdálenost až v jednotkách metrů, problém s osvětlením (horší měření venku apod.)
 - laser & lidar
 	- 1D, 2D, 3D
 	- až 20 km
 	- dnes se používají i solid-state lidary, mají víc jednotek, takže není potřeba, aby se lidar otáčel
-- MEMS – micro electro mechanical systems
+- MEMS – micro-electromechanical systems
 	- používají mikroskopické jevy
 	- akcelerometry
 	- gyroskopy
 	- senzory tlaku
-	- displeje, pumpy, motory
+	- displeje, pumpy, motoryD
 - odometrie
 	- měření ujeté vzdálenosti
 	- možnosti
@@ -354,6 +351,7 @@ todo
 				- lze snadno sestavit (vezmu nulu, přidám sekvenci, vezmu jedničku, přidám sekvenci pozpátku)
 				- je potřeba aspoň 9 stop pro 1° přesnost
 			- single-track Gray code
+				- černobílé proužky na terči nejsou stejně široké, ale jsou poskládané tak, aby při vhodném rozmístění senzorů na kružnici (nikoliv na poloměru) dávaly Grayův kód
 				- N. B. Spedding ukázal pětisenzorový jednostopý kód
 				- Hiltgen a Paterson ukázali 9senzorový kód (pro 360 pozic)
 	- reálné enkodéry
@@ -367,10 +365,7 @@ todo
 		- pohybující se vysílač a přijímač, měří se fázový posun odraženého signálu
 		- je jednodušší měřit rázovou frekvenci
 
-### 3.3.2 Řízení pohybu a rychlosti
-
-
-## Regulace a řízení
+### Regulace a řízení
 
 - u reálného motoru do hry vstupuje spousta jevů – je potřeba tomu přizpůsobovat vstup
 - typicky použijeme nějakou zpětnou vazbu a podle toho budeme měnit vstup
@@ -433,14 +428,9 @@ todo
 	- elektrická (analogová) – zesilovač, kondendzátor, odpor
 	- digitální – výpočet v mikrokontrolerech FPGA, PLC, …
 
-
-
-### 3.4. Jednočipy, MCU, SoC
-
 ## 4. Software a algoritmy řízení robotů
 
-
-## Řídicí systémy
+### Řídicí systémy
 
 - omezeny na konkrétní situaci v konkrétním čase
 - starší průmyslová robotika – roboti se nepřizpůsobují okolním podmínkám (takže to vlastně nebyli roboti, ale spíše mechanická zařízení)
@@ -507,13 +497,7 @@ todo
 		- jako behaviours se dají použít i neuronové sítě apod.
 		- adaptabilní způsob řízení
 
-### 4.1. Softwarové architektury, implementační metody
-
-### 4.2. Kognitivní robotika, umělá inteligence
-
-### 4.3. Lokalizace a mapování
-
-Kalmanův filtr, metody Monte Carlo, pravděpodobnostní metody
+### Reprezentace prostředí
 
 - dělení podle způsobu vytvoření mapy
 	- manuální – trvá to dlouho, není přesná
@@ -562,6 +546,9 @@ Kalmanův filtr, metody Monte Carlo, pravděpodobnostní metody
 - roboto-centrická senzorika
 	- senzory se hýbou s robotem
 	- musíme data přepočítávat
+
+### Lokalizace
+
 - cíle lokalizace
 	- abychom zjistili robotovu pozici a orientaci
 		- vzhledem k mapě
@@ -614,6 +601,8 @@ Kalmanův filtr, metody Monte Carlo, pravděpodobnostní metody
 			- pozorování
 				- MCL je imunní vůči chybám v odometrii
 				- MCL je imunní vůči nepřesnosti GPS
+	- spojitá reprezentace – Kalmanův filr
+		- …
 	- žádná lokalizace
 		- předprogramované automaty
 		- reaktivní systémy
@@ -625,7 +614,7 @@ Kalmanův filtr, metody Monte Carlo, pravděpodobnostní metody
 	- dva landmarky nám dají jeden (obvodový) úhel → máme kružnici (pokud známe pozici landmarků na mapě)
 	- když máme třetí landmark, máme tři úhly (tři trojúhelníky) a dostaneme bod
 
-### 4.4. Plánování, navigace
+### Plánování, navigace
 
 - plánování cesty
 	- zadání: najdi cestu ze startu do cíle nebo řekni, že cesta neexistuje
@@ -691,10 +680,7 @@ Kalmanův filtr, metody Monte Carlo, pravděpodobnostní metody
 - další úloha – bez překážek, obejít dané body
 - používají se spliny, hermitovské křivky
 
-
-### 4.5. Pokročilá senzorika, zpracování obrazu
-
-### 4.6. Multirobotické systémy
+### Multirobotické systémy
 
 - úkol je příliš komplexní pro jednoho robota
 - aplikace
