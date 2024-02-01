@@ -42,7 +42,7 @@
 			- podle $x$ = roll, náklon
 			- podle $y$ = pitch, sklon, zdvih, sklopení
 			- podle $z$ = yaw, otočení, směr (to není úplně vhodné označení)
-			- ![pitch axis, roll axis, yaw axis](https://upload.wikimedia.org/wikipedia/commons/1/16/Yaw_Axis.svg)
+			- ![pitch axis, roll axis, yaw axis](https://upload.wikimedia.org/wikipedia/commons/c/c1/Yaw_Axis_Corrected.svg)
 				- [Auawise derivative work: Jrvz - Yaw_Axis.svg, CC BY-SA 3.0](https://commons.wikimedia.org/w/index.php?curid=9441238)
 	- používáme pravotočivý systém (pravou rukou, prsty ukazují směrem $x$, zavřením dlaně je otočím k ose $y$, palec ukazuje směr osy $z$)
 	- kladný směr otáčení je proti směru hodinových ručiček
