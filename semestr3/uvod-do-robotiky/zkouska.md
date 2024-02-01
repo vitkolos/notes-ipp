@@ -142,11 +142,11 @@
 ### Modely vozidel
 
 - holonomní / neholonomní vozidla
-- Heinrich Hertz – stupně volnosti
-	- vozidlo je holonomní, pokud se počet lokálních stupňů volnosti rovná počtu globálních stupňů volnosti
-	- opak = přezadaný systém, v reálném světě se některá kola smýkají
-- vlak … holonomní (v 1D prostoru jezdí dopředu a dozadu)
-- auto … neholonomní (v 2D prostoru jezdí dopředu a dozadu, otáčí kola, ale nemůže jet do boku)
+	- Heinrich Hertz – stupně volnosti
+		- vozidlo je holonomní, pokud se počet lokálních stupňů volnosti rovná počtu globálních stupňů volnosti
+	- pokud je počet lokálních stupňů volnosti větší než počet globálních stupňů volnosti, máme přezadaný systém – v reálném světě se některá kola smýkají
+	- vlak … holonomní (v 1D prostoru jezdí dopředu a dozadu)
+	- auto … neholonomní (v 2D prostoru jezdí dopředu a dozadu, otáčí kola, ale nemůže jet do boku)
 - pokud chceme najít výslednou polohu, integrujeme přes čas
 - Ackermannovo řízení
 	- neholonomní
