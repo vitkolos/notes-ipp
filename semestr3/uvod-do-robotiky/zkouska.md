@@ -18,7 +18,7 @@
     - Robot musí uposlechnout příkazů člověka, kromě případů, kdy jsou tyto příkazy v rozporu s prvním zákonem.
     - Robot musí chránit sám sebe před poškozením, kromě případů, kdy je tato ochrana v rozporu s prvním, nebo druhým zákonem.
 - základní pojmy
-	- robot je obvykle univerzální – je možné ho přeprogramovat
+	- robot – obvykle je univerzální, je možné ho přeprogramovat
 	- manipulátor – je určený k vykonávání jedné konkrétní práce
 
 ## 2. Kinematika a dynamika
