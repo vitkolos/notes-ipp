@@ -261,7 +261,9 @@
 			- někdy je potřeba doladit, aby se servo opravdu netočilo (kvůli nepřesnostem při výrobě odporů apod.)
 		- takže když mu řekneme, kam se má otočit, ono se tam bude točit (ale nikdy tam nedojde)
 		- tudíž místo natočení udáváme rychlost
-			- PWM (pulsně-šířková modulace) ovládá směr a rychlost – 1.5 ms = stop, míň nebo víc → servo se točí (daným směrem)
+			- PWM (pulsně-šířková modulace) ovládá směr a rychlost
+				- 1.5 ms → servo se netočí
+				- míň nebo víc → servo se točí (jedním nebo druhým směrem)
 		- u digitálních serv to nelze (rozhodně ne u druhého typu, u prvního typu někdy)
 
 ### Senzory
@@ -323,7 +325,7 @@
 	- akcelerometry
 	- gyroskopy
 	- senzory tlaku
-	- displeje, pumpy, motoryD
+	- displeje, pumpy, motory
 - odometrie
 	- měření ujeté vzdálenosti
 	- možnosti
