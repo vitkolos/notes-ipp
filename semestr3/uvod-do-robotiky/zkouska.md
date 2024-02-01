@@ -189,7 +189,7 @@
 	- magnetické pole + elektrický proud → síla
 		- podle Flemingova pravidla levé ruky
 - DC brushed
-	- v nejjednodušší formě: stator, rotor (armatura), kartáče, komutátor
+	- v nejjednodušší formě: stator, rotor (armatura), kartáče (uhlíky), komutátor
 	- typy
 		- s permanentním magnetem
 		- vinutý (wound) stator
