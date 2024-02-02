@@ -649,11 +649,11 @@
 		- reaktivní systémy
 		- evoluční algoritmy
 - SLAM – simultánní lokalizace a mapování
-	- když známe vzdálenosti od landmarků
-		- vzdálenost od dvou landmarků nám dává dvě symetrická řešení, jedno z nich typicky můžeme zahodit, protože nedává smysl
-	- když známe úhly k landmarkům
-		- dva landmarky nám dají jeden (obvodový) úhel → máme kružnici (pokud známe pozici landmarků na mapě)
-		- když máme třetí landmark, máme tři úhly (tři trojúhelníky) a dostaneme bod
+- když známe vzdálenosti od landmarků
+	- vzdálenost od dvou landmarků nám dává dvě symetrická řešení, jedno z nich typicky můžeme zahodit, protože nedává smysl
+- když známe úhly k landmarkům
+	- dva landmarky nám dají jeden (obvodový) úhel → máme kružnici (pokud známe pozici landmarků na mapě)
+	- když máme třetí landmark, máme tři úhly (tři trojúhelníky) a dostaneme bod
 
 ### Plánování, navigace
 
