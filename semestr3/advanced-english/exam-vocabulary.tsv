@@ -31,7 +31,7 @@ asymptote	asymptota
 average	průměr; průměrný; střední
 axis (pl. axes)	osa
 base	základna
-braces	závorky
+braces	(složené) závorky
 calculate	vypočítat
 calculation	výpočet
 calculus	integrální a diferenciální počet
@@ -43,7 +43,7 @@ circle	kruh, kružnice
 circumference	obvod kružnice
 circumscribe	opsat kružnici, křivku
 coefficient	součinitel, koeficient
-compasses	kružítko
+(a pair of) compasses	kružítko
 conclusion	závěr
 cone	kužel
 congruence	shoda
@@ -51,7 +51,7 @@ congruent	shodný; souhlasný
 conic section	kuželosečka
 conjectural	konjekturální
 conjecture	dohad
-consequence	důsledek
+consequence	důsledek, následek
 constant	konstanta
 continuity	spojitost
 continuous	spojitý
@@ -59,7 +59,7 @@ converge	sbíhat se, konvergovat
 convergence	konvergence
 convex	konvexní
 convexity	konvexita, vypuklina
-coordinate	souřadnice
+coordinate	souřadnice (sg.)
 corollary	důsledek; výsledná věta
 cosec	kosekant
 cosine	kosinus
@@ -87,16 +87,16 @@ difference	rozdíl
 differential	diferenciální, diferenciál
 to be differentiable	mít derivaci
 differentiate	derivovat
-differentiation	derivace
+differentiation	derivace (derivování)
 dimension	rozměr
-diminish from	odečíst od
+diminish from, subtract from	odečíst od
 Diophantine approximation	diofantická aproximace
 direction	směr
 directrix	řídící přímka
 discourse	výklad; přednáška; diskurz
 distance	vzdálenost
 distinct	odlišný
-dividend	dělěnec
+dividend	dělenec
 divisibility	dělitelnost
 division	dělení
 divisor	dělitel
@@ -127,11 +127,11 @@ partial fraction	parciální zlomek
 (im)proper fraction	(ne)pravý zlomek
 vulgar fraction	obyčejný zlomek
 friction	tření
-bounded function	fce omezená
-convex function	fce konvexní, vypuklá
-rational function	fce racionální
-continuous function	spojitá
-differentiable function	fce mající derivaci
+bounded function	omezená funkce
+convex function	funkce konvexní, vypuklá
+rational function	racionální funkce
+continuous function	spojitá funkce
+differentiable function	funkce mající derivaci
 geometry	geometrie
 graph	graf, diagram
 gravity	přitažlivost (zem.); gravitace
@@ -178,7 +178,7 @@ minuend	menšenec
 multiple	násobek
 multiply	násobit
 notion	pojem
-nought	nula
+nought	nula; kroužek/kolečko
 nucleous (pl. nucleoli)	jadérko
 complex number	komplexní číslo
 composite number	složené číslo
@@ -201,7 +201,7 @@ one-variable setting	jedna proměnná
 opposite	protilehlý
 orthogonal	kolmý, pravoúhlý
 parallelogram	rovnoběžník
-parenthesis (pl. parentheses)	kulaté závorky
+parenthesis (pl. parentheses)	kulatá závorka
 pentagon	pětiúhelník
 perimeter	obvod, délka obvodu
 period	perioda
@@ -217,7 +217,7 @@ point	bod; desetinná tečka
 polygon	mnohoúhelník
 polyhedron	mnohostěn
 polynomial	mnohočlen
-positive integer	přirozené číslo
+positive integer	přirozené číslo (kladné celé číslo)
 power	mocnina
 power exponent	mocnítko
 premise	předpoklad; premisa
@@ -227,18 +227,18 @@ prism	hranol; prizma
 prismatic	hranolovitý
 procedure	postup; pochod; způsob práce
 proceed	postupovat (dále)
-product	součin; průnik
+product	součin
 proof	důkaz
 proportional	úměrný
 protractor	úhloměr
 prove	dokázat
 pyramid	jehlan
-quadrilateral	čtyřúhelník; čtyřstěn
+quadrilateral	čtyřúhelník; čtyřstran
 quantifier	kvantifikátor
 quantify	měřit; vyjadřovat kvantitativně
 quantity	množství; veličina
 quotient	podíl; kvocient
-radical	odmocnina
+radical, root	odmocnina
 radicand	základ odmocniny; odmocněnec
 radius (pl. radii)	poloměr
 rapidity	rychlost
@@ -250,7 +250,6 @@ remainder	zbytek
 air resistance	odpor vzduchu
 rhombic; rhomboid; rhomboidal	kosočtvercový, kosodélníkový
 rhombus (pl. rhombi)	kosočtverec
-root	odmocnina
 root sign	odmocnítko
 rotation	rotace; otáčení
 rule	pravidlo; předpis
@@ -271,15 +270,14 @@ subscript	dolní index
 subsequence	podposloupnost
 subset	podmnožina
 substitute	nahradit
-subtract from	odečíst od
 subtraction	odčítání
 subtrahend	menšitel
 sum	součet; suma
 summand	sčítanec
 superscript	horní index
 tangent	tečna; tangens
-technique	postup
-tetrahedron (pl. tetrahedra)	čtyřstěn, traedr
+technique	postup, metoda
+tetrahedron (pl. tetrahedra)	čtyřstěn
 theorem	věta; teorém; rovnice; vzorec
 transform	transformovat, zobrazit
 translation	translace; posunutí
@@ -298,4 +296,4 @@ verify	ověřit; verifikovat
 vertex (pl. vertices)	vrchol
 vortex (pl. vortices)	vír, víření
 volume	objem
-zero	nula
+zero	nula; nulový
