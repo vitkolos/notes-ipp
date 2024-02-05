@@ -150,7 +150,7 @@ induction	indukce
 infinite	nekonečný
 infinity	nekonečno
 integer	celé číslo
-positive integer	kladné celé číslo
+positive integer	kladné celé číslo, přirozené číslo
 intercept	souřadnice průsečíků grafu funkce s osami soustavy souřadnic
 intersect	protínat
 intersection	průnik; průsečík
@@ -179,7 +179,6 @@ multiple	násobek
 multiply	násobit
 notion	pojem
 nought	nula; kroužek/kolečko
-nucleus (pl. nuclei)	jádro (atomu, buňky)
 nucleolus (pl. nucleoli)	jadérko
 complex number	komplexní číslo
 composite number	složené číslo
@@ -218,7 +217,6 @@ point	bod; desetinná tečka
 polygon	mnohoúhelník
 polyhedron	mnohostěn
 polynomial	mnohočlen
-positive integer	přirozené číslo (kladné celé číslo)
 power	mocnina
 power exponent	mocnítko
 premise	předpoklad; premisa
@@ -298,3 +296,5 @@ vertex (pl. vertices)	vrchol
 vortex (pl. vortices)	vír, víření
 volume	objem
 zero	nula; nulový
+nucleus (pl. nuclei)	jádro (atomu, buňky)
+scalene (triangle)	obecný (trojúhelník)
