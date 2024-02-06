@@ -257,7 +257,7 @@ výpisky neobsahují kompletní definice pojmů, pouze jejich zjednodušení; k�
 	- izomorfismus struktur
 		- mějme struktury $\mathcal{A,B}$ jazyka $L=\braket{\mathcal{R,F}}$
 		- izomorfismus $\mathcal{A}$ a $\mathcal B$ je bijekce $h:A\to B$ splňující následující vlastnosti:
-			- $(\forall f\in\mathcal F)(\forall a_i\in A):h(f^\mathcal A(a_1,\dots,a_n))=f^\mathcal B(h(a_1,\dots,h(a_n))$
+			- $(\forall f\in\mathcal F)(\forall a_i\in A):h(f^\mathcal A(a_1,\dots,a_n))=f^\mathcal B(h(a_1),\dots,h(a_n))$
 			- $(\forall R\in\mathcal R)(\forall a_i\in A):$ $R^\mathcal A(a_1,\dots,a_n)\iff R^\mathcal B(h(a_1),\dots,h(a_n))$
 		- pak píšeme $\mathcal A\simeq \mathcal B$
 	- izomorfní spektrum
