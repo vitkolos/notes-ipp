@@ -244,7 +244,7 @@ U následujících tvrzení se očekává, že je budete umět zformulovat a (ne
 	- $C_n:=[x^n]\frac{1-\sqrt{1-4x}}{2x}=[x^{n+1}]\frac{1-\sqrt{1-4x}}{2}=[x^{n+1}](\frac12-\frac{\sqrt{1-4x}}{2})=$
 		- konstanta ovlivňuje pouze koeficient u $C_0$, můžeme se jí zbavit
 	- $=-\frac12[x^{n+1}]\sqrt{1-4x}=(-\frac12)(-4)^{n+1}[x^{n+1}]\sqrt{1+x}=$
-	- $=(-\frac12)(-4){\frac12\choose n+1}=(-1)^n\cdot 2^{2n+1}\cdot\frac{\frac12\cdot(\frac12-1)\cdot\ldots\cdot(\frac12-n)}{(n+1)!}$
+	- $=(-\frac12)(-4)^{n+1}{\frac12\choose n+1}=(-1)^n\cdot 2^{2n+1}\cdot\frac{\frac12\cdot(\frac12-1)\cdot\ldots\cdot(\frac12-n)}{(n+1)!}$
 		- ze zobecněné binomické věty
 	- $=(-1)^n\cdot 2^{2n+1}\cdot\frac{\frac12\cdot(-\frac12)\cdot(-\frac32)\cdot\ldots\cdot(-\frac{2n-1}2)}{(n+1)!}=2^n\cdot\frac{1\cdot3\cdot5\cdot\ldots\cdot(2n-1)}{(n+1)!}=$
 	- $=\frac{1\cdot3\cdot5\cdot\ldots\cdot(2n-1)\cdot (2^n\cdot n!)}{(n+1)!\cdot n!}=\frac{(2n)!}{(n+1)!\cdot n!}=\frac1{n+1}{2n\choose n}$
