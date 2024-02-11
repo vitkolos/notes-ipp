@@ -36,7 +36,7 @@ U následujících pojmů byste měli umět zformulovat definici a na jednoduch�
 - dualita projektivních rovin
 	- mějme projektivní rovinu $(X,\mathcal P)$; potom duální projektivní rovina k $(X,\mathcal P)$ je hypergraf $(X^*,\mathcal P^*)$, kde
 		- $X^*=\mathcal P$,
-		- pro $x\in X$ definujme $x^*\coloneqq\set{p\in\mathcal P:x\in p}$
+		- pro $x\in X$ definujme $x^*\coloneqq\set{p\in\mathcal P \mid x\in p}$
 			- $x^*$ … přímky, které procházejí $x$
 		- $\mathcal P^*=\set{x^*\mid x\in X}$
 	- v podstatě obrátíme incidenční graf
@@ -64,7 +64,7 @@ U následujících pojmů byste měli umět zformulovat definici a na jednoduch�
 	- kapacita řezu $R$ … $c(R)=\sum_{e\in R}c(e)$
 - elementární řez
 	- $E(A,B)\coloneqq E\cap (A\times B)$
-	- tedy $E(A,B)=\set{uv\in E: u\in A\land v\in B}$
+	- tedy $E(A,B)=\set{uv\in E \mid u\in A\land v\in B}$
 	- elementární řez je $E(A,B)$ pro $A\subseteq V,\;B=V\setminus A$
 		- přičemž $z\in A,\;s\in B$
 - minimální řez
@@ -119,7 +119,7 @@ U následujících pojmů byste měli umět zformulovat definici a na jednoduch�
 - dekódování
 	- dekódování $(n,k,d)$-kódu $C$ je funkce $g:\mathbb Z_2^n\to C$ taková, že $\forall x\in\mathbb Z_2^n:d(x,g(x))=\min_{y\in C}d(x,y)$
 - duální kód
-	- $C^\perp\coloneqq\set{y\in\mathbb Z_2^n:(\forall x\in C)\braket{x,y}=0}$ … duální kód k $C$
+	- $C^\perp\coloneqq\set{y\in\mathbb Z_2^n \mid (\forall x\in C)\braket{x,y}=0}$ … duální kód k $C$
 - kontrolní matice lineárního kódu
 	- nechť je $C$ lineární $(n,k,d)$-kód, pak kontrolní matice kódu $C$ je matice, jejíž řádky tvoří bázi $C^\perp$
 - Hammingovy kódy
@@ -303,7 +303,7 @@ U následujících tvrzení se očekává, že je budete umět zformulovat a (ne
 			- proto $|\mathcal P|=(n^2+n+1)$
 - Duální projektivní rovina je opravdu projektivní rovina
 	- věta: $(X^*,\mathcal P^*)$ je projektivní rovina
-		- připomenutí: $x^*\coloneqq\set{p\in\mathcal P:x\in p}$
+		- připomenutí: $x^*\coloneqq\set{p\in\mathcal P \mid x\in p}$
 	- důkaz
 		- $(X^*,\mathcal P^*)$ splní A1 $\iff(\forall p,q\in X^*,\;p\neq q)(\exists! x^*\in\mathcal P^*):\set{p,q}\subseteq x^*$ $\iff (\forall p,q\in\mathcal P,\;p\neq q)(!\exists x\in X):x\in p\land x\in q\iff (X,\mathcal P)$ splní A2
 		- obdobně $(X^*,\mathcal P^*)$ splní A2 $\iff\dots\iff(X,\mathcal P)$ splní A1
@@ -317,13 +317,13 @@ U následujících tvrzení se očekává, že je budete umět zformulovat a (ne
 			- obdobně pro libovolnou jinou trojici
 - Konstrukce projektivních rovin z konečných těles
 	- nechť $T$ je konečné těleso s $n$ prvky (tedy $n$ musí být kladná celá mocnina prvočísla)
-	- uvažujme vektorový prostor $V=T^3=\set{(x,y,z):x,y,z\in T}$, $|V|=n^3$
+	- uvažujme vektorový prostor $V=T^3=\set{(x,y,z \mid x,y,z\in T}$, $|V|=n^3$
 	- nechť $X$ je množina podprostorů dimenze 1 ve $V$
 	- $|X|=\frac{n^3-1}{n-1}$
 		- protože máme $n^3-1$ nenulových vektorů, každý patří do jednoho podprostoru dimenze 1
 		- podprostor dimenze 1 má $n-1$ nenulových vektorů
 	- $|X|=\frac{n^3-1}{n-1}=n^2+n+1$
-	- pro každý podprostor $p\subseteq V$ dimenze 2 definuji $\tilde{p}:=\set{x\in X: x\subseteq p}$
+	- pro každý podprostor $p\subseteq V$ dimenze 2 definuji $\tilde{p}:=\set{x\in X \mid x\subseteq p}$
 	- $\mathcal P=\set{\tilde p\mid p\text{ je podprostor V dimenze 2}}$
 	- $|\mathcal P|=|X|$, protože podprostor dimenze 2 je ortogonálním doplňkem podprostoru dimenze 1 a protože existuje bijekce mezi podprostory a jejich ortogonálními doplňky
 	- intuice: kdyby to bylo v $\mathbb R^3$, tak *body* jsou přímky procházející počátkem a *přímky* jsou roviny procházející počátkem (svazky přímek)
@@ -350,7 +350,7 @@ U následujících tvrzení se očekává, že je budete umět zformulovat a (ne
 	- důkaz, že $w(f)\leq c(R)$
 		- definujme $A:=$ vrcholy $x\in V$ takové, že existuje orientovaná cesta ze $z$ do $x$ nepoužívající hrany $R$
 		- $z\in A$, $s\notin A$, $\text{Out}(A)\subseteq R$
-		- $w(f)=f[\text{Out}(A)]-f[\text{In}(A)]\leq f[\text{Out}(a)]\leq c(\text{Out}(A)) \leq c(R)$
+		- $w(f)=f[\text{Out}(A)]-f[\text{In}(A)]\leq f[\text{Out}(A)]\leq c(\text{Out}(A)) \leq c(R)$
 	- věta: nechť $f$ je tok v síti; potom následující tvrzení ekvivalentní
 		- $f$ je maximální
 		- $f$ nemá zlepšující cestu
@@ -364,9 +364,9 @@ U následujících tvrzení se očekává, že je budete umět zformulovat a (ne
 			- tedy neexistuje žádný řez $R$ splňující $c(R)=w(f)$
 		- $2\implies 3$
 			- nechť $f$ je tok, který nemá zlepšující cestu
-			- definujme množinu $A:=\set{x\in V,\,\text{ze }z\text{ do }x\text{ vede nenasycená cesta}}$
+			- definujme množinu $A:=\set{x\in V\mid\text{ze }z\text{ do }x\text{ vede nenasycená cesta}}$
 			- zjevně $z\in A,\,s\notin A$
-			- definujme $R:=\text{Out}(A)=\set{uv\in E,\,u\in A,\,v\notin A}$
+			- definujme $R:=\text{Out}(A)=\set{uv\in E \mid u\in A,\,v\notin A}$
 			- všimněme si $\forall e\in\text{Out}(A):f(e)=c(e)$
 			- $\forall e'\in\text{In}(A):f(e')=0$
 			- z lemmatu výše víme, že pro $A\subseteq V$, kde $z\in A,\,s\notin A$, platí $w(f)=\underbrace{f[\text{Out}(A)]}_{c(\text{Out}(A))=c(R)}-\underbrace{f[\text{In}(A)]}_{0}=c(R)$
@@ -402,9 +402,9 @@ U následujících tvrzení se očekává, že je budete umět zformulovat a (ne
 		- nechť $f$ je maximální tok v té síti a $R$ minimální řez
 			- dle minimaxové věty $w(f)=c(R)$
 			- BÚNO $f$ má celočíselné hodnoty
-		- definujme $M_f:=\set{\set{x,y}\in E:f(xy)\gt 0}$
+		- definujme $M_f:=\set{\set{x,y}\in E \mid f(xy)\gt 0}$
 			- jistě $M_f$ párování v $G$, navíc $|M_f|=w(f)$
-		- definujme $C_R:=\set{x\in A:zx\in R}\cup\set{y\in B:ys\in R}$
+		- definujme $C_R:=\set{x\in A \mid zx\in R}\cup\set{y\in B \mid ys\in R}$
 			- pozorování: $R$ neobsahuje žádnou hranu z $A$ do $B$
 			- jistě $C_R$ je vrcholové pokrytí $G$
 			- kdyby $C_R$ nebylo pokrytí, tak existuje nepokrytá hrana $\set{x,y}\in E$, potom cesta $z\to x\to y\to s$ je ve sporu s tím, že $R$ je řez
@@ -412,7 +412,7 @@ U následujících tvrzení se očekává, že je budete umět zformulovat a (ne
 			- máme $|C_\min|\leq |C_R|=c(R)=w(f)=|M_f|\leq |M_\max|\leq |C_\min|$
 - Hallova věta v grafové a hypergrafové verzi
 	- pozorování: v bipartitním grafu s partitami $A,B$ má každé párování velikost nejvýše $|A|$ (i nejvýše $|B|$)
-	- definice: pro graf $G=(V,E)$ a množinu $X\subseteq V$ označím $N(X):=\set{y\in V\setminus X: (\exists x\in X)\set{x,y}\in E}$
+	- definice: pro graf $G=(V,E)$ a množinu $X\subseteq V$ označím $N(X):=\set{y\in V\setminus X \mid (\exists x\in X)\set{x,y}\in E}$
 	- Hallova věta, bipartitní grafová verze
 		- nechť $G$ je bipartitní graf s partitami $A,B$, potom $G$ má párování velikosti $|A|$ $\iff\underbrace{\forall X\subseteq A:|N(X)|\geq |X|}_{\text{„Hallova podmínka“}}$
 	- důkaz
@@ -449,7 +449,7 @@ U následujících tvrzení se očekává, že je budete umět zformulovat a (ne
 			- pozorování: v té síti není žádný řez velikosti menší než $k$
 			- tedy v té síti existuje tok velikosti aspoň $k$
 			- nechť $f$ je celočíselný maximální tok
-			- navíc mezi všemi celočíselnými maximální toky volme $f$ tak, aby množina $\underbrace{\set{e\in\vec E:f(e)=1}}_{S(f)}$ byla co nejmenší
+			- navíc mezi všemi celočíselnými maximální toky volme $f$ tak, aby množina $\underbrace{\set{e\in\vec E \mid f(e)=1}}_{S(f)}$ byla co nejmenší
 			- pozorování: $S(f)$ neobsahuje žádný orientovaný cyklus jinak spor s minimalitou $S(f)$
 			- pomocí $S(f)$ vyrobím $k$ hranově disjunktních cest z $x$ do $y$ takto:
 				- opakuj $k$-krát
@@ -747,7 +747,7 @@ U následujících tvrzení se očekává, že je budete umět zformulovat a (ne
 		- pro $x,y\in C$, $x\neq y$, tak $\psi(x)\neq\psi(y)$
 		- tedy $|C|\leq 2^{n-d+1}$
 		- tedy $k\leq n-d+1$, tj. $k+d\leq n+1$
-	- značení: $B(x,t):=\set{y\in\mathbb Z_2^n:d(x,y)\leq t}$, $V(t):=|B(x,t)|={n\choose 0}+{n\choose1}+{n\choose2}+\dots+{n\choose t}$
+	- značení: $B(x,t):=\set{y\in\mathbb Z_2^n \mid d(x,y)\leq t}$, $V(t):=|B(x,t)|={n\choose 0}+{n\choose1}+{n\choose2}+\dots+{n\choose t}$
 		- ${n\choose k}$ … počet vektorů, které se od $x$ liší v $k$ bitech
 	- Hammingův odhad: pokud existuje $(n,k,d)$-kód $C$, tak $|C|\leq\frac{2^n}{V(\lfloor\frac{d-1}2\rfloor)}$
 	- důkaz
