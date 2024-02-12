@@ -428,6 +428,7 @@ U následujících tvrzení se očekává, že je budete umět zformulovat a (ne
 			- zjistím, že $N(X)\subseteq C_B$
 				- protože nepokryté hrany musí pokrývat vrcholy v $N(X)$
 			- navíc $|X|=|A|-|C_A|\gt |C_B|\geq |N(X)|$
+				- jelikož $|C|\lt|A|\implies |A|\gt|C_A|+|C_B|$
 			- to je spor s Hallovou podmínkou
 	- pozorování: jakmile uvnitř hypergrafu je množina čtyř hyperhran, které ve svém sjednocení mají tři vrcholy, tak nemůžu najít systém různých reprezentantů
 		- platí to obecně pro množinu $k$ hyperhran – když budou mít ve sjednocení méně než $k$ vrcholů, tak nenajdu SRR
