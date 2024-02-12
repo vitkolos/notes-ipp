@@ -501,7 +501,7 @@ U následujících tvrzení se očekává, že je budete umět zformulovat a (ne
 	- důkaz
 		- pro $K_n$ věta zjevně platí (jedna cesta je přímá, další vždy přes jiný vrchol, těch je $n-2$)
 		- nechť $G$ není úplný (byť by tahle větev důkazu fungovala i pro $K_n$)
-			- $\impliedby:$ mezi každými dvěma vrchol je $k$ VVD cest $\implies$ G má $\geq k+1$ vrcholů, žádný řez velikosti $\lt k\implies G$ je $k$-souvislý
+			- $\impliedby:$ mezi každými dvěma vrcholy je $k$ VVD cest $\implies$ G má $\geq k+1$ vrcholů, žádný řez velikosti $\lt k\implies G$ je $k$-souvislý
 			- $\implies:$ nechť $x,y$ jsou různé vrcholy; případy
 				- $\set{x,y}\notin E$ … viz $xy$-verze M. věty
 				- $\set{x,y}\in E:$ nechť $G^-:=(V,E\setminus\set{\set{x,y}})$
