@@ -573,7 +573,7 @@ U následujících tvrzení se očekává, že je budete umět zformulovat a (ne
 			- definice: nasycený řetězec v $\mathcal P([n])$ je posloupnost $M_0,M_1,\dots,M_n\subseteq[n]$, kde $M_0\subseteq M_1\subseteq\dots\subseteq M_n\subseteq [n]$ a $|M_i|=i$
 			- v $\mathcal P([n])$ existuje $n!$ nasycených řetězců
 				- idea: začínám s prázdnou množinou, postupně do ní přidávám prvky (mám $n-i+1$ možností, jak do ní přidat $i$-tý prvek)
-			- každý nasycený řetězec obsahuje nejvýš jednu množinu $\mathcal A$
+			- každý nasycený řetězec obsahuje nejvýš jednu množinu z $\mathcal A$
 			- počítejme dvěma způsoby dvojice $(A,\mathcal R)$, kde $A\in\mathcal A$, $\mathcal R$ je nasycený řetězec, $A\in\mathcal R$
 				- první způsob: dvojic je $\leq n!$
 				- druhý způsob: pro $A\in\mathcal A$ mám $|A|!\cdot(n-|A|)!$ nasycených řetězců obsahujících $A$
