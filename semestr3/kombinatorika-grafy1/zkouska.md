@@ -317,7 +317,7 @@ U následujících tvrzení se očekává, že je budete umět zformulovat a (ne
 			- obdobně pro libovolnou jinou trojici
 - Konstrukce projektivních rovin z konečných těles
 	- nechť $T$ je konečné těleso s $n$ prvky (tedy $n$ musí být kladná celá mocnina prvočísla)
-	- uvažujme vektorový prostor $V=T^3=\set{(x,y,z):x,y,z\in T}$, $|V|=n^3$
+	- uvažujme vektorový prostor $V=T^3=\set{(x,y,z)\mid x,y,z\in T}$, $|V|=n^3$
 	- nechť $X$ je množina podprostorů dimenze 1 ve $V$
 	- $|X|=\frac{n^3-1}{n-1}$
 		- protože máme $n^3-1$ nenulových vektorů, každý patří do jednoho podprostoru dimenze 1
@@ -350,7 +350,7 @@ U následujících tvrzení se očekává, že je budete umět zformulovat a (ne
 	- důkaz, že $w(f)\leq c(R)$
 		- definujme $A:=$ vrcholy $x\in V$ takové, že existuje orientovaná cesta ze $z$ do $x$ nepoužívající hrany $R$
 		- $z\in A$, $s\notin A$, $\text{Out}(A)\subseteq R$
-		- $w(f)=f[\text{Out}(A)]-f[\text{In}(A)]\leq f[\text{Out}(a)]\leq c(\text{Out}(A)) \leq c(R)$
+		- $w(f)=f[\text{Out}(A)]-f[\text{In}(A)]\leq f[\text{Out}(A)]\leq c(\text{Out}(A)) \leq c(R)$
 	- věta: nechť $f$ je tok v síti; potom následující tvrzení ekvivalentní
 		- $f$ je maximální
 		- $f$ nemá zlepšující cestu
@@ -364,9 +364,9 @@ U následujících tvrzení se očekává, že je budete umět zformulovat a (ne
 			- tedy neexistuje žádný řez $R$ splňující $c(R)=w(f)$
 		- $2\implies 3$
 			- nechť $f$ je tok, který nemá zlepšující cestu
-			- definujme množinu $A:=\set{x\in V,\,\text{ze }z\text{ do }x\text{ vede nenasycená cesta}}$
+			- definujme množinu $A:=\set{x\in V:\,\text{ze }z\text{ do }x\text{ vede nenasycená cesta}}$
 			- zjevně $z\in A,\,s\notin A$
-			- definujme $R:=\text{Out}(A)=\set{uv\in E,\,u\in A,\,v\notin A}$
+			- definujme $R:=\text{Out}(A)=\set{uv\in E:u\in A,\,v\notin A}$
 			- všimněme si $\forall e\in\text{Out}(A):f(e)=c(e)$
 			- $\forall e'\in\text{In}(A):f(e')=0$
 			- z lemmatu výše víme, že pro $A\subseteq V$, kde $z\in A,\,s\notin A$, platí $w(f)=\underbrace{f[\text{Out}(A)]}_{c(\text{Out}(A))=c(R)}-\underbrace{f[\text{In}(A)]}_{0}=c(R)$
@@ -501,7 +501,7 @@ U následujících tvrzení se očekává, že je budete umět zformulovat a (ne
 	- důkaz
 		- pro $K_n$ věta zjevně platí (jedna cesta je přímá, další vždy přes jiný vrchol, těch je $n-2$)
 		- nechť $G$ není úplný (byť by tahle větev důkazu fungovala i pro $K_n$)
-			- $\impliedby:$ mezi každými dvěma vrchol je $k$ VVD cest $\implies$ G má $\geq k+1$ vrcholů, žádný řez velikosti $\lt k\implies G$ je $k$-souvislý
+			- $\impliedby:$ mezi každými dvěma vrcholy je $k$ VVD cest $\implies$ G má $\geq k+1$ vrcholů, žádný řez velikosti $\lt k\implies G$ je $k$-souvislý
 			- $\implies:$ nechť $x,y$ jsou různé vrcholy; případy
 				- $\set{x,y}\notin E$ … viz $xy$-verze M. věty
 				- $\set{x,y}\in E:$ nechť $G^-:=(V,E\setminus\set{\set{x,y}})$
@@ -573,7 +573,7 @@ U následujících tvrzení se očekává, že je budete umět zformulovat a (ne
 			- definice: nasycený řetězec v $\mathcal P([n])$ je posloupnost $M_0,M_1,\dots,M_n\subseteq[n]$, kde $M_0\subseteq M_1\subseteq\dots\subseteq M_n\subseteq [n]$ a $|M_i|=i$
 			- v $\mathcal P([n])$ existuje $n!$ nasycených řetězců
 				- idea: začínám s prázdnou množinou, postupně do ní přidávám prvky (mám $n-i+1$ možností, jak do ní přidat $i$-tý prvek)
-			- každý nasycený řetězec obsahuje nejvýš jednu množinu $\mathcal A$
+			- každý nasycený řetězec obsahuje nejvýš jednu množinu z $\mathcal A$
 			- počítejme dvěma způsoby dvojice $(A,\mathcal R)$, kde $A\in\mathcal A$, $\mathcal R$ je nasycený řetězec, $A\in\mathcal R$
 				- první způsob: dvojic je $\leq n!$
 				- druhý způsob: pro $A\in\mathcal A$ mám $|A|!\cdot(n-|A|)!$ nasycených řetězců obsahujících $A$
