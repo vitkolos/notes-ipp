@@ -538,7 +538,7 @@ výpisky neobsahují kompletní definice pojmů, pouze jejich zjednodušení; k�
 		- sporem: $\overline K=M(S)$
 		- potom $S'=S\cup T_0$ má model, neboť každá konečná část má model
 			- pro konečné části $S$ jednoduché
-			- pro konečné části $T_0$ vezmeme těleso prvočíselné charakteristiky větší než jakékoliv $p$ z axiomu $T'$ tvaru $\neg p1=0$
+			- pro konečné části $T_0$ vezmeme těleso prvočíselné charakteristiky větší než jakékoliv $p$ z axiomu $T_0$ tvaru $\neg p1=0$
 		- nechť $\mathcal A$ je model $S'$
 		- potom je i modelem $S$, takže $\mathcal A\in\overline K$
 		- zároveň je ale modelem $T_0$, takže $\mathcal A\in K$, což je spor
