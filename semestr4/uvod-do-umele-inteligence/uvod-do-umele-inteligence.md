@@ -25,7 +25,7 @@
 - jak se stroje můžou samy udržovat při (správném) chodu?
 	- Ktesibios – regulátor vodního toku
 	- Watt – regulátor parního stroje
-	- Wiener – kybernetika
+	- Wiener – kybernetika (autonomní stroje)
 	- teorie řízení
 - psychologie – jak lidé a zvířata myslí a jednají
 	- introspekce vlastních myšlenkových procesů – subjektivní
@@ -36,3 +36,44 @@
 - lingvistika – jak jazyk souvisí s myšlením
 	- Chomsky – formální teorie
 	- porozumění jazyku vyžaduje porozumění obsahu (nestačí rozumět syntaxi)
+- neurověda – jak mozek zpracovává informace?
+	- podle poměru velikosti těla a mozku u člověka a u zvířat Aristoteles odhadl, že je centrum myšlení v mozku
+	- až do 18. století nebylo jasné, že mozek je centrum vědění
+	- Broca zkoumal pacienty s poškozením mozku – pozoroval u nich změny chování
+- před zrozením oboru umělé inteligence
+	- McCulloth, Pitts – model umělého neuronu, neurony lze spojovat a „učit“
+	- neuron = jednotka s váženými vstupy a výstupem, hodnotu výstupu určuje prahová funkce (tedy hlavní problém spočívá v nastavení vah)
+	- Hebb – pravidlo pro upravování vah
+	- Minski, Edmonds – první počítač s neuronovou sítí
+	- Turing – vize AI
+- zrod AI
+	- John McCarthy – workshop s názvem umělá inteligence, byť počítačová racionalita by byl lepší název
+	- Newell, Simon – program Logic Theorist, umí dokazovat věty z knihy Principia Mathematica
+	- proč AI (a ne teorie řízení nebo kybernetika)?
+		- snaha napodobit lidské schopnosti – kreativita, učení apod.
+- zlatá éra, první léto
+	- General Problem Solver – imituje lidské řešení problémů
+	- Geometry Theorem Prover
+	- Lisp – programovací jazyk
+	- Analogy – problémy z IQ testů
+	- Student – slovní úlohy z matematiky
+	- blocks world – manipulace s kostkami na stole
+	- „chápání“ obrazců v počítačovém vidění (změť čar se chápe jako krychle apod.)
+	- perceptron – učící se algoritmus
+	- projekt Shakey – robot, který v přirozeném jazyce (angličtině) přijímal úkoly a vykonával je
+	- období velkých slibů a předpovědí
+- první zima
+	- DARPA přestala financovat základní volný (undirected) výzkum
+		- syntaktický transformační překlad (z ruštiny do angličtiny) nefunguje
+		- problémy neškálujou (příliš mnoho kombinací, algoritmicky těžké problémy)
+	- perceptron hledá přímku, kterou by oddělil hodnoty – u funkce XOR taková přímka neexistuje
+- druhé léto
+	- expertní systémy
+- druhá zima
+	- systémy jsou křehké a drahé na údržbu
+	- lispové počítače byly nahrazeny obecnými počítači (Apple, IBM)
+- třetí léto
+	- hluboké učení
+	- big data
+	- počítání na grafických kartách
+	- neuronové sítě
