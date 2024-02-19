@@ -91,3 +91,7 @@
 		- plateau of productivity
 - AI je o kontrukci racionálních agentů
 	- racionální agent by měl zvolit akci, o které se očekává, že maximalizuje užitek
+- záleží na prostředí, v němž agent operuje
+	- všechno vidím / něco nevidím (fully observable / partially observable)
+	- další stav prostředí je/není předem daný (deterministic / stochartic)
+	- …
