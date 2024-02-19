@@ -77,3 +77,17 @@
 	- big data
 	- počítání na grafických kartách
 	- neuronové sítě
+	- ImageNet
+	- AlphaGo (DeepMind, Google)
+	- Watson (IBM) – poráží lidi ve hře Riskuj
+	- DeepStack, Libratus – programy na hraní Pokeru (na DeepStacku se podíleli studenti MFF UK)
+	- autonomní řízení – Grand Challenges
+- co bude dál?
+	- Gartner Hype Cycle
+		- innovation trigger
+		- peak of inflated expectations
+		- trough of disillusionment
+		- slope of enlightenment
+		- plateau of productivity
+- AI je o kontrukci racionálních agentů
+	- racionální agent by měl zvolit akci, o které se očekává, že maximalizuje užitek
