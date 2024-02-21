@@ -1,6 +1,8 @@
 - přepisovací pravidla $(L_i,P_i)$
 - množina terminálů $V_T$ a neterminálů $V_N$
 	- ve výsledných slovech jsou jen terminály
+- gramatiky generují jazyky
+- automaty kontrolují, zda slovo patří do jazyka
 - Chomského hierarchie
 	- $\mathcal L_0$ gramatiky
 		- normální forma
@@ -36,18 +38,36 @@
 				- $a\in V_T$
 		- možná lepší varianta je místo $Yw$ uvažovat $wY$ apod.
 - chceme ukázat $\mathcal L_3\subsetneq\mathcal L_2\subsetneq\mathcal L_1\subsetneq\mathcal L_0$
-- zjevně $\mathcal L_3\subseteq\mathcal L_2$
-- pro $\mathcal L_2\subseteq \mathcal L_1$
-	- máme
-		- $X\to\lambda\mid a$
-		- $Y\to XZb$
-	- převedeme na
-		- $X\to a$
-		- $Y\to XZb\mid Zb$
-		- (vyškrtli jsme $X\to\lambda$)
-	- to nestačí
-		- mohli bychom se zacyklit
-		- budeme si značit, které neterminály už jsme vyškrtli
-		- nebo to můžeme udělat najednou (poznačíme si všechny levé strany, které mají napravo $\lambda$)
-- zjevně $\mathcal L_1\subseteq\mathcal L_0$
-- k ostrosti se vrátíme
+	- zjevně $\mathcal L_3\subseteq\mathcal L_2$
+	- pro $\mathcal L_2\subseteq \mathcal L_1$
+		- máme
+			- $X\to\lambda\mid a$
+			- $Y\to XZb$
+		- převedeme na
+			- $X\to a$
+			- $Y\to XZb\mid Zb$
+			- (vyškrtli jsme $X\to\lambda$)
+		- to nestačí
+			- mohli bychom se zacyklit
+			- budeme si značit, které neterminály už jsme vyškrtli
+			- nebo to můžeme udělat najednou (poznačíme si všechny levé strany, které mají napravo $\lambda$)
+	- zjevně $\mathcal L_1\subseteq\mathcal L_0$
+	- k ostrosti se vrátíme
+- automaty
+	- kontrolují, že na vstupu je slovo z gramatiky
+	- (3) konečné automaty
+		- automatu odpovídá jazyk, který dostaneme ze všech slov, které začínají v šipkách dovnitř a končí v šipkách ven
+		- deterministický vs. nedeterministický
+		- přechodové hrany s písmenky
+		- slovo rozložíme na několik hran
+		- prázdné slovo vyřešíme zdvojením šipek
+		- $X\to aY$ v automatu zapíšeme jako $X\xrightarrow{a}Y$
+	- (2) zásobníkové automaty
+		- přepisovací pravidla lze zapisovat jako strom a číst listy v inorder pořadí
+		- fungují nedeterministicky
+	- (1) Turingovy stroje, které se nepohybují mimo vstupní pásku
+		- běžíme proti směru generování – zkracuje se to
+	- (0) Turingovy stroje
+- separované gramatiky
+	- na levé straně se nesmí vyskytovat terminály nebo musí vyskytovat aspoň jeden neterminál
+	- to se dá zařídit tak, že terminál $a$ nahradíme terminálem $\overline a$ a přidáme další přepisovací pravidlo $\overline a\to a$
