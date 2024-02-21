@@ -1,0 +1,53 @@
+- přepisovací pravidla $(L_i,P_i)$
+- množina terminálů $V_T$ a neterminálů $V_N$
+	- ve výsledných slovech jsou jen terminály
+- Chomského hierarchie
+	- $\mathcal L_0$ gramatiky
+		- normální forma
+			- $\alpha\chi\beta\to\alpha\gamma\beta$
+				- $\alpha,\gamma,\beta\in (V_N\cup V_T)^*$
+				- $\chi\in V_N$
+	- $\mathcal L_1$ monotónní gramatiky
+		- $|L_i|\leq |P_i|$
+			- slova se nemůžou zkracovat
+		- deklarace $\lambda\in L$
+			- kde $\lambda$ je prázdné slovo
+		- normální forma
+			- $\alpha\chi\beta\to\alpha\gamma\beta$
+				- $\alpha,\beta\in(V_N\cup V_T)^*$
+				- $\gamma\in (V_N\cup V_T)^+$
+				- $\chi\in V_N$
+	- $\mathcal L_2$ bezkontextové gramatiky
+		- $|L_i|=1$
+		- Chomského normální forma
+			- $X\to YZ\mid a$
+				- $X,Y,Z\in V_N$
+				- $a\in V_T$
+				- tzn. na levé straně jeden neterminál, na pravé straně dva neterminály nebo jeden terminál
+			- navíc tam patří prázdné slovo (tzn. deklarujeme $\lambda\in L$)
+				- lze obejít složitým způsobem (bez deklarace)
+	- $\mathcal L_3$ regulární gramatiky
+		- $X\to Yw\mid w$
+			- $X,Y\in V_N$
+			- $w\in V_T^*$
+		- normální forma
+			- $X\to Ya\mid\lambda$
+				- $X,Y\in V_N$
+				- $a\in V_T$
+		- možná lepší varianta je místo $Yw$ uvažovat $wY$ apod.
+- chceme ukázat $\mathcal L_3\subsetneq\mathcal L_2\subsetneq\mathcal L_1\subsetneq\mathcal L_0$
+- zjevně $\mathcal L_3\subseteq\mathcal L_2$
+- pro $\mathcal L_2\subseteq \mathcal L_1$
+	- máme
+		- $X\to\lambda\mid a$
+		- $Y\to XZb$
+	- převedeme na
+		- $X\to a$
+		- $Y\to XZb\mid Zb$
+		- (vyškrtli jsme $X\to\lambda$)
+	- to nestačí
+		- mohli bychom se zacyklit
+		- budeme si značit, které neterminály už jsme vyškrtli
+		- nebo to můžeme udělat najednou (poznačíme si všechny levé strany, které mají napravo $\lambda$)
+- zjevně $\mathcal L_1\subseteq\mathcal L_0$
+- k ostrosti se vrátíme

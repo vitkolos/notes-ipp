@@ -1,0 +1,8 @@
+- u Dijkstra v nekonečném grafu použijeme hashovací tabulku
+- v A* heuristice nevybíráme vrcholy u podle vzdálenosti od startu, ale přičteme k ní heuristiku vzdálenosti od cíle
+	- v domácím úkolu to vrací heuristiku nula (tzn. je to Dijkstra)
+	- chceme, aby byla heuristika nezáporná
+	- heuristika by neměla přestřelovat skutečnou vzdálenost
+		- tzn. měla by být *přípustná*
+		- pokud přestřelí, může se stát, že nalezená cesta nebude nejkratší
+	- v reálném světě je vhodná heuristika vzdálenost vzdušnou čarou
