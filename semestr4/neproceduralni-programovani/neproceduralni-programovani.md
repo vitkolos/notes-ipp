@@ -18,9 +18,19 @@
 - konjunkce (čárka) má přednost
 - operátor nerovnosti (respektive neunifikovatelnosti) `\=`
 - kvantifikátory se explicitně nepíšou
+	- pokud je proměnná jenom vpravo, je kvantifikovaná existenčně
+	- pokud je proměnná na obou stranách, je kvantifikovaná obecně
 - s negací je obecně trochu problém
 - proměnné uvozené podtržítkem a pokračující čísly používá interně Prolog (tedy je lepší, když je nepoužíváme)
 - lze používat infixovou notaci
 - lze přetěžovat funktory
 - proměnné začínají velkým písmenem
+- ukončení příkazové řádky – `halt.`
+- „konzultace“ (kompilace) souboru `a.pl` – `consult(a).`
+- `make.` překompiluje klauzule, které se od minula změnily
+- `muz(sokrates).` … je Sokrates muž?
+	- stisknutím středníku (u složeného výrazu) vynutíme selhání – Prolog zkouší další možnosti
+- `manzele(X,Y) :- manzele(Y,X).` není správný přístup, způsobí to nekonečný cyklus
+	- např. dotaz `manzele(jina, karel_iv).` (kde `jina` neexistuje) nikdy nedoběhne
+	- v případě neúspěchu se provede unifikace – ta prohodí pozice (ale to se postupně provádí donekonečna)
 	
