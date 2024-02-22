@@ -1,0 +1,61 @@
+# Pokročilé programování v C\#
+
+- když lze přiřadit proměnnou typu A do proměnné typu B?
+	- referenční typy
+		- pokud jsou typy kompatibilní z hlediska hierarchie dědičnosti → implicitní konverze
+	- hodnotové typy
+		- existuje implicitní konverze int → long
+			- provádí se sign extension
+			- podobně pro ostatní celočíselné typy (směrem, kterým se zachovává hodnota)
+		- existuje i implicitní konverze na float nebo double – tam se ztrácí přesnost
+		- neexistují konverze s boolem
+	- hodnotový → referenční
+		- provede se (implicitní) boxovací konverze
+	- referenční typy – explicitní konverze
+		- máme proměnnou typu object, chceme ji (explicitní konverzí) přiřadit do typu string
+			- `string s = (string) o;`
+		- je potřeba ověřit, že typ objektu uvnitř proměnné typu object je string (nebo jeho potomek) – tedy jestli se dá přiřadit
+		- provádí se runtime check, aby se zjistilo, že se dá přiřadit
+		- když to nejde, vyhodí se InvalidCastException
+	- int a long od sebe nijak nedědí, pouze mezi nimi existují konverze
+	- long → int je potřeba konvertovat explicitně (můžou se ztratit data)
+	- unboxovat je potřeba explicitně (nemusí to vždycky fungovat)
+		- musím přesně napsat typ, který je uvnitř (tzn. zaboxovaný int se nedá unboxovat do longu)
+- uvažujme třídu Fraction (klasický zlomek, má intový čitatel a jmenovatel)
+	- chci umět se zlomky pracovat třeba pomocí Math.Sin(…) apod.
+	- hodilo by se implementovat konverzi na double
+		- to by šlo zajistit metodou ToDouble()
+		- tam potřebujeme inty dělit reálně, takže použijeme operátor explicitní konverze k implicitní konverzi
+		- `public double ToDouble() => ((double) a) / b;`
+	- hodilo by se implementovat konverzi z double na Fraction
+		- mohli bychom mít statickou metodu ToFraction, která vrátí Fraction
+			- Fraction.ToFraction … opakuje se tam slovo
+		- tak by tam mohl být konstruktor `public Fraction (double d)`
+			- to není úplně ideální
+		- dědičnost?
+			- nesmysl
+		- chtěli bychom double.ToFraction
+			- tomu se říká fluent syntax
+			- použijeme extension metody
+			- nová syntaxe
+			- připomínka klíčového slova params – umožňuje metody s proměnným počtem parametrů
+			- `class X { public static void f(this A a, int b) {…} }`
+			- dá se volat `X.f(a1, 5);`
+			- ale díky `this` se dá taky volat `a1.f(5);`
+				- to se za překladu vyhodnotí jako `X.f(a1, 5);`
+			- `this` se dá napsat pouze před první parametr
+			- kdyby existovala i třída Y se stejnou metodou f, tak by se `a1.f(5);` nepřeložilo
+			- třída X musí být statická (tzn. tohle this se dá zapsat jen u statické metody uvnitř statické třídy)
+				- to urychluje compile-time hledání vhodné metody
+			- vhodná metoda se hledá jen uvnitř aktuálního jmenného prostoru (a uvnitř jmenných prostorů importovaných pomocí `using`)
+			- pokud volám `a.f(…)`
+				- nejdřív se hledá vhodná metoda na typu proměnné
+				- pak se hledají extension metody v konkrétním namespacu
+				- pak se hledají extension metody v dalších namespaces
+			- třída X by se měla jmenovat StringExtensions
+			- extension metody se dají volat i na potomcích (tzn. hledají se tranzitivně extension metody všech předků)
+			- pokud třída neimplementuje interface IComparable, tak nám extension metoda CompareTo nepomůže
+			- k čemu se hodí extension metody
+				- externí typy
+				- obrovský projekt a malý podprojekt (do velkého projektu nechci sahat a přidávat tam pomocné metody / zvětšovat rozhraní jednotlivých tříd)
+				- umožňuje nám to implementovat fluent syntax

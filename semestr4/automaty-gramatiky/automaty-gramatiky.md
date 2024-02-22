@@ -9,3 +9,6 @@
 		- $|xy|\leq n$
 		- $\forall k\in\mathbb N_0:$ slovo $xy^kz$ je také v $L$
 	- tzn. $w$ lze rozdělit na tři části, kde druhá je neprázdná, první dvě jsou krátké a druhou lze libovolně iterovat
+	- důkaz z principu holubníku (mám delší slovo než je počet stavů → nějaký stav se musí opakovat)
+- součin automatů
+	- trik, který lze použít pro sestavení automatu pro jazyk s konjunkcí podmínek
