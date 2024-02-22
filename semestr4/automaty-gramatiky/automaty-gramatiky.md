@@ -1,0 +1,11 @@
+- rozdíly v definici automatu
+	- někdy je požadována totální přechodová funkce
+		- vyřešíme přidáním stavu fail
+	- někdy je požadovaný počáteční stav
+		- vyřešíme přidáním stavu final
+- iterační (pumping) lemma pro regulární jazyky
+	- $(\forall L\in\mathcal L_3)(\exists n\in\mathbb N)(\forall w\in L,|w|\geq n):w=xyz$
+		- $y\neq\epsilon$
+		- $|xy|\leq n$
+		- $\forall k\in\mathbb N_0:$ slovo $xy^kz$ je také v $L$
+	- tzn. $w$ lze rozdělit na tři části, kde druhá je neprázdná, první dvě jsou krátké a druhou lze libovolně iterovat
