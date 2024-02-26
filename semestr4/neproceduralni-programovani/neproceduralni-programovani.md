@@ -39,6 +39,7 @@
 	- v procedurálním jazyce by to odpovídalo typu záznam
 	- položky jsou identifikovány jménem
 	- ve složeném termu jsou položky identifikovány polohou
+- fakt
 - unifikace
 	- základní operace na termech
 	- unifikací `datum(D1, M1, 2024) = datum(D2, unor, R2).` je…
@@ -58,3 +59,5 @@
 - deterministická a nedeterministická implementace porovnání
 - nedeterminismus jako mocný nástroj
 - seznamy
+- rekurze se dobře dělá tak, že řeším obecnější problém
+- otáčení seznamu pomocí akumulátoru – v základním kroku (fakt) zkopíruju akumulátor do výsledné proměnné
