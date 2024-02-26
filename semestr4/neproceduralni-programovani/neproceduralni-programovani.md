@@ -55,3 +55,6 @@
 	- lepší predikát
 		- …
 - axiomatizace přirozených čísel
+- deterministická a nedeterministická implementace porovnání
+- nedeterminismus jako mocný nástroj
+- seznamy
