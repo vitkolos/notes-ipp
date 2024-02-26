@@ -95,3 +95,73 @@
 	- všechno vidím / něco nevidím (fully observable / partially observable)
 	- další stav prostředí je/není předem daný (deterministic / stochartic)
 	- …
+
+## Agenti, prohledávání
+
+- agent – vnímá prostředí pomocí senzorů, aktuátory mu umožňují jednat
+	- racionální agent – zvolí akci, která maximalizuje jeho výkon
+	- reflex agent
+		- jednoduchý – observation → action
+		- model-based
+			- past state + past action + observation → state
+			- state → action
+	- goal-based agent
+- reprezentace stavů
+	- atomic – stav je blackbox
+	- factored – stav je vektor
+	- structured – stav je sada objektů, ty jsou propojeny
+- problem solving agent
+	- akce jsou reprezentovány pomocí přechodové funkce
+	- cílem je najít posloupnost akcí, kterými se dostaneme z výchozího do cílového stavu
+		- cílových stavů může být víc
+	- očekáváme, že prostředí je plně pozorovatelné, diskrétní, statické a deterministické
+- Lloydova patnáctka
+	- ne všechny stavy jsou dosažitelné – zachovává se parita permutace
+- budeme potřebovat abstrakci prostředí
+	- validní abstrakce = abstraktní řešení můžeme expandovat do reálného řešení
+	- užitečná abstrakce = vykonávání akcí v řešení je jednodušší než v původním problému
+- dobře definovaný problém
+	- výchozí stav
+	- přechodový model `(state, action) -> state`
+	- goal test (funkce, která odpoví true/false podle toho, zda je daný stav cílový)
+- použijeme prohledávání grafu (někdy je graf strom – do každého stavu se lze dostat jedním způsobem)
+- u prohledávání stromu si nemusíme ukládat „uzavřenost“ vrcholu, stačí nám seznam vrcholů na okraji prozkoumané oblasti (frontier, jsou to otevřené vrcholy)
+- kvůli tomu, že stavový prostor může být nekonečný, neinicializujeme všechny vrcholy, ale místo toho použijeme hešovací tabulku
+- algoritmy neinformovaného prohledávání
+	- BFS (fronta)
+		- úplný pro konečně větvící grafy
+		- optimální – pokud je cena cesty nerostoucí funkce hloubky
+		- časová a prostorová složitost $O(b^{d+1})$, kde $b$ je stupeň větvení (branching factor, maximální výstupní stupeň) a $d$ je hloubka nejbližšího cíle
+		- problém je s prostorovou složitostí
+	- DFS (zásobník)
+		- úplný pro graph-search
+		- neúplný pro tree-search
+			- pokud algoritmus pustíme na grafu, který není strom
+		- suboptimální
+		- časová složitost $O(b^m)$, kde $m$ je maximální hloubka libovolného vrcholu
+		- prostorová složitost $O(bm)$
+- extenze BFS pro funkci určující cenu kroku (tedy cenu hrany)
+	- Dijkstrův algoritmus
+	- taky se tomu říká uniform cost search
+	- $g(n)$ označuje cenu nejlevnější cesty ze startu do $n$
+	- místo fronty použijeme prioritní frontu
+- best-first search
+	- pro vrchol máme ohodnocovací funkci $f(n)$
+	- $f(n)$ použijeme v Dijkstrově algoritmu místo $g(n)$
+	- greedy best-first search
+		- $f(n)=h(n)$
+		- není optimální ani úplný
+	- A* algoritmus
+		- $f(n)=g(n)+h(n)$, kde $h(n)$ je heuristika
+		- optimální a úplný
+		- typicky mu dojde paměť dřív než čas
+- co chceme od heuristiky $h(n)$ u algoritmu A*
+	- přípustnost – $h(n)$ musí být menší rovna nejkratší cestě z daného vrcholu do cíle, musí být nezáporná
+	- monotónnost
+		- mějme vrchol $n$ a jeho souseda $n'$
+		- $c(n,a,n')$ je cena přechodu z $n$ do $n'$
+		- heuristika je monotónní, když $h(n)\leq c(n,a,n')+h(n')$
+	- tvrzení: monotónní heuristika je přípustná
+	- tvrzení: pro monotónní heuristiku jsou hodnoty $f(n)$ neklesající po libovolné cestě
+	- tvrzení: pokud je $h(n)$ přípustná, pak je A* u tree search optimální
+	- tvrzení: pokud je $h(n)$ přípustná, pak je A* u graph search optimální

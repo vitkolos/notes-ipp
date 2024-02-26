@@ -33,4 +33,25 @@
 - `manzele(X,Y) :- manzele(Y,X).` není správný přístup, způsobí to nekonečný cyklus
 	- např. dotaz `manzele(jina, karel_iv).` (kde `jina` neexistuje) nikdy nedoběhne
 	- v případě neúspěchu se provede unifikace – ta prohodí pozice (ale to se postupně provádí donekonečna)
-	
+- …
+- pracujeme s termy
+	- term je strukturovaný typ s více položkami
+	- v procedurálním jazyce by to odpovídalo typu záznam
+	- položky jsou identifikovány jménem
+	- ve složeném termu jsou položky identifikovány polohou
+- unifikace
+	- základní operace na termech
+	- unifikací `datum(D1, M1, 2024) = datum(D2, unor, R2).` je…
+		- D1 = D2
+		- M1 = unor
+		- R2 = 2024
+	- unifikaci vyvolá operátor =
+	- operátor `\=` vrátí true, pokud termy nelze unifikovat
+- rekurze
+	- `predek(X,Y) :- rodic(X,Y).`
+	- `predek(X,Z) :- rodic(X,Y), predek(Y,Z).`
+	- tenhle predikát efektivně počítá potomky, ne předky
+	- napíšeme komentář `% predek(+Predek, ?Potomek)`
+	- lepší predikát
+		- …
+- axiomatizace přirozených čísel
