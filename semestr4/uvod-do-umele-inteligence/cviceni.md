@@ -53,4 +53,9 @@
 		- maximová
 			- $\max\set{h_1(u),h_2(u)}$ se BÚNO rovná $h_1(u)\leq c(u,v)+h_1(u)$
 			- $\leq c(u,v)+\max\set{h_1(v),h_2(v)}$
+	- maximum je vždycky větší (blíž reálné hodnotě) než afinní
+	- typicky nechceme strávit hodně času výpočtem heuristiky
 	- dává smysl vymyslet několik heuristik a pak použít jejich maximum
+	- k domácímu úkolu
+		- je fajn se podívat do zdrojáků
+		- kratší řešení jsou typicky lepší
