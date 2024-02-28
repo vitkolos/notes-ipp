@@ -48,6 +48,7 @@
 		- R2 = 2024
 	- unifikaci vyvolá operátor =
 	- operátor `\=` vrátí true, pokud termy nelze unifikovat
+- `guitracer.`
 - rekurze
 	- `predek(X,Y) :- rodic(X,Y).`
 	- `predek(X,Z) :- rodic(X,Y), predek(Y,Z).`

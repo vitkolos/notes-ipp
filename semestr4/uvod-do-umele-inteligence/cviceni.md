@@ -6,3 +6,21 @@
 		- tzn. měla by být *přípustná*
 		- pokud přestřelí, může se stát, že nalezená cesta nebude nejkratší
 	- v reálném světě je vhodná heuristika vzdálenost vzdušnou čarou
+- heuristika
+	- přípustnost $0\leq h(u)\leq c^*(u)$
+	- monotonie $0\leq h(u)\leq h(v)+c(u,v)$
+- příklady metrik, jejich vlastnosti pro silniční síť
+	- Euklidovská – je přípustná, je i monotónní
+		- $h(u,t)\leq h(u,v)+h(v,t)\leq c(u,v)+h(v,t)$
+			- z trojúhelníkové nerovnosti a přípustnosti
+			- přičemž $h(x,t)=h(x)$
+	- Manhattanská – přestřeluje (kdyby cesta vedla diagonálně), takže není přípustná, tudíž není ani monotónní
+	- maximová (Chebyshevova) – je přípustná (maximum je menší rovno Euklidovi)
+- k důkazu monotonie metriky potřebujeme trojúhelníkovou nerovnost dané metriky a její přípustnost
+- monotonie implikuje přípustnost
+- existují nemonotónní přípustné heuristiky
+- monotonii potřebujeme, abychom se při prohledávání posouvali ve směru cíle
+- Sokoban
+	- nepříliš dobrá (ale monotónní) heuristika – pro každou krabici vzdálenost od nejbližšího cíle, přes to součet
+	- chtěli bychom najít přiřazení krabic, které má nejmenší celkovou cenu
+	- hledáme minimální vážené perfektní párování – to jde v lineárním čase
