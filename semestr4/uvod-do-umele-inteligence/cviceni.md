@@ -22,5 +22,11 @@
 - monotonii potřebujeme, abychom se při prohledávání posouvali ve směru cíle
 - Sokoban
 	- nepříliš dobrá (ale monotónní) heuristika – pro každou krabici vzdálenost od nejbližšího cíle, přes to součet
+		- monotónní je, protože v každém kroku se sníží nejvýš o jedna
 	- chtěli bychom najít přiřazení krabic, které má nejmenší celkovou cenu
-	- hledáme minimální vážené perfektní párování – to jde v lineárním čase
+		- hledáme minimální vážené perfektní párování – to jde v lineárním čase
+	- chceme řešit vzdálenost panáčka, takže do heuristiky započteme vzdálenost panáčka od nejbližší krabice minus jedna
+	- když je krabice v rohu, tak se nemůžeme dostat nikam dál
+		- takže je to nepřípustný stav
+		- můžeme algoritmu o tom stavu vůbec neříkat
+		- můžeme nastavit heuristiku na „nekonečno“
