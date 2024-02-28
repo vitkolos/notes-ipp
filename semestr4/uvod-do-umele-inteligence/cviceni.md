@@ -30,3 +30,27 @@
 		- takže je to nepřípustný stav
 		- můžeme algoritmu o tom stavu vůbec neříkat
 		- můžeme nastavit heuristiku na „nekonečno“
+- vlastnosti A*
+	- $f(u)=h(u)+g(u)$, kde $h$ je heuristika, $g$ je vzdálenost ze startu do $u$
+	- uvažujme monotónní heuristiku
+	- hodnoty $f(u)$ jsou neklesající na všech nejkratších cestách ze startu
+		- $h(u)+g(u)\leq h(v)+g(v)$
+		- $h(u)\leq h(v)+g(v)-g(u)$
+		- pro $u,v$ na nejkratší cestě
+			- $h(u)\leq h(v)+c(u,v)$
+	- A* prozkoumává stavy v pořadí, ve kterém hodnoty $f(u)$ neklesají
+- kombinování heuristik
+	- afinní kombinace $\alpha h_1+(1-\alpha)h_2$, kde $\alpha\in[0,1]$
+	- maximová kombinace $\max\set{h_1,h_2}$
+	- přípustnost je jednoduché ukázat
+	- jsou-li heuristiky monotónní, je monotónní jejich kombinace?
+		- afinní
+			- máme
+				- $h_1(u)\leq h_1(v)+c(u,v)$
+				- $h_2(u)\leq h_2(v)+c(u,v)$
+			- chceme $\alpha h_1(u)+(1-\alpha)h_2(u)\leq c(u,v)+\alpha h_1(v)+(1-\alpha)h_2(v)$
+			- stačí přenásobit ty dvě rovnosti $\alpha$ a $(1-\alpha)$ a sečíst
+		- maximová
+			- $\max\set{h_1(u),h_2(u)}$ se BÚNO rovná $h_1(u)\leq c(u,v)+h_1(u)$
+			- $\leq c(u,v)+\max\set{h_1(v),h_2(v)}$
+	- dává smysl vymyslet několik heuristik a pak použít jejich maximum
