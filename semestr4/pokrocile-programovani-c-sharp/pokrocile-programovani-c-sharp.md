@@ -59,3 +59,17 @@
 				- externí typy
 				- obrovský projekt a malý podprojekt (do velkého projektu nechci sahat a přidávat tam pomocné metody / zvětšovat rozhraní jednotlivých tříd)
 				- umožňuje nám to implementovat fluent syntax
+
+---
+
+- method overloading
+	- `m(int i)` a `m(long l)` spolu vůbec nesouvisí
+	- v CIL kódu se objeví jako `m'int` a `m'long`
+		- teda místo `int` tam bude `System.Int32` apod.
+	- máme volání – za překladu se podle typu parametrů rozhodne, která metoda se bude volat
+	- situace
+		- metody v knihovně
+		- volání v programu, který knihovnu používá
+		- za překladu se určilo, že se volá `m'int`
+		- ale v používané verzi knihovny je jenom `m'long`
+		- JIT nutně zahlásí chybu – volaná metoda neexistuje
