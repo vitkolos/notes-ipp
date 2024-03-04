@@ -127,6 +127,10 @@
 - použijeme prohledávání grafu (někdy je graf strom – do každého stavu se lze dostat jedním způsobem)
 - u prohledávání stromu si nemusíme ukládat „uzavřenost“ vrcholu, stačí nám seznam vrcholů na okraji prozkoumané oblasti (frontier, jsou to otevřené vrcholy)
 - kvůli tomu, že stavový prostor může být nekonečný, neinicializujeme všechny vrcholy, ale místo toho použijeme hešovací tabulku
+- graph-search vs. tree-search
+	- algoritmy na prohledávání grafů
+	- graph-search si pamatuje, které vrcholy už expandoval (takže ho cyklus nerozháže)
+	- i tree-search lze použít k prohledávání grafů s cykly, ale může se chovat divně
 - algoritmy neinformovaného prohledávání
 	- BFS (fronta)
 		- úplný pro konečně větvící grafy
