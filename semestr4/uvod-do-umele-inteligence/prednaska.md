@@ -169,3 +169,37 @@
 	- tvrzení: pro monotónní heuristiku jsou hodnoty $f(n)$ neklesající po libovolné cestě
 	- tvrzení: pokud je $h(n)$ přípustná, pak je A* u tree search optimální
 	- tvrzení: pokud je $h(n)$ přípustná, pak je A* u graph search optimální
+- když heuristika $h_2$ dává větší hodnoty než $h_1$, tak se říká, že $h_2$ dominuje $h_1$
+	- pokud je $h_2$ přípustná a pokud se $h_2$ nepočítá výrazně déle než $h_1$, tak je $h_2$ zjevně lepší než $h_1$
+- best-first je třída algoritmů, kde máme uzly ohodnoceny nějakou funkcí a vybíráme nejmenší z nich
+- backtracking vs. DFS
+	- DFS využívá to, že nám stav může vrátit všechny následníky (pak je držíme v paměti)
+	- backtracking v daném vrcholu generuje jednoho následníka (takže všechny ostatní nemusíme držet v paměti)
+- problém rozmístění královen na šachovnici, aby se neohrožovaly
+	- možný model
+		- stavy – (částečná) rozmístění královen na šachovnici
+		- úvodní stav – prázdná šachovnice
+		- cíl – neznámý stav
+		- akce – umístím královnu tak, aby nevznikl konflikt s již umístěnými královnami
+	- lepší model
+		- královnám přiřadíme sloupce, takže řešíme jenom řádky
+		- …
+	- A* je nám k ničemu
+		- víme, v jaké hloubce se cíl nachází
+		- nevíme, jak cíl vypadá
+	- použijeme tree-search, protože stavy tvoří strom
+	- jak to optimalizovat
+		- budeme si dopředu vyškrtávat políčka, kam už nemůžeme nic umístit
+		- forward checking
+		- stav pro nás není černá skříňka
+		- jak to zobecnit?
+- forward checking v sudoku
+	- královny i sudoku jsou constraint satisfaction problem (CSP)
+	- relace = podmnožina kartézského součinu
+- CSP
+	- konečná množina proměnných
+	- domény – konečné množiny možných hodnot pro každou proměnnou
+	- konečná množina podmínek (constraints)
+		- constraint je relace na podmnožině proměnných
+		- constraint arity = počet proměnných, které podmínka omezuje
+	- feasible solution
