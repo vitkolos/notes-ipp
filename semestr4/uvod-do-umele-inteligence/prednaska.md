@@ -202,4 +202,53 @@
 	- konečná množina podmínek (constraints)
 		- constraint je relace na podmnožině proměnných
 		- constraint arity = počet proměnných, které podmínka omezuje
-	- feasible solution
+	- chceme přípustné řešení (feasible solution)
+- CSP můžeme řešit tree-search backtrackingem
+	- úpravou proměnných v určitém pořadí můžeme získat větší efektivitu
+	- můžeme pročistit hodnoty, které zjevně nesplňují podmínky
+- arc consistency (hranová konzistence)
+	- arc = orientovaná hrana
+	- edge = neorientovaná hrana
+	- uvažujme binární podmínky
+		- libovolnou n-ární podmínku lze převést na balík binárních podmínek
+	- každá podmínka odpovídá orientované hraně v síti podmínek
+	- orientovaná hrana $(V_i,V_j)$ je hranově konzistentní $\equiv$ pro každé $x\in D_i$ existuje $y\in D_j$ takové, že přiřazení $V_i=x$ a $V_j=y$ splní všechny binární podmínky $V_i,V_j$
+	- CSP je hranově konzistentní $\equiv$ každá hrana je hranově konzistentní (v obou směrech)
+	- algoritmus AC-3
+		- jakmile odstraním prvky domény, musím opakovat kontrolu v sousedech (ale stačí kontrolovat jen jednu ze dvou hran)
+		- složitost $O(ed^3)$, kde $e$ je počet podmínek, $d$ je velikost domény
+		- optimální algoritmus má složitost $O(ed^2)$
+- jak zkombinovat AC a backtracking
+	- problém uděláme hranově konzistentní
+	- po každém přiřazení obnovíme hranovou konzistenci
+	- této technice se říká *look ahead* nebo *constraint propagation* nebo *udržování hranové konzistence*
+	- rozdíl oproti forward checkingu
+		- FC kontroluje jenom aktuální proměnnou – nedívá se do budoucnosti
+	- kontroly FC/AC jsou v polynomiálním čase (strom se větví exponenciálně)
+	- hranová konzistence je typ lokální konzistence
+		- takže negarantuje globální konzistenci
+- silnější konzistence … $k$-konzistence
+	- hranová konzistence = 2-konzistence
+	- konzistence po cestě (path consistency) = 3-konzistence
+	- věta: když je problém $i$-konzistentní pro všechna $i$ od 1 do počtu proměnných, pak ho můžeme vyřešit bez backtrackingu
+	- ale udělat problém $k$-konzistentní je exponenciální vůči $k$
+- globální podmínky
+	- vezmeme balík podmínek → z nich uděláme globální podmínku
+	- příklad: globální podmínka *all different*
+	- řešíme pomocí hledání párování v bipartitních grafech
+		- jedna partita = proměnné
+		- druhá partita = hodnoty
+	- pak stačí promazat hrany, které nejsou v žádném párování
+- v jakém pořadí brát proměnné a hodnoty v backtrackingu
+	- heuristiky pro výběr proměnných
+		- princip prvního neúspěchu (fail-first principle) – vyber nejdřív takovou proměnnou, jejíž přiřazení pravděpodobně skončí neúspěchem
+			- dom heuristic – nejprve zkouším proměnné s nejmenší doménou
+			- deg heuristic – začnu proměnnými, které se účastní největšího počtu podmínek
+	- heuristiky pro výběr hodnot
+		- princip prvního úspěchu (succeed-first principle) – začneme hodnotou, která pravděpodobně odpovídá řešení
+			- můžu použít hodnotu, která nejméně omezuje ostatní proměnné
+			- to je ale výpočetně náročné, takže je lepší použít vhodnou heuristiku podle konkrétního problému
+- constraint programming je deklarativní přístup k řešení problémů
+	- zkonstruujeme model
+	- použijeme univerzální solver
+		- kombinace prohledávání a odvozování přes podmínky
