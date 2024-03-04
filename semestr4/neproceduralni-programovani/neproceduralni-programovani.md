@@ -54,6 +54,7 @@
 	- `predek(X,Z) :- rodic(X,Y), predek(Y,Z).`
 	- tenhle predikát efektivně počítá potomky, ne předky
 	- napíšeme komentář `% predek(+Predek, ?Potomek)`
+	- znaménko `+-` označuje, že argument může obsahovat volné proměnné
 	- lepší predikát
 		- …
 - axiomatizace přirozených čísel
