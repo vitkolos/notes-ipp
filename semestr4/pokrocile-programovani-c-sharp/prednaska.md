@@ -107,3 +107,38 @@
 		- nemůžeme použít `base.m(1);`?
 			- někdy ano, ale tohle vynucuje nevirtuální volání, což někdy nechceme
 	- když se overloady (např. pro int a long) neliší jen typem, ale také sémantikou (třeba efektivitou apod.), tak je vhodné je pojmenovat různě
+- generické metody
+	- chceme metody `int Max(int, int)` a `long Max(long, long)`
+	- mohli bychom je rozkopírovat, protože vlastně vypadají úplně stejně
+	- ale *kopírování je častým zdrojem chyb*
+	- mohli bychom mít `object Max(object, object)`?
+		- hodnotové typy by se musely boxovat :(
+		- co když funkci najednou předám int a double? co má vrátit?
+	- použijeme generické metody!
+	- `T Max<T>(T a, T b) { … }`
+		- uvnitř můžeme používat typ `T` jako placeholder
+		- metoda se používá jako `Max<int>(…);` apod.
+		- v C# se dá použít `Max<>(…);`, ale to má velmi specifické použití
+	- v C++
+		- hlavičkový soubor
+		- ve výsledném souboru nikdy není původní šablona
+		- máme k dispozici jenom konkrétní specializace šablony, které jsme se rozhodli použít
+	- v C# je myšlenka hlavičkových souborů nahrazena metadaty v assembly
+	- generická metoda zůstává generickou na úrovni CIL kódu
+		- tudíž CIL kód musí být dostatečně obecný – k tomu se dostaneme později
+	- v CIL kódu volání bude výběr konkrétní specializace generické metody
+	- JIT za run-timu vyrábí specializované varianty generické metody
+	- konvence – placeholder typy obvykle začínají písmenem T
+	- důležitá myšlenka – překladač si může vhodnou specializaci zvolit sám
+		- takže napíšu `Max(…)` a překladač zvolí vhodnou specializaci automaticky
+		- pokud má metoda např. tři parametry typů T1, T1, T2, tak překladač vlastně řeší rovnici
+		- pokud se mi nelíbí automatická volba specializace a chci to ovlivnit, tak můžu přetypovat parametry – ale vhodnější je prostě definovat specializaci do špičatých závorek
+	- generická metoda se dá kombinovat s konkrétními overloady
+		- překladač zvolí overload pro konkrétní typy parametrů, pokud existuje
+		- pokud neexistuje, typicky zvolí generickou metodu
+	- situace – mám generickou metodu, která volá generickou metodu s konkrétními overloady
+		- metoda `m` má generickou variantu, ale také variantu pro parametr typu double a pro object
+		- `CallM<T>` je generická, uvnitř je volání `m(v)`, kde `v` je typu `T`
+		- to se přeloží na volání `m<T>(v)`
+		- konkrétní overloady se nikdy nezavolají, jelikož se za překladu musí určit, která jedna metoda se v rodičovské generické metodě bude volat
+			- a generická `m` je prostě jediná vhodná – je použitelná pro všechna možná `T`
