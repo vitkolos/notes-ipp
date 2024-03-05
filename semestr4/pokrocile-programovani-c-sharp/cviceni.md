@@ -1,0 +1,54 @@
+# C\# cvičení
+
+- 0\. cvičení
+	- pokud máme nápad na téma a nevíme, jak technologii zakomponovat – říct Kliberovi, třeba ho něco napadne (vláknování lze nacpat skoro všude)
+	- osobní odevzdání Kliberovi
+		- na Malé Straně nebo přes Zoom
+		- lze během prázdnin nebo klidně zítra
+	- dokumentace
+		- komentáře v kódu u metod (co metody dělají)
+		- průvodní dokument (kde metody hledat) – něco jako 2 A4
+	- 10–12 úkolů, z nich mít 5 (3+2 nebo 3+1+1)
+		- odevzdávání do GitLabu
+		- nebudou testy, máme si napsat vlastní, odladit si aplikaci sami
+		- nebude formální zadání
+			- pokud nebudeme na cvičení, tak můžeme napsat mail Kliberovi, aby nám to zadal, nebo se podívat na Ježkovo cvičení
+		- z 0. cvičení není úkol
+		- úkoly na sebe až na výjimky nebudou navazovat
+- maďarská notace (Hungarian notation)
+	- místo `c` jako čísla řádku a `d` jako čísla sloupce pojmenuju proměnné `cRow`, `cCol`
+		- protože bug `c = d;` se blbě hledá
+		- v C# se to dneska dá řešit pomocí struktur Row a Column
+			- budou to struktury s Value
+			- Value může být field nebo vlastnost
+			- argument pro field
+				- nebudu chtít provádět nějaké speciální výpočty
+			- argumenty pro vlastnost
+				- lze to udělat immutable (ale to jde i s fieldy pomocí readonly struktury)
+				- lze kontrolovat rozsah
+			- paměťově to vychází stejně jako int
+			- co rychlost?
+				- sharplab.io
+				- podle assembleru, který nám vygeneroval JIT, to vypadá, že jsou všechny tři varianty (int, field, auto-implemented property) velmi podobné (field a vlastnost jsou stejné, field a int jsou technicky mírně odlišné, ale prakticky jsou taky stejné)
+			- pokud by hodnoty neopustily funkci, JIT je optimalizuje, jak to jen jde
+	- nebo `double distMeters`
+	- do názvu identifikátoru se kóduje jeho sémantika
+	- Charles Petzold to viděl, ale špatně to pochopil
+		- myslel si, že se do názvu identifikátoru kóduje jeho typ
+		- vydal knížku
+		- takže si všichni myslí, že maďarská notace je blbost, protože kóduje typ
+- extension metody
+	- pokud překladač nenajde vhodnou metodu, kouká do statických tříd a hledá extension metody
+	- situace
+		- máme dvě assemblies (knihovnu a hlavní program)
+		- v programu máme extension metodu
+		- po překladu hlavního programu do knihovny přidáme implementaci extension metody v původní třídě (tudíž ta by měla mít prioritu)
+		- ale bude se volat extension metoda – protože do CIL kódu překladač vygeneroval volání extension metody
+	- jak fungují extension metody u hodnotových typů?
+		- pokud chci hodnotový typ z metody upravovat, musím parametr `this` nastavit jako tracking referenci (napsat např. `ref this Point p`)
+			- od určité verze C# to funguje klasickým voláním – není potřeba manuálně získat tracking referenci na proměnnou
+	- s extension metodami to moc nepřehánět
+- fyzikální simulace
+	- máme čas v sekundách a vzdálenost v metrech, nechceme to přiřazovat napříč, řešením jsou opět struktury
+	- chceme počítat minimum z několika hodnot v metrech
+		- Math.Min nám vrátí double, pomocí extension metod a fluent syntaxe to převedeme na metry
