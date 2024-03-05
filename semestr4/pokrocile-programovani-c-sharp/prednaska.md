@@ -73,3 +73,37 @@
 		- za překladu se určilo, že se volá `m'int`
 		- ale v používané verzi knihovny je jenom `m'long`
 		- JIT nutně zahlásí chybu – volaná metoda neexistuje
+	- jak překladač vyhledává vhodný overload?
+		- hledá v aktuálním kontextu
+			- hledá se v kontextu metody a typu za překladu
+			- tzn. mezi metodami, které jsou definované v daném typu
+				- tudíž pokud se najde vhodná metoda definovaná uvnitř potomka, tak už se v předkovi nehledá
+				- proč? kvůli tomu, že předek a potomek můžou být v různých assemblies (např. knihovna a hlavní program)
+		- hledá podle arity
+		- hledá nejspecifičtější overload + tak, aby to bylo nejméně práce
+			- pokud mám metodu s overloady pro long, ValueType a object a volám ji pro int, tak se zavolá longová verze
+			- dá se definovat uživatelská implicitní konverze
+				- statická metoda `operator` v jednom z typů
+				- parametr = zdrojový typ
+				- název metody = cílový typ
+				- lze zvolit, jestli je konverze implicitní nebo explicitní
+				- způsob konverze probereme na cvičení
+				- není dobré to s konverzemi přehánět
+			- když existuje (i uživatelsky definovaná) implicitní konverze na typ, pro který je definovaný overload, tak se použije ten (místo overloadu pro object)
+			- dokonce to funguje i E2 –> E --> D –> A
+				- kde –> je dědičnost
+				- --> je uživatelská implicitní konverze
+				- existuje overload pro A (ale pak už jen pro object)
+				- pro proměnnou typu E2 se pustí overload pro A
+			- ale vybírá se maximálně jedna uživatelská konverze
+				- protože více konverzí vede ke zmatení
+		- když se nic nenajde, tak se přesunu o kontext výš a opakuju kroky
+	- situace
+		- v předkovi A je metoda m(int)
+		- v potomkovi B je metoda m(double)
+		- chceme v potomkovi volat intový overload
+		- ale `m(1);` volá `B.m(double);`
+		- použijeme `((A) this).m(1);`
+		- nemůžeme použít `base.m(1);`?
+			- někdy ano, ale tohle vynucuje nevirtuální volání, což někdy nechceme
+	- když se overloady (např. pro int a long) neliší jen typem, ale také sémantikou (třeba efektivitou apod.), tak je vhodné je pojmenovat různě
