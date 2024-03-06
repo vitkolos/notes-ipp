@@ -1,3 +1,7 @@
+# Úvod do AI – cvičení
+
+## A*
+
 - u Dijkstra v nekonečném grafu použijeme hashovací tabulku
 - v A* heuristice nevybíráme vrcholy u podle vzdálenosti od startu, ale přičteme k ní heuristiku vzdálenosti od cíle
 	- v domácím úkolu to vrací heuristiku nula (tzn. je to Dijkstra)
@@ -59,3 +63,38 @@
 	- k domácímu úkolu
 		- je fajn se podívat do zdrojáků
 		- kratší řešení jsou typicky lepší
+
+## CSP
+
+- NP-úplný problém
+- na vstupu
+	- proměnné
+	- domény (pro každou proměnnou jedna)
+	- podmínky
+- typické podmínky
+	- nerovnost
+	- all_different(…)
+	- logické spojky
+	- aritmetika
+- dva hlavní problémy
+	- solving
+		- algoritmy: backtracking, forward check, look ahead
+		- backtracking
+			- zkusím ohodnotit proměnnou
+			- zkontroluju constraints
+			- když constraints jsou splněny, ohodnotím další proměnnou
+				- jinak zkusím jiné ohodnocení
+				- když žádné ohodnocení nefunguje, vrátím fail
+		- forward check
+			- při backtrackingu začínám v proměnné A
+			- přiřadím jí hodnotu, ostatní prvky z domény vyškrtnu
+			- přejdu do proměnné B
+			- podívám se na všechny hrany (constraints), které vedou z B do již přiřazených proměnných (?)
+				- proškrtám prvky v doméně B, které constraints nemůžou splnit
+		- look ahead
+			- jako forward check
+			- pokud zmenším doménu, zkontroluju hrany, které do ní vedou (?)
+	- modelování
+- jak najít chromatické číslo?
+	- binární vyhledávání?
+	- pro náš úkol je lepší po jednom zvyšovat $k$ (počet barev)

@@ -63,3 +63,5 @@
 - seznamy
 - rekurze se dobře dělá tak, že řeším obecnější problém
 - otáčení seznamu pomocí akumulátoru – v základním kroku (fakt) zkopíruju akumulátor do výsledné proměnné
+- predikát append
+- predikáty include a exclude – až příště
