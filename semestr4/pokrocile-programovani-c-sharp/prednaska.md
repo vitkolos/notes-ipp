@@ -97,6 +97,9 @@
 				- pro proměnnou typu E2 se pustí overload pro A
 			- ale vybírá se maximálně jedna uživatelská konverze
 				- protože více konverzí vede ke zmatení
+			- zabudovaných konverzí se ale může vybrat víc
+				- takže pokud na dané úrovni existuje jenom doublová varianta metody, tak se zavolá, pokud ji zavolám s parametrem typu char
+				- protože existují implicitní konverze char → int → long → float → double
 		- když se nic nenajde, tak se přesunu o kontext výš a opakuju kroky
 	- situace
 		- v předkovi A je metoda m(int)
@@ -142,3 +145,68 @@
 		- to se přeloží na volání `m<T>(v)`
 		- konkrétní overloady se nikdy nezavolají, jelikož se za překladu musí určit, která jedna metoda se v rodičovské generické metodě bude volat
 			- a generická `m` je prostě jediná vhodná – je použitelná pro všechna možná `T`
+			- kdyby tam generická metoda nebyla, volal by se overload s parametrem object
+		- tohle chování je jiné v C++
+			- tam se za generický typ dosazuje při překladu
+	- připomenutí
+		- máme generickou metodu
+		- za compile timu vznikne jeden CIL kód této metody
+		- za run timu – jakmile se zavolá určitá (např. intová) varianta metody, JIT vygeneruje strojový kód pro danou variantu metody
+	- v CIL kódu je zapsáno, jaká metoda se volá
+		- zda je to nějaká specializace generické metody
+		- nebo je to třeba nějaký z konkrétních overloadů metody
+	- ve složitější typové hierarchii
+		- generická metoda může být virtuální
+		- dá se overridovat pouze generickou metodou (jinou implementací)
+		- pokud v potomkovi zadefinuju negenerickou metodu s dosud neexistujícím typem (tedy overload) s `new`, tak je to `new` zbytečné, nic se nezakrývá
+	- co můžeme dělat uvnitř generické metody s parametrem typu `T`?
+		- můžeme volat metody objectu
+	- připomenutí
+		- v Pythonu duck typing
+		- v C# compile-time duck typing u pattern matchingu (viz dekonstruktory)
+		- v C++ compile-time duck typing u šablon (generických metod) – strojový kód jednotlivých specializací metod se generuje za compile timu
+	- v C# se taky dá používat pythonovský duck-typing
+		- vydáme na půdu materiálního vulgarismu – použijeme klíčové slovo `dynamic`
+		- u proměnné s typem `dynamic` se zapne runtime duck typing
+		- proměnná se přeloží jako typ object
+		- ale dají se na ní volat libovolné metody
+			- za runtimu se zjistí, jestli existují – pokud ne, tak se vyhodí chyba
+	- u generických metod použijeme interfaces, abychom mohli volat něco jiného než metody objectu
+		- `void m<T>(T a) where T : podmínky {}`
+		- další where se píše na další řádek
+		- tento způsob kontraktu je důležitý – i pro vývojáře daných metod (aby v další verzi něco nerozbili)
+	- metoda s interfacovým parametrem vs. generická metoda s constraintem na daný interface
+		- funguje to hodně podobně
+		- rozdíl – interfaces u hodnotových typů
+			- v metodě s interfacovým parametrem se bude hodnotový typ boxovat
+			- v generické metodě se nic boxovat nebude, navíc se strojový kód vygeneruje přímo pro danou hodnotu (respektive pro daný typ) včetně všech optimalizací
+		- ale typicky dává smysl preferovat klasickou metodu s interfacovým parametrem
+		- JIT umí pro referenční typy recyklovat strojový kód
+			- pro (různé) hodnotové typy to vždycky generuje nový strojový kód
+		- u generických metod typicky chceme používat type inference (automatické generování špičatých závorek u volání) – to může komplikovat práci překladači (?)
+	- další použití
+		- generická rozhraní (interfaces) – např. `IComparable<T>`
+		- extension metody
+			- `public static T[] Slice<T>(this T[] source, …) { … }`
+			- s generickými extension metodami je potřeba šetřit (a psát jasné constraints)
+- generické typy
+	- může to být třída, struktura, interface
+	- syntaxe podobná jako u metod – také s constraints
+	- za compile timu se generuje jeden CIL kód generického typu
+	- za runtimu JIT generuje typy jednotlivých specializací
+	- strojový kód metod se klasicky JITuje až při prvním volání
+	- každá specializace má svůj vlastní class constructor a své vlastní statické fieldy
+	- dědičnost
+		- specializace generických typů jsou z hlediska stromu dědičnosti na stejné úrovni (nevedou mezi nimi hrany)
+		- generická třída může dědit od negenerické třídy nebo od generické třídy, kde její specializace může být daná nebo může odpovídat specializaci potomka
+	- v generické třídě můžou být metody…
+		- negenerické s určenými typy parametrů
+		- negenerické s typy parametrů odpovídajícími specializaci generické třídy (tedy `T`)
+		- generické (s typy parametrů nezávislých na specializaci generické třídy)
+		- → překladač vždy vybere nejspecifičtější variantu
+			- když má na výběr mezi negenerickou s určeným typem a negenerickou s typem T, tak vybere tu s určeným typem
+			- `m(T t)`, kde `T` je `int` vs. `m(int i)` → vyhraje `m(int i)`
+	- u constraints se dá použít čárka, ta znamená AND
+		- OR by nemělo smysl
+	- lze mít více generických typů s různými constraints
+	- generické fieldy nejsou, ale můžu mít field typu T v generické třídě
