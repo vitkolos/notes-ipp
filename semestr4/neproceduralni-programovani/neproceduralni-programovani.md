@@ -65,3 +65,13 @@
 - otáčení seznamu pomocí akumulátoru – v základním kroku (fakt) zkopíruju akumulátor do výsledné proměnné
 - predikát append
 - predikáty include a exclude – až příště
+- programování s omezujícími podmínkami
+	- `use_module(library(clpfd)).`
+	- obecnější aritmetické operátory, začínají znaménkem `#`
+- predikáty vyšších řádů
+	- call
+	- maplist
+	- foldl (reduce)
+- seznam s volným koncem
+- řez
+- negace
