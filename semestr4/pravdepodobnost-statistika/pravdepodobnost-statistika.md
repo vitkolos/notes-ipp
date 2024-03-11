@@ -28,3 +28,49 @@
 	- $f:\Omega\to[0,\infty)$
 	- $P(A)=\int_A f$
 	- musí platit $\int_\Omega f=1$
+
+---
+
+- diskrétní náhodné veličiny
+	- příklad: dva hody kostkou
+		- zajímá nás součet
+		- 1. varianta – pravděpodobnostní prostor budou součty
+			- jednotlivé pravědpodobnosti jsou různé
+		- lepší varianta – uspořádané dvojice, co na kostkách může padnout
+			- uniformní prostor
+			- $X(\omega)=\omega_1+\omega_2$ … příklad náhodné veličiny
+			- $Y(\omega)=\omega_1\cdot\omega_2$
+	- df: pro $(\Omega,\mathcal F,P)$ pravděpodobnostní prostor je $X$ diskrétní náhodná veličina $\equiv$ $X:\Omega\to\mathbb R\land \text{Im}(X)$ je konečný spočetný $\land$ ještě jedna podmínka
+	- Im je obor hodnot
+- …
+- poznámka: náhodná veličina $X$ nám určí pravděpodobnostní prostor
+	- $\Omega'=\text{Im}(X)$
+	- $\mathcal F'=\mathcal P(\Omega')$
+	- $p(x)=P(X=x)$
+	- tomu se říká distribuce $X$
+	- $p=p_X$
+		- pravděpodobnostní funkce $X$
+		- probability mass function … pmf $X$
+- pozorování: $\sum_{x\in\text{Im}(X)}p_X(x)=1$
+- příklady diskrétní náhodné veličiny
+	- Bernoulliho rozdělení/distribuce
+		- $X=1$ s pravděpodobností $p$
+		- $X=0$ s pravděpodobností $1-p$
+		- $p_X(1)=p$
+		- $p_X(0)=1-p$
+		- $X\sim\text{Ber}(p)$
+	- indikátorová náhodná veličina
+		- jev $A\in\mathcal F$
+		- $\omega\in A$
+		- $I_A(\omega)=1$, pokud $\omega\in A$
+		- $I_A(\omega)=0$, pokud $\omega\notin A$
+		- $I_A\sim\text{Ber}(P(A))$
+	- geometrické rozdělení – „čas úspěchu“
+		- házíme kostkou
+		- $X$ … kolikátým hodem padla první šestka
+		- $p=\frac16$
+		- $P(X=1)=p$
+		- $P(X=k)=(1-p)^{k-1}\cdot p$
+		- takové veličině se říká geometrická, značí se $X\sim\text{Geo}(p)$
+	- binomické rozdělení
+	- Poissonovo rozdělení

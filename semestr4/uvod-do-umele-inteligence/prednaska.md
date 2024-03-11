@@ -252,3 +252,56 @@
 	- zkonstruujeme model
 	- použijeme univerzální solver
 		- kombinace prohledávání a odvozování přes podmínky
+- často lze prohodit proměnné a hodnoty (hodnoty se stávají proměnnými, proměnné hodnotami) → vznikne duální model
+	- např. u královen jsou jednotlivá políčka proměnné, které nabývají hodnot 0 nebo 1 podle toho, zda tam je královna
+	- podmínky vyjádříme logickými formulemi – lze je zapsat v CNF
+	- k nalezení splňujícího ohodnocení se nejčastěji používá algoritmus DPLL
+		- ryzí (čistý, pure) výskyt – zas tak moc se nepoužívá
+		- jednotková propagace
+			- hledám klauzule o jedné proměnné
+			- je v zásadě ekvivalentní hranové konzistenci
+	- další optimalizace SATu
+		- komponentová analýza
+			- pokud se klauzule dají rozdělit na disjunktní podmnožiny, které nesdílejí proměnné, dají se řešit nezávisle
+		- pořadí proměnných (a hodnot)
+			- degree heuristic – začni proměnnou, která se vyskytuje nejčastěji
+			- activity heuristic – vyber proměnnou, která se nejčastěji vyskytuje v konfliktech (tedy v dead-ends, v klauzulích, které nelze ohodnotit, tedy musím backtrackovat)
+		- náhodné restarty
+			- pokud hledám příliš dlouho, náhodně změním způsob volby proměnných apod.
+			- abych se nezaseknul v nějaké slepé větvi při backtrackingu
+		- jak hledat jednotkové klauzule – clever indexing (?)
+			- dá se pro každou klauzuli udržovat čítač počtu literálů – ale to trvá dlouho
+			- lepší je použít watched literals
+			- vyberu náhodně dva literály
+			- když se jeden z nich ohodnotí, podívám se na klauzuli
+				- buď je jednotková, nebo vyberu nějaký další náhodný watched literal
+			- pokud literály (proměnné) vyberu vhodně, tak mi jich stačí relativně málo pro mnoho klauzulí
+		- clause learning
+			- když dojde k failu (dead-end, musím backtrackovat)
+			- identifikuju podmnožinu proměnných, které fail způsobily
+			- konflikt (špatnou kombinaci hodnot) zakóduju jako klauzuli
+- znalostní agenti
+	- mají k dispozici znalostní bázi
+	- můžeme jim poskytovat nové informace nebo se jich na něco ptát
+	- agent používá inferenci – logicky odvozuje
+	- agent v jeskyni – díry a Wumpus; má šíp
+		- inference se dá dělat tak, že si namodeluju, jak by svět vypadal, a pak modely porovnám s reálným pozorováním – podle toho upravím znalostní bázi
+		- dotaz $\alpha$ … je políčko bezpečné?
+			- udělám množinu světů, kde je políčko bezpečné
+			- porovnám ji se znalostní bází $KB$
+			- pokud je znalostní báze podmnožinou množiny světů, kde je políčko bezpečné, pak je políčko bezpečné
+		- taky to můžu všechno reprezentovat pomocí formulí
+			- $\alpha$ vyjádřím jako výrokovou formuli
+			- $KB$ vyjádřím jako teorii
+			- zajímá mě, zda $KB\models\alpha$
+				- to platí, právě když $KB\land\neg\alpha$ je nesplnitelné
+			- lze použít rezoluci
+			- Hornova klauzule
+				- forward chaining … data-driven reasoning
+					- $p\land q\land r\implies s$
+					- pokud vím, že platí $p$, pak převedu na $q\land r\implies s$
+					- jakmile se počet předpokladů sníží na 0, vím, že $s$ platí
+					- je to v podstatě speciální případ použití rezolučního pravidla
+				- backward chaining … goal-driven reasoning
+					- něco mě zajímá – pokouším se to odvodit
+					- tohle se používá v Prologu
