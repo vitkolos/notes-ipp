@@ -74,4 +74,7 @@
 	- foldl (reduce)
 - seznam s volným koncem
 - řez
+	- používat s mírou
+	- červený – mění deklarativní význam programu
+	- zelený – nemění deklarativní význam programu, pouze odřezává neperspektivní větve výpočtu
 - negace

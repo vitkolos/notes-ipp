@@ -52,3 +52,10 @@
 	- máme čas v sekundách a vzdálenost v metrech, nechceme to přiřazovat napříč, řešením jsou opět struktury
 	- chceme počítat minimum z několika hodnot v metrech
 		- Math.Min nám vrátí double, pomocí extension metod a fluent syntaxe to převedeme na metry
+- převod mezi Fraction a double
+	- dávala by smysl implicitní konverze?
+	- asi radši explicitní oběma směry
+	- z Fraction na double by možná šla implicitní – holt očekáváme ztrátu přesnosti
+- převod mezi Fraction a int
+	- int → Fraction implicitně
+	- Fraction → int explicitně

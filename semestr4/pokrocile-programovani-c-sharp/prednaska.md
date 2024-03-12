@@ -97,6 +97,7 @@
 				- pro proměnnou typu E2 se pustí overload pro A
 			- ale vybírá se maximálně jedna uživatelská konverze
 				- protože více konverzí vede ke zmatení
+				- tedy na řetízku konverzí musí být maximálně jedna uživatelská, překladačových (implicitních hodnotových nebo dědičnostních) může být libovolně mnoho
 			- zabudovaných konverzí se ale může vybrat víc
 				- takže pokud na dané úrovni existuje jenom doublová varianta metody, tak se zavolá, pokud ji zavolám s parametrem typu char
 				- protože existují implicitní konverze char → int → long → float → double
