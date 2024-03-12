@@ -74,7 +74,7 @@
 		- windows forms
 		- nemusíme se starat o UI
 		- máme vzít Entities
-			- dodat funkcionalitu, aby o umělo běhat doleva, doprava
+			- dodat funkcionalitu, aby to umělo běhat doleva, doprava
 		- kód v MainForm nemodifikovat (usingy můžeme upravovat)
 			- to, co svítí červeně, tam typicky něco chybí
 		- funkce RegisterEntity
