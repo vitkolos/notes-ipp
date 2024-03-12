@@ -59,3 +59,35 @@
 - převod mezi Fraction a int
 	- int → Fraction implicitně
 	- Fraction → int explicitně
+- operátory, indexery, vlastnosti a události se kompilují do normálních metod
+	- `op_Implicit`
+	- `op_Explicit`
+	- `get_*`
+	- `set_*`
+- můžeme definovat overloading operátorů (sčítání, odčítání apod.)
+- domácí úkol
+	- fyzikální knihovna
+	- co má umět?
+	- fyzikální knihovna pro hru bude jiná než pro jaderné výbuchy
+	- v TestConsoleApp/Program.cs je nějaká demonstrace
+	- JumpingPlatformGame
+		- windows forms
+		- nemusíme se starat o UI
+		- máme vzít Entities
+			- dodat funkcionalitu, aby o umělo běhat doleva, doprava
+		- kód v MainForm nemodifikovat (usingy můžeme upravovat)
+			- to, co svítí červeně, tam typicky něco chybí
+		- funkce RegisterEntity
+		- funkce Update($\Delta s$)
+			- odsimulovat, že uběhlo několik sekund – o ty je potřeba entity posunout vůči minule
+		- nevadí, že simulace nebude absolutně přesná (např. z hlediska hranic obrazovky)
+	- přímo ve winforms jsou nadefinované barevné čtverečky jako nějaké labels
+		- neočekává se, že tam bude mnoho jezdících komponent
+		- takhle se hry nedělají, tohle je jen pro jednoduchost
+	- naklonovat projekt z gitlabu, vyrobit takové řešení, které funguje
+	- nahrát do gitlabu, zaškrtnout v sisu
+	- můžeme gitlab používat, jak jsme zvyklí
+	- čas je do příštího cvičení
+	- simulace už tam je naprogramovaná, jen tam chybí ta fyzikální knihovna
+		- pohyb do stran, u některých postaviček skákání
+		- pohyb i skákání je lineární, nesnažit se to přepsat

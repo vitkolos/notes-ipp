@@ -89,6 +89,8 @@
 				- lze zvolit, jestli je konverze implicitní nebo explicitní
 				- způsob konverze probereme na cvičení
 				- není dobré to s konverzemi přehánět
+				- musí existovat jen jedna taková metoda – jinak překladač vyhodí chybu (ale až pokud chceme konverzi použít)
+					- když bude jedna implicitní a druhá explicitní a pokusíme se provést explicitní konverzi, taky to vyhodí chybu (jelikož i implicitní konverzi lze volat explicitně)
 			- když existuje (i uživatelsky definovaná) implicitní konverze na typ, pro který je definovaný overload, tak se použije ten (místo overloadu pro object)
 			- dokonce to funguje i E2 –> E --> D –> A
 				- kde –> je dědičnost
