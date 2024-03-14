@@ -213,3 +213,77 @@
 		- OR by nemělo smysl
 	- lze mít více generických typů s různými constraints
 	- generické fieldy nejsou, ale můžu mít field typu T v generické třídě
+- interfaces
+	- metoda interfacu se dá implementovat zděděním (rodičovská metoda má metodu, kterou vynucuje interface)
+	- jedna metoda může zároveň naplňovat více kontraktů (když třída implementuje víc interfaců a všechny požadují jednu metodu, např. `Close`)
+		- interfaces: `IReader`, `IWriter`
+		- metoda v obou interfaces se jmenuje `Close`
+	- je potřeba rozmyslet, kdo volá `Close` (nebo `Dispose`) – kdo daný zdroj drží (a kdo je zodpovědný za jeho uzavření/uvolnění)
+	- u TCP protokolu dává smysl mít dvě různé implementace `Close`
+		- chceme mít oddělené zavření pro čtení a pro zápis
+		- můžeme to poskládat pomocí dědičnosti – Reader implementuje IReader, Writer je potomkem Readera, zakrývá Close, implementuje IWriter, ReaderWriter je potomkem Writera, jeho Close zavolá obě varianty
+		- ale je to hrozně složité řešení
+- explicitní implementace metody z interfacu
+	- syntaxe
+		- neuvedu viditelnost, za ni napíšu návratový typ, před jméno metody napíšu jméno interfacu, od názvu metody oddělím tečkou
+		- https://learn.microsoft.com/en-us/dotnet/csharp/programming-guide/interfaces/how-to-explicitly-implement-interface-members
+	- takhle implementovanou metodu nemůžu zavolat přímo na daném typu, musím použít typ interfacu
+	- takový přístup používá System.Int32, který implementuje interface IConvertible, ale interfacové metody to má implementované explicitně, takže se uživatelům běžně nezobrazují jako součást rozhraní
+- generické typy v kombinaci s interfaces
+	- situace z prezentace
+	- nepřeloží se
+- implementace generických interfaces
+	- také v prezentaci
+- this
+	- v metodách máme implicitní parametr this
+	- to platí i pro metody v interfacech
+	- metody v interfacech musí být instanční, jinak by nebylo jasné, co bude this
+- nová funkce C# – statické abstraktní metody v interfacech
+	- je nezbytné je implementovat statickou metodou
+	- k čemu je to užitečné?
+	- když máme generický typ a chceme volat jeho statickou metodu
+	- nově se u instančních metod v interfacu dá psát abstract (ale je lepší to tam nepsat)
+	- funguje to i pro method-like věci (třeba vlastnosti)
+	- do interfacu se dá zapsat defaultní implementace
+		- this dává smysl používat jenom v instančních metodách
+		- co když chci odkazovat na typ implementátora
+			- použiju `TSelf`
+			- `interface I1<TSelf> where TSelf : I1<TSelf> { … }`
+			- kdy se tohle používá?
+				- kdybych chtěl implementovat komplexní čísla s (generickým typem) volitelnou přesností
+				- problém by nastal např. při implementaci sčítání
+				- nově v C# existují interfaces, které nám tohle umožňují – mají implementovány potřebné operátory
+- speciální constrainty
+	- constraint na hodnotové typy `where T : struct`
+	- constraint na referenční typy `where T : class`
+- `C<object>` a `C<string>` mezi sebou nemají žádnou vazbu – nijak od sebe nedědí
+	- bylo by hezké, kdyby se `List<string>` dal použít jako `List<object>`, protože všechny stringy jsou potomky objectu
+	- „možnosti“
+		- $(\alpha)$ typ B je typově kompatibilní s A
+			- typicky pokud B dědí od A
+			- takže instance B se dá přiřadit do proměnné typu A
+		- $(\beta)$ typ C je parametrizovaný T a `C<B>` je typově kompatibilní s `C<A>`
+			- C je kovariantní podle T
+		- $(\gamma)$ typ C je parametrizovaný T a `C<A>` je typově kompatibilní s `C<B>`
+			- C je kontravariantní podle T
+		- $(\delta)$ třetí varianta kompatibility `C<A>` a `C<B>`
+			- C je invariantní dle T
+	- generické typy jsou invariantní (??)
+	- pole referenčních typů jsou kovariantní
+	- pole hodnotových typů jsou invariantní
+	- každý zápis do každého pole referenčních typů vede na runtime check
+		- kdybych měl pole stringů
+		- to přiřadil do proměnné typu pole objectů
+		- a pak do prvku přiřadil int
+		- tak by to bylo blbě, protože bych do pole stringů přiřadil int
+		- i když kovarianci nepoužívám, check se provádí
+	- kovariance
+		- getter je v pohodě
+		- setter je problém
+	- kontravariance
+		- setter je v pohodě
+		- getter je problém
+	- typ nemůže být zároveň kovariantní i kontravariantní
+	- pro jiné typy než pole se dá zapnout variance – ukážeme si příště
+	- od C# 9 jsou virtuální metody kovariantní dle návratové hodnoty
+		- v overridu metody můžu vracet „lepší“ typ, než který vracela původně
