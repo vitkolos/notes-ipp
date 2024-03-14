@@ -74,3 +74,10 @@
 		- takové veličině se říká geometrická, značí se $X\sim\text{Geo}(p)$
 	- binomické rozdělení
 	- Poissonovo rozdělení
+- střední hodnota – $\mathbb E$xpectation
+	- $X$ je diskrétní náhodná veličina
+	- $\mathbb EX=\sum_{x\in\text{Im}X} x\cdot P(X=x)$
+	- pokud má $\sum$ smysl
+	- tedy pokud $\sum |x|\cdot p(x)\leq\infty$
+- pozorování: pokud $\Omega$ je konečný/diskrétní
+	- $\mathbb EX=\sum_{\omega\in\Omega} X(\omega)\cdot P(\set{\omega})$
