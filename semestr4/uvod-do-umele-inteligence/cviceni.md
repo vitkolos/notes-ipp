@@ -101,6 +101,6 @@
 	- začít u hodnoty o jedno vyšší než nejvyšší stupeň vrcholu
 - tvorba SAT klauzulí
 	- aspoň jeden … disjunkce
-	- nejvýš jeden … disjunkce přes všechny dvojice negací
+	- nejvýš jeden … konjunkce přes všechny dvojice negací
 	- nejvýš $k$ … disjunkce negací všech $k+1$-tic
 	- alespoň $k$ … převedeme na nejvýše $n-k$ negací
