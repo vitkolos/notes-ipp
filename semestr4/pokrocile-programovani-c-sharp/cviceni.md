@@ -91,3 +91,51 @@
 	- simulace už tam je naprogramovaná, jen tam chybí ta fyzikální knihovna
 		- pohyb do stran, u některých postaviček skákání
 		- pohyb i skákání je lineární, nesnažit se to přepsat
+- interfaces
+	- IIntValue – vyžaduje intovou vlastnost Value
+	- IIncrementable – vyžaduje voidovou metodu Increment
+- jak docílit, aby parametr implementoval oba interfacy?
+	- jeden interface může dědit od druhého
+	- nebo použiju generickou metodu
+- pokud generickou metodu zavolám s hodnotovým parametrem, tak se neboxuje
+	- to je kontrast vůči metodě s interfacovým parametrem – pokud je parametr struktura, tak se boxuje
+- přetěžování metod nám pomůže, když chceme metodu volat s parametry různých typů (nebo interfaců)
+	- když má metoda `f` dvě varianty pro parametr `IA` a `IB`, tak se náš kód nepřeloží, pokud nějaký typ implementuje oba interfacy
+	- musíme přetypováním rozhodnout, kterou variantu chceme zvolit
+- dají se takhle přetěžovat generické metody?
+	- pokud bychom nechtěli boxovat struktury
+	- `f<T>(T t) where T : IA`
+	- `f<T>(T t) where T : IB`
+	- v CIL kódu není informace o constraints, je to jenom v metadatech
+	- takže tohle se nepřeloží :(
+	- jak to ohackovat?
+		- dáme metody do různých typů – jeden dědí od druhého (takže nový přidáme *nad* ten stávající)
+		- ale takhle zakryjeme jednu z metod
+		- takže to taky nefunguje
+	- použijeme extension metodu!
+		- ale to nefunguje úplně dokonale
+		- pokud bychom chtěli další metodu, museli bychom vytvořit další třídu
+		- problém máme taky s viditelností – nevidíme private věci
+	- žádné lepší řešení zatím neznáme
+- domácí úkol
+	- nové zadání si stáhneme pomocí tlačítka Update Fork v GitLabu
+	- chceme udělat něco lepšího než winforms ;)
+	- Control je obecný prvek okénkového systému
+	- chtěli bychom přidat Panel, který obsahuje několik Controls
+	- Panel může obsahovat i Panel
+	- úkol: přidat podporu pro dva druhy panelů
+		- StackPanel obsahuje seznam (nebo prostě nějakou datovou strukturu) komponent, které jsou v něm
+		- Canvas obsahuje kromě komponent i informace o jejich souřadnicích
+	- chtěli bychom tyhle Controls vyrábět a používat pomocí fluent syntax
+		- metody vracejí this – dají se hezky řetězit
+		- `var image = new Image().WithUrl(…).WithZoom(…);`
+		- with by v nás mohlo evokovat imutabilitu – ale tady to neplatí, vracíme přímo objekt samotný, ne jeho kopie
+	- měli bychom dodržet formát výstupu – viz reference-output
+	- chtěli bychom přidat fluent syntax podporu i pro panely
+		- PlacedIn
+		- mělo by být jedno, jestli se to tam nejdřív umístí a pak nastaví URL nebo naopak
+		- u Canvasu se hned za PlacedIn musí volat At
+			- pokud se místo At volá něco jiného, nemá to jít přeložit
+			- pokud se pak už nic nevolá, tak to může jít přeložit, ale nemělo by se nic stát
+	- nemusíme řešit překrývání apod.
+	- deadline – do příštího týdne (společně s předchozím úkolem)

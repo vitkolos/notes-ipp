@@ -258,7 +258,7 @@
 	- constraint na referenční typy `where T : class`
 - `C<object>` a `C<string>` mezi sebou nemají žádnou vazbu – nijak od sebe nedědí
 	- bylo by hezké, kdyby se `List<string>` dal použít jako `List<object>`, protože všechny stringy jsou potomky objectu
-	- „možnosti“
+	- pojmy
 		- $(\alpha)$ typ B je typově kompatibilní s A
 			- typicky pokud B dědí od A
 			- takže instance B se dá přiřadit do proměnné typu A
@@ -287,3 +287,68 @@
 	- pro jiné typy než pole se dá zapnout variance – ukážeme si příště
 	- od C# 9 jsou virtuální metody kovariantní dle návratové hodnoty
 		- v overridu metody můžu vracet „lepší“ typ, než který vracela původně
+		- ale tohle zase funguje jenom u referenčních typů
+			- protože by si navrácené hodnoty neodpovídaly velikostně ani sémanticky (reference na haldu vs. číslo apod.)
+	- kovariance u polí
+		- někdy na škodu – musíme provádět runtime check
+		- někdy užitečná – můžeme psát univerzálnější kód
+	- specializace Listu jsou invariantní
+		- takže do parametru typu `List<object>` nemůžeme předat `List<Person>`
+	- parametr `List<object>` je zbytečně specifický, stačí nám vlastnost `Count` a možnost indexace
+		- mohli bychom použít interface `IList<object>`
+		- takže můžeme jako parametr použít pole objectů
+	- generické interfacy u referenčních typů jsou volitelně variantní
+		- `interface I<T>` je invariantní dle T
+		- `interface I<out T>` je kovariantní dle T
+			- funguje jako výstupní typ metody
+		- `interface I<in T>` je kontravariantní dle T
+			- funguje jako vstupní typ metody
+		- pro každý typový parametr je to nezávislé
+		- příklad
+			- `interface I<out T1, T2, in T3, in T4>`
+			- `I<A,B,C,D> i = X : I<E,F,G,H>`
+			- A:E, B=F, G:C, H:D
+		- nestačí implicitní konverze – musí to být podle typového systému
+		- neprovádějí se runtime checky, prostě se zakáže špatné použití
+	- `IList<T>` musí být zjevně invariantní, protože indexer vyžaduje getter a setter – tudíž musí být jako vstupní i výstupní typ
+	- existuje `IReadonlyList<out T>`, kde indexer vyžaduje jenom getter
+	- máme List stringů, chceme ho přiřadit do `IList<object>`, to nejde
+		- překladač nám poradí použít cast
+		- s castem se to přeloží, ale runtime check selže
+	- obecně se dá castovat typ do interfacu, který neimplementuje, jen se provádí runtime check, jestli konkrétní objekt (jeho typ) implementuje daný interface
+		- v proměnné typu A mám instanci typu B
+		- B dědí od A
+		- typ A neimplementuje interface I, ale typ B ho implementuje
+		- můžu tu proměnnou explicitně castnout na interface I
+		- kdyby typ A byl sealed, tak by se nám cast na interface, který neimplementuje, ani nepřeložil
+	- `interface IComparer<in T>`
+		- `int Compare(T a, T b)`
+		- kontravariantní
+		- máme metodu s argumentem typu `IComparer<B>`
+			- `B` je potomkem `A`
+			- takové metodě můžeme předat argument typu `IComparer<A>`
+	- kovarianci použijeme, když budeme chtít mít pro zvíře jeden logger
+		- pro vlka chceme mít speciální logger uložený ve stejné proměnné
+- interfacy kolekcí
+	- dává smysl používat generické varianty – ty negenerické jsou tam kvůli zpětné kompatibilitě
+	- IList má oproti ICollection navíc indexer
+	- IEnumerable
+		- kdyby IEnumerable měl vlastnost Current a metody MoveNext a Reset
+			- seznam by byl immutable
+			- ale backing field vlastnosti Current by byl mutable
+			- takže by ten typ nebyl immutable jako celek
+			- to je nepraktické při vícevláknovém programování
+		- návrhový vzor iterátor
+			- v dotnetu `IEnumerator<out T>`
+			- dostaneme ho pomocí metody GetEnumerator
+			- pak z každého vlákna můžeme kolekci procházet nezávisle
+		- z dotnetu 1 je tam negenerický typ IEnumerable
+			- vlastnost Current v negenerickém interfacu IEnumerator je typu object
+			- takže při implementaci IEnumerable musíme implementovat obě metody GetEnumerator
+			- a taky musíme implementovat oba iterátory
+		- na `IEnumerable` spoléhá implementace foreach cyklu
+		- metoda Reset je často k ničemu
+			- mnoho iterátorů ji nemá
+			- místo ní hážou výjimku (not implemented)
+			- když budu implementovat iterátor, je lepší ho tam mít
+			- když budu používat nějaký obecný iterátor, je lepší Reset nevolat – radši získat nový iterátor

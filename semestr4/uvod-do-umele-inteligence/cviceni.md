@@ -104,3 +104,19 @@
 	- nejvýš jeden … konjunkce přes disjunkce všech dvojic negací
 	- nejvýš $k$ … konjunkce disjunkcí negací všech $k+1$-tic
 	- alespoň $k$ … převedeme na nejvýše $n-k$ negací
+- jakmile máme k CSP úloze k dispozici testy, je jasné, co máme dát do constraints
+
+## Automatické plánování
+
+- v domácím úkolů nepoužívat typování objektů – „typovat“ klasicky unárními predikáty
+- v SISu jsou nahrávky přednášek
+- PDDL robot s chapadly
+	- neexistenční kvantifikátor nemůžeme použít, tak tam dáme pomocný predikát `free` (chapadlo je prázdné)
+	- při move nechceme přesouvat všechny věci, které robot drží – místo toho je zrušíme z místnosti a dáme mu je do ruky
+	- predikáty definujeme tak, aby se úloha zapisovala co nejjednodušeji
+- u neorientovaného grafu je potřeba vyjmenovat oba směry hran
+- PDDL v základní verzi neumí negace předpokladů
+- hanojské věže
+	- při přesunu potřebujeme znát disk nahoře na cílové tyči – přidáme si další argument
+	- typové predikáty nepotřebujeme, protože relaci „menší“ definujeme jenom pro disky a stůl (a nic není větší než stůl, takže ho nemůžeme přesouvat)
+- v domácím úkolu je potřeba akce nazvat správně a mít správné pořadí argumentů kvůli testu
