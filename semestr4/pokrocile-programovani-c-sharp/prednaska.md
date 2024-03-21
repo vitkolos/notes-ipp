@@ -307,7 +307,11 @@
 		- příklad
 			- `interface I<out T1, T2, in T3, in T4>`
 			- `I<A,B,C,D> i = X : I<E,F,G,H>`
-			- A:E, B=F, G:C, H:D
+				- E dědí od A
+				- B = F
+				- C dědí od G
+				- D dědí od H
+			- tady je to správně, v přednášce chybně, viz errata dokument
 		- nestačí implicitní konverze – musí to být podle typového systému
 		- neprovádějí se runtime checky, prostě se zakáže špatné použití
 	- `IList<T>` musí být zjevně invariantní, protože indexer vyžaduje getter a setter – tudíž musí být jako vstupní i výstupní typ
