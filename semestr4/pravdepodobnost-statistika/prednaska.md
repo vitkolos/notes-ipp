@@ -116,3 +116,18 @@
 - příklad
 	- $X\sim\text{Ber}(p)$
 	- …
+- …
+
+## Náhodné vektory
+
+- příklad – dva hody kostkou
+- df: sdružená pravděpodobnostní funkce (joint pmf)
+	- $p_{X,Y}(x,y)=P(X=x\land Y=y)$
+- z $p_{X,Y}$ lze odvodit $p_X$ a $p_Y$
+- ale z $p_X,p_Y$ nelze odvodit $p_{X,Y}$
+- věta
+	- $p_X(x)=\sum_{y\in\text{Im}\, Y}p_{X,Y}(x,y)$
+	- podobně pro $p_Y(y)$
+- důkaz
+	- je to disjunktní sjednocení, takže sčítám pravděpodobnosti
+- věta – PNS pro vektory
