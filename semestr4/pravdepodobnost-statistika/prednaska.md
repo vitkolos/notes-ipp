@@ -81,3 +81,38 @@
 	- tedy pokud $\sum |x|\cdot p(x)\leq\infty$
 - pozorování: pokud $\Omega$ je konečný/diskrétní
 	- $\mathbb EX=\sum_{\omega\in\Omega} X(\omega)\cdot P(\set{\omega})$
+
+---
+
+- kdy nás zajímá střední hodnota?
+	- pro opakované jevy
+- survival function, funkce přežití … $s(t)=P(X\gt t)$
+- věta
+	- $X$ je diskrétní náhodná veličina, $\text{Im}\,X\subseteq\set{0,1,2,\dots}$
+	- $\mathbb EX=\sum_{n=0}^\infty P(X\gt n)$
+- důkaz
+	- $\mathbb EX=1p(1)+2p(2)+3p(3)+\dots$
+	- $=p(1)+p(2)+p(3)+\dots$
+		- $P(X\gt 0)$
+	- $+\,p(2)+p(3)+\dots$
+		- $P(X\gt 1)$
+	- $+\,p(3)+\dots$
+- pozorování
+	- pro $A\subseteq\mathbb R$
+	- $P(X\in A)=\sum_{a\in A} p_X(a)$
+- příklad
+	- $X\sim\text{Geo}(p)$
+	- $\mathbb EX=\sum_n P(X\gt n)=\sum_n(1-p)^n=\frac1{1-(1-p)}=\frac1p$
+- df: rozptyl náhodné veličiny $X$
+	- $\text{Var}(X)=\mathbb E((X-\mathbb EX)^2)$
+	- $\sigma_X=\sigma(X)=\sqrt{\text{Var}(X)}$
+	- $cv=\frac{\sigma_X}{\mathbb EX}$ … variační koeficient
+- věta: $\text{Var}(X)=\mathbb E(X^2)-(\mathbb E(X))^2=\mathbb EX(X-1)+\mathbb EX-\mathbb E(X)^2$
+- důkaz
+	- $\mu:=\mathbb EX$
+	- $\text{Var}(X)=\mathbb E((X-\mu)^2)=\mathbb E(X^2-2\mu X+\mu^2)=\mathbb E(X^2)-2\mu\mathbb EX+\mathbb E\mu^2=$
+	- $=E(X^2)-2\mathbb\mu^2+\mu^2=\mathbb E(X^2)-\mu^2$
+	- $\mathbb E(X^2-X)=\mathbb E(X(X-1))=\mathbb E(X^2)-\mathbb EX$
+- příklad
+	- $X\sim\text{Ber}(p)$
+	- …
