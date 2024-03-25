@@ -342,3 +342,6 @@
 - někdy si můžeme udělat tabulku všech možností a určit jejich pravděpodobnosti
 - velkou tabulku budeme reprezentovat menším způsobem
 - Bayesovo pravidlo
+- bayesovská síť je orientovaný acyklický graf, kde vrcholy odpovídají náhodným proměnným
+	- šipky popisují závislost
+	- u každého vrcholu jsou CPD tabulky, které popisujou jeho závislost na rodičích
