@@ -305,3 +305,40 @@
 				- backward chaining … goal-driven reasoning
 					- něco mě zajímá – pokouším se to odvodit
 					- tohle se používá v Prologu
+
+---
+
+- plánování…
+
+---
+
+- potřebujeme heuristiku, aby naváděla prohledávání
+	- musí být přípustná, může být monotónní
+	- můžeme ji najít tak, že zkusíme řešit rozvolněný problém (odstraníme některé constraints)
+	- možné heuristika
+	- ignorujeme podmínky akcí
+		- najdeme nejmenší množinu akcí, která pokrývá cíl
+	- ignorujeme negativní efekty akcí
+- další formy plánování
+	- plan-space planning
+		- je bližší tomu, jak plánujou lidé
+		- postupně naplňujeme cíle a řešíme hrozby
+	- hierarchické plánování
+		- rozkládáme úkoly do primitivních úkolů (akcí)
+- shrnutí – automatizované plánování
+	- doménový model popisuje možnosti agentů
+	- cílem je najít sekvenci akcí ze současného do cílového stavu
+	- realizované prohledáváním stavového prostoru
+	- používáme heuristiky (ty můžou být nezávislé na doméně)
+
+## Nejistota
+
+- zdroje nejistoty
+	- částečná pozorovatelnost – nelze snadno zjistit současný stav
+	- nedeterminismus – není jisté, jak akce dopadne
+- logický agent by si musel pamatovat všechny možnosti situací
+- pravděpodobnostní agent každému tvrzení přiřazuje belief mezi 0 a 1
+- použijeme teorii pravděpodobnosti
+- někdy si můžeme udělat tabulku všech možností a určit jejich pravděpodobnosti
+- velkou tabulku budeme reprezentovat menším způsobem
+- Bayesovo pravidlo
