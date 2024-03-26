@@ -182,7 +182,7 @@
 	- u recordů funguje klíčové slovo With – to ale nyní nebudeme používat ani bychom ho neměli analyzovat (může nás posunout špatným směrem)
 	- dává smysl, aby to byly třídy (ne struktury)
 	- pro jednoduchost je nám jedno, jaký typ vrací `justStudents.WithPasswordResetByFirstName`
-		- ideální by bylo, kdyby to vralo `List<Student>`
+		- ideální by bylo, kdyby to vracelo `List<Student>`
 		- když nám to nepůjde, tak nevadí
 	- typy udělat co nejvíc immutable to půjde
 		- u vlastností dát init, private set nebo protected set (nejlepší je init)
