@@ -186,3 +186,7 @@
 		- když nám to nepůjde, tak nevadí
 	- typy udělat co nejvíc immutable to půjde
 		- u vlastností dát init, private set nebo protected set (nejlepší je init)
+- užitečné constraints pro generické typy
+	- struct – hodnotový typ (kromě Nullable)
+	- class – referenční typ
+	- new() – má bezparametrický konstruktor
