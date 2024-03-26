@@ -139,3 +139,50 @@
 			- pokud se pak už nic nevolá, tak to může jít přeložit, ale nemělo by se nic stát
 	- nemusíme řešit překrývání apod.
 	- deadline – do příštího týdne (společně s předchozím úkolem)
+
+---
+
+- domácí úkol na fyziku
+	- jak pojmenovat typy?
+	- asi lepší Meters než Distance, protože to stejně budeme ukládat v metrech
+	- v dotnetu je typ TimeSpan
+		- ale my v naší hře nepotřebujeme být tak obecní
+	- mohlo by být vhodnější mít jednotky Pixel, Frame a PixelsPerFrame?
+	- z hlediska času (i prostoru )je struktura zadarmo – počítání je stejně rychlé jako počítání přímo s doubly
+	- jak napsat extension metody jednodušeji?
+		- můžeme použít generické metody s omezením, aby to byl `IConvertible` a `INumber<T>`
+		- pak máme trochu problém s charem, protože `'5'.Meters()` je vlastně 53 metrů
+		- podobný problém může nastat u typu decimal, když tam uložíme 0.1
+		- takže je asi lepší podporovat jenom int a double, protože to bylo v zadání
+	- nejde nějak rozumně zobecnit operátory
+		- ale to nevadí, tady duplikace kódu není problém – je ho málo a nebude se měnit
+- domácí úkol s panely
+	- kód uvnitř Canvasu a StackPanelu je hodně podobný
+	- můžeme udělat abstraktní Panel
+	- v Canvasu přidáme seznam souřadnic – seznam Controls je protected, takže můžeme předpokládat, že nikdo nebude měnit pořadí
+	- název typu, který potřebujeme k ToString, můžeme uložit do abstraktní statické vlastnosti
+		- asi radši ne public, protože pak by to lidi začali používat a my bychom to nemohli změnit
+	- jak se zbavit overheadu?
+		- pomocí generických typů
+		- ale ty to zesložití
+- domácí úkol
+	- immutabilita je fajn
+	- místo změny vytořím kopii se změnou
+		- With
+	- programujeme SIS
+	- Person
+		- Teacher
+			- CoursesHeld
+		- Student
+			- DateEnrolled
+	- všechno to má být immutable
+	- pokud je to immutable, dost často potřebuju vytvářet instance
+	- vlastně bych mohl mít nějakého defaultního studenta s výchozími hodnotami, je zbytečné ho alokovat pořád znova a znova
+	- položky se mění po jedné – nedají se změnit dvě naráz
+	- u recordů funguje klíčové slovo With – to ale nyní nebudeme používat ani bychom ho neměli analyzovat (může nás posunout špatným směrem)
+	- dává smysl, aby to byly třídy (ne struktury)
+	- pro jednoduchost je nám jedno, jaký typ vrací `justStudents.WithPasswordResetByFirstName`
+		- ideální by bylo, kdyby to vralo `List<Student>`
+		- když nám to nepůjde, tak nevadí
+	- typy udělat co nejvíc immutable to půjde
+		- u vlastností dát init, private set nebo protected set (nejlepší je init)
