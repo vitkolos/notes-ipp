@@ -78,3 +78,11 @@
 	- červený – mění deklarativní význam programu
 	- zelený – nemění deklarativní význam programu, pouze odřezává neperspektivní větve výpočtu
 - negace
+
+---
+
+- funkcionální fronta
+	- Přední/Zadní
+	- Zadní část je otočená
+	- odebírám v konstantním čase ze začátku
+	- v konstantním čase přidávám na konec fronty (těsně za lomítko)
