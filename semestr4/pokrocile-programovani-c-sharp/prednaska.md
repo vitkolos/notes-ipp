@@ -356,3 +356,83 @@
 			- místo ní hážou výjimku (not implemented)
 			- když budu implementovat iterátor, je lepší ho tam mít
 			- když budu používat nějaký obecný iterátor, je lepší Reset nevolat – radši získat nový iterátor
+
+---
+
+- namespaces (jmenné prostory)
+	- můžu je vnořovat – je to syntaktická zkratka
+	- tečka je v dotnetu validní součást identifikátoru
+		- překladač vidí jenom názvy typů jako celek (i s tečkami)
+	- v názvu jmenného prostoru může být tečka
+		- takže namespace A.C je stejný jako namespace C uvnitř namespace A
+	- jmenné prostory jsou z pohledu CLR ploché – zanoření nemá žádný speciální význam
+	- když použijeme using, tak se aktivují extension metody daného jmenného prostoru
+- nested types (vnořené typy)
+	- z pohledu CLR jsou typy opravdu vnořené (na rozdíl od namespaces)
+	- mějme namespace X, v něm typ A, uvnitř vnořený typ B
+	- konvence CLI pro názvy vnořených typů (pro výpis)
+		- X.A+B
+	- konvence C# pro názvy vnořených typů (pro použití v kódu)
+		- X.A.B
+	- k čemu je to užitečné?
+		- v Javě je souvislost mezi instancemi A a B
+			- uděláme instanci A
+			- v kontextu A vyrobíme B
+			- to B má zpětně referenci na instanci A
+			- v C# tohle neplatí
+		- v C# můžu lépe upravovat viditelnost typů
+			- normální typy můžou mít viditelnost internal, public nebo file
+			- vnořené typy můžou být private, protected, public, internal, …
+			- docela častá je viditelnost private – daný typ vidí jenom kód uvnitř A
+			- kdyby A byl SortedDictionary implementovaný červeno-černým stromem, tak potřebuju nějaký typ, který bude reprezentovat vrchol toho stromu
+				- je to implementační detail, takže je vhodné, aby typ Node byl vnořený – takže nehrozí, aby ho začal používat někdo jiný
+	- když máme metodu v internal interface a nějaká třída ji implementuje jako interfacovou, tak se bez přístupu k interfacu ta metoda nedá zavolat
+		- metoda by taky mohla být interní a výsledek by byl stejný, ale to teď není důležité
+		- podobně můžeme mít v nějakém typu vnořený private interface a použít podobný efekt u vnořeného typu, který ten interface implementuje
+	- vnořený typ má přístup k private věcem nadřazeného typu
+	- vnořený typ může dědit od nadřazeného typu
+- `IEnumerable`
+	- dává smysl Enumerator mít jako privátní vnořenou třídu
+	- jak se enumerátor chová
+		- kolekce o 0 prvcích
+			- pokud zavoláme getter vlastnosti .Current před spuštěním, vyhodí to InvalidOperationException
+			- pokud zavoláme .MoveNext() u prázdné kolekce, vrátí to false
+			- když potom zavoláme .Current, vyhodí to InvalidOperationException
+		- kolekce o 1 prvku
+			- .Current → InvalidOperationException
+			- .MoveNext() → true
+			- .Current → 1. prvek
+			- .Current → 1. prvek
+			- .MoveNext() → false
+			- .Current → InvalidOperationException
+		- enumerátor má tři stavy – před kolekcí, uvnitř kolekce, za kolekcí
+		- metoda Reset by nás z libovolného stavu měla vrátit do stavu před kolekcí – ale často nebývá implementována
+		- proč má enumerátor stav „před kolekcí“? aby podporoval prázdné kolekce
+	- kdyby pro nás bylo důležité, kolik má kolekce prvků, použijeme ICollection s vlastností Count
+	- nikdo nás nenutí projít IEnumerable celé, nikdo nás nenutí číst prvky (třeba nás jenom zajímá, jestli kolekce obsahuje nějaký prvek → jednou použijeme MoveNext)
+	- v pokročilejších frameworcích může být uvnitř enumerátoru drženo spojení do databáze nebo nějaké cenné zdroje
+		- IEnumerable rozšiřuje IDisposable
+		- takže pokud používám enumerátor, měl bych nakonec zavolat Dispose
+	- můžu vyrábět nekonečné kolekce – např. sekvenční generátor náhodných čísel
+		- pokud potřebuju konečnou kolekci, použiju ICollection
+	- concurrent modification
+		- během používání enumerátoru modifikuju kolekci
+		- může mi vzniknout race condition
+		- tedy kolekce IEnumerable typicky nepodporují concurrent modification, může se vyhodit InvalidOperationException
+		- problém je, když se modifikace provede mezi dvěma použitími jednoho enumerátoru
+		- bug není v tom, že já modifikuju kolekci (pokud je třeba IList)
+			- bug je v tom, že mi někdo dal moc velká práva ke kolekci
+			- takže výjimka by měla být vyhozena z MoveNext
+				- kolekce si může evidovat verze
+				- enumerátor si může evidovat verzi, ze které vznikl
+				- při volání MoveNext se porovná verze
+	- foreach
+		- generuje while cyklus
+		- překladač…
+			- nejdříve zkusí, jestli se na typu dá zavolat GetEnumerator
+				- můžeme ji dodat i pomocí extension metody
+			- pak zkouší, jestli typ implementuje generický interface
+			- nakonec zkouší, jestli typ implementuje negenerický interface
+			- na nalezený interface to přetypuje
+		- dá se použít type inference (var)
+		- pokud použijeme konkrétní typ, tak se návratová hodnota Current explicitně přetypuje na daný typ

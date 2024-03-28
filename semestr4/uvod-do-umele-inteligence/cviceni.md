@@ -120,3 +120,8 @@
 	- při přesunu potřebujeme znát disk nahoře na cílové tyči – přidáme si další argument
 	- typové predikáty nepotřebujeme, protože relaci „menší“ definujeme jenom pro disky a stůl (a nic není větší než stůl, takže ho nemůžeme přesouvat)
 - v domácím úkolu je potřeba akce nazvat správně a mít správné pořadí argumentů kvůli testu
+
+## Pravděpodobnost
+
+- výsledek akce nemusí být deterministický, nemáme kompletní informaci o stavu apod.
+- 
