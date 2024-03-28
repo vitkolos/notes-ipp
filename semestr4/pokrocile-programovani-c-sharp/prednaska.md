@@ -431,8 +431,20 @@
 		- překladač…
 			- nejdříve zkusí, jestli se na typu dá zavolat GetEnumerator
 				- můžeme ji dodat i pomocí extension metody
+				- tohle je vlastně duck-typing
 			- pak zkouší, jestli typ implementuje generický interface
 			- nakonec zkouší, jestli typ implementuje negenerický interface
 			- na nalezený interface to přetypuje
 		- dá se použít type inference (var)
 		- pokud použijeme konkrétní typ, tak se návratová hodnota Current explicitně přetypuje na daný typ
+- jak pracovat s IList?
+	- použít foreach nebo for cyklus?
+	- při každém použití foreach se vytváří nový enumerátor
+		- ale u polí se foreach překládá efektivněji – do for cyklu
+			- pokud je za překladu jasné, že to bude pole
+		- dává smysl, aby enumerátor byla struktura?
+			- ale IEnumerable je interface, takže se enumerátor bude boxovat
+			- no ale mohli bychom ve veřejné metodě GetEnumerator vracet strukturu
+				- tím pádem musíme typ enumerátoru zveřejnit, aby se dal používat
+				- tohle pak bude fungovat i s foreach cyklem
+		- pokud překladač o typu ví jen to, že implementuje interface, tak na něm volá interfacovou metodu
