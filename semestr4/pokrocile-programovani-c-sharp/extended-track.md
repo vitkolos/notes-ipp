@@ -1,0 +1,11 @@
+- indexování od konce
+	- pomocí stříšky
+	- lze použít na libovolném typu s klasickým indexerem a vlastností Count
+	- pokud má typ indexer, který přijímá typ Index, tak se použije ten
+		- Index je readonly struktura s číslem a boolem (zda je to od konce, nebo ne)
+	- `Index i = ^2;` vyrobí korektní instanci typu Index
+- rozsahy (ranges, dvě tečky)
+	- použije se metoda Slice
+		- nedá se dodat extension metodou
+	- nebo se použije indexer s readonly strukturou Range
+		- ten má prioritu
