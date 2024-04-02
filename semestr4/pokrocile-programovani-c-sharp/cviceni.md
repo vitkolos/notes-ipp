@@ -190,3 +190,42 @@
 	- struct – hodnotový typ (kromě Nullable)
 	- class – referenční typ
 	- new() – má bezparametrický konstruktor
+- řešení úkolu s immutable studenty
+	- máme abstraktní Person
+	- z něj vychází role Student, Teacher
+		- rolí může být víc
+	- vlastností Person i vlastností jednotlivých rolí může být víc
+	- můžou být i nějací potomci Studenta apod.
+	- co bude vracet WithName zavolaná na Studentovi?
+		- musí vracet Studenta
+	- při použití se nejdříve nastavují obecné hodnoty, až pak ta specifická
+		- připomíná to builder pattern
+			- budeme mít mutable builder, kterému postupně nastavujeme hodnoty → nakonec vytvoříme instanci Person
+		- může být užitečné použít klíčové slovo required – uvnitř builderu máme k dispozici ale i silnější nástroje (třeba kontrolu toho, že nejsou zároveň nastaveny FirstName, LastName a FullName)
+		- ale builder pattern neřeší náš problém s vracením specifického typu
+			- PersonBuilder musí být generický
+			- `PersonBuilder<TSelf> where TSelf : PersonBuilder<TSelf>`
+				- taky se používá TConcreteSelf, TSpecific, apod.
+			- uvnitř WithName musíme this explicitně přetypovat na TSelf – ale my víme, že PersonBuilder je abstraktní, takže to nevadí (pokud někdo nevytvoří divného potomka PersonBuilderu)
+		- vyřešili jsme vracení specifického typu, ale builder neřeší náš problém
+	- použijeme `Person<TSelf>`
+		- musíme zajistit kopírování
+		- takže použijeme constraint na `new()`
+		- jak okopírovat data?
+			- nejsem schopen požadovat specifický konstruktor
+			- takže budu mít virtuální/abstraktní metodu Copy
+			- ta bude brát jako parametry name a password
+				- šlo by to i líp, ale zbavili bychom se extrémní immutability
+		- do `Person<TSelf>` můžu dát statickou vlastnost Default (s výchozí hodnotou rovnou instanci TSelf)
+	- musíme vytvořit ještě rodiče Person, od kterého bude dědit `Person<TSelf>`
+		- Person musí mít WithName a WithPassword
+		- můžeme to zajistit zakrýváním metod nebo pomocí virtuálních metod
+	- `List<Student>` a `List<Person>` jsou invariantní
+		- metoda PrintAll může být generická
+		- nebo může mít parametr `IReadonlyList<Person>`, který je kovariantní
+			- případně něco slabšího – klidně `IEnumerable<Person>`
+- další domácí úkol
+	- zadání úkolu na videu
+	- vyrábíme knihovnu na práci s desetinnými čísly ve fixed point aritmetice
+	- specifikuju pozici desetinné čárky
+		- Q3.5 … 3 bity před desetinnou čárkou, 5 bitů za ní
