@@ -124,4 +124,6 @@
 ## Pravděpodobnost
 
 - výsledek akce nemusí být deterministický, nemáme kompletní informaci o stavu apod.
-- 
+- v bayesovské síti … $P(X_1,\dots,X_n)=P(X_1|\text{parents}(X_1))\cdot\ldots\cdot P(X_n|\text{parents}(X_n))$
+	- kde parents jsou přímí předci vrcholu (vrcholy, z nichž do něj vedou šipky)
+- eliminace proměnných

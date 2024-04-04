@@ -448,3 +448,66 @@
 				- tím pádem musíme typ enumerátoru zveřejnit, aby se dal používat
 				- tohle pak bude fungovat i s foreach cyklem
 		- pokud překladač o typu ví jen to, že implementuje interface, tak na něm volá interfacovou metodu
+- programujeme enumerátor
+	- máme třídu A, tam jsou dvě pole x1, x2, ale ta se mají tvářit jako jedno
+		- kdybychom chtěli dělat PrintAll, pomocí for cyklu bychom přeiterovali přes obě pole – prolíná se algoritmus pro výpis a pro iteraci
+	- v enumerátoru budeme mít uložený stav procházení
+		- v jaké fázi jsme (které ze dvou polí zrovna procházíme)
+		- v kolikátém jsme prvku
+	- je vlastně docela těžké tvořit enumerátory
+	- v C# je koncept iterátorových metod
+		- pokud metoda vrací IEnumerator a obsahuje `yield return`, zcela se změní způsob jejího překladu
+		- metoda se podle yield returnů rozseká na jednotlivé kroky
+		- první krok – od začátku metody do návratové hodnoty yield returnu (včetně)
+		- druhý krok – od středníku za yield returnem do dalšího yield returnu
+		- poslední krok – od středníku za posledním yield returnem do konce metody
+		- návratová hodnota yield return se někam uloží, takže volání getteru vlastnosti Current vrací přímo hodnotu (už ji znova nepočítá)
+		- neplatná volání Current jsou v rozporu s typickým kontraktem enumerátoru
+			- volání getteru Current před prvním MoveNext vrací defaultní hodnotu `default(T)`
+			- get_Current po posledním MoveNext vrací poslední hodnotu
+		- náš kód skončí uvnitř enumerátoru
+		- v těle naší metody nezůstane náš kód, ale bude tam vyrobení a vrácení toho enumerátoru
+		- lokální proměnné z našeho kódu budou uloženy jako fieldy enumerátoru
+			- platí to pro všechny lokální proměnné
+			- v Release režimu si překladač všimne, že některé lokální proměnné není třeba držet globálně a přeloží je jako lokální (ne jako fieldy)
+		- parametry naší iterátorové metody se taky uloží do enumerátoru (respektive jejich hodnoty se tam uloží – „capture by value“)
+		- pokud je iterátorová metoda instanční metoda nějakého objektu, tak v ní můžu použít vlastnosti toho objektu (protože má implicitní parametr this)
+			- pak se musí `this` nakopírovat (capture by value) dovnitř enumerátoru
+		- náš kód se přeloží do stavového automatu (metoda MoveNext funguje jako stavový automat)
+			- `_state`
+				- na začátku ve stavu 0
+				- při běhu se nastaví na -1
+					- až na konci se nastaví na další validní stav
+					- tím způsobem se ošetřuje situace, kdy se při běhu MoveNext vyhodí výjimka – mohlo dojít k poškození vnitřního stavu enumerátoru, takže se prostě skončí
+				- -1 je koncový stav
+			- sdílený kód jednotlivých stavů se sdílí pomocí goto
+		- můžeme používat `yield break` – to je okamžitý přechod do koncového stavu
+		- enumerátor podporuje lazy evaluation
+			- iterátorové metody taky – s každým voláním MoveNext se provede jenom jeden krok
+	- chci IEnumerable převést na List
+		- lazy evaluation se dá převést na eager evaluation
+		- konstruktor Listu má overload `new List<T>(IEnumerable<T>)`
+		- někdy se to hodí, někdy to není dobrý nápad
+			- třeba pokud potřebuju jenom první tři položky, tak není vhodné převádět celou kolekci na seznam, když má milion položek
+			- ale pokud se při každém MoveNext něco stahuje ze sítě a chci přes kolekci iterovat víckrát, tak dává smysl si ji někam uložit pomocí eager evaluace
+				- v System.LINQ jsou k tomu metody ToList a ToArray pro IEnumerable
+				- trochu efektivnější je ToList, protože ToArray se pak musí kopírovat do pole, jelikož LINQ předem nezná délku IEnumerable
+					- ale pokud je daná věc zároveň IReadOnlyCollection a tedy má Count, tak ho LINQ použije
+- LinkedList
+	- veřejná třída LinkedListNode – jednotlivé krabičky s hodnotami, aby se dalo přidávat před ně, za ně apod.
+	- `LinkedList<T>` implementuje `IEnumerable<T>`
+	- bylo by hezké, kdyby se dalo enumerovat přes krabičky v LinkedListu
+		- `LinkedList<T>` by mohl implementovat `IEnumerable<LinkedListNode<T>>`, ale pak by se ten enumerátor složitěji používal
+		- takže přidáme extension metodu `AsNodeEnumerable`
+			- můžeme použít iterátorovou metodu
+	- `x = new A {1,2,3};` je syntaktická zkratka za `x = new A(); x.Add(1); x.Add(2); x.Add(3).`
+		- používá se compile-time ducktyping
+		- Add se dá doplnit jako extension metoda
+	- LinkedListNode
+		- vlastnost Value s getterem a setterem
+		- vlastnost RefValue vrací referenci přímo na hodnotu (má jenom getter), takže může zefektivnit práci s hodnotami uvnitř LinkedListu
+	- přidáváme krabičky uvnitř foreache za aktuální krabičku
+		- pokud budeme enumerovat lazy evaluací přes LinkedList, tak se to zacyklí
+			- protože enumerátor typicky nepodporuje concurrent modification
+		- pokud LinkedList převedeme pomocí eager evaluace na List, tak se to nezacyklí, ale zabere to dost paměti
+		- nejefektivnější varianta bude taková, že budeme prvek přidávat za minulou krabičku

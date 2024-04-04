@@ -86,3 +86,12 @@
 	- Zadní část je otočená
 	- odebírám v konstantním čase ze začátku
 	- v konstantním čase přidávám na konec fronty (těsně za lomítko)
+
+## Haskell
+
+- volání funkce má největší prioritu
+- záporná čísla je nutné psát do závorky (opět kvůli prioritě)
+- informace o funkci pomocí `:i`
+- z funkce můžu udělat operátor pomocí zpětných apostrofů \`
+- překlad pomocí `:l`
+- chceme mít funkce definované pro všechny hodnoty definičního oboru – proto Haskell obsahuje pouze if then else (a neobsahuje if then)
