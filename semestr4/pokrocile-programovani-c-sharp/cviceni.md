@@ -229,3 +229,22 @@
 	- vyrábíme knihovnu na práci s desetinnými čísly ve fixed point aritmetice
 	- specifikuju pozici desetinné čárky
 		- Q3.5 … 3 bity před desetinnou čárkou, 5 bitů za ní
+	- používáme celočíselné operace procesoru (`+ - * /`)
+	- chceme tam mít metodu ToDouble a taky hezkou metodu ToString, aby se to správně vypisovalo
+	- konstruktory
+		- pro double
+		- pro celé číslo
+	- generický typ Fixed
+		- definujeme typ, kterým budeme čísla interně reprezentovat (byte, short, int, long)
+		- definujeme počet bitů za desetinnou čárkou
+			- zavedeme typy Dot3, Dot4, Dot8, Dot16, Dot24
+			- nemusíme kontrolovat, že je za desetinnou čárkou nejvýš tolik bitů, kolik typ podporuje
+	- nebudeme kontrolovat přetečení – vždycky provedeme truncation
+	- chceme metodu To, která zajistí převod na jinou fixed-point reprezentaci
+	- aby se na Listu vhodných typů (třeba i intů) dalo provést SumAll
+		- můžou se nám hodit interfacy
+			- viz interfacy pod IBinaryInteger (a INumberBase)3
+		- https://learn.microsoft.com/en-us/dotnet/standard/generics/math
+		- můžou se nám hodit identity (AdditiveIdentity, MultiplicativeIdentity)
+		- můžou se nám hodit factory metody Create uvnitř INumberBase
+	- záporná čísla nemusíme řešit
