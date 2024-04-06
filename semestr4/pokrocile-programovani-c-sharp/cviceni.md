@@ -243,7 +243,7 @@
 	- chceme metodu To, která zajistí převod na jinou fixed-point reprezentaci
 	- aby se na Listu vhodných typů (třeba i intů) dalo provést SumAll
 		- můžou se nám hodit interfacy
-			- viz interfacy pod IBinaryInteger (a INumberBase)3
+			- viz interfacy pod IBinaryInteger (a INumberBase)
 		- https://learn.microsoft.com/en-us/dotnet/standard/generics/math
 		- můžou se nám hodit identity (AdditiveIdentity, MultiplicativeIdentity)
 		- můžou se nám hodit factory metody Create uvnitř INumberBase
