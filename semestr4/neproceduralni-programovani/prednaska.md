@@ -93,5 +93,12 @@
 - záporná čísla je nutné psát do závorky (opět kvůli prioritě)
 - informace o funkci pomocí `:i`
 - z funkce můžu udělat operátor pomocí zpětných apostrofů \`
-- překlad pomocí `:l`
 - chceme mít funkce definované pro všechny hodnoty definičního oboru – proto Haskell obsahuje pouze if then else (a neobsahuje if then)
+- soubor Prelude.hs obsahuje jakoby základní knihovnu
+- `:quit` ukončí prostředí
+- `:?` otevře nápovědu
+- `:load soubor.hs` načte soubor
+	- také lze `:l`
+	- pomocí `:r` se soubor znova načte
+- `:type vyraz` vypíše typ výrazu
+- `:set +t` nastavení options, např. výpis typu

@@ -345,4 +345,40 @@
 - bayesovská síť je orientovaný acyklický graf, kde vrcholy odpovídají náhodným proměnným
 	- šipky popisují závislost
 	- u každého vrcholu jsou CPD tabulky, které popisujou jeho závislost na rodičích
+- konstrukce bayesovské sítě
+	- nějak si uspořádáme proměnné (lepší je řadit je od příčin k důsledkům, ale není to nutné)
+	- jdeme odshora dolů, přidáváme správné hrany
+	- příklad: MaryCalls, JohnCalls, Alarm, Burglary, Earthquakce
+		- z MaryCalls povede hrana do JohnCalls, protože nejsou nezávislé (když volá Mary, tak je větší šance, že volá i John)
+		- z obou povede hrana do Alarmu
+		- z Alarmu vedou hrany do Burglary a Earthquake (ale hrany z JohnCalls a MarryCalls tam nepovedou – na těch hranách nezáleží, jsou nezávislé)
+		- z Burglary povede hrana do Earthquake, protože pokud zní alarm a k vloupání nedošlo, tak pravděpodobně došlo k zemětřesení
+	- akorát je těžké určit hodnoty pravděpodobností
+- z bayesovských sítí můžeme provádět inferenci – odvozovat pravděpodobnost proměnných pomocí pravděpodobností *skrytých* proměnných
+	- $P(X|e)=\alpha P(X,e)=\alpha\sum_y P(X,e,y)$
+	- přičemž $P(X,e,y)$ lze určit pomocí $P(x_1,\dots,x_n)=\prod_i P(x_i\mid\text{parents}(x_i))$
+	- příklad – počítáme pravděpodobnost Burglary, když JohnCalls a MaryCalls
+		- $P(b\mid j,m)=\alpha\sum_e\sum_a P(b)P(e)P(a|b,e)P(j|a)P(m|a)$
+		- $=\alpha P(b)\sum_e P(e)\sum_aP(a|b,e) P(j|a) P(m|a)$
+	- když nemůžeme určit konkrétní hodnotu pravěpodobnosti přímo, tak výpočet rozvětvíme
+	- některé větve se objeví vícekrát – hodí se nám dynamické programování
+	- používáme *faktory*
+	- tabulky s faktory mezi sebou můžeme násobit
+- Monte Carlo přístup?
 
+## Čas a nejistota
+
+- formální model
+	- transition model
+		- určuje pravděpodobnostní rozložení přes proměnné posledního stavu, když známe předchozí hodnoty
+		- zjednodušující předpoklady
+			- další stav závisí jen na předchozím stavu
+			- všechny přechodové tabulky jsou identické přes všechna $t$
+	- sensor (observation) model
+		- popisuje, jak se pozorované proměnné mění
+		- …
+- základní inferenční úlohy
+	- filtrování
+	- predikce
+	- vyhlazování
+	- nejpravděpodobnější vysvětlení
