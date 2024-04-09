@@ -248,3 +248,53 @@
 		- můžou se nám hodit identity (AdditiveIdentity, MultiplicativeIdentity)
 		- můžou se nám hodit factory metody Create uvnitř INumberBase
 	- záporná čísla nemusíme řešit
+
+---
+
+- domácí úkol: u DotX typů bylo vhodné použít abstraktní statickou vlastnost (to od C# 11 umožňují interfacy, viz poznámky z přednášky)
+- když chci vypsat položky pozpátku, tak raději použiju IReadOnlyList, protože při použití IEnumerable by to spotřebovalo O(n) paměti
+- pozor, kovariance funguje jenom pro referenční typy
+	- takže když máme metodu s parametrem typu `IEnumerable<object>`, tak jí nemůžeme předat seznam intů
+	- řešením by byla generická metoda, ale pak by se pro každý odlišný list JITovala další metoda
+		- ale to obvykle není problém
+		- pro všechny referenční typy se JITuje jen jedna společná varianta, pro každý hodnotový typ se JITuje samostatná
+- mohl by být IReadOnlyDictonary deklarován takto? `IReadOnlyDictionary<in TKey, out TValue>`
+	- teoreticky mohl – indexer má `TKey` jako parametr, takže tam musí být `in` nebo nic
+		- naopak vrací `TValue`, takže tam musí být `out` nebo nic
+	- ale obsahuje `IEnumerable<TKey> Keys`, takže TKey musí být `out` nebo nic
+	- zároveň typ implementuje interface `IEnumerable<KeyValuePair<TKey, TValue>>`
+		- bylo by neefektivní KeyValuePair alokovat – takže je to struktura, což je hodnotový typ, takže tam žádná variance nefunguje
+	- takže je IReadOnlyDictonary deklarován jako `IReadOnlyDictionary<TKey, TValue>`
+- domácí úkol
+	- imlementujeme validační framework
+	- klient posílá požadavky na server
+	- hlídáme, aby klient serveru neposílal blbosti
+	- náš přístup
+		- přijdou nám data k objednávce
+		- nejdřív zavoláme `new Order()`
+		- až pak `Order` validujeme pomocí metody `Validate`
+		- dalo by se to dělat i naopak, ale tento přístup je jednodušší
+	- validace může mít potenciálně více problémů
+		- výstupem validace je seznam validačních chyb … `List<ValidationError>`
+		- seznam bude prázdný, když tam není žádný problém
+	- validátory
+		- NonBlankStringValidator
+		- rangeValidator
+		- StringLengthValidator
+		- NotNullValidator
+			- pozor, textová reprezentace nullu v C# je `""`
+	- ze základních validátorů skládáme uživatelský validátor
+		- OrderValidator
+			- jeho rozhraním je metoda Validate – je na nás, jak bude vypadat její hlavička
+			- postupně budu validovat části Orderu
+			- výsledkem validace je jeden List obsahující všechny validační chyby
+				- použijeme metodu AddRange, která je na Listu
+			- (asi uvnitř OrderValidatoru?) budeme potřebovat nějakou variantu metody ValidateAll, přičemž té metodě budeme moct předat více validátorů
+				- použijeme [klíčové slovo `params`](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/method-parameters#params-modifier)
+			- bylo by fajn, kdybych mohl SuperOrdery zvalidovat klasickým OrderValidatorem
+				- v metodě ValidateSuperOrder
+	- úkol má rozšíření, za které dostaneme bonusové body
+		- AdvancedOrderValidator
+		- vymyslet podobnou, ale kompaktnější syntaxi
+			- můžou tam být jiné závorky apod.
+			- chci se zbavit `new` a typových parametrů (pokud se dají odvodit)
