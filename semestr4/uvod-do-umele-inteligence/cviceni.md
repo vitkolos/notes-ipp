@@ -127,3 +127,27 @@
 - v bayesovské síti … $P(X_1,\dots,X_n)=P(X_1|\text{parents}(X_1))\cdot\ldots\cdot P(X_n|\text{parents}(X_n))$
 	- kde parents jsou přímí předci vrcholu (vrcholy, z nichž do něj vedou šipky)
 - eliminace proměnných
+- minesweeper – korektní postup
+	- rozdělíme na komponenty souvislosti podle závislosti pravděpodobností
+	- pak už to můžu dát solveru
+	- dvě miny, jedna nemina
+		- $p^2(1-p)$
+	- jedna mina, dvě neminy
+		- $(1-p)^2p$
+- lokalizace robota
+	- $M_t$ nemá informace o tom, co robot viděl dřív
+	- našim cílem je časově oddělené informace $M_t$ spojit, abychom zjistili, kde robot může být
+- deterministická varianta – máme přesnou informaci o senzorech a pohybu robota
+	- filtering
+		- zjevně $A_1=M_1$
+		- $A_t=t(A_{t-1})\cap M_t$
+	- predikce
+		- $B_t=A_t$
+		- $B_k=t(B_{k-1})$
+	- smoothing/vyhlazování
+		- $C_t=A_t$
+		- $C_k=t^{-1}(C_{k+1})\cup A_k$
+- pravděpodobnostní varianta
+	- velká písmena označují náhodné proměnné, malá jejich konkrétní hodnoty
+	- $P(X_{t+1}=v|e_{1:t})=\sum_{u}P(X_t=u|e_{1:t})\cdot P(X_{t+1}=v|X_t=u)$
+		- to, kam se robot dostane, nezáleží na tom, co dříve naměřil, proto lze použít tento vzorec (místo podmíněné marginalizace)
