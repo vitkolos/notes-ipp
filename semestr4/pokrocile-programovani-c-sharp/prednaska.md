@@ -511,3 +511,108 @@
 			- protože enumerátor typicky nepodporuje concurrent modification
 		- pokud LinkedList převedeme pomocí eager evaluace na List, tak se to nezacyklí, ale zabere to dost paměti
 		- nejefektivnější varianta bude taková, že budeme prvek přidávat za minulou krabičku
+
+---
+
+- iterátorové metody
+	- můžou vracet i IEnumearble
+	- např. metoda `IEnumerable<T> Range(int from, int to)` s yield returny uvnitř
+	- rozpadne se to do dvou tříd
+		- jedna $(\alpha)$ bude implementovat IEnumerable
+			- budou tam captured params by value
+			- bude tam metoda GetEnumerator
+				- tam se vytvoří instance enumerátoru (tedy té druhé třídy)
+				- dovnitř se nakopírují captured params
+		- druhá $(\beta)$ bude implementovat IEnumerator
+			- tam bude náš kód
+			- budou tam captured local vars by move
+			- bude tam state
+			- IEnumerator nemá odkaz na první třídu, ale má vykopírované její zachycené lokální proměnné
+	- velice typická situace – `foreach (var x in Range(1, 10))`
+		- tzn. vytvořily by se instance dvou tříd a ty by se zahodily
+		- tedy místo dvou oddělených tříd C# překladač reálně vygeneruje jenom jednu třídu $(\gamma)$, která implementuje IEnumerable i IEnumerator
+			- sémanticky to funguje tak, jako to byly dvě oddělené třídy
+	- další stav … -2
+		- pokud ještě enumerátor nikdo nepoužil
+		- takže pokud se GetEnumerator zavolá podruhé, potřetí apod., tak se vytvoří nová instance třídy $\gamma$ (kontroluje se, jestli byl iterátor použitý a jestli se používá ze správného vlákna)
+- v C++ 20 jsou taky iterátorové metody
+	- máme kód pro generování Fibonacciho čísel
+	- chceme po ChatGPT 3.5, aby nám to přepsalo do C#
+		- obecná poznámka: pozor, ChatGPT lže
+		- nabídne nám async metodu – což nepotřebujeme
+		- poprosíme o přepsání → úspěch
+		- řekneme, ať nám napíše testovací metodu, která bude zachycovat výjimku, když je požadovaná sekvence moc dlouhá
+		- ale ta metoda nefunguje, výjimka se nezachytí
+		- prosíme o přepsání, ale to nikam nevede
+	- problém je v tom, že se výjimka vyhazuje v MoveNext – protože v metodě pro získání instance IEnumerable se žádný náš kód neprovádí
+	- ale výjimka by se neměla šířit z MoveNext
+		- je to špatná implementace
+		- potřebovali bychom, aby se výjimka vyšířila z metody FibSeq
+		- řešením je přepsat to – tenhle check provádět „výš“
+			- mít neiterátorovou metodu s checkem, která volá iterátorovou metodu, pokud check projde
+	- je fajn používat CLS compliant typy – místo uintu použít int
+	- místo InvalidOperationException je lepší vyhodit ArgumentOutOfRangeException
+	- ChatGPT nám vygeneruje hezkou dokumentaci
+- Reflection
+	- proces překladu
+		- máme C# zdrojáky
+			- přípona .cs
+		- ty se přeloží do CIL kódu
+			- přípona .dll
+			- assembly
+			- CIL kód a metadata
+		- ten se JITuje do konkrétního strojového kódu
+	- programy ildasm a ILSpy zkoumají metadata jiné assembly
+	- Reflection
+	- typ Type
+		- když zavoláme `typeof(A)`, kde `A` je typ, nebo `x.GetType()`, kde `x` je proměnná
+	- typ Assembly
+		- statické metody
+			- `Assembly.GetExecutingAssembly()`
+			- `Assembly.GetCallingAssembly()`
+			- `Assembly.GetEntryAssembly()`
+		- můžu přistupovat i ke knihovnám, které používám
+		- jakmile dostanu instanci Assembly, můžu zavolat GetTypes
+		- GetType(string) vrátí instanci Type, pokud typ s daným jménem existuje
+	- na typu Type existuje spousta užitečných metod, které vrací instance potomků abstraktní třídy MemberInfo
+		- GetFields
+		- GetMethods
+		- GetConstructors
+		- GetProperties
+		- GetEvents
+	- co s tím?
+		- můžeme implementovat pokročilejší koncepty, než nám C# defaultně umožňuje
+		- kdybychom chtěli pythonovský duck typing (bez klíčového slova dynamic – to se někdy nedá použít)
+			- dvě nesouvisející třídy A a B, obě mají metodu Run
+			- chceme metodu RunIt, která na libovolném typu zavolá metodu Run, pokud ji ten typ má
+				- `MethodInfo? mi = o.GetType().GetMethod("Run");`
+				- zásadní problém reflection – není to safe, může to vést k běhovým chybám
+				- na typu MethodInfo existuje metoda Invoke, která má dva parametry – první je typu object („this“ parametr) a druhý je `params` pole objectů (ostatní parametry metody)
+				- `if (mi is not null) mi.Invoke(o, null);`
+			- můžu hledat konkrétní variantu metody s parametry určitých typů
+				- druhý parametr GetMethod … `new Type[] { typeof(string), typeof(long) }`
+			- metoda Invoke
+				- boxuje hodnotové typy a pak je případně zase unboxuje, aby typy pasovaly s typy parametrů
+			- Reflection se pokouší dělat implicitní konverze samostatně – třeba pokud voláme metodu s longovým parametrem, ale dáme jí int, tak se to pokouší konvertovat
+			- u GetMethods můžu použít BindingFlags
+		- problémy reflection
+			- je pomalá – kvůli obecnosti, boxingu, konverzím apod.
+			- není safe – může způsobovat běhové chyby
+			- je potenciálně nebezpečná – dá se přistupovat k privátním metodám, fieldům apod.
+		- serializace objektů
+			- instance objektů reprezentují data
+			- tato data chci převést do textového (XML, JSON) nebo binárního (ProtocolBuffers) formátu
+			- JSON
+				- JavaScript Object Notation
+				- javascriptové objekty jsou prototype-based, nemají klasické typy
+			- JSON i XML data ukládají ve formě stromu
+			- různé serializační frameworky nám umožňují různé způsoby serizalizace
+			- serializační frameworky obvykle zvládají serializovat DAGy
+				- pokud k objektu A vedou z kořene dvě orientované cesty, tak se vytvoří jeho kopie
+				- někdy se framework dá nastavit, aby nevytvářel kopie, ale označil si objekty nějakými identifikátory
+					- takže při deserializaci se zachová původní tvar grafu objektů
+			- v C# jsou serializátory
+				- v namespacu `System.Text.Json` je `string JsonSerializer.Serialize<T>(T root)`
+				- používá Reflection
+				- co serializovat?
+					- serializace veřejných vlastností – výchozí nastavení
