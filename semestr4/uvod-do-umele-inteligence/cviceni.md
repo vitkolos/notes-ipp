@@ -151,3 +151,12 @@
 	- velká písmena označují náhodné proměnné, malá jejich konkrétní hodnoty
 	- $P(X_{t+1}=v|e_{1:t})=\sum_{u}P(X_t=u|e_{1:t})\cdot P(X_{t+1}=v|X_t=u)$
 		- to, kam se robot dostane, nezáleží na tom, co dříve naměřil, proto lze použít tento vzorec (místo podmíněné marginalizace)
+- lokalizace v domácím úkolu
+	- filtering
+	- z přednášky $P(X_{t+1}|e_{1:t+1})=\alpha P(e_{t+1}|X_{t+1})\sum_{x_t}P(X_{t+1}|x_t)P(x_t|e_{1:t})$
+	- z cvičení $P(X_{t+1}|e_{1:t+1})=P(e_{t+1}|X_{t+1})\cdot \frac{P(X_{t+1}|e_{1:t})}{P(e_{t+1}|e_{1:t})}$
+		- $P(e_{t+1}|e_{1:t})=P(e_{t+1})=0.5$ (asi?)
+		- $P(X_{t+1}|e_{1:t})=\sum_{x_t} P(X_{t+1}|x_t)P(x_t|e_{1:t})$
+		- zjevně jako předchozí políčko přichází v úvahu právě jedno
+			- $P(X_{t+1}|e_{1:t})=P(X_t|e_{1:t})$
+	- tudíž snad $P(X_{t+1}|e_{1:t+1})=P(e_{t+1}|X_{t+1})\cdot \frac{P(X_{t}|e_{1:t})}{0.5}$
