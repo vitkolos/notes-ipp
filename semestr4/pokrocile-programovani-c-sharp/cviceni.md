@@ -298,3 +298,53 @@
 		- vymyslet podobnou, ale kompaktnější syntaxi
 			- můžou tam být jiné závorky apod.
 			- chci se zbavit `new` a typových parametrů (pokud se dají odvodit)
+- řešení domácího úkolu
+	- můžeme vrazit nad Validator (nebo místo něj?) interface IValidator s kontravariancí
+	- nemusíme nutit všechny Validatory, aby vracely List
+		- stačil by IList, ICollection, IReadOnlyCollection nebo IEnumerable
+	- když je chyba právě jedna, tak může být efektivní vrátit pole délky 1
+		- nebo nějaký jednoduchý enumerable
+	- pro prázdný seznam chyb
+		- můžu použít `Array<ValidationError>.Empty`
+	- na validaci délky stringu nepotřebuju range validator – stačí validátor intů
+	- na validaci range je lepší IComparable, protože IComparisonOperators je mladší interface (navíc se někdy nedá použít)
+	- je fajn metody optimalizovat tak, aby s nula chybami byly co nejefektivnější
+	- je vhodné nějaký typ ComplexValidatorBase, který bude sloužit jako základ pro implementaci složitějších validátorů
+		- abych metodu Validate nemusel mít samostatně ve všech takových validátorech
+	- metoda Validate v ComplexValidatorBase
+		- typické použití metody Validate – s jedním validátorem, zbytečně to alokuje pole
+		- podporuje to situaci, kdy tam nedám nic
+		- možná by dávalo smysl první validátor psát explicitně (jako druhý parametr, params dát až jako třetí parametr)
+	- advanced validator
+		- hlavní problém s RangeValidatorem
+		- typová inference funguje v metodách, ne v typech
+			- C# překladač neumí dedukovat typové argumenty z volání konstruktoru
+		- když máme problém s konstruktorem → použijeme factory metodu
+		- ale ta factory metoda nemůže být v generickém typu, protože by byla negenerická
+		- my potřebujeme generickou factory metodu v negenerickém typu
+		- vyřešili jsme to, ale my chceme, aby se podle typu validované věci odvodil typ validátoru
+			- to jde fluent syntaxí
+			- `Amount.IsInRange(1,10).Validate()`
+	- u Listu se dá nastavit počáteční alokovaná délka (ne že bychom to měli používat – objevilo se to ve studentském řešení)
+- domácí úkol – zadání je v GitLabu
+	- velikost jednoho bloku – nějaká mocnina dvojky (asi 32 nebo 64)
+	- implementujeme `IList<T>`
+	- pustit si testy, máme tam popsané, co vlastně dělají
+	- do varianty B můžeme zkopírovat zdroják (lišit se bude enumerátor)
+		- asi je jednodušší začít variantou B
+		- za každou část je jedno OK
+	- vyrobit `IDeque<T>`
+	- součástí úkolů je reverzní pohled na Deque
+		- metoda GetReverseView, která přijímá Deque a vrací ReverseView
+		- přidání prvku na konec reverseview odpovídání přidání na začátek původní fronty
+		- je to opravdu jenom pohled, takže jsem schopný data modifikovat oběma objekty
+		- můžu vyrobit reverse reverse view
+		- reverse view obsahuje referenci na původní deque
+			- volání metod se převádí na volání metod na původním deque (s nějakými indexovými výpočty)
+			- vyrobení ReverseView má být O(1)
+		- když zavolám GetReverseView na ReverseView, tak to má vrátit ReverseView ukazující na ReverseView (ne původní deque)
+	- zamyslet se nad použitými datovými strukturami u Map a Block
+		- list listů, pole polí, pole listů, list polí?
+	- deadline za dva týdny
+	- příští cvičení nebude
+	- můžeme přijít na sedmé cvičení příští rok

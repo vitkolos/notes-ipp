@@ -99,6 +99,7 @@
 - `:?` otevře nápovědu
 - `:load soubor.hs` načte soubor
 	- také lze `:l`
-	- pomocí `:r` se soubor znova načte
+	- pomocí `:r` (reload) se soubor znova načte
 - `:type vyraz` vypíše typ výrazu
 - `:set +t` nastavení options, např. výpis typu
+- `:set +s` … vypíše paměť a čas

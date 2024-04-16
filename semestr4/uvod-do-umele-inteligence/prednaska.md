@@ -382,3 +382,17 @@
 	- predikce
 	- vyhlazování
 	- nejpravděpodobnější vysvětlení
+- skryté proměnné popisují stavy světa
+	- stavy světa jsou neznámé → proto jsou proměnné skryté
+	- mezi stavy existují pravděpodobnostní přechody
+		- předpoklad: nový stav (jeho pravděpodobnost) závisí jen na tom předchozím
+	- máme pozorované proměnné
+		- předpoklad: pozorování záleží jenom na současném stavu, ne na těch předchozích
+	- základní inferenční úlohy
+		- filtering
+		- prediction
+		- smoothing
+		- most likely explanation
+- skryté Markovovy modely
+	- máme matici stavů a měření
+	- algoritmy lze formulovat pomocí maticových operací
