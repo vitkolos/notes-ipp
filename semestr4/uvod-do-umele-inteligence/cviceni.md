@@ -160,3 +160,30 @@
 		- zjevně jako předchozí políčko přichází v úvahu právě jedno
 			- $P(X_{t+1}|e_{1:t})=P(X_t|e_{1:t})$
 	- tudíž snad $P(X_{t+1}|e_{1:t+1})=P(e_{t+1}|X_{t+1})\cdot \frac{P(X_{t}|e_{1:t})}{0.5}$
+- jiný přístup k plánování
+	- dostaneme odměnu $R(s)$ za navštívení stavu $s$
+	- stejnou odměnu dostaneme i při opakovaném navštívení
+	- máme funkci popisující akumulaci odměn
+	- Bellmanova rovnice $U(s)=R(s)+\gamma\sum_{s'} P(s'|s,a)U(s')$
+		- $R(s)$ … odměna konkrétního jevu
+		- kam se přesuneme – to je náhodný jev
+			- takže marginalizujeme
+		- pokud neznáme správnou akci, tak vybereme tu, pro kterou bude suma maximální
+			- $U(s)=R(s)+\max_a\sum_{s'} P(s'|s,a)U(s')$
+		- $\gamma$ … „faktor zapomnění“
+			- je tam proto, aby existoval algoritmus, který najde řešení
+			- pro gamma rovno jedné by to nemuselo konvergovat
+	- zjednodušená varianta robota z přednášky
+		- $U(5,5)=10$
+		- $U(5,4)=-0.1+1\cdot10=9.9$
+		- $U(4,3)=-0.1+0.8\cdot 9.8+0.2\cdot1$
+		- $U(3,4)=-0.1+0.8\cdot6.9+0.2\cdot 1$
+			- kde $6.9$ je $U(3,5)$
+		- obecně budeme počítat maximum z akcí
+	- pokud tam budou cykly
+		- budeme iterovat
+		- začneme s $\forall s:U(s)=0$
+		- jak dlouho iterovat?
+			- dokud maximální delta hodnot není menší než $\epsilon(1-\gamma)/\gamma$
+	- z akcí můžeme spočítat užitek pomocí soustavy lineárních rovnic
+	- takže jsou dva přístupy – value iteration a policy iteration
