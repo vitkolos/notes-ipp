@@ -187,3 +187,7 @@
 			- dokud maximální delta hodnot není menší než $\epsilon(1-\gamma)/\gamma$
 	- z akcí můžeme spočítat užitek pomocí soustavy lineárních rovnic
 	- takže jsou dva přístupy – value iteration a policy iteration
+- v domácím úkol
+	- máme torus → pozor na modulo
+	- podívat se do zdrojáku
+	- soustředit se na pomocné testy

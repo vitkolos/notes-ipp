@@ -616,3 +616,108 @@
 				- používá Reflection
 				- co serializovat?
 					- serializace veřejných vlastností – výchozí nastavení
+- motivační příklad
+	- máme třídu B s binárním stromečkem, která implementuje `IEnumerable<int>`
+	- mohli bychom foreachem enumerovat přes podstromy a yield returnem vracet hodnoty
+		- při prvním volání MoveNext se vygeneruje kaskáda (vlastně spoják) enumerátorů
+		- pro každý uzel se vyrobí enumerátor
+		- kód je hezký a krátký, ale je to hrozně neefektivní
+		- takže to implementujeme nějak líp
+	- pomocí enumerátoru se na strom můžeme dívat jako na pole
+		- metoda IndexOf vrátí index prvku v tom pohledu
+		- můžeme použít enumerátor, ale to vede na O(n) algoritmus
+		- IndexOf zná implementační detaily, takže může hodnotu hledat nějak efektivněji, třeba i v O(log n)
+	- máme třídu A
+		- interně má odkaz na třídu B
+		- chceme najít prvek, který se rovná 5
+			- použijeme b.IndexOf(5)
+		- chceme najít prvek, který je menší než 5
+			- musíme do třídy B dopsat IndexLessThan
+		- to, co třída A potřebuje, vnucuje třídě B, že to musí umět
+			- ale přitom jsme mohli napsat v třídě A klasický foreach s podmínkou – to by nebylo tak efektivní
+		- chceme efektivitu i specifičnost
+		- foreach
+			- řídí to třída A
+			- subkroky dělá třída B (MoveNext)
+		- mohli bychom tu logiku otočit
+			- v třídě B by byl cyklus
+			- používal by kontrolu z třídy A
+			- tzn. třída B by to řídila a subkroky by dělala třída A
+		- chtěli bychom rozhraní IComparison s metodou Compare(int x) → bool
+			- kde se ten interface má implementovat?
+			- třída A by ho mohla implementovat
+				- ale z implementačního detailu jsme ho dodali jako veřejné API třídy A
+				- takže to nechceme
+			- dovnitř bychom mohli dodat privátní třídu LessThan5, která by ho implementovala
+				- to by šlo, ale je to hrozně ukecané
+				- bylo by fajn, kdybychom to mohli udělat syntakticky úsporněji
+	- my prostě chceme zavolat metodu
+		- zatím neumíme předat ukazatel na metodu
+		- v C to jde, ale není tam typová kontrola
+		- v C# je koncept `delegate` (delegát)
+			- je to typově bezpečné
+- `delegate`
+	- klíčové slovo
+	- každý delegát je referenčního typu
+	- vždycky musíme deklarovat konkrétní typ delegáta
+	- např. `delegate int D(string s);`
+	- každý konkrétní delegát je potomkem System.MulticastDelegate (viz ET přednáška), ten je potomkem System.Delegate, ten je potomkem System.Object
+	- funguje to jako libovolný jiný typ
+		- default hodnota proměnné je null
+	- `d1 = new D(m);`
+		- kde m je identifikátor metody
+		- nesmíme tam napsat m() – musí tam být proměnná typu D
+	- obsahuje ukazatel na metodu
+	- delegáti mají metodu Invoke
+		- pozor, neplést s Invoke v reflection – tam je to výrazně obecnější (a pomalejší)
+	- na jménech parametrů v deklaraci delegáta nezáleží – je to dokumentace
+	- ale je možné „volat“ přímo delegáta – je to syntaktická zkratka pro Invoke
+	- různí delegáti, kteří mají stejné parametry a stejný návratový typ, spolu nesouvisejí – nedají se navzájem přiřazovat
+	- pozor
+		- `D d = new D(m);`
+		- `D d = m;`
+		- je to skoro to samé
+		- syntaxe s new vynucuje nového delegáta
+		- druhá varianta používá cache – takže nemusím delegáta vyrábět znovu, pokud už existuje
+		- obvykle můžeme použít druhou variantu
+		- ale pokud instanci delegáta někde používám jako klíč, tak chci použít verzi s new
+		- instance delegátů jsou immutable (podobně jako stringy)
+- delegáti a viditelnost
+	- z vnějšího kontextu nemůžu vyrobit delegáta privátní statické metody
+	- ale můžu mít public metodu, která vrací delegáta, který ukazuje na private statickou metodu
+		- tím nad tím delegátem ztrácíme kontrolu
+- delegáti můžou ukazovat i na instanční metody
+	- instanční metody mají jeden skrytý parametr – ale bylo by divné o nich uvažovat jako o víceparametrických než jsou
+	- v delegátu jsou dva ukazatele – na funkci a na `this`
+		- u statických metod je tam null
+		- u instančních metod ukazuje na tu instanci
+		- dají se dělat pokročilejší věci – viz ET přednáška
+	- stále platí, že delegáti jsou immutable – to konkrétní `this` je tam navždy
+	- u struktur – do `this` se zkopíruje struktura (zaboxuje se)
+- delegáti můžou být generičtí
+	- můžou být kovariantní a kontravariantní – viz ET přednáška
+- u delegátů se dává suffix Delegate
+- občas mi jde čistě o parametry – je mi úplně jedno, co ten delegát dělá
+	- bylo by zbytečné pro každou takovou metodu deklarovat delegáta
+	- proto existuje spousta předdefinovaných delegátů
+		- `Action<…>(…) → void`
+		- `Func<…, TResult>(…) → TResult`
+		- `Predicate<T>(T obj) → bool`
+	- pozor na přehlednost – typicky je lepší používat silně typované delegáty
+- `var` funguje i pro delegáty
+	- `var d1 = new D(m);`
+	- od C# 8 natural types
+		- `var d1 = m;`
+		- C# ví o delegátech ve standardní knihovně
+		- vybere se nejlepší match z Action, Func
+- efektivita delegátů
+	- výroba delegáta něco stojí
+	- volání delegáta vyjde téměř nastejno
+	- delegát má vlastnost Method
+		- vrací MethodInfo
+		- používá to reflection
+		- je to celkem drahé
+	- Invoke v reflection je výrazně pomalejší
+	- vlastnost Method se cachuje
+	- na MethodInfo je metoda CreateDelegate, abychom nemuseli používat Invoke z reflection – pak se dá volat efektivněji
+	- reflection přiřazení do statických fieldů je taky pomalé
