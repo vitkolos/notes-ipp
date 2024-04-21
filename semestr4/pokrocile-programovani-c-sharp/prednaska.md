@@ -721,3 +721,22 @@
 	- vlastnost Method se cachuje
 	- na MethodInfo je metoda CreateDelegate, abychom nemuseli používat Invoke z reflection – pak se dá volat efektivněji
 	- reflection přiřazení do statických fieldů je taky pomalé
+- JSON serializer
+	- ten v System.Text.Json serializuje veřejné vlastnosti
+	- dá se aktivovat serializace privátních fieldů
+		- pomocí delegáta
+	- metoda Deserialize
+		- návratový typ odpovídá očekávanému typu kořene
+		- v JSONu objekty nejsou typované
+			- při deserializaci se používá duck typing
+		- může se to hodit k deep cloningu objektů
+			- na každém objectu je protected metoda MemberwiseClone, která vrací mělkou kopii
+			- když serializujeme nějaký objekt a pak ho deserializujeme, tak vlastně dostaneme hlubokou kopii (pokud to uděláme dobře)
+				- tady se může hodit serializace privátných fieldů
+	- defaultní je serializace veřejného kontraktu, aby nemohl záškodník aplikaci rozbít úpravami JSONu (pokud máme validaci v setterech)
+- coroutine
+	- iterátorová metoda je příkladem coroutiny
+	- umožňuje nám popsat algoritmus v krocích
+	- např. v nějaké hře by pomocí kroků coroutine mohly být popsané kroky NPCčka
+	- když serializujeme objekt enumerátoru (včetně privátních fieldů), tak máme serializovaný stav
+	- ale je to závislé na implementačních detailech
