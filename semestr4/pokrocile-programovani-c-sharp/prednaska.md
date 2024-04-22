@@ -740,3 +740,104 @@
 	- např. v nějaké hře by pomocí kroků coroutine mohly být popsané kroky NPCčka
 	- když serializujeme objekt enumerátoru (včetně privátních fieldů), tak máme serializovaný stav
 	- ale je to závislé na implementačních detailech
+- zpátky s motivačnímu příkladu
+	- máme metodu FindIndex, která bere delegáta (predikát)
+	- pokud predikát vrátí true, tak to vrátí ten index
+	- někdy není moc praktické mít pomocné metody vypsané jako statické ve třídě
+		- chtěli bychom je deklarovat v místě kódu, kde se používají
+		- obvykle se tomu říká lambda funkce, my je budeme chápat jako anonymní funkce (mají nějaké jméno vygenerované C# překladačem)
+- lambda funkce v C#
+	- napíšeme `static`, pak do závorky parametry, pak šipku `=>` a potom tělo funkce
+		- dá se přímo zapsat jako parametr metody FindIndex
+	- pozor na šipku – u normálních (pojmenovaných) funkcí je to syntaktický cukr
+	- proč je tam klíčové slovo static?
+		- označuje, že lambda funkce nemá stav
+	- dříve se dalo použít slovo delegate – funguje to podobně (ale chybí tomu nějaké další funkce, které lambda funcke mají)
+	- ekvivalentní příklady lambda funkcí
+		- `static (int x) => { return x < 5; }`
+		- `static (int x) => x + 1`
+		- `static x => x + 1`
+		- `static x => { return x + 1; }`
+	- v posledních dvou příkladech se použije type inference
+	- pokud je parametrů více, musejí tam být vždycky kulaté závorky
+	- lambda funkce může být bez parametrů, pak se napíšou prázdné kulaté závorky
+	- lambda funkce nejsou first-class entities – neexistuje proměnná typu „lambda funkce“
+		- jsou přiřaditelné do proměnných typu delegát (a ještě někam jinam – viz ET přednáška)
+	- podle delegáta, kam to přiřazuju, funguje type inference parametrů
+	- když někam přiřadím úplně stejnou lambda funkci, tak C# překladač může recyklovat vygenerovaný kód
+	- může se stát, že voláme generickou metodu a předáváme ji jako parametr lambda funkci, takže překladač musí řešit trochu složitější rovnici
+		- když to nevede na jednoznačné řešení, tak je to překladová chyba
+	- když tam to static nedáme, tak se zapíná nějaká speciální funkce, ale pokud ji nepoužíváme, tak je to jedno
+		- to static tam píšeme jenom proto, abychom tu speciální fíčuru nepoužili omylem
+	- pozor, když nějakou lambda funkci používám často a rozmyslím se, že je užitečná, tak může dávat smysl mít ji tam jako klasickou statickou metodu
+	- kde lambda funkce použít?
+		- chceme nad kolekcí dat provést transformaci
+		- tohle se dělá často v relačních databázích
+		- databázová tabulka je vlastně kolekce řádků – chceme najít nějakou podmnožinu, setřídit to apod.
+		- tyhle věci se typicky popisují pomocí SQL queries
+
+## LINQ
+
+- language integrated queries
+- nějakou syntaxí podobnou SQL dotazům bych mohl popsat, co se má stát
+- jak je to doopravdy?
+- v C# je LINQ pouze syntaxe, nedefinuje to žádnou sémantiku
+	- zatímco SQL dotazy mají i sémantiku
+- syntax LINQ dotazů
+	- `from` x `in` data source, pak nějaké klauzule
+	- můžu si to představit jako nějaký foreach (ale takhle to nefunguje – je to jenom představa)
+	- klauzule má dvě části – nějaké klíčové slovo a kód
+	- klíčové slovo se přeloží na volání vhodné metody, která má jako parametr lambda funkci
+	- kód se předá jako tělo té lambda funkce
+		- parametr lambda funkce je to X
+	- má to výjimku – když to končí klauzulí select, která vrací jenom X, tak se ta klauzule nepřekládá
+	- `from c in customers where c.City == "London" select c.Name` se přeloží na `customers.Where(c => c.City == "London").Select(c => c.Name)`
+	- C# definuje jenom přeložení téhle syntaxe, to je celé
+		- pokud se ta „C# syntaxe“ přeloží, tak je LINQ dotaz syntakticky správně, pokud se nepřeloží, tak je špatně, to je vše
+	- to X (respektive v příkladu je to `c`) nemá žádný důležitý význam, jenom nám to umožňuje odkazovat se na parametr lambda funkce
+		- pokud je těch funkcí víc, tak si můžeme představit, že ta jednotlivá X spolu vůbec nesouvisí
+	- dotaz musí začínat from, vždycky tam musí být in a vždycky musí končit selectem – pokud vrací rovnou X, tak se to ignoruje
+- celý ten LINQový výraz má nějakou hodnotu – ta odpovídá návratové hodnotě posledního výrazu (může to být cokoliv – jakýkoliv typ)
+- fakt tam není sémantika
+	- můžu mít metodu OrderBy, která zabíjí příšery a vrací počet těch, které jsme zabili
+- Select funguje podobně jako všechny ostatní klauzule – až na tu výjimku s ignorováním „prázdného“ selectu
+- LINQ funguje na principu duck typingu
+- může se stát, že nějaký typ nepodporuje určitou klauzuli – podpora se dá dodat extension metodami
+- v C# je definován základní LINQ to Objects
+	- statická třída Enumerable – tam je přehršel generických extension metod, které extendují `IEnumerable<T>`
+	- ta třída je definovaná v `System.Linq`
+	- dělá to ty operace, co bychom čekali
+	- pozor, extension metoda je jenom fallback
+		- kdybychom měli typ, který implementuje `IEnumerable<T>`, ale byla by tam např. metoda Select, tak bude mít přednost před tou LINQovou
+	- myšlenka LINQ to Objects – zavolání metod má jenom připravit dotaz, nemá se to reálně dotazovat
+		- když zavolám Where, tak z ní vypadne krabička, kde je delegát a datový zdroj
+		- ta krabička se jmenuje třeba WhereEnumerable
+		- WhereEnumerable taky implementuje všechny metody z LINQu
+			- ale tady už se nepoužívají extension metody
+		- pokud zavolám Where na WhereEnumerable, tak si to nové WhereEnumerable bude jako zdroj pamatovat to původní WhereEnumerable
+	- výsledek LINQ to Objects dotazu vytvoří vázaný seznam těch krabiček
+	- všechny ty krabičky implementují rozhraní IEnumerable
+	- můžeme na tom udělat foreach cyklus
+		- při inicializaci dostaneme enumerátor poslední krabičky
+		- první volání MoveNext
+			- vygeneruje enumerátory všech krabiček v tom spojáku
+			- zkontroluje to platnost predikátů u Where klauzulí
+			- volá to MoveNext na enumerátorech, dokud nejsou predikáty splněny
+	- LINQ to Objects provádí líné vyhodnocení (lazy evaluation) dotazu
+	- ten dotaz nemusím enumerovat celý
+	- jeden dotaz můžu spouštět vícekrát (od začátku)
+	- dotazy můžu skládat
+	- pozor, když mám proměnnou se seznamem, nad kterou postavím LINQ krabičky, a do této proměnné uložím jiný seznam, tak se dotaz nepřegeneruje – má v sobě uložený odkaz na entitu, ne na proměnnou
+	- lazy evaluace se používá, pokud je to možné
+		- pro některé operátory se dělá eager evaluace
+		- Where … lazy
+		- OrderBy … eager
+		- ale to se týká jenom LINQ to Objects, neplatí to univerzálně
+		- u eager evaluace se data musí někam uložit
+	- C# překladač nedělá žádné optimalizace – je potřeba přemýšlet nad pořadím klauzulí
+		- where → orderBy vs. orderBy → where
+		- nejspíš bude efektivnější ta první varianta (pokud where a orderBy fungují tak, jak bychom čekali)
+	- poznámka – LINQ to Objects dělá nějaké optimalizace
+		- pokud máme dvě Where za sebou, tak se to sloučí do jedné krabičky, která má seznam podmínek
+		- podobně Where a Select krabičky se můžou sloučit
+		- ale nemění to fungování
