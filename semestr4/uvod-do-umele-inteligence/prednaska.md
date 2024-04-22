@@ -396,3 +396,82 @@
 - skryté Markovovy modely
 	- máme matici stavů a měření
 	- algoritmy lze formulovat pomocí maticových operací
+- markovovský rozhodovací proces (MDP)
+	- sekvenční rozhodovací problém
+	- pro plně pozorovatelné stochastické prostředí
+	- máme Markovovův přechodový model a reward
+	- řešením MDP je policy (strategie) – funkce doporučující akci pro každý stav
+	- Bellmannova rovnice
+		- vezmu reward a discountovaný užitek okolí
+		- akorát nevím, kterou akci provedu, tak vezmu všechny a maximum přes ně (násobím jejich užitek pravděpodobností)
+	- soustava Bellmanových rovnic není lineární – obsahuje maximum
+	- můžu je řešit aproximací
+		- použiju iterativní přístup
+		- nastavím nějak užitky – třeba jim nastavím nuly
+		- provedu update – aplikuju Bellmanovu rovnici
+		- pokud se dostatečně přiblížím k pevnému bodu, tak toho nechám
+			- je tam ta speciální formule s $\epsilon$ – ale nebudeme dokazovat, co přesně říká
+		- → value iteration
+		- strategie se ustálí dřív než užitky
+			- policy loss … vzdálenost mezi optimálním uižtkem a užitkem strategie
+			- můžeme iterativně zlepšovat policy, dokud se nepřestane zlepšovat
+			- z rovnic nám zmizí maximum → máme lineární rovnice
+			- → policy iteration
+			- gaussovka je $O(n^3)$
+- částečně pozorovatelný markovský rozhodovací proces (POMDP)
+	- místo reálný stavů můžeme používat ty domnělé (belief states)
+	- modely přechodů a senzorů jsou reprezentovány dynamickou Bayesovskou sítí
+	- přidáme rozhodování a užitky a dostaneme dynamickou rozhodovací síť
+	- generujeme si stromeček
+		- „co kdyby pozorování bylo takové?“ „co kdyby bylo jiné?“
+	- používá se algoritmus ExpectedMiniMax
+- více agentů
+	- můžeme se tvářit, že další agenti neexistují a že jsou součásti prostředí – informace se k nám dostávají skrz pozorování
+	- pokud víme, že jsou ostatní agenti racionální, můžeme se rozhodovat líp, pokud budeme „přemýšlet za ně“
+	- to vede na teorii her
+	- nejtypičtější hry – deterministické hry s kompletní informací a nulovým součet pro dva hráče, kteří se střídají (šachy, Go, …)
+	- algoritmus minimax
+	- minimax s $\alpha,\beta$ prořezáváním
+		- záleží na pořadí procházení větví – když budu procházet v dobrém pořadí, tak větve můžu dřív zaříznout
+		- vrátí to samé, co klasický minimax
+	- stavový prostor je obrovský – ohodnotíme částečný stav hry (nebudeme ji „dohrávat“ do konce)
+		- ohodnocovací funkce bude brát vážený počet figurek
+- někdy ve hrách hraje roli náhoda (tzv. stochastické hry)
+	- např. házíme kostkou
+	- algoritmus expected minimax
+	- mezi uzly s tahy hráčů přidám vrstvy s pravděpodobnostmi
+	- při výpočtu min nebo max je vážím pomocí pravděpodobností
+	- je důležité lépe sestavit ohodnocovací funkci, protože nezáleží jenom na pořadí hodnot, ale taky na absolutních ohodnoceních
+- hry na jeden tah
+	- kámen, nůžky, papír
+	- dvouprstá Morra
+	- vězňovo dilema
+		- dominantní čistá strategie – testify (defect)
+		- ale vyhrála policie – lepší by bylo, kdyby oba odmítli vypovídat (= refuse/cooperate)
+		- našli jsme Nashovo ekvilibrium – nikdo neprofituje ze změny strategie, pokud druhý hráč zůstane u stejné strategie
+		- definice dominance a čistoty strategie
+	- dvouprstá Morra nemá čistou strategii
+	- jak najít optimální smíšenou strategii?
+		- technika maximin
+	- opakované hry
+	- strategie pro opakované vězňovo dilema
+		- pokud víme, která hra je poslední, vede to na podobnou situaci jako u jedné hry
+		- tit-for-tat
+- k čemu používáme teorii her
+	- k návrhu agentů
+	- k návrhu mechanismů (pravidel)
+		- inverzní teorie her
+		- aukce
+			- anglická aukce
+				- strategie: přihazuju, dokud cena není vyšší než moje hodnota
+				- má to problémy
+				- nepůjdu do aukce s někým hodně bohatým
+				- lidi musejí být ve stejnou chvíli na stejném místě
+			- holandská aukce
+				- začíná se vyšší cenou
+			- obálková aukce
+				- největší nabídka vítězí
+				- neexistuje jednoduchá dominantní strategie
+			- obálková second-price aukce (Vickrey)
+				- vyhraje ten první, platí druhou cenu
+				- dominantní strategie je tam dát svoji hodnotu
