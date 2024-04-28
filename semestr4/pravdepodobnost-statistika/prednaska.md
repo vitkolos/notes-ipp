@@ -131,3 +131,14 @@
 - důkaz
 	- je to disjunktní sjednocení, takže sčítám pravděpodobnosti
 - věta – PNS pro vektory
+
+## Statistika
+
+- boxplot
+	- čára uvnitř krabice – medián
+	- krabice pod čárou – 1. kvartil
+	- krabice na čárou – 3. kvartil
+	- celá krabice … IQR (interquartile range)
+	- čáry mimo krabici – ve vzdálenosti 1.5×IQR
+		- nebo tam, kde jsou nejvzdálenější hodnoty (tedy můžou mimo čáry, ale čáry nebudou sahat mimo data)
+- spojitá křivka → je to nějaká fikce

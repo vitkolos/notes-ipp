@@ -841,3 +841,41 @@
 		- pokud máme dvě Where za sebou, tak se to sloučí do jedné krabičky, která má seznam podmínek
 		- podobně Where a Select krabičky se můžou sloučit
 		- ale nemění to fungování
+- lambda funkce se stavem
+	- dosud nám k vyhodnocení funkce stačily její parametry
+	- co kdybychom uvnitř funkce chtěli používat nějaké další proměnné?
+	- když nepoužívám lambda funkce, ale předávám delegáta na instanční metodu – uvnitř delegáta se uloží (odkaz na) this
+	- lambda funkci si můžeme představit jako funkci, která žije v nějakém kontextu
+		- parametry – deklarace lokálních proměnných
+		- tělo – deklarace nějakých proměnných a použití nějakých proměnných
+			- použité proměnné můžou být 1. vázané (tzn. někde uvnitř funkce jsou deklarované) nebo 2. volné (nejsou deklarované uvnitř funkce)
+			- některé jazyky umožňují mít funkci s volnými proměnnými jako first-class entity – ty se pak dodefinují před použitím
+				- tohle v C# nelze
+			- `static` zakazuje volné proměnné
+			- za překladu musí být jasné, co ty volné proměnné znamenají (v daném kontextu) – převádějí se na vázané
+				- lambda funkce bez volných proměnných = closure
+				- v C# vlastně lambda funkce neexistují, jsou tam jen lambda výrazy a do delegátů se vždy přiřazují closures
+	- potřebovali bychom nějakým trikem dostat do lambda funkce přiřazené hodnoty těch volných proměnných
+		- vezmeme nějaký její scope
+		- v tom scopu zachytíme volné proměnné (Scope si můžeme představit jako nějakou třídu/objekt, kde ta lambda funkce je jeho instanční metoda)
+		- podobný princip jako u iterátorových metod
+		- v C++ to takhle funguje, ale v C# ne
+			- syntax lambda funkcí v C++
+				- `[](parametry) {tělo}`
+			- do hranatých závorek se dá napsat `=`, to znamená capture by value
+		- capture by value má zjevně nevýhody v mnoha situacích
+			- pokud v lambda funkci něco spočítáme, nemůžeme to dostat ven
+		- C++ umožňuje capture by reference, kdy se do hranatých závorek dá `&`
+			- všechny fieldy ve scopu budou reference na nějaké místo
+			- tohle v C# nejde, protože tracking reference mají omezení kvůli živnotnosti
+		- v C# se neprovádí capture by value ani by reference
+		- budeme tomu říkat „capture by move“
+		- proměnná se „přesune“ do toho scopu
+		- když lambda funkce použije nějakou proměnnou z kontextu, změní se způsob překladu veškerého kódu za lambda funkcí (v daném kontextu)
+			- veškerá další práce s danou proměnnou se přepíše na přístup k proměnné uvnitř scopu – jako by to byla veřejná vlastnost (nebo field) nějakého objektu Scope
+		- C# překladač opravdu vyrábí instanci nějaké třídy Scope
+		- všechny lambda funkce v daném kontextu sdílejí stejnou instanci scopu
+			- jedna instance scopu tedy vlastně odpovídá jednomu volání rodičovské funkce
+		- do delegátu se předává „this“ ukazující na konkrétní instanci scopu
+	- ty pomocné třídy se v C# nejmenují Scope, ale DisplayClass
+	- tohle se generuje C# překladačem na úrovni CIL kódu, takže JIT o lambda funkcích ani closure nic neví

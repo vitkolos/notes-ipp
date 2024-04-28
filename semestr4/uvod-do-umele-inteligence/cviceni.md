@@ -191,3 +191,23 @@
 	- máme torus → pozor na modulo
 	- podívat se do zdrojáku
 	- soustředit se na pomocné testy
+
+## Teorie her
+
+- hra Nim s Fibonacciho čísly
+	- vyhráváme tehdy, když protihráče umíme dostat do prohrávajícího stavu
+	- stačí nám jednoduchá dynamika, zpětné prohledávání
+	- může to být náročné na paměť
+	- pokud má každý hráč jiná pravidla, stačí nám k tomu dvě pole místo jednoho
+- dopředné prohledávání
+	- je paměťově úspornější
+	- některé stavy prohledáváme vícekrát
+	- u netriviální her hodně časově složité
+	- pokud má každý hráč jiná pravidla, použijeme dvě rekurzivní funkce místo jedné
+	- máme volnost v tom, v jakém pořadí stavy procházíme
+		- u Nimu funguje dobře procházet čísla od největšího
+	- když chceme prokázat, že je stav prohrávající, musíme projít všechny jeho podstavy
+- úkol
+	- první tah nemusíme řešit, ten má speciální pravidla
+	- musí to vracet správné výsledky
+	- musí to fungovat obecně
