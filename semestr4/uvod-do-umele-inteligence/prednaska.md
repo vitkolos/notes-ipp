@@ -475,3 +475,71 @@
 			- obálková second-price aukce (Vickrey)
 				- vyhraje ten první, platí druhou cenu
 				- dominantní strategie je tam dát svoji hodnotu
+	- problém sdílení společných zdrojů
+		- znečišťování životního prostředí
+		- „tragedy of commons“
+		- mechanismus Vickeray-Clarke-Groves
+			- zdanění společného zboží
+			- problém – je nezbytné mít centrální autoritu
+- jak je to s hrami dnes?
+	- počítače už jsou v šachu lepší než lidi, ale není to vyřešená hra – programy nehrajou 100% dobře, nevědí, jak hra dopadne
+	- dáma už je vyřešená hra, optimální strategie vede k remíze
+	- Go – strom hry se hodně větví, těžko se ohodnocuje stav hry; programy AlphaGo a AlphaGo Zero
+	- poker – prvek náhody, programy Deep Stack a Libratus
+	- fotbal – soutěž RoboCup
+
+## Strojové učení
+
+- způsob, jak zlepšit chování umělého agenta
+- učení vs. přímé programování chování
+	- scénáře, na které programátor nemyslel
+	- změny v prostředí
+	- někdy není jasné, jak agenta naprogramovat
+- zpětná vazba, z nichž se agenti učí
+	- učení bez učitele (unsupervised learning) – agent se učí vzory ve vstupu
+	- zpětnovazební učení (reinforcement learning) – agent dostává odměny nebo tresty
+	- učení s učitelem (supervised learning) – agent se učí funkci, která mapuje vstupy na výstupy
+		- máme vstupy a výstupy
+		- chceme najít funkci (její aproximaci), která mapuje vstupy na výstupy
+		- hledáme hypotézu z prostoru hypotéz
+		- princip Occamovy břitvy
+		- typy úloh – klasifikace (u nečíselných funkcí) nebo regrese (u číselných funkcí)
+		- nekonzistence s příkladem – příklad neodpovídá naučené funkci
+- rozhodovací strom
+	- přijímá vektor hodnot atributů, vrací výslednou hodnotu
+	- na základě tabulky příkladů se dá postavit strom, vnitřní uzly jsou jednotlivé atributy
+	- dá se zjistit odůvodnění konkrétního rozhodnutí
+	- strom se dá postavit hladovou metodou rozděl a panuj
+	- zakončení větve
+		- když jsou ve větvi výsledky jednoho druhu
+		- když je větev prázdná – pak zvolím převažující třídu v nadřazeném vrcholu
+		- když už jsme použili všechny atributy, ale v jedné větvi máme křížky a kolečka – zvolím převažující třídu
+	- snažím se vždy dělit podle nejdůležitějšího atributu
+		- jak ho najít?
+		- jako metriku použiju entropii – míru neurčitosti náhodné proměnné (měří se v bitech informace, kterou získáme, když známe hodnotu náhodné proměnné)
+- logická formulace učení
+	- agent má inferenční mechanismus
+	- přihodíme mu axiom, aby toho mohl odvozovat víc
+	- z větví v rozhodovacím stromu můžeme udělat logické formule
+	- hypotéza může být nekonzistentní dvěma způsoby
+		- false negative
+			- potřebujeme formulit zobecnit
+			- přidáme disjunkci nebo odebereme konjunkci
+		- false positive
+			- potřebujeme formuli specializovat
+			- přidáme konjunkci nebo odebereme disjunkci
+	- chceme udržet jednodušší formuli – podle Occamovy břitvy
+	- tomu se říká current-best-hypothesis search
+	- least-commitment search si udržuje všechny možné hypotézy konzistentní s příklady (tzv. version space)
+		- jak kompaktně reprezentovat version space
+			- pomocí dolní a horní meze
+			- některé formule jsou obecnější než jiné
+			- je to částečné uspořádání
+			- horní mez – obecné formule (obecnější jsou nekonzistentní)
+			- dolní mez – specifické formule (specifičtější jsou nekonzistentní)
+	- když je šum v datech, může dojít ke kolapsu version space
+- lineární regrese
+	- vzorečky viz prezentace
+	- můžeme ji použít pro klasifikaci – nakreslíme přímku, která bude oddělovat vstupy klasifikované jedním a druhým způsobem
+	- perceptronové pravidlo
+	- můžeme použít logistickou prahovou funkci – není to černá/bílá, ale funkce nám řekne pravděpodobnost, že prvek patří do dané třídy
