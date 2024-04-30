@@ -348,3 +348,75 @@
 	- deadline za dva týdny
 	- příští cvičení nebude
 	- můžeme přijít na sedmé cvičení příští rok
+- odstraňujeme sudé položky seznamu
+	- tři možnosti
+		- pomocí Remove … $O(n^2)$
+		- pomocí RemoveAt … $O(n^2)$, ale rychlejší než Remove
+		- pomocí RemoveAll … $O(n)$
+	- RemoveAll
+		- bere delegáta
+		- je schopný teoreticky pracovat nějak efektivněji – může mít seznam v nějakém rozbitém stavu, který nakonec opraví
+		- ale je s ním spojený nějaký overhead
+		- trikově jsme schopni implementovat odstraňování položek seznamu v $O(n)$ i bez RemoveAll, které bude o konstantu efektivnější než RemoveAll
+		- pokud odstraňujeme jen jednu položku, tak je RemoveAll poměrně neefektivní
+- jak funguje internet
+	- klient si povídá se serverem
+		- TCP/IP spojení
+		- třeba u webu to spojení běží na portu 80
+		- textový protokol HTTP
+		- nejčastější požadavek GET s jedním parametrem (cesta k souboru)
+		- dříve server prostě vrátil požadovaný soubor, který našel na disku
+		- dnes je tam často nějaká vrstva (PHP nebo třeba C#), která nějak vytvoří odpověď
+	- distribuované aplikace
+		- aplikace a knihovna
+		- aplikace běží u klienta, knihovna by mohla být na serveru
+		- RPC (remote procedure call)
+		- chci volat statickou metodu `m`, k tomu se zneužije HTTP protokol
+			- místo cesty k souboru se do dotazu zakóduje metoda
+			- parametry jsem schopný předat pomocí query
+		- knihovna běží jako webová služba (web service)
+			- k tomu se často používá REST (součástí je webové API)
+			- někdy je k dispozici dokumentace API
+			- https://b2c.cpost.cz/?urls.primaryName=B2C%20PostCode%20API
+- jak získat data z webového API v C#
+	- chtěli bychom volat nějakou metodu GetString na třídě HttpClient, která vrátí data, které přijdou ze serveru
+	- ale takové metoda neexistuje, je tam metoda GetStringAsync, která vrátí `Task<string>`
+		- my na Tasku použijeme vlastnost Result, ta nám vrátí ten string, který chceme
+		- tohle je špatný způsob, jak to programovat, ale zatím to budeme dělat takhle, protože nic lepšího neumíme (asynchronní programování budeme dělat až na konci)
+	- můžu deserializovat kolekci (třeba IReadOnlyList)
+		- můžu použít JsonSerializerOptions nastavení pro Web (názvy vlastností jsou case-insensitive)
+		- nebo můžu odekorovat vlastnosti tím, jak se jmenují v tom JSONu
+	- NuGet balíček Refit
+		- umožní mi v C# silně typovaně popsat webovou službu
+		- jenom napíšu interface, Refit dodá jeho implementaci
+- domácí úkol
+	- 1. část
+		- Coinbase API
+			- https://api.coinbase.com/v2/currencies
+			- https://api.coinbase.com/v2/exchange-rates?currency=EUR
+			- https://api.coinbase.com/v2/exchange-rates?currency=CZK
+		- za úkol máme pomocí Refitu připravit implementaci API
+	- 2. část
+		- kdyby svět byl krásný, tak by kromě třídy HttpClient existoval i HttpListener, ale ten je obsolete
+		- v ASP.NET existuje webový server Kestrel
+		- vyrobíme konzolovou aplikaci, protože ASP templaty jsou moc pokročilé
+		- Kestrel v základní sadě dostupných knihoven chybí
+			- chceme přidat referenci do záložky Frameworks ve Visual Studiu
+			- to uděláme tak, že v csproj souboru upravíme `<Project Sdk="Microsoft.NET.Sdk">` na `<Project Sdk="Microsoft.NET.Sdk.Web">`
+		- webový server se vyrábí pomocí builder patternu
+			- konfiguruje se metodou Run, což je blbost, ale tak to je
+			- interně je to implementované vícevláknově
+		- my budeme implementovat třídu RequestProcessor
+			- pro jednoduchost budeme vracet HTTP 200 OK
+		- prohlížeč občas automaticky hází requesty na favicon.ico, ty můžeme ignorovat (třeba vracet prázdný JSON)
+		- chtěli bychom napsat framework, který vezme implementaci GetPostCodesByCityAndStreet a zpřístupní ho na nějaké konkrétní adrese (/services/PostCode/getDataAsJson)
+		- HandleRequest
+			- RouteMap vrátí delegáta
+			- z requestu vytaháme parametry, musíme reflexí zkontrolovat, jestli odpovídají delegátovi
+		- implementujeme obecný framework
+			- v RegisterAllRoutes musíme najít všechny typy v dané assembly, které implementují ten interface ISimplisticRoutesHandler, instaciovat je bezparametrickým konstruktorem (pomocí Activator.CreateInstance) a na instancích zavolat RegisterRoutes
+	- 3. část
+		- fejková implementace Coinbase API
+		- stačí pár měn, data si můžeme vycucat z prstu
+		- mělo by to být type-safe (exchange rates aby byly decimal)
+	- ultimátní zkontrolování, že nám to funguje – zkusit pomocí části 1 použít části 2 a 3
