@@ -420,3 +420,9 @@
 		- stačí pár měn, data si můžeme vycucat z prstu
 		- mělo by to být type-safe (exchange rates aby byly decimal)
 	- ultimátní zkontrolování, že nám to funguje – zkusit pomocí části 1 použít části 2 a 3
+		- nejspíš je potřeba použít HTTP variantu adresy (ne HTTPS)
+	- pozor
+		- nejsme schopni mít generického delegáta v metodě Map
+		- potřebujeme typ System.Delegate
+		- je tam metoda DynamicInvoke, která bere `params object[]`
+			- to je ekvivalentní volání Invoke na MethodInfo
