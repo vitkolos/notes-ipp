@@ -142,3 +142,79 @@
 	- čáry mimo krabici – ve vzdálenosti 1.5×IQR
 		- nebo tam, kde jsou nejvzdálenější hodnoty (tedy můžou mimo čáry, ale čáry nebudou sahat mimo data)
 - spojitá křivka → je to nějaká fikce
+- postup
+	- máme populaci $\Omega$
+	- zajímá nás parametr $\theta$ (nebo $\vartheta$)
+	- $\Theta$ … množina všech parametrů
+	- provedeme měření
+	- měření může být zavádějící, vzorek musí být reprezentativní
+	- $X_1,\dots,X_n\sim F$ náhodný výběr z rozdělení s distribucí $F$
+		- nezávislé stejně rozdělené náhodné veličiny
+		- $\forall i:F$ je distribuční funkce $X_i$
+	- realizace
+	- naměřená data $x_1,\dots,x_n$
+	- $x_i=X_i(\omega)$ … naměřená hodnota náhodné veličiny $X_i$
+- neparametrická statistika … malé předpoklady na $F$
+- parametrická statistika … $F$ je z množiny rozdělení popsané parametrem $\theta$
+	- například
+		- $\text{Exp}(\lambda)$ s parametrem $\theta=\lambda$
+		- $U(0,a)$ s parametrem $\theta=a$
+		- $N(\mu,\sigma^2)$ s parametrem $\theta=(\mu,\sigma^2)$
+- příklad
+	- náhodný výběr $X_1,\dots,X_n$ doby běhu programu
+	- $p=P(X_i\gt 100\text{ ms})$
+	- data $x_1,\dots,x_n\in\mathbb R^+$
+		- $x_i$ … realizace
+	- statistika … funkce naměřených dat
+		- $t(x_1,\dots,x_n)$ … číslo (estimate)
+		- $T(X_1\dots,X_n)$ … náhodná veličina (estimator)
+	- 1. možnost odhadu
+		- $\frac{|\set{i:x_i\gt 100}|}{n}$ = $\hat p$ … odhad $p$
+	- 2. možnost
+		- $X_i\sim N(\mu,\sigma^2)$
+	- $P(X_i\gt 100)=1-P(X_i\lt 100)=1-\Phi(\frac{100-\mu}{\sigma})$ pokud $X_i\sim N(\mu,\sigma^2)$
+	- $\hat\mu=\overline{X_n}=\frac{X_1+\dots+X_n}n$ … výběrový průměr – příklad statistiky
+	- $\widehat{\sigma^2}=\frac1{n-1}\sum_{i=1}^n(X_i-\overline{X_n})^2$ … výběrový rozptyl
+	- $\hat\sigma =\sqrt{\widehat{\sigma^2}}=\hat S_n$
+
+### Bodový odhad
+
+- $\hat\theta$ … odhad parametru $\theta$ – je to náhodná veličina závislá na měření (statistika)
+- $\text{bias}(\hat\theta)=\mathbb E(\hat\theta-\theta)$
+	- vychýlení
+- $\hat\theta$ je nevychýlený/unbiased
+	- $\text{bias}(\hat\theta)=0$
+	- $\mathbb E(\hat\theta)=\theta$
+- asymptoticky nevychýlený
+	- $\text{bias}(\hat\theta)\to 0$
+- $\hat\theta_n$ je konzistentní odhad $\theta\iff\hat\theta_n\xrightarrow{p}\theta$
+- $\forall\epsilon\gt0:P(|\hat\theta_n-\theta|\gt\varepsilon)\to0$
+- příklad
+	- zákon velkých čísel
+	- $\overline{X_n}$ je konzistentní odhad $\mathbb EX$
+	- $\text{MSE}(\hat\theta)=\mathbb E(\hat\theta-\theta)^2$
+		- MSE … mean squared error (střední kvadratická odchylka)
+- věta: $\text{MSE}(\hat\theta)=\text{bias}(\hat\theta)^2+\text{var}(\hat\theta)$
+- důkaz
+	- $\text{var}(X)=\mathbb EX^2-(\mathbb EX)^2$
+	- $\text{var}(\hat\theta)=\text{var}(\hat\theta-\theta)=\mathbb E(\hat\theta-\theta)^2-[\mathbb E(\hat\theta-\theta)]^2=\text{MSE}(\hat\theta)-\text{bias}(\hat\theta)^2$
+- věta
+	- $\overline{X_n}=\frac1n\sum_{i=1}^n X_i$
+	- $\widehat{S_n^2}=\frac1{n-1}\sum_{i=1}^n(X_i-\overline{X_n})^2$
+	- $\to \overline{X_n}$ je konzistentní nevychýlený odhad $\mu$
+	- $\to \widehat{S_n^2}$ je konzistentní nevychýlený odhad $\sigma^2$
+	- důkaz odložíme
+- jak hledat odhady?
+	- metoda momentů
+		- $r$-tý moment $X:\mathbb EX^r=m_r(\theta)$
+			- závislé na neznámém parametru
+		- $r$-tý výběrový moment $\frac1n\sum_{i=1}^nX_i^r=\widehat{m_r(\theta)}$
+			- dobrý odhad pro $r$-tý moment $X$
+			- náhodná veličina závislá na měření
+		- …
+	- metoda maximální věrohodnosti (MV, maximal likelihood ML)
+		- $\hat\theta_{ML}=\text{argmax}_\theta\;p(x;\theta)$
+			- $\text{argmax}_\theta\;f(x;\theta)$
+			- abych se nemusel rozhodovat mezi $p$ a $f$, budu používat $L$
+		- …
+
