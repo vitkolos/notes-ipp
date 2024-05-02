@@ -879,3 +879,118 @@
 		- do delegátu se předává „this“ ukazující na konkrétní instanci scopu
 	- ty pomocné třídy se v C# nejmenují Scope, ale DisplayClass
 	- tohle se generuje C# překladačem na úrovni CIL kódu, takže JIT o lambda funkcích ani closure nic neví
+
+---
+
+- `Enumerable.Range(1, 10)` vrátí lazy enumerátor čísel od 1 do 10
+- metoda `.ForEach(Action<T>)`
+	- respektive `Array.ForEach(T[], Action<T>)` pro pole
+- scope
+	- vzniká ne kvůli lambda funkci, ale kvůli proměnným v ní
+	- třídě scopu se říká DisplayClass
+	- jeden scope odpovídá jedné úrovni životnosti proměnných
+		- mějme proměnné a, i, j ve vnějším kontextu
+		- mějme proměnnou k ve vnitřním kontextu
+		- mějme lambda funkci ve vnitřním kontextu, ta používá proměnné i, j, k
+		- vznikne jedna instance DisplayClass, která bude obsahovat proměnné i, j, a druhá instance, která bude obsahovat k
+	- proměnné se neukládají podle názvu – takže pokud mám uvnitř for cyklu nějakou proměnnou `int a`, tak ta se bere v každé iteraci samostatně
+	- DisplayClass s nejkratší životností
+		- ukazuje na ty nadřazené s delší životností
+		- jako metodu obsahuje tělo lambda funkce (?)
+	- víc lambda funkcí
+		- na generování DisplayClasses se nic nemění
+	- pozor na zachytávání proměnných v lambda funkci – abychom něco nezachytili omylem
+		- když ve VS najedu na šipečku lambda funkce, tak se zobrazí zachycené proměnné
+		- častý bug – myslím si, že se používá capture by value (ale hodnota se před voláním lambda funkce změní)
+		- „capture by accident“
+
+## Vícevláknové programování
+
+- vlákno = posloupnost zavolání funkcí
+- proces v C#
+	- entrypoint
+	- CLR-entrypoint
+	- JIT
+	- Main()
+		- f()
+- chceme provést dva algoritmy (A a B)
+	- můžeme je pravidelně střídat, provádět je po malých kouscích
+	- může se zdát, že to běží současně, přestože to běží concurrent
+	- lidský mozek průměruje svět za 100 ms, takže kdyby se to střídalo takhle rychle, tak by se nám zdálo, že to běží současně
+- proč bychom to vůbec chtěli
+	- jak funguje železnice
+	- koleje, po kterých jezdí vlaky
+	- na nich jsou odbočky – výhybky mají směr + a –
+	- můžeme počítat nápravy, které vjedou do nějakého úseku (nebo z něj vyjedou), abychom mohli určit volnost nějaké výhybky (říká se tomu počítač náprav)
+	- přestavení výhybky nějakou chvíli trvá
+	- návěstidla („semafory“) říkají strojvedoucím, v jakém je úsek stavu (na silnici světla nefungují stoprocentně, na železnici je to navržené bezpečně)
+		- zelená = můžeš jet, nic ti nehrozí
+		- červená = rozhodně nejezdi
+	- železniční zabezpečovací zařízení (stavidlo, signalbox) implementuje tuhletu logiku, určuje, jaké světlo má svítit
+	- myšlenka – výpravčí staví cestu (route) pro konkrétní vlak
+	- jdeme implementovat stavidlo
+	- jednotka práce stavidla je stavba jedné cesty, výrobci tomu říkají „driver“
+	- chtěli bychom spustit dva drivery současně
+	- stačilo by nám to concurrent – občas se čeká, až se výhybka dostane do koncového stavu
+		- cooperative (kooperativně přepínaná vlákna)
+	- coroutine – rozdělení algoritmu na kroky
+		- pomocí yield return
+	- výhody
+		- máme kontrolu nad tím, co se kdy dělá
+		- coroutine říká, kde jeden krok končí
+	- problémy
+		- aktivní čekání – furt to něco dělá, žereme procesorový čas daný pro jedno vlákno
+			- metoda Thread.Sleep(čas v ms) zařídí pasivní čekání vlákna … pasivní čekání (parametr s časem odpovídá minimálnímu času čekání, může to být i víc)
+		- nemůžu využít další procesorová jádra
+- třída Thread
+	- ve jmenném prostoru System.Threading
+	- defaultně každá instance Thread reprezentuje jedno vlákno (ale může to být i nějak jinak)
+	- preemtivně přepínaná vlákna
+	- mezi dvěma libovolnými instrukcemi strojového kódu může dojít k přepnutí
+	- statická vlastnost Thread.CurrentThread
+	- na instanci vlákna
+		- ManagedThreadId … dotnetí identifikátor konkrétního vlákna (liší se od identifikátoru, který používá operační systém)
+	- konstruktor
+		- jeden overload – bere delegáta ThreadStart
+		- druhý overload – bere delegáta ParametrizedThreadStart(object o)
+		- v tom místě to vlákno nevznikne
+		- na té instanci se dají nastavit různé vlastnosti
+			- Priority
+			- IsBackground (defaultně false)
+				- celý proces (běh aplikace) skončí, až skončí všechna foreground vlákna (v takovém případě CLR zabije všechna background vlákna)
+		- až voláním Start() vznikne vlákno, zařadí se do plánovací fronty OS a jakmile se uvolní procesor, začne běžet
+			- dva overloady Start() a Start(object o) odpovídají dvěma overloadům konstruktoru
+- context switch
+	- u kooperativního přepínání vláken – overhead je malý, jenom se vrátím z MoveNext jednoho algoritmu a pustím MoveNext druhého algoritmu
+		- desítky taktů procesoru
+	- u preemptivního přepínání vláken – procesor se musí přepnout z uživatelského do supervisor režimu
+		- IRQ timer → CPU (supervisor) → kernel → plánovač → Yield
+		- tisíce taktů procesoru
+	- je potřeba rozmyslet, jestli to dává smysl
+- stav vlákna
+	- Unstarted
+	- Running (něco jako Running) … neznamená to Running v OS
+		- může být v OS stavu ready-to-run
+	- "Ended"
+		- vlastnost IsAlive – když je false, tak vlákno doběhlo
+		- v OS to odpovídá stavu terminated
+	- čekáme na doběhnutí vlákna
+		- nedává smysl napsat `while (t.IsAlive)` … vyrobili jsme aktivní čekání
+		- mohli bychom použít semiaktivní čekání pomocí `Thread.Sleep`
+			- vlákno přejde do OS stavu waiting / dotnet stavu WaitSleep
+			- mohlo by se stát, že nás někdo předběhne a budeme čekat hrozně dlouho
+			- trik – Thread.Sleep(0)
+				- vzdáme se procesoru, rovnou se zařadíme do fronty
+				- v C# se dá použít Thread.Yield(), je to to samé
+			- ale budeme žrát hodně času procesoru – kvůli context switchi
+		- správné řešení … `t.Join()`
+			- jakmile vlákno `t` doběhne, tak se naše vlákno rozeběhne dál
+- datové struktury, které vlákno používá, nejsou celou dobu v konzistentním stavu
+	- nechceme, aby jiné vlákno mohlo vidět vadný stav nějaké datové struktury
+	- tohle se v kooperativním přepínání řeší snadno, prostě do té nekonzistentní oblasti nedáme yield returny
+	- v preemptivním přepínání to není jednoduché, vede to k race conditions
+	- můžeme zjistit, jestli datová struktura je thread-safe (nikdy není vidět rozbitý stav)
+	- datové struktury v dotnetu typicky nejsou thread-safe
+	- vlákna běží v jednom procesu
+		- každé vlákno má vlastní volací zásobník
+		- všechna vlákna sdílí jednu haldu
