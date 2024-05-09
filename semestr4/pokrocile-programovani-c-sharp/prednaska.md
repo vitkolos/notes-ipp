@@ -994,3 +994,76 @@
 	- vlákna běží v jednom procesu
 		- každé vlákno má vlastní volací zásobník
 		- všechna vlákna sdílí jednu haldu
+
+---
+
+- problémy
+	- context switch je hrozně drahý
+	- vyrobení vlákna je ještě dražší
+- v dotnetu je třída ThreadPool
+	- vyrobí si nějaké rozumné množství vláken (worker threads), které pasivně čekají
+	- je tam nějaký pool položek (workitems)
+		- na začátku je prázdný
+		- pomocí QueueUserWorkitem se tam dá přidat úloha
+			- jako parametr bere delegáta WaitCallback s parametrem `object state`
+		- není to pool, ale fronta
+	- měli bychom to používat spíš na malé položky
+		- když uvnitř vlákna použijeme Wait/Join, tak to bude zabírat vlákno a nebude ho moct použít jiný úkol
+		- ale s tím se taky trochu počítá – počet vláken v poolu není konstantní
+	- API threadpoolu je hodně základní, ale naštěstí nad ním existuje spoustu dalších API
+	- metoda QueueUserWorkitem je asynchronní, hned se vrátí
+		- ale často by se nám hodilo, abychom pokračovali až ve chvíli, kdy ta úložka skončí
+		- můžeme použít třídu Parallel, kde je spousta užitečných metod – v základu fungují jako synchronní
+		- metody Invoke, For a ForEach
+		- For a ForEach nenarvou do threadpoolu všechno najednou, ale nějak rozumně to dávkují
+- příklad s hamburgery
+	- je neefektivní začít stavět fastfood, až když mám hamburgery
+	- použijeme koncept futures (viz studijní materiál Thud!/Buch!)
+	- výrobce hamburgerů koupí budoucí vepřové, chovatel prasat koupí budoucí kukuřici apod.
+- v dotnetu koncept future reprezentovaný třídou `Task<T>`
+	- `T` … kukuřice
+	- `Task<T>` … budoucí kukuřice
+	- readonly vlastnost Result – nejprve zablokuje vlákno pomocí Wait (pokud není k dispozici výsledek), pak vrátí Result, jakmile je dostupný
+	- vlastnost IsCompleted
+- když chceme vytvořit metodu, která vrací budoucí kukuřici, tak za její jméno dáme Async
+- `Task<T>` je referenčního typu, může být null, pokud nelze požadavek splnit (když se future ani nevytvoří)
+- `Task<T>` je potomek třídy `Task`
+	- `Task` si můžeme představit jako `Task<void>` – i to je užitečné (příklad s traktoristou, který orá pole, chceme zjistit, jestli má hotovo)
+- jak paralelizovat sčítání výsledků dvou drahých metod
+	- varianta 0: obě pustíme synchronně
+	- varianta 1: jednu z nich pustíme asynchronně, druhou synchronně
+	- varianta 2: obě pusíme asynchronně sčítáme jejich `Result`s
+	- varianta 3: použijeme Task.WaitAll, abychom zabránili zbytečným context switchům ve variantě 2
+		- další metoda – Task.WaitAny
+- jak získat `Task<T>`
+	- `Task.FromResult<T>` vytvoří hotový Task
+	- koncept promise
+		- třída TaskCompletionSource
+		- metoda SetResult (striktně writeonly)
+		- ke každému TaskCompletionSource existuje Task (ve vlastnosti Task)
+- defaultování futures (když slib nedokážu naplnit)
+	- vlastnost IsCanceled (jedno $\ell$, protože americká angličtina) na Tasku
+		- IsCompleted je pak taky true, ale existuje vlastnost IsCompletedSuccessfully
+	- metoda SetCanceled na TaskCompletionSource
+	- Task.Result na defaultnuté future vyvolá OperationCancelledException uvnitř AggregateException (ve vlastnosti InnerExceptions)
+- co se stane, když se z delegáta v threadpoolu vyšíří výjimka
+	- nestane se nic, úložka je jakoby v try-catch bloku
+	- když máme úložku, o které víme, že může spadnout, tak ji chceme mít v try bloku a v catchi popsat, co se má stát (chceme zachytávat Exception – tedy libovolné výjimky)
+	- kromě IsCanceled může být future taky ve stavu IsFaulted, k tomu je metoda SetException (tu můžeme zavolat právě z toho catch bloku)
+- struktura CancellationToken
+	- cooperative cancelling
+	- abychom mohli operaci zrušit v nějakém rozumném místě (nechceme, abychom vytváření prasat zrušili ve chvíli, kdy nějakému praseti chybí noha)
+	- readonly vlastnost IsCancellationRequested
+	- přerušitelné async metody berou cancellation token jako parametr
+		- je dobré ho předávat podřízeným metodám
+		- je dobré ho kontrolovat hned na začátku metody
+		- je potřeba ho kontrolovat ve všech místech, kde se dá metoda přerušit
+		- přerušená metoda by neměla vrátit null, ale cancelled future
+	- ale cancellation token se předává hodnotou – jak můžeme proces zrušit?
+		- je tam třída CancellationTokenSource
+		- funguje jako promise cancel requestu
+		- vlastnost Token vrací CancellationToken
+		- struktura CancellationToken obsahuje private referenci na CancellationTokenSource
+		- na instanci CancellationTokenSource můžeme zavolat metodu Cancel
+	- tenhle přístup striktně odděluje readonly CancellationToken od writeonly CancellationTokenSource
+- thread safety

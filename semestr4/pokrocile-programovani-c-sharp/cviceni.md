@@ -426,3 +426,38 @@
 		- potřebujeme typ System.Delegate
 		- je tam metoda DynamicInvoke, která bere `params object[]`
 			- to je ekvivalentní volání Invoke na MethodInfo
+- deque
+	- problémy se jmény – enqueue, dequeue? asi raději Add a Remove nebo Pop a Push vždycky s Front/Back
+	- v interfacu může být i metoda Peek – nic nás nestojí
+	- IDeque může implementovat ICollection, IDequeList bude implementovat IList
+	- metodu Add (bez přívlastku) schovám – udělám ji jako implementaci interfacové metody
+		- podobně můžu schovat IsReadOnly
+	- enumerátor by měl poznat concurrent modification a vyhodit výjimku
+		- i pokud někdo zavolá Clear – v takovém případě MoveNext vrátí false a nečte se Current, takže je potřeba to nějak vyřešit (třeba zapamatováním Countu)
+	- většina metod se dá delegovat na enumerátor, ten se dá delegovat na indexer
+	- jak otestovat delegované metody bez implementace indexeru? napíšu si triviální (špatnou) implementaci deque – pomocí Listu
+	- jak zajistit, aby ReverseView viděl \_version? třeba tak, že to bude vnořený typ uvnitř Deque
+	- třeba u shiftování možná nedává smysl furt dokola počítat indexy – ale vyplatí se to dělat efektivněji? asi bychom to museli zbenchmarkovat
+- web api
+	- interface můžu vytáhnout pomocí GetInterface
+		- kdyby to implementovala nějaká abstraktní třída, tak by to asi padalo
+- LINQ
+	- `from x in alpha where x < 5 orderby x select x*2`
+		- linqový dotaz
+		- překladač z toho slepě udělá `alpha.Where(x => x < 5).OrderBy(x => x).Select(x => x*2)`
+	- sémantiku tomu dodává nějaká knihovna – např. LinqToObjects
+		- tahle knihovna je postavená na IEnumerable
+		- ne všechny metody mají „hezkou“ dotazovou variantu – třeba ToList nebo ToArray
+			- můžu vzít dotaz, dát ho do závorek a za něj napsat např. ToList, pak to funguje
+		- je na nás, jestli budeme domácí úkol řešit pomocí dotazové nebo metodové varianty, ale z cvičných důvodů je lepší zkusit tu dotazovou
+		- Select vrací nějaký typ, který implementuje IEnumerable
+	- pozor, informace o LINQu, které najdeme na internetu, jsou často pochybné
+	- když data potřebuju jednou projít a zahodit, tak je k ničemu volat ToList
+- úkol
+	- máme lidi, ti mají přátele
+	- jsou tam nějaké věci kvůli ladění, ty nemáme používat (viz komentáře v kódu)
+	- pozor, relace přátelství není symetrická
+	- napíšeme dotazy podle zadání
+	- připravíme si metodu (třeba PrintAll), která vyenumeruje dotaz a vypíše lidi
+	- v 6B bude dávat smysl použít dotaz z 6 jako základ
+	- je tam exe, které můžeme pustit – v takovém pořadí máme lidi vypisovat
