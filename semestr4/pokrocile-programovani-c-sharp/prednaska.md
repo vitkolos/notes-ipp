@@ -1067,3 +1067,40 @@
 		- na instanci CancellationTokenSource můžeme zavolat metodu Cancel
 	- tenhle přístup striktně odděluje readonly CancellationToken od writeonly CancellationTokenSource
 - thread safety
+	- máme dvě vlákna, která používají jednu datovou strukturu
+	- část, kdy nějaké vlákno pracuje se sdílenou datovou strukturou = kritická sekce
+		- chceme zabránit race condition
+		- nejjednoduší přístup – mutual exclusion
+		- použijeme zámky
+	- v dotnetu – syncblock
+		- to je jakoby ten zámek
+		- každý objekt na GC haldě má v overheadu referenci na Type a referenci na syncblock
+		- syncblock má dvě půlky: lock + „něco“
+	- lock (zámek)
+		- je tam reference na vlákno, které drží ten zámek
+			- defaultně je tam null
+		- kvůli rekurzivnímu zamykání je tam počítadlo, kolikrát to vlákno ten zámek zamklo
+		- je tam fronta čekajících vláken, které čekají na odemčení
+		- jak zámek zamknout
+			- je tam třída `Monitor.Enter(object o)`
+			- při vytvoření objektu syncblock vůbec neexistuje, na haldě je tam null
+			- při prvním zamčení objektu se vytvoří syncblock a zamkne se (atomicky)
+			- když to samé vlákno zavolá Monitor.Enter, tak se zvýší Count
+			- když jiné vlákno udělá Monitor.Enter, tak se zablokuje pasivním čekáním
+		- jak zámek odemknout
+			- `Monitor.Exit(object o)`
+			- sníží se Count a pokud je nula, zámek se odemkne
+			- pokud někdo čeká, předá se objekt čekajícímu vláknu (to si ho zamkne)
+			- pokud nikdo nečeká, tak se reference na syncblock nastaví na null a syncblock se zařadí do poolu volných syncblocků, aby se daly použít u jiných objektů
+		- pozor na zamykání hodnotových typů – Monitor.Exit ho typicky zaboxuje do jiného typu, než jsme zamkli
+		- můžeme použít syntaktickou zkratku `lock (object o) { … }`
+			- začátek složených závorek odpovídá Enteru, konec Exitu
+			- kdybychom chtěli zamknout A, zamknout B, odemknout A a odemknout B, tak tuhle syntaxi použít nelze
+		- zamyká to objekt, ne proměnnou
+			- když v kritické sekci (v lock bloku) do proměnné přiřadíme nový objekt, tak se to může rozbít
+			- lock blok bude i v takové situaci fungovat správně – odemkne se zamčený objekt
+		- lock blok má Exit jakoby ve finally – odemkne se, i když se vyšíří výjimka
+		- co když chceme zamknout proměnnou
+			- vytvoříme si pomocnou proměnnou `object dataLock = new object();`
+			- to je ta „esence zámku“
+			- pak si s proměnnou `data` můžeme dělat, co chceme – třeba do ní přiřadit nový objekt
