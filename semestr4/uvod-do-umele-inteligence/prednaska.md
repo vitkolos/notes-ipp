@@ -543,3 +543,69 @@
 	- můžeme ji použít pro klasifikaci – nakreslíme přímku, která bude oddělovat vstupy klasifikované jedním a druhým způsobem
 	- perceptronové pravidlo
 	- můžeme použít logistickou prahovou funkci – není to černá/bílá, ale funkce nám řekne pravděpodobnost, že prvek patří do dané třídy
+- …
+- zpětné šíření chyby
+	- znám chybu u výstupních neuronů
+	- neznám chybu u skrytých neuronů uvnitř sítě
+		- získám ji tak, že chybu u výstupních neuronů propaguju zpátky – chyba je vážená, protože propojení neuronů je složité (jeden neuron typicky ovlivňuje více jiných)
+- parametrický model
+	- vezmeme data
+	- zakódujeme je do parametrů neuronky (data „komprimujeme“, zajímá nás jenom část informace)
+	- data zahodíme
+- neparametrický model
+	- používáme původní data, abychom reprezentovali hypotézu
+	- metoda nejbližších sousedů
+		- na vstupu mám vektor $x$, chci vrátit nějaké odpovídající $y$
+		- mezi trénovacími příklady najdu $k$ vektorů, které jsou nejbližší k $x$
+		- tak dostanu $k$ odpovídajících $y$, s nimi něco provedu a výsledek vrátím
+			- lze zvolit nejčastější $y$
+			- lze použít regresi nebo průměr
+	- vzdálenosti se typicky měří pomocí Minkowského metriky
+- support-vector machine
+	- stojí na lineární regresi
+	- pokud lze třídy oddělit nadrovinou, zvolí takovou, která je nejdál od všech dat (příkladů)
+	- pokud nejde použít nadrovinu, provede mapování do vícedimenzionálního prostoru, kde už příklady půjde oddělit
+	- SVMs jsou neparametrická metoda – příklady blíže k separátoru jsou důležitější, říká se jim support vectors
+- někdy se neučíme úplně od nuly, už máme částečnou znalost, snažíme se naučit něco navrch – statistické učení
+	- bayesovské učení
+		- bereme v úvahu všechny hypotézy
+		- vracíme vážený průměr všech hypotéz
+	- další přístup – bereme v úvahu nejpravděpodobnější hypotézu
+- bayesovské sítě, parameter learning (učení se parametrů)
+	- chceme se naučit hodnoty, které vyplníme do CPD tabulek
+	- hledáme hypotézu, která nejlépe vysvětluje příklady
+	- derivuju postupně podle každého hledaného parametru a derivaci položím rovnou nule
+	- co když mám skryté uzly v síti
+		- můžu udělat bayesovskou síť bez skrytých proměnných, to ale může vést k výraznému zvýšení počtu parametrů
+		- algoritmus expectation-maximization (EM)
+			- předstíráme, že známe parametry modelu
+			- dopočteme očekávané hodnoty skrytých proměnných
+			- upravíme parametry, abychom maximalizovali likelihood modelu
+			- iterujeme (dokud to nezačne konvergovat)
+- reinforcement learning (zpětnovazební učení)
+	- nemusíme agentovi říkat $y$
+	- agent dostává pozitivní nebo negativní zpětnou vazbu (ve formě reward/reinforcement)
+	- vychází z markovských rozhodovacích procesů
+	- pasivní učení – známe strategii a učíme se, jak je dobrá (učíme se utility funkci)
+	- aktivní učení – agent zjišťuje, co má dělat
+	- pasivní učení
+		- agent nezná přechodový model ani reward function
+		- přímý odhad utility
+			- máme trace (běh) mezi stavy, z toho (postupně) počítáme utility function
+			- nevýhody – utilities nejsou nezávislé, ale řídí se Bellmanovými rovnicemi
+		- adaptivní dynamické programování (ADP)
+			- používá Bellmanovy rovnice
+		- temporal-difference learning
+			- po každém kroku updatuju jedno číslo
+			- nepotřebuju přechodový model
+			- konverguje to pomaleji než ADP
+	- aktivní učení
+		- agent neví, co má dělat
+		- active adaptive dynamic programming agent
+			- používá Bellmanovy rovnice
+			- ale nemusí se chovat úplně optimálně – opakuje zažité vzory
+			- říká se tomu hladový (greedy) agent
+		- je potřeba najít optimum mezi exploration a exploitation
+			- k tomu se dá použít temporální diference a Q funkce – říká se tomu Q učení
+			- variantou Q učení je SARSA (state-action-reward-state-action)
+	
