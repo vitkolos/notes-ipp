@@ -34,7 +34,7 @@
 	- pro pravidlo tvaru $U\to\lambda$ musíme pravidlo $T\to UV$ upravit na $T\to UV\mid V$
 		- tady vzniklo problematické pravidlo $T\to V$, ale to řešíme způsobem uvedeným výše
 - převod monotónní gramatiky do kontextového tvaru
-	- např. $AB\to CD$ převedeme na $AB\to\bar AB\to\bar A\bar B\to C\overline B\to CD$
+	- např. $AB\to CD$ převedeme na $AB\to\bar AB\to\bar A\bar B\to C\bar B\to CD$
 	- pokud by se mezi jednotlivé kroky přepisování vloudila nějaká pravidla operující se znaky z této dvojice, mohli bychom je přesunout před první krok nebo za poslední krok
 - jazyk slov s mocninným počtem písmen
 	- nejde bezkontextově, existuje monotónní gramatika
