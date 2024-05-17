@@ -1104,3 +1104,92 @@
 			- vytvoříme si pomocnou proměnnou `object dataLock = new object();`
 			- to je ta „esence zámku“
 			- pak si s proměnnou `data` můžeme dělat, co chceme – třeba do ní přiřadit nový objekt
+---
+
+- asynchronní metoda (vol. 1)
+	- na konci názvu bude typicky mít `Async`
+	- vrací „future“ … `Task<T>`
+		- ten má Result, Exception, Status
+	- hotovou future lze vytvořit pomocí `.From`
+	- můžeme vrátit „promise“ … `TaskCompletionSource<T>`
+- někdy by se nám hodilo něco, co by zahrnovalo dohromady future i promise
+	- mělo by to delegáta na odpovídající úlohu, která vrací `T`
+	- tohle se dá udělat právě tak, že napíšu `new Task<T>(úloha)`
+	- na tasku je metoda `Start`, která ho zafrontí do thread poolu
+	- jako další parametr konstruktoru Tasku můžeme uvést cancellation token, pak Task umí detekovat, když se z něj vyšíří OperationCanceledException pro daný token a nastaví se na Canceled
+		- užitečná věc: na cancellation tokenu existuje metoda ThrowIfCancellationRequested
+- když chci vytvořený Task rovnou pustit, napíšu `Task.Factory.StartNew(úloha)`
+- chci znát aktuální Task
+	- `t = Task.Factory.StartNew(() => { … t …  });`
+		- tohle se někdy může rozbít – `t` může být null
+		- je tam race condition – může se stát, že se úloha nejdřív zařadí do thread poolu a než se provede přiřazení do `t`, tak dojde ke kontext switchi → v `t` bude `null`
+	- `t = new Task(() => { … t …  }); t.Start();`
+		- tohle se nerozbije
+- `Task.Run(úloha)`
+	- pustí task v thread poolu
+	- pomocí StartNew nebo Start se úloha nemusí pustit v thread poolu (pokud to nenakonfiguruju pomocí parametrů) – více viz poslední přednáška
+- příklad s velkými a malými úlohami v thread poolu
+	- pokud uvnitř velké úlohy budeme plánovat malou úlohu do thread poolu a takových velkých úloh budeme mít 100, tak může dojít k thread pool starvation – úlohy se začnou vykonávat až při 101 vláknech
+	- řešením může být použití třídy Parallel
+	- nebo můžeme použít metodu ContinueWith
+		- voláním `Task t2<int> = t1.ContinueWith(prevTask => { … });` navěsíme task2 za task1
+	- metoda `Task.Factory.ContinueWhenAll`
+	- dá se vyrobit future, která bude completed nejdříve po určitém čase … `Task.Delay(ms)`
+	- dá se vyrobit future, která bude completed, jakmile budou všechny zadané tasky splněné … `Task.WhenAll`
+		- podobná je `Task.WhenAny` – když bude aspoň jeden naplněný
+	- na dokončení tasku můžeme počkat pomocí Wait (nebo WaitAll, WaitAny)
+- lokální metody
+	- uvnitř metody můžu definovat metodu
+	- chová se to jako lambda funkce
+	- variable capture (hodnoty proměnných) závisí na místě použití
+	- více v ET přednášce
+- cíl: napsat kód ve formátu „něco rychlého, něco pomalého, něco rychlého, něco pomalého, něco rychlého, …“, který se bude vykonávat postupně, ale nebude blokovat vlákno
+	- můžu použít iterátorové metody na plánování asynchronních korutin
+	- ale to by bylo hodně programování
+	- v C# na to existují „asynchronní metody“ (vol. 2) s klíčovým slovem `async`
+- `async`
+	- `async Task<T> LoremIpsumAsync(…) { … }`
+	- jednotlivé kroky asynchronní metody jsou reprezentovány klíčovým slovem `await`
+	- `await` funguje podobně jako `yield return`
+		- opět se konstruuje stavový automat
+		- když jsou v metodě dva řádky s await, tak se rozdělí do 3 kroků – před prvním await (včetně toho řádku s await), mezi prvním a druhým await a za druhým await
+	- první krok se vždycky provádí synchronně ve volající metodě
+		- tam můžeme provést kontrolu, třeba že parametry jsou v pořádku
+		- ale neměli bychom tam provádět nic náročného – pokud nechceme blokovat volající metodu
+		- výjimka tady vyvolaná se vyšíří ven
+	- `yield break` … konec korutiny
+		- paralelním konceptem v `async` metodě je `return`
+	- za `await` se píše objekt typu `Task<U>`
+		- ten se vrátí plánovacímu kódu, aby věděl, kdy má naplánovat další krok
+		- await vrací `U`
+	- za `return` se píše objekt typu `T`
+	- to `return` tam fakt někde musí být, abychom věděli, co má být výsledek
+	- i lambda funkce může být asynchronní
+- pozor na šíření výjimek
+	- když se vyšíří výjimka z `async` metody f2Async
+		- nastaví se na faulted
+	- co když f2Async voláme z metody f1Async, aniž bychom četli výsledný Task?
+		- nedozvíme se, že se vyšířila výjimka
+		- pokud se vyšíří z prvního synchronního kroku, tak se šíří klasicky jako výjimka
+	- await unwrapuje výjimky, respektive vezme první z nich a vyšíří ji ven
+- pozor na kombinaci zámku a awaitů
+	- překladač nám zakáže psát `await` dovnitř `lock` bloku
+	- `Monitor.Enter` a `Monitor.Exit` selže výjimkou
+	- jestli to fakt potřebujeme, tak musíme použít jiné synchronizační primitivum
+- semafor – má dvě implementace
+	- Semaphore
+		- potomek třídy WaitHandle
+		- žádní potomci WaitHandle nejsou určeni k použití jako základní synchronizační primitivum, trvají hrozně dlouho
+		- je to *meziprocesové* komunikační primitivum
+	- SemaphoreSlim
+		- ten chceme používat
+		- má stejné vlastnosti jako syncblock
+		- na začátku definujeme initial count (povolený počet zamčení)
+		- vlastnost CurrentCount, metody Wait a Release
+		- když je počítadlo na nule, tak metoda Wait zablokuje volajícího
+			- jinak dekrementuje CurrentCount
+		- Release inkrementuje CurrentCount
+			- dá se nastavit i maximum count, abychom semafor neodemkli mockrát
+		- není to omezené na vlákna
+		- SemaphoreSlim(1) je něco jako zámek (s nerekurzivním zamykáním), akorát pro víc vláken (u zámku ho musí odemknout stejné vlákno)
+		- je tam i metoda WaitAsync, která vrací Task označující, zda se to podařilo zamknout

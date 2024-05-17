@@ -211,3 +211,35 @@
 	- první tah nemusíme řešit, ten má speciální pravidla
 	- musí to vracet správné výsledky
 	- musí to fungovat obecně
+
+## Strojové učení
+
+- nevýhody neuronových sítí
+	- vyžadují vysoký výpočetní výkon
+	- nejsme schopni vysvětlit, proč to vrací konkrétní výsledek
+	- nejsme schopni zaručit (dokázat), že bude neuronka v konkrétních situacích vracet správné výsledky
+- klasifikace
+	- true positive, true negative, false positive, false negative
+	- měření kvality binární klasifikace
+		- accuracy … správnost odpovědí ze všech testů
+			- $TP+TN\over TP+TN+FP+FN$
+		- precision … správnost odpovědí ze všech pozitivních testů
+			- $TP\over TP+FP$
+		- recall … správnost odpovědí ze všecch nemocných jedinců
+			- $TP\over TP+FN$
+	- proč nestačí jedno měřítko kvality
+		- mějme nemoc, kterou má 1 % obyvatel
+		- test, který je vždy negativní
+			- accuracy 99 %
+			- precision není definována
+			- recall 0
+		- test, který z nemocných pozná 1 %
+			- accuracy cca 99 %
+			- precision 100 %
+			- recall 1 %
+		- test, který je vždy pozitivní
+			- accuracy 1 %
+			- precision 1 %
+			- recall 100 %
+	- Simpsonův paradox
+		- 
