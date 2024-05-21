@@ -461,3 +461,89 @@
 	- připravíme si metodu (třeba PrintAll), která vyenumeruje dotaz a vypíše lidi
 	- v 6B bude dávat smysl použít dotaz z 6 jako základ
 	- je tam exe, které můžeme pustit – v takovém pořadí máme lidi vypisovat
+
+---
+
+- zamykání
+- roboti v mřížce
+	- každé políčko v mřížce může mít referenci na robota nebo null
+	- pomocí nehýbajících se robotů se dají udělat překážky v bludišti
+	- i robot samotný si pamatuje svoji lokaci
+	- simulace funguje v krocích, chtěli bychom ji paralelizovat
+	- robot má 8 směrů kam jít nebo může stát na místě
+		- rozhoduje se, co bude dělat
+	- pohyb robota bude více operací – nejdřív nějaká kontrola, že políčko je volné, potom pohyb
+		- tahle sekvence není atomická
+	- když to budeme řešit vícevláknově, tak se nám roboti můžou srazit v jednom políčku, což nechceme
+- porušení atomicity
+	- nemůžeme čekat, že když se něco rozbije, tak se to rozbije hezky
+	- ani inkrementace pomocí ++ není atomická
+	- read-modify-write série kroků
+		- jsou architektury, kde se dá dvojice kroků udělat atomicky
+		- neexistuje architektura, která by všechny tři zvládla atomicky
+	- ani třeba přiřazení `r.Location = p;` není atomické, protože `p` je struktura a přiřazuje se po složkách
+	- přiřazení reference není atomické, ale v C# se mi nikdy nestane, že by to nebylo atomické (to řeší JIT)
+	- přiřazení proměnné nemusí být atomické (je to čtení a zápis)
+	- indexace v poli není atomická
+- hledání problémů s atomicitou
+	- typický problém – data races
+	- data race – k jednomu místu v paměti přistupují dvě různá vlákna, přičemž aspoň jeden z těch přístupů je write
+	- jak data races najít?
+		- uděláme si orientovaný graf posloupností příkazů
+		- problematické jsou dvojice příkazů, mezi nimiž neexistuje orientovaná cesta (pokud přistupují k jednomu místu v paměti a aspoň jeden je write → je to data race)
+	- i vytvoření objektu může způsobit data race
+	- jak se vyhnout data racu
+		- paměťové políčko může být izolované
+		- může být immutable
+		- může být synchronizované (pomocí zámků)
+	- jak zabránit data races pomocí zapouzdření
+		- třída Coordinate má private fieldy x, y
+		- v konstruktoru se přiřadí
+		- jinak jsou immutable – mají jenom veřejné gettery
+		- dokud konstruktor nedoběhne, s objektem nemůže nikdo pracovat (ale můžu se střelit do nohy, když z konstruktoru někomu předám this)
+	- synchronizace – pomocí zámků
+		- `lock (x) { … }` se přeloží na `try { Monitor.Enter(x); … } finally { Monitor.Exit(x); } `
+		- vnořování `lock` funguje, jak bychom čekali – takže se dá uvnitř lock bloku volat metoda s lock blokem (což třeba v C++ neplatí / nemusí platit)
+		- pokud chci zamknout přístup k proměnné referenčního typu, dává smysl ji použí jako zámek
+		- pokud chci zamknout přístup k proměnné hodnotového typu nebo k více proměnným, dává smysl vytvořit prázdný objekt (typu object) a použít ho jako objekt
+		- pokud mám thread-safe typ, je fajn ho tak označit
+		- příklad – dvě metody v objektu, jedna čte fieldy, druhá je zapisuje
+			- mohli bychom tam dát `lock (this)`
+				- takhle to dělá Java
+				- ale to funguje blbě
+					- když zamknu nějaký objekt z nějakého vlákna a potom na tom samém objektu v novém vlákně volám tu metodu se zámkem
+					- deadlock
+			- řešením je dát do třídy private field se zamykacím objektem
+			- u statických metod by nás mohlo napadnout zamykat pomocí typeof
+				- ale to používá JIT, takže se nám to může deadlocknout ještě snáz
+		- typický potenciální deadlock
+			- v jednom vlákně `lock (A) { lock (B) { } }`
+			- ve druhém vlákně `lock (B) { lock (A) { } }`
+		- jak předejít deadlocku
+			- pomocí grafu
+			- vrcholy … čekající tasky
+			- hrany … task x čeká na task y
+			- pokud je tam cyklus, je tam potenciální deadlock
+		- podmínky deadlocku … Coffman conditions
+			- viz wikipedie
+			- některá možná řešení
+				- použít v jednom vláknu jeden zámek
+				- zamykat zámky v daném pořadí (je potřeba napsat do kódu jako komentář, v jakém pořadí se zámky mají zamykat)
+		- problémy se zámky
+			- když zamykám málo → data races, atomicity violations
+			- když zamykám hodně → deadlocks, riziko zpomalení (sekvenční kód může být někdy rychlejší)
+		- nepovedené zamknutí zámku
+			- Monitor.Enter je implementovaný chytře – aktivně zkouší zamykat pár mikrosekund
+			- v případě pasivního čekání – spousta taktů vlákna
+- domácí úkol
+	- SimulationBase obsahuje pole robotů, list všech robotů a list movable robotů
+	- pak je pro nás důležitý RoomPoint
+	- v RobotSimulation je pro nás důležitá metoda SimulateOneStep_NoLocks
+	- DetermineNewLocation počítá novou pozici
+	- našim úkolem je tychle dvě metody modifikovat tak, aby to fungovalo (aby tam nebyly problémy s atomicitou) – pomocí zamykání
+		- můžeme si přidat nové zámky (a nové další věci – ale nemáme modifikovat layout projektu)
+	- bacha na deadlocks, nechat to paralelní
+	- když se dva roboti chtějí posunout na jedno políčko, tak je nám jedno, který se tam posune
+	- ani nemá smysl to pouštět, stačí zkusit, že to jde přeložit (to, že to jednou fungovalo, neznamená, že je to správně)
+	- v markdownovém souboru máme sepsat myšlenky, jaké data races jsme našli, jak jsme je vyřešili a proč myslíme, že to funguje
+	- zamykání navíc, které bude plynout z neznalosti přesného interního fungování C#, není chyba
