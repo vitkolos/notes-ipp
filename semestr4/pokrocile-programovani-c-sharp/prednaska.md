@@ -1193,3 +1193,108 @@
 		- není to omezené na vlákna
 		- SemaphoreSlim(1) je něco jako zámek (s nerekurzivním zamykáním), akorát pro víc vláken (u zámku ho musí odemknout stejné vlákno)
 		- je tam i metoda WaitAsync, která vrací Task označující, zda se to podařilo zamknout
+
+---
+
+- další synchronizační primitiva
+	- ReaderWriterLockSlim
+		- readeři se navzájem nevylučují, writeři ano
+		- přístup může mít v dané chvíli buď libovolně mnoho readerů, nebo jeden writer
+	- CountdownEvent
+		- něco jako semafor naopak
+		- čeká se, dokud není hodnota nulová
+- promise, future
+	- příklad: v jednom vlákně dáme task.Wait(), to vlákno se zablokuje
+	- SetResult musíme provést v jiné vlákně
+	- pak chceme opět pustit to zablokované vlákno
+	- syncblock se skládá ze dvou částí
+		- lock
+			- owner thread
+				- + counter (kvůli rekurzivnímu zamykání)
+			- waiting threads list – nějaký férový seznam (nebo fronta, na tom nesejde)
+		- condition variable
+			- sleeping threads list
+	- poznámka: zámku a podmínkové proměnné se dohromady říká monitor
+		- třída Monitor
+		- Monitor.Enter a Monitor.Exit obsluhují zámek
+		- Monitor.Wait přidá vlákno do seznamu spících vláken – blokující volání
+		- Monitor.Pulse probudí jedno ze seznamu spících vláken (nebo žádné, pokud je prázdný) – neblokující volání
+			- Monitor.PulseAll probudí všechna vlákna
+		- aby se dal použít Wait, Pulse nebo PulseAll, musí být obalený v lock bloku (pro stejný objekt) – jinak to vyhodí výjimku
+			- kdyby to fungovalo přesně takhle, tak by tam byl deadlock
+			- takže se Monitor.Wait chová trochu komplikovaně
+				- nejprve to za mě udělá Monitor.Exit
+				- pak nějaký InternalWait
+				- tyhle dva kroky se dějí atomicky
+				- pak se provede normální Monitor.Enter … blokující volání
+			- proč musím držet ten zámek (proč se vynucuje)
+				- mám nějakou podmínku
+				- třeba boolovskou proměnnou
+				- chceme vědět, kdy bude proměnná true
+				- pokud neplatí podmínka, tak chceme čekat, až ji někdo splní
+					- Monitor.Wait(x);
+				- v jiném vlákně nastavíme proměnnou na true a dáme Monitor.Pulse
+					- byla by tam race condition – proto tam musí být zámek
+					- bez Monitor.Exit by tam byl deadlock
+					- bez atomičnosti by se to mohlo rozbít
+				- u Monitor.Pulse se zámek vynucuje kvůli tomu, že by mezi nastavením podmínky na true a Pulsem mohl někdo nastavit podmínku na false
+			- ale ani takhle to ještě úplně nefunguje
+				- místo `if (!condition)` tam musíme mít `while (!condition)`
+- ilustrace použití – problém producent/konzument (producer/consumer)
+	- producent ukládá data do datové struktury
+	- konzument data bere z datové struktury
+	- dá se to snadno ladit – když je produkce rychlejší než konzumace, můžeme přidat konzumenty (nebo naopak)
+	- jednoduchá situace
+		- datová struktura … fronta
+		- máme jednoho producenta a jednoho konzumenta
+		- budeme používat Wait a Pulse
+		- je důležité říct si v hlavě, co je ta podmínka
+			- to je typická chyba
+			- je fajn to explicitně napsat do komentáře
+			- např. podmínka je „fronta je neprázdná“
+			- je dobré, aby pro konkrétní instanci objektu existovala jedna podmínka (aby po celou dobu existence znamenala to samé)
+		- v producentovi – po přidání položky dáme Monitor.Pulse(queue)
+		- v konzumentovi – `while (queue.Count == 0) Monitor.Wait(queue);`
+		- dáme tam poison pill, abychom vlákna mohli ukončit, na konci programu vlákna vzbudíme všechna pomocí PulseAll
+	- můžu použít i jiný objekt k zamykání
+	- nechali jsme ChatGPT implementovat QueueWithConditions
+		- příklad použití má po `queue.WaitUntilNotEmpty();` řádek s `queue.Dequeue();`
+		- to vede k race condition
+	- o podmínkových proměnných je potřeba dobře přemýšlet – jestli to nevede na race conditions nebo deadlocky
+- situace – funkce si chtějí mezi sebou předávat informaci, když běží ve stejném vlákně
+	- můžeme použít `Thread.CurrentThread.ManagedThreadID` a mít slovník – ale to má nějaké nedostatky
+	- tohle řeší operační systém – má thread local storage (TLS)
+		- dotnet na to má wrapper
+		- statickou proměnnou můžu označit atributem ThreadStatic
+			- na každém místě, kde z ní čteme, se vygeneruje volání ReadTLS
+			- kdekoliv do ní zapisujeme se vygeneruje WriteTLS
+			- ale nestačí `static int a = 42;`
+				- protože se to dá do statického konstruktoru, který se volá právě jednou z hlavního vlákna
+				- takže pro ostatní vlákna tam bude nula
+				- existuje třída ThreadLocal, kterou k tomu můžu použít
+					- field nemusí být statický, ale to obvykle není dobrý nápad
+			- pozor, jsou to drahé zdroje
+- různé frameworky definují threading model
+	- pravidla, jak se mám k třídám chovat z více vláken
+	- frameworky WinForms, WPF, MAUI, Avalonia a Uno mají podobný threading model
+		- UI thread s nekonečnou smyčkou
+		- když vznikne událost, tak se zařadí do fronty
+		- vyřešení události se provede synchronně v UI threadu
+		- nikdy se nemůže stát, že by běžely dvě události současně
+		- přístup k prvkům uživatelskému rozhraní musí být z UI threadu
+		- veškeré dlouhotrvající operace (nad 100 ms) bych měl dělat v jiném vlákně, aby nezamrzlo UI
+		- jak dostat informaci o dokončení události do UI
+			- v C# je koncept synchronizačního kontextu … abstraktní třída SynchronizationContext
+			- každý framework si implementuje vlastní
+			- metoda Post(úloha) … asynchronní
+			- metoda Send(úloha) … synchronní, blokující
+		- zachytíme (capture) sync context
+		- chceme progress bar
+			- krok těžkého zpracování → synchronizace → další krok → …
+		- co když použijeme async metodu
+			- vadilo by nám, kdyby se tasky plánovaly do thread poolu – blokovalo by nás to
+			- Task.Start, Task.Factory.StartNew, ContinueWith a await se ptají na aktuální sync context – pokud není žádný, tak použijou thread pool
+				- takže pokud tam je synchronizační kontext, tak se použije Post/Send
+				- naopak Task.Run vždycky použije thread pool
+			- když je tam těžkotonážní kód, který nechceme pustit konkurentně, ale opravdu paralelně, tak můžu napsat `await Task.Run`
+		- …

@@ -547,3 +547,29 @@
 	- ani nemá smysl to pouštět, stačí zkusit, že to jde přeložit (to, že to jednou fungovalo, neznamená, že je to správně)
 	- v markdownovém souboru máme sepsat myšlenky, jaké data races jsme našli, jak jsme je vyřešili a proč myslíme, že to funguje
 	- zamykání navíc, které bude plynout z neznalosti přesného interního fungování C#, není chyba
+- 12. domácí úkol (k 13. přednášce)
+	- implementujeme třídu AsyncSemaphore
+	- vycházíme z implementace SemaphoreSlim
+		- máme počítadlo
+		- Wait
+			- pokud je počítadlo nenulové, odečte jedna a pustí tam to vlákno
+			- pokud je počítadlo nulové, synchronně to vlákno zablokuje
+			- vrací bool (ve variantě s timeoutem)
+		- Release
+			- zvýší počítadlo o jedna
+			- pokud nějaké vlákno čekalo, tak ho můžu probudit
+		- ta třída je docela komplikovaná – je tam toho hodně
+		- WaitAsync
+			- vrací `Task<bool>`
+	- chceme implementovat semafor s WaitAsync a Release
+		- aby se ty metody chovaly tak, jako v SemaphoreSlim
+	- zajímají nás jen některé overloady
+	- dokumentace v PDF
+	- implementaci ObjectDisposedException můžeme vynechat
+	- metody
+		- konstruktor
+		- WaitAsync
+			- jako -1 můžeme použít konstantu Timeout.Infinite
+		- Release
+			- chceme být féroví – vlákna obsluhovat v pořadí FIFO
+	- AsyncState … vlastnost Tasku, kam se dají uložit nějaká dodatečná data (třeba debugovací informace)

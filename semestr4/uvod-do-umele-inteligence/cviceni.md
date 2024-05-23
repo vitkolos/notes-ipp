@@ -242,4 +242,20 @@
 			- precision 1 %
 			- recall 100 %
 	- Simpsonův paradox
-		- 
+- neuronové sítě
+	- lineární klasifikace
+		- hledáme nadrovinu rozdělující A a B
+		- začneme s nějakou nadrovinou, tu postupně posouváme
+	- XOR klasifikujeme pomocí dvou nadrovin
+		- tím nám přibudou dimenze/souřadnice (podle toho, jestli je bod vlevo nebo vpravo od nadroviny)
+			- pak už můžeme najít nadrovinu
+			- každá nadrovina nám vlastně reprezentujeme jeden neuron, jejich výstupy spojíme ve třetím neuronu
+		- support vector machines
+	- aktivační funkce
+		- step (hard treshold) – je těžké ji naučit, protože nemá derivaci v jednom bodě a všude jinde jsou derivace nulové
+		- logistická funkce
+		- spousta dalších
+	- cílem je najít lokální minimum funkce
+		- použijeme gradient
+	- algoritmus zpětné propagace
+		- v prezentaci chyba – inicializace vah má být před repeatem
