@@ -217,4 +217,33 @@
 			- $\text{argmax}_\theta\;f(x;\theta)$
 			- abych se nemusel rozhodovat mezi $p$ a $f$, budu používat $L$
 		- …
-
+- testy
+	- 1-výběrový
+	- 2-výběrový
+	- párový
+- lineární regrese
+	- $x_i$ … nezávislá proměnná, predictor
+	- $y_i$ … závislá proměnná, response
+	- cíl … $y=\theta_0+\theta_1x$
+		- $\theta_0$ … intercept
+		- $\theta_1$ … slope
+	- chybu měříme pomocí kvadratické odchylky $\sum_{i=1}^n(y_i-(\theta_0+\theta_1x_i))^2$
+	- řešení
+		- $\hat\theta_1=\frac{cov(x,y)}{var(x)}$
+		- $\hat\theta_0=\bar y-\theta_1\bar x$
+	- zavádějící proměnná (confounding variable) – není v datech, ale kdybychom ji přidali, všechno by dávalo větší smysl
+	- Simpsonův paradox – jedna strana vítězí v jednotlivých kategoriích, ale dohromady vítězí ta druhá
+	- neparametrická statistika
+		- empirická distribuční funkce
+	- frekventistická vs. bayesovská statistika
+	- generování náhodných veličin
+		- uniformní rozdělení $U(0,1)$ – dejme tomu, že ho máme (je těžké ho generovat)
+		- diskrétní náhodná veličina – uděláme rozklad intervalu od nuly do jedné tak, aby $P(X=i)=|A_i|$, kde $|A_i|$ je část intervalu
+		- inverzní transformace
+			- $Q_X(p)=F_X^{-1}(p)$ pro $X$ spojitou
+			- $Q_X=\min\set{x:F_X(x)\geq p}$
+			- věta: $F^{-1}(U)$ má distribuční funkci $F$
+				- kde $U\sim U(0,1)$
+		- rejection sampling
+			- generujeme uniformně náhodně bod $(x,y)$ pod křivkou $f_X$
+			- pak $x$ má hustotu $f_X$
