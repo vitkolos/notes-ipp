@@ -183,7 +183,7 @@
 				- ale někdy se nedá generovat jenom jeden následník
 	- rozšíření BFS o funkci určující cenu kroku (tedy cenu hrany)
 		- Dijkstrův algoritmus
-		- taky se tomu říká uniform cost search
+		- taky se tomu říká uniform-cost search
 		- $g(n)$ označuje cenu nejlevnější cesty ze startu do $n$
 		- místo fronty použijeme prioritní frontu
 - strategie informovaného (heuristického) prohledávání
@@ -225,62 +225,75 @@
 	- když heuristika $h_2$ dává větší hodnoty než $h_1$, tak se říká, že $h_2$ dominuje $h_1$
 		- pokud je $h_2$ přípustná a pokud se $h_2$ nepočítá výrazně déle než $h_1$, tak je $h_2$ zjevně lepší než $h_1$
 
----
-
 ## 3. Splňování podmínek
 
 - problém rozmístění královen na šachovnici, aby se neohrožovaly
 	- možný model
 		- stavy – (částečná) rozmístění královen na šachovnici
 		- úvodní stav – prázdná šachovnice
-		- cíl – neznámý stav
+		- cíl – neznámý stav (ale pozná se tak, že je na šachovnici N královen, které se neohrožují)
 		- akce – umístím královnu tak, aby nevznikl konflikt s již umístěnými královnami
-	- lepší model
-		- královnám přiřadíme sloupce, takže řešíme jenom řádky
-		- …
+	- lepší model: královnám přiřadíme sloupce, takže řešíme jenom řádky
+	- alternativní model: všechny královny jsou na šachovnici, jenom měníme jejich pozice
 	- A* je nám k ničemu
 		- víme, v jaké hloubce se cíl nachází
 		- nevíme, jak cíl vypadá
 	- použijeme tree-search, protože stavy tvoří strom
 	- jak to optimalizovat
 		- budeme si dopředu vyškrtávat políčka, kam už nemůžeme nic umístit
-		- forward checking
+		- tomu se říká forward checking
 		- stav pro nás není černá skříňka
 		- jak to zobecnit?
-- forward checking v sudoku
-	- královny i sudoku jsou constraint satisfaction problem (CSP)
-	- relace = podmnožina kartézského součinu
-- CSP
+			- forward checking v sudoku
+			- královny i sudoku jsou constraint satisfaction problem (CSP)
+- constraint satisfaction problem (CSP)
 	- konečná množina proměnných
 	- domény – konečné množiny možných hodnot pro každou proměnnou
 	- konečná množina podmínek (constraints)
 		- constraint je relace na podmnožině proměnných
+			- relace = podmnožina kartézského součinu
 		- constraint arity = počet proměnných, které podmínka omezuje
 	- chceme přípustné řešení (feasible solution)
-- CSP můžeme řešit tree-search backtrackingem
-	- úpravou proměnných v určitém pořadí můžeme získat větší efektivitu
-	- můžeme pročistit hodnoty, které zjevně nesplňují podmínky
+		- úplné konzistentní přiřazení hodnot proměnným
+		- konzistentní … všechny podmínky jsou splněny
+	- CSP můžeme řešit tree-search backtrackingem
+		- úpravou proměnných v určitém pořadí můžeme získat větší efektivitu
+		- můžeme pročistit hodnoty, které zjevně nesplňují podmínky
+			- příklad
+				- $a\in\set{3,4,5,6,7}$
+				- $b\in\set{1,2,3,4,5}$
+				- constraint: $a\lt b$
+				- ale např. $a=6$ vůbec nedává smysl
+				- odstraněním nekonzistentních hodnot dostaneme $a\in \set{3,4}$, $b\in\set{4,5}$
+			- můžeme použít metodu hranové konzistence
 - arc consistency (hranová konzistence)
-	- arc = orientovaná hrana
-	- edge = neorientovaná hrana
+	- grafová terminologie
+		- arc = orientovaná hrana
+		- edge = neorientovaná hrana
+		- tedy je to vlastně „konzistence orientovaných hran“
 	- uvažujme binární podmínky
 		- libovolnou n-ární podmínku lze převést na balík binárních podmínek
-	- každá podmínka odpovídá orientované hraně v síti podmínek
-	- orientovaná hrana $(V_i,V_j)$ je hranově konzistentní $\equiv$ pro každé $x\in D_i$ existuje $y\in D_j$ takové, že přiřazení $V_i=x$ a $V_j=y$ splní všechny binární podmínky $V_i,V_j$
+	- každá binární podmínka odpovídá dvojici orientovaných hran v síti podmínek (vrcholy odpovídají proměnným)
+		- pokud je mezi dvěma proměnnými více podmínek, můžeme je sloučit do jedné (abychom neměli multigraf)
+	- orientovaná hrana $(V_i,V_j)$ je hranově konzistentní $\equiv$ pro každé $x\in D_i$ existuje $y\in D_j$ takové, že přiřazení $V_i=x$ a $V_j=y$ splní všechny binární podmínky pro $V_i,V_j$
+		- může platit, že $(V_i,V_j)$ je hranově konzistentní, ale $(V_j,V_i)$ není
 	- CSP je hranově konzistentní $\equiv$ každá hrana je hranově konzistentní (v obou směrech)
 	- algoritmus AC-3
-		- jakmile odstraním prvky domény, musím opakovat kontrolu v sousedech (ale stačí kontrolovat jen jednu ze dvou hran)
-		- složitost $O(ed^3)$, kde $e$ je počet podmínek, $d$ je velikost domény
-		- optimální algoritmus má složitost $O(ed^2)$
-- jak zkombinovat AC a backtracking
-	- problém uděláme hranově konzistentní
-	- po každém přiřazení obnovíme hranovou konzistenci
-	- této technice se říká *look ahead* nebo *constraint propagation* nebo *udržování hranové konzistence*
-	- rozdíl oproti forward checkingu
-		- FC kontroluje jenom aktuální proměnnou – nedívá se do budoucnosti
-	- kontroly FC/AC jsou v polynomiálním čase (strom se větví exponenciálně)
-	- hranová konzistence je typ lokální konzistence
-		- takže negarantuje globální konzistenci
+		- začínám se všemi hranami (podmínkami) ve frontě
+		- postupně beru hrany z fronty a pro každou odstraním nekonzistentní prvky z domény
+		- pokud jsem odstranil nějaké prvky z domény, musím zopakovat kontrolu pro hrany směřující do dané proměnné (kromě hrany opačné k té aktuálně zpracované)
+		- složitost $O(cd^3)$, kde $c$ je počet podmínek, $d$ je velikost domény
+			- $O(d^2)$ … kontrola konzistence
+			- každá podmínka se ve frontě může objevit nejvýše $d$-krát, protože se z dané domény dá odstranit nejvýše $d$ prvků
+		- optimální algoritmus má složitost $O(cd^2)$
+	- jak zkombinovat AC a backtracking
+		- problém uděláme hranově konzistentní
+		- po každém přiřazení obnovíme hranovou konzistenci
+		- této technice se říká *look ahead* nebo *constraint propagation* nebo *udržování hranové konzistence*
+		- rozdíl oproti forward checkingu
+			- FC kontroluje jenom aktuální proměnnou – nedívá se do budoucnosti
+		- kontroly FC/AC jsou v polynomiálním čase, kdežto strom stavů se větví exponenciálně
+	- hranová konzistence je typ lokální konzistence, negarantuje globální konzistenci
 - silnější konzistence … $k$-konzistence
 	- hranová konzistence = 2-konzistence
 	- konzistence po cestě (path consistency) = 3-konzistence
@@ -289,10 +302,10 @@
 - globální podmínky
 	- vezmeme balík podmínek → z nich uděláme globální podmínku
 	- příklad: globální podmínka *all different*
-	- řešíme pomocí hledání párování v bipartitních grafech
-		- jedna partita = proměnné
-		- druhá partita = hodnoty
-	- pak stačí promazat hrany, které nejsou v žádném párování
+		- řešíme pomocí hledání párování v bipartitních grafech
+			- jedna partita = proměnné
+			- druhá partita = hodnoty
+		- pak stačí promazat hrany, které nejsou v žádném párování
 - v jakém pořadí brát proměnné a hodnoty v backtrackingu
 	- heuristiky pro výběr proměnných
 		- princip prvního neúspěchu (fail-first principle) – vyber nejdřív takovou proměnnou, jejíž přiřazení pravděpodobně skončí neúspěchem
@@ -306,6 +319,7 @@
 	- zkonstruujeme model
 	- použijeme univerzální solver
 		- kombinace prohledávání a odvozování přes podmínky
+		- hranová konzistence a globální podmínky jsou nejčastěji používané inferenční techniky
 - často lze prohodit proměnné a hodnoty (hodnoty se stávají proměnnými, proměnné hodnotami) → vznikne duální model
 	- např. u královen jsou jednotlivá políčka proměnné, které nabývají hodnot 0 nebo 1 podle toho, zda tam je královna
 
