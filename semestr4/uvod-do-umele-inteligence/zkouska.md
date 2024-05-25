@@ -172,37 +172,58 @@
 			- suboptimální – nesměřuje k cíli
 			- časová složitost $O(b^m)$, kde $m$ je maximální hloubka libovolného vrcholu
 			- prostorová složitost $O(bm)$
-- extenze BFS pro funkci určující cenu kroku (tedy cenu hrany)
-	- Dijkstrův algoritmus
-	- taky se tomu říká uniform cost search
-	- $g(n)$ označuje cenu nejlevnější cesty ze startu do $n$
-	- místo fronty použijeme prioritní frontu
-- best-first search
-	- pro vrchol máme ohodnocovací funkci $f(n)$
-	- $f(n)$ použijeme v Dijkstrově algoritmu místo $g(n)$
-	- greedy best-first search
-		- $f(n)=h(n)$
-		- není optimální ani úplný
-	- A* algoritmus
-		- $f(n)=g(n)+h(n)$, kde $h(n)$ je heuristika
-		- optimální a úplný
-		- typicky mu dojde paměť dřív než čas
-- co chceme od heuristiky $h(n)$ u algoritmu A*
-	- přípustnost – $h(n)$ musí být menší rovna nejkratší cestě z daného vrcholu do cíle, musí být nezáporná
-	- monotónnost
-		- mějme vrchol $n$ a jeho souseda $n'$
-		- $c(n,a,n')$ je cena přechodu z $n$ do $n'$
-		- heuristika je monotónní, když $h(n)\leq c(n,a,n')+h(n')$
-	- tvrzení: monotónní heuristika je přípustná
-	- tvrzení: pro monotónní heuristiku jsou hodnoty $f(n)$ neklesající po libovolné cestě
-	- tvrzení: pokud je $h(n)$ přípustná, pak je A* u tree search optimální
-	- tvrzení: pokud je $h(n)$ přípustná, pak je A* u graph search optimální
-- když heuristika $h_2$ dává větší hodnoty než $h_1$, tak se říká, že $h_2$ dominuje $h_1$
-	- pokud je $h_2$ přípustná a pokud se $h_2$ nepočítá výrazně déle než $h_1$, tak je $h_2$ zjevně lepší než $h_1$
-- best-first je třída algoritmů, kde máme uzly ohodnoceny nějakou funkcí a vybíráme nejmenší z nich
-- backtracking vs. DFS
-	- DFS využívá to, že nám stav může vrátit všechny následníky (pak je držíme v paměti)
-	- backtracking v daném vrcholu generuje jednoho následníka (takže všechny ostatní nemusíme držet v paměti)
+			- pokud použijeme backtracking (generujeme jenom jednoho následníka místo všech), tak nám stačí dokonce jenom $O(m)$ paměti
+				- DFS využívá to, že nám stav může vrátit všechny následníky (pak je držíme v paměti)
+				- backtracking v daném vrcholu generuje jednoho následníka (takže všechny ostatní nemusíme držet v paměti)
+					- ale někdy se nedá generovat jenom jeden následník
+		- extenze BFS pro funkci určující cenu kroku (tedy cenu hrany)
+			- Dijkstrův algoritmus
+			- taky se tomu říká uniform cost search
+			- $g(n)$ označuje cenu nejlevnější cesty ze startu do $n$
+			- místo fronty použijeme prioritní frontu
+	- strategie informovaného (heuristického) prohledávání
+		- best-first search
+			- pro vrchol máme ohodnocovací funkci $f(n)$
+			- $f(n)$ použijeme v Dijkstrově algoritmu místo $g(n)$
+			- máme heuristickou funkci $h(n)$, která pro daný vrchol označuje odhadovanou cenu nejlevnější cesty do cílového stavu
+			- best-first je třída algoritmů, kde máme uzly ohodnoceny nějakou funkcí a vybíráme nejmenší z nich
+			- greedy best-first search
+				- $f(n)=h(n)$
+				- není optimální ani úplný
+			- A* algoritmus
+				- $f(n)=g(n)+h(n)$, kde $h(n)$ je heuristika
+				- optimální a úplný
+				- typicky mu dojde paměť dřív než čas
+		- co chceme od heuristiky $h(n)$ u algoritmu A*
+			- přípustnost – $h(n)$ musí být menší rovna nejkratší cestě z daného vrcholu do cíle, musí být nezáporná
+			- monotónnost (= konzistence)
+				- mějme vrchol $n$ a jeho souseda $n'$
+				- $c(n,a,n')$ je cena přechodu z $n$ do $n'$ (akcí $a$)
+				- heuristika je monotónní, když $h(n)\leq c(n,a,n')+h(n')$
+			- tvrzení: monotónní heuristika je přípustná
+			- důkaz
+				- vezmu nejkratší cestu do cíle … $n_1,n_2,\dots,n_k$
+				- z monotonie pro $i\in[k-1]$ vyjádřím $h(n_i)-h(n_{i+1})\leq c(n_i,a_i,n_{i+1})$
+				- sečtu to, čímž dostanu $h(n_1)\leq\sum_{i\in[k-1]} c(n_i,a_i,n_{i+1})$
+					- jelikož $h(n_k)=0$
+			- příklad přípustné nemonotónní heuristiky – všude samé nuly, kolem cíle jedničky
+			- tvrzení: pro monotónní heuristiku jsou hodnoty $f(n)$ neklesající po libovolné cestě
+			- důkaz
+				- pro $n'$ následníka vrcholu $n$
+					- $g(n')=g(n)+c(n,a,n')$
+					- $h(n)\leq c(n,a,n')+h(n')$
+				- $f(n')=g(n')+h(n')=g(n)+c(n,a,n')+h(n')\geq g(n)+h(n)=f(n)$
+			- tvrzení: pokud je $h(n)$ přípustná, pak je A* u tree search optimální
+				- do cíle nevedou žádné suboptimální cesty, takže si vystačíme s důkazem optimality Dijkstrova algoritmu
+			- tvrzení: pokud je $h(n)$ monotónní, pak je A* u graph search optimální
+				- s nemonotónní heuristikou jsme mohli najít suboptimální cestu do cíle
+		- když heuristika $h_2$ dává větší hodnoty než $h_1$, tak se říká, že $h_2$ dominuje $h_1$
+			- pokud je $h_2$ přípustná a pokud se $h_2$ nepočítá výrazně déle než $h_1$, tak je $h_2$ zjevně lepší než $h_1$
+
+---
+
+## 3. Splňování podmínek
+
 - problém rozmístění královen na šachovnici, aby se neohrožovaly
 	- možný model
 		- stavy – (částečná) rozmístění královen na šachovnici
@@ -282,32 +303,35 @@
 		- kombinace prohledávání a odvozování přes podmínky
 - často lze prohodit proměnné a hodnoty (hodnoty se stávají proměnnými, proměnné hodnotami) → vznikne duální model
 	- např. u královen jsou jednotlivá políčka proměnné, které nabývají hodnot 0 nebo 1 podle toho, zda tam je královna
-	- podmínky vyjádříme logickými formulemi – lze je zapsat v CNF
-	- k nalezení splňujícího ohodnocení se nejčastěji používá algoritmus DPLL
-		- ryzí (čistý, pure) výskyt – zas tak moc se nepoužívá
-		- jednotková propagace
-			- hledám klauzule o jedné proměnné
-			- je v zásadě ekvivalentní hranové konzistenci
-	- další optimalizace SATu
-		- komponentová analýza
-			- pokud se klauzule dají rozdělit na disjunktní podmnožiny, které nesdílejí proměnné, dají se řešit nezávisle
-		- pořadí proměnných (a hodnot)
-			- degree heuristic – začni proměnnou, která se vyskytuje nejčastěji
-			- activity heuristic – vyber proměnnou, která se nejčastěji vyskytuje v konfliktech (tedy v dead-ends, v klauzulích, které nelze ohodnotit, tedy musím backtrackovat)
-		- náhodné restarty
-			- pokud hledám příliš dlouho, náhodně změním způsob volby proměnných apod.
-			- abych se nezaseknul v nějaké slepé větvi při backtrackingu
-		- jak hledat jednotkové klauzule – clever indexing (?)
-			- dá se pro každou klauzuli udržovat čítač počtu literálů – ale to trvá dlouho
-			- lepší je použít watched literals
-			- vyberu náhodně dva literály
-			- když se jeden z nich ohodnotí, podívám se na klauzuli
-				- buď je jednotková, nebo vyberu nějaký další náhodný watched literal
-			- pokud literály (proměnné) vyberu vhodně, tak mi jich stačí relativně málo pro mnoho klauzulí
-		- clause learning
-			- když dojde k failu (dead-end, musím backtrackovat)
-			- identifikuju podmnožinu proměnných, které fail způsobily
-			- konflikt (špatnou kombinaci hodnot) zakóduju jako klauzuli
+
+## 4. Logické uvažování (dopředné a zpětné řetězení, rezoluce, SAT)
+
+- podmínky vyjádříme logickými formulemi – lze je zapsat v CNF
+- k nalezení splňujícího ohodnocení se nejčastěji používá algoritmus DPLL
+	- ryzí (čistý, pure) výskyt – zas tak moc se nepoužívá
+	- jednotková propagace
+		- hledám klauzule o jedné proměnné
+		- je v zásadě ekvivalentní hranové konzistenci
+- další optimalizace SATu
+	- komponentová analýza
+		- pokud se klauzule dají rozdělit na disjunktní podmnožiny, které nesdílejí proměnné, dají se řešit nezávisle
+	- pořadí proměnných (a hodnot)
+		- degree heuristic – začni proměnnou, která se vyskytuje nejčastěji
+		- activity heuristic – vyber proměnnou, která se nejčastěji vyskytuje v konfliktech (tedy v dead-ends, v klauzulích, které nelze ohodnotit, tedy musím backtrackovat)
+	- náhodné restarty
+		- pokud hledám příliš dlouho, náhodně změním způsob volby proměnných apod.
+		- abych se nezaseknul v nějaké slepé větvi při backtrackingu
+	- jak hledat jednotkové klauzule – clever indexing (?)
+		- dá se pro každou klauzuli udržovat čítač počtu literálů – ale to trvá dlouho
+		- lepší je použít watched literals
+		- vyberu náhodně dva literály
+		- když se jeden z nich ohodnotí, podívám se na klauzuli
+			- buď je jednotková, nebo vyberu nějaký další náhodný watched literal
+		- pokud literály (proměnné) vyberu vhodně, tak mi jich stačí relativně málo pro mnoho klauzulí
+	- clause learning
+		- když dojde k failu (dead-end, musím backtrackovat)
+		- identifikuju podmnožinu proměnných, které fail způsobily
+		- konflikt (špatnou kombinaci hodnot) zakóduju jako klauzuli
 - znalostní agenti
 	- mají k dispozici znalostní bázi
 	- můžeme jim poskytovat nové informace nebo se jich na něco ptát
@@ -334,20 +358,309 @@
 					- něco mě zajímá – pokouším se to odvodit
 					- tohle se používá v Prologu
 
-## 3. Splňování podmínek
+## 7. Automatické plánování
 
-## 4. Logické uvažování (dopředné a zpětné řetězení, rezoluce, SAT)
+- potřebujeme heuristiku, aby naváděla prohledávání
+	- musí být přípustná, může být monotónní
+	- můžeme ji najít tak, že zkusíme řešit rozvolněný problém (odstraníme některé constraints)
+	- možné heuristika
+	- ignorujeme podmínky akcí
+		- najdeme nejmenší množinu akcí, která pokrývá cíl
+	- ignorujeme negativní efekty akcí
+- další formy plánování
+	- plan-space planning
+		- je bližší tomu, jak plánujou lidé
+		- postupně naplňujeme cíle a řešíme hrozby
+	- hierarchické plánování
+		- rozkládáme úkoly do primitivních úkolů (akcí)
+- shrnutí – automatizované plánování
+	- doménový model popisuje možnosti agentů
+	- cílem je najít sekvenci akcí ze současného do cílového stavu
+	- realizované prohledáváním stavového prostoru
+	- používáme heuristiky (ty můžou být nezávislé na doméně)
 
 ## 5. Pravděpodobnostní uvažování (Bayesovské sítě)
 
+- zdroje nejistoty
+	- částečná pozorovatelnost – nelze snadno zjistit současný stav
+	- nedeterminismus – není jisté, jak akce dopadne
+- logický agent by si musel pamatovat všechny možnosti situací
+- pravděpodobnostní agent každému tvrzení přiřazuje belief mezi 0 a 1
+- použijeme teorii pravděpodobnosti
+- někdy si můžeme udělat tabulku všech možností a určit jejich pravděpodobnosti
+- velkou tabulku budeme reprezentovat menším způsobem
+- Bayesovo pravidlo
+- bayesovská síť je orientovaný acyklický graf, kde vrcholy odpovídají náhodným proměnným
+	- šipky popisují závislost
+	- u každého vrcholu jsou CPD tabulky, které popisujou jeho závislost na rodičích
+- konstrukce bayesovské sítě
+	- nějak si uspořádáme proměnné (lepší je řadit je od příčin k důsledkům, ale není to nutné)
+	- jdeme odshora dolů, přidáváme správné hrany
+	- příklad: MaryCalls, JohnCalls, Alarm, Burglary, Earthquakce
+		- z MaryCalls povede hrana do JohnCalls, protože nejsou nezávislé (když volá Mary, tak je větší šance, že volá i John)
+		- z obou povede hrana do Alarmu
+		- z Alarmu vedou hrany do Burglary a Earthquake (ale hrany z JohnCalls a MarryCalls tam nepovedou – na těch hranách nezáleží, jsou nezávislé)
+		- z Burglary povede hrana do Earthquake, protože pokud zní alarm a k vloupání nedošlo, tak pravděpodobně došlo k zemětřesení
+	- akorát je těžké určit hodnoty pravděpodobností
+- z bayesovských sítí můžeme provádět inferenci – odvozovat pravděpodobnost proměnných pomocí pravděpodobností *skrytých* proměnných
+	- $P(X|e)=\alpha P(X,e)=\alpha\sum_y P(X,e,y)$
+	- přičemž $P(X,e,y)$ lze určit pomocí $P(x_1,\dots,x_n)=\prod_i P(x_i\mid\text{parents}(x_i))$
+	- příklad – počítáme pravděpodobnost Burglary, když JohnCalls a MaryCalls
+		- $P(b\mid j,m)=\alpha\sum_e\sum_a P(b)P(e)P(a|b,e)P(j|a)P(m|a)$
+		- $=\alpha P(b)\sum_e P(e)\sum_aP(a|b,e) P(j|a) P(m|a)$
+	- když nemůžeme určit konkrétní hodnotu pravěpodobnosti přímo, tak výpočet rozvětvíme
+	- některé větve se objeví vícekrát – hodí se nám dynamické programování
+	- používáme *faktory*
+	- tabulky s faktory mezi sebou můžeme násobit
+- Monte Carlo přístup?
+
 ## 6. Reprezentace znalostí (situační kalkulus, Markovské modely)
 
-## 7. Automatické plánování
+- formální model
+	- transition model
+		- určuje pravděpodobnostní rozložení přes proměnné posledního stavu, když známe předchozí hodnoty
+		- zjednodušující předpoklady
+			- další stav závisí jen na předchozím stavu
+			- všechny přechodové tabulky jsou identické přes všechna $t$
+	- sensor (observation) model
+		- popisuje, jak se pozorované proměnné mění
+		- …
+- základní inferenční úlohy
+	- filtrování
+	- predikce
+	- vyhlazování
+	- nejpravděpodobnější vysvětlení
+- skryté proměnné popisují stavy světa
+	- stavy světa jsou neznámé → proto jsou proměnné skryté
+	- mezi stavy existují pravděpodobnostní přechody
+		- předpoklad: nový stav (jeho pravděpodobnost) závisí jen na tom předchozím
+	- máme pozorované proměnné
+		- předpoklad: pozorování záleží jenom na současném stavu, ne na těch předchozích
+	- základní inferenční úlohy
+		- filtering
+		- prediction
+		- smoothing
+		- most likely explanation
+- skryté Markovovy modely
+	- máme matici stavů a měření
+	- algoritmy lze formulovat pomocí maticových operací
 
 ## 8. Markovské rozhodovací procesy
 
+- markovovský rozhodovací proces (MDP)
+	- sekvenční rozhodovací problém
+	- pro plně pozorovatelné stochastické prostředí
+	- máme Markovovův přechodový model a reward
+	- řešením MDP je policy (strategie) – funkce doporučující akci pro každý stav
+	- Bellmannova rovnice
+		- vezmu reward a discountovaný užitek okolí
+		- akorát nevím, kterou akci provedu, tak vezmu všechny a maximum přes ně (násobím jejich užitek pravděpodobností)
+	- soustava Bellmanových rovnic není lineární – obsahuje maximum
+	- můžu je řešit aproximací
+		- použiju iterativní přístup
+		- nastavím nějak užitky – třeba jim nastavím nuly
+		- provedu update – aplikuju Bellmanovu rovnici
+		- pokud se dostatečně přiblížím k pevnému bodu, tak toho nechám
+			- je tam ta speciální formule s $\epsilon$ – ale nebudeme dokazovat, co přesně říká
+		- → value iteration
+		- strategie se ustálí dřív než užitky
+			- policy loss … vzdálenost mezi optimálním uižtkem a užitkem strategie
+			- můžeme iterativně zlepšovat policy, dokud se nepřestane zlepšovat
+			- z rovnic nám zmizí maximum → máme lineární rovnice
+			- → policy iteration
+			- gaussovka je $O(n^3)$
+- částečně pozorovatelný markovský rozhodovací proces (POMDP)
+	- místo reálný stavů můžeme používat ty domnělé (belief states)
+	- modely přechodů a senzorů jsou reprezentovány dynamickou Bayesovskou sítí
+	- přidáme rozhodování a užitky a dostaneme dynamickou rozhodovací síť
+	- generujeme si stromeček
+		- „co kdyby pozorování bylo takové?“ „co kdyby bylo jiné?“
+	- používá se algoritmus ExpectedMiniMax
+- více agentů
+	- můžeme se tvářit, že další agenti neexistují a že jsou součásti prostředí – informace se k nám dostávají skrz pozorování
+	- pokud víme, že jsou ostatní agenti racionální, můžeme se rozhodovat líp, pokud budeme „přemýšlet za ně“
+	- to vede na teorii her
+	- nejtypičtější hry – deterministické hry s kompletní informací a nulovým součet pro dva hráče, kteří se střídají (šachy, Go, …)
+	- algoritmus minimax
+	- minimax s $\alpha,\beta$ prořezáváním
+		- záleží na pořadí procházení větví – když budu procházet v dobrém pořadí, tak větve můžu dřív zaříznout
+		- vrátí to samé, co klasický minimax
+	- stavový prostor je obrovský – ohodnotíme částečný stav hry (nebudeme ji „dohrávat“ do konce)
+		- ohodnocovací funkce bude brát vážený počet figurek
+
 ## 9. Hry a teorie her
 
+- někdy ve hrách hraje roli náhoda (tzv. stochastické hry)
+	- např. házíme kostkou
+	- algoritmus expected minimax
+	- mezi uzly s tahy hráčů přidám vrstvy s pravděpodobnostmi
+	- při výpočtu min nebo max je vážím pomocí pravděpodobností
+	- je důležité lépe sestavit ohodnocovací funkci, protože nezáleží jenom na pořadí hodnot, ale taky na absolutních ohodnoceních
+- hry na jeden tah
+	- kámen, nůžky, papír
+	- dvouprstá Morra
+	- vězňovo dilema
+		- dominantní čistá strategie – testify (defect)
+		- ale vyhrála policie – lepší by bylo, kdyby oba odmítli vypovídat (= refuse/cooperate)
+		- našli jsme Nashovo ekvilibrium – nikdo neprofituje ze změny strategie, pokud druhý hráč zůstane u stejné strategie
+		- definice dominance a čistoty strategie
+	- dvouprstá Morra nemá čistou strategii
+	- jak najít optimální smíšenou strategii?
+		- technika maximin
+	- opakované hry
+	- strategie pro opakované vězňovo dilema
+		- pokud víme, která hra je poslední, vede to na podobnou situaci jako u jedné hry
+		- tit-for-tat
+- k čemu používáme teorii her
+	- k návrhu agentů
+	- k návrhu mechanismů (pravidel)
+		- inverzní teorie her
+		- aukce
+			- anglická aukce
+				- strategie: přihazuju, dokud cena není vyšší než moje hodnota
+				- má to problémy
+				- nepůjdu do aukce s někým hodně bohatým
+				- lidi musejí být ve stejnou chvíli na stejném místě
+			- holandská aukce
+				- začíná se vyšší cenou
+			- obálková aukce
+				- největší nabídka vítězí
+				- neexistuje jednoduchá dominantní strategie
+			- obálková second-price aukce (Vickrey)
+				- vyhraje ten první, platí druhou cenu
+				- dominantní strategie je tam dát svoji hodnotu
+	- problém sdílení společných zdrojů
+		- znečišťování životního prostředí
+		- „tragedy of commons“
+		- mechanismus Vickeray-Clarke-Groves
+			- zdanění společného zboží
+			- problém – je nezbytné mít centrální autoritu
+- jak je to s hrami dnes?
+	- počítače už jsou v šachu lepší než lidi, ale není to vyřešená hra – programy nehrajou 100% dobře, nevědí, jak hra dopadne
+	- dáma už je vyřešená hra, optimální strategie vede k remíze
+	- Go – strom hry se hodně větví, těžko se ohodnocuje stav hry; programy AlphaGo a AlphaGo Zero
+	- poker – prvek náhody, programy Deep Stack a Libratus
+	- fotbal – soutěž RoboCup
+
 ## 10. Strojové učení (rozhodovací stromy, regrese, zpětnovazební učení)
+
+- způsob, jak zlepšit chování umělého agenta
+- učení vs. přímé programování chování
+	- scénáře, na které programátor nemyslel
+	- změny v prostředí
+	- někdy není jasné, jak agenta naprogramovat
+- zpětná vazba, z nichž se agenti učí
+	- učení bez učitele (unsupervised learning) – agent se učí vzory ve vstupu
+	- zpětnovazební učení (reinforcement learning) – agent dostává odměny nebo tresty
+	- učení s učitelem (supervised learning) – agent se učí funkci, která mapuje vstupy na výstupy
+		- máme vstupy a výstupy
+		- chceme najít funkci (její aproximaci), která mapuje vstupy na výstupy
+		- hledáme hypotézu z prostoru hypotéz
+		- princip Occamovy břitvy
+		- typy úloh – klasifikace (u nečíselných funkcí) nebo regrese (u číselných funkcí)
+		- nekonzistence s příkladem – příklad neodpovídá naučené funkci
+- rozhodovací strom
+	- přijímá vektor hodnot atributů, vrací výslednou hodnotu
+	- na základě tabulky příkladů se dá postavit strom, vnitřní uzly jsou jednotlivé atributy
+	- dá se zjistit odůvodnění konkrétního rozhodnutí
+	- strom se dá postavit hladovou metodou rozděl a panuj
+	- zakončení větve
+		- když jsou ve větvi výsledky jednoho druhu
+		- když je větev prázdná – pak zvolím převažující třídu v nadřazeném vrcholu
+		- když už jsme použili všechny atributy, ale v jedné větvi máme křížky a kolečka – zvolím převažující třídu
+	- snažím se vždy dělit podle nejdůležitějšího atributu
+		- jak ho najít?
+		- jako metriku použiju entropii – míru neurčitosti náhodné proměnné (měří se v bitech informace, kterou získáme, když známe hodnotu náhodné proměnné)
+- logická formulace učení
+	- agent má inferenční mechanismus
+	- přihodíme mu axiom, aby toho mohl odvozovat víc
+	- z větví v rozhodovacím stromu můžeme udělat logické formule
+	- hypotéza může být nekonzistentní dvěma způsoby
+		- false negative
+			- potřebujeme formulit zobecnit
+			- přidáme disjunkci nebo odebereme konjunkci
+		- false positive
+			- potřebujeme formuli specializovat
+			- přidáme konjunkci nebo odebereme disjunkci
+	- chceme udržet jednodušší formuli – podle Occamovy břitvy
+	- tomu se říká current-best-hypothesis search
+	- least-commitment search si udržuje všechny možné hypotézy konzistentní s příklady (tzv. version space)
+		- jak kompaktně reprezentovat version space
+			- pomocí dolní a horní meze
+			- některé formule jsou obecnější než jiné
+			- je to částečné uspořádání
+			- horní mez – obecné formule (obecnější jsou nekonzistentní)
+			- dolní mez – specifické formule (specifičtější jsou nekonzistentní)
+	- když je šum v datech, může dojít ke kolapsu version space
+- lineární regrese
+	- vzorečky viz prezentace
+	- můžeme ji použít pro klasifikaci – nakreslíme přímku, která bude oddělovat vstupy klasifikované jedním a druhým způsobem
+	- perceptronové pravidlo
+	- můžeme použít logistickou prahovou funkci – není to černá/bílá, ale funkce nám řekne pravděpodobnost, že prvek patří do dané třídy
+- …
+- zpětné šíření chyby
+	- znám chybu u výstupních neuronů
+	- neznám chybu u skrytých neuronů uvnitř sítě
+		- získám ji tak, že chybu u výstupních neuronů propaguju zpátky – chyba je vážená, protože propojení neuronů je složité (jeden neuron typicky ovlivňuje více jiných)
+- parametrický model
+	- vezmeme data
+	- zakódujeme je do parametrů neuronky (data „komprimujeme“, zajímá nás jenom část informace)
+	- data zahodíme
+- neparametrický model
+	- používáme původní data, abychom reprezentovali hypotézu
+	- metoda nejbližších sousedů
+		- na vstupu mám vektor $x$, chci vrátit nějaké odpovídající $y$
+		- mezi trénovacími příklady najdu $k$ vektorů, které jsou nejbližší k $x$
+		- tak dostanu $k$ odpovídajících $y$, s nimi něco provedu a výsledek vrátím
+			- lze zvolit nejčastější $y$
+			- lze použít regresi nebo průměr
+	- vzdálenosti se typicky měří pomocí Minkowského metriky
+- support-vector machine
+	- stojí na lineární regresi
+	- pokud lze třídy oddělit nadrovinou, zvolí takovou, která je nejdál od všech dat (příkladů)
+	- pokud nejde použít nadrovinu, provede mapování do vícedimenzionálního prostoru, kde už příklady půjde oddělit
+	- SVMs jsou neparametrická metoda – příklady blíže k separátoru jsou důležitější, říká se jim support vectors
+- někdy se neučíme úplně od nuly, už máme částečnou znalost, snažíme se naučit něco navrch – statistické učení
+	- bayesovské učení
+		- bereme v úvahu všechny hypotézy
+		- vracíme vážený průměr všech hypotéz
+	- další přístup – bereme v úvahu nejpravděpodobnější hypotézu
+- bayesovské sítě, parameter learning (učení se parametrů)
+	- chceme se naučit hodnoty, které vyplníme do CPD tabulek
+	- hledáme hypotézu, která nejlépe vysvětluje příklady
+	- derivuju postupně podle každého hledaného parametru a derivaci položím rovnou nule
+	- co když mám skryté uzly v síti
+		- můžu udělat bayesovskou síť bez skrytých proměnných, to ale může vést k výraznému zvýšení počtu parametrů
+		- algoritmus expectation-maximization (EM)
+			- předstíráme, že známe parametry modelu
+			- dopočteme očekávané hodnoty skrytých proměnných
+			- upravíme parametry, abychom maximalizovali likelihood modelu
+			- iterujeme (dokud to nezačne konvergovat)
+- reinforcement learning (zpětnovazební učení)
+	- nemusíme agentovi říkat $y$
+	- agent dostává pozitivní nebo negativní zpětnou vazbu (ve formě reward/reinforcement)
+	- vychází z markovských rozhodovacích procesů
+	- pasivní učení – známe strategii a učíme se, jak je dobrá (učíme se utility funkci)
+	- aktivní učení – agent zjišťuje, co má dělat
+	- pasivní učení
+		- agent nezná přechodový model ani reward function
+		- přímý odhad utility
+			- máme trace (běh) mezi stavy, z toho (postupně) počítáme utility function
+			- nevýhody – utilities nejsou nezávislé, ale řídí se Bellmanovými rovnicemi
+		- adaptivní dynamické programování (ADP)
+			- používá Bellmanovy rovnice
+		- temporal-difference learning
+			- po každém kroku updatuju jedno číslo
+			- nepotřebuju přechodový model
+			- konverguje to pomaleji než ADP
+	- aktivní učení
+		- agent neví, co má dělat
+		- active adaptive dynamic programming agent
+			- používá Bellmanovy rovnice
+			- ale nemusí se chovat úplně optimálně – opakuje zažité vzory
+			- říká se tomu hladový (greedy) agent
+		- je potřeba najít optimum mezi exploration a exploitation
+			- k tomu se dá použít temporální diference a Q funkce – říká se tomu Q učení
+			- variantou Q učení je SARSA (state-action-reward-state-action)
 
 ## 11. Filozofické a etické aspekty
