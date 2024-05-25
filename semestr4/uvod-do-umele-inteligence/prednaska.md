@@ -55,9 +55,10 @@
 	- General Problem Solver – imituje lidské řešení problémů
 	- Geometry Theorem Prover
 	- Lisp – programovací jazyk
-	- Analogy – problémy z IQ testů
-	- Student – slovní úlohy z matematiky
-	- blocks world – manipulace s kostkami na stole
+	- microworld – omezená doména problémů, které vyžadují inteligenci k řešení
+		- Analogy – problémy z IQ testů
+		- Student – slovní úlohy z matematiky
+		- blocks world – manipulace s kostkami na stole
 	- „chápání“ obrazců v počítačovém vidění (změť čar se chápe jako krychle apod.)
 	- perceptron – učící se algoritmus
 	- projekt Shakey – robot, který v přirozeném jazyce (angličtině) přijímal úkoly a vykonával je
@@ -68,7 +69,7 @@
 		- problémy neškálujou (příliš mnoho kombinací, algoritmicky těžké problémy)
 	- perceptron hledá přímku, kterou by oddělil hodnoty – u funkce XOR taková přímka neexistuje
 - druhé léto
-	- expertní systémy
+	- expertní systémy – zabývají se konkrétními obory lidské činnosti
 - druhá zima
 	- systémy jsou křehké a drahé na údržbu
 	- lispové počítače byly nahrazeny obecnými počítači (Apple, IBM)

@@ -1,0 +1,353 @@
+# Zkouška
+
+## 1. Zavedení pojmů, historie
+
+- umělá inteligence
+	- snažíme se, aby stroje zvládly činnosti, které od člověka vyžadují jistou inteligenci
+- historie ve stručnosti
+	- v počátcích se hlavní důraz kladl na logické a pravděpodobnostní uvažování – symbolic AI
+	- nyní jsme v éře hlubokého učení a neuronových sítí
+- logika
+	- formalizace racionálního uvažování
+	- Aristoteles – pravidla racionálního přemýšlení
+		- sylogismus – deduktivní argumentační struktura, která nám dává správný výsledek, máme-li správné předpoklady
+		- Sokrates je člověk $\land$ lidé jsou smrtelní $\implies$ Sokrates je smrtelný
+	- René Descartes – porozumění světu skrze racionální uvažování
+	- George Boole – formální logika
+- pravděpodobnost
+	- někdy věci nejsou černobílé, máme určitou míru nejistoty
+	- Gerolamo Cardamo – možné výsledky hazardních her
+	- Thomas Bayes – dodatečné změny pravděpodobností na základě nových poznatků
+- ekonomie
+	- jak správným rozhodováním maximalizovat užitek (zisk)
+	- Adam Smith – zakladatel moderní ekonomie
+	- ekonomie = jak se lidé rozhodují, aby dosáhli preferovaných výsledků
+	- teorie užitku – dává formální model preferovaného výsledku
+	- teorie rozhodování – jak se má jedinec (samostatně) rozhodovat?
+	- teorie her – jak se mají agenti rozhodovat, pokud jejich volba ovlivňuje užitek ostatních
+	- operační výzkum – jak s omezenými zdroji optimalizovat použití nástrojů, není-li výsledek okamžitý (při rozmisťování radarů za 2. světové války)
+- automaty
+	- systémy na zpracování informací
+	- stroj Antikythera – starověké Řecko, pro předvídání pohybů hvězd
+	- Joseph Marie Jacquard – program pro tkalcovský stroj, pomocí děrných štítků
+	- Charles Babbage – Difference Engine, Analytical Engine
+	- Konrad Zuse – Z-3, první programovatelný počítač
+	- Alan Turing – Colossus
+- kybernetika a teorie řízení
+	- stroje se udržují při (správném) chodu
+	- Ktesibios – regulátor vodního toku
+	- James Watt – regulátor parního stroje
+	- Norbert Wiener – kybernetika (autonomní stroje)
+	- teorie řízení – návrh systémů, které postupně maximalizují cílovou funkci
+- psychologie – jak lidé a zvířata myslí a jednají
+	- introspekce vlastních myšlenkových procesů – subjektivní
+	- behaviorismus – sledování reakcí zvířat na nějaké podněty
+	- kognitivní psychologie – vnímá mozek jako stroj na zpracování informací
+	- Kenneth Craik – zavedl pojem znalostní (knowledge-based) agent
+		- postupný převod vjemu na vnější akci
+- lingvistika – jak jazyk souvisí s myšlením
+	- Noam Chomsky – formální teorie
+	- porozumění jazyku vyžaduje porozumění obsahu (nestačí rozumět syntaxi)
+- neurověda – jak mozek zpracovává informace?
+	- podle poměru velikosti těla a mozku u člověka a u zvířat Aristoteles odhadl, že je centrum myšlení v mozku
+	- až do 18. století nebylo jasné, že mozek je centrum vědění
+	- Broca zkoumal pacienty s poškozením mozku – pozoroval u nich změny chování
+- před zrozením oboru umělé inteligence
+	- McCulloth, Pitts – model umělého neuronu, neurony lze spojovat a „učit“
+	- neuron = jednotka s váženými vstupy a výstupem, hodnotu výstupu určuje prahová funkce (tedy hlavní problém spočívá v nastavení vah)
+	- Hebb – pravidlo pro upravování vah
+	- Minski, Edmonds – první počítač s neuronovou sítí
+	- Turing – vize AI
+		- Turingův test – člověk se snaží rozlišit počítač od člověka
+		- inverzní Turingův test – počítač se snaží rozlišit počítač od člověka
+- zrod AI
+	- John McCarthy – workshop s názvem umělá inteligence, byť počítačová racionalita by byl lepší název
+	- Newell, Simon – program Logic Theorist, umí dokazovat věty z knihy Principia Mathematica
+	- proč AI (a ne teorie řízení nebo kybernetika)?
+		- snaha napodobit lidské schopnosti – kreativita, učení apod.
+- zlatá éra, první léto
+	- General Problem Solver – imituje lidské řešení problémů
+	- Geometry Theorem Prover
+	- Lisp – programovací jazyk
+	- microworld – omezená doména problémů, které vyžadují inteligenci k řešení
+		- Analogy – problémy z IQ testů
+		- Student – slovní úlohy z matematiky
+		- blocks world – manipulace s kostkami na stole
+	- „chápání“ obrazců v počítačovém vidění (změť čar se chápe jako krychle apod.)
+	- perceptron – učící se algoritmus
+	- projekt Shakey – robot, který v přirozeném jazyce (angličtině) přijímal úkoly a vykonával je
+	- období velkých slibů a předpovědí
+- první zima
+	- DARPA přestala financovat základní volný (undirected) výzkum
+		- syntaktický transformační překlad (z ruštiny do angličtiny) nefunguje
+		- problémy neškálujou (příliš mnoho kombinací, algoritmicky těžké problémy)
+	- perceptron hledá přímku, kterou by oddělil hodnoty – u funkce XOR taková přímka neexistuje
+- druhé léto
+	- expertní systémy – zabývají se konkrétními obory lidské činnosti
+- druhá zima
+	- systémy jsou křehké a drahé na údržbu
+	- lispové počítače byly nahrazeny obecnými počítači (Apple, IBM)
+- třetí léto
+	- hluboké učení
+	- big data
+	- počítání na grafických kartách
+	- neuronové sítě
+	- ImageNet
+	- AlphaGo (DeepMind, Google)
+	- Watson (IBM) – poráží lidi ve hře Riskuj
+	- DeepStack, Libratus – programy na hraní Pokeru (na DeepStacku se podíleli studenti MFF UK)
+	- autonomní řízení – Grand Challenges
+- co bude dál?
+	- Gartner Hype Cycle
+		- innovation trigger
+		- peak of inflated expectations
+		- trough of disillusionment
+		- slope of enlightenment
+		- plateau of productivity
+- AI je o kontrukci racionálních agentů
+	- racionální agent by měl zvolit akci, o které se očekává, že maximalizuje užitek
+	- vševědoucí (omniscient) agent zná výsledek akce – vševědoucnost není reálně možná
+- záleží na prostředí, v němž agent operuje
+	- všechno vidím / něco nevidím (fully observable / partially observable)
+	- další stav prostředí je/není předem daný (deterministic / stochastic)
+	- epizodické/sekvenční prostředí – „život“ agenta se může dělit na epizody (kde další epizoda nezávisí na akcích, které agent vykonal v předchozí epizodě)
+	- statické/dynamické prostředí – podle toho, zda se mění během toho, co robot uvažuje
+	- diskrétní/spojité prostředí
+	- agentů může být více – můžou soutěžit nebo kooperovat
+
+## 2. Řešení úloh prohledáváním (A* a spol.)
+
+- agent – vnímá prostředí pomocí senzorů, aktuátory mu umožňují jednat
+	- racionální agent – zvolí akci, která maximalizuje jeho výkon
+	- reflex agent
+		- jednoduchý: observation → action
+		- model-based
+			- past state + past action + observation → state
+			- state → action
+	- goal-based agent
+		- jako model-based
+		- kromě aktuální stavu bere v úvahu i cíl a podle toho provede akci
+- reprezentace stavů
+	- atomic – stav je blackbox
+		- dá se použít prohledávání
+	- factored – stav je vektor
+		- dá se použít constraint satisfaction, výroková logika, plánování
+	- structured – stav je sada objektů, ty jsou propojeny
+		- dá se použít logika prvního řádu
+- problem solving agent – typ goal-based agenta
+	- atomická reprezentace stavů
+	- cíl = množina cílových stavů
+	- akce = přechody mezi stavy
+	- hledáme posloupnost akcí, kterými se dostaneme z výchozího do nějakého cílového stavu
+	- očekáváme, že prostředí je plně pozorovatelné, diskrétní, statické a deterministické
+	- příklad – Lloydova patnáctka
+		- ne všechny stavy jsou dosažitelné – zachovává se parita permutace
+- formulace problému
+	- budeme potřebovat abstrakci prostředí (odstraníme detaily z prostředí)
+		- validní abstrakce = abstraktní řešení můžeme expandovat do reálného řešení
+		- užitečná abstrakce = vykonávání akcí v řešení je jednodušší než v původním problému
+	- dobře definovaný problém
+		- výchozí stav
+		- přechodový model `(state, action) -> state`
+		- goal test (funkce, která odpoví true/false podle toho, zda je daný stav cílový)
+- řešení problému
+	- použijeme prohledávání grafu
+	- algoritmy prohledávání grafu: graph-search a tree-search
+		- udržujeme si hranici (frontier) prozkoumané oblasti
+		- graph-search si navíc ukládá „uzavřenost“ vrcholu (jestli už jsme vrchol viděli)
+			- takže nenastávají problémy s cykly
+			- kvůli tomu, že stavový prostor může být nekonečný, neinicializujeme všechny vrcholy, ale místo toho použijeme hešovací tabulku
+		- i tree-search lze použít k prohledávání grafů s cykly, ale může se chovat divně
+	- strategie neinformovaného prohledávání
+		- BFS (fronta)
+			- nejmělčí neexpandovaný vrchol je zvolen k expanzi
+			- úplný pro konečně větvící grafy
+			- optimální – pokud je cena cesty nerostoucí funkce hloubky
+			- časová a prostorová složitost $O(b^{d+1})$, kde $b$ je stupeň větvení (branching factor, maximální výstupní stupeň) a $d$ je hloubka nejbližšího cíle
+			- problém je s prostorovou složitostí
+		- DFS (zásobník)
+			- nejhlubší neexpandovaný vrchol je zvolen k expanzi
+			- úplný pro graph-search
+			- neúplný pro tree-search (pokud algoritmus pustíme na grafu, který není strom)
+			- suboptimální – nesměřuje k cíli
+			- časová složitost $O(b^m)$, kde $m$ je maximální hloubka libovolného vrcholu
+			- prostorová složitost $O(bm)$
+- extenze BFS pro funkci určující cenu kroku (tedy cenu hrany)
+	- Dijkstrův algoritmus
+	- taky se tomu říká uniform cost search
+	- $g(n)$ označuje cenu nejlevnější cesty ze startu do $n$
+	- místo fronty použijeme prioritní frontu
+- best-first search
+	- pro vrchol máme ohodnocovací funkci $f(n)$
+	- $f(n)$ použijeme v Dijkstrově algoritmu místo $g(n)$
+	- greedy best-first search
+		- $f(n)=h(n)$
+		- není optimální ani úplný
+	- A* algoritmus
+		- $f(n)=g(n)+h(n)$, kde $h(n)$ je heuristika
+		- optimální a úplný
+		- typicky mu dojde paměť dřív než čas
+- co chceme od heuristiky $h(n)$ u algoritmu A*
+	- přípustnost – $h(n)$ musí být menší rovna nejkratší cestě z daného vrcholu do cíle, musí být nezáporná
+	- monotónnost
+		- mějme vrchol $n$ a jeho souseda $n'$
+		- $c(n,a,n')$ je cena přechodu z $n$ do $n'$
+		- heuristika je monotónní, když $h(n)\leq c(n,a,n')+h(n')$
+	- tvrzení: monotónní heuristika je přípustná
+	- tvrzení: pro monotónní heuristiku jsou hodnoty $f(n)$ neklesající po libovolné cestě
+	- tvrzení: pokud je $h(n)$ přípustná, pak je A* u tree search optimální
+	- tvrzení: pokud je $h(n)$ přípustná, pak je A* u graph search optimální
+- když heuristika $h_2$ dává větší hodnoty než $h_1$, tak se říká, že $h_2$ dominuje $h_1$
+	- pokud je $h_2$ přípustná a pokud se $h_2$ nepočítá výrazně déle než $h_1$, tak je $h_2$ zjevně lepší než $h_1$
+- best-first je třída algoritmů, kde máme uzly ohodnoceny nějakou funkcí a vybíráme nejmenší z nich
+- backtracking vs. DFS
+	- DFS využívá to, že nám stav může vrátit všechny následníky (pak je držíme v paměti)
+	- backtracking v daném vrcholu generuje jednoho následníka (takže všechny ostatní nemusíme držet v paměti)
+- problém rozmístění královen na šachovnici, aby se neohrožovaly
+	- možný model
+		- stavy – (částečná) rozmístění královen na šachovnici
+		- úvodní stav – prázdná šachovnice
+		- cíl – neznámý stav
+		- akce – umístím královnu tak, aby nevznikl konflikt s již umístěnými královnami
+	- lepší model
+		- královnám přiřadíme sloupce, takže řešíme jenom řádky
+		- …
+	- A* je nám k ničemu
+		- víme, v jaké hloubce se cíl nachází
+		- nevíme, jak cíl vypadá
+	- použijeme tree-search, protože stavy tvoří strom
+	- jak to optimalizovat
+		- budeme si dopředu vyškrtávat políčka, kam už nemůžeme nic umístit
+		- forward checking
+		- stav pro nás není černá skříňka
+		- jak to zobecnit?
+- forward checking v sudoku
+	- královny i sudoku jsou constraint satisfaction problem (CSP)
+	- relace = podmnožina kartézského součinu
+- CSP
+	- konečná množina proměnných
+	- domény – konečné množiny možných hodnot pro každou proměnnou
+	- konečná množina podmínek (constraints)
+		- constraint je relace na podmnožině proměnných
+		- constraint arity = počet proměnných, které podmínka omezuje
+	- chceme přípustné řešení (feasible solution)
+- CSP můžeme řešit tree-search backtrackingem
+	- úpravou proměnných v určitém pořadí můžeme získat větší efektivitu
+	- můžeme pročistit hodnoty, které zjevně nesplňují podmínky
+- arc consistency (hranová konzistence)
+	- arc = orientovaná hrana
+	- edge = neorientovaná hrana
+	- uvažujme binární podmínky
+		- libovolnou n-ární podmínku lze převést na balík binárních podmínek
+	- každá podmínka odpovídá orientované hraně v síti podmínek
+	- orientovaná hrana $(V_i,V_j)$ je hranově konzistentní $\equiv$ pro každé $x\in D_i$ existuje $y\in D_j$ takové, že přiřazení $V_i=x$ a $V_j=y$ splní všechny binární podmínky $V_i,V_j$
+	- CSP je hranově konzistentní $\equiv$ každá hrana je hranově konzistentní (v obou směrech)
+	- algoritmus AC-3
+		- jakmile odstraním prvky domény, musím opakovat kontrolu v sousedech (ale stačí kontrolovat jen jednu ze dvou hran)
+		- složitost $O(ed^3)$, kde $e$ je počet podmínek, $d$ je velikost domény
+		- optimální algoritmus má složitost $O(ed^2)$
+- jak zkombinovat AC a backtracking
+	- problém uděláme hranově konzistentní
+	- po každém přiřazení obnovíme hranovou konzistenci
+	- této technice se říká *look ahead* nebo *constraint propagation* nebo *udržování hranové konzistence*
+	- rozdíl oproti forward checkingu
+		- FC kontroluje jenom aktuální proměnnou – nedívá se do budoucnosti
+	- kontroly FC/AC jsou v polynomiálním čase (strom se větví exponenciálně)
+	- hranová konzistence je typ lokální konzistence
+		- takže negarantuje globální konzistenci
+- silnější konzistence … $k$-konzistence
+	- hranová konzistence = 2-konzistence
+	- konzistence po cestě (path consistency) = 3-konzistence
+	- věta: když je problém $i$-konzistentní pro všechna $i$ od 1 do počtu proměnných, pak ho můžeme vyřešit bez backtrackingu
+	- ale udělat problém $k$-konzistentní je exponenciální vůči $k$
+- globální podmínky
+	- vezmeme balík podmínek → z nich uděláme globální podmínku
+	- příklad: globální podmínka *all different*
+	- řešíme pomocí hledání párování v bipartitních grafech
+		- jedna partita = proměnné
+		- druhá partita = hodnoty
+	- pak stačí promazat hrany, které nejsou v žádném párování
+- v jakém pořadí brát proměnné a hodnoty v backtrackingu
+	- heuristiky pro výběr proměnných
+		- princip prvního neúspěchu (fail-first principle) – vyber nejdřív takovou proměnnou, jejíž přiřazení pravděpodobně skončí neúspěchem
+			- dom heuristic – nejprve zkouším proměnné s nejmenší doménou
+			- deg heuristic – začnu proměnnými, které se účastní největšího počtu podmínek
+	- heuristiky pro výběr hodnot
+		- princip prvního úspěchu (succeed-first principle) – začneme hodnotou, která pravděpodobně odpovídá řešení
+			- můžu použít hodnotu, která nejméně omezuje ostatní proměnné
+			- to je ale výpočetně náročné, takže je lepší použít vhodnou heuristiku podle konkrétního problému
+- constraint programming je deklarativní přístup k řešení problémů
+	- zkonstruujeme model
+	- použijeme univerzální solver
+		- kombinace prohledávání a odvozování přes podmínky
+- často lze prohodit proměnné a hodnoty (hodnoty se stávají proměnnými, proměnné hodnotami) → vznikne duální model
+	- např. u královen jsou jednotlivá políčka proměnné, které nabývají hodnot 0 nebo 1 podle toho, zda tam je královna
+	- podmínky vyjádříme logickými formulemi – lze je zapsat v CNF
+	- k nalezení splňujícího ohodnocení se nejčastěji používá algoritmus DPLL
+		- ryzí (čistý, pure) výskyt – zas tak moc se nepoužívá
+		- jednotková propagace
+			- hledám klauzule o jedné proměnné
+			- je v zásadě ekvivalentní hranové konzistenci
+	- další optimalizace SATu
+		- komponentová analýza
+			- pokud se klauzule dají rozdělit na disjunktní podmnožiny, které nesdílejí proměnné, dají se řešit nezávisle
+		- pořadí proměnných (a hodnot)
+			- degree heuristic – začni proměnnou, která se vyskytuje nejčastěji
+			- activity heuristic – vyber proměnnou, která se nejčastěji vyskytuje v konfliktech (tedy v dead-ends, v klauzulích, které nelze ohodnotit, tedy musím backtrackovat)
+		- náhodné restarty
+			- pokud hledám příliš dlouho, náhodně změním způsob volby proměnných apod.
+			- abych se nezaseknul v nějaké slepé větvi při backtrackingu
+		- jak hledat jednotkové klauzule – clever indexing (?)
+			- dá se pro každou klauzuli udržovat čítač počtu literálů – ale to trvá dlouho
+			- lepší je použít watched literals
+			- vyberu náhodně dva literály
+			- když se jeden z nich ohodnotí, podívám se na klauzuli
+				- buď je jednotková, nebo vyberu nějaký další náhodný watched literal
+			- pokud literály (proměnné) vyberu vhodně, tak mi jich stačí relativně málo pro mnoho klauzulí
+		- clause learning
+			- když dojde k failu (dead-end, musím backtrackovat)
+			- identifikuju podmnožinu proměnných, které fail způsobily
+			- konflikt (špatnou kombinaci hodnot) zakóduju jako klauzuli
+- znalostní agenti
+	- mají k dispozici znalostní bázi
+	- můžeme jim poskytovat nové informace nebo se jich na něco ptát
+	- agent používá inferenci – logicky odvozuje
+	- agent v jeskyni – díry a Wumpus; má šíp
+		- inference se dá dělat tak, že si namodeluju, jak by svět vypadal, a pak modely porovnám s reálným pozorováním – podle toho upravím znalostní bázi
+		- dotaz $\alpha$ … je políčko bezpečné?
+			- udělám množinu světů, kde je políčko bezpečné
+			- porovnám ji se znalostní bází $KB$
+			- pokud je znalostní báze podmnožinou množiny světů, kde je políčko bezpečné, pak je políčko bezpečné
+		- taky to můžu všechno reprezentovat pomocí formulí
+			- $\alpha$ vyjádřím jako výrokovou formuli
+			- $KB$ vyjádřím jako teorii
+			- zajímá mě, zda $KB\models\alpha$
+				- to platí, právě když $KB\land\neg\alpha$ je nesplnitelné
+			- lze použít rezoluci
+			- Hornova klauzule
+				- forward chaining … data-driven reasoning
+					- $p\land q\land r\implies s$
+					- pokud vím, že platí $p$, pak převedu na $q\land r\implies s$
+					- jakmile se počet předpokladů sníží na 0, vím, že $s$ platí
+					- je to v podstatě speciální případ použití rezolučního pravidla
+				- backward chaining … goal-driven reasoning
+					- něco mě zajímá – pokouším se to odvodit
+					- tohle se používá v Prologu
+
+## 3. Splňování podmínek
+
+## 4. Logické uvažování (dopředné a zpětné řetězení, rezoluce, SAT)
+
+## 5. Pravděpodobnostní uvažování (Bayesovské sítě)
+
+## 6. Reprezentace znalostí (situační kalkulus, Markovské modely)
+
+## 7. Automatické plánování
+
+## 8. Markovské rozhodovací procesy
+
+## 9. Hry a teorie her
+
+## 10. Strojové učení (rozhodovací stromy, regrese, zpětnovazební učení)
+
+## 11. Filozofické a etické aspekty
