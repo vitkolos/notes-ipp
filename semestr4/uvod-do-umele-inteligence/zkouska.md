@@ -617,35 +617,88 @@
 
 ## 8. Markovské rozhodovací procesy
 
+- rozhodování
+	- racionální agent se rozhoduje na základě svých informací o prostředí a svých cílů
+	- potřebujeme měřit kvalitu výsledku
+	- budeme dělat jednoduchá rozhodnutí (v epizodických prostředích) i posloupnosti mnoha rozhodnutí (v sekvenčních prostředích)
+- užitek (utility)
+	- pro každý stav známe utility function (funkci užitku) … $U(s)$
+	- očekávaný užitek (expected utility, EU) akce $a$, máme-li pozorování $e$
+		- $EU(a\mid e)=\sum_s P(\text{Result}(a)=s\mid a,e)\cdot U(s)$
+	- maximální očekávaný užitek (maximum expected utility, MEU)
+		- $\text{argmax}_a EU(a\mid e)$
+	- princip maximálního očekávaného užitku: racionální agent by si měl zvolit akci, která maximalizuje očekávaný užitek agenta,
+- teorie užitku
+	- očekávaný užitek náhodné volby (loterie) … $\sum_i p_i u_i$
+		- $p_i$ … pravděpodobnost $i$-té volby
+		- $u_i$ … užitek $i$-té volby
+	- často známe preference agenta spíše než přesné hodnoty utility funkce
+		- $A \lt B$ … agent preferuje B oproti A
+		- $A \sim B$ … agent nerozlišuje mezi A a B (nemá favorita, je indiferentní)
+	- z prefencí se dá dostat utility
+		- $U(A)\lt U(B)\iff A\lt B$
+		- $U(A)=U(B)\iff A\sim B$
+	- alternativní způsob – získáme normalizovanou utility funkci
+		- nejlepšímu možnému stavu $S_\max$ přiřadíme $U(S_\max) = 1$
+		- nejhorší možné katastrofě $S_\min$ přiřadíme $U(S_\min) = 0$
+		- pro každý další stav $S$ necháme agenta rozhodnout se mezi standardní loterií a stavem $S$
+			- standardní loterie … $S_\max$ s pravděpodobností $p$ a $S_\min$ s pravděpodobností $1-p$
+			- upravujeme pravděpodnost $p$, dokud agent není indiferentní mezi $S$ a standardní loterií
+				- pak $U(S):=p$
+- rozhodovací sítě (decision networks, influence diagrams) kombinují bayesovské sítě s dodatečnými typy vrcholů pro akce a utility
+	- vyhodnocení rozhodovací sítě: nastavíme proměnné pozorování (evidence variables) na aktuální stav, pro všechna možná rozhodnutí spočítáme utility, vrátíme akci s největší utilitou
+- decision-theoretic expert systems
+	- vytvoříme kauzální model – znázorníme příznaky, nemoci, léčbu, nakreslíme hrany
+	- zjednodušíme ho na kvalitativní rozhodovací model – odstraníme proměnné, které se nepoužívají při rozhodování
+	- přiřadíme pravděpodobnosti
+	- přiřadíme užitky
+	- ověříme a vyladíme model – porovnáme s týmem expertů
+	- provedeme citlivostní analýzu – malé změny vedoucí k výrazně odlišným rozhnodnutím typicky indikují problémy
 - markovovský rozhodovací proces (MDP)
-	- sekvenční rozhodovací problém
-	- pro plně pozorovatelné stochastické prostředí
-	- máme Markovovův přechodový model a reward
+	- řešíme sekvenční rozhodovací problém
+	- pro plně pozorovatelné stochastické (nedeterministické) prostředí
+	- máme Markovův přechodový model a reward
+		- přechodový model $P(s'\mid s,a)$ … pravděpodobnost dosažení stavu $s'$, když ve stavu $s$ použiju akci $a$
+		- odměna (reward) $R(s)$ … získá ji agent ve stavu $s$, je krátkodobá
+		- utility function $U([s_0,s_1,s_2,\dots])=R(s_0)+\gamma R(s_1)+\gamma^2 R(s_2)+\dots$
+			- kde $\gamma$ je *discount factor*, číslo mezi 0 a 1
+			- utility je „dlouhodobá lokální odměna“
+			- hodnota utility funkce je konečná i pro nekonečnou posloupnost stavů, protože zjevně $U([s_0,\dots])\leq \frac{R_\max}{1-\gamma}$
 	- řešením MDP je policy (strategie) – funkce doporučující akci pro každý stav
+		- protože kdyby řešením byla fixní sekvence akcí, tak by to nefungovalo pro stochastická prostředí (mohlo by se stát, že skončíme v jiném stavu, než jsme mysleli)
+		- optimální strategie $\equiv$ strategie, která vrací největší očekávanou utilitu
+		- optimální strategie nezávisí na počátečním stavu – je jedno, kde jsme začali, pro nalezení nejvhodnější další akce by měl být důležitý jen aktuální stav
+	- opravdový užitek stavu je reward (odměna) stavu ve spojení s očekávaným užitkem následného stavu → to vede na Bellmanovu rovnici
 	- Bellmannova rovnice
 		- vezmu reward a discountovaný užitek okolí
 		- akorát nevím, kterou akci provedu, tak vezmu všechny a maximum přes ně (násobím jejich užitek pravděpodobností)
+		- $U(s)=R(s)+\gamma\max_a\sum_{s'}P(s'\mid s,a)\cdot U(s')$
 	- soustava Bellmanových rovnic není lineární – obsahuje maximum
-	- můžu je řešit aproximací
+		- můžu je řešit aproximací
 		- použiju iterativní přístup
 		- nastavím nějak užitky – třeba jim nastavím nuly
 		- provedu update – aplikuju Bellmanovu rovnici
 		- pokud se dostatečně přiblížím k pevnému bodu, tak toho nechám
-			- je tam ta speciální formule s $\epsilon$ – ale nebudeme dokazovat, co přesně říká
-		- → value iteration
-		- strategie se ustálí dřív než užitky
-			- policy loss … vzdálenost mezi optimálním uižtkem a užitkem strategie
-			- můžeme iterativně zlepšovat policy, dokud se nepřestane zlepšovat
-			- z rovnic nám zmizí maximum → máme lineární rovnice
-			- → policy iteration
-			- gaussovka je $O(n^3)$
+			- je tam ta speciální formule s $\epsilon$, ale nebudeme dokazovat, co přesně říká
+		- → **value iteration**
+	- strategie se ustálí dřív než užitky
+		- policy loss … vzdálenost mezi optimálním užitkem a užitkem strategie
+		- můžeme iterativně zlepšovat policy, dokud to jde
+		- → **policy iteration**
+		- z rovnic nám zmizí maximum → máme lineární rovnice
+			- policy evaluation = nalezení řešení těchto rovnic (tak najdeme utilities stavů)
+		- gaussovka je $O(n^3)$
+		- algoritmus skončí, protože policies je jenom konečně mnoho a vždycky hledáme tu lepší
 - částečně pozorovatelný markovský rozhodovací proces (POMDP)
-	- místo reálný stavů můžeme používat ty domnělé (belief states)
-	- modely přechodů a senzorů jsou reprezentovány dynamickou Bayesovskou sítí
-	- přidáme rozhodování a užitky a dostaneme dynamickou rozhodovací síť
-	- generujeme si stromeček
-		- „co kdyby pozorování bylo takové?“ „co kdyby bylo jiné?“
+	- přibude nám sensor model $P(s\mid e)$
+	- místo reálných stavů můžeme používat ty domnělé (belief states)
+	- modely přechodů a senzorů jsou reprezentovány dynamickou bayesovskou sítí
+	- přidáme rozhodování a užitky, čímž dostaneme dynamickou rozhodovací síť
+	- generujeme si stromeček, kde se střídají vrstvy akcí a belief states
 	- používá se algoritmus ExpectedMiniMax
+
+## 9. Hry a teorie her
+
 - více agentů
 	- můžeme se tvářit, že další agenti neexistují a že jsou součásti prostředí – informace se k nám dostávají skrz pozorování
 	- pokud víme, že jsou ostatní agenti racionální, můžeme se rozhodovat líp, pokud budeme „přemýšlet za ně“
@@ -657,9 +710,6 @@
 		- vrátí to samé, co klasický minimax
 	- stavový prostor je obrovský – ohodnotíme částečný stav hry (nebudeme ji „dohrávat“ do konce)
 		- ohodnocovací funkce bude brát vážený počet figurek
-
-## 9. Hry a teorie her
-
 - někdy ve hrách hraje roli náhoda (tzv. stochastické hry)
 	- např. házíme kostkou
 	- algoritmus expected minimax
