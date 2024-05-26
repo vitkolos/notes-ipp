@@ -393,7 +393,24 @@
 				- opět vlastně používám rezoluční pravidlo
 					- to, co chci zjistit, rezolvuju s libovolnou klauzulí
 
+-----------------
+
 ## 7. Automatické plánování
+
+- jak můžeme reprezentovat informaci, která se mění v čase – třeba pozici agenta?
+	- pomocí časově anotovaných výrokových proměnných (fluents)
+		- $L^t_{x,y}$ … agent je v buňce $(x,y)$ v čase $t$
+	- observation model – propojuje pozorování s informacemi v modelu světa
+		- $L_{x,y}^t\implies(\text{Breeze}^t\iff B_{x,y})$
+	- transition model – popisuje vývoj světa po aplikaci akcí
+		- effect axioms – např. $L_{x,y}^t\land\text{FacingEast}^t\land\text{Forward}^t\implies (L^{t+1}_{x+1,y}\land\neg L^{t+1}_{x,y})$
+		- effect axioms nic neříkají o věcech, které se konkrétní akcí nemění
+		- můžeme používat frame axioms
+			- tak zajistíme, že se nedotčené proměnné nezmění
+			- $\text{Forward}^t\implies(\text{HaveArrow}^t\iff\text{HaveArrow}^{t+1})$
+			- ale takhle budeme mít příliš mnoho frame axioms
+
+
 
 - potřebujeme heuristiku, aby naváděla prohledávání
 	- musí být přípustná, může být monotónní
