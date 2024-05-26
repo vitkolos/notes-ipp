@@ -695,7 +695,7 @@
 	- modely přechodů a senzorů jsou reprezentovány dynamickou bayesovskou sítí
 	- přidáme rozhodování a užitky, čímž dostaneme dynamickou rozhodovací síť
 	- generujeme si stromeček, kde se střídají vrstvy akcí a belief states
-	- používá se algoritmus ExpectedMiniMax
+	- používá se algoritmus podobný algoritmu *expected minimax*
 
 ## 9. Hry a teorie her
 
@@ -704,57 +704,96 @@
 	- pokud víme, že jsou ostatní agenti racionální, můžeme se rozhodovat líp, pokud budeme „přemýšlet za ně“
 	- to vede na teorii her
 	- nejtypičtější hry – deterministické hry s kompletní informací a nulovým součet pro dva hráče, kteří se střídají (šachy, Go, …)
-	- algoritmus minimax
+		- nulový součet … zisk jednoho hráče je ekvivalentní ztrátě druhého
+	- algoritmus minimax – předpokládá, že oba hráči hrají optimálně
 	- minimax s $\alpha,\beta$ prořezáváním
 		- záleží na pořadí procházení větví – když budu procházet v dobrém pořadí, tak větve můžu dřív zaříznout
 		- vrátí to samé, co klasický minimax
 	- stavový prostor je obrovský – ohodnotíme částečný stav hry (nebudeme ji „dohrávat“ do konce)
-		- ohodnocovací funkce bude brát vážený počet figurek
+		- ohodnocovací funkce pro šachy bude brát vážený počet figurek
 - někdy ve hrách hraje roli náhoda (tzv. stochastické hry)
 	- např. házíme kostkou
 	- algoritmus expected minimax
-	- mezi uzly s tahy hráčů přidám vrstvy s pravděpodobnostmi
-	- při výpočtu min nebo max je vážím pomocí pravděpodobností
+	- mezi vrcholy s tahy hráčů přidám vrstvy s pravděpodobnostmi
+		- hodnota pravděpodobnostního vrcholu odpovídá $\sum_{s\in S} p_sv_s$, kde $S$ je množina všech synů vrcholu, $p_s$ je pravděpodobnost konkrétního jevu a $v_s$ je hodnota jevu (vrcholu s jevem)
+	- vlastně to odpovídá tomu, jako bych při výpočtu min nebo max vrcholy vážil pomocí pravděpodobností
 	- je důležité lépe sestavit ohodnocovací funkci, protože nezáleží jenom na pořadí hodnot, ale taky na absolutních ohodnoceních
 - hry na jeden tah
-	- kámen, nůžky, papír
-	- dvouprstá Morra
+	- příklady her
+		- kámen, nůžky, papír
+		- dvouprstá Morra
+	- hru tvoří: hráči (agenti), možné akce, payoff function
+	- strategie
+		- čistá (pure) strategie … deterministická strategie
+		- smíšená (mixed) strategie … randomizovaná strategie, volba akce je náhodná s určitým pravděpodobnostním rozdělením
+	- řešení hry = přiřazení racionální strategie každému hráči
 	- vězňovo dilema
-		- dominantní čistá strategie – testify (defect)
-		- ale vyhrála policie – lepší by bylo, kdyby oba odmítli vypovídat (= refuse/cooperate)
+		- vězeň může vypovídat (testify, defect) nebo odmítnout vypovídat (refuse, cooperate)
+			- oba vypovídají → oba ztrácejí málo (5)
+			- jeden vypovídá, druhý ne → jeden neztratí nic (0), druhý hodně ztratí (10)
+			- oba odmítnou → oba ztrácejí velmi málo (1)
+		- vypovídat … čistá strategie dominovaná výsledkem (refuse, refuse)
+			- ale vyhrála policie – lepší by bylo, kdyby oba odmítli vypovídat
 		- našli jsme Nashovo ekvilibrium – nikdo neprofituje ze změny strategie, pokud druhý hráč zůstane u stejné strategie
-		- definice dominance a čistoty strategie
-	- dvouprstá Morra nemá čistou strategii
-	- jak najít optimální smíšenou strategii?
-		- technika maximin
-	- opakované hry
+		- outcome is Pareto dominated by another outcome $\equiv$ all players would prefer the other outcome
+		- outcome is Pareto optimal $\equiv$ there is no other outcome that all players would prefer
+	- dvouprstá Morra
+		- nemá čistou strategii
+		- jak najít optimální smíšenou strategii?
+			- technika **maximin**
+			- nejdříve si představíme, jak by se hra hrála, kdyby se hráči střídali a kdyby hráli čistou strategii (obě varianty – podle toho, který hráč začíná)
+			- minimaxem vyhodnotíme strom hry
+			- získáme spodní a horní hranici pro skóre
+			- teď si představíme, že hráči mají smíšenou strategii s nějakou pravděpodobností $p$, a uděláme to samé
+			- spočítáme lineární rovnice
+- opakované hry
+	- známe historii tahů, payoff se sčítá
 	- strategie pro opakované vězňovo dilema
 		- pokud víme, která hra je poslední, vede to na podobnou situaci jako u jedné hry
-		- tit-for-tat
+		- pokud nevíme, která hra je poslední
+			- perpetual punishment – hráč odmítá vypovídat, právě když druhý hráč nikdy nevypovídal
+			- tit-for-tat – hráč nejprve odmítá vypovídat, pak zrcadlí pohyby protivníka
+				- velmi robustní a efektivní strategie
 - k čemu používáme teorii her
-	- k návrhu agentů
-	- k návrhu mechanismů (pravidel)
-		- inverzní teorie her
-		- aukce
-			- anglická aukce
-				- strategie: přihazuju, dokud cena není vyšší než moje hodnota
-				- má to problémy
-				- nepůjdu do aukce s někým hodně bohatým
-				- lidi musejí být ve stejnou chvíli na stejném místě
-			- holandská aukce
-				- začíná se vyšší cenou
-			- obálková aukce
-				- největší nabídka vítězí
-				- neexistuje jednoduchá dominantní strategie
-			- obálková second-price aukce (Vickrey)
-				- vyhraje ten první, platí druhou cenu
-				- dominantní strategie je tam dát svoji hodnotu
+	- k návrhu agentů – jak vyhrávat
+	- k návrhu mechanismů (pravidel) – jak nastavit pravidla, aby byli všichni spokojeni
+		- inverzní teorie her (mj. se zabývá aukcemi)
+- aukce
+	- jak se pozná dobrý mechanismus aukce
+		- maximalizuje výnos pro prodejce
+		- vítěz aukce je agent, který si věci nejvíc cení
+		- zájemci by měli mít dominantní strategii
+	- anglická aukce (ascending-bid)
+		- začnu s $b_\min$, pokud je to nějaký zájemce ochotný zaplatit, tak se ptám na $b_\min+d$
+		- strategie: přihazuju, dokud cena není vyšší než moje hodnota
+			- jednoduchá dominantní strategie
+		- má to problémy
+		- nepůjdu do aukce s někým hodně bohatým
+		- lidi musejí být ve stejnou chvíli na stejném místě
+	- holandská aukce
+		- začíná se vyšší cenou, snižuje se, dokud ji někdo nepřijme
+		- je rychlá
+	- obálková aukce
+		- největší nabídka vítězí
+		- neexistuje jednoduchá dominantní strategie
+			- pokud věříš, že maximum ostatní nabídek je $b_0$, tak bys měl nabídnout $b_0+\varepsilon$, pokud je to menší částka než hodnota, kterou pro tebe věc má
+	- obálková second-price aukce (Vickrey)
+		- vyhraje ten první, platí druhou cenu
+		- dominantní strategie je tam dát svoji hodnotu
 	- problém sdílení společných zdrojů
 		- znečišťování životního prostředí
+			- pokračovat ve znečišťování je levnější než implementovat potřebné změny
 		- „tragedy of commons“
+			- když nikdo nemusí platit za sdílený zdroj, může to vést k jeho využívání tím způsobem, že se snižuje utilita pro všechny agenty
+			- podobné vězňovu dilematu
 		- mechanismus Vickeray-Clarke-Groves
 			- zdanění společného zboží
 			- problém – je nezbytné mít centrální autoritu
+			- princip
+				- každý agent nahlásí svoji hodnotu (nabídku)
+				- centrální autorita přiřadí zboží podmnožině agentů tak, aby se maximalizoval celkový nahlášený užitek
+				- každý vítězný agent platí daň odpovídající nejvyšší nahlášené hodnotě mezi těmi, kdo prohráli
+			- dominantní strategie je opravdu nabídnout svoji hodnotu
 - jak je to s hrami dnes?
 	- počítače už jsou v šachu lepší než lidi, ale není to vyřešená hra – programy nehrajou 100% dobře, nevědí, jak hra dopadne
 	- dáma už je vyřešená hra, optimální strategie vede k remíze
