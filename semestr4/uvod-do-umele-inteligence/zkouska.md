@@ -399,26 +399,82 @@
 
 - jak můžeme reprezentovat informaci, která se mění v čase – třeba pozici agenta?
 	- pomocí časově anotovaných výrokových proměnných (fluents)
-		- $L^t_{x,y}$ … agent je v buňce $(x,y)$ v čase $t$
-	- observation model – propojuje pozorování s informacemi v modelu světa
-		- $L_{x,y}^t\implies(\text{Breeze}^t\iff B_{x,y})$
-	- transition model – popisuje vývoj světa po aplikaci akcí
-		- effect axioms – např. $L_{x,y}^t\land\text{FacingEast}^t\land\text{Forward}^t\implies (L^{t+1}_{x+1,y}\land\neg L^{t+1}_{x,y})$
-		- effect axioms nic neříkají o věcech, které se konkrétní akcí nemění
-		- můžeme používat frame axioms
-			- tak zajistíme, že se nedotčené proměnné nezmění
-			- $\text{Forward}^t\implies(\text{HaveArrow}^t\iff\text{HaveArrow}^{t+1})$
-			- ale takhle budeme mít příliš mnoho frame axioms
-
-
-
+	- $L^t_{x,y}$ … agent je v buňce $(x,y)$ v čase $t$
+- observation model – propojuje pozorování s informacemi v modelu světa
+	- $L_{x,y}^t\implies(\text{Breeze}^t\iff B_{x,y})$
+- transition model – popisuje vývoj světa po aplikaci akcí
+	- effect axioms – např. $L_{x,y}^t\land\text{FacingEast}^t\land\text{Forward}^t\implies (L^{t+1}_{x+1,y}\land\neg L^{t+1}_{x,y})$
+	- effect axioms nic neříkají o věcech, které se konkrétní akcí nemění
+	- mohli bychom používat frame axioms
+		- tak zajistíme, že se nedotčené proměnné nezmění
+		- $\text{Forward}^t\implies(\text{HaveArrow}^t\iff\text{HaveArrow}^{t+1})$
+		- ale takhle budeme mít příliš mnoho frame axioms
+	- místo toho nebudeme psát axiomy o akcích, ale o fluentech
+		- tzv. successor-state axiomy
+		- obecný tvar: $F^{t+1}\iff\text{ActionCausesF}^t\lor(F^t\land\neg\text{ActionCausesNotF}^t)$
+		- konkrétní příklad: $\text{HaveArrow}^{t+1}\iff(\text{HaveArrow}^t\land\neg\text{Shoot}^t)$
+			- neexistuje akce, která by HaveArrow mohla nastavit z false na true, takže chybí levá část pravé strany
+- plánování
+	- hybridní agent pomocí výrokové logiky odvodí stav světa, ale k plánování použije A*
+	- k plánování však můžeme použít přímo logiku
+	- SAT solveru předhodíme formuli: „Lze dosáhnout cíle v přesně $t$ krocích?“
+		- musíme definovat výchozí stav (nastavit hodnoty všem proměnným kromě těch „akčních“), dále pak successor-state axiomy pro všechny možné akce a také požadovaný cílový stav
+		- z nalezeného modelu zjistíme konkrétní plán
+		- zkoušíme pro $t$ do 1 do $T_{\max}$ (tomu se říká SATPlan)
+	- potřebujeme také zadefinovat podmínky, kdy se akce dají použít
+		- abychom např. nemohli střílet bez šípu
+		- tzv. precondition axioms
+		- $\text{Shoot}^t\implies\text{HaveArrow}^t$
+	- chceme-li v jednu chvíli provádět nejvýše jednu akci, použijeme action exclusion axioms: $(\forall t)(\forall i{\neq} j)(\neg A_i^t\lor\neg A_j^t)$
+- k plánování můžeme používat prohledávání nebo výrokové odvození
+	- prohledávání vyžaduje dobrou doménově-specifickou heuristiku
+	- odvození výrokovou logikou může být zahlcené, pokud máme hodně akcí a stavů
+- jak předejít opakování axiomů pro různé časy a podobné akce?
+	- použijeme predikátovou logiku prvního řádu (*situation calculus*)
+	- náš modelovaný svět se vyvíjí – postupně nastávají různé *situace*
+		- úvodní situace … $s_0$
+		- situace po aplikace akce $a$ na situaci $s$ … $\text{Results}(s,a)$
+	- stavy jsou definovány jako relace mezi objekty
+		- pokud se relace mění, musíme přidat další argument označující situaci, v níž relace platí: `at(robot, location, s)`
+		- pro stálé relace takový argument není potřeba: `connected(loc1, loc2)`
+	- podmínky (předpoklady) akcí jsou definovány possibility axiomem
+		- obecný tvar: $\varphi(s)\implies \text{Poss}(a,s)$
+			- kde $\varphi$ je formule popisující předpoklady akce $a$
+		- např. `at(a, l, s) & connected(l, l') => Poss(go(a, l, l'), s)`
+	- vlastnosti dalšího stavu jsou popsány pomocí successor-state axiomů pro každý fluent
+		- `Poss(a, s) => (F(Results(s, a)) <=> (F is made true by a) OR (F(s) & F is not made false by a))`
+	- plánování se provádí tak, že se zeptáme, zda existuje situace, kde je cílová podmínka pravdivá
+- klasické plánování
+	- stav světa je reprezentován jako množina proměnných
+		- stav je popsán atomy, které platí (ostatní neplatí, používáme předpoklad uzavřeného světa)
+		- pravdivnostní hodnota některých atomů se mění … fluents
+		- u jiných atomů je pravdivostní hodnota stálá … rigid atoms
+	- schémata akcí (operátory) popisují možnosti agenta
+		- schéma akce (operátor) popisuje akci, aniž by specifikovalo objekty, na které se akce vztahuje
+		- operátor je trojice (název, předpoklady, důsledky)
+			- někdy je požadavek, aby předpoklady byly kladné – toho lze docílit typicky přidáním proměnných
+		- akce je plně zinstanciovaný operátor
+		- akce je relevantní pro cíl $g\equiv$ přispívá cíli $g$ a její důsledky (efekty) nejsou v konfliktu s $g$
+		- dále definujeme výsledek aplikace akce na stav a regresní množinu pro cíl a akci
+	- terminologie
+		- popisu operátorů se obvykle říká doménový model
+		- plánovací problém je trojice $(O,s_0,g)$, kde $O$ je doménový model, $s_0$ je výchozí stav a $g$ je cílová podmínka
+		- plán je posloupnost akcí
+	- plánování je realizováno prohledáváním stavového prostoru
+		- ten je mnohdy dost velký
+- přístupy k plánování
+	- forward (progression) planning
+		- postupujeme od výchozího k cílovému stavu
+		- prohledávací algoritmus potřebuje dobrou heuristiku
+	- backward (regression) planning
+		- prozkoumávají se jen relevantní akce → menší větvení než u forward planningu
+		- používá množiny stavů spíše než individuální stavy → je těžké najtí dobrou heuristiku
 - potřebujeme heuristiku, aby naváděla prohledávání
 	- musí být přípustná, může být monotónní
 	- můžeme ji najít tak, že zkusíme řešit rozvolněný problém (odstraníme některé constraints)
-	- možné heuristika
-	- ignorujeme podmínky akcí
-		- najdeme nejmenší množinu akcí, která pokrývá cíl
-	- ignorujeme negativní efekty akcí
+	- možné heuristiky
+		- ignorujeme podmínky akcí – najdeme nejmenší množinu akcí, která pokrývá cíl
+		- ignorujeme negativní efekty akcí
 - další formy plánování
 	- plan-space planning
 		- je bližší tomu, jak plánujou lidé
@@ -433,18 +489,37 @@
 
 ## 5. Pravděpodobnostní uvažování (Bayesovské sítě)
 
-- zdroje nejistoty
-	- částečná pozorovatelnost – nelze snadno zjistit současný stav
-	- nedeterminismus – není jisté, jak akce dopadne
-- logický agent by si musel pamatovat všechny možnosti situací
-- pravděpodobnostní agent každému tvrzení přiřazuje belief mezi 0 a 1
-- použijeme teorii pravděpodobnosti
-- někdy si můžeme udělat tabulku všech možností a určit jejich pravděpodobnosti
-- velkou tabulku budeme reprezentovat menším způsobem
-- Bayesovo pravidlo
-- bayesovská síť je orientovaný acyklický graf, kde vrcholy odpovídají náhodným proměnným
+- jednání ovlivněné nejistotou
+	- zdroje nejistoty
+		- částečná pozorovatelnost – nelze snadno zjistit současný stav
+		- nedeterminismus – není jisté, jak akce dopadne
+	- logický agent by si musel pamatovat všechny možnosti situací
+		- belief state = množina všech stavů světa, ve kterých se v danou chvíli agent může nacházet
+	- pravděpodobnostní agent každému tvrzení přiřazuje belief mezi 0 a 1
+	- použijeme teorii pravděpodobnosti
+- někdy si můžeme udělat tabulku všech možností a určit jejich pravděpodobnosti (full joint probability distribution)
+	- odpověď lze vyjádřit z ní (této metodě se říká enumeration, výčet) – ale u velkých tabulek je někdy potřeba posčítat příliš mnoho hodnot
+- počítání pravděpodobnosti
+	- poznámka ke značení: čárka je ekvivalentní $\land$
+	- $P(Y)=\sum_z P(Y\mid z)\cdot P(z)$
+	- $P(Y\mid e)=\frac{P(Y\land e)}{P(e)}$
+		- typicky nemusíme znát $P(e)$, stačí použít $\alpha P(Y\land e)$, kde $\alpha$ je normalizační konstanta
+	- velkou tabulku můžeme někdy reprezentovat menším způsobem – pokud jsou proměnné podmíněně nezávislé
+	- Bayesovo pravidlo … $P(Y\mid X)=\frac{P(X\mid Y)P(Y)}{P(X)}=\alpha P(X\mid Y) P(Y)$
+		- lze odvodit z definice podmíněné pravděpodobnosti
+		- pomůže nám při přechodu z příčinného k diagnostickému směru
+			- P(effect | cause) … casual direction (příčinný směr), obvykle známý
+			- P(cause | effect) … diagnostic direction (diagnostický směr), obvykle chceme zjistit
+			- P(cause | effect) = P(effect | cause) P(cause) / P(effect)
+	- naivní bayesovský model
+		- $P(\text{Cause}, \text{Effect}_1, \dots, \text{Effect}_n) = P(Cause)\prod_iP(\text{Effect}_i\mid\text{Cause})$
+	- chain rule
+		- $P(x_1,\dots,x_n)=\prod_iP(x_i\mid x_{i-1},\dots,x_1)$
+		- využívá product rule (lze odvodit z definice podmíněné pravděpodobnosti)
+- bayesovská síť je DAG, kde vrcholy odpovídají náhodným proměnným
 	- šipky popisují závislost
 	- u každého vrcholu jsou CPD tabulky, které popisujou jeho závislost na rodičích
+		- CPD = conditional probability distribution
 - konstrukce bayesovské sítě
 	- nějak si uspořádáme proměnné (lepší je řadit je od příčin k důsledkům, ale není to nutné)
 	- jdeme odshora dolů, přidáváme správné hrany
@@ -462,9 +537,21 @@
 		- $=\alpha P(b)\sum_e P(e)\sum_aP(a|b,e) P(j|a) P(m|a)$
 	- když nemůžeme určit konkrétní hodnotu pravěpodobnosti přímo, tak výpočet rozvětvíme
 	- některé větve se objeví vícekrát – hodí se nám dynamické programování
-	- používáme *faktory*
-	- tabulky s faktory mezi sebou můžeme násobit
-- Monte Carlo přístup?
+	- používáme *faktory* (tabulky odpovídající CPD tabulkám)
+	- tabulky s faktory mezi sebou můžeme násobit – tak dostaneme novou tabulku se sjednocením proměnných
+	- poloviny tabulek můžeme sčítat – tak se lze zbavit proměnné
+- Monte Carlo přístup
+	- odhadujeme hodnoty, které je těžké přímo spočítat
+	- generujeme hodně vzorků, použijeme statistiku
+	- pravděpodobnostní rozdělení náhodných veličin známe
+	- zajímá nás $P(X\mid e)$
+	- jak generovat vzorky?
+		- rejection sampling = zahodíme vzorky, kde neplatí $e$
+			- riziko, že zahodíme příliš mnoho vzorků
+		- likelihood weighting
+			- zafixujeme $e$, generujeme jen zbylé proměnné
+			- nastavíme váhy jednotlivým možnostem
+			- problém s příliš malými váhami
 
 ## 6. Reprezentace znalostí (situační kalkulus, Markovské modely)
 
