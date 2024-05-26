@@ -393,9 +393,7 @@
 				- opět vlastně používám rezoluční pravidlo
 					- to, co chci zjistit, rezolvuju s libovolnou klauzulí
 
------------------
-
-## 7. Automatické plánování
+## 6a/7. Reprezentace znalostí (situační kalkulus), automatické plánování
 
 - jak můžeme reprezentovat informaci, která se mění v čase – třeba pozici agenta?
 	- pomocí časově anotovaných výrokových proměnných (fluents)
@@ -553,36 +551,69 @@
 			- nastavíme váhy jednotlivým možnostem
 			- problém s příliš malými váhami
 
-## 6. Reprezentace znalostí (situační kalkulus, Markovské modely)
+## 6b. Reprezentace znalostí (Markovské modely)
 
+- každý stav světa je popsán množinou náhodných proměnných
+	- skryté náhodné proměnné $X_t$ – popisují reálný stav
+	- pozorovatelné náhodné proměnné $E_t$ – popisují, co pozorujeme
+	- uvažujeme diskrétní čas, takže $t$ označuje konkrétní okamžik
+	- množinu proměnných od $X_a$ do $X_b$ budeme značit jako $X_{a:b}$
 - formální model
 	- transition model
-		- určuje pravděpodobnostní rozložení přes proměnné posledního stavu, když známe předchozí hodnoty
+		- určuje pravděpodobnostní rozložení proměnných posledního stavu, když známe jejich předchozí hodnoty … $P(X_t\mid X_{0:t-1})$
 		- zjednodušující předpoklady
-			- další stav závisí jen na předchozím stavu
-			- všechny přechodové tabulky jsou identické přes všechna $t$
+			- další stav závisí jen na předchozím stavu … *Markov assumption*
+			- všechny přechodové tabulky $P(X_t\mid X_{t-1})$ jsou identické přes všechna $t$ … *stationary process*
 	- sensor (observation) model
-		- popisuje, jak se pozorované proměnné mění
-		- …
+		- popisuje, jak pozorované proměnné závisí na ostatních proměnných … $P(E_t\mid X_{0:t},E_{1:t-1})$
+		- zjednodušující předpoklad: pozorování záleží jen na aktuálním stavu … *sensor Markov assumption*
 - základní inferenční úlohy
-	- filtrování
-	- predikce
-	- vyhlazování
-	- nejpravděpodobnější vysvětlení
-- skryté proměnné popisují stavy světa
-	- stavy světa jsou neznámé → proto jsou proměnné skryté
-	- mezi stavy existují pravděpodobnostní přechody
-		- předpoklad: nový stav (jeho pravděpodobnost) závisí jen na tom předchozím
-	- máme pozorované proměnné
-		- předpoklad: pozorování záleží jenom na současném stavu, ne na těch předchozích
-	- základní inferenční úlohy
-		- filtering
-		- prediction
-		- smoothing
-		- most likely explanation
+	- filtrování – znám minulá pozorování, zajímá mě přítomný stav
+		- $P(X_{t+1}\mid e_{1:t+1})=P(X_{t+1}\mid e_{1:t},e_{t+1})$
+			- použijeme Bayesovo pravidlo
+		- $=\alpha\cdot P(e_{t+1}\mid X_{t+1},e_{1:t})\cdot P(X_{t+1}\mid e_{1:t})$
+			- použijeme *sensor Markov assumption*
+		- $=\alpha\cdot P(e_{t+1}\mid X_{t+1})\cdot P(X_{t+1}\mid e_{1:t})$
+		- $=\alpha\cdot P(e_{t+1}\mid X_{t+1})\cdot \sum_{x_t}P(X_{t+1}\mid x_t,e_{1:t})\cdot P(x_t\mid e_{1:t})$
+		- $=\alpha\cdot P(e_{t+1}\mid X_{t+1})\cdot \sum_{x_t}P(X_{t+1}\mid x_t)\cdot P(x_t\mid e_{1:t})$
+		- užitečný filtrovací algoritmus si musí održovat odhad současného stavu, jelikož je vzorec rekurzivní
+	- předpověď (prediction) – znám minulá pozorování, zajímají mě budoucí stavy
+		- vlastně jako filtering, akorát nepřidávám další pozorování (měření)
+		- $P(X_{t+k+1}\mid e_{1:t})=\sum_{x_{t+k}} P(X_{t+k+1}\mid x_{t+k})\cdot P(x_{t+k}\mid e_{1:t})$
+		- po určitém čase (*mixing time*) distribuce předpovědí konverguje ke stacionárnímu rozdělení daného markovského procesu a zůstane konstantní
+	- vyhlazování (smoothing) – znám minulá pozorování, zajímají mě minulé stavy
+		- $P(X_k\mid e_{1:t})=P(X_k\mid e_{1:k},e_{k+1:t})$
+			- použijeme Bayesovo pravidlo
+		- $=\alpha\cdot P(X_k\mid e_{1:k})\cdot P(e_{k+1:t}\mid X_k,e_{1:k})$
+			- použijeme *sensor Markov assumption*
+		- $=\alpha\cdot P(X_k\mid e_{1:k})\cdot P(e_{k+1:t}\mid X_k)$
+		- přitom levý člen známe z filteringu (je to „dopředný směr“), pravý je „zpětný směr“ z naměřených hodnot *v budoucnosti* (relativně vůči danému okamžiku)
+	- nejpravděpodobnější vysvětlení (most likely explanation) – znám minulá pozorování, zajímá mě nejpravděpodobnější posloupnost minulých stavů
+		- opět existuje rekurzivní vzorec – podíváme se na pravděpodobnosti předchozích stavů a na nejpravděpodobnější „cesty“ do těchto stavů
 - skryté Markovovy modely
-	- máme matici stavů a měření
-	- algoritmy lze formulovat pomocí maticových operací
+	- předpokládejme, že stav procesu je popsán jedinou diskrétní náhodnou proměnnou $X_t$ (a máme jednu proměnnou $E_t$ odpovídající pozorování)
+	- pak můžeme všechny základní algoritmy implementovat maticově
+- dynamická bayesovská síť
+	- reprezentuje časový pravděpodobnostní model
+	- zachycuje vztah mezi minulým a současným časovým okamžikem (minulou a současnou vrstvou)
+	- každá stavová proměnná má rodiče ve stejné vrstvě nebo v předchozí (podle Markovova předpokladu)
+- dynamická bayesovská síť (DBN) vs. skrytý Markovův model (HMM)
+	- skrytý Markovův model je speciální případ dynamické bayesovské sítě
+	- dynamická bayesovská síť může být kódovaná jako skrytý Markovův model
+		- jedna náhodná proměnná ve skrytém Markovově modelu je n-tice hodnot stavových proměnných v dynamické bayesovské síti
+	- vztah mezi DBN a HMM je podobný jako vztah mezi běžnými bayesovskými sítěmi a tabulkou s *full joint probability distribution*
+		- DBN je úspornější
+- inference v DBN
+	- můžeme použít existující algoritmy pro inferenci v bayesovských sítích
+	- můžeme zkonstruovat celou bayesovskou síť tak, že přidáme vrstvy od začátku až po současnost – do nich dáme pozorování (měření)
+		- tzv. unrolling
+	- exact inference
+		- můžeme si pamatovat jenom poslední dvě vrstvy
+		- ale prostorová složitost bude exponenciální vzhledem k počtu stavových proměnných
+	- approximate inference
+		- samplujeme skryté proměnné v síti v topologickém pořadí pomocí likelihood weighting
+		- vzorky se generují nezávisle na měření, takže jejich váhy klesají
+		- abychom udrželi přesnost, musíme počet vzorků exponenciálně zvětšovat v závislosti na $t$
 
 ## 8. Markovské rozhodovací procesy
 
