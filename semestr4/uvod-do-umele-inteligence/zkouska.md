@@ -923,3 +923,59 @@
 			- variantou Q učení je SARSA (state-action-reward-state-action)
 
 ## 11. Filozofické a etické aspekty
+
+- přístup k AI
+	- myslet lidsky – jako člověk
+	- myslet racionálně – logicky
+	- jednat lidsky – podle Turingova testu
+	- jednat racionálně – jako racionální agent
+- lidská utility funkce jsou obvykle peníze
+	- ale nedají se použít přímo – nejsou lineární (mezi milionem a dvěma miliony není takový rozdíl jako mezi nulou a milionem)
+- lidé jsou „předvídatelně iracionální“
+	- preferují jistotu oproti nejistotě … certainity effect
+	- preferují známou pravděpodobnost oproti té neznámé … ambiguity aversion
+- mohou stroje myslet?
+	- weak AI … stroje můžou jednat, jako by byly inteligentní
+		- to je zjevné
+	- strong AI … stroje opravdu myslí
+		- není jasné, zda je to vůbec možné
+	- general AI … stroje můžou vyřešit libovolný problém
+		- strong AI je v principu general AI
+		- ale může být i weak AI general AI?
+	- narrow AI … stroje můžou řešit problémy v konkrétní oblasti
+		- určitě
+- Turingův test
+	- počítač má pětiminutovou konverzaci s člověkem
+	- člověk musí uhodnout, jestli to byl počítač nebo jiný člověk
+	- pokud počítač napálí člověka v aspoň 30 % případů, tak prošel Turingovým testem
+		- povedlo se to programům ELIZA, Eugene Goostman, Google Duplex, …
+	- reverzní Turingův test – počítač se snaží zjistit, jestli komunikuje s počítačem nebo člověkem (např. captcha)
+- je Gödelova věta o neúplnosti problémem pro AI?
+	- logická omezení se týkají i lidí
+- mind-body problem
+	- dualistická teorie – tělo a mysl existují v oddělených sférách
+		- jak může mysl ovládat tělo?
+	- monistická teorie – mysl není oddělená od těla
+		- mentální stavy jsou fyzické
+		- tato teorie dnes převažuje
+		- tedy by silná AI měla být možná
+- myšlenkové experimenty
+	- brain in a vat – dá se poznat život v simulaci?
+	- brain replacement – dají se neurony vyměnit jeden po druhém, aniž bychom přišli o vědomí?
+	- čínský pokoj – poznáme, jestli člověk v pokoji rozumí čínštině?
+- etické problémy AI
+	- falešné informace (ztráta důvěry)
+	- dohled (ztráta práce)
+	- automatizace (ztráta zaměstnání)
+	- zabijácké stroje (ztráta životů)
+	- konec lidské rasy (singularita)
+- technické problémy AI
+	- vysvětlitelnost – člověk někdy potřebuje vědět, proč daný systém vrátil konkrétní výstup
+	- křehkost – někdy se stává, že malá změna vstupu dramaticky změní výstup
+	- předpojatost (bias) – může se stát, že systém upřednostňuje určitou skupinu uživatelů
+- sociální problémy AI
+	- vojenské použití – může AI systém vystřelit?
+	- zaměstnání – zautomatizují AI systémy každý lidský úkon?
+	- dohled – mohou AI systémy nepřímo ovládat lidské životy?
+	- rozhodování – měly by se AI systémy rozhodovat (nebo pouze doporučovat)?
+		- tramvajové dilema
