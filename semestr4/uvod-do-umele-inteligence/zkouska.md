@@ -129,7 +129,7 @@
 	- factored – stav je vektor
 		- dá se použít constraint satisfaction, výroková logika, plánování
 	- structured – stav je sada objektů, ty jsou propojeny
-		- dá se použít logika prvního řádu
+		- dá se použít (predikátová) logika prvního řádu
 - problem solving agent – typ goal-based agenta
 	- atomická reprezentace stavů
 	- cíl = množina cílových stavů
