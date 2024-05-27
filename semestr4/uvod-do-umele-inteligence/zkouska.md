@@ -803,67 +803,145 @@
 
 ## 10. Strojové učení (rozhodovací stromy, regrese, zpětnovazební učení)
 
-- způsob, jak zlepšit chování umělého agenta
-- učení vs. přímé programování chování
-	- scénáře, na které programátor nemyslel
-	- změny v prostředí
-	- někdy není jasné, jak agenta naprogramovat
-- zpětná vazba, z nichž se agenti učí
-	- učení bez učitele (unsupervised learning) – agent se učí vzory ve vstupu
-	- zpětnovazební učení (reinforcement learning) – agent dostává odměny nebo tresty
-	- učení s učitelem (supervised learning) – agent se učí funkci, která mapuje vstupy na výstupy
-		- máme vstupy a výstupy
-		- chceme najít funkci (její aproximaci), která mapuje vstupy na výstupy
-		- hledáme hypotézu z prostoru hypotéz
-		- princip Occamovy břitvy
-		- typy úloh – klasifikace (u nečíselných funkcí) nebo regrese (u číselných funkcí)
-		- nekonzistence s příkladem – příklad neodpovídá naučené funkci
+- strojové učení
+	- způsob, jak zlepšit budoucí chování agenta
+	- co učení zvládá lépe než přímé programování chování
+		- scénáře, na které programátor nemyslel
+		- změny v prostředí
+		- někdy není jasné, jak agenta naprogramovat
+	- zpětná vazba, z nichž se agenti učí
+		- učení bez učitele (unsupervised learning) – agent se učí vzory ve vstupu, aniž by měl nějakou explicitní zpětnou vazbu
+		- zpětnovazební učení (reinforcement learning) – agent dostává odměny nebo tresty
+		- učení s učitelem (supervised learning) – agent se učí funkci, která mapuje vstupy na výstupy
+- učení s učitelem (supervised learning)
+	- máme vstupy a výstupy
+	- chceme najít funkci (její aproximaci), která mapuje vstupy na výstupy
+	- hledáme hypotézu (funkci $h$) z prostoru hypotéz
+	- hypotéze je konzistentní s $i$-tým příkladem, pokud $h(x_i)=y_i$
+	- princip Occamovy břitvy – preferujeme nejjednodušší hypotézu
+		- např. $n$ bodů určuje polynom stupně $n-1$, ale pokud body leží na přímce, tak nejjednodušší hypotéze je prostě ta přímka
+	- typy úloh
+		- klasifikace – u nečíselných funkcí, data rozdělujeme do množin
+		- regrese – u číselných funkcí
+	- nekonzistence s příkladem – příklad neodpovídá naučené funkci
 - rozhodovací strom
 	- přijímá vektor hodnot atributů, vrací výslednou hodnotu
-	- na základě tabulky příkladů se dá postavit strom, vnitřní uzly jsou jednotlivé atributy
-	- dá se zjistit odůvodnění konkrétního rozhodnutí
-	- strom se dá postavit hladovou metodou rozděl a panuj
-	- zakončení větve
-		- když jsou ve větvi výsledky jednoho druhu
+	- na základě tabulky příkladů se dá postavit strom
+		- každý vnitřní vrchol odpovídá testu jednoho atributu
+		- dá se zjistit odůvodnění konkrétního rozhodnutí
+		- strom se dá postavit hladovou metodou rozděl a panuj
+		- každý list určuje hodnotu, kterou klasifikační funkce vrátí
+	- zakončení větve (listy)
+		- když jsou ve větvi výsledky jednoho druhu – není co řešit, zvolím daný druh
 		- když je větev prázdná – pak zvolím převažující třídu v nadřazeném vrcholu
 		- když už jsme použili všechny atributy, ale v jedné větvi máme křížky a kolečka – zvolím převažující třídu
-	- snažím se vždy dělit podle nejdůležitějšího atributu
+	- prostor hypotéz = množina rozhodovacích stromů
+		- hledáme strom, který je konzistentní s příklady a zároveň je co nejmenší
+	- snažím se vždy (hladově) dělit podle nejdůležitějšího atributu
 		- jak ho najít?
 		- jako metriku použiju entropii – míru neurčitosti náhodné proměnné (měří se v bitech informace, kterou získáme, když známe hodnotu náhodné proměnné)
+		- entropie náhodné proměnné $V$ s hodnotami $v_k$, kde každá má pravděpodobnost $P(v_k)$ se spočítá takto: $H(V)=\sum_k P(v_k)\cdot\log_2\frac1{P(v_k)}$
+			- pro binární proměnnou je to $B(p)=p\cdot\log_2\frac1p+(1-p)\log_2\frac1{1-p}$
+			- kde $p$ je pravděpodobnost jedné z variant
+		- dále použijeme *information gain* pro daný atribut – tedy očekávanou redukci entropie
+			- $\text{Gain}(A)=B(\frac{p}{p+n})-\sum_k\frac{p_k+n_k}{p+n}B(\frac{p_k}{p_k+n_k})$
+			- kde $p$ jsou pozitivní případy, $n$ jsou negativní případy, $p_k$ jsou pozitivní případy v $k$-té podmnožině
+			- z toho levá část vzorce je entropie atributu vůči celé množině, pravá je očekávaná zbývající entropie
+		- poznámky
+			- entropie spravedlivé mince je 1
+			- zjevně $B(\frac p{p+n})=B(\frac n{p+n})$
 - logická formulace učení
-	- agent má inferenční mechanismus
-	- přihodíme mu axiom, aby toho mohl odvozovat víc
-	- z větví v rozhodovacím stromu můžeme udělat logické formule
-	- hypotéza může být nekonzistentní dvěma způsoby
-		- false negative
-			- potřebujeme formulit zobecnit
-			- přidáme disjunkci nebo odebereme konjunkci
-		- false positive
-			- potřebujeme formuli specializovat
-			- přidáme konjunkci nebo odebereme disjunkci
-	- chceme udržet jednodušší formuli – podle Occamovy břitvy
-	- tomu se říká current-best-hypothesis search
-	- least-commitment search si udržuje všechny možné hypotézy konzistentní s příklady (tzv. version space)
-		- jak kompaktně reprezentovat version space
-			- pomocí dolní a horní meze
-			- některé formule jsou obecnější než jiné
-			- je to částečné uspořádání
-			- horní mez – obecné formule (obecnější jsou nekonzistentní)
-			- dolní mez – specifické formule (specifičtější jsou nekonzistentní)
-	- když je šum v datech, může dojít ke kolapsu version space
-- lineární regrese
-	- vzorečky viz prezentace
-	- můžeme ji použít pro klasifikaci – nakreslíme přímku, která bude oddělovat vstupy klasifikované jedním a druhým způsobem
-	- perceptronové pravidlo
+	- hypotézy, příklady a klasifikaci budeme reprezentovat logickými formulemi
+		- tzv. logická klasifikace
+		- příklady (trénovací data)
+			- atributy se stanou unárními predikáty
+			- klasifikace se určí literálem s cílovým predikátem
+		- hypotéza bude mít tvar $\forall x:\text{Goal}(x)\iff C_j(x)$
+			- kde $C_j$ je nějaká formule (mohla by popisovat rozhodovací strom)
+			- $C_j$ (na vstupních datech) definuje množinu dat klasifikovaných jako true
+		- prostor hypotéz = množina všech hypotéz
+			- učící algoritmus věří, že jedna hypotéza je správná, takže věří formuli $h_1\lor h_2\lor\dots\lor h_n$
+			- hypotézy, které nejsou konzistentní s příklady, můžeme vyškrtnout
+		- idea … udržujeme jednu hypotézu a upravujeme ji podle toho, jak přicházejí další příklady, abychom ji udržely konzistentní
+			- pokud je příklad konzistentní, neměníme hypotézu
+			- hypotéza může být nekonzistentní dvěma způsoby
+				- false negative
+					- potřebujeme formulit zobecnit
+					- přidáme disjunkci nebo odebereme konjunkci
+				- false positive
+					- potřebujeme formuli specializovat
+					- přidáme konjunkci nebo odebereme disjunkci
+			- chceme udržet jednodušší formuli – podle Occamovy břitvy
+			- tomu se říká **current-best-hypothesis search**
+			- pro každou modifikaci musíme zkontrolovat konzistenci s předchozími příklady
+		- **least-commitment search**
+			- si udržuje všechny možné hypotézy konzistentní s příklady
+				- tzv. version space
+			- jak kompaktně reprezentovat version space
+				- pomocí dolní a horní meze
+				- některé formule jsou obecnější než jiné
+				- je to částečné uspořádání
+				- horní mez – obecné formule (obecnější jsou nekonzistentní)
+					- $G$-set
+					- na začátku True
+					- pokud je příklad false positive pro $G_i$ → nahradíme ho všemi jeho následnými specializacemi
+					- false negative → vyhodíme $G_i$
+				- dolní mez – specifické formule (specifičtější jsou nekonzistentní)
+					- $S$-set
+					- na začátku False
+					- false positive → vyhodíme $S_i$
+					- false negative → nahradíme $S_i$ jeho následnými zobecněními
+			- když je šum v datech, může dojít ke kolapsu version space
+- lineární modely
+	- univariate linear function = přímka
+		- $y=w_1x+w_0$
+	- multivariate linear function = nadrovina
+		- $y=w_0+\sum_i w_ix_i$
+	- hledáme přímku (hypotézu), která bude nejlépe odpovídat datům
+		- hypotézu značíme $h_w(x)$
+	- chybu měříme pomocí square loss function
+		- chyba … $\sum_j(y_j-h_w(x_j))^2$
+	- → lineární regrese
+	- lze řešit dvěma způsoby
+		- analyticky pomocí rovnic
+			- $\sum_j(y_j-(w_1x_j+w_0))^2=0$
+			- derivujeme postupně podle $w_0,w_1$
+		- pomocí metody *gradient descent*
+			- $w_i\leftarrow w_i-\alpha\cdot\frac{\partial}{\partial w_i}\sum_j(y_j-h_w(x_j))^2$
+			- $\alpha$ … learning rate (step size)
+- lineární klasifikace
+	- hledáme přímku (hypotézu), která bude oddělovat vstupy klasifikované jedním a druhým způsobem
+	- hledáme lineární separátor
+	- perceptronové pravidlo $w_i\leftarrow w_i+\alpha(y-h_w(x))\cdot x_i$
+		- pro lineárně oddělitelné množiny konverguje
+		- jinak „konvergenci“ zajistíme snižováním hodnoty $\alpha$
 	- můžeme použít logistickou prahovou funkci – není to černá/bílá, ale funkce nám řekne pravděpodobnost, že prvek patří do dané třídy
-- …
-- zpětné šíření chyby
-	- znám chybu u výstupních neuronů
-	- neznám chybu u skrytých neuronů uvnitř sítě
+		- pak můžeme k nalezení vah použít *gradient descent*
+
+### Umělé neuronové sítě
+
+- skládají se z propojených uzlů (jednotek)
+	- každá jednotka nejdříve spočítá vážený součet vstupů
+	- pak aplikuje aktivační funkci, čímž odvodí výstup
+		- perceptron – schodová (step, hard treshold) aktivační funkce
+		- sigmoid perceptron – aktivační funkce s logistickým tresholdem
+- struktury neuronových sítí
+	- feed-forward network
+		- spoje jenom v jednom směru (DAG)
+		- reprezentuje funkci, která převádí vstup na výstup
+		- žádný interní stav (paměť) kromě vah
+	- recurrent network
+		- výstup vrací zpátky do svých vstupů
+		- reprezentuje dynamický systém, který může dojít do stabilního stavu, oscilovat, nebo se dokonce chovat chaoticky
+		- může mít krátkodobou paměť
+- učení ve feed-forward vícevrstevných sítích
+	- váhy upravujeme pomocí metody *gradient descent*
+	- chyba na výstupové vrstvě se dá snadno spočítat – prostě porovnáme očekávaný výstup a výsledek neuronu
+	- neznám však chybu u skrytých neuronů uvnitř sítě
 		- získám ji tak, že chybu u výstupních neuronů propaguju zpátky – chyba je vážená, protože propojení neuronů je složité (jeden neuron typicky ovlivňuje více jiných)
 - parametrický model
 	- vezmeme data
-	- zakódujeme je do parametrů neuronky (data „komprimujeme“, zajímá nás jenom část informace)
+	- zakódujeme je do **parametrů** neuronky (data „komprimujeme“, zajímá nás jenom část informace)
 	- data zahodíme
 - neparametrický model
 	- používáme původní data, abychom reprezentovali hypotézu
@@ -871,14 +949,22 @@
 		- na vstupu mám vektor $x$, chci vrátit nějaké odpovídající $y$
 		- mezi trénovacími příklady najdu $k$ vektorů, které jsou nejbližší k $x$
 		- tak dostanu $k$ odpovídajících $y$, s nimi něco provedu a výsledek vrátím
-			- lze zvolit nejčastější $y$
-			- lze použít regresi nebo průměr
+			- klasifikuju → lze zvolit nejčastější $y$
+			- dělám regresi → spojím tečky nebo použiju průměr
 	- vzdálenosti se typicky měří pomocí Minkowského metriky
-- support-vector machine
+		- $L^p(a,b)=\sqrt[p]{\sum_i|a_i-b_i|^p}$
+		- pro $p=1$ … manhattanská vzdálenost
+		- pro $p=2$ … euklidovská vzdálenost
+		- máme-li boolovské hodnoty atributů, tak počet atributů, ve kterých se body liší, se nazývá Hammingova vzdálenost
+- support-vector machine (SVM)
 	- stojí na lineární regresi
 	- pokud lze třídy oddělit nadrovinou, zvolí takovou, která je nejdál od všech dat (příkladů)
-	- pokud nejde použít nadrovinu, provede mapování do vícedimenzionálního prostoru, kde už příklady půjde oddělit
-	- SVMs jsou neparametrická metoda – příklady blíže k separátoru jsou důležitější, říká se jim support vectors
+	- nadrovina … maximum margin separator
+	- pokud nejde použít nadrovinu, provede mapování do vícedimenzionálního prostoru (pomocí kernel function), kde už příklady půjde oddělit
+	- SVMs jsou neparametrická metoda – příklady blíže k separátoru jsou důležitější, říká se jim support vectors (vlastně definují ten separátor)
+
+### Bayesovské a zpětnovazební učení
+
 - někdy se neučíme úplně od nuly, už máme částečnou znalost, snažíme se naučit něco navrch – statistické učení
 	- bayesovské učení
 		- bereme v úvahu všechny hypotézy
