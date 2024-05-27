@@ -2,8 +2,7 @@
 
 ## 1. Zavedení pojmů, historie
 
-- umělá inteligence
-	- snažíme se, aby stroje zvládly činnosti, které od člověka vyžadují jistou inteligenci
+- umělá inteligence – snažíme se, aby stroje zvládly činnosti, které od člověka vyžadují jistou inteligenci
 - historie ve stručnosti
 	- v počátcích se hlavní důraz kladl na logické a pravděpodobnostní uvažování – symbolic AI
 	- nyní jsme v éře hlubokého učení a neuronových sítí
@@ -52,14 +51,15 @@
 	- podle poměru velikosti těla a mozku u člověka a u zvířat Aristoteles odhadl, že je centrum myšlení v mozku
 	- až do 18. století nebylo jasné, že mozek je centrum vědění
 	- Broca zkoumal pacienty s poškozením mozku – pozoroval u nich změny chování
+
+### Historický vývoj
+
 - před zrozením oboru umělé inteligence
 	- McCulloth, Pitts – model umělého neuronu, neurony lze spojovat a „učit“
 	- neuron = jednotka s váženými vstupy a výstupem, hodnotu výstupu určuje prahová funkce (tedy hlavní problém spočívá v nastavení vah)
 	- Hebb – pravidlo pro upravování vah
 	- Minski, Edmonds – první počítač s neuronovou sítí
 	- Turing – vize AI
-		- Turingův test – člověk se snaží rozlišit počítač od člověka
-		- inverzní Turingův test – počítač se snaží rozlišit počítač od člověka
 - zrod AI
 	- John McCarthy – workshop s názvem umělá inteligence, byť počítačová racionalita by byl lepší název
 	- Newell, Simon – program Logic Theorist, umí dokazovat věty z knihy Principia Mathematica
@@ -94,13 +94,12 @@
 	- Watson (IBM) – poráží lidi ve hře Riskuj
 	- DeepStack, Libratus – programy na hraní Pokeru (na DeepStacku se podíleli studenti MFF UK)
 	- autonomní řízení – Grand Challenges
-- co bude dál?
-	- Gartner Hype Cycle
-		- innovation trigger
-		- peak of inflated expectations
-		- trough of disillusionment
-		- slope of enlightenment
-		- plateau of productivity
+- co bude dál? může nám to naznačit *Gartner Hype Cycle*
+	- innovation trigger
+	- peak of inflated expectations
+	- trough of disillusionment
+	- slope of enlightenment
+	- plateau of productivity
 - AI je o kontrukci racionálních agentů
 	- racionální agent by měl zvolit akci, o které se očekává, že maximalizuje užitek
 	- vševědoucí (omniscient) agent zná výsledek akce – vševědoucnost není reálně možná
