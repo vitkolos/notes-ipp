@@ -968,45 +968,91 @@
 - někdy se neučíme úplně od nuly, už máme částečnou znalost, snažíme se naučit něco navrch – statistické učení
 	- bayesovské učení
 		- bereme v úvahu všechny hypotézy
-		- vracíme vážený průměr všech hypotéz
+		- vracíme vážený průměr všech hypotéz (váha = pravděpodobnost hypotézy)
 	- další přístup – bereme v úvahu nejpravděpodobnější hypotézu
 - bayesovské sítě, parameter learning (učení se parametrů)
 	- chceme se naučit hodnoty, které vyplníme do CPD tabulek
-	- hledáme hypotézu, která nejlépe vysvětluje příklady
-	- derivuju postupně podle každého hledaného parametru a derivaci položím rovnou nule
-	- co když mám skryté uzly v síti
+	- maximum-likelihood parameter learning
+		- hledáme hypotézu, která nejlépe vysvětluje příklady
+		- nejprve vyjádříme pravděpodobnost dat za podmínky dané hypotézy
+		- pak derivujeme logaritmus téhle pravděpodobnosti postupně podle každého hladeného parametru
+		- určíme hodnoty parametrů tak, aby byly derivace nulové
+	- co když mám skryté proměnné (nejsou v datech)?
 		- můžu udělat bayesovskou síť bez skrytých proměnných, to ale může vést k výraznému zvýšení počtu parametrů
 		- algoritmus expectation-maximization (EM)
 			- předstíráme, že známe parametry modelu
-			- dopočteme očekávané hodnoty skrytých proměnných
-			- upravíme parametry, abychom maximalizovali likelihood modelu
+			- dopočteme očekávané hodnoty skrytých proměnných (E-step, expectation)
+			- upravíme parametry, abychom maximalizovali likelihood modelu (M-step, maximization)
 			- iterujeme (dokud to nezačne konvergovat)
 - reinforcement learning (zpětnovazební učení)
 	- nemusíme agentovi říkat $y$
-	- agent dostává pozitivní nebo negativní zpětnou vazbu (ve formě reward/reinforcement)
+	- agent se učí transition model pro své vlastní akce
 	- vychází z markovských rozhodovacích procesů
+	- agent dostává pozitivní nebo negativní zpětnou vazbu (ve formě reward/reinforcement)
+		- aby zjistil, co je dobré a co je špatné
+		- odměna (reward) je součástí *input percept* (vstupního vnímání), ale agent musí být *hardwired*, aby chápal, že je to odměna
+	- cílem zpětnovazebního učení je, aby se agent pomocí odměn naučil optimální strategii pro prostředí
 	- pasivní učení – známe strategii a učíme se, jak je dobrá (učíme se utility funkci)
-	- aktivní učení – agent zjišťuje, co má dělat
-	- pasivní učení
+		- strategie $\pi$ je pevně daná
 		- agent nezná přechodový model ani reward function
+		- myšlenka: agent se řídí podle policy, vnímá současný stav a reward, z toho odvozuje utility
 		- přímý odhad utility
 			- máme trace (běh) mezi stavy, z toho (postupně) počítáme utility function
+				- pokud stav potkáme víckrát, tak průměrujeme
+				- idea: utilita stavu je očekávaný celkový reward z toho stavu v budoucnu (očekávaný *reward-to-go*)
 			- nevýhody – utilities nejsou nezávislé, ale řídí se Bellmanovými rovnicemi
+			- hledáme v prostoru hypotéz, který je výrazně větší, než by musel být (obsahuje spoustu funkcí, co porušují Bellmanovy rovnice) → algoritmus konverguje pomalu
+			- $U^\pi(s)\leftarrow R(s)+\gamma\sum_{s'}P(s'\mid s,\pi(s))\cdot U^\pi(s')$
 		- adaptivní dynamické programování (ADP)
-			- používá Bellmanovy rovnice
-		- temporal-difference learning
+			- agent se učí přechodový model a odměny
+			- utilitu počítá třeba z Bellmanových rovnic třeba pomocí value iteration
+			- upravuje stav, aby odpovídal všem následníkům
+		- temporal-difference (TD) learning
 			- po každém kroku updatuju jedno číslo
-			- nepotřebuju přechodový model
+			- nepotřebuju přechodový model (je to model-free metoda)
 			- konverguje to pomaleji než ADP
-	- aktivní učení
+			- upravuje stav, aby odpovídal aktuálně pozorovanému následníkovi
+			- když dojde k přechodu ze stavu $s$ do stavu $s'$, tak na $U^\pi(s)$ použijeme update: $U^\pi(s)\leftarrow U^\pi(s)+\alpha\cdot (R(s)+\gamma\cdot U^\pi(s')-U^\pi(s))$
+	- aktivní učení – agent zjišťuje, co má dělat (učíme se strategii a utility funkci)
 		- agent neví, co má dělat
-		- active adaptive dynamic programming agent
+		- active ADP agent
+			- agent se učí přechodovou funkci a odměny
 			- používá Bellmanovy rovnice
+				- $U^\pi(s)\leftarrow R(s)+\gamma\max_a\sum_{s'}P(s'\mid s,a)\cdot U^\pi(s')$
+				- můžeme použít value iteration
+				- získáme utility funkci
 			- ale nemusí se chovat úplně optimálně – opakuje zažité vzory
 			- říká se tomu hladový (greedy) agent
+		- jak může volba optimální akce vést k suboptimálním výsledkům?
+			- naučený model není stejný jako reálné prostředí
+			- akce nejsou pouze zdrojem odměn, ale také přispívají k učení – ovlivňují vstupy
+			- zlepšováním modelu se postupně zvětšují odměny, které agent získává
 		- je potřeba najít optimum mezi exploration a exploitation
-			- k tomu se dá použít temporální diference a Q funkce – říká se tomu Q učení
-			- variantou Q učení je SARSA (state-action-reward-state-action)
+			- pure exploration – agent nepoužívá naučené znalosti
+			- pure exploitation – riskujeme, že bude agent pořád dokola opakovat zažité vzory
+			- základní myšlenka: na začátku preferujeme exploration, později lépe rozumíme světu, takže nepotřebujeme tolik prozkoumávat
+		- exploration policies
+			- agent si zvolí náhodnou akci v $O(1/t)$ případech (kde $t$ je čas), jinak se řídí hladovou strategií
+				- nakonec to konverguje k optimální strategii, ale může to být extrémně pomalé
+			- rozumnější přístup je přiřadit váhu akcím, které agent nezkusil příliš často, a vyhýbat se akcím, o kterých jsme přesvědčeni, že mají malou utilitu
+				- přiřadíme vyšší odhad utility neprozkoumaným dvojicím (stav, akce)
+				- opět použijeme value iteration
+				- používáme optimistický odhad utility, aby se agent dostal i do vzdálenějších neprozkoumaných oblastí
+			- existuje alternativní TD metoda, říká se jí Q-learning
+				- $Q(s,a)$ označuje hodnotu toho, že provedeme akci $a$ ve stavu $s$
+				- q-hodnoty jsou s utilitou ve vztahu $U(s)=\max_a Q(s,a)$
+				- můžeme napsat omezující podmínku $Q(s,a)=R(s)+\gamma\sum_{s'} P(s'\mid s,a)\cdot \max_{a'}Q(s',a')$
+					- tohle vyžaduje, aby se model naučil i $P(s'\mid s,a)$
+				- tenhle přístup nevyžaduje model přechodů – je to bezmodelová (model-free) metoda, potřebuje akorát q-hodnoty
+				- $Q(s,a)\leftarrow Q(s,a)+\alpha\cdot (R(s)+\gamma\cdot\max_{a'}Q(s',a')-Q(s,a))$
+					- počítá se, když je akce $a$ vykonána ve stavu $s$ a vede do stavu $s'$
+			- state-action-reward-state-action (SARSA)
+				- je to varianta Q-učení
+				- $Q(s,a)\leftarrow Q(s,a)+\alpha\cdot (R(s)+\gamma\cdot Q(s',a')-Q(s,a))$
+					- pravidlo se aplikuje na konci pětice $s,a,r,s',a'$, tedy po aplikaci akce $a'$
+			- pro hladového agenta (který volí podle největšího $Q$) jsou algoritmy SARSA a základní Q-learning stejné
+				- rozdíl je vidět až u agenta, který není úplně hladový, ale provádí i průzkum (exploration)
+				- u SARSA se bere v úvahu reálně zvolená akce (podle strategie – je to on-policy algoritmus, kdežto Q-learning je off-policy)
 
 ## 11. Filozofické a etické aspekty
 
