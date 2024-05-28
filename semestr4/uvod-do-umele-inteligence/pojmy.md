@@ -1,0 +1,422 @@
+# Pojmy
+
+- introduction
+	- symbolic AI
+	- sylogism
+	- utility
+	- knowledge-based agent
+	- control theory
+	- cybernetics
+	- microworld
+	- perceptron
+	- undirected research
+	- expert systems
+	- gartner hype cycle
+	- rational agent
+	- omniscient agent
+	- environment
+		- fully observable
+		- partially observable
+		- deterministic
+		- stochastic
+		- episodic
+		- sequential
+		- static
+		- dynamic
+		- discrete
+		- continuous
+		- multi-agent
+			- cooperative
+			- cooperative
+- problem solving, search
+	- agent
+		- rational
+		- reflex
+			- simple
+			- model-based
+		- goal-based
+	- state representation
+		- atomic
+		- factored
+		- structured
+	- problem solving agent
+	- environment abstraction
+		- valid
+		- useful
+	- well-defined problem
+		- initial state
+		- transition model
+		- goal test
+	- search
+		- graph-search
+		- tree-search
+		- frontier
+		- uninformed
+			- BFS
+			- DFS
+				- backtracking
+			- uniform-cost search
+		- informed
+			- best-first search
+				- greedy
+				- A*
+		- heuristic function
+			- admissible (přípustná)
+			- consistent/monotone
+			- $h_1$ dominates $h_2$
+- constraint satisfaction
+	- forward checking
+	- constraint satisfaction problem
+		- variables
+		- domains
+		- constraints
+			- relation (relace)
+			- constraint arity
+	- feasible solution (přípustné řešení)
+		- complete consistent assignment
+	- constraint modeling
+	- arc consistency
+	- AC-3
+	- look ahead / constraint propagation / maintaining arc consistency
+	- k-consistency
+	- global constraint
+	- heuristics
+		- variable ordering
+			- fail-first principle
+		- value ordering
+			- succeed-first principle
+- logical reasoning
+	- CNF
+		- clause
+		- literal
+		- formula
+	- DPLL
+		- pure symbol
+		- unit clause
+	- SAT optimizations
+		- component analysis
+		- variable ordeing
+			- degree heuristic
+			- activity heuristic
+		- random restarts
+		- clever indexing
+			- watched literals
+		- clause learning
+	- knowledge-based agents
+		- knowledge base
+		- tell
+		- ask
+		- inference
+	- model
+	- entailment
+		- $X$ entails $Y$
+	- resolution rule
+	- Horn clause
+	- forward chaining
+		- data-driven reasoning
+	- backward chaining
+		- goal-driven reasoning
+- automated planning
+	- fluent
+	- observation model
+	- transition model
+		- effect axioms
+		- frame problem
+		- frame axioms
+		- successor-state axioms
+	- hybrid planner
+	- propositional planning
+		- propositional sentence
+		- SATPlan
+		- precondition axioms
+		- action exclusion axioms
+		- propositional inference
+		- domain-specific heuristics
+	- situation calculus
+		- first-order logic
+		- situations
+		- states
+		- possibility axiom
+		- successor-state axiom
+	- classical planning
+		- factored representation
+		- action schema / operator
+			- name
+			- preconditions
+			- effects
+		- atoms
+			- fluents
+			- rigid atoms
+		- closed world assumption
+		- action
+			- relevant action
+		- regression set
+	- planning problem
+		- domain model
+		- initial state
+		- goal condition
+	- forward/progression planning
+	- backward/regression planning
+	- heuristic
+		- relaxed problem
+			- ignore action preconditions
+			- ignore negative effects
+	- other forms of planning
+		- plan-space
+			- open goals
+			- casual threats
+		- hierarchical
+			- decompose tasks
+- probabilistic reasoning
+	- uncertainity
+		- partial observability
+		- nondeterminism
+	- logical agent
+		- belief states
+		- contingency plans
+	- probabilistic agent
+	- sample space
+	- conditional/posterior probability
+	- product rule
+	- random variables
+	- full joint probability distribution
+	- marginalization
+	- normalization
+	- independence
+	- enumeration
+	- Bayes' rule
+	- casual direction 
+	- diagnostic direction
+	- naive Bayes model
+	- chain rule
+	- Bayesian network
+		- conditional probability distribution
+	- hidden variables
+	- dynamic programming
+	- factors
+		- product of factors
+		- summing out a variable
+	- Monte Carlo
+		- rejection sampling
+		- likelihood weighting
+- probabilistic reasoning over time
+	- world state
+		- time slices / states
+			- hidden random variables
+			- observable random variables
+		- discrete time
+	- formal model
+		- transition model
+			- Markov assumption
+			- stationary process
+		- sensor/observation model
+			- sensor Markov assumption
+	- basic inference tasks
+		- filtering
+		- prediction
+			- mixing time
+		- smoothing
+		- most likely explanation
+			- Viterbi algorithm
+	- hidden Markov model
+		- matrix implementation
+		- forward messager propagation
+		- backward message propagation
+	- dynamic Bayesian network
+		- unrolling
+		- exact inference
+			- variable elimination
+		- approximate inference
+			- likelihood weighting
+- decision making
+	- utility
+	- expected utility
+	- maximum expected utility
+	- lottery
+	- preference
+	- normalized utility function
+		- standard lottery
+	- decision network / influence diagram
+		- evidence variables
+		- chance nodes
+		- decision nodes
+		- utility nodes
+	- decision-theoretic expert systems
+		- causal model
+		- qualitative decision model
+		- assign probabilities
+		- assign utilities
+		- verify and refine
+		- sensitivity analysis
+	- Markov decision process
+		- sequence decision problem
+		- observable stochastic environment
+		- Markov transition model
+		- reward
+		- utility function
+			- discount factor
+		- policy
+			- optimal policy
+		- true utility of a state
+		- Bellman equation
+			- nonlinear
+		- value iteration
+		- policy iteration
+		- partially observable Markov decision process
+			- belief states
+- games and multi-agent systems
+	- simplest games
+		- deterministic
+		- turn taking
+		- two-player
+		- zero-sum
+		- games of perfect information
+	- game tree
+		- minimax
+		- alpha-beta pruning
+		- evaluation function
+		- expected minimax
+	- single-move games
+		- payoff function
+		- optimal strategy
+		- pure strategy
+		- mixed strategy
+		- solution
+		- prisoner's dilemma
+			- testify/defect
+			- refuse/cooperate
+		- Nash equilibrium
+		- Pareto dominated
+		- Pareto optimal outcome
+		- two-finger Morra
+			- maximin
+		- repeated prisoner's dilemma
+			- tit-for-tat
+			- perpetual punishment
+	- mechanism design
+		- bidder
+		- private value
+		- common value
+		- good mechanism
+			- efficient
+		- dominant strategy
+		- English auction
+			- ascending-bid
+		- Dutch auction
+			- descending-bid
+		- sealed-bid auction
+		- sealed-bid second-price auction
+			- Vickrey auction
+		- tragedy of commons
+			- Vickrey-Clarke-Groves mechanism
+	- solved game
+- machine learning
+	- unsupervised learning
+	- reinforcement learning
+	- supervised learning
+		- hypothesis
+		- hypothesis space
+		- consistent hypothesis
+		- Ockham's razor
+		- classification
+		- regression
+		- decision trees
+			- sequence of tests
+			- divide-and-conquer strategy
+			- entropy
+			- information gain
+		- logic formulation of learning
+			- logical classification
+			- false negative
+			- false positive
+			- curent-best-hypothesis search
+			- least-commitment search
+				- version space
+				- G-set / most general boundary
+				- S-set / most specific boundary
+		- linear models
+			- univariate linear function
+			- multivariate linear function
+			- square loss function
+			- linear regression
+				- analytical approach
+				- gradient descent method
+					- learning rate
+			- linear classification
+				- linear separator
+				- treshold function
+					- perceptron learning rule
+					- logistic treshold function
+						- gradient descent
+		- artificial neural network
+			- connected nodes/units
+				- inputs
+				- activation function
+					- perceptron
+					- sigmoid perceptron
+				- output
+			- weighted directional links
+		- neural network structures
+			- feed-forward network
+			- recurrent network
+		- feed-forward network learning
+			- gradient descent
+			- back-propagation
+		- parametric model
+		- non-parametric model
+			- nearest neighbor models
+			- Minkowski distance
+		- support-vector machine
+			- maximum margin separator
+			- kernel function
+- learning probabilistic models and reinforcement learning
+	- Bayesian learning
+		- Bayesian networks
+		- parameter learning
+		- maximum-likelihood parameter learning
+		- expectation-maximization algorithm
+	- reinforcement learning
+		- reward/reinforcement
+			- input percept
+		- passive learning
+			- fixed policy
+			- direct utility estimation
+				- expected reward-to-go
+				- running average for each state
+			- adaptive dynamic programming
+				- transition model
+				- rewards
+			- temporal-difference learning
+				- learning rate
+				- model-free method
+		- active leraning
+			- active adaptive dynamic programming agent
+				- greedy agent
+			- exploration
+			- exploitation
+			- exploration policies
+				- Q-learning
+					- temporal-difference learning
+					- off-policy
+				- SARSA
+					- temporal-difference learning
+					- on-policy
+- philosophical and ethical issues
+	- people
+		- certainity effect
+		- ambiguity aversion
+	- AI
+		- weak
+		- strong
+		- general
+		- narrow
+	- Turing test
+	- Gödel's incompleteness theorem
+	- mind-body problem
+		- dualist theory
+		- monist theory
+	- thought experiments
+		- brain in a vat
+		- brain replacement
+		- Chinese room
+		- trolley problem

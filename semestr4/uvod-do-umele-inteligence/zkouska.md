@@ -492,6 +492,7 @@
 		- nedeterminismus – není jisté, jak akce dopadne
 	- logický agent by si musel pamatovat všechny možnosti situací
 		- belief state = množina všech stavů světa, ve kterých se v danou chvíli agent může nacházet
+		- contingency plan = plán, který řeší všechny možné situace
 	- pravděpodobnostní agent každému tvrzení přiřazuje belief mezi 0 a 1
 	- použijeme teorii pravděpodobnosti
 - někdy si můžeme udělat tabulku všech možností a určit jejich pravděpodobnosti (full joint probability distribution)
@@ -913,6 +914,7 @@
 	- hledáme přímku (hypotézu), která bude oddělovat vstupy klasifikované jedním a druhým způsobem
 	- hledáme lineární separátor
 	- perceptronové pravidlo $w_i\leftarrow w_i+\alpha(y-h_w(x))\cdot x_i$
+		- kde $y$ je cílová hodnota a $h_w(x)$ je výstup perceptronu pro vektor $x$
 		- pro lineárně oddělitelné množiny konverguje
 		- jinak „konvergenci“ zajistíme snižováním hodnoty $\alpha$
 	- můžeme použít logistickou prahovou funkci – není to černá/bílá, ale funkce nám řekne pravděpodobnost, že prvek patří do dané třídy
