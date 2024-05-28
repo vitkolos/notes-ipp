@@ -509,7 +509,7 @@
 			- P(cause | effect) … diagnostic direction (diagnostický směr), obvykle chceme zjistit
 			- P(cause | effect) = P(effect | cause) P(cause) / P(effect)
 	- naivní bayesovský model
-		- $P(\text{Cause}, \text{Effect}_1, \dots, \text{Effect}_n) = P(Cause)\prod_iP(\text{Effect}_i\mid\text{Cause})$
+		- $P(\text{Cause}, \text{Effect}_1, \dots, \text{Effect}_n) = P(\text{Cause})\prod_iP(\text{Effect}_i\mid\text{Cause})$
 	- chain rule
 		- $P(x_1,\dots,x_n)=\prod_iP(x_i\mid x_{i-1},\dots,x_1)$
 		- využívá product rule (lze odvodit z definice podmíněné pravděpodobnosti)
