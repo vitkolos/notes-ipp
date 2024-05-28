@@ -465,7 +465,7 @@
 		- prohledávací algoritmus potřebuje dobrou heuristiku
 	- backward (regression) planning
 		- prozkoumávají se jen relevantní akce → menší větvení než u forward planningu
-		- používá množiny stavů spíše než individuální stavy → je těžké najtí dobrou heuristiku
+		- používá množiny stavů spíše než individuální stavy → je těžké najít dobrou heuristiku
 - potřebujeme heuristiku, aby naváděla prohledávání
 	- musí být přípustná, může být monotónní
 	- můžeme ji najít tak, že zkusíme řešit rozvolněný problém (odstraníme některé constraints)
@@ -520,15 +520,17 @@
 - konstrukce bayesovské sítě
 	- nějak si uspořádáme proměnné (lepší je řadit je od příčin k důsledkům, ale není to nutné)
 	- jdeme odshora dolů, přidáváme správné hrany
-	- příklad: MaryCalls, JohnCalls, Alarm, Burglary, Earthquakce
+	- příklad: MaryCalls, JohnCalls, Alarm, Burglary, Earthquake
 		- z MaryCalls povede hrana do JohnCalls, protože nejsou nezávislé (když volá Mary, tak je větší šance, že volá i John)
 		- z obou povede hrana do Alarmu
 		- z Alarmu vedou hrany do Burglary a Earthquake (ale hrany z JohnCalls a MarryCalls tam nepovedou – na těch hranách nezáleží, jsou nezávislé)
 		- z Burglary povede hrana do Earthquake, protože pokud zní alarm a k vloupání nedošlo, tak pravděpodobně došlo k zemětřesení
 	- akorát je těžké určit hodnoty pravděpodobností
 - z bayesovských sítí můžeme provádět inferenci – odvozovat pravděpodobnost proměnných pomocí pravděpodobností *skrytých* proměnných
-	- $P(X|e)=\alpha P(X,e)=\alpha\sum_y P(X,e,y)$
+	- $P(X\mid e)=\alpha P(X,e)=\alpha\sum_y P(X,e,y)$
+		- kde pravděpodobnost $X$ odvozujeme, $e$ jsou pozorované proměnné (evidence) a $y$ jsou hodnoty další skryté proměnné $Y$
 	- přičemž $P(X,e,y)$ lze určit pomocí $P(x_1,\dots,x_n)=\prod_i P(x_i\mid\text{parents}(x_i))$
+		- kde parents jsou přímí předci vrcholu (vrcholy, z nichž do něj vedou šipky)
 	- příklad – počítáme pravděpodobnost Burglary, když JohnCalls a MaryCalls
 		- $P(b\mid j,m)=\alpha\sum_e\sum_a P(b)P(e)P(a|b,e)P(j|a)P(m|a)$
 		- $=\alpha P(b)\sum_e P(e)\sum_aP(a|b,e) P(j|a) P(m|a)$
