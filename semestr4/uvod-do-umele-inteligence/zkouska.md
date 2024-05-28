@@ -818,13 +818,12 @@
 	- máme vstupy a výstupy
 	- chceme najít funkci (její aproximaci), která mapuje vstupy na výstupy
 	- hledáme hypotézu (funkci $h$) z prostoru hypotéz
-	- hypotéze je konzistentní s $i$-tým příkladem, pokud $h(x_i)=y_i$
+	- hypotéza je konzistentní s $i$-tým příkladem, pokud $h(x_i)=y_i$
 	- princip Occamovy břitvy – preferujeme nejjednodušší hypotézu
 		- např. $n$ bodů určuje polynom stupně $n-1$, ale pokud body leží na přímce, tak nejjednodušší hypotéze je prostě ta přímka
 	- typy úloh
 		- klasifikace – u nečíselných funkcí, data rozdělujeme do množin
 		- regrese – u číselných funkcí
-	- nekonzistence s příkladem – příklad neodpovídá naučené funkci
 - rozhodovací strom
 	- přijímá vektor hodnot atributů, vrací výslednou hodnotu
 	- na základě tabulky příkladů se dá postavit strom
