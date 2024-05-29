@@ -1297,4 +1297,10 @@
 				- takže pokud tam je synchronizační kontext, tak se použije Post/Send
 				- naopak Task.Run vždycky použije thread pool
 			- když je tam těžkotonážní kód, který nechceme pustit konkurentně, ale opravdu paralelně, tak můžu napsat `await Task.Run`
-		- …
+		- metoda `ConfigureAwait(bool continueOnCapturedContext)`
+			- ruší zachytávání synchronizačního kontextu, vynucuje threadpool
+			- defaultní chování je s `true` parametrem
+			- když tam dáme false, tak se ty věci budou volat vůči threadpoolu
+			- nejtypičtější rada na internetu „dej tam ConfigureAwait(false)“
+				- ale je důležité vědět, co chceme udělat
+			- můžeme takhle část kódu vytáhnout do vlákna threadpoolu a zbytek nechat v synchronizačním kontextu
