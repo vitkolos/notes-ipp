@@ -1156,7 +1156,6 @@
 	- první krok se vždycky provádí synchronně ve volající metodě
 		- tam můžeme provést kontrolu, třeba že parametry jsou v pořádku
 		- ale neměli bychom tam provádět nic náročného – pokud nechceme blokovat volající metodu
-		- výjimka tady vyvolaná se vyšíří ven
 	- `yield break` … konec korutiny
 		- paralelním konceptem v `async` metodě je `return`
 	- za `await` se píše objekt typu `Task<U>`
@@ -1168,9 +1167,10 @@
 - pozor na šíření výjimek
 	- když se vyšíří výjimka z `async` metody f2Async
 		- nastaví se na faulted
+		- stejně se to chová, i když se výjimka vyšíří ze synchronního (prvního) kroku
+			- kdybychom tam chtěli vyšířit klasickou výjimku, můžeme přidat mezikrok – klasickou asynchronní metodu
 	- co když f2Async voláme z metody f1Async, aniž bychom četli výsledný Task?
 		- nedozvíme se, že se vyšířila výjimka
-		- pokud se vyšíří z prvního synchronního kroku, tak se šíří klasicky jako výjimka
 	- await unwrapuje výjimky, respektive vezme první z nich a vyšíří ji ven
 - pozor na kombinaci zámku a awaitů
 	- překladač nám zakáže psát `await` dovnitř `lock` bloku
