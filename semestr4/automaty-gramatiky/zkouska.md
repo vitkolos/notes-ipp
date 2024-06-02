@@ -3,14 +3,86 @@
 ## Úvod
 
 - Definice: Deterministický konečný automat
+	- deterministický konečný automat (DFA) je pětice $A=(Q,\Sigma,\delta,q_0,F)$
+	- $Q$ … konečná množina stavů
+	- $\Sigma$ … konečná neprázdná množina vstupních symbolů (abeceda)
+	- $\delta:Q\times\Sigma\to Q$ … přechodová funkce
+	- $q_0\in Q$ … počáteční stav
+	- $F\subseteq Q$ … množina koncových (přijímajících) stavů
+	- úmluva
+		- pokud přechodová funkce není totální, doplníme ji pomocí stavu *fail* (do něj povedou přechody pro chybějící kombinace stavů a písmen, z něj povedou přechody pouze opět do *fail* pro každé písmeno)
+		- pokud $F=\emptyset$ a je vyžadováno $F\neq\emptyset$, přidáme stav *final* (je incidentní jen s přechody, které vedou z *final* do *final* pro každé písmeno abecedy)
 - Definice: Slovo, $\epsilon$, $\lambda$, $\Sigma^*$, $\Sigma^+$, jazyk
+	- mějme neprázdnou množinu symbolů $\Sigma$
+	- slovo je konečná (i prázdná) posloupnost symbolů $s\in\Sigma$
+	- prázdné slovo se značí $\epsilon$ nebo $\lambda$
+	- $\Sigma^*$ … množina všech slov v abecedě $\Sigma$
+	- $\Sigma^+$ … množina všech neprázdných slov v abecedě $\Sigma$
+	- jazyk $L\subseteq\Sigma^*$ je množina slov v abecedě $\Sigma$
 - Definice: Operace zřetězení, mocnina, délka slova
+	- nad slovy $\Sigma^*$ definujeme tyto operace:
+		- zřetězení slov $u{.}v$ nebo $uv$
+		- mocnina (počet opakování) $u^n$
+		- délka slova $|u|$
+		- počet výskytů $s\in\Sigma$ ve slově $u$ značíme $|u|_s$
 - Definice: Rozšířená přechodová funkce
+	- mějme přechodovou funkci $\delta:Q\times\Sigma\to Q$
+	- rozšířenou přechodovou funkci $\delta^*:Q\times\Sigma^*\to Q$ (tranzitivní uzávěr $\delta$) definujeme induktivně:
+		- $\delta^*(q,\epsilon)=q$
+		- $\delta^*(q,wx)=\delta(\delta^*(q,w),x)$ pro $x\in\Sigma,\,w\in\Sigma^*$
+	- idea: aplikujeme přechodovou funkci na celé slovo
 - Definice: Jazyky rozpoznatelné konečnými automaty, regulární jazyky
+	- jazykem rozpoznávaným (přijímaným) deterministickým konečným automatem $A=(Q,\Sigma,\delta,q_0,F)$ nazveme jazyk $L(A)=\set{w\mid w\in\Sigma^*\land\delta^*(q_0,w)\in F}$
+	- slovo je přijímáno automatem $A\equiv w\in L(A)$
+	- jazyk $L$ je rozpoznatelný konečným atuomatem $\equiv$ existuje konečný automat $A$ takový, že $L=L(A)$
+	- třídu jazyků rozpoznatelných konečnými automaty označíme $\mathcal F$, nazveme regulární jazyky
 - Věta: Iterační (pumping) lemma pro regulární jazyky
-- Věta: Neregularita $0^n1^n$
-- Definice: Dosažitelné stavy
+	- věta
+		- nechť $L$ je regulární jazyk
+		- $(\exists n\in\mathbb N)(\forall w\in L):|w|\geq n\implies w=xyz$
+			- $y\neq\epsilon$
+			- $|xy|\leq n$
+			- $\forall k\geq 0:xy^kz\in L$
+		- důkaz
+			- mějme regulární jazyk $L$, pak existuje DFA $A$ s $n$ stavy, přičemž $L=L(A)$
+			- vezměme libovolné slovo délky aspoň $n$
+				- $a_1a_2\dots a_m=w\in L$
+				- $m\geq n$
+				- $a_i\in\Sigma$
+			- definujme $p_i$ jako stav automatu, v němž budeme po $i$ písmenech toho slova
+				- $\forall i:p_i=\delta^*(q_0,a_1a_2\dots a_i)$
+				- zjevně $p_0=q_0$
+			- máme $n+1$ $p_i$ a $n$ různých stavů automatu, takže mezi $p_i$ se nějaký stav opakuje, vezmeme první takový
+				- $(\exists i,j)(0\leq i\lt j\leq n\land p_i=p_j)$
+			- definujeme
+				- $x=a_1\dots a_i$
+				- $y=a_{i+1}\dots a_j$
+				- $z=a_{j+1}\dots a_m$
+			- tj. $w=xyz$, $y\neq\epsilon$, $|xy|\leq n$
+- Věta: Neregularita $L_{01}=\set{0^n1^n\mid n\geq 0}$
+	- předpokládejme regularitu $L_{01}$
+	- vezměme $m$ z pumping lemmatu
+	- zvolme $w=0^m1^m$
+	- rozdělme $w=xyz$ dle pumping lemmatu
+		- $|xy|\leq n$ je na začátku $w$, takže obsahuje jen nuly
+		- $y\neq\epsilon$
+	- z pumping lemmatu $xz\in L_{01}$, což je spor, protože $xz$ obsahuje méně nul než jedniček
 - Algoritmus: Hledání dosažitelných stavů
+	- definice: dosažitelný stav
+		- mějme DFA $A=(Q,\Sigma,\delta,q_0,F)$
+		- stav $q\in Q$ je dosažitelný, existuje-li $w\in\Sigma^*$ takové, že $\delta^*(q_0,w)=q$
+	- dosažitelné stavy hledáme iterativně
+		- začneme s $M_0=\set{q_0}$
+		- $M_{i+1}=M_i\cup\set{q\in Q:(\exists p\in M_i)(\exists x\in\Sigma)(\delta(p,x)=q)}$
+		- opakujeme dokud $M_{i+1}\neq M_i$
+	- korektnost
+		- každé $M_i$ obsahuje pouze dosažitelné stavy
+	- úplnost
+		- pro dosažitelný stav $q$ mějme nejkratší takové $w$, že $\delta^*(q_0,w)=q$
+			- $|w|=n$
+			- $w=x_1\dots x_n$
+		- zjevně $\delta^*(q_0,x_1\dots x_i)\in M_i$
+		- tedy $q=\delta^*(q_0,w)\in M_n$
 
 ## Redukovaný DFA
 
