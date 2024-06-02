@@ -72,6 +72,7 @@
 - Definice: Nulovatelný neterminál
 - Algoritmus: Převod CFG do Chomského normálního tvaru
 - Definice: Jednotkové pravidlo, jednotkový pár
+- Věta: Gramatika v normálním tvaru, redukovaná
 - Definice: Chomského normální tvar
 - Věta: Chomského normální tvar bezkontextové gramatiky
 - Věta: Lemma o vkládání (pumping) pro bezkontextové jazyky
@@ -113,6 +114,7 @@
 - Věta: Vícepáskový Turingův stroj
 - Definice: Nedeterministický TM
 - Věta: Nedeterministický TM
+- Věta: TM s jednosměrnou páskou
 
 ## LBA, diagonální jazyk
 
