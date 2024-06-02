@@ -87,15 +87,109 @@
 ## Redukovaný DFA
 
 - Definice: Kongruence
+	- mějme konečnou abecedu $\Sigma$ a relaci ekvivalence $\sim$ na $\Sigma^*$
+	- $\sim$ je pravá kongruence $\equiv(\forall u,v,w\in\Sigma^*):u\sim v\implies uw\sim vw$
+	- $\sim$ je konečného indexu $\equiv$ rozklad $\Sigma^*/\sim$ má konečný počet tříd
+	- třídu kongruence $\sim$ obsahující slovo $u$ značíme $[u]_\sim$ nebo $[u]$
+	- příklady
+		- relace „končí stejným písmenem“ je pravá kongruence
+		- relace „mají stejný počet znaků“ není konečného indexu
 - Věta: Myhill-Nerodova věta
+	- věta
+		- nechť $L$ je jazyk nad konečnou abecedou $\Sigma$
+		- potom následující trzení jsou ekvivalentní:
+			- $L$ je rozpoznatelný konečným automatem
+			- existuje pravá kongruence $\sim$ konečného indexu nad $\Sigma^*$ tak, že $L$ je sjednocením jistých tříd rozkladu $\Sigma^*/\sim$
+	- důkaz $\implies$
+		- definujeme $u\sim v\equiv\delta^*(q_0,u)=\delta^*(q_0,v)$
+		- je to ekvivalence, je to pravá kongruence
+		- má konečný index (protože automat má konečně mnoho stavů)
+		- $L=\set{w\in\Sigma^*:\delta^*(q_0,w)\in F}$
+		- $=\bigcup_{q\in F}\set{w\in\Sigma^*:\delta^*(q_0,w)=q}$
+		- $=\bigcup_{q\in F}[w\in\Sigma^*:\delta^*(q_0,w)=q]$
+		- tedy $L$ je sjednocením tříd, které odpovídají přijímajícím stavům automatu
+	- důkaz $\impliedby$
+		- abeceda automatu bude $\Sigma$
+		- za stavy $Q$ položíme třídy rozkladů $\Sigma^*/\sim$
+		- počáteční stav $q_0:=[\epsilon]$
+		- koncové stavy budou třídy, jejichž sjednocením je $L$
+		- přechodová funkce $\delta([u],x):=[ux]$
+			- je korektní z definice pravé kongruence
+		- zjevně $L(A)=L$
+	- použití k důkazu neregularity
+		- ukážeme pro pumpovatelný jazyk slov ve tvaru $a^+b^ic^i$ nebo $b^ic^j$
+		- pro regulární $L$ musí existovat pravá kongruence konečného indexu $m$
+		- mějme množinu řetězců $S=\set{ab,abb,abbb,\dots,ab^{m+1}}$
+		- $|S|=m+1$, tedy nutně existují dvě slova $i\neq j$, která padnou do stejné třídy
+			- $ab^i\sim ab^j$
+			- tedy $ab^ic^i\sim ab^jc^i$
+			- ale $ab^ic^i\in L$ a $ab^jc^i\notin L$, což je spor, takže jazyk není regulární
 - Definice: Automatový homomorfismus
-- Definice: Ekvivalence automatů
-- Věta: O ekvivalenci automatů
+	- nechť $A_1,A_2$ jsou DFA
+	- řekneme, že zobrazení $h:Q_1\to Q_2$ je automatovým homomorfismem, jestliže:
+		- $h(q_{0_1})=q_{0_2}$
+		- $h(\delta_1(q,x))=\delta_2(h(q),x)$
+		- $q\in F_1\iff h(q)\in F_2$
+	- homomorfismus prostý a na (tzn. bijekci) nazýváme isomorfismus
+- Věta: Ekvivalence automatů
+	- definice: dva konečné automaty $A,B$ nad stjenou abecedou $\Sigma$ jsou ekvivalentní, jestliže rozpoznávají stejný jazyk, tj. $L(A)=L(B)$
+	- věta: existuje-li homomorfismus konečných automatů $A_1$ do $A_2$, pak jsou $A_1$ a $A_2$ ekvivalentní
+	- důkaz
+		- zjevně $\forall w\in\Sigma^*:h(\delta^*_1(q,w))=\delta^*_2(h(q),w)$
+		- dále projdeme sérií ekvivalentních výroků
+			- $w\in L(A_1)$
+			- $\delta_1^*(q_{0_1},w)\in F_1$
+			- $h(\delta_1^*(q_{0_1},w))\in F_2$
+			- $\delta_2^*(h(q_{0_1}),w)\in F_2$
+			- $\delta_2^*(q_{0_2},w)\in F_2$
+			- $w\in L(A_2)$
 - Definice: Ekvivalence stavů
+	- říkáme, že stavy $p,q\in Q$ konečného automatu $A$ jsou ekvivalentní, pokud $\forall w\in\Sigma^*:\delta^*(p,w)\in F\iff\delta^*(q,w)\in F$
+	- nejsou-li dva stavy ekvivalentní, říkáme, že jsou rozlišitelné
 - Algoritmus: Hledání rozlišitelných stavů v DFA
+	- základ: pokud $p\in F$ a $q\notin F$, pak je dvojice $\set{p,q}$ rozlišitelná
+	- indukce
+		- nechť $p,q\in Q,\, a\in\Sigma$ a o dvojici stavů $\set{\delta(p,a),\delta(q,a)}$ víme, že jsou rozlišitelné, pak i $\set{p,q}$ jsou rozlišitelné
+		- opakujeme, dokud existuje nějaká nová trojice $p,q,a$
+	- korektnost
+		- uvažujme špatné páry stavů, které jsou rozlišitelné, ale algoritmus je nerozlišil
+		- vezměme z nich pár $\set{p,q}$ rozlišitelný nejkratším slovem $w=a_1\dots a_n$
+		- stavy $r=\delta(p,a_1)$ a $s=\delta(q,a_1)$ jsou rozlišitelné kratším slovem $a_2\dots a_n$, takže pár není mezi špatnými
+		- tedy v příštím kroku algoritmus rozliší i $p,q$
+	- složitost
+		- čas výpočtu je polynomiální vzhledem k počtu stavů
+		- v jednom kole uvažujeme všechny páry, tj. $O(n^2)$
+		- kol je maximálně $O(n^2)$, protože v každém rozlišíme aspoň jeden pár
+		- dohromady $O(n^4)$, ale lze zrychlit na $O(n^2)$ pamatováním závislostí mezi stavy
 - Algoritmus: Testování ekvivalence regulárních jazyků
+	- testujeme ekvivalenci regulárních jazyků $L,M$
+	- najdeme DFA $A_L,A_M$ takové, že
+		- $L(A_L)=L$
+		- $L(A_M)=M$
+		- $Q_L\cap Q_M=\emptyset$
+	- vytvoříme DFA sjednocením stavů a přechodů $(Q_L\cup Q_M,\Sigma,\delta_L\cup \delta_M,q_{0_L},F_L\cup F_M)$
+		- není důležité, zda jako počáteční stav zvolíme $q_{0_L}$ nebo $q_{0_M}$
+	- použijeme algoritmus hledání rozlišitelných stavů
+	- jazyky jsou ekvivalentní $\iff$ počáteční stavy $q_{0_L},q_{0_M}$ jsou ekvivalentní
 - Definice: Redukovaný DFA, redukt (viz i 2.6)
+	- deterministický konečný automat je redukovaný, pokud
+		- nemá nedosažitelné stavy
+		- žádné dva stavy nejsou ekvivalentní
+		- $\delta$ je totální
+	- konečný automat $A$ je reduktem automatu $B$, pokud
+		- $A$ je redukovaný
+		- $A$ a $B$ jsou ekvivalentní
+	- lemma: každé dva ekvivalentní redukované automaty jsou izomorfní
+	- lemma: pro každý DFA, který přijímá aspoň jedno slovo, existuje redukovaný DFA, který je s ním ekvivalentní
+	- důsledek: všechny redukty jednoho DFA jsou izomorfní
 - Algoritmus: Nalezení reduktu DFA
+	- eliminujeme nedosažitelné stavy
+	- najdeme rozklad zbylých stavů na třídy ekvivalence
+	- stavy nového automatu budou jednotlivé třídy
+	- zkonstruujeme přechodovou funkci mezi třídami
+	- počáteční stav nového automatu bude odpovídat třídě s počátečním stavem původního automatu
+	- množinou přijímajících stavů budou třídy odpovídající přijímajícím stavům původního automatu
+	- poznámka: pro nedeterministické konečné automaty tento algoritmus nefunguje
 
 ## Nedeterministické $\epsilon$NFA
 
