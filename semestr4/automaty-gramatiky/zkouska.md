@@ -412,12 +412,12 @@
 			- pravidla odpovídají přechodové funkci
 - Definice: Derivace $\Rightarrow^*$
 	- mějme gramatiku $G=(V,T,P,S)$
-	- říkáme, že $\alpha$ se **přímo přepíše** na $\omega$ (píšeme $\alpha\Rightarrow_G\omega$ nebo $\alpha\Rightarrow\omega$), jestliže $\exists \beta,\gamma,\eta,\nu\in(V\cup T)^*:\alpha=\eta\beta\nu\land\omega=\eta\gamma\nu\land(\beta\to\gamma)\in P$
-	- říkáme, že $\alpha$ se **přepíše** na $\omega$ (píšeme $\alpha\Rightarrow^*\omega$), jestliže $\exists\beta_1,\dots,\beta_n\in(V\cup T)^*:\alpha=\beta_1\Rightarrow\beta_2\Rightarrow\dots\Rightarrow\beta_n=\omega$
+	- říkáme, že $\alpha$ se přímo přepíše na $\omega$ (píšeme $\alpha\Rightarrow_G\omega$ nebo $\alpha\Rightarrow\omega$), jestliže $\exists \beta,\gamma,\eta,\nu\in(V\cup T)^*:\alpha=\eta\beta\nu\land\omega=\eta\gamma\nu\land(\beta\to\gamma)\in P$
+	- říkáme, že $\alpha$ se přepíše na $\omega$ (píšeme $\alpha\Rightarrow^*\omega$), jestliže $\exists\beta_1,\dots,\beta_n\in(V\cup T)^*:\alpha=\beta_1\Rightarrow\beta_2\Rightarrow\dots\Rightarrow\beta_n=\omega$
 		- tj. také $\alpha\Rightarrow^*\alpha$
-	- posloupnost $\beta_1,\dots,\beta_n$ nazýváme **derivací** (odvozením)
-	- pokud $\forall i\neq j:\beta_i\neq\beta_j$, hovoříme o **minimálním odvození**
-	- libovolný řetězec $\omega\in (V\cup T)^*$ odvoditelný z počátečního symbolu $S$ nazýváme **sentenciální forma**
+	- posloupnost $\beta_1,\dots,\beta_n$ nazýváme derivací (odvozením)
+	- pokud $\forall i\neq j:\beta_i\neq\beta_j$, hovoříme o minimálním odvození
+	- libovolný řetězec $\omega\in (V\cup T)^*$ odvoditelný z počátečního symbolu $S$ nazýváme sentenciální forma
 - Definice: Jazyk generovaný gramatikou $G$
 	- jazyk $L(G)$ generovaný gramatikou $G=(V,T,P,S)$ je množina terminálních řetězců, pro které existuje derivace ze startovního symbolu $L(G)=\set{w\in T^*: S\Rightarrow_G^* w}$
 	- jazyk neterminálu $A\in V$ definujeme $L(A)=\set{w\in T^*: A\Rightarrow_G^* w}$
@@ -475,13 +475,72 @@
 ## Chomského normální forma, CFG
 
 - Definice: Zbytečný, užitečný, generující, dosažitelný symbol
-- Definice: Nulovatelný neterminál
-- Algoritmus: Převod CFG do Chomského normálního tvaru
-- Definice: Jednotkové pravidlo, jednotkový pár
+	- symbol $X$ je užitečný v gramatice $G=(V,T,P,S)$, pokud existuje derivace tvaru $S\Rightarrow^*\alpha X\beta\Rightarrow^* w$, kde $w\in T^*,\, X\in (V\cup T),\,\alpha,\beta\in(V\cup T)^*$
+	- pokud $X$ není užitečný, říkáme, že je zbytečný
+	- $X$ je generující, pokud $X\Rightarrow^* w$ pro nějaké slovo $w\in T^*$
+	- $X$ je dosažitelný, pokud $S\Rightarrow^*\alpha X\beta$ pro nějaká $\alpha,\beta\in (V\cup T)^*$
+- Definice: Nulovatelný neterminál; jednotkové pravidlo, jednotkový pár
+	- neterminál $A$ je nulovatelný, pokud $A\Rightarrow^*\epsilon$
+	- jednotkové pravidlo je $(A\to B)\in P$, kde $A,B$ jsou oba neterminály
+	- dvojici $A,B\in V$ takovou, že $A\Rightarrow^*B$ pouze jednotkovými pravidly, nazýváme jednotkový pár (jednotková dvojice)
 - Věta: Gramatika v normálním tvaru, redukovaná
+	- lemma
+		- mějme bezkontextovou gramatiku $G$ takovou, že $L(G)-\set{\epsilon}\neq\emptyset$
+		- pak existuje CFG $G_1$ taková, že $L(G_1)=L(G)-\set{\epsilon}$, a $G_1$ neobsahuje $\epsilon$-pravidla, jednotková pravidla ani zbytečné symboly
+		- gramatika $G_1$ se nazývá redukovaná
+	- idea důkazu (podrobněji viz převod do Chomského normálního tvaru, který je silnější)
+		- eliminujeme $\epsilon$-pravidla
+		- eliminujeme jednotková pravidla (tím nepřidáme $\epsilon$-pravidla)
+		- eliminujeme zbytečné symboly (tím nepřidáme žádná pravidla)
+			- nejdříve eliminujeme negenerující, pak nedosažitelné
 - Definice: Chomského normální tvar
+	- o bezkontextové gramatice $G=(V,T,P,S)$ bez zbytečných symbolů, kde jsou všechna pravidla ve tvaru $A\to BC$ nebo $A\to a$, kde $A,B,C\in V,\, a\in T$, říkáme, že je v Chomského normálním tvaru (ChNF)
 - Věta: Chomského normální tvar bezkontextové gramatiky
+- Algoritmus: Převod CFG do Chomského normálního tvaru
+	- věta: mějme bezkontextovou gramatiku $G$ takovou, že $L(G)-\set{\epsilon}\neq\emptyset$, pak existuje CFG $G_1$ v Chomského normálním tvaru taková, že $L(G_1)=L(G)-\set{\epsilon}$
+	- algoritmus
+		- eliminujeme $\epsilon$-pravidla
+			- označíme nulovatelné symboly
+			- přidáme verzi pravidel bez nulovatelných symbolů
+			- odstraníme $\epsilon$-pravidla
+		- eliminujeme jednotková pravidla (tím nepřidáme $\epsilon$-pravidla)
+			- najdeme jednotkové páry
+			- přidáme odpovídající pravidla
+			- odstraníme jednotková pravidla
+		- eliminujeme zbytečné symboly (tím nepřidáme žádná pravidla)
+			- nejdříve eliminujeme negenerující, pak nedosažitelné
+		- pravé strany délky aspoň 2 předěláme na samé neterminály
+		- pravé strany s aspoň třemi neterminály rozdělíme na více pravidel
 - Věta: Lemma o vkládání (pumping) pro bezkontextové jazyky
+	- věta
+		- nechť $L$ je bezkontextový jazyk
+		- $(\exists n)(\forall w\in L):|w|\geq n\implies w=u_1u_2u_3u_4u_5$
+			- $u_2u_4\neq\epsilon$
+			- $|u_2u_3u_4|\leq n$
+			- $\forall k\geq 0:u_1u_2^ku_3u_4^ku_5\in L$
+		- poznámka: v prezentaci je ostrá nerovnost $|w|\gt n$, v jiných zdrojích neostrá
+	- idea důkazu
+		- vezmeme derivační strom pro $w$
+		- nejdeme nejdelší cestu, na ní dva stejné neterminály
+		- tyto neterminály určí dva postromy, které definují rozklad slova
+		- větší podstrom můžeme posunout ($k\gt 1$) nebo nahradit menším podstromem ($k=0$)
+	- důkaz
+		- vezmeme gramatiku v Chomského normální formě (pro $L=\set{\epsilon}$ a $\emptyset$ zvol $n=1$)
+		- nechť $|V|=v$
+		- položíme $n=2^v$
+		- pro $w\in L$ takové, že $|w|\geq n$, má v derivačním stromu $w$ cestu délky $\gt v$
+			- pro slovo délky rovné $2^v$ bude mít nejmělčí možný strom $v+2$ úrovní (většina vnitřních vrcholů se binárně větví, poslední úroveň slouží pro přechod k terminálům), tedy nejdelší cesty budou obsahovat $v+2$ vrcholů (z toho $v+1$ neterminálů)
+		- vezmeme cestu maximální délky, terminál, kam vede, označíme $t$
+		- aspoň dva z posledních $v+1$ neterminálů na cestě do $t$ jsou stejné
+		- vezmeme dvojici $A_1,A_2$ nejblíže k $t$ (určují podstromy $T_1,T_2$)
+		- cesta z $A_1$ do $t$ je nejdelší v podstromu $T_1$ a má délku maximálně $v+1$
+			- z toho plyne $|u_2u_3u_4|\leq n$, jelikož slovo $u_2u_3u_4$ je dané podstromem $T_1$
+		- z $A_1$ vedou dvě cesty, jedna do $T_2$, druhá do zbytku $u_2u_4$
+			- Chomského normální tvar je nevypouštějící, tedy $u_2u_4\neq\epsilon$
+		- zjevně $S\Rightarrow^* u_1A_1u_5\Rightarrow^*u_1u_2A_2u_4u_5\Rightarrow^*u_1u_2u_3u_4u_5$
+		- posuneme-li $A_2$ do $A_1$ ($i=0$), dostaneme $u_1u_3u_5$
+		- posuneme-li $A_1$ do $A_2$ ($i=2$), dostaneme $u_1u_2u_2u_3u_4u_4u_5$
+			- tohle můžeme opakovat několikrát → $i=2,3,4,\dots$
 - Algoritmus: CYK algoritmus, v čase $O(n^3)$
 - Věta: CYK
 - Definice: Jednoznačnost a víceznačnost CFG
