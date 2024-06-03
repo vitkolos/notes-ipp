@@ -370,11 +370,57 @@
 ## Gramatiky
 
 - Definice: Formální (generativní) gramatika
-	- formální (generativní) gramatika je čtveřice
+	- formální (generativní) gramatika je čtveřice $G=(V,T,P,S)$
+	- $V$ … konečná množina neterminálů (variables)
+	- $T$ … neprázdná konečná množina terminálních symbolů (terminálů)
+	- $S\in V$ … počáteční symbol
+	- $P$ … konečná množina pravidel (produkcí) reprezentující rekurzivní definici jazyka
+		- každé pravidlo má tvar $\beta A\gamma\to\omega$
+			- $A\in V$
+			- $\beta,\gamma,\omega\in (V\cup T)^*$
+		- tj. levá strana obsahuje aspoň jeden neterminální symbol
 - Definice: Klasifikace gramatik podle tvaru přepisovacích pravidel
+	- gramatiky typu 0 (rekurzivně spočetné jazyky $\mathcal L_0$)
+		- pravidla v obecné formě $\alpha\to\omega$
+		- $\alpha,\omega\in(V\cup T)^*$
+		- $\alpha$ obsahuje neterminál
+	- gramatiky typu 1 (kontextové gramatiky, jazyky $\mathcal L_1$)
+		- pouze pravidla ve tvaru $\gamma A\beta\to\gamma\omega\beta$
+		- $A\in V$
+		- $\gamma,\beta\in(V\cup T)^*$
+		- $\omega\in (V\cup T)^+$
+		- jedinou výjimkou je pravidlo $S\to\epsilon$, pak se ale $S$ nevyskytuje na pravé straně žádného pravidla
+	- gramatiky typu 2 (bezkontextové gramatiky, jazyky $\mathcal L_2$)
+		- pouze pravidla ve tvaru $A\to\omega$
+		- $A\in V$
+		- $\omega\in(V\cup T)^*$
+	- gramatiky typu 3 (regulární gramatiky / pravé lineární gramatiky, regulární jazyky $\mathcal L_3$)
+		- pouze pravidla ve tvaru $A\to\omega B$ nebo $A\to\omega$
+		- $A,B\in V$
+		- $\omega\in T^*$
+		- idea
+			- každý neterminál odpovídá stavu konečného automatu
+			- pravidla odpovídají přechodové funkci
 - Definice: Derivace $\Rightarrow^*$
+	- mějme gramatiku $G=(V,T,P,S)$
+	- říkáme, že $\alpha$ se **přímo přepíše** na $\omega$ (píšeme $\alpha\Rightarrow_G\omega$ nebo $\alpha\Rightarrow\omega$), jestliže $\exists \beta,\gamma,\eta,\nu\in(V\cup T)^*:\alpha=\eta\beta\nu\land\omega=\eta\gamma\nu\land(\beta\to\gamma)\in P$
+	- říkáme, že $\alpha$ se **přepíše** na $\omega$ (píšeme $\alpha\Rightarrow^*\omega$), jestliže $\exists\beta_1,\dots,\beta_n\in(V\cup T)^*:\alpha=\beta_1\Rightarrow\beta_2\Rightarrow\dots\Rightarrow\beta_n=\omega$
+		- tj. také $\alpha\Rightarrow^*\alpha$
+	- posloupnost $\beta_1,\dots,\beta_n$ nazýváme **derivací** (odvozením)
+	- pokud $\forall i\neq j:\beta_i\neq\beta_j$, hovoříme o **minimálním odvození**
+	- libovolný řetězec $\omega\in (V\cup T)^*$ odvoditelný z počátečního symbolu $S$ nazýváme **sentenciální forma**
 - Definice: Jazyk generovaný gramatikou $G$
+	- jazyk $L(G)$ generovaný gramatikou $G=(V,T,P,S)$ je množina terminálních řetězců, pro které existuje derivace ze startovního symbolu $L(G)=\set{w\in T^*: S\Rightarrow_G^* w}$
+	- jazyk neterminálu $A\in V$ definujeme $L(A)=\set{w\in T^*: A\Rightarrow_G^* w}$
 - Věta: $L\in RE\implies L\in\mathcal L_3$
+	- věta: pro každý jazyk rozpoznávaný konečným automatem existuje gramatika typu 3, která ho generuje
+	- důkaz
+		- $L=L(A)$ pro deterministický konečný automat $A=(Q,\Sigma,\delta,q_0,F)$
+		- definujme gramatiku $G=(Q,\Sigma,P,q_0)$, kde pravidla $P$ mají tvar
+			- $p\to aq$, když $\delta(p,a)=q$
+			- $p\to\epsilon$, když $p\in F$
+		- platí $L(A)=L(G)$?
+			- otestujeme pro prázdné a neprázdné slovo
 - Věta: $\epsilon$-NFA pro gramatiku typu 3 rozpoznávající stejný jazyk
 - Definice: Levé (a pravé) lineární gramatiky
 - Definice: Lineární gramatika, jazyk
