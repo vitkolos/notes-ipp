@@ -541,9 +541,31 @@
 		- posuneme-li $A_2$ do $A_1$ ($i=0$), dostaneme $u_1u_3u_5$
 		- posuneme-li $A_1$ do $A_2$ ($i=2$), dostaneme $u_1u_2u_2u_3u_4u_4u_5$
 			- tohle můžeme opakovat několikrát → $i=2,3,4,\dots$
+	- lze použít např. k důkazu nebezkontextovosti $\set{0^i1^i2^i\mid i\geq 1}$
 - Algoritmus: CYK algoritmus, v čase $O(n^3)$
-- Věta: CYK
+	- věta: slovo $w$ patří do jazyka gramatiky $G$, právě když je v CYK algoritmu $S\in X_{1,n}$ (přičemž $|w|=n$)
+	- algoritmus
+		- mějme gramatiku v Chomského normálním tvaru $G=(V,T,P,S)$ pro jazyk $L$ a slovo $w=a_1a_2\dots a_n\in T^*$
+		- vytvořme trojúhelníkovou tabulku
+			- horizontální osa je $w$
+			- $X_{ij}$ jsou množiny neterminálů $A$ takových, že $A\Rightarrow^* a_ia_{i+1}\dots a_j$
+			- základ: $X_{ii}=\set{A\in V:(A\to a_i)\in P}$
+			- indukce: $X_{ij}=\bigcup_{i\leq k\lt j}\set{A\in V:(\exists B\in X_{ik})(\exists C\in X_{k+1,j})((A\to BC)\in P)}$
 - Definice: Jednoznačnost a víceznačnost CFG
+	- bezkontextová gramatika $G=(V,T,P,S)$ je víceznačná, pokud existuje aspoň jeden řetězec $w\in T^*$, pro který můžeme najít dva různé derivační stromy, oba s kořenem $S$, dávající slovo $w$
+	- v opačném případě nazýváme gramatiku jednoznačnou
+	- bezkontextový jazyk $L$ je jednoznačný, jestliže existuje jednoznačná CFG $G$ tak, že $L=L(G)$
+	- bezkontextový jazyk $L$ je (podstatně) nejednoznačný, jestliže každá CFG $G$ taková, že $L=L(G)$, je nejednoznačná, takovému jazyku říkáme i víceznačný
+	- poznámky
+		- neexistuje algoritmus, který nám řekne, zda je gramatika víceznačná
+		- typické příčiny víceznačnosti
+			- není respektovaná priorita operátorů
+			- posloupnost identických operátorů lze shlukovat zleva i zprava
+		- odstranění víceznačnosti vynucením priority
+			- zavedeme více různých proměnných, každou pro jednu úroveň „priority“
+			- faktor – nelze rozdělit žádným operátorem
+			- term – nelze rozdělit operátorem $+$, lze rozdělit $\cdot$
+			- výraz – lze rozdělit $+$ i $\cdot$
 
 ## Zásobníkové automaty
 
