@@ -280,7 +280,12 @@
 	- důkaz
 		- uvažujeme automaty pro $L,M$
 		- vytvoříme NFA
-		- TODO podle sešitu
+		- jednotlivé části oddělujeme epsilon přechody, aby nemohly interagovat
+		- $M\setminus L$
+			- algoritmicky najdeme stavy, kam se dá dostat slovem z $M$
+			- do těch stavů dáme epsilon přechody z počátečního stavu
+		- $L/M=(M^R\setminus L^R)^R$
+		- ostatní jsou intuitivní
 
 ## Regulární výrazy
 
@@ -308,7 +313,11 @@
 			- indukcí dle struktury výrazu (viz prezentace)
 			- jednotlivé stavební bloky musíme dostatečně oddělovat epsilon přechody
 		- DFA → výraz
-			- TODO viz skriptíčka
+			- střídavě používáme dva kroky
+				1. sloučení hran – když mezi dvěma stavy vede více hran stejným směrem, nahradíme je jednou hranou ohodnocenou sjednocením regulárních výrazů z původních hran (sjednocujeme pomocí $+$)
+				2. eliminace stavu – libovolný stav, který není počáteční ani přijímající, odstraníme a zařídíme, že všechny trasy výpočtu, které jím původně procházely, zůstanou zachovány (přidáme odpovídající hrany)
+					- pokud ve stavu byla smyčka, zohledníme to na hranách, přičemž výraz ze smyčky bude mít iteraci $^*$
+			- nakonec sjednotíme výrazy na hranách z počátečního do přijímajících stavů
 - Definice: Substituce jazyků
 	- mějme konečnou abecedu $\Sigma$
 	- pro každé $x\in\Sigma$ budiž $\sigma(x)$ jazyk v nějaké abecedě $Y_x$
@@ -422,13 +431,46 @@
 		- platí $L(A)=L(G)$?
 			- otestujeme pro prázdné a neprázdné slovo
 - Věta: $\epsilon$-NFA pro gramatiku typu 3 rozpoznávající stejný jazyk
+	- lemma: ke každé gramatice typu 3 existuje gramatika typu 3, která generuje stejný jazyk a obsahuje pouze pravidla ve tvaru $A\to aB,\,A\to\epsilon$, kde $A,B\in V,\,a\in T$
+		- zavedeme nové neterminály
+		- odstraníme pravidla $A\to B$
+		- místo pravidel tvaru $A\to a_1\dots a_n B$ nebo $A\to a_1\dots a_n$ přidáme řetězce pravidel v povoleném tvaru
+	- věta: pro každý jazyk $L$ generovaný gramatikou typu 3 existuje $\epsilon$NFA rozpoznávající $L$
+		- vezmeme $G=(V,T,P,S)$ obsahující jen pravidla tvaru $A\to aB$
+		- z té snadno vyrobíme automat
 - Definice: Levé (a pravé) lineární gramatiky
+	- gramatiky typu 3 nazýváme také pravé lineární (neterminál je vždy vpravo)
+	- gramatika je levá lineární, jestliže má pouze pravidla tvaru $A\to Bw$ nebo $A\to w$, přičemž $A,B\in V,\,w\in T^*$
+	- lemma: jazyky generované levou lineární gramatikou jsou právě regulární jazyky
+		- lze dokázat pomocí reverze
 - Definice: Lineární gramatika, jazyk
+	- gramatika je lineární, jestliže má pouze pravidla tvaru $A\to uBw$ nebo $A\to w$, kde $A,B\in V,\,u,w\in T^*$ (na pravé straně vždy maximálně jeden neterminál)
+	- lineární jazyky jsou právě jazyky generované lineárními gramatikami
+	- příklad: jazyk $L=\set{0^i1^i\mid i\geq 1}$
+	- pozorování: lineární pravidla lze rozložit na levě a pravě lineární pravidla
 - Definice: Derivační strom
-- Definice: Strom dává slovo (yield)
+	- mějme gramatiku $G=(V,T,P,S)$
+	- derivační strom pro $G$ je strom, kde
+		- kořen je označen startovním symbolem $S$
+		- každý vnitřní uzel je ohodnocen neterminálem $V$
+		- každý uzel je ohodnocen prvkem ze sjednocení $V\cup T\cup\set{\epsilon}$
+		- je-li uzel ohodnocen $\epsilon$, je jediným dítětem svého rodiče
+		- je-li $A$ ohodnocení vrcholu a jeho děti jsou zleva po řadě ohodnoceny $X_1,\dots,X_k$, pak $(A\to X_1\dots X_k)\in P$ je pravidlo gramatiky
+	- říkáme, že derivační strom dává (yields) sentenciální formu $\alpha$ (slovo $w$), jestliže $\alpha$ (respektive $w$) vznikne zřetězením listů ve směru zleva doprava
 - Definice: Levá a pravá derivace
+	- levá (leftmost) derivace $\Rightarrow_{lm},\,\Rightarrow_{lm}^*$ v každém kroku přepisuje nejlevější neterminál
+	- pravá (rightmost) derivace $\Rightarrow_{rm},\,\Rightarrow_{rm}^*$ v každém kroku přepisuje nejpravější neterminál
 - Věta: Ekvivalence tvrzení o derivacích
+	- věta: pro danou gramatiku  a  jsou následující tvrzení ekvivalentní
+		1. $A\Rightarrow_{lm}^* w$
+		2. $A\Rightarrow^* w$
+		3. existuje derivační strom s kořenem $A$ dávající slovo $w$
+	- důkaz
+		- $(1)\implies(2)$ … triviálně
+		- $(2)\implies(3)$ … z derivace vytvoříme strom
+		- $(3)\implies(1)$ … pro libovolný derivační strom najdeme levou derivaci průchodem stromu
 - Definice: Ekvivalence gramatik
+	- gramatiky $G_1,G_2$ jsou ekvivalentní, jestliže $L(G_1)=L(G_2)$, tj. generují stejný jazyk
 
 ## Chomského normální forma, CFG
 
