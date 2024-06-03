@@ -194,23 +194,136 @@
 ## Nedeterministické $\epsilon$NFA
 
 - Definice: Nedeterministický konečný automat s $\epsilon$ přechody ($\epsilon$NFA)
+	- nedeterministický konečný automat s $\epsilon$ přechody je pětice $A=(Q,\Sigma,\delta,q_0,F)$
+	- $Q$ … konečná množina stavů
+	- $\Sigma$ … konečná množina vstupních symbolů (abeceda)
+	- $\delta:Q\times(\Sigma\cup\set{\epsilon})\to \mathcal P(Q)$ … přechodová funkce vracející podmnožinu $Q$
+	- $q_0\in Q$ … počáteční stav
+		- alternativa: množina počátečních stavů $S_0\subseteq Q$
+	- $F\subseteq Q$ … množina koncových (přijímajících) stavů
 - Definice: $\epsilon$-uzávěr
+	- pro $q\in Q$ definujeme $\epsilon$-uzávěr $\epsilon\text{closure}(q)$ rekurzivně
+		- stav $q$ je v $\epsilon\text{closure}(q)$
+		- $p\in\epsilon\text{closure}(q)\land r\in\delta(p,\epsilon)\implies r\in \epsilon\text{closure}(q)$
+	- pro množinu stavů $S\subseteq Q$ definujeme $\epsilon\text{closure}(S)=\bigcup_{q\in S}\epsilon\text{closure}(q)$
+	- idea: všechny stavy, do nichž se z daného stavu dostaneme prázdným slovem
 - Definice: $\delta^*$ pro $\epsilon$NFA
+	- mějme $\epsilon$NFA $(Q,\Sigma,\delta,q_0,F)$
+	- rozšířenou přechodovou funkci $\delta^*$ definujeme takto
+		- $\delta^*(q,\epsilon)=\epsilon\text{closure}(q)$
+		- $\delta^*(q,wx)=\epsilon\text{closure}\left(\bigcup_{p\in \delta^*(q,w)}\delta(p,x)\right)$
+			- pro $x\in\Sigma,\,w\in\Sigma^*$
 - Definice: Jazyk přijímaný $\epsilon$NFA
-- Definice: Konfigurace DFA, $\epsilon$NFA
-- Definice: Výpočetní strom, graf $\epsilon$NFA
-- Věta: Podmnožinová konstrukce (s $\epsilon$-přechody)
+	- mějme NFA $A=(Q,\Sigma,\delta,q_0,F)$
+	- pak $L(A)=\set{w\in \Sigma^*:\delta^*(q_0,w)\cap F\neq 0}$ je jazyk přijímaným automatem $A$
+	- tedy $L(A)$ je množina slov $w\in\Sigma^*$ takových, že $\delta^*(q_0,w)$ obsahuje aspoň jeden přijímající stav
+- Definice: Konfigurace končného automatu, výpočetní graf $\epsilon$NFA
+	- konfigurace DFA/$\epsilon$NFA
+		- mějme konečný automat $(Q,\Sigma,\delta,q_0,F)$
+		- pak dvojice $(q,v)$ označuje konfiguraci konečného automatu, který se nachází ve stavu $q$ s nepřečteným vstupem $v$
+			- přičemž $q\in Q,\,v\in \Sigma^*$
+	- výpočetní graf (strom) $\epsilon$NFA
+		- mějme NFA $A=(Q,\Sigma,\delta,q_0,F)$ a vstupní slovo $w\in\Sigma^*$
+		- uzly výpočetního grafu jsou konfigurace $A$ nad slovem $w$
+		- orientované hrany značí možný přechod mezi konfiguracemi
+		- tedy z $(p,au)$ vede hrana do $(q,u)$, právě když $q\in\delta(p,a)$
 - Algoritmus: Podmnožinová konstrukce (s $\epsilon$-přechody)
+	- věta: jazyk $L$ je rozpoznatelný $\epsilon$NFA, právě když je $L$ regulární
+	- pro libovolný $\epsilon$NFA $N$ zkonstruujeme DFA $D$ přijímající stejný jazyk jako $N$
+	- nové stavy jsou $\epsilon$uzavřené podmnožiny $Q_N$
+		- $Q_D\subseteq\mathcal P(Q_N)$
+		- $\forall S\subseteq Q_N:\epsilon\text{closure}(S)\in Q_D$
+		- v $Q_D$ může být i $\emptyset$
+	- počáteční stav je $\epsilon$uzávěr $q_0$
+		- $q_{D_0}=\epsilon\text{closure}(q_{N_0})$
+	- přijímající stavy jsou všechny množiny obsahující nějaký přijímající stav
+		- $F_D=\set{S\in Q_D: S\cap F_N\neq\emptyset}$
+	- přechodová funkce sjednotí a $\epsilon$uzavře přechody z jednotlivých stavů
+		- pro $S\in Q_D,\,x\in\Sigma$ definujeme $\delta_D(S,x)=\epsilon\text{closure}\left(\bigcup_{p\in S}\delta_N(p,x)\right)$
 - Věta: Převod NFA na DFA
+	- věta: pro DFA $D$ vytvoření podmnožinovou konstrukcí z NFA $N$ platí $L(N)=L(D)$
+	- důkaz: indukcí dokážeme $\delta^*_D(q_{D_0},w)=\delta^*_N(q_{N_0},w)$
 - Věta: Uzavřenost na množinové operace
+	- definice: množinové operace nad jazyky (sjednocení, průnik, rozdíl, doplněk) fungují tak, jak bychom čekali
+	- věta
+		- mějme regulární jazyky $L,M$
+		- pak jsou následující jazyky také regulární
+			- sjednocení $L\cup M$
+			- průnik $L\cap M$
+			- rozdíl $L-M$
+			- doplněk $\overline L=\Sigma^*-L$
+	- důkaz
+		- pokud $\delta$ není totální, přidáme fail
+		- uvažujeme DFA přijímající daný jazyk
+		- doplněk: obrátíme „koncovost“ stavů
+		- průnik, sjednocení, rozdíl
+			- zkonstruujeme součinový automat $(Q_1\times Q_2,\Sigma,\delta,(q_{0_1},q_{0_2}),F)$
+				- kde $\delta((p,q),x)=(\delta_1(p,x),\delta_2(q,x))$
+			- průnik … $F=F_1\times F_2$
+			- sjednocení … $F=(F_1\times Q_2)\cup(Q_1\times F_2)$
+			- rozdíl … $F=F_1\times (Q_2-F_2)$
 - Definice: Řetězcové operace nad jazyky
+	- zřetězení jazyků $L{.}M=\set{uv\mid u\in L\land v\in M}$
+	- mocniny jazyka $L^k=\underbrace{L{.}L\dots L}_{k}$
+	- pozitivní iterace $L^+$
+	- obecná iterace $L^*$
+	- otočení jazyka $L^R=\set{u^R\mid u\in L}$
+	- levý kvocient $L$ podle $M$
+		- $M\setminus L=\set{v\mid uv\in L\land u \in M}$
+	- levá derivace $L$ podle $w$
+		- $\partial_wL=\set{w}\setminus L$
+	- pravý kvocient $L$ podle $M$
+		- $L/M=\set{u\mid uv\in L\land v\in M}$
+		- $\partial^R_wL=L/\set{w}$
 - Věta: Uzavřenost regulárních jazyků na řetězcové operace
+	- věta: jsou-li $L,M$ regulární jazyky, jsou regulární i $L{.}M,L^*,L^+,L^R,M\setminus L,L/M$
+	- důkaz
+		- uvažujeme automaty pro $L,M$
+		- vytvoříme NFA
+		- TODO podle sešitu
 
 ## Regulární výrazy
 
 - Definice: Regulární výrazy, hodnota regulárního výrazu
+	- $\text{RegE}(\Sigma)$ … množina všech regulárních výrazů nad konečnou neprázdnou abecedou
+	- $L(\alpha)$ … hodnota regulárního výrazu $\alpha$
+	- regulární výraz a jeho hodnota jsou definovány induktivně
+		- základ
+			- $\epsilon$ … prázdný řetězec, $L(\epsilon)=\set{\epsilon}$
+			- $\emptyset$ … prázdný výraz, $L(\emptyset)=\emptyset$
+			- $a$ … znak $a\in\Sigma$, $L(a)=\set{a}$
+		- indukce
+			- $\alpha+\beta$ … jako OR, $L(\alpha+\beta)=L(\alpha)\cup L(\beta)$
+			- $\alpha\beta$ … $L(\alpha\beta)=L(\alpha)L(\beta)$
+			- $\alpha^*$ … $L(\alpha^*)=L(\alpha)^*$
+			- $(\alpha)$ … závorky nemění hodnotu, $L((\alpha))=L(\alpha)$
+	- nejvyšší prioritu má iterace $^*$, pak zřetězení, pak sjednocení $+$
+	- třída $\text{RegE}(\Sigma)$ je nejmenší třída uzavřená na uvedené operace
 - Věta: Varianta Kleeneho věty
+	- věta
+		- každý jazyk reprezentovaný konečným automatem lze zapsat jako regulární výraz
+		- každý jazyk popsaný regulárním výrazem lze zapsat jako $\epsilon$NFA
+	- důkaz
+		- výraz → $\epsilon$NFA
+			- indukcí dle struktury výrazu (viz prezentace)
+			- jednotlivé stavební bloky musíme dostatečně oddělovat epsilon přechody
+		- DFA → výraz
+			- TODO viz skriptíčka
 - Definice: Substituce jazyků
+	- mějme konečnou abecedu $\Sigma$
+	- pro každé $x\in\Sigma$ budiž $\sigma(x)$ jazyk v nějaké abecedě $Y_x$
+	- položme
+		- $\sigma(\epsilon)=\set{\epsilon}$
+		- $\sigma(u{.}v)=\sigma(u){.}\sigma(v)$
+	- zobrazení $\sigma:\Sigma^*\to\mathcal P(Y^*)$, kde $Y=\bigcup_{x\in\Sigma} Y_x$ se nazývá substituce
+	- pro jazyk $L$ definujeme $\sigma(L)=\bigcup_{w\in L}\sigma(w)$
+	- nevypouštějící substituce je taková, kde žádné $\sigma(x)$ neobsahuje $\epsilon$
+	- příklad substituce $\sigma$
+		- $Y_0=\set{a,b}$
+		- $Y_1=\set{c,d}$
+		- $0\mapsto\set{a^ib^i\mid i,j\geq 0}$
+		- $1\mapsto\set{cd}$
+		- 
 - Definice: Homomorfismus jazyků, inverzní homomorfismus
 - Věta: Uzavřenost na homomorfismus
 - Definice: Inverzní homomorfismus
