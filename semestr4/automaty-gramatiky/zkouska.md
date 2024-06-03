@@ -230,15 +230,15 @@
 - Algoritmus: Podmnožinová konstrukce (s $\epsilon$-přechody)
 	- věta: jazyk $L$ je rozpoznatelný $\epsilon$NFA, právě když je $L$ regulární
 	- pro libovolný $\epsilon$NFA $N$ zkonstruujeme DFA $D$ přijímající stejný jazyk jako $N$
-	- nové stavy jsou $\epsilon$uzavřené podmnožiny $Q_N$
+	- nové stavy jsou $\epsilon$-uzavřené podmnožiny $Q_N$
 		- $Q_D\subseteq\mathcal P(Q_N)$
 		- $\forall S\subseteq Q_N:\epsilon\text{closure}(S)\in Q_D$
 		- v $Q_D$ může být i $\emptyset$
-	- počáteční stav je $\epsilon$uzávěr $q_0$
+	- počáteční stav je $\epsilon$-uzávěr $q_0$
 		- $q_{D_0}=\epsilon\text{closure}(q_{N_0})$
 	- přijímající stavy jsou všechny množiny obsahující nějaký přijímající stav
 		- $F_D=\set{S\in Q_D: S\cap F_N\neq\emptyset}$
-	- přechodová funkce sjednotí a $\epsilon$uzavře přechody z jednotlivých stavů
+	- přechodová funkce sjednotí a $\epsilon$-uzavře přechody z jednotlivých stavů
 		- pro $S\in Q_D,\,x\in\Sigma$ definujeme $\delta_D(S,x)=\epsilon\text{closure}\left(\bigcup_{p\in S}\delta_N(p,x)\right)$
 - Věta: Převod NFA na DFA
 	- věta: pro DFA $D$ vytvoření podmnožinovou konstrukcí z NFA $N$ platí $L(N)=L(D)$
@@ -319,19 +319,58 @@
 	- pro jazyk $L$ definujeme $\sigma(L)=\bigcup_{w\in L}\sigma(w)$
 	- nevypouštějící substituce je taková, kde žádné $\sigma(x)$ neobsahuje $\epsilon$
 	- příklad substituce $\sigma$
-		- $Y_0=\set{a,b}$
-		- $Y_1=\set{c,d}$
-		- $0\mapsto\set{a^ib^i\mid i,j\geq 0}$
-		- $1\mapsto\set{cd}$
-		- 
+		- definice
+			- $\Sigma=\set{0,1}$
+			- $Y_0=\set{a,b}$
+			- $\sigma(0)=\set{a^ib^i\mid i,j\geq 0}$
+			- $Y_1=\set{c,d}$
+			- $\sigma(1)=\set{cd}$
+			- tedy $Y=\set{a,b,c,d}$
+			- $\sigma$ zobrazí slovo v abecedě $\Sigma$ na jazyk v abecedě $Y$
+		- použití
+			- $\sigma(010)=\set{a^ib^jcda^kb^l\mid i,j,k,l\geq 0}$
 - Definice: Homomorfismus jazyků, inverzní homomorfismus
+	- homomorfismus $h$ je speciální případ substituce, kde obraz je vždy jen jednoslovný jazyk, tj. $\forall x\in\Sigma:h(x)=w_x$
+		- zapisujeme bez množinových závorek, *tradičnější* by bylo zapsat $\forall x\in\Sigma:\sigma(x)=\set{w_x}$
+		- tedy $h:\Sigma^*\to Y^*$
+	- nevypouštějící homomorfismus je takový, kde $\forall x:w_x\neq\epsilon$
+	- inverzní homomorfismus
+		- nechť $h$ je homomorfismus abecedy $\Sigma$ do slov nad abecedou $Y$
+		- $h^{-1}(L)=\set{w\in\Sigma^*:h(w)\in L}$
 - Věta: Uzavřenost na homomorfismus
-- Definice: Inverzní homomorfismus
+	- věta: je-li jazyk $L$ a je-li pro všechna $x$ z $\Sigma$ jazyk $\sigma(x),h(x)$ regulární, pak je regulární i $\sigma(L),h(L)$
+	- důkaz
+		- strukturální indukcí
+		- použijeme definici substituce a uzavřenost regulárních jazyků na sjednocení a zřetězení
+		- iteraci rozložíme na nekonečné sjednocení
+- Věta: Uzavřenost na inverzní homomorfismus
+	- věta: je-li $h$ homomorfismus abecedy $\Sigma$ do abecedy $Y$ a $L$ je regulární jazyk abecedy $Y$, pak $h^{-1}(L)$ je také regulární jazyk
+	- důkaz
+		- pro $L$ máme DFA $A=(Q,Y,\delta,q_0,F)$
+		- $h:\Sigma\to Y^*$
+		- definujeme $\epsilon$NFA $B=(Q',\Sigma,\delta',[q_0,\epsilon],F\times\set{\epsilon})$
+			- $Q'=\set{[q,u]\mid q\in Q,\,u\in Y^*,\,(\exists a\in \Sigma)(\exists v\in Y^*):h(a)=vu}$
+				- $u$ je buffer
+			- $\delta'([q,\epsilon],a)=[q,h(a)]$ … naplňuje buffer
+			- $\delta'([q,bv],\epsilon)=[p,v]$, kde $\delta(q,b)=p$ … čte buffer
+		- tak jsme získali konečný automat přijímající $h^{-1}(L)$
+		- proč buffer?
+			- $h$ ze znaku ($\in\Sigma$) vytvoří slovo ($\in Y^*$)
+			- přechodová funkce $\delta:Q\times Y\to Q$ ale písmenka přijímá po jednom
+			- takže ze znaku $x\in\Sigma$ vytvoříme slovo $h(x)\in Y^*$ a pak ho po písmenkách zpracováváme funkcí $\delta$, dokud buffer nevyprázdníme, pak přejdeme k dalšímu znaku
 - Věta: Rozhodovací problémy pro regulární jazyky
+	- lemma: lze algoritmicky rozhodnout, zda jazyk přijímaný DFA, NFA, $\epsilon$NFA je prázdný
+		- jazyk je prázdný $\iff$ žádný z koncových stavů není dosažitelný
+		- dosažitelnost lze testovat $O(|Q|^2)$
+	- lemma: pro daný řetězec $w$ (délky $n$) a regulární jazyk $L$ lze algoritmicky rozhodnout, zda $w\in L$
+		- DFA: $O(n)$
+		- NFA o $s$ stavech: $O(ns^2)$, každý vstupní symbol aplikujeme na všechny stavy předchozího kroku, těch je nejvýš $s$
+		- $\epsilon$NFA: v průběhu aplikujeme $\epsilon$-uzávěr
 
 ## Gramatiky
 
 - Definice: Formální (generativní) gramatika
+	- formální (generativní) gramatika je čtveřice
 - Definice: Klasifikace gramatik podle tvaru přepisovacích pravidel
 - Definice: Derivace $\Rightarrow^*$
 - Definice: Jazyk generovaný gramatikou $G$
