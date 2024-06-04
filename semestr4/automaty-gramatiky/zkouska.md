@@ -678,7 +678,26 @@
 ## Uzávěrové vlastnosti
 
 - Věta: CFL uzavřené na sjednocení, konkatenaci, iteraci, reverzi, naopak neuzavřené na průnik
+	- důkazy
+		- sjednocení
+			- pokud $V_1\cap V_2\neq\emptyset$, musíme přejmenovat neterminály
+			- přidáme nový symbol $S_{new}$ a pravidlo $S_{new}\to S_1|S_2$
+		- zřetězení
+			- pokud $V_1\cap V_2\neq\emptyset$, musíme přejmenovat neterminály
+			- $S_{new}\to S_1S_2$
+		- iterace
+			- $S_{new}\to SS_{new}|\epsilon$
+		- pozitivní iterace
+			- $S_{new}\to SS_{new}|S$
+		- zrcadlový obraz (reverze)
+			- obrátíme pravou stranu pravidel
+	- protipříklad uzavřenosti na průnik
+		- jazyk $L=\set{0^n1^n2^n\mid n\geq 1}=\set{0^n1^n2^i\mid n,i\geq 1}\cap \set{0^i1^n2^n\mid n,i\geq 1}$ není bezkontextový, přestože oba členy průniku jsou bezkontextové
 - Věta: CFL i DCFL jsou uzavřené na průnik s regulárním jazykem
+	- zásobníkový a konečný automat můžeme spojit
+	- uvažujeme PDA přijímající koncovým stavem
+	- sestrojíme vlastně něco jako součinový automat
+	- pokud se v daném přechodu nečte vstup, tak konečný automat stojí
 - Věta: CFL jsou uzavřené na substituci a homomorfismus
 - Věta: CFL jsou uzavřené na inverzní homomorfismus
 - Věta: Odečtení regulárního jazyka
