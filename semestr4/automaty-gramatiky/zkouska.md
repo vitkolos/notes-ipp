@@ -831,7 +831,34 @@
 ## LBA, diagonální jazyk
 
 - Definice: Separovaná gramatika
+	- definice: gramatika je separovaná, pokud obsahuje pouze pravidla tvaru $\alpha\to\beta$, kde
+		- buď $\alpha,\beta\in V^+$ (neprázdné posloupnosti neterminálů),
+		- nebo $\alpha\in V$ a $\beta\in T\cup\set{\epsilon}$
+	- lemma: ke každé gramatice $G$ lze sestrojit ekvivalentní separovanou gramatiku $G'$
+		- stačí všechny terminály *nadtrhnout* a přidat pravidla $\forall a\in T:\overline a\to a$
 - Definice: Monotónní (nevypouštějící) gramatika
+	- gramatika je monotónní (nevypouštějící), jestliže pro každé pravidlo $(\alpha\to\beta)\in P$ platí $|\alpha|\leq|\beta|$
+	- monotónní gramatiky slovo v průběhu generování nezkracují
+	- lemma: ke každé monotónní gramatice lze nalézt ekvivalentní kontextovou gramatiku
+		- připomenutí: v kontextové gramatice povolujeme pravidla $\alpha A\beta\to\alpha\omega\beta$
+			- $A\in V$
+			- $\alpha,\beta\in (V\cup T)^*$
+			- $\omega\in (V\cup T)^+$
+		- nejprve gramatiku separujeme
+		- stále jsme se nezbavili pravidel tvaru $AB\to CD$ (a delších), kde všechna písmena jsou neterminály
+		- přidáme sadu nových neterminálů
+		- např. $AB\to CD$ převedeme na $AB\to\bar AB\to\bar A\bar B\to C\bar B\to CD$
+- Věta: Příklad kontextového jazyka
+	- lemma: jazyk $L=\set{a^ib^jc^k\mid1\leq i\leq j\leq k}$ je kontextový jazyk, není bezkontextový
+	- důkaz (na jedničku je potřeba umět)
+		- $S\to aSBC|aBC$ … generování symbolů $a$
+		- $B\to BBC$ … množení symbolů $B$
+		- $CB\to BC$ … uspořádání symbolů $B$ a $C$ (pravidlo není kontextové, je potřeba ho upravit nadtrháváním)
+		- $aB\to ab$ … začátek přepisu $B$ na $b$
+		- $bB\to bb$ … pokračování přepisu $B$ na $b$
+		- $bC\to bc$ … začátek přepisu $C$ na $c$
+		- $cC\to cc$ … pokračování přepisu $C$ na $c$
+	- je důležité, že tam chybí $cB\to cb$
 - Definice: Lineárně omezený automat (LBA)
 - Věta: Každý kontextový jazyk lze přijímat pomocí LBA
 - Věta: LBA přijímají pouze kontextové jazyky
