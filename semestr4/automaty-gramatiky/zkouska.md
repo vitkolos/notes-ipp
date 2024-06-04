@@ -730,6 +730,17 @@
 		- protože $L_1\cap L_2=\overline{\overline{L_1}\cup\overline{L_2}}$
 	- $L_1-L_2$ nemusí být CFL
 		- jelikož $\Sigma^*-L$ (tedy doplněk) není vždy CFL
+- Věta: Uzavřenost DCFL na doplněk, sjednocení, průnik a homomorfismus
+	- lemma: doplněk deterministického CFL je opět deterministický CFL
+		- převrátíme koncovost stavů
+		- nedefinované kroky ošetříme podložkou na zásobníku
+		- cyklus odhalíme pomocí čítače
+		- až po přečtení slova prochází koncové a nekoncové stavy (stačí si pamatovat, zda prošel koncovým stavem)
+	- lemma: DCFL nejsou uzavřené na sjednocení ani průnik
+		- jako protipříklad průniku opět použijeme $L=\set{0^n1^n2^n\mid n\geq 1}=\set{0^n1^n2^i\mid n,i\geq 1}\cap \set{0^i1^n2^n\mid n,i\geq 1}$
+		- uzavřenost sjednocení pak vylučuje identita $L_1\cap L_2=\overline{\overline{L_1}\cup\overline{L_2}}$
+	- lemma: DCFL nejsou uzavřené na homomorfismus
+		- problém nastane např. když pomocí $h(c)=\epsilon$ odstraníme středovou značku z jazyka palindromů $L_{wcwr}$
 
 ## Turingův stroj
 
