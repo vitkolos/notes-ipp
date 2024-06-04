@@ -609,6 +609,9 @@
 	- pak říkáme, že konfigurace $(p,aw,X\beta)$ bezprostředně vede na konfiguraci $(q,w,\alpha\beta)$
 		- značíme $(p,aw,X\beta)\vdash(q,w,\alpha\beta)$
 	- podobně „konfigurace $I$ vede na konfiguraci $J$“ (pokud existuje posloupnost konfigurací *mezi nimi*, které na sebe bezprostředně vedou), značíme pomocí $\vdash^*$
+		- definuje se rekurzivně
+			- základ: $I\vdash^*I$
+			- rekurze: $I\vdash J\land J\vdash^*K\implies I\vdash^*K$
 - Definice: Jazyk přijímaný koncovým stavem, prázdným zásobníkem
 	- mějme zásobníkový automat $P_{da}=(Q,\Sigma,\Gamma,\delta,q_0,Z_0,F)$
 	- jazyk přijímaný koncovým stavem je $L(P_{da})=\set{w\in\Sigma^*:(\exists q\in F)(\exists\alpha\in\Gamma^*)((q_0,w,Z_0)\vdash^*_{P_{da}}(q,\epsilon,\alpha))}$
@@ -745,15 +748,85 @@
 ## Turingův stroj
 
 - Definice: Turingův stroj
-- Definice: Konfigurace Turingova stroje
-- Definice: Krok Turingova stroje
+	- turingův stroj (TM) je sedmice $M=(Q,\Sigma,\Gamma,\delta,q_0,B,F)$
+	- $Q$ … konečná množina stavů
+	- $\Sigma$ … konečná neprázdná množina vstupních symbolů
+	- $\Gamma$ … konečná množina všech symbolů pro pásku
+		- vždy $\Gamma\supseteq\Sigma,\,Q\cap\Gamma=\emptyset$
+	- $\delta$ … (částečná) přechodová funkce
+		- zobrazení $(Q-F)\times\Gamma\to Q\times\Gamma\times\set{L,R}$
+		- $\delta(q,X)=(p,Y,D)$
+			- $q\in (Q-F)$ … aktuální stav
+			- $X\in \Gamma$ … aktuální symbol na pásce
+			- $p\in Q$ … nový stav
+			- $Y\in\Gamma$ … symbol pro zapsání do aktuální buňky, přepíše aktuální obsah
+			- $D\in\set{L,R}$ … směr pohybu hlavy (doleva, doprava)
+	- $q_0\in Q$ … počáteční stav
+	- $B\in\Gamma-\Sigma$ … blank = symbol pro prázdné buňky, na začátku všude kromě konečného počtu buněk se vstupem
+	- $F\subseteq Q$ … množina koncových neboli přijímajících stavů
+	- poznámka: někdy se nerozlišuje $\Gamma$ a $\Sigma$ a neuvádí se $B$, pak je TM pětice
+- Definice: Konfigurace Turingova stroje, krok Turingova stroje
+	- konfigurace Turingova stroje (ID) je řetězec $X_1X_2\dots X_{i-1}qX_iX_{i+1}\dots X_n$
+		- $q$ … stav Turingova stroje
+		- čtecí hlava je vlevo od $i$-tého symbolu
+		- $X_1\dots X_n$ je část pásky mezi nejlevějším a nejpravějším symbolem různým od prázdného
+			- výjimka: pokud je hlava na kraji, na tom kraji vkládáme jeden $B$ navíc
+	- kroky turingova stroje $M$ značíme podobně jako u zásobníkových automatů ($\vdash_M,\vdash_M^*$)
 - Definice: TM přijímá jazyk, rekurzivně spočetný jazyk
+	- turingův stroj $M=(Q,\Sigma,\Gamma,\delta,q_0,B,F)$ přijímá jazyk $L(M)=\set{w\in\Sigma^*:(\exists p\in F)(\exists \alpha,\beta\in\Gamma^*)(q_0w\vdash_M^*\alpha p\beta)}$
+		- tj. množinu slov, po jejichž přečtení se dostane do koncového stavu
+		- pásku nemusí uklízet (v naší definici)
+	- jazyk nazveme rekurzivně spočetným, pokud je přijímán nějakým Turingovým strojem
 - Definice: Přechodový diagram pro TM
+	- jako pro konečný automat
+	- hrana $q\to p$ je označena seznamem všech dvojic $X/YD$, kde $\delta(q,X)=(p,Y,D)$
+		- $D\in\set{\leftarrow,\rightarrow}$
 - Definice: Vícepáskový Turingův stroj
+	- počáteční pozice
+		- vstup na první pásce, ostatní zcela prázdné
+		- první hlava vlevo od vstupu, ostatní libovolně
+		- hlava v počátečním stavu
+	- jeden krok vícepáskového TM
+		- hlava přejde do nového stavu
+		- na každé pásce napíšeme nový symbol
+		- každá hlava se nezávisle posune vlevo, zůstane na místě nebo se posune vpravo
 - Věta: Vícepáskový Turingův stroj
+	- věta: každý jazyk přijímaný vícepáskovým TM je přijímaný i nějakým (jednopáskovým) Turingovým strojem
+	- důkaz
+		- máme $k$-páskový TM
+		- konstruujeme jednopáskový TM
+		- pásku si představíme, že má $2k$ stop (nad sebou)
+			- liché stopy: pozice $k$-té hlavy
+			- sudé stopy: znak na $k$-té pásce
+		- pro simulaci jednoho kroku navštívíme všechny hlavy
+		- ve stavu si pamatujeme
+			- počet hlav vlevo
+			- pro každé $k$ symbol pod $k$-tou hlavou
+		- pak už umíme provést jeden krok
+	- simulaci výpočtu $k$-páskového stroje o $n$ krocích lze provést v čase $O(n^2)$
 - Definice: Nedeterministický TM
+	- nedeterministickým Turingovým strojem nazýváme sedmici stejnou jako u TM
+	- akorát $\delta:(Q-F)\times\Gamma\to\mathcal P(Q\times\Gamma\times\set{L,R})$
+	- slovo $w\in\Sigma^*$ je přijímáno nedeterministickým TM, pokud existuje nějaký výpočet $q_0w\vdash^*\alpha p\beta$, kde $p\in F$
 - Věta: Nedeterministický TM
+	- věta: pro každý $M_N$ nedeterministický TM existuje $M_D$ deterministický TM takový, že $L(M_N)=L(M_D)$
+	- idea
+		- prohledáváme do šířky všechny možné výpočty $M_N$
+		- modelujeme TM se dvěma páskami
+			- první páska: posloupnost (fronta) konfigurací
+			- druhá páska: pomocný výpočet
+		- vždycky vezmeme konfiguraci z fronty, provedeme na ní postupně každý možný krok a výsledek vždy přidáme na konec fronty
 - Věta: TM s jednosměrnou páskou
+	- věta: pro každý TM existuje TM, který přijímá stejný jazyk a nikdy nejde vlevo od počáteční pozice a nikdy nepíše blank $B$
+	- důkaz
+		- zákaz psaní blanku $B$
+			- místo psaní $B$ budeme psát $B_1$
+			- všechny instrukce pro čtení $B$ zkopírujeme rovněž pro čtení $B_1$
+		- jednosměrná páska
+			- přepíšeme vstup do horní stopy dvoustopé pásky
+			- pod nejlevější symbol dáme nový znak $*$, abychom věděli, že jsme na levém okraji a máme přepnout z horní stopy do dolní
+			- ve stavu („hlavě“) si pamatujeme, jestli čteme horní nebo spodní stopu
+			- pokud vidíme $*$, odpovídající instrukce přepíšeme na změnu stopy
 
 ## LBA, diagonální jazyk
 
