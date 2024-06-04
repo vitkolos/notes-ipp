@@ -570,16 +570,110 @@
 ## Zásobníkové automaty
 
 - Definice: Zásobníkový automat (PDA)
-- Definice: Přechodový diagram pro zásobníkový automat
+	- zásobníkový automat (PDA) je sedmice $P=(Q,\Sigma,\Gamma,\delta,q_0,Z_0,F)$
+	- $Q$ … konečná množina stavů
+	- $\Sigma$ … neprázdná konečná množina vstupních symbolů
+	- $\Gamma$ … neprázdná konečná zásobníková abeceda
+	- $\delta$ … přechodová funkce
+		- $\delta:Q\times(\Sigma\cup\set{\epsilon})\times\Gamma\to \mathcal P_{FIN}(Q\times\Gamma^*)$
+			- kde $\mathcal P_{FIN}(A)$ je množina všech konečných podmnožin množiny $A$
+		- tedy $\delta(p,a,X)\ni(q,\gamma)$
+			- $q$ je nový stav
+			- $\gamma$ je řetězec zásobníkových symbolů, který nahradí $X$ na vrcholu zásobníku
+	- $q_0\in Q$ … počáteční stav
+	- $Z_0\in\Gamma$ … počáteční zásobníkový symbol
+	- $F$ … množina přijímajících (koncových) stavů (může být nedefinovaná)
+	- jak PDA funguje
+		- je nedeterministický
+		- v jednom časovém kroku
+			- na vstupu přečte žádný nebo jeden symbol
+			- přejde do nového stavu
+			- nahradí symbol na vrchu zásobníku libovolným řetězcem (nejlevější znak bude na vrchu)
+	- přechodový diagram
+		- jako pro konečný automat
+		- hrany popisujeme ve tvaru: *vstupní znak*, *zásobníkový znak* → *push řetězec*
 - Definice: Konfigurace zásobníkového automatu
+	- konfiguraci zásobníkového automatu reprezentujeme trojicí $(q,w,\gamma)$
+	- $q$ … stav
+	- $w$ … zbývající vstup
+	- $\gamma$ … obsah zásobníku (vrch zásobníku je vlevo)
+	- konfiguraci značíme zkratkou ID (instantaneous description)
 - Definice: $\vdash$, $\vdash^*$ posloupnosti konfigurací
+	- mějme
+		- PDA $(Q,\Sigma,\Gamma,\delta,q_0,Z_0,F)$
+		- $p,q\in Q$
+		- $a\in (\Sigma\cup\set{\epsilon})$
+		- $X\in\Gamma$
+		- $\alpha\in\gamma^*$
+		- $\delta(p,a,X)\ni (q,\alpha)$
+	- pak říkáme, že konfigurace $(p,aw,X\beta)$ bezprostředně vede na konfiguraci $(q,w,\alpha\beta)$
+		- značíme $(p,aw,X\beta)\vdash(q,w,\alpha\beta)$
+	- podobně „konfigurace $I$ vede na konfiguraci $J$“ (pokud existuje posloupnost konfigurací *mezi nimi*, které na sebe bezprostředně vedou), značíme pomocí $\vdash^*$
 - Definice: Jazyk přijímaný koncovým stavem, prázdným zásobníkem
+	- mějme zásobníkový automat $P_{da}=(Q,\Sigma,\Gamma,\delta,q_0,Z_0,F)$
+	- jazyk přijímaný koncovým stavem je $L(P_{da})=\set{w\in\Sigma^*:(\exists q\in F)(\exists\alpha\in\Gamma^*)((q_0,w,Z_0)\vdash^*_{P_{da}}(q,\epsilon,\alpha))}$
+	- jazyk přijímaný prázdným zásobníkem je $N(P_{da})=\set{w\in\Sigma^*:(\exists q\in Q)((q_0,w,Z_0)\vdash^*_{P_{da}}(q,\epsilon,\epsilon))}$
+		- množina $F$ je nerelevantní, takže ji lze vynechat – pak je PDA šestice
 - Věta: L(CFG), L(PDA), N(PDA)
+	- lemma: vstup, který není čtený, a dno zásobníku neovlivní výpočet
+	- lemma: od přijímajícího stavu k prázdnému zásobníku
+		- na dno zásobníku přidáme špunt
+		- z přijímajících stavů vedeme hranu do vypouštěcího stavu, kde zásobník vyprázdníme
+	- lemma: od prázdného zásobníku ke koncovému stavu
+		- na dno zásobníku přidáme špunt
+		- z každého stavu uděláme přechod takový, že pokud je vidět špunt, přemístíme se do koncového stavu
+	- věta: následující tvrzení jsou ekvivalentní
+		- jazyk $L$ je bezkontextový, tj. generovaný bezkontextovou gramatikou
+		- jazyk $L$ je přijímaný nějakým zásobníkovým automatem koncovým stavem
+		- jazyk $L$ je přijímaný nějakým zásobníkovým automatem prázdným zásobníkem
+	- důkaz: ekvivalenci N(PDA) a L(PDA) už máme, ještě ukážeme ekvivalenci L(CFG) a N(PDA)
+	- lemma: N(PDA) z L(CFG) – viz algoritmus „konstrukce PDA z CFG“
+	- lemma: pro PDA existuje CFG
+		- máme PDA $(Q,\Sigma,\Gamma,\delta,q_0,Z_0)$
+		- neterminály gramatiky budou složené symboly $[qXp]$ … PDA vyšel z $q$, vzal $X$ a přešel do $p$
+		- zavedeme nový počáteční symbol $S$
+		- definujeme pravidla
+			- $\forall p\in Q: S\to [q_0Z_0p]$
+				- „začneme v $q_0$, nakonec odebereme $Z_0$ a dostaneme se do (koncového) stavu $p$“ (tedy přijmeme prázdným zásobníkem)
+			- uvažujeme všechny dvojice $(p,Y_1Y_2\dots Y_k)\in \delta (q,s,X)$
+				- kde $s\in\Sigma\cup\set{\epsilon}$
+				- $\forall p_1,\dots,p_{k}\in Q$ vytvoříme pravidlo $[qXp_k]\to s[pY_1p_1][p_1Y_2p_2]\dots[p_{k-1}Y_kp_k]$
+			- speciálně pro $(p,\epsilon)\in\delta(q,a,A)$ vytvoříme pravidlo $[qAp]\to a$
 - Algoritmus: Konstrukce PDA z CFG
+	- mějme gramatiku $G=(V,T,P,S)$
+	- konstruujeme PDA $P=(\set{q},T,V\cup T,\delta,q,S)$
+		- $\forall A\in V:\delta(q,\epsilon,A)=\set{(q,\beta)\mid (A\to \beta)\in P}$
+		- $\forall a\in T:\delta(q,a,a)=\set{(q,\epsilon)}$
+	- idea
+		- stavy nás nezajímají – stačí nám jeden
+		- na zásobníku nedeterministicky generujeme všechny možné posloupnosti terminálů
 - Definice: Deterministický zásobníkový automat (DPDA)
+	- zásobníkový automat $P=(Q,\Sigma,\Gamma,\delta,q_0,Z_0,F)$ je deterministický PDA, právě když platí zároveň
+		- $\delta(q,a,X)$ je nejvýše jednoprvková pro libovolnou trojici $q,a,X$
+		- je-li $\delta(q,a,X)$ neprázdná pro nějaké $a\in\Sigma$, pak $\delta(q,\epsilon,X)$ musí být prázdná
 - Věta: Zařazení $L_{DPDA}$ mezi $L_{PDA}$ a regulární jazyky
-- Definice: Bezprefixové jazyky
+	- věta: nechť je $L$ regulární jazyk, pak $L=L(P)$ pro nějaký DPDA $P$
+		- DPDA může simulovat deterministický konečný automat a ignorovat zásobník
+	- lemma: jazyk $L_{wcwr}$ je přijímaný DPDA, ale není regulární
+		- $L_{wcwr}$ … jazyk palindromů se středovou značkou $c$
+		- důkaz neregularity plyne z pumping lemmatu na slovo $0^nc0^n$
+	- lemma: jazyk $L_{abb}$ je bezkontextový, ale není přijímaný žádným DPDA
+		- $L_{abb}=\set{a^ib^i\mid i\in\mathbb N}\cup \set{a^ib^{2i}\mid i\in\mathbb N}$
+		- dokážeme sporem, uvažujme DPDA $M$ přijímající $L_{abb}$
+		- vytvořme dvě kopie, $M_1$ a $M_2$
+		- v $M_2$ místo $b$ budeme mít písmenko $c$
+		- zkonstruujeme nový automat, počátečním stavem bude počáteční stav $M_1$, koncovými stavy budou koncové stavy $M_2$
+		- z koncových stavů $M_1$ uděláme přechody do odpovídajících stavů v $M_2$
+		- takový automat bude nutně přijímat $\set{a^ib^ic^i\mid i\in\mathbb N}$, což je spor, protože ten jazyk není bezkontextový, takže deterministický $M$ nemůže existovat
 - Věta: $L\in N(P_{DPDA})$, právě když $L$ bezprefixový a $L\in L(P'_{DPDA})$
+	- definice: jazyk $L\subset\Sigma^*$ je bezprefixový, pokud neexistují slova $u,v\in L$ a $z\in\Sigma^+$ taková, že $u=vz$
+		- tj. pro žádná dvě slova $u,v$ není $v$ vlastním prefixem $u$
+	- věta: jazyk $L$ je $N(P)$ pro nějaký DPDA $P$, právě když $L$ je bezprefixový a $L$ je $L(P')$ pro nějaký DPDA $P'$
+	- důkaz$\implies$ (obměnou)
+		- prefix přijmeme prázdným zásobníkem
+		- pro prázdný zásobník neexistuje instrukce, tj. žádné prodloužení není v $N(P)$
+	- důkaz $\impliedby$
+		- převod $P'$ na $P$ nepřidá nedeterminismus
 
 ## Uzávěrové vlastnosti
 
