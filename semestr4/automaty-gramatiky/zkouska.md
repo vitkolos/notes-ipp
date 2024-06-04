@@ -699,9 +699,37 @@
 	- sestrojíme vlastně něco jako součinový automat
 	- pokud se v daném přechodu nečte vstup, tak konečný automat stojí
 - Věta: CFL jsou uzavřené na substituci a homomorfismus
+	- idea: listy v derivačním stromě generují další stromy
+	- přejmenujeme neterminály na jednoznačné ve všech gramatikách
+	- máme $G=(V,\Sigma,P,S)$ a $\forall a\in\Sigma: G_a=(V_a,T_a,P_a,S_a)$
+	- vytvoříme novou gramatiku $G'=(V',T',P',S')$
+		- $V'=V\cup\bigcup_{a\in\Sigma} V_a$
+		- $T'=\bigcup_{a\in\Sigma}T_a$
+		- $P'=\bigcup_{a\in\Sigma}P_a$ sjednoceno s pravidly z $P$, ve kterých všechna $a\in\Sigma$ nahradíme $S_a$
+	- $G'$ generuje jazyk $\sigma(L)$
+	- idea pro homomorfismus: terminál $a$ v derivačním stromě nahradím slovem $h(a)$
 - Věta: CFL jsou uzavřené na inverzní homomorfismus
+	- věta
+		- mějme bezkontextový jazyk $L$ a homomorfismus $h$
+		- pak $h^{-1}(L)$ je bezkontextový jazyk
+		- je-li $L$ deterministický CFL, je i $h^{-1}(L)$ deterministický CFL
+	- idea důkazu
+		- podobně jako u regulárních jazyků
+		- máme PDA s bufferem
+		- buffer je konečný, takže ho lze modelovat ve stavu
+	- důkaz v prezentaci
 - Věta: Odečtení regulárního jazyka
+	- věta
+		- mějme bezkontextový jazyk $L$ a regulární jazyk $R$
+		- pak $L-R$ je CFL
+	- důkaz
+		- $L-R=L\cap\overline R$
+		- $\overline R$ je regulární
 - Věta: CFL nejsou uzavřené na doplněk ani rozdíl
+	- $\overline L$ nemusí být CFL
+		- protože $L_1\cap L_2=\overline{\overline{L_1}\cup\overline{L_2}}$
+	- $L_1-L_2$ nemusí být CFL
+		- jelikož $\Sigma^*-L$ (tedy doplněk) není vždy CFL
 
 ## Turingův stroj
 
