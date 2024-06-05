@@ -860,24 +860,151 @@
 		- $cC\to cc$ … pokračování přepisu $C$ na $c$
 	- je důležité, že tam chybí $cB\to cb$
 - Definice: Lineárně omezený automat (LBA)
+	- lineárně omezený automat je nedeterministicý TM, kde na pásce je označen levý a pravý konec $\underline l,\underline r$
+	- tyto symboly nelze při výpočtu přepsat a nesmí se jít nalevo od $\underline l$ ani napravo od $\underline r$
+	- slovo $w$ je přijímáno LBA, pokud existuje přijímající výpočet $q_0\underline l w\underline r\vdash^*\underline l\alpha p\beta\underline r$, kde $p\in F$
 - Věta: Každý kontextový jazyk lze přijímat pomocí LBA
+	- máme kontextovou gramatiku, sestrojíme LBA
+	- prázdné slovo vyřešíme zvlášť
+	- derivaci gramatiky budeme simulovat pomocí LBA
+	- použijeme pásku se dvěma stopami
+	- slovo $w$ dáme nahoru, na začátek dolní stopy dáme $S$
+	- nedeterministicky přepisujeme slovo ve druhé stopě podle pravidel $G$
+		- pravá část se odsune
+	- pokud jsou ve druhé stopě samé terminály, porovnáme ji s první stopou
+		- slovo přijmeme nebo zamítneme
 - Věta: LBA přijímají pouze kontextové jazyky
+	- máme LBA, sestrojíme monotónní gramatiku
+	- výpočet ukryjeme do „dvoustopých“ neterminálů
+	- nejprve vygenerujeme slovo, kde v horní stopě bude nějaké slovo $\in\Sigma^*$ a ve spodní bude *páska* LBA s tímto slovem (v prvním neterminálu dole bude trojice $q_0,\underline l,a_0$, v posledním bude dole dvojice $a_n,\underline r$)
+	- pak simulujeme práci LBA ve „druhé“ stopě
+	- jakmile se dostaneme do koncového stavu, smažeme „druhou“ stopu
+	- speciálně je potřeba ošetřit přijímání prázdného slova – pomocí speciálního startovacího pravidla
 - Věta: Rekurzivně spočetné jsou $\mathcal L_0$
+	- máme TM, sestrojíme gramatiku
+	- gramatika nejprve vygeneruje slovo a obrácenou pásku stroje (se slovem)
+	- potom simuluje výpočet
+	- nakonec smaže pásku, nechá pouze slovo
 - Věta: Každý jazyk typu 0 je rekurzivně spočetný
+	- idea: TM postupně generuje všechny derivace
+	- derivaci $S\Rightarrow \omega_1\Rightarrow\dots\Rightarrow \omega_n=w$ kódujeme jako slovo $\#S\#\omega_1\#\dots\#w\#$
+	- umíme udělat TM, který přijímá slova $\#\alpha\#\beta\#$, kde $\alpha\Rightarrow\beta$
+	- umíme udělat TM, který přijímá takto zapsanou posloupnost derivací
+	- tedy umíme udělat TM postupně generující všechna slova
+		- vygenerujeme slovo
+		- tvoří slovo derivaci?
+		- končí derivace slovem $w$?
+		- pokud ano, přijímáme $w$
+		- pokud ne, generujeme další slovo
 - Definice: TM zastaví
+	- TM zastaví, pokud vstoupí do stavu $q$ s čteným symbolem $X$ a pokud neexistuje instrukce pro tuto konfiguraci, tedy $\delta(q,X)$ není definováno
+	- z definice vyplývá, že v přijímajícím stavu TM zastaví
+	- dokud nezastaví, nevíme, jestli přijme nebo nepřijme slovo
 - Definice: Rekurzivní jazyky
+	- říkáme, že TM $M$ rozhoduje jazyk $L$, pokud $L=L(M)$ a pro každé $w\in\Sigma^*$ stroj nad $w$ zastaví
+	- jazyky rozhodnutelné TM nazýváme rekurzivní jazyky
+	- rekurzivní jazyky jsou podmnožinou rekurzivně spočetných jazyků
 - Definice: Diagonální jazyk
+	- diagonální jazyk $L_d$ je definovaný jako jazyk slov $w\in\set{0,1}^*$ takových, že TM reprezentovaný jako $w$ nepřijímá slovo $w$
+	- kódování TM
+		- $M=\set{Q,\set{0,1},\Gamma,\delta,q_1,B,\set{q_2}}$
+		- předpokládáme
+			- počáteční stav je vždy $q_1$
+			- $q_2$ je vždy jediný koncový stav
+			- první symbol je $0$, druhý $1$, třetí $B$, ostatní symboly pásky očíslujeme libovolně
+			- směr $L$ je 1, směr $L$ je 2
+		- krok $\delta(q_i,X_j)=(q_k,X_l,D_m)$ kódujeme jako $0^i10^j10^k10^l10^m$
+			- zjevně nebudou dvě jedničky za sebou, protože stavy, symboly i směry číslujeme od jedničky
+		- celý TM se skládá z kódů přechodů v nějakém pořadí oddělených dvojicemi jedniček
+	- pořadí kódů: jsou seřazeny podle délky, stejně dlouhé jsou uspořádány lexikograficky
+- Věta: $L_d$ není rekurzivně spočetný jazyk
+	- věta: $L_d$ není rekurzivně spočetný jazyk, tj. neexistuje TM přijímající $L_d$
+	- idea důkazu
+		- kdyby existoval TM přijímající $L_d$, spuštění takového stroje na vlastním kódu by vedlo k paradoxu
+	- důkaz
+		- mějme uspořádanou spočetnou množinu Turingových strojů
+		- kód každého z nich označím jako $w_i$
+		- mějme tabulku, kde v buňce $ij$ bude 1 nebo 0 podle toho, jestli automat s kódem $w_i$ přijímá slovo $w_j$
+		- předpokládejme, že $L_d$ je rekurzivně spočetný, tedy $L_d=L(M_d)$ pro nějaký TM $M_d$ (kód takového automatu máme označený jako $w_d$)
+		- co bude v tabulce v buňce $dd$, které odpovídá otázce, zda automat $M_d$ přijímá svůj vlastní kód?
+			- pokud $M_d$ přijímá svůj kód, je to spor, protože kód $M_d$ pak nemůže náležet do $L_d$
+			- pokud $M_d$ nepřijímá svůj kód, je to spor, protože kód $M_d$ pak musí náležet do $L_d$
 - Definice: Univerzální jazyk
+	- univerzální jazyk $L_u$ definujeme jako množinu binárních řetězců, které kódují pár $(M,w)$, kde $M$ je TM a $w\in L(M)$
+	- TM přijímající $L_u$ se nazývá *univerzální Turingův stroj*
 - Věta: Existence univerzálního Turingova stroje
+	- věta: existuje Turingův stroj $U$, pro který $L_u=L(U)$
+	- idea: pojďme sestrojit Turingův stroj, který simuluje Turingův stroj s kódem $M$
+	- důkaz
+		- popíšeme $U$ jako vícepáskový Turingův stroj
+		- na první pásce máme přechody $M$ a řetězec $w$
+		- na druhé pásce simulujeme výpočet $M$ používající stejný formát jako kód $M$ (takže nuly oddělené jedničkami)
+		- třetí páska obsahuje stav $M$ reprezentovaný $i$ nulami
+		- dále máme pomocnou čtvrtou pásku
+		- průběh výpočtu
+			- otestujeme, zda je kód $M$ legitimní (jestli ne, zastavíme $U$ bez přijetí)
+			- inicializujeme 2. pásku kódovaným slovem (každý znak kódujeme jako jedničku a $k$ nul, kde $k$ je číslo znaku)
+				- blanky necháme prázdné a nahradíme 1000 pouze v případě potřeby
+			- na 3. pásku napíšeme počáteční stav 0
+			- posuneme hlavu na 2. pásce na první simulované políčko
+			- simulace jednoho přechodu
+				- na první pásce najdeme přechod
+				- změníme stav na 3. pásce
+				- nahradíme znak na 2. pásce (tady používáme pomocnou 4. pásku)
+				- posuneme hlavu na 2. pásce správným směrem
+			- pokud jsme nenašli instrukci pro $M$, zastavíme
+			- pokud $M$ přejde do přijímajícího stavu, tak $U$ také přijme
 - Věta: Postova věta
+	- lemma: je-li $L$ rekurzivní jazyk, je rekurzivní i $\overline L$
+		- stroj se vždycky zastaví, stačí prohodit přijetí/nepřijetí
+	- Postova věta: jazyk $L$ je rekurzivní $\iff$ $L$ i $\overline L$ jsou rekurzivně spočetné
+	- důkaz $\implies$
+		- triviální
+	- důkaz $\impliedby$
+		- máme TM pro $L$ (označíme $M_1$) i pro $\overline L$ (označíme $M_2$)
+		- pro $w$ naráz simulujeme běh $M_1$ i $M_2$ v Turingově stroji $M$
+		- pokud jeden z $M_i$ přijme, $M$ zastaví a odpoví
+		- jazyky jsou komplementární, takže jeden z $M_i$ vždy zastaví
 - Věta: Nerozhodnutelnost univerzálního jazyka
+	- věta: $L_u$ je rekurzivně spočetný, ale není rekurzivní
+	- důkaz
+		- máme TM přijímající $L_u\implies$ $L_u$ je rekurzivně spočetný
+		- kdyby byl $L_u$ rekurzivní, tak by $\overline{L_u}$ byl také rekurzivní
+		- pro TM $M$ přijímající $\overline{L_u}$ můžeme zkontruovat TM $M'$ přijímající $L_d$
+			- stačí ze slova $w$ na vstupu $M'$ vytvořit dvojici $(w,w)$ a předat ji Turingovu stroji $M$
+			- výsledek jeho výpočtu určí výsledek výpočtu $M'$
+		- protože víme, že $L_d$ není rekurzivně spočetný, pak $\overline{L_u}$ není rekurzivně spočetný a $L_u$ není rekurzivní
 
 ## Nerozhodnutelné problémy
 
 - Definice: Rozhodnutelný problém
-- Definice: Redukce problému
+	- problém … množina otázek (nebo spíše vstupů) kódovatelná řetězci nad abecedou $\Sigma$ s odpověďmi $\in\set{\text{ano},\text{ne}}$
+		- pokud problém definuji jako množinu, jde o otázku, zda vstup kóduje prvek dané množiny (např. polynom s celočíselným kořenem)
+	- problém je (algoritmicky) rozhodnutelný, pokud existuje TM takový, že pro každý vstup $w\in P$ TM zastaví a navíc přijme, právě když $P(w)=\text{ano}$ (tj. pro $P(w)=\text{ne}$ zastaví v nepřijímajícím stavu)
+	- nerozhodnutelný problém … není rozhodnutelný
+	- existuje analogie mezi rozhodnutelným problémem a rekurzivním jazykem
 - Věta: Redukce problému
+	- definice: redukcí problému $P_1$ na $P_2$ nazýváme algoritmus $R$, který pro každou instanci $w\in P_1$ zastaví a vydá $R(w)\in P_2$, přičemž…
+		- $P_1(w)=\text{ano}\iff P_2(R(w))=\text{ano}$
+		- tedy i $P_1(w)=\text{ne}\iff P_2(R(w))=\text{ne}$
+	- věta: existuje-li redukce problému $P_1$ na $P_2$, pak…
+		- pokud $P_1$ je nerozhodnutelný, pak je nerozhodnutelný i $P_2$
+		- pokud $P_1$ není rekurzivně spočetný, pak není rekurzivně spočetný ani $P_2$
+	- důkaz
+		- kdyby byl $P_2$ rozhodnutelný (respektive rekurzivně spočetný), mohli bychom algoritmus pro převod vstupu $P_1$ na vstup $P_2$ zkombinovat s algoritmem pro $P_2$, takže bychom dostali rozhodnutelný (nebo rekurzivně spočetný) algoritmus pro $P_1$, což by byl spor
 - Věta: Problém zastavení není rozhodnutelný
+	- definice: instancí problému zastavení je dvojice řetězců $M,w\in\set{0,1}^*$
+	- definice: problém zastavení je najít algoritmus $\text{Halt}(M,w)$, který vydá 1, právě když stroj $M$ zastaví na vstupu $w$, jinak vydá 0
+	- věta: problém zastavení není rozhodnutelný
+	- idea důkazu: redukujeme $L_d$ na $\text{Halt}$
+	- důkaz
+		- předpokládejme, že máme algoritmus (Turingův stroj) pro $\text{Halt}$
+		- modifikujeme ho na stroj $\text{Halt}_\text{no}(w)$
+			- $w\in\set{0,1}^*$
+			- pokud $\text{Halt}(w,w)$ vrátí 1, spustíme nekonečný cyklus
+			- jinak zastavíme
+		- takže $\text{Halt}_\text{no}(w)$ vlastně obrací výsledek $\text{Halt}(w,w)$
+		- otázka $\text{Halt}(\text{Halt}_\text{no},\text{Halt}_\text{no})$ není řešitelná, proto algoritmus $\text{Halt}$ nemůže existovat
 
 ## Časová složitost
 
