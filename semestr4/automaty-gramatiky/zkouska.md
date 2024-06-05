@@ -1114,11 +1114,56 @@
 
 ## co-NP, prostorová složitost
 
-- Definice: co-NP
-	- jazyk $L\subseteq\Sigma^*$ patří 
 - Věta: Problém tautologičnosti je co-NP
+	- definice: jazyk $L\subseteq\Sigma^*$ patří do třídy co-NP, právě když jeho doplněk $\Sigma^*-L$ patří do NP
+		- P je částí NP i co-NP
+		- domníváme se, že NP-úplné problémy nejsou v co-NP (pokud P = NP, tak jsou)
+	- definice: problém, zda je výroková formule tautologie, nazýváme tautologičnost (TAUT)
+	- věta: problém tautologičnosti je co-NP
+		- důkaz z pozorování, že doplněk TAUT (do množiny korektních formulí) je snadno převoditelný na SAT a SAT je v NP
+		- doplněk TAUT
+			- existuje ohodnocení, pro které je formule FALSE?
+			- je negace formule splnitelná?
+		- doplněk SAT
+			- je negace formule tautologie?
 - Definice: Prostorová složitost
+	- pro deterministický Turingův stroj $M$, který zastaví na každém vstupu, je prostorová složitost $M$ funkce $f:\mathbb N\to\mathbb N$, kde $f(n)$ je maximální počet buněk pásky, které $M$ přečte při jakémkoliv vstupu délky $n$
+	- pro nedeterministický Turingův stroj $M$, jehož všechny větve výpočtu zastaví na každém vstupu, je prostorová složitost $M$ funkce $f:\mathbb N\to\mathbb N$, kde $f(n)$ je maximální počet buněk pásky, které $M$ přečte při jakémkoliv vstupu délky $n$ na libovolné větvi výpočtu
 - Definice: Třídy prostorové složitosti
+	- mějme funkci $f:\mathbb N\to\mathbb R^+$
+	- definujeme třídy prostorové složitosti $\text{SPACE}(f(n))$ a $\text{NSPACE}(f(n))$
+	- $\text{SPACE}(f(n))$ … třída jazyků rozhodnutelných v prostoru $O(f(n))$ deterministickým TM
+	- $\text{NSPACE}(f(n))$ … třída jazyků rozhodnutelných v prostoru $O(f(n))$ nedeterministickým TM
 - Věta: Savitchova věta
+	- věta: pro libovolnou funkci $f:\mathbb N\to\mathbb R^+$, pro kterou $f(n)\geq n$, platí $\text{NSPACE}(f(n))\subseteq\text{SPACE}(f^2(n))$
+	- důkaz
+		- nestačí NTM simulovat přímo, to bychom potřebovali prostor $2^{O(f(n))}$
+		- v kvadratickém čase vyřešíme problém dosažitelnosti (CANYIELD)
+			- „je v NTN z konfigurace $c_1$ dosažitelná konfigurace $c_2$ v maximálně $t$ krocích a maximálně používající prostor $f(n)$?“
+			- metoda rozděl a panuj
+			- za $c_1$ vezmeme počáteční konfiguraci, za $c_2$ přijímající
+		- simulujeme NTM pomocí TM v kvadratickém prostoru
+			- NTM modifikujeme, aby se před přijetím „vynuloval“ (smazal pásku a posunul se na nejlevější políčko)
+			- sloučíme přijímající stavy do jednoho
+			- tím máme jednoznačnou přijímající konfiguraci
+			- najdeme $d$ maximální počet štěpení konfigurace v jednom kroku, tj. horní odhad pro počet konfigurací
+				- je to $2^{d\cdot f(n)}$
+			- tak získáme i horní odhad času běhu libovolné větve
+		- složitost simulace
+			- CANYIELD potřebuje ukládat konfigurace a $t$, tj. $O(f(n))$ prostoru
+			- počet volání CANYIELD je logaritmický vzhledem k $t=2^{d\cdot f(n)}$
+			- hloubka rekurze je $O(\log(2^{d\cdot f(n)}))$, tedy $O(f(n))$
+			- celkem $O(f(n))\cdot O(f(n))=O(f^2(n))$ prostoru
+			- potřebujeme znát $f(n)$, ale to nevadí, můžeme zkoušet postupně od jedničky nebo přidat do předpokladu, že NTM rozhoduje jazyk v prostoru $f(n)$
 - Definice: PSPACE
+	- PSPACE … třída jazyků rozhodnutelných v polynomiálním prostoru deterministickým Turingovým strojem
+		- $\text{PSPACE}=\bigcup_{k\in\mathbb N}\text{SPACE}(n^k)$
+	- NPSPACE ani nedefinujeme, protože NPSPACE = PSPACE, podle Savichovy věty
 - Věta: Prostorové a časové třídy
+	- věta: $P\subseteq NP\subseteq\text{PSPACE}=\text{NPSPACE}\subseteq\text{EXPTIME}=\bigcup_k\text{TIME}(2^{n^k})$
+	- $P\subseteq \text{PSPACE}$, respektive $NP\subseteq\text{NPSPACE}$
+		- stroj v čase $t(n)$ navštíví maximálně $t(n)$ políček, proto pro $t(n)\geq n$ stačí prostor $t(n)$
+	- $\text{PSPACE}\subseteq\text{EXPTIME}$
+		- pro $f(n)\geq n$ dosáhne TM $M$ pracující v prostoru $f(n)$ maximálně $f(n)\cdot 2^{O(f(n))}$ různých konfigurací
+		- v konečném deterministickém výpočtu se žádná konfigurace neopakuje, proto existuje TM $M'$ simulující $M$ v čase $f(n)\cdot 2^{O(f(n))}$
+	- jediná nerovnost, co víme, je $P\neq \text{EXPTIME}$
