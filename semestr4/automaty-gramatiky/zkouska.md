@@ -1009,24 +1009,113 @@
 ## Časová složitost
 
 - Definice: Časová složitost
+	- mějme Turingův stroj $M$, který zastaví na každém vstupu
+	- časová složitost $M$ je funkce $f:\mathbb N\to\mathbb N$, kde $f(n)$ je maximální počet kroků výpočtu $M$ nad vstupy délky $n$
 - Definice: (Asymptotická) horní hranice $O(g(n))$
+	- mějme funkce $f,g:\mathbb N\to\mathbb R^+$
+	- říkáme, že $f(n)\in O(g(n))$, pokud existují $c,n_0\in\mathbb N^+$ taková, že $\forall n\geq n_0:f(n)\leq c\cdot g(n)$
+	- v takovém případě říkáme, že $g(n)$ je (asymptotická) horní granice pro $f(n)$
 - Definice: Třída časové složitosti
-- Definice: Notace malé $o$
+	- mějme funkci $t:\mathbb N\to\mathbb R^+$
+	- definujeme třídu časové složitosti $\text{TIME}(t(n))$ jako množinu všech jazyků, které jsou rozhodnutelné jednopáskovým Turingovým strojem v čase $O(t(n))$
+		- tj. pro vstup délky $n$ TM vždy zastaví nejpozději po $O(t(n))$ a vydá správnou odpověď
+	- lemma: Turingův stroj s časem $t(n)$ má jednopáskový ekvivalent $O(t^2(n))$
 - Definice: Doba běhu nedeterministického TM
+	- mějme nedeterministický Turingův stroj, který zastaví na každém vstupu
+	- doba běhu $M$ je funkce $f:\mathbb N\to\mathbb N$, kde $f(n)$ je maximální počet kroků, který $M$ potřebuje v jakékoliv větvi výpočtu nad jakýmkoliv vstupem délky $n$
+	- o takovém nedeterministickém Turingově stroji $M$ říkáme, že rozhoduje jazyk $L(M)$ v čase $f(n)$
 - Věta: Převod mezi časovou složitostí pro deterministický a nedeterministický TM
-- Definice: Třída $P$
+	- věta
+		- mějme funkci $t:\mathbb N\to\mathbb R^+$, přičemž $t(n)\geq n$
+		- každý nedeterministický Turingův stroj s časem $t(n)$ má deterministický ekvivalent $2^{O(t(n))}$
+	- důkaz
+		- máme-li pro dvojici $Q\times\Gamma$ maximálně $d$ variant, tak se TM po $k$ krocích může dostat maximálně do $d^k$ konfigurací
+		- tedy simulujeme v čase $O(t(n)\cdot d^{t(n)})=2^{O(t(n))}$
 - Věta: $CFL\subseteq P$
+	- definice: $P$ ($\text{PTIME}$) … třída jazyků rozhodnutelných v polynomiálním čase jednopáskovým deterministickým Turingovým strojem
+		- $P=\bigcup_k\text{TIME}(n^k)$
+	- věta: každý bezkontextový jazyk patří do $P$
+	- důkaz
+		- gramatiku převedeme do Chomského normální formy (velikost nezávisí na $n$)
+		- CYK algoritmus je polynomiální, konkrétně $O(n^3)$
 - Definice: Verifikátor
-- Definice: Třída $NP$
+	- verifikátor jazyka $L$ je algoritmus $V$, kde
+		- $L=\lbrace w\mid V$ pro nějaký řetězec $c$ přijímá $\braket{w,c}\rbrace$
+	- nápověda $c$ pro snadné ověření se nazývá certifikát
+	- časová složitost verifikátoru se měří pouze vzhledem k délce $w$
+		- polynomiální verifikátor rozhoduje v čase polynomiálním vzhledem k $|w|$
+	- jazyk $L$ je polynomiálně verifikovatelný, pokud má polynomiální verifikátor
+		- pak vždy existuje i polynomiální certifikát, delší by verifikátor nestihl ani přečíst
+- Věta: $NP$, NTIME
+	- definice: $NP$ … třída jazyků rozhodnutelných v polynomiálním čase
+		- je tvořena jazyky s polynomiálním verifikátorem
+	- definice: NTIME
+		- mějme funkci $t:\mathbb N\to\mathbb R^+$
+		- $\text{NTIME}(t(n))$ … třída jazyků rozhodnutelných nedeterministickým TM v čase $O(t(n))$
+	- věta: $NP=\bigcup_k \text{NTIME}(n^k)$
+	- idea důkazu
+		- převedeme verifikátor na NTM a opačně
+		- NTM uhodne certifikát a simuluje verifikátor
+		- verifikátor bere prijímající větev NTM jakožto certifikát
+	- důkaz $\implies$
+		- mějme $L\in NP$
+		- hledáme NTM $M$
+		- vezmeme verifikátor $V$ z definice $NP$
+			- nechť rozhoduje $L$ v čase $n^k$
+		- $M$ na vstupu $w$ délky $n$
+			- nedeterministicky uhodne řetězec $c$ délky $\leq n^k$
+			- spustí $V$ na vstupu $\braket{w,c}$
+			- pokud $V$ přijme, $M$ také přijme
+	- důkaz $\impliedby$
+		- mějme $L$ rozhodnutelný NTM $M$ v polynomiálním čase
+		- hledáme verifikátor $V$
+		- $V$ na vstupu $\braket{w,c}$
+			- simuluje $M$ na vstupu $w$, v bodech větvení vybere větev podle $c$
+			- pokud tato větev NTM přijme, $V$ přijme
+		- pokud všechny větve selhaly, NTM nepřijímá, tedy ani $V$ nepřijímá
 - Definice: Polynomiálně vyčíslitelná funkce, převoditelný jazyk, polynomiální redukce
+	- funkce $f:\Sigma^*\to\Sigma^*$ je polynomiálně vyčíslitelná, pokud existuje Turingův stroj $M$, který pro každý vstup $w$ v polynomiálním čase zastaví s $f(w)$ na pásce
+	- jazyk $A$ je převoditelný v polynomiálním čase na jazyk $B$, značíme $A\leq_P B$, pokud existuje funkce $f:\Sigma^*\to\Sigma^*$ vyčíslitelná v polynomiálním čase a $\forall w\in\Sigma^*:w\in A\iff f(w)\in B$
+		- funkci $f$ pak nazýváme polynomiální redukcí $A$ do $B$
 - Definice: SAT, 3SAT
+	- formule je 3-cnf, pokud je v CNF a v každé klauzuli jsou nejvýše tři literály
+	- formule je splnitelná, existuje-li takové ohodnocení výrokových proměnných, že je hodnota formule TRUE
+	- problém 3SAT je pro každou 3-cnf formuli rozhodnout, zda je splnitelná
+	- problém SAT je pro každou booleovskou formuli rozhodnout, zda je splnitelná
 - Definice: NP úplnost
+	- jazyk $B$ je NP-úplný, pokud je NP a každý jazyk $A\in NP$ je na $B$ polynomiálně převoditelný
+	- věta: pokud $B$ je NP-úplný a $B\in P$, pak $P=NP$
+	- věta: pokud $B$ je NP-úplný a $B\leq_P C$ pro nějaké $C\in NP$, pak $C$ je NP-úplný
 - Věta: Cook-Levinova věta
+	- věta: SAT je NP-úplný.
+	- důkaz
+		- SAT je NP: nedeterministický TM uhodne správné ohodnocení a v polynomiálním čase ověří, že je pro něj formule pravdivá
+		- dále dokážeme, že je SAT NP-úplný
+		- vezmeme libovolný $L\in NP$
+		- nechť $M$ je nedeterministický TM, který rozhoduje jazyk $L$ v čase $n^k-3$ pro nějaké $k$
+			- uvažujeme jenom $n^k-3$ kvůli šířce tabulky – aby hlava nemohla vyjet ven
+		- pro jednoduchost uvažujeme NTM s jednostrannou páskou
+		- vytvoříme tabulku $n^k\times n^k$, každý řádek odpovídá konfiguraci $M$ na vstupu $w$
+		- tabulku „dláždíme“ okénky širokými 3 buňky a vysokými 2 buňky
+		- na základě přechodové funkce $\delta$ jsou povoleny jen určité typy okének
+		- pokud tabulku vydláždíme jen povolenými okénky, každý řádek bude odpovídat legální konfiguraci TM dosažitelné jedním krokem z předchozího řádku
+			- nedeterminismus se schová v SATu
+		- z tabulky vytvoříme formuli $\phi=\phi_\text{cell}\land\phi_\text{start}\land\phi_\text{move}\land\phi_\text{accept}$
+		- $\phi_\text{cell}$ povoluje pro každé políčko tabulky právě jedno písmeno
+		- $\phi_\text{start}$ definuje počáteční konfiguraci pro vstup $w$
+		- $\phi_\text{move}$ popisuje povolené kroky (okénka)
+		- $\phi_\text{accept}$ je disjunkce přes přítomnost přijímajícího stavu v libovolné buňce tabulky
+		- tvrzení: převod má polynomiální složitost, konkrétně $O(n^{2k}\log n)$
 - Věta: 3SAT je NP-úplný
+	- použijeme důkaz Cook-Levinovy věty
+	- je potřeba prevést okénka pohybu do CNF
+		- stačí konstantní čas – velikost podformule závisí na stroji, nikoliv na délce vstupu
+	- dlouhé klauzule rozdělíme zavedením nových proměnných
 
 ## co-NP, prostorová složitost
 
 - Definice: co-NP
+	- jazyk $L\subseteq\Sigma^*$ patří 
 - Věta: Problém tautologičnosti je co-NP
 - Definice: Prostorová složitost
 - Definice: Třídy prostorové složitosti
