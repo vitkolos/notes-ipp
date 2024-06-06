@@ -437,7 +437,7 @@
 		- odstraníme pravidla $A\to B$
 		- místo pravidel tvaru $A\to a_1\dots a_n B$ nebo $A\to a_1\dots a_n$ přidáme řetězce pravidel v povoleném tvaru
 	- věta: pro každý jazyk $L$ generovaný gramatikou typu 3 existuje $\epsilon$NFA rozpoznávající $L$
-		- vezmeme $G=(V,T,P,S)$ obsahující jen pravidla tvaru $A\to aB$
+		- vezmeme $G=(V,T,P,S)$ obsahující jen pravidla tvaru $A\to aB$, respektive $A\to\epsilon$
 		- z té snadno vyrobíme automat
 - Definice: Levé (a pravé) lineární gramatiky
 	- gramatiky typu 3 nazýváme také pravé lineární (neterminál je vždy vpravo)
