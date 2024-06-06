@@ -325,7 +325,7 @@
 	- položme
 		- $\sigma(\epsilon)=\set{\epsilon}$
 		- $\sigma(u{.}v)=\sigma(u){.}\sigma(v)$
-	- zobrazení $\sigma:\Sigma^*\to\mathcal P(Y^*)$, kde $Y=\bigcup_{x\in\Sigma} Y_x$ se nazývá substituce
+	- zobrazení $\sigma:\Sigma^*\to\mathcal P(Y^*)$, kde $Y=\bigcup_{x\in\Sigma} Y_x$, se nazývá substituce
 	- pro jazyk $L$ definujeme $\sigma(L)=\bigcup_{w\in L}\sigma(w)$
 	- nevypouštějící substituce je taková, kde žádné $\sigma(x)$ neobsahuje $\epsilon$
 	- příklad substituce $\sigma$
