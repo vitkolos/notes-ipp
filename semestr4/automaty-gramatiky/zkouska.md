@@ -281,6 +281,7 @@
 		- uvažujeme automaty pro $L,M$
 		- vytvoříme NFA
 		- jednotlivé části oddělujeme epsilon přechody, aby nemohly interagovat
+		- $L^R$ … obrátíme šipky ve stavovém diagramu
 		- $M\setminus L$
 			- algoritmicky najdeme stavy, kam se dá dostat slovem z $M$
 			- do těch stavů dáme epsilon přechody z počátečního stavu
