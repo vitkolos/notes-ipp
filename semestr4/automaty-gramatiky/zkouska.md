@@ -171,7 +171,7 @@
 		- není důležité, zda jako počáteční stav zvolíme $q_{0_L}$ nebo $q_{0_M}$
 	- použijeme algoritmus hledání rozlišitelných stavů
 	- jazyky jsou ekvivalentní $\iff$ počáteční stavy $q_{0_L},q_{0_M}$ jsou ekvivalentní
-- Definice: Redukovaný DFA, redukt (viz i 2.6)
+- Definice: Redukovaný DFA, redukt
 	- deterministický konečný automat je redukovaný, pokud
 		- nemá nedosažitelné stavy
 		- žádné dva stavy nejsou ekvivalentní
