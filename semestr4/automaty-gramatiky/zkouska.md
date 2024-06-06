@@ -648,6 +648,7 @@
 	- konstruujeme PDA $P=(\set{q},T,V\cup T,\delta,q,S)$
 		- $\forall A\in V:\delta(q,\epsilon,A)=\set{(q,\beta)\mid (A\to \beta)\in P}$
 		- $\forall a\in T:\delta(q,a,a)=\set{(q,\epsilon)}$
+		- $P$ přijímá prázdným zásobníkem
 	- idea
 		- stavy nás nezajímají – stačí nám jeden
 		- na zásobníku nedeterministicky generujeme všechny možné posloupnosti terminálů
