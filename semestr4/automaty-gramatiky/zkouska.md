@@ -132,7 +132,7 @@
 		- $q\in F_1\iff h(q)\in F_2$
 	- homomorfismus prostý a na (tzn. bijekci) nazýváme isomorfismus
 - Věta: Ekvivalence automatů
-	- definice: dva konečné automaty $A,B$ nad stjenou abecedou $\Sigma$ jsou ekvivalentní, jestliže rozpoznávají stejný jazyk, tj. $L(A)=L(B)$
+	- definice: dva konečné automaty $A,B$ nad stejnou abecedou $\Sigma$ jsou ekvivalentní, jestliže rozpoznávají stejný jazyk, tj. $L(A)=L(B)$
 	- věta: existuje-li homomorfismus konečných automatů $A_1$ do $A_2$, pak jsou $A_1$ a $A_2$ ekvivalentní
 	- důkaz
 		- zjevně $\forall w\in\Sigma^*:h(\delta^*_1(q,w))=\delta^*_2(h(q),w)$
@@ -672,7 +672,7 @@
 	- definice: jazyk $L\subset\Sigma^*$ je bezprefixový, pokud neexistují slova $u,v\in L$ a $z\in\Sigma^+$ taková, že $u=vz$
 		- tj. pro žádná dvě slova $u,v$ není $v$ vlastním prefixem $u$
 	- věta: jazyk $L$ je $N(P)$ pro nějaký DPDA $P$, právě když $L$ je bezprefixový a $L$ je $L(P')$ pro nějaký DPDA $P'$
-	- důkaz$\implies$ (obměnou)
+	- důkaz$\implies$
 		- prefix přijmeme prázdným zásobníkem
 		- pro prázdný zásobník neexistuje instrukce, tj. žádné prodloužení není v $N(P)$
 	- důkaz $\impliedby$
