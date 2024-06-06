@@ -191,7 +191,7 @@
 	- množinou přijímajících stavů budou třídy odpovídající přijímajícím stavům původního automatu
 	- poznámka: pro nedeterministické konečné automaty tento algoritmus nefunguje
 
-## Nedeterministické $\epsilon$NFA
+## Nedeterministické ϵNFA
 
 - Definice: Nedeterministický konečný automat s $\epsilon$ přechody ($\epsilon$NFA)
 	- nedeterministický konečný automat s $\epsilon$ přechody je pětice $A=(Q,\Sigma,\delta,q_0,F)$
