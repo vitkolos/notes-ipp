@@ -24,3 +24,4 @@
 - [Kombinatorika a grafy 1 (zkouška)](semestr3/kombinatorika-grafy1/zkouska.md)
 - [Matematická analýza 2 (zkouška)](semestr3/matematicka-analyza2/zkouska.md)
 - [Úvod do umělé inteligence (zkouška)](semestr4/uvod-do-umele-inteligence/zkouska.md)
+- [Automaty a gramatiky (zkouška)](semestr4/automaty-gramatiky/zkouska.md)
