@@ -926,7 +926,8 @@
 	- důkaz
 		- mějme uspořádanou spočetnou množinu Turingových strojů
 		- kód každého z nich označím jako $w_i$
-		- mějme tabulku, kde v buňce $ij$ bude 1 nebo 0 podle toho, jestli automat s kódem $w_i$ přijímá slovo $w_j$
+		- mějme tabulku, kde v buňce $ij$ bude 1 nebo 0 podle toho, jestli automat s kódem $w_i$ přijímá slovo $w_j$
+			- $L_d$ pak bude obsahovat slova $w_k$ taková, že v buňce $kk$ bude napsáno „nepřijímá“
 		- předpokládejme, že $L_d$ je rekurzivně spočetný, tedy $L_d=L(M_d)$ pro nějaký TM $M_d$ (kód takového automatu máme označený jako $w_d$)
 		- co bude v tabulce v buňce $dd$, které odpovídá otázce, zda automat $M_d$ přijímá svůj vlastní kód?
 			- pokud $M_d$ přijímá svůj kód, je to spor, protože kód $M_d$ pak nemůže náležet do $L_d$
