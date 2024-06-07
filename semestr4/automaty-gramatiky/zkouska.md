@@ -365,9 +365,15 @@
 			- $\delta'([q,bv],\epsilon)=[p,v]$, kde $\delta(q,b)=p$ … čte buffer
 		- tak jsme získali konečný automat přijímající $h^{-1}(L)$
 		- proč buffer?
-			- $h$ ze znaku ($\in\Sigma$) vytvoří slovo ($\in Y^*$)
-			- přechodová funkce $\delta:Q\times Y\to Q$ ale písmenka přijímá po jednom
-			- takže ze znaku $x\in\Sigma$ vytvoříme slovo $h(x)\in Y^*$ a pak ho po písmenkách zpracováváme funkcí $\delta$, dokud buffer nevyprázdníme, pak přejdeme k dalšímu znaku
+			- základní myšlenka
+				- máme automat $A$ přijímající *jazyk dlouhých slov* (to není termín, pouze zjednodušení)
+				- chceme automat $B$ přijímající *jazyk krátkých slov*
+				- automat $B$ načte jedno písmeno *krátkého slova*, tomu v *jazyce dlouhých slov* odpovídá posloupnost písmen, kterou umíme zpracovat naším automatem
+				- takže přečteme písmeno, vygenerujeme posloupnost písmen $h(x)$, uložíme ji do bufferu a automatu $A$ postupně předhazujeme písmena po jednom
+			- techničtěji
+				- $h$ ze znaku ($\in\Sigma$) vytvoří slovo ($\in Y^*$)
+				- přechodová funkce $\delta:Q\times Y\to Q$ ale písmenka přijímá po jednom
+				- takže ze znaku $x\in\Sigma$ vytvoříme slovo $h(x)\in Y^*$ a pak ho po písmenkách zpracováváme funkcí $\delta$, dokud buffer nevyprázdníme, pak přejdeme k dalšímu znaku
 - Věta: Rozhodovací problémy pro regulární jazyky
 	- lemma: lze algoritmicky rozhodnout, zda jazyk přijímaný DFA, NFA, $\epsilon$NFA je prázdný
 		- jazyk je prázdný $\iff$ žádný z koncových stavů není dosažitelný
@@ -634,14 +640,17 @@
 	- lemma: N(PDA) z L(CFG) – viz algoritmus „konstrukce PDA z CFG“
 	- lemma: pro PDA existuje CFG
 		- máme PDA $(Q,\Sigma,\Gamma,\delta,q_0,Z_0)$
-		- neterminály gramatiky budou složené symboly $[qXp]$ … PDA vyšel z $q$, vzal $X$ a přešel do $p$
+		- neterminály gramatiky budou složené symboly $[qXp]$ … PDA vyšel z $q$, vzal $X$ a (nakonec) přešel do $p$
 		- zavedeme nový počáteční symbol $S$
 		- definujeme pravidla
 			- $\forall p\in Q: S\to [q_0Z_0p]$
-				- „začneme v $q_0$, nakonec odebereme $Z_0$ a dostaneme se do (koncového) stavu $p$“ (tedy přijmeme prázdným zásobníkem)
+				- „začneme v $q_0$, (hned) odebereme $Z_0$ (ale možná tam zase něco vrátíme) a nakonec se dostaneme do (koncového) stavu $p$“ (tedy přijmeme prázdným zásobníkem)
 			- uvažujeme všechny dvojice $(p,Y_1Y_2\dots Y_k)\in \delta (q,s,X)$
 				- kde $s\in\Sigma\cup\set{\epsilon}$
 				- $\forall p_1,\dots,p_{k}\in Q$ vytvoříme pravidlo $[qXp_k]\to s[pY_1p_1][p_1Y_2p_2]\dots[p_{k-1}Y_kp_k]$
+				- levá strana – jsme ve stavu $q$, z vrchu zásobníku vezmeme $X$, pak se (možná) něco stane, nakonec budeme v nějakém stavu $p_k$
+				- pravá strana – přešli jsme ze stavu $q$ do konkrétního stavu $p$, přitom jsme přečetli písmeno $s$ ze vstupu a na zásobníku přibyly symobly $Y_1\dots Y_k$, které je potřeba zpracovat (při zpracování prvního symbolu budeme vycházet z konkrétního stavu $p$, po zpracování posledního symbolu se dostaneme do nějakého stavu $p_k$)
+				- takže vlastně začátek každé strany pravidla vždycky vychází z přechodu, konec je „náhodný“
 			- speciálně pro $(p,\epsilon)\in\delta(q,a,A)$ vytvoříme pravidlo $[qAp]\to a$
 - Algoritmus: Konstrukce PDA z CFG
 	- mějme gramatiku $G=(V,T,P,S)$
