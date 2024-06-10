@@ -864,6 +864,7 @@
 	- důkaz (na jedničku je potřeba umět)
 		- $S\to aSBC|aBC$ … generování symbolů $a$
 		- $B\to BBC$ … množení symbolů $B$
+		- $C\to CC$ … množení symbolů $C$
 		- $CB\to BC$ … uspořádání symbolů $B$ a $C$ (pravidlo není kontextové, je potřeba ho upravit nadtrháváním)
 		- $aB\to ab$ … začátek přepisu $B$ na $b$
 		- $bB\to bb$ … pokračování přepisu $B$ na $b$
