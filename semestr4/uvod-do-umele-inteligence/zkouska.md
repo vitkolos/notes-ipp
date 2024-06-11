@@ -841,8 +841,8 @@
 	- snažím se vždy (hladově) dělit podle nejdůležitějšího atributu
 		- jak ho najít?
 		- jako metriku použiju entropii – míru neurčitosti náhodné proměnné (měří se v bitech informace, kterou získáme, když známe hodnotu náhodné proměnné)
-		- entropie náhodné proměnné $V$ s hodnotami $v_k$, kde každá má pravděpodobnost $P(v_k)$ se spočítá takto: $H(V)=\sum_k P(v_k)\cdot\log_2\frac1{P(v_k)}$
-			- pro binární proměnnou je to $B(p)=p\cdot\log_2\frac1p+(1-p)\log_2\frac1{1-p}$
+		- entropie náhodné proměnné $V$ s hodnotami $v_k$, kde každá má pravděpodobnost $P(v_k)$ se spočítá takto: $H(V)=-\sum_k P(v_k)\cdot\log_2{P(v_k)}$
+			- pro binární proměnnou je to $B(p)=-p\cdot\log_2p-(1-p)\log_2{(1-p)}$
 			- kde $p$ je pravděpodobnost jedné z variant
 		- dále použijeme *information gain* pro daný atribut – tedy očekávanou redukci entropie
 			- $\text{Gain}(A)=B(\frac{p}{p+n})-\sum_k\frac{p_k+n_k}{p+n}B(\frac{p_k}{p_k+n_k})$
