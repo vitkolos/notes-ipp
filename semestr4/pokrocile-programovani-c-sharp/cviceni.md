@@ -148,7 +148,7 @@
 	- v dotnetu je typ TimeSpan
 		- ale my v naší hře nepotřebujeme být tak obecní
 	- mohlo by být vhodnější mít jednotky Pixel, Frame a PixelsPerFrame?
-	- z hlediska času (i prostoru )je struktura zadarmo – počítání je stejně rychlé jako počítání přímo s doubly
+	- z hlediska času (i prostoru) je struktura zadarmo – počítání je stejně rychlé jako počítání přímo s doubly
 	- jak napsat extension metody jednodušeji?
 		- můžeme použít generické metody s omezením, aby to byl `IConvertible` a `INumber<T>`
 		- pak máme trochu problém s charem, protože `'5'.Meters()` je vlastně 53 metrů
@@ -573,3 +573,10 @@
 		- Release
 			- chceme být féroví – vlákna obsluhovat v pořadí FIFO
 	- AsyncState … vlastnost Tasku, kam se dají uložit nějaká dodatečná data (třeba debugovací informace)
+
+---
+
+- Console je thread-safe
+	- nemá smysl používat ladicí výpisy při debugování vícevláknových programů – práce s konzolí ovlivňuje naplánování
+- výjimky se nešíří mezi vlákny
+- když je neošetřená výjimka v libovolném vlákně, tak dotnet po nějaké době zabije všechna ostatní vlákna

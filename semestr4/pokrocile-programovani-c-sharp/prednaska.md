@@ -1100,6 +1100,11 @@
 			- když v kritické sekci (v lock bloku) do proměnné přiřadíme nový objekt, tak se to může rozbít
 			- lock blok bude i v takové situaci fungovat správně – odemkne se zamčený objekt
 		- lock blok má Exit jakoby ve finally – odemkne se, i když se vyšíří výjimka
+			- někdy to ale není to, co chceme – datovou strukturu typicky zamykáme, protože během zamčení není v konzistentním stavu
+			- pokud bychom použili prostou kombinaci Monitor.Enter a Monitor.Exit bez finally, vyšířením výjimky mezi těmito dvěma příkazy by mohl nastat deadlock, pokud by stejný objekt chtěl zamknout někdo jiný
+				- deadlocku si zákazník hned všimne, protože se mu aplikace zasekne
+				- naopak nekonzistentního stavu datové struktury si všimnout nemusí
+				- musíme zvážit, co je pro nás vhodnější
 		- co když chceme zamknout proměnnou
 			- vytvoříme si pomocnou proměnnou `object dataLock = new object();`
 			- to je ta „esence zámku“
