@@ -221,7 +221,7 @@
 - lze mít více generických typů s různými constraints
 - generické fieldy nejsou, ale můžu mít field typu T v generické třídě
 - interfaces
-	- metoda interfacu se dá implementovat zděděním (rodičovská metoda má metodu, kterou vynucuje interface)
+	- metoda interfacu se dá implementovat zděděním (rodičovský typ má metodu, kterou vynucuje interface)
 	- jedna metoda může zároveň naplňovat více kontraktů (když třída implementuje víc interfaců a všechny požadují jednu metodu, např. `Close`)
 		- interfaces: `IReader`, `IWriter`
 		- metoda v obou interfaces se jmenuje `Close`
@@ -769,9 +769,9 @@
 - pozor na šipku – u normálních (pojmenovaných) funkcí je to syntaktický cukr
 - proč je tam klíčové slovo static?
 	- označuje, že lambda funkce nemá stav
-- dříve se dalo použít slovo delegate – funguje to podobně (ale chybí tomu nějaké další funkce, které lambda funcke mají)
+- dříve se dalo použít slovo delegate – funguje to podobně (ale chybí tomu nějaké další funkce, které lambda funkce mají)
 - ekvivalentní příklady lambda funkcí
-	- `static (int x) => { return x < 5; }`
+	- `static (int x) => { return x + 1; }`
 	- `static (int x) => x + 1`
 	- `static x => x + 1`
 	- `static x => { return x + 1; }`
@@ -1048,7 +1048,7 @@
 - jak paralelizovat sčítání výsledků dvou drahých metod
 	- varianta 0: obě pustíme synchronně
 	- varianta 1: jednu z nich pustíme asynchronně, druhou synchronně
-	- varianta 2: obě pusíme asynchronně sčítáme jejich `Result`s
+	- varianta 2: obě pusíme asynchronně, sčítáme jejich `Result`s
 	- varianta 3: použijeme Task.WaitAll, abychom zabránili zbytečným context switchům ve variantě 2
 		- další metoda – Task.WaitAny
 - jak získat `Task<T>`
@@ -1198,6 +1198,7 @@
 - pozor na kombinaci zámku a awaitů
 	- překladač nám zakáže psát `await` dovnitř `lock` bloku
 	- `Monitor.Enter` a `Monitor.Exit` selže výjimkou
+		- protože Exit voláme z jiného vlákna než Enter
 	- jestli to fakt potřebujeme, tak musíme použít jiné synchronizační primitivum
 - semafor – má dvě implementace
 	- Semaphore
@@ -1233,7 +1234,7 @@
 	- syncblock se skládá ze dvou částí
 		- lock
 			- owner thread
-				- + counter (kvůli rekurzivnímu zamykání)
+				- \+ counter (kvůli rekurzivnímu zamykání)
 			- waiting threads list – nějaký férový seznam (nebo fronta, na tom nesejde)
 		- condition variable
 			- sleeping threads list
