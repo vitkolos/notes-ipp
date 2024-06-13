@@ -519,7 +519,7 @@
 		- Add se dá doplnit jako extension metoda
 	- LinkedListNode
 		- vlastnost Value s getterem a setterem
-		- vlastnost RefValue vrací referenci přímo na hodnotu (má jenom getter), takže může zefektivnit práci s hodnotami uvnitř LinkedListu
+		- vlastnost ValueRef vrací referenci přímo na hodnotu (má jenom getter), takže může zefektivnit práci s hodnotami uvnitř LinkedListu
 	- přidáváme krabičky uvnitř foreache za aktuální krabičku
 		- pokud budeme enumerovat lazy evaluací přes LinkedList, tak se to zacyklí
 			- protože enumerátor typicky nepodporuje concurrent modification
