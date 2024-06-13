@@ -1,6 +1,9 @@
 # Pokročilé programování v C\#
 
-- když lze přiřadit proměnnou typu A do proměnné typu B?
+## Základní typování
+
+- typové konverze
+	- když lze přiřadit proměnnou typu A do proměnné typu B?
 	- referenční typy
 		- pokud jsou typy kompatibilní z hlediska hierarchie dědičnosti → implicitní konverze
 	- hodnotové typy
@@ -21,7 +24,8 @@
 	- long → int je potřeba konvertovat explicitně (můžou se ztratit data)
 	- unboxovat je potřeba explicitně (nemusí to vždycky fungovat)
 		- musím přesně napsat typ, který je uvnitř (tzn. zaboxovaný int se nedá unboxovat do longu)
-- uvažujme třídu Fraction (klasický zlomek, má intový čitatel a jmenovatel)
+- extension methods
+	- uvažujme třídu Fraction (klasický zlomek, má intový čitatel a jmenovatel)
 	- chci umět se zlomky pracovat třeba pomocí Math.Sin(…) apod.
 	- hodilo by se implementovat konverzi na double
 		- to by šlo zajistit metodou ToDouble()
@@ -59,9 +63,6 @@
 				- externí typy
 				- obrovský projekt a malý podprojekt (do velkého projektu nechci sahat a přidávat tam pomocné metody / zvětšovat rozhraní jednotlivých tříd)
 				- umožňuje nám to implementovat fluent syntax
-
----
-
 - method overloading
 	- `m(int i)` a `m(long l)` spolu vůbec nesouvisí
 	- v CIL kódu se objeví jako `m'int` a `m'long`
@@ -113,106 +114,112 @@
 		- nemůžeme použít `base.m(1);`?
 			- někdy ano, ale tohle vynucuje nevirtuální volání, což někdy nechceme
 	- když se overloady (např. pro int a long) neliší jen typem, ale také sémantikou (třeba efektivitou apod.), tak je vhodné je pojmenovat různě
-- generické metody
-	- chceme metody `int Max(int, int)` a `long Max(long, long)`
-	- mohli bychom je rozkopírovat, protože vlastně vypadají úplně stejně
-	- ale *kopírování je častým zdrojem chyb*
-	- mohli bychom mít `object Max(object, object)`?
-		- hodnotové typy by se musely boxovat :(
-		- co když funkci najednou předám int a double? co má vrátit?
-	- použijeme generické metody!
-	- `T Max<T>(T a, T b) { … }`
-		- uvnitř můžeme používat typ `T` jako placeholder
-		- metoda se používá jako `Max<int>(…);` apod.
-		- v C# se dá použít `Max<>(…);`, ale to má velmi specifické použití
-	- v C++
-		- hlavičkový soubor
-		- ve výsledném souboru nikdy není původní šablona
-		- máme k dispozici jenom konkrétní specializace šablony, které jsme se rozhodli použít
-	- v C# je myšlenka hlavičkových souborů nahrazena metadaty v assembly
-	- generická metoda zůstává generickou na úrovni CIL kódu
-		- tudíž CIL kód musí být dostatečně obecný – k tomu se dostaneme později
-	- v CIL kódu volání bude výběr konkrétní specializace generické metody
-	- JIT za run-timu vyrábí specializované varianty generické metody
-	- konvence – placeholder typy obvykle začínají písmenem T
-	- důležitá myšlenka – překladač si může vhodnou specializaci zvolit sám
-		- takže napíšu `Max(…)` a překladač zvolí vhodnou specializaci automaticky
-		- pokud má metoda např. tři parametry typů T1, T1, T2, tak překladač vlastně řeší rovnici
-		- pokud se mi nelíbí automatická volba specializace a chci to ovlivnit, tak můžu přetypovat parametry – ale vhodnější je prostě definovat specializaci do špičatých závorek
-	- generická metoda se dá kombinovat s konkrétními overloady
-		- překladač zvolí overload pro konkrétní typy parametrů, pokud existuje
-		- pokud neexistuje, typicky zvolí generickou metodu
-	- situace – mám generickou metodu, která volá generickou metodu s konkrétními overloady
-		- metoda `m` má generickou variantu, ale také variantu pro parametr typu double a pro object
-		- `CallM<T>` je generická, uvnitř je volání `m(v)`, kde `v` je typu `T`
-		- to se přeloží na volání `m<T>(v)`
-		- konkrétní overloady se nikdy nezavolají, jelikož se za překladu musí určit, která jedna metoda se v rodičovské generické metodě bude volat
-			- a generická `m` je prostě jediná vhodná – je použitelná pro všechna možná `T`
-			- kdyby tam generická metoda nebyla, volal by se overload s parametrem object
-		- tohle chování je jiné v C++
-			- tam se za generický typ dosazuje při překladu
-	- připomenutí
-		- máme generickou metodu
-		- za compile timu vznikne jeden CIL kód této metody
-		- za run timu – jakmile se zavolá určitá (např. intová) varianta metody, JIT vygeneruje strojový kód pro danou variantu metody
-	- v CIL kódu je zapsáno, jaká metoda se volá
-		- zda je to nějaká specializace generické metody
-		- nebo je to třeba nějaký z konkrétních overloadů metody
-	- ve složitější typové hierarchii
-		- generická metoda může být virtuální
-		- dá se overridovat pouze generickou metodou (jinou implementací)
-		- pokud v potomkovi zadefinuju negenerickou metodu s dosud neexistujícím typem (tedy overload) s `new`, tak je to `new` zbytečné, nic se nezakrývá
-	- co můžeme dělat uvnitř generické metody s parametrem typu `T`?
-		- můžeme volat metody objectu
-	- připomenutí
-		- v Pythonu duck typing
-		- v C# compile-time duck typing u pattern matchingu (viz dekonstruktory)
-		- v C++ compile-time duck typing u šablon (generických metod) – strojový kód jednotlivých specializací metod se generuje za compile timu
-	- v C# se taky dá používat pythonovský duck-typing
-		- vydáme na půdu materiálního vulgarismu – použijeme klíčové slovo `dynamic`
-		- u proměnné s typem `dynamic` se zapne runtime duck typing
-		- proměnná se přeloží jako typ object
-		- ale dají se na ní volat libovolné metody
-			- za runtimu se zjistí, jestli existují – pokud ne, tak se vyhodí chyba
-	- u generických metod použijeme interfaces, abychom mohli volat něco jiného než metody objectu
-		- `void m<T>(T a) where T : podmínky {}`
-		- další where se píše na další řádek
-		- tento způsob kontraktu je důležitý – i pro vývojáře daných metod (aby v další verzi něco nerozbili)
-	- metoda s interfacovým parametrem vs. generická metoda s constraintem na daný interface
-		- funguje to hodně podobně
-		- rozdíl – interfaces u hodnotových typů
-			- v metodě s interfacovým parametrem se bude hodnotový typ boxovat
-			- v generické metodě se nic boxovat nebude, navíc se strojový kód vygeneruje přímo pro danou hodnotu (respektive pro daný typ) včetně všech optimalizací
-		- ale typicky dává smysl preferovat klasickou metodu s interfacovým parametrem
-		- JIT umí pro referenční typy recyklovat strojový kód
-			- pro (různé) hodnotové typy to vždycky generuje nový strojový kód
-		- u generických metod typicky chceme používat type inference (automatické generování špičatých závorek u volání) – to může komplikovat práci překladači (?)
-	- další použití
-		- generická rozhraní (interfaces) – např. `IComparable<T>`
-		- extension metody
-			- `public static T[] Slice<T>(this T[] source, …) { … }`
-			- s generickými extension metodami je potřeba šetřit (a psát jasné constraints)
-- generické typy
-	- může to být třída, struktura, interface
-	- syntaxe podobná jako u metod – také s constraints
-	- za compile timu se generuje jeden CIL kód generického typu
-	- za runtimu JIT generuje typy jednotlivých specializací
-	- strojový kód metod se klasicky JITuje až při prvním volání
-	- každá specializace má svůj vlastní class constructor a své vlastní statické fieldy
-	- dědičnost
-		- specializace generických typů jsou z hlediska stromu dědičnosti na stejné úrovni (nevedou mezi nimi hrany)
-		- generická třída může dědit od negenerické třídy nebo od generické třídy, kde její specializace může být daná nebo může odpovídat specializaci potomka
-	- v generické třídě můžou být metody…
-		- negenerické s určenými typy parametrů
-		- negenerické s typy parametrů odpovídajícími specializaci generické třídy (tedy `T`)
-		- generické (s typy parametrů nezávislých na specializaci generické třídy)
-		- → překladač vždy vybere nejspecifičtější variantu
-			- když má na výběr mezi negenerickou s určeným typem a negenerickou s typem T, tak vybere tu s určeným typem
-			- `m(T t)`, kde `T` je `int` vs. `m(int i)` → vyhraje `m(int i)`
-	- u constraints se dá použít čárka, ta znamená AND
-		- OR by nemělo smysl
-	- lze mít více generických typů s různými constraints
-	- generické fieldy nejsou, ale můžu mít field typu T v generické třídě
+
+## Generiky
+
+### Generické metody
+
+- chceme metody `int Max(int, int)` a `long Max(long, long)`
+- mohli bychom je rozkopírovat, protože vlastně vypadají úplně stejně
+- ale *kopírování je častým zdrojem chyb*
+- mohli bychom mít `object Max(object, object)`?
+	- hodnotové typy by se musely boxovat :(
+	- co když funkci najednou předám int a double? co má vrátit?
+- použijeme generické metody!
+- `T Max<T>(T a, T b) { … }`
+	- uvnitř můžeme používat typ `T` jako placeholder
+	- metoda se používá jako `Max<int>(…);` apod.
+	- v C# se dá použít `Max<>(…);`, ale to má velmi specifické použití
+- v C++
+	- hlavičkový soubor
+	- ve výsledném souboru nikdy není původní šablona
+	- máme k dispozici jenom konkrétní specializace šablony, které jsme se rozhodli použít
+- v C# je myšlenka hlavičkových souborů nahrazena metadaty v assembly
+- generická metoda zůstává generickou na úrovni CIL kódu
+	- tudíž CIL kód musí být dostatečně obecný – k tomu se dostaneme později
+- v CIL kódu volání bude výběr konkrétní specializace generické metody
+- JIT za run-timu vyrábí specializované varianty generické metody
+- konvence – placeholder typy obvykle začínají písmenem T
+- důležitá myšlenka – překladač si může vhodnou specializaci zvolit sám
+	- takže napíšu `Max(…)` a překladač zvolí vhodnou specializaci automaticky
+	- pokud má metoda např. tři parametry typů T1, T1, T2, tak překladač vlastně řeší rovnici
+	- pokud se mi nelíbí automatická volba specializace a chci to ovlivnit, tak můžu přetypovat parametry – ale vhodnější je prostě definovat specializaci do špičatých závorek
+- generická metoda se dá kombinovat s konkrétními overloady
+	- překladač zvolí overload pro konkrétní typy parametrů, pokud existuje
+	- pokud neexistuje, typicky zvolí generickou metodu
+- situace – mám generickou metodu, která volá generickou metodu s konkrétními overloady
+	- metoda `m` má generickou variantu, ale také variantu pro parametr typu double a pro object
+	- `CallM<T>` je generická, uvnitř je volání `m(v)`, kde `v` je typu `T`
+	- to se přeloží na volání `m<T>(v)`
+	- konkrétní overloady se nikdy nezavolají, jelikož se za překladu musí určit, která jedna metoda se v rodičovské generické metodě bude volat
+		- a generická `m` je prostě jediná vhodná – je použitelná pro všechna možná `T`
+		- kdyby tam generická metoda nebyla, volal by se overload s parametrem object
+	- tohle chování je jiné v C++
+		- tam se za generický typ dosazuje při překladu
+- připomenutí
+	- máme generickou metodu
+	- za compile timu vznikne jeden CIL kód této metody
+	- za run timu – jakmile se zavolá určitá (např. intová) varianta metody, JIT vygeneruje strojový kód pro danou variantu metody
+- v CIL kódu je zapsáno, jaká metoda se volá
+	- zda je to nějaká specializace generické metody
+	- nebo je to třeba nějaký z konkrétních overloadů metody
+- ve složitější typové hierarchii
+	- generická metoda může být virtuální
+	- dá se overridovat pouze generickou metodou (jinou implementací)
+	- pokud v potomkovi zadefinuju negenerickou metodu s dosud neexistujícím typem (tedy overload) s `new`, tak je to `new` zbytečné, nic se nezakrývá
+- co můžeme dělat uvnitř generické metody s parametrem typu `T`?
+	- můžeme volat metody objectu
+- připomenutí
+	- v Pythonu duck typing
+	- v C# compile-time duck typing u pattern matchingu (viz dekonstruktory)
+	- v C++ compile-time duck typing u šablon (generických metod) – strojový kód jednotlivých specializací metod se generuje za compile timu
+- v C# se taky dá používat pythonovský duck-typing
+	- vydáme na půdu materiálního vulgarismu – použijeme klíčové slovo `dynamic`
+	- u proměnné s typem `dynamic` se zapne runtime duck typing
+	- proměnná se přeloží jako typ object
+	- ale dají se na ní volat libovolné metody
+		- za runtimu se zjistí, jestli existují – pokud ne, tak se vyhodí chyba
+- u generických metod použijeme interfaces, abychom mohli volat něco jiného než metody objectu
+	- `void m<T>(T a) where T : podmínky {}`
+	- další where se píše na další řádek
+	- tento způsob kontraktu je důležitý – i pro vývojáře daných metod (aby v další verzi něco nerozbili)
+- metoda s interfacovým parametrem vs. generická metoda s constraintem na daný interface
+	- funguje to hodně podobně
+	- rozdíl – interfaces u hodnotových typů
+		- v metodě s interfacovým parametrem se bude hodnotový typ boxovat
+		- v generické metodě se nic boxovat nebude, navíc se strojový kód vygeneruje přímo pro danou hodnotu (respektive pro daný typ) včetně všech optimalizací
+	- ale typicky dává smysl preferovat klasickou metodu s interfacovým parametrem
+	- JIT umí pro referenční typy recyklovat strojový kód
+		- pro (různé) hodnotové typy to vždycky generuje nový strojový kód
+	- u generických metod typicky chceme používat type inference (automatické generování špičatých závorek u volání) – to může komplikovat práci překladači (?)
+- další použití
+	- generická rozhraní (interfaces) – např. `IComparable<T>`
+	- extension metody
+		- `public static T[] Slice<T>(this T[] source, …) { … }`
+		- s generickými extension metodami je potřeba šetřit (a psát jasné constraints)
+
+### Generické typy
+
+- může to být třída, struktura, interface
+- syntaxe podobná jako u metod – také s constraints
+- za compile timu se generuje jeden CIL kód generického typu
+- za runtimu JIT generuje typy jednotlivých specializací
+- strojový kód metod se klasicky JITuje až při prvním volání
+- každá specializace má svůj vlastní class constructor a své vlastní statické fieldy
+- dědičnost
+	- specializace generických typů jsou z hlediska stromu dědičnosti na stejné úrovni (nevedou mezi nimi hrany)
+	- generická třída může dědit od negenerické třídy nebo od generické třídy, kde její specializace může být daná nebo může odpovídat specializaci potomka
+- v generické třídě můžou být metody…
+	- negenerické s určenými typy parametrů
+	- negenerické s typy parametrů odpovídajícími specializaci generické třídy (tedy `T`)
+	- generické (s typy parametrů nezávislých na specializaci generické třídy)
+	- → překladač vždy vybere nejspecifičtější variantu
+		- když má na výběr mezi negenerickou s určeným typem a negenerickou s typem T, tak vybere tu s určeným typem
+		- `m(T t)`, kde `T` je `int` vs. `m(int i)` → vyhraje `m(int i)`
+- u constraints se dá použít čárka, ta znamená AND
+	- OR by nemělo smysl
+- lze mít více generických typů s různými constraints
+- generické fieldy nejsou, ale můžu mít field typu T v generické třídě
 - interfaces
 	- metoda interfacu se dá implementovat zděděním (rodičovská metoda má metodu, kterou vynucuje interface)
 	- jedna metoda může zároveň naplňovat více kontraktů (když třída implementuje víc interfaců a všechny požadují jednu metodu, např. `Close`)
@@ -230,10 +237,11 @@
 	- takhle implementovanou metodu nemůžu zavolat přímo na daném typu, musím použít typ interfacu
 	- takový přístup používá System.Int32, který implementuje interface IConvertible, ale interfacové metody to má implementované explicitně, takže se uživatelům běžně nezobrazují jako součást rozhraní
 - generické typy v kombinaci s interfaces
-	- situace z prezentace
-	- nepřeloží se
+	- situace ze 4. prezentace
+	- nepřeloží se – není jasné, metoda kterého interfacu se má volat
 - implementace generických interfaces
 	- také v prezentaci
+	- např. dvě vlastnosti se stejným jménem a odlišným typem nemůžou koexistovat, aspoň jednu z nich musíme implementovat explicitně
 - this
 	- v metodách máme implicitní parametr this
 	- to platí i pro metody v interfacech
@@ -256,83 +264,89 @@
 - speciální constrainty
 	- constraint na hodnotové typy `where T : struct`
 	- constraint na referenční typy `where T : class`
+
+### Variance
+
 - `C<object>` a `C<string>` mezi sebou nemají žádnou vazbu – nijak od sebe nedědí
-	- bylo by hezké, kdyby se `List<string>` dal použít jako `List<object>`, protože všechny stringy jsou potomky objectu
-	- pojmy
-		- $(\alpha)$ typ B je typově kompatibilní s A
-			- typicky pokud B dědí od A
-			- takže instance B se dá přiřadit do proměnné typu A
-		- $(\beta)$ typ C je parametrizovaný T a `C<B>` je typově kompatibilní s `C<A>`
-			- C je kovariantní podle T
-		- $(\gamma)$ typ C je parametrizovaný T a `C<A>` je typově kompatibilní s `C<B>`
-			- C je kontravariantní podle T
-		- $(\delta)$ třetí varianta kompatibility `C<A>` a `C<B>`
-			- C je invariantní dle T
-	- generické typy jsou invariantní (??)
-	- pole referenčních typů jsou kovariantní
-	- pole hodnotových typů jsou invariantní
-	- každý zápis do každého pole referenčních typů vede na runtime check
-		- kdybych měl pole stringů
-		- to přiřadil do proměnné typu pole objectů
-		- a pak do prvku přiřadil int
-		- tak by to bylo blbě, protože bych do pole stringů přiřadil int
-		- i když kovarianci nepoužívám, check se provádí
-	- kovariance
-		- getter je v pohodě
-		- setter je problém
-	- kontravariance
-		- setter je v pohodě
-		- getter je problém
-	- typ nemůže být zároveň kovariantní i kontravariantní
-	- pro jiné typy než pole se dá zapnout variance – ukážeme si příště
-	- od C# 9 jsou virtuální metody kovariantní dle návratové hodnoty
-		- v overridu metody můžu vracet „lepší“ typ, než který vracela původně
-		- ale tohle zase funguje jenom u referenčních typů
-			- protože by si navrácené hodnoty neodpovídaly velikostně ani sémanticky (reference na haldu vs. číslo apod.)
-	- kovariance u polí
-		- někdy na škodu – musíme provádět runtime check
-		- někdy užitečná – můžeme psát univerzálnější kód
-	- specializace Listu jsou invariantní
-		- takže do parametru typu `List<object>` nemůžeme předat `List<Person>`
-	- parametr `List<object>` je zbytečně specifický, stačí nám vlastnost `Count` a možnost indexace
-		- mohli bychom použít interface `IList<object>`
-		- takže můžeme jako parametr použít pole objectů
-	- generické interfacy u referenčních typů jsou volitelně variantní
-		- `interface I<T>` je invariantní dle T
-		- `interface I<out T>` je kovariantní dle T
-			- funguje jako výstupní typ metody
-		- `interface I<in T>` je kontravariantní dle T
-			- funguje jako vstupní typ metody
-		- pro každý typový parametr je to nezávislé
-		- příklad
-			- `interface I<out T1, T2, in T3, in T4>`
-			- `I<A,B,C,D> i = X : I<E,F,G,H>`
-				- E dědí od A
-				- B = F
-				- C dědí od G
-				- D dědí od H
-			- tady je to správně, v přednášce chybně, viz errata dokument
-		- nestačí implicitní konverze – musí to být podle typového systému
-		- neprovádějí se runtime checky, prostě se zakáže špatné použití
-	- `IList<T>` musí být zjevně invariantní, protože indexer vyžaduje getter a setter – tudíž musí být jako vstupní i výstupní typ
-	- existuje `IReadonlyList<out T>`, kde indexer vyžaduje jenom getter
-	- máme List stringů, chceme ho přiřadit do `IList<object>`, to nejde
-		- překladač nám poradí použít cast
-		- s castem se to přeloží, ale runtime check selže
-	- obecně se dá castovat typ do interfacu, který neimplementuje, jen se provádí runtime check, jestli konkrétní objekt (jeho typ) implementuje daný interface
-		- v proměnné typu A mám instanci typu B
-		- B dědí od A
-		- typ A neimplementuje interface I, ale typ B ho implementuje
-		- můžu tu proměnnou explicitně castnout na interface I
-		- kdyby typ A byl sealed, tak by se nám cast na interface, který neimplementuje, ani nepřeložil
-	- `interface IComparer<in T>`
-		- `int Compare(T a, T b)`
-		- kontravariantní
-		- máme metodu s argumentem typu `IComparer<B>`
-			- `B` je potomkem `A`
-			- takové metodě můžeme předat argument typu `IComparer<A>`
-	- kovarianci použijeme, když budeme chtít mít pro zvíře jeden logger
-		- pro vlka chceme mít speciální logger uložený ve stejné proměnné
+- bylo by hezké, kdyby se `List<string>` dal použít jako `List<object>`, protože všechny stringy jsou potomky objectu
+- pojmy
+	- $(\alpha)$ typ B je typově kompatibilní s A
+		- typicky pokud B dědí od A
+		- takže instance B se dá přiřadit do proměnné typu A
+	- $(\beta)$ typ C je parametrizovaný T a `C<B>` je typově kompatibilní s `C<A>`
+		- C je kovariantní podle T
+	- $(\gamma)$ typ C je parametrizovaný T a `C<A>` je typově kompatibilní s `C<B>`
+		- C je kontravariantní podle T
+	- $(\delta)$ třetí varianta kompatibility `C<A>` a `C<B>`
+		- C je invariantní dle T
+- generické typy jsou invariantní (??)
+- pole referenčních typů jsou kovariantní
+- pole hodnotových typů jsou invariantní
+- každý zápis do každého pole referenčních typů vede na runtime check
+	- kdybych měl pole stringů
+	- to přiřadil do proměnné typu pole objectů
+	- a pak do prvku přiřadil int
+	- tak by to bylo blbě, protože bych do pole stringů přiřadil int
+	- i když kovarianci nepoužívám, check se provádí
+- kovariance
+	- getter je v pohodě
+	- setter je problém
+- kontravariance
+	- setter je v pohodě
+	- getter je problém
+- typ nemůže být zároveň kovariantní i kontravariantní
+- pro jiné typy než pole se dá zapnout variance – ukážeme si příště
+- od C# 9 jsou virtuální metody kovariantní dle návratové hodnoty
+	- v overridu metody můžu vracet „lepší“ typ, než který vracela původně
+	- ale tohle zase funguje jenom u referenčních typů
+		- protože by si navrácené hodnoty neodpovídaly velikostně ani sémanticky (reference na haldu vs. číslo apod.)
+- kovariance u polí
+	- někdy na škodu – musíme provádět runtime check
+	- někdy užitečná – můžeme psát univerzálnější kód
+- specializace Listu jsou invariantní
+	- takže do parametru typu `List<object>` nemůžeme předat `List<Person>`
+- parametr `List<object>` je zbytečně specifický, stačí nám vlastnost `Count` a možnost indexace
+	- mohli bychom použít interface `IList<object>`
+	- takže můžeme jako parametr použít pole objectů
+- generické interfacy u referenčních typů jsou volitelně variantní
+	- `interface I<T>` je invariantní dle T
+	- `interface I<out T>` je kovariantní dle T
+		- funguje jako výstupní typ metody
+	- `interface I<in T>` je kontravariantní dle T
+		- funguje jako vstupní typ metody
+	- pro každý typový parametr je to nezávislé
+	- příklad
+		- `interface I<out T1, T2, in T3, in T4>`
+		- `I<A,B,C,D> i = X : I<E,F,G,H>`
+			- E dědí od A
+			- B = F
+			- C dědí od G
+			- D dědí od H
+		- tady je to správně, v přednášce chybně, viz errata dokument
+	- nestačí implicitní konverze – musí to být podle typového systému
+	- neprovádějí se runtime checky, prostě se zakáže špatné použití
+- `IList<T>` musí být zjevně invariantní, protože indexer vyžaduje getter a setter – tudíž musí být jako vstupní i výstupní typ
+- existuje `IReadonlyList<out T>`, kde indexer vyžaduje jenom getter
+- máme List stringů, chceme ho přiřadit do `IList<object>`, to nejde
+	- překladač nám poradí použít cast
+	- s castem se to přeloží, ale runtime check selže
+- obecně se dá castovat typ do interfacu, který neimplementuje, jen se provádí runtime check, jestli konkrétní objekt (jeho typ) implementuje daný interface
+	- v proměnné typu A mám instanci typu B
+	- B dědí od A
+	- typ A neimplementuje interface I, ale typ B ho implementuje
+	- můžu tu proměnnou explicitně castnout na interface I
+	- kdyby typ A byl sealed, tak by se nám cast na interface, který neimplementuje, ani nepřeložil
+- `interface IComparer<in T>`
+	- `int Compare(T a, T b)`
+	- kontravariantní
+	- máme metodu s argumentem typu `IComparer<B>`
+		- `B` je potomkem `A`
+		- takové metodě můžeme předat argument typu `IComparer<A>`
+- kovarianci použijeme, když budeme chtít mít pro zvíře jeden logger
+	- pro vlka chceme mít speciální logger uložený ve stejné proměnné
+
+## Kolekce
+
 - interfacy kolekcí
 	- dává smysl používat generické varianty – ty negenerické jsou tam kvůli zpětné kompatibilitě
 	- IList má oproti ICollection navíc indexer
@@ -356,9 +370,6 @@
 			- místo ní hážou výjimku (not implemented)
 			- když budu implementovat iterátor, je lepší ho tam mít
 			- když budu používat nějaký obecný iterátor, je lepší Reset nevolat – radši získat nový iterátor
-
----
-
 - namespaces (jmenné prostory)
 	- můžu je vnořovat – je to syntaktická zkratka
 	- tečka je v dotnetu validní součást identifikátoru
@@ -391,7 +402,7 @@
 		- podobně můžeme mít v nějakém typu vnořený private interface a použít podobný efekt u vnořeného typu, který ten interface implementuje
 	- vnořený typ má přístup k private věcem nadřazeného typu
 	- vnořený typ může dědit od nadřazeného typu
-- `IEnumerable`
+- `IEnumerable<T>`
 	- dává smysl Enumerator mít jako privátní vnořenou třídu
 	- jak se enumerátor chová
 		- kolekce o 0 prvcích
@@ -456,43 +467,46 @@
 		- v kolikátém jsme prvku
 	- je vlastně docela těžké tvořit enumerátory
 	- v C# je koncept iterátorových metod
-		- pokud metoda vrací IEnumerator a obsahuje `yield return`, zcela se změní způsob jejího překladu
-		- metoda se podle yield returnů rozseká na jednotlivé kroky
-		- první krok – od začátku metody do návratové hodnoty yield returnu (včetně)
-		- druhý krok – od středníku za yield returnem do dalšího yield returnu
-		- poslední krok – od středníku za posledním yield returnem do konce metody
-		- návratová hodnota yield return se někam uloží, takže volání getteru vlastnosti Current vrací přímo hodnotu (už ji znova nepočítá)
-		- neplatná volání Current jsou v rozporu s typickým kontraktem enumerátoru
-			- volání getteru Current před prvním MoveNext vrací defaultní hodnotu `default(T)`
-			- get_Current po posledním MoveNext vrací poslední hodnotu
-		- náš kód skončí uvnitř enumerátoru
-		- v těle naší metody nezůstane náš kód, ale bude tam vyrobení a vrácení toho enumerátoru
-		- lokální proměnné z našeho kódu budou uloženy jako fieldy enumerátoru
-			- platí to pro všechny lokální proměnné
-			- v Release režimu si překladač všimne, že některé lokální proměnné není třeba držet globálně a přeloží je jako lokální (ne jako fieldy)
-		- parametry naší iterátorové metody se taky uloží do enumerátoru (respektive jejich hodnoty se tam uloží – „capture by value“)
-		- pokud je iterátorová metoda instanční metoda nějakého objektu, tak v ní můžu použít vlastnosti toho objektu (protože má implicitní parametr this)
-			- pak se musí `this` nakopírovat (capture by value) dovnitř enumerátoru
-		- náš kód se přeloží do stavového automatu (metoda MoveNext funguje jako stavový automat)
-			- `_state`
-				- na začátku ve stavu 0
-				- při běhu se nastaví na -1
-					- až na konci se nastaví na další validní stav
-					- tím způsobem se ošetřuje situace, kdy se při běhu MoveNext vyhodí výjimka – mohlo dojít k poškození vnitřního stavu enumerátoru, takže se prostě skončí
-				- -1 je koncový stav
-			- sdílený kód jednotlivých stavů se sdílí pomocí goto
-		- můžeme používat `yield break` – to je okamžitý přechod do koncového stavu
-		- enumerátor podporuje lazy evaluation
-			- iterátorové metody taky – s každým voláním MoveNext se provede jenom jeden krok
-	- chci IEnumerable převést na List
-		- lazy evaluation se dá převést na eager evaluation
-		- konstruktor Listu má overload `new List<T>(IEnumerable<T>)`
-		- někdy se to hodí, někdy to není dobrý nápad
-			- třeba pokud potřebuju jenom první tři položky, tak není vhodné převádět celou kolekci na seznam, když má milion položek
-			- ale pokud se při každém MoveNext něco stahuje ze sítě a chci přes kolekci iterovat víckrát, tak dává smysl si ji někam uložit pomocí eager evaluace
-				- v System.LINQ jsou k tomu metody ToList a ToArray pro IEnumerable
-				- trochu efektivnější je ToList, protože ToArray se pak musí kopírovat do pole, jelikož LINQ předem nezná délku IEnumerable
-					- ale pokud je daná věc zároveň IReadOnlyCollection a tedy má Count, tak ho LINQ použije
+
+### Iterátorové metody
+
+- pokud metoda vrací IEnumerator a obsahuje `yield return`, zcela se změní způsob jejího překladu
+- metoda se podle yield returnů rozseká na jednotlivé kroky
+- první krok – od začátku metody do návratové hodnoty yield returnu (včetně)
+- druhý krok – od středníku za yield returnem do dalšího yield returnu
+- poslední krok – od středníku za posledním yield returnem do konce metody
+- návratová hodnota yield return se někam uloží, takže volání getteru vlastnosti Current vrací přímo hodnotu (už ji znova nepočítá)
+- neplatná volání Current jsou v rozporu s typickým kontraktem enumerátoru
+	- volání getteru Current před prvním MoveNext vrací defaultní hodnotu `default(T)`
+	- get_Current po posledním MoveNext vrací poslední hodnotu
+- náš kód skončí uvnitř enumerátoru
+- v těle naší metody nezůstane náš kód, ale bude tam vyrobení a vrácení toho enumerátoru
+- lokální proměnné z našeho kódu budou uloženy jako fieldy enumerátoru
+	- platí to pro všechny lokální proměnné
+	- v Release režimu si překladač všimne, že některé lokální proměnné není třeba držet globálně a přeloží je jako lokální (ne jako fieldy)
+- parametry naší iterátorové metody se taky uloží do enumerátoru (respektive jejich hodnoty se tam uloží – „capture by value“)
+- pokud je iterátorová metoda instanční metoda nějakého objektu, tak v ní můžu použít vlastnosti toho objektu (protože má implicitní parametr this)
+	- pak se musí `this` nakopírovat (capture by value) dovnitř enumerátoru
+- náš kód se přeloží do stavového automatu (metoda MoveNext funguje jako stavový automat)
+	- `_state`
+		- na začátku ve stavu 0
+		- při běhu se nastaví na -1
+			- až na konci se nastaví na další validní stav
+			- tím způsobem se ošetřuje situace, kdy se při běhu MoveNext vyhodí výjimka – mohlo dojít k poškození vnitřního stavu enumerátoru, takže se prostě skončí
+		- -1 je koncový stav
+	- sdílený kód jednotlivých stavů se sdílí pomocí goto
+- můžeme používat `yield break` – to je okamžitý přechod do koncového stavu
+- enumerátor podporuje lazy evaluation
+	- iterátorové metody taky – s každým voláním MoveNext se provede jenom jeden krok
+- chci IEnumerable převést na List
+	- lazy evaluation se dá převést na eager evaluation
+	- konstruktor Listu má overload `new List<T>(IEnumerable<T>)`
+	- někdy se to hodí, někdy to není dobrý nápad
+		- třeba pokud potřebuju jenom první tři položky, tak není vhodné převádět celou kolekci na seznam, když má milion položek
+		- ale pokud se při každém MoveNext něco stahuje ze sítě a chci přes kolekci iterovat víckrát, tak dává smysl si ji někam uložit pomocí eager evaluace
+			- v System.LINQ jsou k tomu metody ToList a ToArray pro IEnumerable
+			- trochu efektivnější je ToList, protože ToArray se pak musí kopírovat do pole, jelikož LINQ předem nezná délku IEnumerable
+				- ale pokud je daná věc zároveň IReadOnlyCollection a tedy má Count, tak ho LINQ použije
 - LinkedList
 	- veřejná třída LinkedListNode – jednotlivé krabičky s hodnotami, aby se dalo přidávat před ně, za ně apod.
 	- `LinkedList<T>` implementuje `IEnumerable<T>`
@@ -511,11 +525,8 @@
 			- protože enumerátor typicky nepodporuje concurrent modification
 		- pokud LinkedList převedeme pomocí eager evaluace na List, tak se to nezacyklí, ale zabere to dost paměti
 		- nejefektivnější varianta bude taková, že budeme prvek přidávat za minulou krabičku
-
----
-
 - iterátorové metody
-	- můžou vracet i IEnumearble
+	- můžou vracet i IEnumerable
 	- např. metoda `IEnumerable<T> Range(int from, int to)` s yield returny uvnitř
 	- rozpadne se to do dvou tříd
 		- jedna $(\alpha)$ bude implementovat IEnumerable
@@ -553,69 +564,74 @@
 	- je fajn používat CLS compliant typy – místo uintu použít int
 	- místo InvalidOperationException je lepší vyhodit ArgumentOutOfRangeException
 	- ChatGPT nám vygeneruje hezkou dokumentaci
+
+## Reflection
+
+- proces překladu
+	- máme C# zdrojáky
+		- přípona .cs
+	- ty se přeloží do CIL kódu
+		- přípona .dll
+		- assembly
+		- CIL kód a metadata
+	- ten se JITuje do konkrétního strojového kódu
+- programy ildasm a ILSpy zkoumají metadata jiné assembly
 - Reflection
-	- proces překladu
-		- máme C# zdrojáky
-			- přípona .cs
-		- ty se přeloží do CIL kódu
-			- přípona .dll
-			- assembly
-			- CIL kód a metadata
-		- ten se JITuje do konkrétního strojového kódu
-	- programy ildasm a ILSpy zkoumají metadata jiné assembly
-	- Reflection
-	- typ Type
-		- když zavoláme `typeof(A)`, kde `A` je typ, nebo `x.GetType()`, kde `x` je proměnná
-	- typ Assembly
-		- statické metody
-			- `Assembly.GetExecutingAssembly()`
-			- `Assembly.GetCallingAssembly()`
-			- `Assembly.GetEntryAssembly()`
-		- můžu přistupovat i ke knihovnám, které používám
-		- jakmile dostanu instanci Assembly, můžu zavolat GetTypes
-		- GetType(string) vrátí instanci Type, pokud typ s daným jménem existuje
-	- na typu Type existuje spousta užitečných metod, které vrací instance potomků abstraktní třídy MemberInfo
-		- GetFields
-		- GetMethods
-		- GetConstructors
-		- GetProperties
-		- GetEvents
-	- co s tím?
-		- můžeme implementovat pokročilejší koncepty, než nám C# defaultně umožňuje
-		- kdybychom chtěli pythonovský duck typing (bez klíčového slova dynamic – to se někdy nedá použít)
-			- dvě nesouvisející třídy A a B, obě mají metodu Run
-			- chceme metodu RunIt, která na libovolném typu zavolá metodu Run, pokud ji ten typ má
-				- `MethodInfo? mi = o.GetType().GetMethod("Run");`
-				- zásadní problém reflection – není to safe, může to vést k běhovým chybám
-				- na typu MethodInfo existuje metoda Invoke, která má dva parametry – první je typu object („this“ parametr) a druhý je `params` pole objectů (ostatní parametry metody)
-				- `if (mi is not null) mi.Invoke(o, null);`
-			- můžu hledat konkrétní variantu metody s parametry určitých typů
-				- druhý parametr GetMethod … `new Type[] { typeof(string), typeof(long) }`
-			- metoda Invoke
-				- boxuje hodnotové typy a pak je případně zase unboxuje, aby typy pasovaly s typy parametrů
-			- Reflection se pokouší dělat implicitní konverze samostatně – třeba pokud voláme metodu s longovým parametrem, ale dáme jí int, tak se to pokouší konvertovat
-			- u GetMethods můžu použít BindingFlags
-		- problémy reflection
-			- je pomalá – kvůli obecnosti, boxingu, konverzím apod.
-			- není safe – může způsobovat běhové chyby
-			- je potenciálně nebezpečná – dá se přistupovat k privátním metodám, fieldům apod.
-		- serializace objektů
-			- instance objektů reprezentují data
-			- tato data chci převést do textového (XML, JSON) nebo binárního (ProtocolBuffers) formátu
-			- JSON
-				- JavaScript Object Notation
-				- javascriptové objekty jsou prototype-based, nemají klasické typy
-			- JSON i XML data ukládají ve formě stromu
-			- různé serializační frameworky nám umožňují různé způsoby serizalizace
-			- serializační frameworky obvykle zvládají serializovat DAGy
-				- pokud k objektu A vedou z kořene dvě orientované cesty, tak se vytvoří jeho kopie
-				- někdy se framework dá nastavit, aby nevytvářel kopie, ale označil si objekty nějakými identifikátory
-					- takže při deserializaci se zachová původní tvar grafu objektů
-			- v C# jsou serializátory
-				- v namespacu `System.Text.Json` je `string JsonSerializer.Serialize<T>(T root)`
-				- používá Reflection
-				- co serializovat?
-					- serializace veřejných vlastností – výchozí nastavení
+- typ Type
+	- když zavoláme `typeof(A)`, kde `A` je typ, nebo `x.GetType()`, kde `x` je proměnná
+- typ Assembly
+	- statické metody
+		- `Assembly.GetExecutingAssembly()`
+		- `Assembly.GetCallingAssembly()`
+		- `Assembly.GetEntryAssembly()`
+	- můžu přistupovat i ke knihovnám, které používám
+	- jakmile dostanu instanci Assembly, můžu zavolat GetTypes
+	- GetType(string) vrátí instanci Type, pokud typ s daným jménem existuje
+- na typu Type existuje spousta užitečných metod, které vrací instance potomků abstraktní třídy MemberInfo
+	- GetFields
+	- GetMethods
+	- GetConstructors
+	- GetProperties
+	- GetEvents
+- co s tím?
+	- můžeme implementovat pokročilejší koncepty, než nám C# defaultně umožňuje
+	- kdybychom chtěli pythonovský duck typing (bez klíčového slova dynamic – to se někdy nedá použít)
+		- dvě nesouvisející třídy A a B, obě mají metodu Run
+		- chceme metodu RunIt, která na libovolném typu zavolá metodu Run, pokud ji ten typ má
+			- `MethodInfo? mi = o.GetType().GetMethod("Run");`
+			- zásadní problém reflection – není to safe, může to vést k běhovým chybám
+			- na typu MethodInfo existuje metoda Invoke, která má dva parametry – první je typu object („this“ parametr) a druhý je `params` pole objectů (ostatní parametry metody)
+			- `if (mi is not null) mi.Invoke(o, null);`
+		- můžu hledat konkrétní variantu metody s parametry určitých typů
+			- druhý parametr GetMethod … `new Type[] { typeof(string), typeof(long) }`
+		- metoda Invoke
+			- boxuje hodnotové typy a pak je případně zase unboxuje, aby typy pasovaly s typy parametrů
+		- Reflection se pokouší dělat implicitní konverze samostatně – třeba pokud voláme metodu s longovým parametrem, ale dáme jí int, tak se to pokouší konvertovat
+		- u GetMethods můžu použít BindingFlags
+	- problémy reflection
+		- je pomalá – kvůli obecnosti, boxingu, konverzím apod.
+		- není safe – může způsobovat běhové chyby
+		- je potenciálně nebezpečná – dá se přistupovat k privátním metodám, fieldům apod.
+	- serializace objektů
+		- instance objektů reprezentují data
+		- tato data chci převést do textového (XML, JSON) nebo binárního (ProtocolBuffers) formátu
+		- JSON
+			- JavaScript Object Notation
+			- javascriptové objekty jsou prototype-based, nemají klasické typy
+		- JSON i XML data ukládají ve formě stromu
+		- různé serializační frameworky nám umožňují různé způsoby serizalizace
+		- serializační frameworky obvykle zvládají serializovat DAGy
+			- pokud k objektu A vedou z kořene dvě orientované cesty, tak se vytvoří jeho kopie
+			- někdy se framework dá nastavit, aby nevytvářel kopie, ale označil si objekty nějakými identifikátory
+				- takže při deserializaci se zachová původní tvar grafu objektů
+		- v C# jsou serializátory
+			- v namespacu `System.Text.Json` je `string JsonSerializer.Serialize<T>(T root)`
+			- používá Reflection
+			- co serializovat?
+				- serializace veřejných vlastností – výchozí nastavení
+
+## Delegáti
+
 - motivační příklad
 	- máme třídu B s binárním stromečkem, která implementuje `IEnumerable<int>`
 	- mohli bychom foreachem enumerovat přes podstromy a yield returnem vracet hodnoty
@@ -685,7 +701,6 @@
 - delegáti a viditelnost
 	- z vnějšího kontextu nemůžu vyrobit delegáta privátní statické metody
 	- ale můžu mít public metodu, která vrací delegáta, který ukazuje na private statickou metodu
-		- tím nad tím delegátem ztrácíme kontrolu
 - delegáti můžou ukazovat i na instanční metody
 	- instanční metody mají jeden skrytý parametr – ale bylo by divné o nich uvažovat jako o víceparametrických než jsou
 	- v delegátu jsou dva ukazatele – na funkci a na `this`
@@ -740,43 +755,45 @@
 	- např. v nějaké hře by pomocí kroků coroutine mohly být popsané kroky NPCčka
 	- když serializujeme objekt enumerátoru (včetně privátních fieldů), tak máme serializovaný stav
 	- ale je to závislé na implementačních detailech
+
+### Lambda funkce
+
 - zpátky s motivačnímu příkladu
 	- máme metodu FindIndex, která bere delegáta (predikát)
 	- pokud predikát vrátí true, tak to vrátí ten index
 	- někdy není moc praktické mít pomocné metody vypsané jako statické ve třídě
 		- chtěli bychom je deklarovat v místě kódu, kde se používají
 		- obvykle se tomu říká lambda funkce, my je budeme chápat jako anonymní funkce (mají nějaké jméno vygenerované C# překladačem)
-- lambda funkce v C#
-	- napíšeme `static`, pak do závorky parametry, pak šipku `=>` a potom tělo funkce
-		- dá se přímo zapsat jako parametr metody FindIndex
-	- pozor na šipku – u normálních (pojmenovaných) funkcí je to syntaktický cukr
-	- proč je tam klíčové slovo static?
-		- označuje, že lambda funkce nemá stav
-	- dříve se dalo použít slovo delegate – funguje to podobně (ale chybí tomu nějaké další funkce, které lambda funcke mají)
-	- ekvivalentní příklady lambda funkcí
-		- `static (int x) => { return x < 5; }`
-		- `static (int x) => x + 1`
-		- `static x => x + 1`
-		- `static x => { return x + 1; }`
-	- v posledních dvou příkladech se použije type inference
-	- pokud je parametrů více, musejí tam být vždycky kulaté závorky
-	- lambda funkce může být bez parametrů, pak se napíšou prázdné kulaté závorky
-	- lambda funkce nejsou first-class entities – neexistuje proměnná typu „lambda funkce“
-		- jsou přiřaditelné do proměnných typu delegát (a ještě někam jinam – viz ET přednáška)
-	- podle delegáta, kam to přiřazuju, funguje type inference parametrů
-	- když někam přiřadím úplně stejnou lambda funkci, tak C# překladač může recyklovat vygenerovaný kód
-	- může se stát, že voláme generickou metodu a předáváme ji jako parametr lambda funkci, takže překladač musí řešit trochu složitější rovnici
-		- když to nevede na jednoznačné řešení, tak je to překladová chyba
-	- když tam to static nedáme, tak se zapíná nějaká speciální funkce, ale pokud ji nepoužíváme, tak je to jedno
-		- to static tam píšeme jenom proto, abychom tu speciální fíčuru nepoužili omylem
-	- pozor, když nějakou lambda funkci používám často a rozmyslím se, že je užitečná, tak může dávat smysl mít ji tam jako klasickou statickou metodu
-	- kde lambda funkce použít?
-		- chceme nad kolekcí dat provést transformaci
-		- tohle se dělá často v relačních databázích
-		- databázová tabulka je vlastně kolekce řádků – chceme najít nějakou podmnožinu, setřídit to apod.
-		- tyhle věci se typicky popisují pomocí SQL queries
+- napíšeme `static`, pak do závorky parametry, pak šipku `=>` a potom tělo funkce
+	- dá se přímo zapsat jako parametr metody FindIndex
+- pozor na šipku – u normálních (pojmenovaných) funkcí je to syntaktický cukr
+- proč je tam klíčové slovo static?
+	- označuje, že lambda funkce nemá stav
+- dříve se dalo použít slovo delegate – funguje to podobně (ale chybí tomu nějaké další funkce, které lambda funcke mají)
+- ekvivalentní příklady lambda funkcí
+	- `static (int x) => { return x < 5; }`
+	- `static (int x) => x + 1`
+	- `static x => x + 1`
+	- `static x => { return x + 1; }`
+- v posledních dvou příkladech se použije type inference
+- pokud je parametrů více, musejí tam být vždycky kulaté závorky
+- lambda funkce může být bez parametrů, pak se napíšou prázdné kulaté závorky
+- lambda funkce nejsou first-class entities – neexistuje proměnná typu „lambda funkce“
+	- jsou přiřaditelné do proměnných typu delegát (a ještě někam jinam – viz ET přednáška)
+- podle delegáta, kam to přiřazuju, funguje type inference parametrů
+- když někam přiřadím úplně stejnou lambda funkci, tak C# překladač může recyklovat vygenerovaný kód
+- může se stát, že voláme generickou metodu a předáváme ji jako parametr lambda funkci, takže překladač musí řešit trochu složitější rovnici
+	- když to nevede na jednoznačné řešení, tak je to překladová chyba
+- když tam to static nedáme, tak se zapíná nějaká speciální funkce, ale pokud ji nepoužíváme, tak je to jedno
+	- to static tam píšeme jenom proto, abychom tu speciální fíčuru nepoužili omylem
+- pozor, když nějakou lambda funkci používám často a rozmyslím se, že je užitečná, tak může dávat smysl mít ji tam jako klasickou statickou metodu
+- kde lambda funkce použít?
+	- chceme nad kolekcí dat provést transformaci
+	- tohle se dělá často v relačních databázích
+	- databázová tabulka je vlastně kolekce řádků – chceme najít nějakou podmnožinu, setřídit to apod.
+	- tyhle věci se typicky popisují pomocí SQL queries
 
-## LINQ
+### LINQ
 
 - language integrated queries
 - nějakou syntaxí podobnou SQL dotazům bych mohl popsat, co se má stát
@@ -841,47 +858,46 @@
 		- pokud máme dvě Where za sebou, tak se to sloučí do jedné krabičky, která má seznam podmínek
 		- podobně Where a Select krabičky se můžou sloučit
 		- ale nemění to fungování
-- lambda funkce se stavem
-	- dosud nám k vyhodnocení funkce stačily její parametry
-	- co kdybychom uvnitř funkce chtěli používat nějaké další proměnné?
-	- když nepoužívám lambda funkce, ale předávám delegáta na instanční metodu – uvnitř delegáta se uloží (odkaz na) this
-	- lambda funkci si můžeme představit jako funkci, která žije v nějakém kontextu
-		- parametry – deklarace lokálních proměnných
-		- tělo – deklarace nějakých proměnných a použití nějakých proměnných
-			- použité proměnné můžou být 1. vázané (tzn. někde uvnitř funkce jsou deklarované) nebo 2. volné (nejsou deklarované uvnitř funkce)
-			- některé jazyky umožňují mít funkci s volnými proměnnými jako first-class entity – ty se pak dodefinují před použitím
-				- tohle v C# nelze
-			- `static` zakazuje volné proměnné
-			- za překladu musí být jasné, co ty volné proměnné znamenají (v daném kontextu) – převádějí se na vázané
-				- lambda funkce bez volných proměnných = closure
-				- v C# vlastně lambda funkce neexistují, jsou tam jen lambda výrazy a do delegátů se vždy přiřazují closures
-	- potřebovali bychom nějakým trikem dostat do lambda funkce přiřazené hodnoty těch volných proměnných
-		- vezmeme nějaký její scope
-		- v tom scopu zachytíme volné proměnné (Scope si můžeme představit jako nějakou třídu/objekt, kde ta lambda funkce je jeho instanční metoda)
-		- podobný princip jako u iterátorových metod
-		- v C++ to takhle funguje, ale v C# ne
-			- syntax lambda funkcí v C++
-				- `[](parametry) {tělo}`
-			- do hranatých závorek se dá napsat `=`, to znamená capture by value
-		- capture by value má zjevně nevýhody v mnoha situacích
-			- pokud v lambda funkci něco spočítáme, nemůžeme to dostat ven
-		- C++ umožňuje capture by reference, kdy se do hranatých závorek dá `&`
-			- všechny fieldy ve scopu budou reference na nějaké místo
-			- tohle v C# nejde, protože tracking reference mají omezení kvůli živnotnosti
-		- v C# se neprovádí capture by value ani by reference
-		- budeme tomu říkat „capture by move“
-		- proměnná se „přesune“ do toho scopu
-		- když lambda funkce použije nějakou proměnnou z kontextu, změní se způsob překladu veškerého kódu za lambda funkcí (v daném kontextu)
-			- veškerá další práce s danou proměnnou se přepíše na přístup k proměnné uvnitř scopu – jako by to byla veřejná vlastnost (nebo field) nějakého objektu Scope
-		- C# překladač opravdu vyrábí instanci nějaké třídy Scope
-		- všechny lambda funkce v daném kontextu sdílejí stejnou instanci scopu
-			- jedna instance scopu tedy vlastně odpovídá jednomu volání rodičovské funkce
-		- do delegátu se předává „this“ ukazující na konkrétní instanci scopu
-	- ty pomocné třídy se v C# nejmenují Scope, ale DisplayClass
-	- tohle se generuje C# překladačem na úrovni CIL kódu, takže JIT o lambda funkcích ani closure nic neví
 
----
+### Lambda funkce se stavem
 
+- dosud nám k vyhodnocení funkce stačily její parametry
+- co kdybychom uvnitř funkce chtěli používat nějaké další proměnné?
+- když nepoužívám lambda funkce, ale předávám delegáta na instanční metodu – uvnitř delegáta se uloží (odkaz na) this
+- lambda funkci si můžeme představit jako funkci, která žije v nějakém kontextu
+	- parametry – deklarace lokálních proměnných
+	- tělo – deklarace nějakých proměnných a použití nějakých proměnných
+		- použité proměnné můžou být 1. vázané (tzn. někde uvnitř funkce jsou deklarované) nebo 2. volné (nejsou deklarované uvnitř funkce)
+		- některé jazyky umožňují mít funkci s volnými proměnnými jako first-class entity – ty se pak dodefinují před použitím
+			- tohle v C# nelze
+		- `static` zakazuje volné proměnné
+		- za překladu musí být jasné, co ty volné proměnné znamenají (v daném kontextu) – převádějí se na vázané
+			- lambda funkce bez volných proměnných = closure
+			- v C# vlastně lambda funkce neexistují, jsou tam jen lambda výrazy a do delegátů se vždy přiřazují closures
+- potřebovali bychom nějakým trikem dostat do lambda funkce přiřazené hodnoty těch volných proměnných
+	- vezmeme nějaký její scope
+	- v tom scopu zachytíme volné proměnné (Scope si můžeme představit jako nějakou třídu/objekt, kde ta lambda funkce je jeho instanční metoda)
+	- podobný princip jako u iterátorových metod
+	- v C++ to takhle funguje, ale v C# ne
+		- syntax lambda funkcí v C++
+			- `[](parametry) {tělo}`
+		- do hranatých závorek se dá napsat `=`, to znamená capture by value
+	- capture by value má zjevně nevýhody v mnoha situacích
+		- pokud v lambda funkci něco spočítáme, nemůžeme to dostat ven
+	- C++ umožňuje capture by reference, kdy se do hranatých závorek dá `&`
+		- všechny fieldy ve scopu budou reference na nějaké místo
+		- tohle v C# nejde, protože tracking reference mají omezení kvůli živnotnosti
+	- v C# se neprovádí capture by value ani by reference
+	- budeme tomu říkat „capture by move“
+	- proměnná se „přesune“ do toho scopu
+	- když lambda funkce použije nějakou proměnnou z kontextu, změní se způsob překladu veškerého kódu za lambda funkcí (v daném kontextu)
+		- veškerá další práce s danou proměnnou se přepíše na přístup k proměnné uvnitř scopu – jako by to byla veřejná vlastnost (nebo field) nějakého objektu Scope
+	- C# překladač opravdu vyrábí instanci nějaké třídy Scope
+	- všechny lambda funkce v daném kontextu sdílejí stejnou instanci scopu
+		- jedna instance scopu tedy vlastně odpovídá jednomu volání rodičovské funkce
+	- do delegátu se předává „this“ ukazující na konkrétní instanci scopu
+- ty pomocné třídy se v C# nejmenují Scope, ale DisplayClass
+- tohle se generuje C# překladačem na úrovni CIL kódu, takže JIT o lambda funkcích ani closure nic neví
 - `Enumerable.Range(1, 10)` vrátí lazy enumerátor čísel od 1 do 10
 - metoda `.ForEach(Action<T>)`
 	- respektive `Array.ForEach(T[], Action<T>)` pro pole
@@ -994,9 +1010,6 @@
 	- vlákna běží v jednom procesu
 		- každé vlákno má vlastní volací zásobník
 		- všechna vlákna sdílí jednu haldu
-
----
-
 - problémy
 	- context switch je hrozně drahý
 	- vyrobení vlákna je ještě dražší
@@ -1016,6 +1029,9 @@
 		- můžeme použít třídu Parallel, kde je spousta užitečných metod – v základu fungují jako synchronní
 		- metody Invoke, For a ForEach
 		- For a ForEach nenarvou do threadpoolu všechno najednou, ale nějak rozumně to dávkují
+
+### Futures & promises
+
 - příklad s hamburgery
 	- je neefektivní začít stavět fastfood, až když mám hamburgery
 	- použijeme koncept futures (viz studijní materiál Thud!/Buch!)
@@ -1066,50 +1082,52 @@
 		- struktura CancellationToken obsahuje private referenci na CancellationTokenSource
 		- na instanci CancellationTokenSource můžeme zavolat metodu Cancel
 	- tenhle přístup striktně odděluje readonly CancellationToken od writeonly CancellationTokenSource
-- thread safety
-	- máme dvě vlákna, která používají jednu datovou strukturu
-	- část, kdy nějaké vlákno pracuje se sdílenou datovou strukturou = kritická sekce
-		- chceme zabránit race condition
-		- nejjednoduší přístup – mutual exclusion
-		- použijeme zámky
-	- v dotnetu – syncblock
-		- to je jakoby ten zámek
-		- každý objekt na GC haldě má v overheadu referenci na Type a referenci na syncblock
-		- syncblock má dvě půlky: lock + „něco“
-	- lock (zámek)
-		- je tam reference na vlákno, které drží ten zámek
-			- defaultně je tam null
-		- kvůli rekurzivnímu zamykání je tam počítadlo, kolikrát to vlákno ten zámek zamklo
-		- je tam fronta čekajících vláken, které čekají na odemčení
-		- jak zámek zamknout
-			- je tam třída `Monitor.Enter(object o)`
-			- při vytvoření objektu syncblock vůbec neexistuje, na haldě je tam null
-			- při prvním zamčení objektu se vytvoří syncblock a zamkne se (atomicky)
-			- když to samé vlákno zavolá Monitor.Enter, tak se zvýší Count
-			- když jiné vlákno udělá Monitor.Enter, tak se zablokuje pasivním čekáním
-		- jak zámek odemknout
-			- `Monitor.Exit(object o)`
-			- sníží se Count a pokud je nula, zámek se odemkne
-			- pokud někdo čeká, předá se objekt čekajícímu vláknu (to si ho zamkne)
-			- pokud nikdo nečeká, tak se reference na syncblock nastaví na null a syncblock se zařadí do poolu volných syncblocků, aby se daly použít u jiných objektů
-		- pozor na zamykání hodnotových typů – Monitor.Exit ho typicky zaboxuje do jiného typu, než jsme zamkli
-		- můžeme použít syntaktickou zkratku `lock (object o) { … }`
-			- začátek složených závorek odpovídá Enteru, konec Exitu
-			- kdybychom chtěli zamknout A, zamknout B, odemknout A a odemknout B, tak tuhle syntaxi použít nelze
-		- zamyká to objekt, ne proměnnou
-			- když v kritické sekci (v lock bloku) do proměnné přiřadíme nový objekt, tak se to může rozbít
-			- lock blok bude i v takové situaci fungovat správně – odemkne se zamčený objekt
-		- lock blok má Exit jakoby ve finally – odemkne se, i když se vyšíří výjimka
-			- někdy to ale není to, co chceme – datovou strukturu typicky zamykáme, protože během zamčení není v konzistentním stavu
-			- pokud bychom použili prostou kombinaci Monitor.Enter a Monitor.Exit bez finally, vyšířením výjimky mezi těmito dvěma příkazy by mohl nastat deadlock, pokud by stejný objekt chtěl zamknout někdo jiný
-				- deadlocku si zákazník hned všimne, protože se mu aplikace zasekne
-				- naopak nekonzistentního stavu datové struktury si všimnout nemusí
-				- musíme zvážit, co je pro nás vhodnější
-		- co když chceme zamknout proměnnou
-			- vytvoříme si pomocnou proměnnou `object dataLock = new object();`
-			- to je ta „esence zámku“
-			- pak si s proměnnou `data` můžeme dělat, co chceme – třeba do ní přiřadit nový objekt
----
+
+### Thread safety
+
+- máme dvě vlákna, která používají jednu datovou strukturu
+- část, kdy nějaké vlákno pracuje se sdílenou datovou strukturou = kritická sekce
+	- chceme zabránit race condition
+	- nejjednoduší přístup – mutual exclusion
+	- použijeme zámky
+- v dotnetu – syncblock
+	- to je jakoby ten zámek
+	- každý objekt na GC haldě má v overheadu referenci na Type a referenci na syncblock
+	- syncblock má dvě půlky: lock + „něco“
+- lock (zámek)
+	- je tam reference na vlákno, které drží ten zámek
+		- defaultně je tam null
+	- kvůli rekurzivnímu zamykání je tam počítadlo, kolikrát to vlákno ten zámek zamklo
+	- je tam fronta čekajících vláken, které čekají na odemčení
+	- jak zámek zamknout
+		- je tam třída `Monitor.Enter(object o)`
+		- při vytvoření objektu syncblock vůbec neexistuje, na haldě je tam null
+		- při prvním zamčení objektu se vytvoří syncblock a zamkne se (atomicky)
+		- když to samé vlákno zavolá Monitor.Enter, tak se zvýší Count
+		- když jiné vlákno udělá Monitor.Enter, tak se zablokuje pasivním čekáním
+	- jak zámek odemknout
+		- `Monitor.Exit(object o)`
+		- sníží se Count a pokud je nula, zámek se odemkne
+		- pokud někdo čeká, předá se objekt čekajícímu vláknu (to si ho zamkne)
+		- pokud nikdo nečeká, tak se reference na syncblock nastaví na null a syncblock se zařadí do poolu volných syncblocků, aby se daly použít u jiných objektů
+	- pozor na zamykání hodnotových typů – Monitor.Exit ho typicky zaboxuje do jiného typu, než jsme zamkli
+	- můžeme použít syntaktickou zkratku `lock (object o) { … }`
+		- začátek složených závorek odpovídá Enteru, konec Exitu
+		- kdybychom chtěli zamknout A, zamknout B, odemknout A a odemknout B, tak tuhle syntaxi použít nelze
+	- zamyká to objekt, ne proměnnou
+		- když v kritické sekci (v lock bloku) do proměnné přiřadíme nový objekt, tak se to může rozbít
+		- lock blok bude i v takové situaci fungovat správně – odemkne se zamčený objekt
+	- lock blok má Exit jakoby ve finally – odemkne se, i když se vyšíří výjimka
+		- někdy to ale není to, co chceme – datovou strukturu typicky zamykáme, protože během zamčení není v konzistentním stavu
+		- pokud bychom použili prostou kombinaci Monitor.Enter a Monitor.Exit bez finally, vyšířením výjimky mezi těmito dvěma příkazy by mohl nastat deadlock, pokud by stejný objekt chtěl zamknout někdo jiný
+			- deadlocku si zákazník hned všimne, protože se mu aplikace zasekne
+			- naopak nekonzistentního stavu datové struktury si všimnout nemusí
+			- musíme zvážit, co je pro nás vhodnější
+	- co když chceme zamknout proměnnou
+		- vytvoříme si pomocnou proměnnou `object dataLock = new object();`
+		- to je ta „esence zámku“
+		- pak si s proměnnou `data` můžeme dělat, co chceme – třeba do ní přiřadit nový objekt
+### Asynchronní metody
 
 - asynchronní metoda (vol. 1)
 	- na konci názvu bude typicky mít `Async`
@@ -1198,9 +1216,6 @@
 		- není to omezené na vlákna
 		- SemaphoreSlim(1) je něco jako zámek (s nerekurzivním zamykáním), akorát pro víc vláken (u zámku ho musí odemknout stejné vlákno)
 		- je tam i metoda WaitAsync, která vrací Task označující, zda se to podařilo zamknout
-
----
-
 - další synchronizační primitiva
 	- ReaderWriterLockSlim
 		- readeři se navzájem nevylučují, writeři ano
@@ -1208,6 +1223,9 @@
 	- CountdownEvent
 		- něco jako semafor naopak
 		- čeká se, dokud není hodnota nulová
+
+### Monitor, threading model
+
 - promise, future
 	- příklad: v jednom vlákně dáme task.Wait(), to vlákno se zablokuje
 	- SetResult musíme provést v jiné vlákně
