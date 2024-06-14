@@ -154,14 +154,14 @@ Obecné náhodné veličiny -- motivace, definice distribuční funkce a hustoty
 
 Vlastnosti distribuční funkce. Spojité náhodné veličiny a jejich popis pomocí hustoty. Využití hustoty -- výpočet pravděpodobnosti intervalu, každý bod má pravděpodobnost nula. Hustota jako limita histogramů. Definice střední hodnoty. Výpočty se spojitými veličinami (Pravidlo naivního statistika, rozptyl, linearita). Příklady spojitých rozdělení: uniformní a exponenciální. Jejich střední hodnota a rozptyl. Souvislost s geometrickým rozdělením. Normální rozdělení -- jeho parametry a základní vlastnosti.
 
-Střední hodnota N(0,1) a jeho rozptyl. Výpočet pomocí Φ. Odolnost vůči součtu. Cauchyho rozdělení (jako varování). Paretovo rozdělení -- **výpočty na tabuli byly špatně!** Omlouvám se, správná verze [ve skriptech](https://iuuk.mff.cuni.cz/~samal/vyuka/PSt1/skripta.pdf), kapitolka 6.5 Paretova distribuce.  
+Střední hodnota N(0,1) a jeho rozptyl. Výpočet pomocí Φ. Odolnost vůči součtu. Cauchyho rozdělení (jako varování). Paretovo rozdělení, na tabuli špatně, správná verze ve skriptech.
 Součet diskrétního a spojitého rozdělení vs. jejich "mix". Kvantilová funkce stručně. (Použití na generování bude později.) Spojité náhodné vektory -- sdružená distribuční funkce Pravděpodobnost obdélníku pomocí sdružené distribuční funkce. Hustota. Nezávislost (pomocí distribuční funkce i pomocí hustoty).
 
 **Konvoluce** pro spojité náhodné veličiny, příklad (součet normálních rozdělení je normální). Důležitý příklad: **vícerozměrné normální rozdělení** a jeho vlastnosti (použití pro generování bodu na sféře).  
 Markovova nerovnost. Čebyševova a (bez důkazu) Chernoffova nerovnost. **Zákony velkých čísel**, aplikace -- Monte Carlo integrování (kruhu).
 
-Slabý zákon velkých čísel (zlepšení přesnosti opakovaným měřením). **Centrální limitní věta** -- znění, vysvětlení. [Galtonova deska](https://upload.wikimedia.org/wikipedia/commons/d/dc/Galton_box.webm) -- ilustrace centrální limitní věty, detailní vysvětlení na [wiki stránce.](https://en.wikipedia.org/wiki/Galton_board)  
-  
+Slabý zákon velkých čísel (zlepšení přesnosti opakovaným měřením). **Centrální limitní věta** -- znění, vysvětlení.
+
 **Statistika** -- základní principy. Explorační vs. konfirmační analýza. Přehled obvyklých úloh: bodové a intervalové odhady, testování hypotéz, regrese. Náhodný výběr s opakováním, bez opakování.
 
 ## Statistika
@@ -252,7 +252,7 @@ Slabý zákon velkých čísel (zlepšení přesnosti opakovaným měřením). *
 			- abych se nemusel rozhodovat mezi $p$ a $f$, budu používat $L$
 		- …
 
-Dokončení k bodovým odhadům: rozdíl mezi populačním a výběrovým průměrem (rozptylem). Důkaz, že výběrový rozptyl je nestranný odhad rozptylu ("má se dělit n−1, ne n").  
+Dokončení k bodovým odhadům: rozdíl mezi populačním a výběrovým průměrem (rozptylem). Důkaz, že výběrový rozptyl je nestranný odhad rozptylu.
 **Intervalové odhady.** -- obecná metoda založená na normálním rozdělení, příklady použití se známým i neznámým rozptylem
 
 **Testování hypotéz.** Ilustrační příklady na úvod.  
