@@ -282,13 +282,10 @@
 - Odhady konzistentní a (asymptoticky) nevychýlené
 - Vychýlení (bias) a střední kvadratická chyba (MSE)
 - Konstrukce odhadů pomocí metody momentů i maximální věrohodnosti
-- Dokončení k bodovým odhadům: rozdíl mezi populačním a výběrovým průměrem (rozptylem)
+- Rozdíl mezi populačním a výběrovým průměrem (rozptylem)
 - ! Důkaz, že výběrový rozptyl je nestranný odhad rozptylu ("má se dělit n−1, ne n")
 - Intervalové odhady – obecná metoda založená na normálním rozdělení, příklady použití se známým i neznámým rozptylem
-- Testování hypotéz
-- Co znamená hladina významnosti
-- Obecné schéma: nulová hypotéza, alternativní hypotéza, hladina významnosti, atd
-- Příklad: testování mince
+- Schéma testování hypotéz: nulová hypotéza, alternativní hypotéza, hladina významnosti
 - Testování střední hodnoty normálního rozdělení (známý vs. neznámý rozptyl, neboli z-test vs. t-test)
 - Numerická/ordinální/kategorická data
 - Multinomické rozdělení
