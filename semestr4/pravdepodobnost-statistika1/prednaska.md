@@ -1,33 +1,44 @@
 # Pravděpodobnost a statistika
 
-- aplikace pravděpodobnosti
-	- $f,g$ polynomy stupně $d$
-	- test $f=g$?
-- $\Omega$ … prostor všech možných výsledků
-	- u hrací kostky $\Omega=\set{1,\dots,6}=[6]$
-	- u hodu 3 kostkami $\Omega=[6]\times[6]\times[6]$
-	- u hodu $\infty$ kostkami $\Omega=$ množina nekonečných posloupností čísel z $[6]$
-	- u hodu na terč … je to ten terč $\subseteq\mathbb R^2$
-	- u doby běhu programu … $[0,\infty]$
-	- u počtu osob na přednášce … $\mathbb N_0$
-- $\mathcal F$ … prostor jevů (event space)
-	- $\mathcal F\subseteq\mathcal P(\Omega)$
-	- množiny, které nás zajímají
-	- $\mathcal F=\mathcal P(\Omega)$ jde jen pro $|\Omega|\leq |\mathbb N|$
-- df: $\mathcal F\subseteq\mathcal P(\Omega)$ je prostor jevů, pokud…
-	- $\emptyset,\Omega\in\mathcal F$
-	- $A\in\mathcal F\implies A^C=\Omega\setminus A\in\mathcal F$
-	- $A_1,A_2,\dots\in\mathcal F\implies\bigcup A_i\in F$
-- …
-- df: pravděpodobnost
-- df: pravděpodobnostní prostor
-- u reálného terče je pravděpodobnost, že trefím konkrétní bod, rovna nule
-	- takže neplatí implikace $P(A)=0\implies A=\emptyset$
-- příklad: spojitý pravděpodobnostní prostor
-	- $\Omega\subseteq\mathbb R^d$
-	- $f:\Omega\to[0,\infty)$
-	- $P(A)=\int_A f$
-	- musí platit $\int_\Omega f=1$
+- Definice: Prostor jevů, pravděpodobnost, pravděpodobnostní prostor
+	- $\Omega$ … prostor všech možných výsledků
+		- u hrací kostky $\Omega=\set{1,\dots,6}=[6]$
+	- $\mathcal F$ … prostor jevů (event space)
+		- $\mathcal F\subseteq\mathcal P(\Omega)$
+		- množiny, které nás zajímají
+		- $\mathcal F=\mathcal P(\Omega)$ jde jen pro $|\Omega|\leq |\mathbb N|$
+	- $\mathcal F\subseteq\mathcal P(\Omega)$ je prostor jevů, pokud…
+		- $\emptyset,\Omega\in\mathcal F$
+		- $A\in\mathcal F\implies A^C=\Omega\setminus A\in\mathcal F$
+		- $A_1,A_2,\ldots\in\mathcal F\implies\bigcup A_i\in \mathcal F$
+	- pozorování
+		- $A_1,A_2\in\mathcal F\implies A_1\cup A_2\in\mathcal F$ (z 3. bodu definice, všechny ostatní množiny nekonečného sjednocení jsou prázdné)
+		- $A_1,A_2\in\mathcal F\implies A_1\cap A_2\in\mathcal F$
+			- jelikož $A_1\cap A_2=(A_1^C\cup A_2^C)^C\in\mathcal F$
+	- $P:\mathcal F\to[0,1]$ je pravděpodobnost, pokud…
+		- $P(\Omega)=1$
+		- $P(\bigcup A_i)=\sum P(A_i)$ pro $A_1,A_2,\ldots\in \mathcal F$ po dvou disjunktní
+	- pozorování
+		- $P(\emptyset)=0$
+		- $P(A_1\cup A_2)=P(A_1)+P(A_2)$
+	- jistý jev … $P(A)=1$
+	- nemožný jev … $P(A)=0$
+		- u reálného terče je pravděpodobnost, že trefím konkrétní bod, rovna nule
+			- takže neplatí implikace $P(A)=0\implies A=\emptyset$
+	- pravděpodobnostní prostor … $(\Omega,\mathcal F,P)$
+		- příklad: spojitý pravděpodobnostní prostor
+			- $\Omega\subseteq\mathbb R^d$
+			- $f:\Omega\to[0,\infty)$
+			- $P(A)=\int_A f$
+			- musí platit $\int_\Omega f=1$
+- Věta: Základní vlastnosti jevů
+	- $P(A)+P(A^C)=1$
+		- $\Omega=A\cup A^C$
+		- $1=P(\Omega)=P(A)+P(A^C)$
+			- lze použít, protože $A\cup A^C=\emptyset$
+	- …
+- Podmíněná pravděpodobnost
+	- …
 
 ---
 
