@@ -1,2 +1,218 @@
 # Zkouška
 
+## Pravděpodobnost
+
+- Věta o základních vlastnostech pravděpodobnosti
+	- definice
+		- $\mathcal F\subseteq\mathcal P(\Omega)$ je prostor jevů, pokud…
+			- $\emptyset,\Omega\in\mathcal F$
+			- $A\in\mathcal F\implies A^c=\Omega\setminus A\in\mathcal F$
+			- $A_1,A_2,\ldots\in\mathcal F\implies\bigcup A_i\in \mathcal F$
+		- $P:\mathcal F\to[0,1]$ je pravděpodobnost, pokud…
+			- $P(\Omega)=1$
+			- $P(\bigcup A_i)=\sum P(A_i)$ pro $A_1,A_2,\ldots\in \mathcal F$ po dvou disjunktní
+	- věta
+		- $P(A)+P(A^c)=1$
+			- jsou disjunktní $\land\; A\cup A^c=\Omega\implies$použijeme druhý bod definice
+		- $A\subseteq B\implies P(B\setminus A)=P(B)-P(A)\implies P(A)\leq P(B)$
+			- $B$ rozložíme na dvě disjunktní množiny: $B=A\cup(B\setminus A)$
+		- $P(A\cup B)=P(A)+P(B)-P(A\cap B)$
+			- $A\cup B$ rozložíme na tři disjunktní množiny (rozdíly a průnik)
+		- $P(A_1\cup A_2\cup\dots)\leq\sum_i P(A_i)$ … subaditivita, Booleova nerovnost
+			- uvažujeme sjednocení disjunktních $B_i=A_i\setminus\bigcup_{j\lt i}A_j$
+			- $\forall i:B_i\subseteq A_i$, tedy $P(B_i)\leq P(A_i)$
+			- zjevně $\bigcup B_i=\bigcup A_i$
+- Podmíněná pravděpodobnost
+	- pokud $A,B\in\mathcal F$ a $P(B)\gt 0$, definujeme podmíněnou pravděpodobnost $A$ při $B$ jako $P(A\mid B)=\frac{P(A\cap B)}{P(B)}$
+	- zjevně $P(A\cap B)=P(A)\cdot P(B\mid A)$
+- Pravidlo pro výpočet pomocí zřetězení podmíněné pravděpodobnosti
+	- $P(A_1\cap A_2\cap \dots\cap A_n)=P(A_1)P(A_2\mid A_1)P(A_3\mid A_1\cap A_2)\dots P(A_n\mid A_1\cap\dots\cap A_{n-1})$
+		- lze ukázat indukcí (nebo neformálně rozepsáním členů vpravo a vykrácením)
+- Věta o úplné pravděpodobnosti
+	- věta
+		- mějme $B_1,B_2,\dots$ rozklad $\Omega$
+		- $P(A)=\sum_iP(B_i)\cdot P(A\mid B_i)$
+			- sčítance s $P(B_i)=0$ považujeme za nulové
+	- důkaz
+		- $B_i$ tvoří rozklad, takže $A$ můžeme napsat jako disjunktní sjednocení množin $A\cap B_i$
+		- pak $P(A)=\sum_i P(A\cap B_i)$
+- Bayesova věta
+	- věta
+		- mějme $B_1,B_2,\dots$ rozklad $\Omega$
+		- $P(B_j\mid A)=\frac{P(B_j)\cdot P(A\mid B_j)}{\sum_i P(B_i)\cdot P(A\mid B_i)}$
+	- důkaz
+		- $P(A)\cdot P(B_j\mid A)=P(A\cap B_j)=P(B_j)\cdot P(A\mid B_j)$
+		- $P(A)=\sum_iP(B_i)\cdot P(A\mid B_i)$
+- Nezávislost jevů
+	- jevy $A,B\in\mathcal F$ jsou nezávislé, pokud $P(A\cap B)=P(A)\cdot P(B)$
+	- můžeme uvažovat i větší množiny jevů
+		- jevy v množině jsou (vzájemně) nezávislé, pokud pro každou konečnou podmnožinu platí, že $P(\bigcap)=\prod P$
+		- pokud podmínka platí jen pro dvouprvkové podmnožiny, jsou jevy *po dvou nezávislé*
+- Diskrétní náhodné veličiny: popis pomocí pravděpodobnostní funkce
+	- $p_X(x)=P(\set{X=x})$
+- Příklady diskrétních rozdělení: Bernoulliho, geometrické, binomické, Poissonovo
+	- Bernoulliho/alternativní rozdělení $\text{Ber}(p)$
+		- počet úspěchů při jednom pokusu (kde $p$ je pravděpodobnost úspěchu)
+		- $p_X(1)=p$
+		- $p_X(0)=1-p$
+		- jinak $p_X(x)=0$
+		- $\mathbb E(X)=p$
+		- $\text{var}(X)=p(1-p)$
+	- Geometrické rozdělení $\text{Geom}(p)$
+		- při kolikátém pokusu poprvé uspějeme
+		- $p_X(k)=(1-p)^{k-1}\cdot p$
+		- $\mathbb E(X)=1/p$
+		- $\text{var}(X)=\frac{1-p}{p^2}$
+	- Binomické rozdělení $\text{Bin}(n,p)$
+		- počet úspěchů při $n$ nezávislých pokusech
+		- $p_X(k)={n\choose k}p^k(1-p)^{n-k}$
+		- $\mathbb E(X)=np$
+		- $\text{var}(X)=np(1-p)$
+	- Poissonovo rozdělení $\text{Pois}(\lambda)$
+		- počet doručených zpráv za časový úsek, $\lambda$ je průměrná hodnota
+		- $p_X(k)=\frac{\lambda^k}{k!}e^{-\lambda}$
+		- $\text{Pois}(\lambda)$ je limitou $\text{Bin}(n,\lambda/n)$ pro $n\to\infty$
+			- $p_{X_n}(k)={n\choose k}(\frac\lambda n)^k(1-\frac\lambda n)^{n-k}$
+			- $=\frac{n(n-1)\dots(n-k+1)}{k!}\frac{\lambda^k}{n^k}(1-\frac\lambda n)^n(1-\frac\lambda n)^{-k}$
+			- $=\frac{\lambda^k}{k!}\underbrace{\frac{n(n-1)\dots(n-k+1)}{n^k}}_{\to\,1}\underbrace{(1-\frac\lambda n)^n}_{\to\,e^{-\lambda}}\underbrace{(1-\frac\lambda n)^{-k}}_{\to\,1}$
+		- $\mathbb E(X)=\lambda$
+		- $\text{var}(X)=\lambda$
+- Střední hodnota
+	- $\mathbb E(X)=\sum_{x\in\text{Im}(X)}x\cdot P(X=x)$
+	- pozorování: $\mathbb E(X)=\sum_{\omega\in\Omega}X(\omega)\cdot P(\set{\omega})$
+- Střední hodnota diskrétní náhodné veličiny: vlastnosti (linearita, podmíněná střední hodnota, věta o celkové střední hodnotě), výpočet
+	- pravidlo naivního statistika
+		- $\mathbb E(g(X))=\sum_{x\in\text{Im}(X)}g(x)P(X=x)$
+	- důkaz
+		- položme $Y=g(X)$
+		- z definice: $\mathbb E(Y)=\sum_{y\in\text{Im}(Y)}y P(Y=y)$
+		- zjevně $P(Y=y)=\sum_{x\in\text{Im}(X),g(x)=y} P(X=x)$
+			- protože $y$ může být obrazem více různých $x$
+		- dosadíme $\mathbb E(Y)=\sum_{y\in\text{Im}(Y)}y \sum_{x\in\text{Im}(X),g(x)=y} P(X=x)$
+		- tedy $\mathbb E(Y)=\sum_{y\in\text{Im}(Y)} \sum_{x\in\text{Im}(X),g(x)=y}y P(X=x)$
+		- $\mathbb E(Y)=\sum_{x\in\text{Im}(X)}g(x) P(X=x)$
+	- linearita $\mathbb E(aX+b)=a\mathbb E(X)+b$ plyne z PNS pro funkci $ax+b$
+	- podmíněná střední hodnota $\mathbb E(X\mid B)=\sum_{x\in\text{Im}(X)}x\cdot P(X=x\mid B)$
+	- věta o celkové střední hodnotě: $\mathbb E(X)=\sum_i P(B_i)\cdot \mathbb E(X\mid B_i)$
+- Alternativní vzorec střední hodnoty pomocí survival funkce
+	- $\mathbb E(X)=\sum_{n=0}^\infty P(X\gt n)$
+	- idea důkazu
+		- $\mathbb E(X)=p_X(1)+p_X(2)+p_X(3)+\dots$
+			- $+\,p_X(2)+p_X(3)+\dots$
+			- $+\,p_X(3)+\dots$
+- Rozptyl a jeho vlastnosti
+	- rozptyl … $\text{var}(X)=\mathbb E((X-\mathbb EX)^2)$
+	- směrodatná odchylka … $\sigma_X=\sqrt{\text{var}(X)}$
+	- variační koeficient … $\text{CV}_X=\sigma_X/\mathbb E(X)$
+	- věta: $\text{var}(X)=\mathbb E(X^2)-\mathbb E(X)^2$
+	- důkaz: $\mathbb E((X-\mu)^2)=\mathbb E(X^2-2\mu X+\mu^2)=\mathbb E(X^2)-2\mu\mathbb E(X)+\mu^2$
+- Náhodný vektor: sdružená pravděpodobnostní funkce a její vztah s funkcemi marginálními
+	- $p_{X,Y}(x,y)=P(\set{\omega\in\Omega:X(\omega)=x\land Y(\omega)=y})$
+	- $p_X(x)=\sum_{y} p_{X,Y}(x,y)$
+		- podobně pro $p_Y(y)$
+		- využíváme toho, že máme disjunktní sjednocení
+- Pravděpodobnostní funkce libovolné funkce dvou náhodných veličin
+	- věta
+		- mějme náhodný vektor $(X,Y)$ a funkci $g:\mathbb R^2\to\mathbb R$
+		- pak $Z=g(X,Y)$ je náhodná veličina na $(\Omega,\mathcal F,P)$
+		- přičemž $p_Z(z)=\sum_{x\in\text{Im}(X),y\in\text{Im}(Y): g(x,y)=z} P(X=x\land Y=y)$
+	- důkaz
+		- $P((X,Y)\in A)=\sum_{a\in A} P((X,Y)=a)$
+			- plyne přímo z pravděpodobnosti disjunktního sjednocení (je to součet pravděpodobností)
+- Nezávislost náhodných veličin
+	- $X,Y$ jsou nezávislé, jestliže pro každé $x,y\in\mathbb R$ jsou jevy $\set{X=x}$ a $\set{Y=y}$ nezávislé
+	- to nastane, právě když $P(X=x,Y=y)=P(X=x)\cdot P(Y=y)$
+	- neboli $p_{X,Y}(x,y)=p_X(x)\cdot p_Y(y)$
+- PNS pro funkci náhodného vektoru, střední hodnota součtu n.v., součinu nezávislých n.v.
+	- $\mathbb E(g(X,Y))=\sum_x\sum_y g(x,y) P(X=x\land Y=y)$
+		- vyplývá ze vzorce pro pravděpodobnostní funkci funkce dvou náhodných veličin
+	- $\mathbb E(aX+bY)=a\mathbb E(X)+b\mathbb E(Y)$
+		- vyplývá z PNS
+	- $\mathbb E(XY)=\mathbb E(X)\mathbb E(Y)$
+		- vyplývá z PNS
+- Konvoluční vzorec
+	- pravděpodobnostní funkce součtu $Z=X+Y$
+		- $P(Z=z)=\sum P_{x\in\text{Im}(X)}(X=x\land Y=z-x)$
+	- pro nezávislé $X,Y$
+		- $P(Z=z)=\sum P_{x\in\text{Im}(X)}(X=x)P(Y=z-x)$
+	- obojí vyplývá ze vzorce pro pravděpodobnostní funkci funkce dvou náhodných veličin
+- Kovariance a její vlastnosti
+	- definice: $\text{cov}(X,Y)=\mathbb E((X-\mathbb EX)(Y-\mathbb EY))$
+	- věta: $\text{cov}(X,Y)=\mathbb E(XY)-\mathbb E(X)\mathbb E(Y)$
+		- je to přímočaré roznásobení definice
+	- pro nezávislé $X,Y$ platí $\text{cov}(X,Y)=0$
+	- zjevně $\text{cov}(X,X)=\text{var}(X)$
+	- $\text{cov}(aX+bY,Z)=a\text{cov}(Y,Z)+b\text{cov}(Y,Z)$
+	- korelace
+		- $\rho(X,Y)=\frac{\text{cov}(X,Y)}{\sigma_X\cdot\sigma_Y}$
+- Rozptyl součtu náhodných veličin
+	- věta
+		- nechť $X=\sum_{i=1}^n X_i$
+		- pak $\text{var}(X)=\sum_{i=1}^n\sum_{j=1}^n\text{cov}(X_i,X_j)$
+	- důkaz
+		- $\text{var}(X)=\text{cov}(X,X)=\text{cov}(\sum X_i,\sum X_i)$
+		- použiju $\text{cov}(aX+bY,Z)=a\text{cov}(Y,Z)+b\text{cov}(Y,Z)$, rozložím všechny členy
+	- věta
+		- pro jevy po dvou nezávislé
+		- $\text{var}(X)=\sum_{i=1}^n\sum_{j=1}^n\text{cov}(X_i,X_j)=\sum_{i=1}^n\text{var}(X_i)$
+	- důkaz druhé rovnosti
+		- $\text{cov}(X_i,X_j)=0\iff i\neq j$
+
+---
+
+- Obecné náhodné veličiny – motivace, definice distribuční funkce a hustoty
+- Vlastnosti distribuční funkce
+- Spojité náhodné veličiny a jejich popis pomocí hustoty
+- Využití hustoty – výpočet pravděpodobnosti intervalu, každý bod má pravděpodobnost nula
+- Hustota jako limita histogramů
+- Definice střední hodnoty
+- Výpočty se spojitými veličinami (Pravidlo naivního statistika, rozptyl, linearita)
+- Příklady spojitých rozdělení: uniformní a exponenciální
+- Jejich střední hodnota a rozptyl
+- Souvislost s geometrickým rozdělením
+- Normální rozdělení – jeho parametry a základní vlastnosti
+- Střední hodnota N(0,1) a jeho rozptyl
+- Výpočet pomocí Φ
+- Odolnost vůči součtu
+- Cauchyho rozdělení (jako varování)
+- Paretovo rozdělení
+- ! Součet diskrétního a spojitého rozdělení vs. jejich "mix"
+- Kvantilová funkce stručně
+- Spojité náhodné vektory – sdružená distribuční funkce
+- Pravděpodobnost obdélníku pomocí sdružené distribuční funkce
+- Hustota
+- Nezávislost (pomocí distribuční funkce i pomocí hustoty)
+- Konvoluce pro spojité náhodné veličiny, příklad (součet normálních rozdělení je normální)
+- Důležitý příklad: vícerozměrné normální rozdělení a jeho vlastnosti (použití pro generování bodu na sféře)
+- Markovova nerovnost
+- Čebyševova a (bez důkazu) Chernoffova nerovnost
+- Zákony velkých čísel, aplikace – Monte Carlo integrování (kruhu)
+- Slabý zákon velkých čísel (zlepšení přesnosti opakovaným měřením)
+- ! Centrální limitní věta – znění, vysvětlení
+- ! Galtonova deska – ilustrace centrální limitní věty
+
+## Statistika
+
+- Statistika – základní principy
+- Explorační vs. konfirmační analýza
+- Přehled obvyklých úloh: bodové a intervalové odhady, testování hypotéz, regrese
+- Náhodný výběr s opakováním, bez opakování
+- Bodové ohady: výběrový průměr a výběrový rozptyl
+- Odhady konzistentní a (asymptoticky) nevychýlené
+- Vychýlení (bias) a střední kvadratická chyba (MSE)
+- Konstrukce odhadů pomocí metody momentů i maximální věrohodnosti
+- Dokončení k bodovým odhadům: rozdíl mezi populačním a výběrovým průměrem (rozptylem)
+- ! Důkaz, že výběrový rozptyl je nestranný odhad rozptylu ("má se dělit n−1, ne n")
+- Intervalové odhady – obecná metoda založená na normálním rozdělení, příklady použití se známým i neznámým rozptylem
+- Testování hypotéz
+- Co znamená hladina významnosti
+- Obecné schéma: nulová hypotéza, alternativní hypotéza, hladina významnosti, atd
+- Příklad: testování mince
+- Testování střední hodnoty normálního rozdělení (známý vs. neznámý rozptyl, neboli z-test vs. t-test)
+- Numerická/ordinální/kategorická data
+- Multinomické rozdělení
+- Test dobré shody (G-test, χ2-test) – předvedení a částečné zdůvodnění
+- Jednovýběrový vs. dvouvýběrový test vs. párový test
+- ! Lineární regrese (a možné komplikace)
+- ! Neparametrické testy – vlastnosti empirické distribuční funkce (KS test)
+- Generování náhodných veličin (inverzní transformace, rejection sampling)
