@@ -1,6 +1,6 @@
 # Zkouška
 
-## Pravděpodobnost
+## Základy pravděpodobnosti
 
 - Věta o základních vlastnostech pravděpodobnosti
 	- definice
@@ -48,6 +48,9 @@
 	- můžeme uvažovat i větší množiny jevů
 		- jevy v množině jsou (vzájemně) nezávislé, pokud pro každou konečnou podmnožinu platí, že $P(\bigcap)=\prod P$
 		- pokud podmínka platí jen pro dvouprvkové podmnožiny, jsou jevy *po dvou nezávislé*
+
+## Diskrétní náhodné veličiny
+
 - Diskrétní náhodné veličiny: popis pomocí pravděpodobnostní funkce
 	- $p_X(x)=P(\set{X=x})$
 - Příklady diskrétních rozdělení: Bernoulliho, geometrické, binomické, Poissonovo
@@ -158,45 +161,123 @@
 	- důkaz druhé rovnosti
 		- $\text{cov}(X_i,X_j)=0\iff i\neq j$
 
----
+## Spojité náhodné veličiny
 
-- Obecné náhodné veličiny – motivace, definice distribuční funkce a hustoty
-- Vlastnosti distribuční funkce
+- Distribuční funkce, její vlastnosti
+	- distribuční funkce náhodné veličiny $X$ je funkce $F_X:\mathbb R\to [0,1]$ definovaná předpisem $F_X(x):=P(X\leq x)$
+	- zjevně $P(a\lt X\leq b)=F_X(b)-F_X(a)$
+	- vlastnosti
+		- $F_X$ je neklesající
+		- $\lim_{x\to+\infty} F_X(x)=1$
+		- $\lim_{x\to-\infty} F_X(x)=0$
+		- $F_X$ je zprava spojitá
 - Spojité náhodné veličiny a jejich popis pomocí hustoty
+	- náhodná veličina $X$ se nazývá spojitá, pokud existuje nezáporná reálná funkce $f_X$ tak, že $F_X(x)=P(X\leq x)=\int_{-\infty}^x f_X(t)\text dt$
+	- hustota $f_X$ … „limita histogramů“
+	- zjevně $\int_{-\infty}^\infty f=1$
 - Využití hustoty – výpočet pravděpodobnosti intervalu, každý bod má pravděpodobnost nula
-- Hustota jako limita histogramů
+	- $P(X=x)=0$
+	- $P(a\leq X\leq b)=\int_a^b f_X(t)\text dt$
 - Definice střední hodnoty
+	- $\mathbb E(X)=\int_{-\infty}^{\infty} x f_X(x)\text dx$
 - Výpočty se spojitými veličinami (Pravidlo naivního statistika, rozptyl, linearita)
+	- $\mathbb E(g(X))=\int_{-\infty}^\infty g(x)f_X(x)\text dx$
+	- opět platí linearita střední hodnoty
+	- $\text{var}(X)=\mathbb E((X-\mu)^2)=\int_{-\infty}^\infty (x-\mu)^2 f_X(x)\text dx$
+	- opět platí $\text{var}(X)=\mathbb E(X^2)-(\mathbb E(X))^2$
+		- z linearity střední hodnoty
 - Příklady spojitých rozdělení: uniformní a exponenciální
-- Jejich střední hodnota a rozptyl
-- Souvislost s geometrickým rozdělením
-- Normální rozdělení – jeho parametry a základní vlastnosti
-- Střední hodnota N(0,1) a jeho rozptyl
-- Výpočet pomocí Φ
-- Odolnost vůči součtu
+	- uniformní $U(a,b)$
+		- $f_X(x)=\frac 1{b-a}$
+		- $F_X(x)=\frac{x-a}{b-a}$
+		- $\mathbb E(X)=\frac{a+b}2$
+		- $\text{var}(X)=\frac{(b-a)^2}{12}$
+	- exponenciální $\text{Exp}(\lambda)$
+		- $f_X(x)=\lambda e^{-\lambda x}$ pro $x\geq 0$
+		- $F_X(x)=1-e^{-\lambda x}$ pro $x\geq 0$
+		- $\mathbb E(X)=1/\lambda$
+		- $\text{var}(X)=1/\lambda^2$
+- Normální rozdělení
+	- standardní normální rozdělení
+		- $N(0,1)$
+		- $f_X(x)=\varphi(x)=\frac1{\sqrt{2\pi}} e^{-x^2/2}$
+	- obecné normální rozdělení
+		- $N(\mu,\sigma^2)$
+		- $f_X(x)=\frac 1{\sigma\sqrt{2\pi}}e^{-\frac12(\frac{x-\mu}{\sigma})^2}$
+	- máme-li $X\sim N(\mu,\sigma^2)$, pak pro $Z=\frac{X-\mu}\sigma$ platí $Z\sim N(0,1)$
+	- pro normální nezávislé náhodné veličiny $X_i\sim N(\mu_i,\sigma_i^2)$ (nechť je jich konečně) je i součet normální náhodná veličina $\sum X_i\sim N(\sum\mu_i,\sum\sigma_i^2)$
+	- pravidlo $3\sigma$
+		- $P(\mu-\sigma\lt X\lt\mu+\sigma)\doteq 0.68$
+		- $P(\mu-2\sigma\lt X\lt\mu+2\sigma)\doteq 0.95$
+		- $P(\mu-3\sigma\lt X\lt\mu+3\sigma)\doteq 0.997$
 - Cauchyho rozdělení (jako varování)
+	- $f(x)=\frac1{\pi(1+x^2)}$
+	- nemá střední hodnotu
 - Paretovo rozdělení
-- ! Součet diskrétního a spojitého rozdělení vs. jejich "mix"
+	- $F_X(x)=1-(\frac{x_0}x)^\alpha$ pro $x\geq x_0$ (jinak 0)
+	- $f_X=\alpha x_0^\alpha/x^{\alpha+1}$ pro $x\geq x_0$ (jinak 0)
+	- $\mathbb E(X)=x_0\frac\alpha{\alpha-1}$ pro $\alpha\gt 1$
 - Kvantilová funkce stručně
-- Spojité náhodné vektory – sdružená distribuční funkce
+	- $Q_x(p)=\min\set{x\in\mathbb R:p\leq F_X(x)}$
+	- pro spojité $X$ platí $Q_X=F^{-1}_X$
+	- medián … $Q_X(1/2)$
+	- 1\. kvartil … $Q_X(1/4)$
+	- 3\. kvartil … $Q_X(3/4)$
+- Sdružená distribuční funkce
+	- $F_{X,Y}(x,y)=P(\set{\omega\in\Omega:X(\omega)\leq x\land Y(\omega)\leq y})$
+	- někdy lze použít $F_{X,Y}(x,y)=\int_{-\infty}^x\int_{-\infty}^y f_{X,Y}(x,y)\text dx\text dy$
+		- pak $f_{X,Y}$ je sdružená hustota
 - Pravděpodobnost obdélníku pomocí sdružené distribuční funkce
-- Hustota
+	- $P(X\in(a,b]\land Y\in(c,d])=F(b,d)-F(a,d)-F(b,c)+F(a,c)$
+- Marginální hustota
+	- $f_X(x)=\int_{y\in\mathbb R}f_{X,Y}(x,y)\text dy$
 - Nezávislost (pomocí distribuční funkce i pomocí hustoty)
-- Konvoluce pro spojité náhodné veličiny, příklad (součet normálních rozdělení je normální)
-- Důležitý příklad: vícerozměrné normální rozdělení a jeho vlastnosti (použití pro generování bodu na sféře)
+	- $F_{X,Y}(x,y)=F_X(x)F_Y(y)$
+	- $f_{X,Y}(x,y)=f_X(x)f_Y(y)$
+- Konvoluce pro spojité náhodné veličiny
+	- pro nezávislé náhodné veličiny
+	- $f_Z(z)=\int_{-\infty}^\infty f_X(x)f_Y(z-x)\text dx$
 - Markovova nerovnost
-- Čebyševova a (bez důkazu) Chernoffova nerovnost
-- Zákony velkých čísel, aplikace – Monte Carlo integrování (kruhu)
+	- pro $X\geq 0$ a $a\gt0$ platí $P(X\geq a)\leq\frac{\mathbb E(X)}a$
+	- důkaz
+		- $\mathbb E(X)=P(X\geq a)\cdot\mathbb E(X\mid X\geq a)+P(X\lt a)\cdot\mathbb E(X\mid X\lt a)$
+		- $\leq P(X\geq a)\cdot a+0$
+- Čebyševova nerovnost
+	- $P(|X-\mu|\geq t\cdot\sigma)\leq\frac1{t^2}$
+	- důkaz
+		- položíme $Y=(X-\mu)^2$
+			- zjevně $\mathbb E(Y)=\sigma^2$
+		- použijeme Markovovu nerovnost pro $Y$
+			- $P(Y\geq t^2\sigma^2)\leq\frac{\sigma^2}{t^2\sigma^2}$
+- Silný zákon velkých čísel
+	- mějme $X_1,X_2,\dots$ stejně rozdělené nezávislé náhodné veličiny
+	- $\bar X_n=(X_1+\dots+X_n)/n$ … výběrový průměr
+	- $\lim_{n\to\infty}\bar X_n=\mu$ skoro jistě (s pravděpodobností 1)
+	- použití: Monte Carlo integrování kruhu
 - Slabý zákon velkých čísel (zlepšení přesnosti opakovaným měřením)
-- ! Centrální limitní věta – znění, vysvětlení
-- ! Galtonova deska – ilustrace centrální limitní věty
+	- věta
+		- nechť $X_1,X_2,\dots$ jsou stejně rozdělené nezávislé náhodné veličiny
+		- $\bar X_n=(X_1+\dots+X_n)/n$ … výběrový průměr
+		- $\forall\epsilon\gt 0:\lim_{n\to\infty} P(|\bar X_n-\mu|\gt\varepsilon)=0$
+		- říkáme, že $\bar X_n$ konverguje k $\mu$ v pravděpodobnosti, píšeme $\bar X_n\xrightarrow P\mu$
+	- důkaz
+		- $\mathbb E\bar X_n=\mathbb E\frac{X_1+X_2+\dots+X_n}{n}=\frac{\mu n}n=\mu$
+		- $\text{var}\bar X_n=\text{var}\frac{X_1+\dots+X_n}{n^2}=\frac{n\cdot\sigma^2}{n^2}=\frac{\sigma^2}n$
+		- použijeme Čebyševovu nerovnost pro $t=\sqrt n\varepsilon/\sigma$, přičemž za $\sigma$ musíme dosadit $\sigma/\sqrt{n}$
+		- $P(|\bar X_n-\mu|\geq \varepsilon)\leq\frac{\sigma^2}{n\cdot\varepsilon^2}$
+- Centrální limitní věta – znění, vysvětlení
+	- nechť $X_1,X_2,\dots$ jsou stejně rozdělené se střední hodnotou $\mu$ a rozpytem $\sigma^2$
+	- označme $Y_n=\frac{(X_1+\dots+X_n)-n\mu}{\sigma\sqrt{n}}$
+	- pak $Y_n\xrightarrow d N(0,1)$
+		- $Y_n$ konverguje v distribuci k $N(0,1)$
+		- tzn. $\lim_{n\to\infty} F_{Y_n}(x)=\Phi(x)$
+	- CLV se hodí k aproximaci distribuce součtu nebo průměru velkého počtu náhodných veličin normálním rozdělením
 
 ## Statistika
 
-- Statistika – základní principy
 - Explorační vs. konfirmační analýza
-- Přehled obvyklých úloh: bodové a intervalové odhady, testování hypotéz, regrese
-- Náhodný výběr s opakováním, bez opakování
+	- explorační analýza – něco počítáme pro napozorovaná data, objevujeme zajímavé zákonitosti
+	- konfirmační analýza – ověřujeme, jestli jsou zákonitosti pravdivé
 - Bodové ohady: výběrový průměr a výběrový rozptyl
 - Odhady konzistentní a (asymptoticky) nevychýlené
 - Vychýlení (bias) a střední kvadratická chyba (MSE)
