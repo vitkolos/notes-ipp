@@ -266,7 +266,7 @@
 		- použijeme Čebyševovu nerovnost pro $t=\sqrt n\varepsilon/\sigma$, přičemž za $\sigma$ musíme dosadit $\sigma/\sqrt{n}$
 		- $P(|\bar X_n-\mu|\geq \varepsilon)\leq\frac{\sigma^2}{n\cdot\varepsilon^2}$
 - Centrální limitní věta – znění, vysvětlení
-	- nechť $X_1,X_2,\dots$ jsou stejně rozdělené se střední hodnotou $\mu$ a rozpytem $\sigma^2$
+	- nechť $X_1,X_2,\dots$ jsou stejně rozdělené se střední hodnotou $\mu$ a rozptylem $\sigma^2$
 	- označme $Y_n=\frac{(X_1+\dots+X_n)-n\mu}{\sigma\sqrt{n}}$
 	- pak $Y_n\xrightarrow d N(0,1)$
 		- $Y_n$ konverguje v distribuci k $N(0,1)$
