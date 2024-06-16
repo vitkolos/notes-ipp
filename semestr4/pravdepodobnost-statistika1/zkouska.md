@@ -272,6 +272,7 @@
 		- $Y_n$ konverguje v distribuci k $N(0,1)$
 		- tzn. $\lim_{n\to\infty} F_{Y_n}(x)=\Phi(x)$
 	- CLV se hodí k aproximaci distribuce součtu nebo průměru velkého počtu náhodných veličin normálním rozdělením
+		- takže můžeme provádět bodové a intervalové odhady i tam, kde data nejsou normálně rozdělená, ale známe rozptyl
 
 ## Statistika
 
@@ -279,18 +280,137 @@
 	- explorační analýza – něco počítáme pro napozorovaná data, objevujeme zajímavé zákonitosti
 	- konfirmační analýza – ověřujeme, jestli jsou zákonitosti pravdivé
 - Bodové ohady: výběrový průměr a výběrový rozptyl
-- Odhady konzistentní a (asymptoticky) nevychýlené
-- Vychýlení (bias) a střední kvadratická chyba (MSE)
+- Odhady konzistentní a (asymptoticky) nevychýlené, vychýlení (bias) a střední kvadratická chyba
+	- pro náhodný výběr $X_1,\dots,X_n\sim F_\theta$ a libovolnou funkci $g$ nazveme bodový odhad $\hat\theta_n$
+		- nevychýlený/nestranný, pokud $\mathbb E(\hat\theta_n)=g(\theta)$
+		- asymptoticky nevychýlený, pokud $\lim_{n\to\infty}\mathbb E(\hat\theta_n)=g(\theta)$
+		- konzistentní, pokud $\hat\theta_n\xrightarrow P g(\theta)$
+	- dále definujeme
+		- vychýlení … $\text{bias}(\hat\theta_n)=\mathbb E(\hat\theta_n)-\theta$
+		- střední kvadratickou chybu … $\text{MSE}(\hat\theta_n)=\mathbb E((\hat\theta_n-\theta)^2)$
+	- věta: $\text{MSE}(\hat\theta_n)=\text{bias}(\hat\theta_n)^2+\text{var}(\hat\theta_n)$
+	- důkaz
+		- $\text{var}(\hat\theta_n)=\text{var}(\hat\theta_n-\theta)$
+			- posunutím se rozptyl nezmění
+		- $=\mathbb E((\hat\theta_n-\theta)^2)-(\mathbb E(\hat\theta_n-\theta))^2$
+			- podle věty o výpočtu rozptylu
+		- první člen je MSE, druhý je druhá mocnina biasu (pak už stačí jen upravit rovnici)
 - Konstrukce odhadů pomocí metody momentů i maximální věrohodnosti
-- Rozdíl mezi populačním a výběrovým průměrem (rozptylem)
-- ! Důkaz, že výběrový rozptyl je nestranný odhad rozptylu ("má se dělit n−1, ne n")
-- Intervalové odhady – obecná metoda založená na normálním rozdělení, příklady použití se známým i neznámým rozptylem
+	- metoda momentů
+		- $r$-tý moment $X$ … $\mathbb EX^r=m_r(\theta)$
+		- $r$-tý výběrový moment … $\frac1n\sum_{i=1}^n X_i^r=\widehat{m_r}$
+			- konzistentní nevychýlený odhad pro $r$-tý moment
+		- nalezneme $\theta$ takové, že $m_r(\theta)=\widehat{m_r}$
+		- typicky stačí použít první moment, dostaneme nějakou rovnici
+		- $m_1=\mu$
+		- $m_2=\mathbb E(X^2)=\text{var}(X)+(\mathbb EX)^2=\sigma^2+\mu^2$
+	- metoda maximální věrohodnosti
+		- $\hat\theta_{ML}=\text{argmax}_\theta\;p(x;\theta)$
+			- $\text{argmax}_\theta\;f(x;\theta)$
+			- abych se nemusel rozhodovat mezi $p$ a $f$, budu používat $L$
+		- výpočetně jednodušší bude používat logaritmus $L$, který označíme $\ell$
+		- příklad
+			- ve vzorku $k$ leváků z $n$ lidí, hledáme pravděpodobnost $\theta$, že je někdo levák
+			- $L(x;\theta)=\theta^k(1-\theta)^{n-k}$
+			- $\ell(x;\theta)=k\log\theta+(n-k)\log(1-\theta)$
+			- $\ell'(x;\theta)=\frac k\theta-\frac{n-k}{1-\theta}$
+				- hledáme maximum, položíme derivaci rovnou nule (a zkontrolujeme krajní hodnoty)
+		- podobně pro spojitý případ – „maximalizujeme“ rovnici pro pravděpodobnost konkrétního výběru
+- Výběrový průměr a rozptyl
+	- populační vs. výběrový průměr/rozptyl
+		- populační … pro celou populaci
+		- výběrový … pro konkrétní vzorek dat
+	- $\overline{X_n}=\frac1n\sum_{i=1}^n X_i$
+		- konzistentní nevychýlený odhad $\mu$
+	- $\widehat{S_n^2}=\frac1{n-1}\sum_{i=1}^n(X_i-\overline{X_n})^2$
+		- konzistentní nevychýlený odhad $\sigma^2$
+	- proč se rozptyl dělí $n-1$
+		- $\mathbb EX_i=\mu\implies\mathbb E\overline{X_n}=\mu$
+		- $\text{var}(X_i)=\sigma^2\implies\text{var}(\overline{X_n})=\frac{\sigma^2}n$
+		- $\sigma(X_i)=\sigma\implies\sigma(\overline{X_n})=\frac\sigma{\sqrt{n}}$
+		- více viz záznam přednášky
+- Intervalové odhady – obecná metoda založená na normálním rozdělení
+	- statistiky $D\leq H$ určují konfidenční interval o spolehlivosti $1-\alpha$, pokud $P(D\leq\theta\leq H)=1-\alpha$
+		- zkráceně $(1-\alpha)$-CI
+	- interval budeme uvažovat ve tvaru $[x-\delta,x+\delta]$
+	- postup
+		- máme nestranný bodový odhad $\hat\theta$ pro parametr $\theta$
+		- $\hat\theta$ má normální rozdělení
+		- $\hat\theta\pm z_{\alpha/2}\cdot\text{se}$ je $(1-\alpha)$-CI
+			- $z_{\alpha/2}:=\Phi^{-1}(1-\alpha/2)$
+			- $\text{se}:=\sigma(\hat\theta)$
+	- idea
+		- provedeme standardizaci $Z=\text{stand}(\hat\theta)=\frac{\hat\theta-\mathbb E(\hat\theta)}{\sigma(\hat\theta)}=\frac{\hat\theta-\theta}{\sigma(\hat\theta)}$
+			- tohle má normální rozdělení
 - Schéma testování hypotéz: nulová hypotéza, alternativní hypotéza, hladina významnosti
+	- nulová hypotéza … defaultní, konzervativní model
+	- alternativní hypotéza … alternativní model, „zajímavost“
+	- nulovou hypotézu buď zamítneme, nebo nezamítneme
+	- chyba 1. druhu – chybné zamítnutí, „trapas“
+	- chyba 2. druhu – chybné přijetí, „promarněná příležitost“
+	- hladina významnosti $\alpha$ … nejvyšší povolená pravděpodobnost chyby 1. druhu
+	- kritický obor … je to množina, kterou určíme před provedením testu; pokud se výsledek našeho testu bude nacházet v kritickém oboru, zamítneme nulovou hypotézu
+		- tedy $\alpha=P(h(X)\in W; H_0)$
 - Testování střední hodnoty normálního rozdělení (známý vs. neznámý rozptyl, neboli z-test vs. t-test)
+	- známe rozptyl
+		- najdeme bodový odhad $\hat\theta$ pro $\theta$
+			- třeba pokud nás zajímá $\mu$, tak prostě použijeme výběrový průměr
+		- $\delta=\frac{\sigma}{\sqrt{n}}\cdot \Phi^{-1}(1-\alpha/2)$
+		- vrátíme $[\hat\theta-\delta,\hat\theta+\delta]$
+	- neznáme rozptyl
+		- máme $n$ hodnot
+		- spočteme výběrovou odchylku $\bar\sigma$
+		- $\delta=\frac{\bar\sigma}{\sqrt n}\cdot \Psi^{-1}_{n-1}(1-\alpha/2)$
+		- zbytek stejný, jako když známe rozptyl
 - Numerická/ordinální/kategorická data
+	- numerická data … důležitá jsou čísla
+	- ordinální data … hodnoty mají pořadí (třeba úrovně vzdělání), ale nemají žádný číselný význam
+	- kategorická data … hodnoty nemají žádné konkrétní pořadí, jde o kategorie
 - Multinomické rozdělení
+	- $n$-krát opakuji pokus, kde může nastat jedna z $k$ možností, přičemž $i$-tá má pravděpodobnost $p_i$
+	- $X_i$ … kolikrát nastala $i$-tá možnost
+	- pak $(X_1,\dots,X_k)$ má multinomické rozdělení s parametry $n,(p_1,\dots,p_k)$
 - Test dobré shody (G-test, χ2-test) – předvedení a částečné zdůvodnění
+	- TODO
 - Jednovýběrový vs. dvouvýběrový test vs. párový test
-- ! Lineární regrese (a možné komplikace)
-- ! Neparametrické testy – vlastnosti empirické distribuční funkce (KS test)
+	- jednovýběrový test … klasický intervalových odhad
+		- např. $H_0$ … $\mu=5$
+	- dvouvýběrový test … máme dvě sady dat, porovnáváme parametry
+		- např. $H_0$ … $\mu_X=\mu_Y$
+	- párový test … data jsou ve dvojicích
+		- např. $H_0$ … $\mu_X=\mu_Y$
+		- dvojice dat spolu nějak souvisí
+		- uvažuju $R_i=Y_i-X_i$, použiju jednovýběrový test
+	- příklad použití dvouvýběrového testu
+		- „jsou stejné střední hodnoty?“
+		- hledáme $\theta=\mu_X-\mu_Y$
+		- známe-li $\sigma_X,\sigma_Y$, pak $\sigma(\hat\theta)=\sqrt{\frac{\sigma_X^2}n+\frac{\sigma_Y^2}m}$
+- Lineární regrese (a možné komplikace)
+	- $x_i$ … nezávislá proměnná, predictor
+	- $y_i$ … závislá proměnná, response
+	- cíl … $y=\theta_0+\theta_1x$
+		- $\theta_0$ … intercept
+		- $\theta_1$ … slope
+	- chybu měříme pomocí kvadratické odchylky $\sum_{i=1}^n(y_i-(\theta_0+\theta_1x_i))^2$
+	- řešení
+		- $\hat\theta_1=\frac{cov(x,y)}{var(x)}$
+		- $\hat\theta_0=\bar y-\theta_1\bar x$
+	- zavádějící proměnná (confounding variable) – není v datech, ale kdybychom ji přidali, všechno by dávalo větší smysl
+	- Simpsonův paradox – jedna strana vítězí v jednotlivých kategoriích, ale dohromady vítězí ta druhá
+	- TODO
+- Neparametrické testy – vlastnosti empirické distribuční funkce (KS test)
+	- neparametrická statistika
+		- empirická distribuční funkce
+	- TODO
 - Generování náhodných veličin (inverzní transformace, rejection sampling)
+	- uniformní rozdělení $U(0,1)$ – dejme tomu, že ho máme (je těžké ho generovat)
+	- diskrétní náhodná veličina – uděláme rozklad intervalu od nuly do jedné tak, aby $P(X=i)=|A_i|$, kde $|A_i|$ je část intervalu
+	- inverzní transformace
+		- $Q_X(p)=F_X^{-1}(p)$ pro $X$ spojitou
+		- $Q_X=\min\set{x:F_X(x)\geq p}$
+		- věta: $F^{-1}(U)$ má distribuční funkci $F$
+			- kde $U\sim U(0,1)$
+	- rejection sampling
+		- generujeme uniformně náhodně bod $(x,y)$ pod křivkou $f_X$
+		- pak $x$ má hustotu $f_X$
+	- TODO
