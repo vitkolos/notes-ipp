@@ -143,7 +143,7 @@
 		- je to přímočaré roznásobení definice
 	- pro nezávislé $X,Y$ platí $\text{cov}(X,Y)=0$
 	- zjevně $\text{cov}(X,X)=\text{var}(X)$
-	- $\text{cov}(aX+bY,Z)=a\text{cov}(Y,Z)+b\text{cov}(Y,Z)$
+	- $\text{cov}(aX+bY,Z)=a\text{cov}(X,Z)+b\text{cov}(Y,Z)$
 	- korelace
 		- $\rho(X,Y)=\frac{\text{cov}(X,Y)}{\sigma_X\cdot\sigma_Y}$
 - Rozptyl součtu náhodných veličin
