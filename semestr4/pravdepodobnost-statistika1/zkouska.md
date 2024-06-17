@@ -445,3 +445,4 @@
 	- rejection sampling
 		- generujeme uniformně náhodně bod $(x,y)$ pod křivkou $f_X$
 		- pak $x$ má hustotu $f_X$
+		- generovat bod pod křivkou je těžké → generujeme body všude a zahodíme ty, které nejsou pod křivkou
