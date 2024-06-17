@@ -22,10 +22,9 @@
 			- uvažujeme sjednocení disjunktních $B_i=A_i\setminus\bigcup_{j\lt i}A_j$
 			- $\forall i:B_i\subseteq A_i$, tedy $P(B_i)\leq P(A_i)$
 			- zjevně $\bigcup B_i=\bigcup A_i$
-- Podmíněná pravděpodobnost
+- Podmíněná pravděpodobnost, její zřetězení
 	- pokud $A,B\in\mathcal F$ a $P(B)\gt 0$, definujeme podmíněnou pravděpodobnost $A$ při $B$ jako $P(A\mid B)=\frac{P(A\cap B)}{P(B)}$
 	- zjevně $P(A\cap B)=P(A)\cdot P(B\mid A)$
-- Pravidlo pro výpočet pomocí zřetězení podmíněné pravděpodobnosti
 	- $P(A_1\cap A_2\cap \dots\cap A_n)=P(A_1)P(A_2\mid A_1)P(A_3\mid A_1\cap A_2)\dots P(A_n\mid A_1\cap\dots\cap A_{n-1})$
 		- lze ukázat indukcí (nebo neformálně rozepsáním členů vpravo a vykrácením)
 - Věta o úplné pravděpodobnosti
@@ -80,10 +79,9 @@
 			- $=\frac{\lambda^k}{k!}\underbrace{\frac{n(n-1)\dots(n-k+1)}{n^k}}_{\to\,1}\underbrace{(1-\frac\lambda n)^n}_{\to\,e^{-\lambda}}\underbrace{(1-\frac\lambda n)^{-k}}_{\to\,1}$
 		- $\mathbb E(X)=\lambda$
 		- $\text{var}(X)=\lambda$
-- Střední hodnota
+- Střední hodnota diskrétní náhodné veličiny: definice, vlastnosti (linearita, podmíněná střední hodnota, věta o celkové střední hodnotě), výpočet
 	- $\mathbb E(X)=\sum_{x\in\text{Im}(X)}x\cdot P(X=x)$
 	- pozorování: $\mathbb E(X)=\sum_{\omega\in\Omega}X(\omega)\cdot P(\set{\omega})$
-- Střední hodnota diskrétní náhodné veličiny: vlastnosti (linearita, podmíněná střední hodnota, věta o celkové střední hodnotě), výpočet
 	- pravidlo naivního statistika
 		- $\mathbb E(g(X))=\sum_{x\in\text{Im}(X)}g(x)P(X=x)$
 	- důkaz
@@ -178,9 +176,8 @@
 - Využití hustoty – výpočet pravděpodobnosti intervalu, každý bod má pravděpodobnost nula
 	- $P(X=x)=0$
 	- $P(a\leq X\leq b)=\int_a^b f_X(t)\text dt$
-- Definice střední hodnoty
+- Střední hodnota u spojitých veličin: definice, pravidlo naivního statistika, rozptyl, linearita
 	- $\mathbb E(X)=\int_{-\infty}^{\infty} x f_X(x)\text dx$
-- Výpočty se spojitými veličinami (Pravidlo naivního statistika, rozptyl, linearita)
 	- $\mathbb E(g(X))=\int_{-\infty}^\infty g(x)f_X(x)\text dx$
 	- opět platí linearita střední hodnoty
 	- $\text{var}(X)=\mathbb E((X-\mu)^2)=\int_{-\infty}^\infty (x-\mu)^2 f_X(x)\text dx$
@@ -231,6 +228,7 @@
 	- $P(X\in(a,b]\land Y\in(c,d])=F(b,d)-F(a,d)-F(b,c)+F(a,c)$
 - Marginální hustota
 	- $f_X(x)=\int_{y\in\mathbb R}f_{X,Y}(x,y)\text dy$
+	- podobně $f_Y$
 - Nezávislost (pomocí distribuční funkce i pomocí hustoty)
 	- $F_{X,Y}(x,y)=F_X(x)F_Y(y)$
 	- $f_{X,Y}(x,y)=f_X(x)f_Y(y)$
@@ -279,7 +277,6 @@
 - Explorační vs. konfirmační analýza
 	- explorační analýza – něco počítáme pro napozorovaná data, objevujeme zajímavé zákonitosti
 	- konfirmační analýza – ověřujeme, jestli jsou zákonitosti pravdivé
-- Bodové ohady: výběrový průměr a výběrový rozptyl
 - Odhady konzistentní a (asymptoticky) nevychýlené, vychýlení (bias) a střední kvadratická chyba
 	- pro náhodný výběr $X_1,\dots,X_n\sim F_\theta$ a libovolnou funkci $g$ nazveme bodový odhad $\hat\theta_n$
 		- nevychýlený/nestranný, pokud $\mathbb E(\hat\theta_n)=g(\theta)$
