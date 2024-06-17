@@ -348,16 +348,24 @@
 	- nulovou hypotézu buď zamítneme, nebo nezamítneme
 	- chyba 1. druhu – chybné zamítnutí, „trapas“
 	- chyba 2. druhu – chybné přijetí, „promarněná příležitost“
-	- hladina významnosti $\alpha$ … nejvyšší povolená pravděpodobnost chyby 1. druhu
+	- hladina významnosti $\alpha$ … pravděpodobnost chyby 1. druhu
+		- typicky se volí $\alpha=0.05$
+	- $\beta$ … pravděpodobnost chyby 2. druhu
 	- kritický obor … je to množina, kterou určíme před provedením testu; pokud se výsledek našeho testu bude nacházet v kritickém oboru, zamítneme nulovou hypotézu
 		- tedy $\alpha=P(h(X)\in W; H_0)$
+	- síla testu … $1-\beta$
+		- chceme co největší
+	- $p$-hodnota … nejmenší $\alpha$ taková, že na hladině $\alpha$ zamítáme $H_0$
 - Testování střední hodnoty normálního rozdělení (známý vs. neznámý rozptyl, neboli z-test vs. t-test)
 	- známe rozptyl
+		- teorie: $Z=\frac{\overline{X_n}-\theta_0}{\sigma/\sqrt n}\sim N(0,1)$ pokud $H_0$
+			- podle centrální limitní věty tohle funguje i pro veličiny, které nemají normální rozdělení, ale známe jejich rozptyl
 		- najdeme bodový odhad $\hat\theta$ pro $\theta$
 			- třeba pokud nás zajímá $\mu$, tak prostě použijeme výběrový průměr
 		- $\delta=\frac{\sigma}{\sqrt{n}}\cdot \Phi^{-1}(1-\alpha/2)$
 		- vrátíme $[\hat\theta-\delta,\hat\theta+\delta]$
 	- neznáme rozptyl
+		- teorie: $T$ bude jako $Z$, akorát místo $\sigma$ použijeme $\bar\sigma$
 		- máme $n$ hodnot
 		- spočteme výběrovou odchylku $\bar\sigma$
 		- $\delta=\frac{\bar\sigma}{\sqrt n}\cdot \Psi^{-1}_{n-1}(1-\alpha/2)$
@@ -370,8 +378,18 @@
 	- $n$-krát opakuji pokus, kde může nastat jedna z $k$ možností, přičemž $i$-tá má pravděpodobnost $p_i$
 	- $X_i$ … kolikrát nastala $i$-tá možnost
 	- pak $(X_1,\dots,X_k)$ má multinomické rozdělení s parametry $n,(p_1,\dots,p_k)$
-- Test dobré shody (G-test, χ2-test) – předvedení a částečné zdůvodnění
-	- TODO
+	- příklad: hážeme 6stěnnou kostkou
+- Test dobré shody (G-test, $χ^2$-test) – předvedení a částečné zdůvodnění
+	- $O_i$ … reálný výsledek
+	- $E_i$ … očekávaný výsledek
+	- proč uvažujeme $n-1$ stupňů volnosti, když máme $n$ hodnot?
+		- z $n-1$ hodnot můžu $n$-tou hodnotu dopočítat
+	- $\chi^2=\sum_i\frac{(E_i-O_i)^2}{E_i}$
+	- $G=2\sum_i O_i \ln\frac{O_i}{E_i}$
+	- $\chi^2$ a $G$ se přibližně rovnají (díky aproximaci pomocí Taylorova polynomu)
+	- jak zjistit, jestli je kostka spravedlivá?
+		- vygenerujeme hodně multinomických rozdělení – díky nim najdeme kritický obor $W$ (pomocí grafu $\chi^2$)
+		- pokud $\chi^2$ pro naši konkrétní kostku náleží $W$, prohlásíme, že kostka není spravedlivá
 - Jednovýběrový vs. dvouvýběrový test vs. párový test
 	- jednovýběrový test … klasický intervalových odhad
 		- např. $H_0$ … $\mu=5$
@@ -394,23 +412,36 @@
 	- chybu měříme pomocí kvadratické odchylky $\sum_{i=1}^n(y_i-(\theta_0+\theta_1x_i))^2$
 	- řešení
 		- $\hat\theta_1=\frac{cov(x,y)}{var(x)}$
+			- použijeme výběrový roztypl a výběrovou kovarianci
 		- $\hat\theta_0=\bar y-\theta_1\bar x$
-	- zavádějící proměnná (confounding variable) – není v datech, ale kdybychom ji přidali, všechno by dávalo větší smysl
-	- Simpsonův paradox – jedna strana vítězí v jednotlivých kategoriích, ale dohromady vítězí ta druhá
-	- TODO
+	- komplikace
+		- někdy nechceme provádat lineární regresi – je fajn se podívat na graf
+		- zavádějící proměnná (confounding variable) – není v datech, ale kdybychom ji přidali, všechno by dávalo větší smysl
+		- Simpsonův paradox – jedna strana vítězí v jednotlivých kategoriích, ale dohromady vítězí ta druhá
 - Neparametrické testy – vlastnosti empirické distribuční funkce (KS test)
-	- neparametrická statistika
-		- empirická distribuční funkce
-	- TODO
+	- když nemůžu distribuci popsat pomocí parametrů nějaké obvyklé distribuční funkce → neparametrická statistika
+	- empirická distribuční funkce … $\hat F_n(x)=$ počet dobrých / počet všech
+		- $\hat F_n(x)=\frac{\sum_{i=1}^n I(X_i\leq x)}{n}$
+		- $\hat F_n(x)=$ jaký poměr hodnot je nejvýš $x$
+	- vlastnosti
+		- střední hodnota $\hat F_n(x)$ je $F(x)$
+		- $\hat F_n(x)\xrightarrow P F(x)$
+			- podle slabého zákona velkých čísel
+		- KS test (věta)
+			- pravděpodobnost, že $F(x)$ leží v pásku $\hat F_n(x)\pm\varepsilon$ je aspoň $1-\alpha$
+			- přičemž $\varepsilon=\sqrt{\frac1{2n}\log\frac2\alpha}$
 - Generování náhodných veličin (inverzní transformace, rejection sampling)
 	- uniformní rozdělení $U(0,1)$ – dejme tomu, že ho máme (je těžké ho generovat)
 	- diskrétní náhodná veličina – uděláme rozklad intervalu od nuly do jedné tak, aby $P(X=i)=|A_i|$, kde $|A_i|$ je část intervalu
 	- inverzní transformace
 		- $Q_X(p)=F_X^{-1}(p)$ pro $X$ spojitou
-		- $Q_X=\min\set{x:F_X(x)\geq p}$
-		- věta: $F^{-1}(U)$ má distribuční funkci $F$
+		- $Q_X(p)=\min\set{x:F_X(x)\geq p}$
+		- zjevně $Q(p)\leq x\iff p\leq F(x)$
+		- věta: $Q(U)$ má distribuční funkci $F$
 			- kde $U\sim U(0,1)$
+		- důkaz
+			- mějme $X=Q(U)$
+			- $P(X\leq x)=P(Q(U)\leq x)=P(U\leq F(x))=F(x)$
 	- rejection sampling
 		- generujeme uniformně náhodně bod $(x,y)$ pod křivkou $f_X$
 		- pak $x$ má hustotu $f_X$
-	- TODO
