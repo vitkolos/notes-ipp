@@ -152,7 +152,7 @@
 		- pak $\text{var}(X)=\sum_{i=1}^n\sum_{j=1}^n\text{cov}(X_i,X_j)$
 	- důkaz
 		- $\text{var}(X)=\text{cov}(X,X)=\text{cov}(\sum X_i,\sum X_i)$
-		- použiju $\text{cov}(aX+bY,Z)=a\text{cov}(Y,Z)+b\text{cov}(Y,Z)$, rozložím všechny členy
+		- použiju $\text{cov}(aX+bY,Z)=a\text{cov}(X,Z)+b\text{cov}(Y,Z)$, rozložím všechny členy
 	- věta
 		- pro jevy po dvou nezávislé
 		- $\text{var}(X)=\sum_{i=1}^n\sum_{j=1}^n\text{cov}(X_i,X_j)=\sum_{i=1}^n\text{var}(X_i)$
