@@ -409,7 +409,7 @@
 	- chybu měříme pomocí kvadratické odchylky $\sum_{i=1}^n(y_i-(\theta_0+\theta_1x_i))^2$
 	- řešení
 		- $\hat\theta_1=\frac{cov(x,y)}{var(x)}$
-			- použijeme výběrový roztypl a výběrovou kovarianci
+			- použijeme výběrový rozptyl a výběrovou kovarianci
 		- $\hat\theta_0=\bar y-\theta_1\bar x$
 	- komplikace
 		- někdy nechceme provádat lineární regresi – je fajn se podívat na graf
