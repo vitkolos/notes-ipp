@@ -133,9 +133,9 @@
 		- vyplývá z PNS
 - Konvoluční vzorec
 	- pravděpodobnostní funkce součtu $Z=X+Y$
-		- $P(Z=z)=\sum P_{x\in\text{Im}(X)}(X=x\land Y=z-x)$
+		- $P(Z=z)=\sum_{x\in\text{Im}(X)} P(X=x\land Y=z-x)$
 	- pro nezávislé $X,Y$
-		- $P(Z=z)=\sum P_{x\in\text{Im}(X)}(X=x)P(Y=z-x)$
+		- $P(Z=z)=\sum_{x\in\text{Im}(X)} P(X=x)P(Y=z-x)$
 	- obojí vyplývá ze vzorce pro pravděpodobnostní funkci funkce dvou náhodných veličin
 - Kovariance a její vlastnosti
 	- definice: $\text{cov}(X,Y)=\mathbb E((X-\mathbb EX)(Y-\mathbb EY))$
