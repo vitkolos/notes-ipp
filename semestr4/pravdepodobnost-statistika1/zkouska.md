@@ -239,7 +239,7 @@
 	- pro $X\geq 0$ a $a\gt0$ platí $P(X\geq a)\leq\frac{\mathbb E(X)}a$
 	- důkaz
 		- $\mathbb E(X)=P(X\geq a)\cdot\mathbb E(X\mid X\geq a)+P(X\lt a)\cdot\mathbb E(X\mid X\lt a)$
-		- $\leq P(X\geq a)\cdot a+0$
+		- $\geq P(X\geq a)\cdot a+0$
 - Čebyševova nerovnost
 	- $P(|X-\mu|\geq t\cdot\sigma)\leq\frac1{t^2}$
 	- důkaz
