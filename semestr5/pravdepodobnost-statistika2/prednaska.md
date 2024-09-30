@@ -1,0 +1,64 @@
+# Probability and Statistics 2
+
+## Markov chains
+
+- example 1
+	- machine in 2 states – working × broken
+	- w → b … probability 0.01
+	- w → w … 0.99
+	- b → w … 0.9
+	- b → b … 0.1
+- example 2
+	- a fly which may get caught in a web … absorbing states
+- df: stochastic process (náhodný proces)
+	- sequence of random variables $X_0,X_1,\dots$ such that "all probabilities are defined"
+		- e.g. $P(X_0=1\land X_1=2\land X_3=0)$ is defined
+- df: Markov process/chain
+	- stochastic process such that
+		- $\exists$ finite/countable set $S:\text{Im}X_t\subseteq S\;\forall t$
+			- elements of $S$ … states
+			- $t$ … time
+		- $(\forall i,j\in S)(\exists p_{ij}\in [0,1])(\forall t)(\forall a_0,a_1,\dots,a_t,a_{t+1})$
+	- notes
+		- this is a discrete time Markov chain
+		- discrete space … $|S|\leq |\mathbb N|$
+		- time-homogeneous
+			- $p_{ij}$ not depeding on $t$
+		- Markov condition
+			- only applies if the condition probabilities are defined
+		- Markov condition … "forgetting the past"
+- df: transition matrix $P=(p_{ij})$
+- df: transition diagram/graph
+	- vertices … $S$
+	- directed edges … $\set{(i,j):p_{ij}\gt 0}$
+- observation: every row of $P$ sums to 1
+- Markov chain is equivalent to a random walk on the transition diagram
+	- from state $i$ we go to $j$ with the probability of $p_{ij}$ independent of the past
+- in example 1, assume $X_0$, what is $P(X_2=w)$?
+	- $P(X_1=w)=p_{11}=0.99$
+	- $P(X_2=w)=p_{11}\cdot p_{11}+p_{12}\cdot p_{21}=0.99\cdot 0.99+0.01\cdot 0.9$
+		- using the total probability theorem
+- probability mass function (PMF, pravděpodobnostní funkce) for $X_0,X_1,\dots$
+	- $\pi_i^{(t)}=P(X_t=i)$
+		- $t\in\mathbb N_0$
+		- $i\in S$
+- theorem
+	- $\pi^{(t+1)}=\pi^{(t)}\cdot P$
+		- where $\pi^{(t)}=(\pi_1^{(t)},\dots,\pi_n^{(t)})$ row vector
+	- proof … definition of matrix multiplication & total probability theorem
+- theorem
+	- $P(X_0=a_0,X_1=a_1,\dots,X_t=a_t)=\pi_{a_0}^{(0)}\cdot P_{a_0a_1}\cdot P_{a_1a_2}\cdot\ldots\cdot P_{a_{t-1}a_t}$
+	- proof by induction
+- df: probability of $k$-step transition … $r_{ij}(k)$
+	- $r_{ij}(k)=P(X_{t+k}=j\mid X_t=i)$
+	- $r_{ij}(1)=P(X_{t+1}=j\mid X_t=i)=p_{ij}$
+	- it is independent of $t$
+- theorem (Chapman-Kolmogorov)
+	- $\forall$ Markov chain, $\forall i,j,k:$
+		- $r_{ij}(k+1)=\sum_{u=1}^n r_{iu}(k) p_{uj}$
+		- $r_{ij}(k+\ell)=\sum_{u=1}^n r_{iu}(k) r_{uj}(\ell)$
+		- $r_{ij}(k)=(P^k)_{ij}$
+	- proof
+		- 1 is a special case of 2 ($r_{uj}(1)=p_{uj})$
+		- $1\implies 3$ … matrix multiplication & induction
+		- …
