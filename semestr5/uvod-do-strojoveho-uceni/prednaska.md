@@ -1,0 +1,48 @@
+# Úvod do strojového učení v Pythonu
+
+- https://ufal.mff.cuni.cz/courses/npfl129
+- https://github.com/ufal/npfl129/
+- Piazza
+	- primární způsob komunikace
+	- čte ji víc lidí než e-mail, takže je větší šance, že nám někdo odpoví
+	- nedávat tam zdrojový kód (do veřejných otázek)
+- bodování
+	- zápočet – alespoň 70 standardních bodů
+	- standardní body nad 70 se přenáší ke zkoušce
+	- bonusové body lze získat soutěžemi a dalšími aktivitami nad rámec, také se přenáší ke zkoušce
+- definice strojového učení
+	- pomocí zkušenosti (dat) se zlepšuje metrika na nějaké úloze
+	- možné úlohy: klasifikace (přiřazení vstupu do diskrétní kategorie), regrese (přiřazení reálného čísla nebo vektoru reálných čísel), předvídání struktury, odstraňování šumu
+	- metriky: accuracy (jak dobře se při klasifikaci trefujeme), …
+	- zkušenost
+		- supervised (učení s učitelem) – máme olablovaná data
+		- unsupervised (učení bez učitele) – nemáme žádné labely, učíme se vidět vzory v datech
+		- reinforcement learning (zpětnovazebné učení) – např. aby byl šachový program lepší než nejlepší hráči
+- základní úlohy
+	- mějme vstup $x\in\mathbb R^D$
+	- regrese: pro $x$ hledáme reálnou proměnnou $t\in\mathbb R$
+	- klasifikace: máme $K$ labelů, pro dané $x$ chceme najít ten správný
+		- můžeme určit třídu
+		- můžeme určit pravděpodobnostní distribuci tříd
+	- obvykle máme trénovací sadu dvojic $(x,t)$
+	- rozdělíme data na trénovací a testovací – aby bylo učení dost obecné
+- notace
+	- tenzor je nadkrychle čísel
+	- všechny vektory jsou sloupcové
+		- do matic je skládáme jako řádky
+- vstupní data
+	- trénovací množina $X\in\mathbb R^{N\times D}$
+		- $N$ instancí, každé odpovídá $D$ reálných čísel
+		- dimenze vstupu = feature
+	- při učení s učitelem máme target $t$ pro každou instanci
+		- v regresi … $t\in\mathbb R^N$
+		- v klasifikaci … $t\in\set{0,1,\dots,K-1}$
+- lineární regrese
+	- $y(x;w,b)=x^Tw+b$
+		- $w$ … váhy
+		- $b$ … bias (jindy se označuje jako intercept)
+		- protože je otrava zacházet s biasem, někdy se k vektorům přidávají na konec jedničky, takže místo $b$ máme $1\cdot w_{d+1}$
+	- chceme změřit, jak se nám regrese daří
+		- použijeme mean squared error (MSE) nebo taky funguje součet druhých mocnin chyb (dělený dvěma)
+	- co když matice $X^TX$ není regulární? můžeme přičíst náhodný šum (dost malý)
+	- bacha na overfitting (a underfitting)
