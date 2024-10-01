@@ -1,0 +1,2 @@
+- bacha na čísla verzí u Pythonu a balíčků
+- používat pole v numpy
