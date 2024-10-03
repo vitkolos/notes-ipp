@@ -1,0 +1,4 @@
+- exam
+	- discussion of 2–3 related scientific papers we'll choose to read
+	- then open questions
+- 
