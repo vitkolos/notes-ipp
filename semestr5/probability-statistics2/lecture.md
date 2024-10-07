@@ -62,3 +62,61 @@
 		- 1 is a special case of 2 ($r_{uj}(1)=p_{uj})$
 		- $1\implies 3$ … matrix multiplication & induction
 		- …
+- df: $j$ is accessible from $i$ (where $i,j\in S$)
+	- $i\to j$
+	- $j\in A(i)$
+	- $j$ is accessible from $i\equiv$ $\exists t:\underbrace{P(X_t=j\mid X_0=i)}_{r_{ij}(t)}\gt 0$
+	- $\iff$ in the transition digraph exists directed path $i\to j$ of length $t$
+- df: $i\leftrightarrow j$ ($i$ and $j$ communicate) $\equiv i\in A(j)\land j\in A(i)$
+- theorem: $\leftrightarrow$ is an equivalence relation
+- proof
+	- reflexive: $i\in A(i)$ … $t=0$ in the definition
+	- symmetric: the formula $i\in A(j)\land j\in A(i)$ is symmetric
+	- transitive: in the digraph $\exists$ path $i$ to $j$, $\exists$ path $j$ to $k$ $\implies\exists$ walk $i\to k$
+- decomposition of the transition digraph to components of strong connectivity $\equiv$ finding equivalence classes of $\leftrightarrow$
+- df: a state $i\in S$ is recurrent if we return to it with probability 1
+	- it is transient otherwise
+	- česky rekurentní, tranzientní
+- df: Markov chain is irreducible if $\forall i,j\in S:i\leftrightarrow j$
+- df: $T_i=\min\set{t\geq 1:X_t=i}$
+	- $T_i=\infty$ if the set is empty (there is no such $t$)
+	- $T_i$ … random variable
+	- $f_{ij}(n)=P(\text{we get to }j\text{ first at time }n\mid X_0=i)=P(T_j=n\mid X_0=i)$
+		- we define it for $n\gt 0$
+	- $f_{ij}=P(T_j\lt\infty\mid X_0=i)=\sum_{n\geq 1} f_{ij}(n)$
+- $i$ is transient
+	- $f_{ii}\lt 1$ … probability of ever getting back
+	- $\iff P(T_i=\infty)\gt 0$
+	- $\iff P(\text{get back infinitely often})\lt 1$
+- example – random walk on a line
+	- with probability 1/2 we go to the left
+	- $f_{00}(2)=(\frac12)^2+(\frac12)^2=\frac12$
+	- $f_{00}(1)=f_{00}(3)=\dots=0$
+	- $f_{00}(4)=\frac{1}{2^4}\cdot 2$
+		- $r_{00}(4)\neq f_{00}(4)$
+		- $r_{00}(4)=\frac{1}{2^4}\cdot 4$
+	- is 0 recurrent?
+		- by definition, we should add $f_{00}(2)+f_{00}(4)+\dots$ and check if it equals 1
+		- theorem: $i$ is a recurrent state $\iff\sum_{n=1}^\infty r_{ii}(n)=\infty$
+			- $B_n=\begin{cases} 1&\text{ if }X_n=i\\ 0 &\text{ otherwise}\end{cases}$
+				- we got back
+				- $\mathbb E(B_n\mid X_0=i)=P(X_n=i\mid X_0=i)=r_{ii}(n)$
+			- $r_{00}(2n)=$ probability that out of the $2n$ steps, $n$ were to the left, $n$ were to the right
+				- $=\frac1{2^{2n}}\cdot{2n\choose n}\doteq\frac c{\sqrt n}$ … see Matoušek, Nešetřil
+			- $\sum_{n=1}^\infty \frac{c}{\sqrt n}=\infty$ (taught in calculus)
+			- $\mathbb E(T_0\mid X_0=0)=\infty$ (we did not prove that)
+- theorem
+	- if $i\leftrightarrow j$, then either both $i$ and $j$ are recurrent or both $i$ and $j$ are transient
+- for finite Markov chains
+	- $C$ … equiv class of $\leftrightarrow$ in a finite Markov chain
+	- $C$ is recurrent ($\forall i\in C$ is recurrent) $\iff(\forall i \in C)(\forall j\in S):$ if $i\to j$ then $j\in C$
+		- → $C$ is closed
+- stationary distribution / seady state distribution
+	- df: $\pi:S\to [0,1]$ such that $\sum_{i\in S}\pi_i=1$ is called a stationary distribution if $\text{``}\pi P=\pi\text{"}$
+		- $\forall i:\sum_i\pi_i p_{ij}=\pi_j$
+	- if $\pi^{(0)}$ (the PMF of $X_0$) is $\pi$, then $\pi^{(1)}$ is $\pi$ as well
+	- $\pi^{(1)}=\pi^{(0)}P$
+- theorem: if a Markov chain is finite, aperiodic (→ not periodic) and irreducible, then
+	1. $\exists$ unique stat. distribution $\pi$
+	2. $\forall i:\lim_{n\to\infty}(P^n)_{ij}=\pi_j$
+ - example of periodic Markov chain: two states, we change the state with probability 1
