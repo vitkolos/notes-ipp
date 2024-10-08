@@ -37,6 +37,9 @@
 	- při učení s učitelem máme target $t$ pro každou instanci
 		- v regresi … $t\in\mathbb R^N$
 		- v klasifikaci … $t\in\set{0,1,\dots,K-1}$
+
+## Lineární regrese
+
 - lineární regrese
 	- $y(x;w,b)=x^Tw+b$
 		- $w$ … váhy
@@ -45,4 +48,49 @@
 	- chceme změřit, jak se nám regrese daří
 		- použijeme mean squared error (MSE) nebo taky funguje součet druhých mocnin chyb (dělený dvěma)
 	- co když matice $X^TX$ není regulární? můžeme přičíst náhodný šum (dost malý)
-	- bacha na overfitting (a underfitting)
+- overfitting, underfitting
+	- overfitting … model funguje dobře na trénovacích datech, ale nefunguje na testovacích datech
+	- kapacita modelu – slouží k ovlivňování underfittingu a overfittingu
+		- representational capacity
+		- effective capacity
+		- čím větší kapacita modelu, tím větší pravděpodobnost overfittingu
+	- dvě křivky – chyba na trénovacích a testovacích datech
+		- mezera mezi nimi = generalization gap
+	- cílem je najít minimum křivky chyby na trénovacích datech
+		- "sweet spot"
+	- jak se zbavit overfittingu
+		- použít více dat
+		- regularizace – jakýkoliv krok k větší generalizaci modelu
+			- příkladem regularizace je snižování kapacity modelu
+	- $L^2$-regularizace
+		- upřednostňuje „jednodušší“ modely, tedy ty, které mají menší váhy
+		- obvykle se aplikuje na opravdové váhy, ne na bias
+		- důsledkem je omezení efektivní kapacity modelu
+			- pro větší lambda nám kapacita přestane stačit – daty se v podstatě proloží přímka
+			- lambda … regularization rate 
+		- matice, kterou nakonec použijeme, je nutně regulární, takže jsme vyřešili problém s inverzní maticí
+- volba hyperparametrů
+	- učící algoritmus nenastavuje hyperparametry
+	- validační/vývojová sada dat se používá k určení hyperparametrů
+	- takže data dělíme mezi trénovací, vývojová a testovací (obvykle v poměru 60 %, 20 %, 20 %)
+	- zatím jsme měli hyperparametry $M$ (stupeň polynomu) a $\lambda$ („úroveň regularizace“)
+- gradient descent
+	- někdy se hodí hledat nejlepší váhy iterativně
+	- hledáme $\text{arg}_w\min E(w)$
+	- můžeme použít gradient descent $w\leftarrow w-\alpha\nabla_wE(w)$
+	- $\alpha$ … learning rate
+	- přístupy
+		- standard/batch gradient descent – použijeme všechna trénovací data
+		- stochastic/online gradient descent (SGD) – po jednom vybíráme náhodné příklady z trénovacích dat
+			- unbiased, but noisy
+		- minibatch stochastic gradient descent
+	- dá se dokázat, že SGD za určitých podmínek téměř jistě konvrguje
+- feature types
+	- polynomial features
+	- categorical one-hot features
+- features je potřeba normalizovat, abychom mohli pro všechny používat stejný learning rate
+	- odečtením minima a vydělením rozdílem maxima a minima data dostaneme mezi nulu a jedničku
+	- velký problém jsou outliers
+		- dá se to řešit standardizací
+		- data budou mezi -1 a 1
+		- nebo se můžeme zbavit outlierů
