@@ -8,3 +8,6 @@
 		- kardinalita – např. kolik studentů si může zapsat jeden předmět (nejvýš jeden, aspoň jeden, několik, … ?)
 	- atributy – co všechno potřebujeme o objektech a vztazích ukládat
 		- kardinalita
+- když si potřebuju vztah pamatovat vícekrát, převedu ho na entitu/třídu
+- evidence HW/SW
+	- počítače, OS, SW s verzemi
