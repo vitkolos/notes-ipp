@@ -1,0 +1,10 @@
+- konceptuální modelování
+	- UML – primárně pro OOP
+	- ER model – šitý na míru relačním databázím
+- ze zákazníka chceme dostat
+	- typy objektů
+	- vztahy mezi objekty
+		- arita – kolika objektů se týká daný vztah
+		- kardinalita – např. kolik studentů si může zapsat jeden předmět (nejvýš jeden, aspoň jeden, několik, … ?)
+	- atributy – co všechno potřebujeme o objektech a vztazích ukládat
+		- kardinalita
