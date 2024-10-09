@@ -111,7 +111,7 @@
 	- $C$ … equiv class of $\leftrightarrow$ in a finite Markov chain
 	- $C$ is recurrent ($\forall i\in C$ is recurrent) $\iff(\forall i \in C)(\forall j\in S):$ if $i\to j$ then $j\in C$
 		- → $C$ is closed
-- stationary distribution / seady state distribution
+- stationary distribution / steady state distribution
 	- df: $\pi:S\to [0,1]$ such that $\sum_{i\in S}\pi_i=1$ is called a stationary distribution if $\text{``}\pi P=\pi\text{"}$
 		- $\forall i:\sum_i\pi_i p_{ij}=\pi_j$
 	- if $\pi^{(0)}$ (the PMF of $X_0$) is $\pi$, then $\pi^{(1)}$ is $\pi$ as well
