@@ -1,2 +1,16 @@
-- bacha na čísla verzí u Pythonu a balíčků
-- používat pole v numpy
+- poznámky
+	- bacha na čísla verzí u Pythonu a balíčků
+	- používat pole v numpy
+- lineární regrese
+	- dvě možnosti
+		- explicitní
+			- pozitiva: přesnost
+			- negativa: outliers dělají problémy
+		- SGD
+			- pozitiva: méně paměti, regularizace
+			- negativa: globální optimum nezaručeno
+	- SGD + momentum
+		- https://distill.pub/2017/momentum/
+	- AdaGrad
+	- AdaDelta
+	- Adaptive Moment Estimation (ADAM)

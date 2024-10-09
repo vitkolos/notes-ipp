@@ -85,10 +85,17 @@ int main(int argc, char** argv) {
 	std::vector<std::string> arg(argv, argv + argc);
 	
 	for (int i = 0; i < argc; ++i) {
-		// tohle nebude fungovat, protože argv[i] neopovídá typu %s
-		std::printf("%d: %s\n", i, argv[i]);
+		// tohle nebude fungovat, protože arg[i] neopovídá typu %s
+		std::printf("%d: %s\n", i, arg[i]);
 	}
 	
 	return 0;
 }
 ```
+- std::string … trojice pointerů, první ukazuje na začátek stringu, druhý vlastně na jeho koncovou nulu a třetí na konec bloku, který je pro string vyhrazen
+- aliasy typů pomocí `using`, používá se předpona `t_`
+	- `using t_arg = std::vector<std::string>;`
+- `for (auto&& x : parg)`
+	- parg je kontejner
+	- auto se píše s dvojitým &&
+	- kdyby tam ty reference nebyly, tak bychom ten string kopírovali
