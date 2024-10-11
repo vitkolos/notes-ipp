@@ -122,3 +122,11 @@
 	- player's 1 best response to a strategy $y$ of 2 is a vector $x\in S_1$ that maximizes $x^TMy$
 		- $\alpha(y)=\max_x x^TMy$
 	- …
+	- the minimax theorem
+		- for every zero-sum game, worst-case optimal strategies for both players exist and can be efficiently computed
+		- there is a number $v$ such that, for any worst-case optimal strategies $x^*$ and $y^*$, the strategy profile $(x^*,y^*)$ is a Nash equilibrium and $\beta(x^*)=(x^*)^TMy^*=\alpha(y^*)=v$
+	- remarks
+		- it was proved by John von Neuman
+		- it tells us everything about zero-sum games
+		- there are no secrets in zero-sum games – each player can always choose the worst-case optimal strategy
+		- original proof uses Brouwer's theorem, we will use linear programming
