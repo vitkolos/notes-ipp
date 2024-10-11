@@ -85,10 +85,101 @@
 	- Shannon-Fano is not optimal
 		- Fano's student David Huffman described a construction of optimal prefix code
 	- divide and conquer algorithm
-- Huffman code
-	- constructs the tree from the bottom
-	- starts with the symbols that have the lowest frequencies
-	- sum of the frequencies is used as the frequency of the new node
-	- greedy algorithm
-	- interesting type of Huffman code: [Canonical Huffman code](https://en.wikipedia.org/wiki/Canonical_Huffman_code)
-	
+
+### Huffman code
+
+- constructs the tree from the bottom
+- starts with the symbols that have the lowest frequencies
+- sum of the frequencies is used as the frequency of the new node
+- greedy algorithm
+- interesting type of Huffman code: [Canonical Huffman code](https://en.wikipedia.org/wiki/Canonical_Huffman_code)
+- optimality of Huffman code
+	- notation
+		- alphabet $a$ of symbols that occur in the input string
+		- $\forall s\in A:f(s)$ … frequency of the symbol
+		- let $T$ be a prefix tree for alphabet $A$ with frequencies $f$
+			- leaves of $T$ … symbols of $A$
+		- let $d_T(s)$ denote the depth of a leaf $s$ in the tree $T$
+			- $d_T(s)=$ length of the path from root to $s$
+			- $d_T(s)=$ length of the codeword for symbols $s$
+		- cost $C(T)$ of tree $T$
+			- $C(T)=\sum_{z\in A}f(z)d_T(z)$
+			- $C(T)$ … length of the encoded message
+	- lemma 0: if a prefix tree $T$ ($|V(T)|\geq 3$) contains a vertex with exactly one child, then $T$ is not optimal
+	- proof: we could contract the edge between the vertex and its child
+	- lemma 1
+		- let $A$ ($|A|\geq 2$) be an alphabet with frequencies $f$
+		- let $x,y\in A$ be symbols with the lowest frequencies
+		- then there exists an optimal prefix tree for $A$ in which $x,y$ are siblings of maximum depth
+	- proof
+		- let $T$ be an optimal tree where $x,y$ are not siblings of maximum depth (instead, there are $a,b$ with maximum depth) 
+		- now by switching $a$ and $x$, we get $T'$
+		- $C(T)-C(T')=d_T(x)f(x)+d_T(a)f(a)-d_{T'}(a)f(a)-d_{T'}(x)f(x)=$ $\dots\geq 0$
+		- $T'$ is also optimal
+		- we repeat the steps for $y$
+		- we get $T''$
+		- $T$ is optimal $\implies T''$ is optimal
+	- lemma 2
+		- let $A$ be an alphabet with $f$
+		- let $x,y\in A$ be symbols with the lowest frequencies
+		- let $T'$ be an optimal prefix tree for alphabet $A'=A\setminus\set{x,y}\cup\set{z}$ where $f(z)=f(x)+f(y)$
+		- then tree $T$ obtained from $T'$ by adding children $x$ and $y$ to $z$ is an optimal prefix tree for $A$
+	- proof
+		- $T'$ optimal for $A'$
+		- we get $T$ by adding $x,y$ below $z$ (therefore $z$ is no longer a symbol of the alphabet)
+		- there exists $T''$ optimal for $A$ in which $x,y$ are siblings of maximum depth
+			- using lemma 1
+			- we label their parent $z$
+		- we remove $x,y$ and get $T'''$ for $A'$
+		- $C(T)=C(T')+f(x)+f(y)\leq C(T''')+f(x)+f(y)=C(T'')$
+			- clearly $C(T')\leq C(T''')$ as $T'$ is optimal
+		- $T''$ optimal $\implies T$ optimal
+	- theorem: algorithm Huffman produces an optimal prefix code
+		- proof by induction
+	- theorem (Kraft-McMillan inequality)
+		- codewords lengths $l_1,l_2,\dots,l_n$ of a uniquely decodable code satisfy $\sum_i 2^{-l_i}\leq 1$
+		- conversely, if positive integers $l_1,l_2,\dots,l_n$ satisfy the inequality, then there is a prefix code with codeword lengths $l_1,l_2,\dots,l_n$
+	- corollary
+		- Huffman coding algorithm procudes an optimal uniquely decodable code
+		- if there was some better uniquely decodable code, there would be also a better prefix code (by Kraft-McMillan inequality) so Huffman coding would not be optimal
+- idea: we could encode larger parts of the message, it might be better than Huffman coding
+- Huffman coding is not deterministic, there is not specified the order in which we take the symbols to form the tree – it may lead to optimal trees of different height
+- can we modify Huffman algorithm to guarantee that the resulting code minimizes the maximum codeword length?
+	- yes, when constructing the tree, we can sort the nodes not only by their frequencies but also by the depth of their subtree
+- what is the maximum height of a Huffman tree for an input message of length $n$?
+- is there an optimal prefix code which cannot be obtained using Huffman algorithm?
+	- yes
+- generalize the construction of binary Huffman code to the case of $m$-ary coding alphabet ($m\gt 2$)
+	- the trivial approach does not produce an optimal solution
+	- for the ternary coding alphabet, we can modify the first step – we will only take two leaves to form a subtree
+- implementation notes
+	- bitwise input and output (usually, we work with bytes)
+	- overflow problem (for integers etc.)
+	- code reconstruction necessary for decoding
+- adaptive compression
+	- static × adaptive methods
+	- statistical data compression consists of two parts: modeling and coding
+	- what if we cannot read the data twice?
+		- we will use the adaptive model
+- adaptive Huffman code
+	- brute force strategy – we reconstruct the whole tree
+		- after each frequency change
+		- after reading $k$ symbols
+		- after change of order of symbols sorted by frequencies
+	- characterization of Huffman trees
+		- Huffman tree – binary tree with nonnegative vertex weights
+			- two vertices of a binary tree with the same parent are called siblings
+			- binary tree with nonnegative vertex weights has a sibling property if
+				- $\forall$ parent: weight(parent) = $\sum$ weight(child)
+				- each vertex except root has a sibling
+				- vertices can be listed in order of non-increasing weight with each vertex adjacent to its sibling
+		- theorem (Faller 1973): binary tree with nonnegative vertex weights is a Huffman tree iff it has the sibling property
+		- FGK algorithm
+			- we maintain the sibling property
+		- zero-frequency problem
+			- how to encode a novel symbol
+			- 1st solution: initializace Huffman tree with all symbols of the source alphabet, each with weight one
+			- 2nd solution: initialize Huffman tree with a special symbol esc
+				- encode the 1st occurence of symbol s as a Huffman code of esc followed by s
+				- insert a new leaf representing s into the Huffman tree
+		- average codeword length … $l_{FGK}\leq l_H+O(1)$
