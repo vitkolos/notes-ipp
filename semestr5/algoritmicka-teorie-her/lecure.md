@@ -57,10 +57,11 @@
 		- (go straight, go straight) → (-10,-10)
 			- both die
 - best response of player $i$ to a strategy profile $s_{-i}$
-	- mixed strategy $s^*_{-i}$ such that $u_i(s_i^*;s_{-i})\geq u_i(s'_i;s_{-i})$ for each $s_i'\in S_i$
+	- mixed strategy $s^*_{i}$ such that $u_i(s_i^*;s_{-i})\geq u_i(s'_i;s_{-i})$ for each $s_i'\in S_i$
 	- if player $i$ knew the strategies of other players, the player would choose this one
 	- it maximizes his expected payoff if others play $s_{-i}$
 - Nash equilibrium
+	- a solution concept
 	- for a normal-form game $G=(P,A,u)$ of $n$ players, a Nash equilibrium (NE) in $G$ is a strategy profile (…)
 - remarks
 	- neither best responses nor Nash equilibria are determined uniquely
@@ -92,4 +93,32 @@
 		- by lemma, the set $K$ is compact
 		- for any strategy profiles $s\in K$ and $s'\in K$ and a number $t\in [0,1]$
 		- …
+	- …
+- Nash's theorem requires finite numbers of players and actions
+	- consider 2-player game “who guesses larger number wins”
+- the proof is non-constructive
+	- how to find NE efficiently?
+	- proofs of Brouwer's fixed point theorem are non-constructive as well
+- Pareto optimality
+	- another solution concept
+	- we want to capture “the best” state of a game, it might be difficult (as in battle of sexes)
+	- a strategy profile $s$ in $G$ Pareto dominates $s'$, written $s'\prec s$ if, for every player $i$, $u_i(s)\geq u_i(s')$ and there exists a player $j$ such that $u_j(s)\gt u_j(s')$
+		- …
+	- a strategy profile $s\in S$ is Pareto optimal if there does not exist another strategy profile $s'\in S$ that Pareto dominates $s$
+		- in zero-sum games, all strategy profiles are Pareto-optimal
+		- not all NE are Pareto-optimal (the NE in Prisoner's dilemma)
+	- Vilfredo Pareto
+		- Pareto principle: for many outcomes, roughly 80% of consequences come from 20% of the causes
+- finding Nash equilibria
+	- let's start with two-player zero-sum games
+		- rock paper scissors, chess, table tennis
+	- let $G=(P,A=A_1\times A_2,u)$ be a zero-sum game
+		- that is $u_1(a)+u_2(a)=0$ for every $a\in A$
+		- we can use one payoff matrix $M$ where $M_{ij}=u_1(i,j)=-u_2(i,j)$
+		- for a strategy profile $(s_1,s_2)$, we write $x_i=s_1(i)$ and $y_j=s_2(j)$ representing $(s_1,s_2)$ with mixed strategy vectors $x=(x_1,\dots,x_m)$ and $y=(y_1,\dots,y_n)$ that satisfy $\sum x_i=1$ and $\sum y_j=1$
+		- the expected payoff of player 1 then equals $u_1(s)=\sum_{a=(i,j)\in A}u_1(a)s_1(i)s_2(j)=\sum_{i}\sum_j M_{ij} x_iy_j=x^TMy=-u_2(s)$
+	- player's 2 best response to a strategy $x$ of 1 is a vector $y\in S_2$ that minimizes $x^TMy$
+		- $\beta(x)=\min_y x^TMy$ … best expected payoff of 2
+	- player's 1 best response to a strategy $y$ of 2 is a vector $x\in S_1$ that maximizes $x^TMy$
+		- $\alpha(y)=\max_x x^TMy$
 	- …
