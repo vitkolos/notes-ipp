@@ -77,6 +77,19 @@
 		- each simplex is a compact convex set in $\mathbb R^d$
 	- lemma
 		- (…)
-	- Brower's Fixed Point Theorem
+		- “you cannot mess up compactness by using cartesian product”
+	- Brouwer's Fixed Point Theorem
 		- $\forall d\in\mathbb N$, let $K$ be a non-empty compact convex set in $\mathbb R^d$ and $f:K\to K$ be a continuous mapping
 		- then, there exists a fixed point $x_0\in K$ for $f$, that is, $f(x_0)=x_0$
+		- https://www.youtube.com/watch?v=csInNn6pfT4&t=268s
+- proof of Nash's theorem
+	- let $G=(P,A,u)$ be a normal-form game of $n$ players
+	- $S_i$ … set of mixed strategies of player $i$
+	- we want to apply Brouwser's theorem, thus we need to find a suitable compact convex body $K$ and a continuous mapping $f:K\to K$ whose fixed points are NE in $G$
+	- we start with $K$, let $K=S_1\times\dots\times S_n$ be the set of all mixed strategies
+		- we verify that $K$ is compact and convex
+		- by definition, each $S_i$ is a simplex which is compact and convex
+		- by lemma, the set $K$ is compact
+		- for any strategy profiles $s\in K$ and $s'\in K$ and a number $t\in [0,1]$
+		- …
+	- …
