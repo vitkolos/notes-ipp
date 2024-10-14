@@ -119,4 +119,87 @@
 - theorem: if a Markov chain is finite, aperiodic (→ not periodic) and irreducible, then
 	1. $\exists$ unique stat. distribution $\pi$
 	2. $\forall i:\lim_{n\to\infty}(P^n)_{ij}=\pi_j$
- - example of periodic Markov chain: two states, we change the state with probability 1
+- example of periodic Markov chain: two states, we change the state with probability 1
+- df: $i\in S$ has period $d_i:=\text{gcd}\set{t:r_{ii}(t)\gt 0}$
+	- $i\in S$ is aperiodic if $d_i=1$
+- df: $i$ is null recurrent if $i$ is recurrent and $\mathbb E(T_i\mid X_0=i)=\infty$
+	- $i$ is positive recurrent if $i$ is recurrent and $\mathbb E(T_i\mid X_0=i)\lt\infty$
+- example: random walk on a line
+- theorem
+	- if $i,j\in S$, $i\leftrightarrow j$, then
+		- $d_i=d_j$
+		- $i$ is transient $\iff j$ is trainsient
+		- $i$ is recurrent $\iff j$ is recurrent
+		- $i$ is null recurrent $\iff j$ is null recurrent
+		- $i$ is positive recurrent $\iff j$ is positive recurrent
+	- these are properties of the class of $\leftrightarrow$
+- theorem
+	- if a Markov chain is irreducible, aperiodic and finite, then
+		- there exists a unique stationary distribution $\pi$: $\pi P=\pi$
+		- $\forall ij:\lim(P^t)_{ij}=\pi_j$
+			- $P(X_t=j\mid X_0=i)\doteq\pi_j$
+	- actually, MC does not have to be finite, it suffices if all states are positive recurrent (?)
+	- steady state (?)
+		- if $\pi^{(0)}=\pi$ then $\pi^{(1)}=\pi$
+- the proof is not easy, here is a cheat proof
+	- $Pj=Ij$ (row sums are 1)
+	- $(P-I)j=0$
+	- $P-I$ is sungular matrix
+	- $\exists x:x(P-I)=0\implies xP=x$
+	- $\pi=\frac xc$ such that $\sum \pi_i=1$
+	- problem
+		- $x$ may have negative coordinates
+		- to fix: use Perron-Frobenius theorem
+		- the correct proof is shown in class of probabilistic techniques
+- to find $\pi$, solve system of linear equations $\pi P=\pi$, add $\sum_{i\in S}\pi_i=1$
+	- $\pi$ describes long-term behavior of the MC
+	- Page Rank (original google search) … MC model of people browsing WWW
+	- given $\pi$, we can find a MC such that $\pi$ is its stationary distribution; then we can run the MC to generate random objects with distribution $\pi$
+		- Markov chain Monte Carlo (MCMC)
+- detailed balance equation
+	- MC may have this property
+	- $\forall i\neq j:\pi_iP_{ij}=\pi_jP_{ji}$
+- to imagine this: ant colony moving independently according to a Markov chain
+	- stationary distribution $\iff$ the same number of ants at each state at each time – ants don't "accumulate"
+- detailed balance equation implies $\pi P=\pi$
+	- detailed balance equation is stronger than $\pi P=\pi$
+- MCMC algo. sketch
+	- choose aperiodic irreducible digraph
+	- $p_{ij}=\min\set{1,\frac{\pi _j}{\pi_i}}\cdot C$
+	- $p_{ji}=\min\set{1,\frac{\pi_i}{\pi_j}}\cdot C$
+	- choose $C$ such that
+		- $\forall i:\sum_{j\neq i} p_{ij}\lt 1$
+		- df. $p_{ii}=1-\sum_{j\neq i}p_{ij}\gt 0$
+		- $\implies d_i=1$
+	- tune the process to make convergence fast
+- absorbing state $i:p_{ii}=1$
+	- $A$ … set of absorbing states
+	- question 1: which $i\in A$ we end at?
+	- question 2: how fast?
+- example: $0\in A$ (?)
+	- $a_i=P(\exists t:X_t=0\mid X_0=i)$
+- $\mu_i=\mathbb E(T\mid X_0=i)$
+	- $T=\min\set{t: X_t\in A}$
+- theorem: $(a_i)_{i\in S}$ are the unique solution to
+	- $a_0=1$
+	- $a_i=0$ if $i\in A,\,i\neq 0$
+	- $a_i=\sum_j p_{ij}\cdot a_j$ otherwise
+- theorem: $(\mu_i)_{i\in S}$ are unieque solutions to
+	- $\mu_i=0$ if $i\in A$
+	- $\mu_i=1+\sum_j p_{ij}\mu_j$ if $i\notin A$
+- proof
+	- $P(\exists t:X_t=0\mid X_0=0)=1$
+	- $P(\exists t: X_t=0\mid X_0=i\in A\setminus\set{0})=0$
+	- $i\notin A$
+		- $B_j=\set{\exists t:X_t=0}$
+		- $P(B_i)=\sum_{j\in S} p_{ij}\cdot \underbrace{P(B_i\mid X_1=j)}_{P(B_j)=a_j}$
+- example: drunk person on their way home
+	- $A=\set{0}$
+	- $\mu_0=0$
+	- $\mu_1=1+\frac12\mu_0+\frac12\mu_2$
+	- $\mu_2=1+\frac12\mu_1+\frac12\mu_3$
+	- $\mu_{n-1}=1+\frac12\mu_{n-2}+\frac12\mu_{n}$
+	- $\mu_n=1+\mu_{n-1}$
+	- solution
+		- $\mu_1=2n-1$
+		- $\mu_n=n^2$
