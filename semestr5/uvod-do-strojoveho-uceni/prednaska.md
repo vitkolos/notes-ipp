@@ -94,3 +94,39 @@
 		- dá se to řešit standardizací
 		- data budou mezi -1 a 1
 		- nebo se můžeme zbavit outlierů
+
+## Binární klasifikace
+
+- klasifikujeme data do dvou tříd
+- nejjednodušší metrika je úspěšnost (accuracy)
+	- poměr správně klasifikovaných dat
+- budeme hledat nadrovinu, která nám oddělí jednu třídu od druhé
+	- nadrovina … $x^Tw=0$
+	- jedna třída … $x^Tw>0$
+	- druhá třída … $x^Tw\lt 0$
+- budeme uvažovat množinu tříd $\set{-1,+1}$, tedy target $t\in \set{-1,+1}$
+- $t_ix_i^Tw\gt 0$
+- perceptron
+- poznámka: slajdy se s *výstražnou sumou* si nemusíme pamatovat
+- problémy perceptronu
+	- když není vstup lineárně separovatelný, algoritmus nikdy neskončí
+	- algoritmus vrátí jedinou predikci, neumí vrátit pravděpodobnosti více predikcí
+	- ale hlavně, algoritmus perceptronu najde nějaké řešení, ne nutně dobré řešení, protože když už to řešení najde, nemůže ho dále měnit/zlepšovat
+- teorie informace
+	- vlastnosti $I(X)$
+		- $P(x)=1\implies I(X)=0$
+		- $P(x,y)=P(x)P(y)\implies I(x,y)=I(x)+I(y)$
+		- $\forall x:I(x)\geq 0$
+	- $I(x)\equiv -\log P(x)=\log\frac1{P(x)}$
+	- entropie $H(P)$
+	- cross-entropy $H(P,Q)\geq H(P)$
+		- jak jsem překvapený, když si myslím $Q$, ale ve skutečnosti se děje $P$
+	- Gibbsova nerovnost
+		- $H(P,Q)\geq H(P)$
+		- $H(P,Q)=H(P)\iff P=Q$
+	- KL divergence
+	- normální rozdělení
+		- centrální limitní věta
+		- princip maximální entropie
+- odhad maximální věrohodnosti
+	- $L(w)=p_\text{model}(X;w)=\prod_{i=1}^Np_\text{model}(x_i;w)$
