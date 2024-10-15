@@ -27,3 +27,29 @@
 				- introflexe – změny probíhají v kořeni
 			- aglutinační jazyky (lepí se k sobě morfémy)
 		- polysyntetické – slovo = věta
+- přístupy ke zpracování morfologie
+	- morfologie založená na morfémech – vidí slovo jako řetízek morfémů, jako korálky na niti
+	- morfologie založená na lexémech – vidí slovo jako výsledek aplikace pravidel, která slovo mění a tím vytváří nový slovní tvar
+	- morfologie založená na slovech – centrální roli mají vzory
+		- ze základního tvaru a vzoru (k němuž slovo patří) umíme vygenerovat všechny tvary slova
+- Two-Level Morphology
+	- první obecný model zpracování morfologie přirozeného jazyka
+	- založen na konečných automatech
+	- tradiční počítačové zpracování morfologie se orientovalo na generování tvarů slov ze základního tvaru – nebralo v úvahu, že opačný směr (analýza) může být víceznačný
+	- 2 úrovně – lexikální a povrchová
+	- základní myšlenky
+		- pravidla se aplikují paralelně, ne sekvenčně
+		- podmínky se mohou vztahovat k jedné nebo oběma úrovním
+		- lexikální vyhledávání (trie) a morfologická analýza probíhají současně
+- česká morfologie
+	- vyvíjena od roku 1989 zejména profesorem Hajičem
+	- využívá poziční značky, každá pozice má svůj jednoznačný význam
+	- značky jsou 15místné, rozeznává se pouze 13 kategorií
+	- lemma – jednoznačný identifikátor slova
+- činnosti využívající morfologii
+	- morfologická analýza – na vstupu slovní tvar, na výstupu seznam všech lemmat a značek, které jsou pravděpodobné
+	- morfologické značkování (tagging) – proces výběru správné značky v daném kontextu (statistické metody)
+	- částečná morfologická desambiguace založená na pravidlech (Olive, Petkevič) – pomocí spolehlivých pravidel redukuje počet značek
+	- lemmatizace – na vstupu slovní tvar, na výstupu lemma
+	- stemming – odříznutí koncovky (na vstupu slovní tvar, na výstupu kmen slova)
+	- generování – výběr správného slovního tvaru na základě lemmatu a kombinace gramatických kategorií

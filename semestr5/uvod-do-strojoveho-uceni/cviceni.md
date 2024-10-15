@@ -14,3 +14,10 @@
 	- AdaGrad
 	- AdaDelta
 	- Adaptive Moment Estimation (ADAM)
+- co máme
+	- data $(x,y)\in\mathbb R^2$
+	- model $f(x)=y,\;f:\mathbb R\to \mathbb R$
+		- při lineární regresi konkrétně $y=ax+b$
+	- parametry $\theta=(a,b)\in\mathbb R^2$
+	- predikce $f_\theta(x)=y,\;f:\mathbb R^3\to \mathbb R$
+	- loss $L(\theta,(x,y)),\;L:\mathbb R^4\to \mathbb R$
