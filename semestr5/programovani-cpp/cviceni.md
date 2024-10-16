@@ -99,3 +99,39 @@ int main(int argc, char** argv) {
 	- parg je kontejner
 	- auto se píše s dvojitým &&
 	- kdyby tam ty reference nebyly, tak bychom ten string kopírovali
+
+---
+
+- zpracování CSV souboru
+- třída `std::ifstream` … vstupní souborový stream
+	- `ctd::cout` je typu `std::ofstream`
+	- `fstream` umí vstup i výstupu, ale ovládá se komplikovaněji
+	- existuje taky `strstream`, který pracuje s proměnnou typu string
+- debug režim
+	- překladač se nesnaží optimalizovat kód
+	- ve standardních knihovnách jsou testy, jestli je používáme správně
+- starší vrstva standardních knihoven nevypouštějí výjimky
+	- řeší se to pomocí návratových hodnot, příznaků a jinými způsoby
+	- pokud se `ifstream` nepovede otevřít, nastaví se chybový příznak
+		- metoda `fail()` vrací true, pokud se poslední volání rozbilo
+		- metoda `good()` vrací true, pokud je objekt v pořádku
+- příznak `eof` se nastaví až po tom, co se pokusíme přečíst data za koncem souboru
+	- takže po každém čtení kontrolujeme fail, pokud to zfailovalo a nastavil se příznak eof, je to v pohodě – jsme na konci souboru
+- neinicializovaná proměnná typu std::string obsahuje prázdný řetězec
+- pozor, pokud něco zfailuje, tak std::getline v proměnné nechá původní hodnotu
+- měli bychom kontrolovat chyby při čtení ze souboru i při zápisu do souboru
+- chceme, aby `csv_file` byla nějaká sofistikovanější datová struktura (struktura nebo třída), která bude odděleně obsahovat hlavičku a tělo souboru
+- stačí mi vytvořit lokální proměnnou `csv_file csv;`, nic víc nepotřebuju, protože životnost proměnné se kryje s funkcí main
+- celý soubor se nám vleze do paměti
+- můžeme ignorovat všechny úplně prázdné řádky
+- chceme testovat, jestli je vstup korektní (třeba že na konci řádku nejsou ukončené uvozovky)
+- zajímavé věci, které můžeme použít
+	- ve stringu append (string je mutabilní)
+	- kdybychom si chtěli něco signalizovat výjimkama, používá se třída `std::runtime_error`, nepoužívá se `new`
+	- `std::sort` k třídění
+	- `std::pair` se umí řadit lexikograficky
+	- na číslování sloupečků je fajn použít `size_t`
+		- typ `int` budeme používat málokdy – většinou řešíme nějaké pozice, indexování do pole
+	- `std::emplace_back` na přidání dvojice na konec kontejneru dvojic
+	- `std::iota`
+	- lambda funkce
