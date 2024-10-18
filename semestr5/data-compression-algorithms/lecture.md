@@ -147,6 +147,10 @@
 - can we modify Huffman algorithm to guarantee that the resulting code minimizes the maximum codeword length?
 	- yes, when constructing the tree, we can sort the nodes not only by their frequencies but also by the depth of their subtree
 - what is the maximum height of a Huffman tree for an input message of length $n$?
+	- we find the minimal input size to get the Huffman tree of height $k$
+	- Huffman tree of height $k\implies n\geq f_{k+1}$
+		- where $f_0=1,\;f_1=1,\;f_{k+2}=f_{k+1}+f_k$
+	- $n\lt f_{k+2}\implies$ max. codeword length $\leq k$
 - is there an optimal prefix code which cannot be obtained using Huffman algorithm?
 	- yes
 - generalize the construction of binary Huffman code to the case of $m$-ary coding alphabet ($m\gt 2$)
@@ -161,6 +165,8 @@
 	- statistical data compression consists of two parts: modeling and coding
 	- what if we cannot read the data twice?
 		- we will use the adaptive model
+- if we know that the code contains 2 codewords of length 2 and 4 codewords of length 3, we can construct canonical Huffman code (?)
+	- 00, 01, 100, 101, 110, 111
 - adaptive Huffman code
 	- brute force strategy – we reconstruct the whole tree
 		- after each frequency change
@@ -183,3 +189,35 @@
 				- encode the 1st occurence of symbol s as a Huffman code of esc followed by s
 				- insert a new leaf representing s into the Huffman tree
 		- average codeword length … $l_{FGK}\leq l_H+O(1)$
+	- implementation problems
+		- overflow
+			- we can multiply frequencies by $\frac12$
+				- this may lead to tree reconstruction
+			- statistical properties of the input may be changing over time – it might be useful to reduce the influence of older frequencies in time
+				- by multiplying by $x\in(0,1)$
+			- we'll use integral arithmetic → we need to scale the numbers
+
+## Arithmetic coding
+
+- each string $s\in A^*$ associate with a subinterval $I_s\subseteq[0,1]$ such that
+	- $s\neq s'\implies I_s\cap I_{s'}=\emptyset$
+	- length of $I_s=p(s)$
+	- $C(s)=$ number from $I_s$ with the shortest code possible
+- we'll first assume that $p(a_1a_2\dots a_m)=p(a_1)\cdot p(a_2)\cdot \ldots \cdot p(a_m)$
+- encoding
+	- we count the frequencies → probabilities
+	- we sort the symbols in some order
+	- we assign intervals to the symbols in the order
+	- to encode the message, we subdivide the intervals
+		- for example, let's say that $I_B=(0.2,0.3)$ and $I_I=(0.5,0.6)$
+		- then $I_{BI}=(0.25,0.26)$
+	- the shorter the message, the longer the interval
+	- we have to store the length of the input or encode a special symbol (end of file) to be able to distinguish between the encoded string and its prefixes
+- decoding
+	- we reconstruct the input string from the left
+	- we inverse the mapping
+- problem: using floating point arithmetic leads to rounding errors → we will use integers
+	- underflow may happen that way if we use too short integers
+- another problem
+	- we use bit shifting and assume that the first bits of both bounds are the same
+	- what if the first bits differ?
