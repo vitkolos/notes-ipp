@@ -53,3 +53,25 @@
 	- lemmatizace – na vstupu slovní tvar, na výstupu lemma
 	- stemming – odříznutí koncovky (na vstupu slovní tvar, na výstupu kmen slova)
 	- generování – výběr správného slovního tvaru na základě lemmatu a kombinace gramatických kategorií
+- ^^ doplnit
+- značkování bere v úvahu kontext přibližně tří slov
+- v češtině je více značek než v angličtině (v angličtině do stovky, v češtině kolem tisíce)
+- skryté Markovovy modely (HMM)
+	- standardní metoda analýzy řad (poslopuností událostí v čase) na základě kontextu
+	- posloupnost rozhodnutí, která jsou na sobě závislá
+	- …
+- HMM se skládají z následujících komponent
+	- množina N stavů
+	- matice přechodových pravděpodobností (pravděpodobnost přechodu z jednoho stavu do druhého)
+	- posloupnost pravděpodobností pozorování (pravděpodobnost nějakého pozorování v konkrétním stavu)
+	- počáteční distribuce pravděpodobností nad stavy
+- tři základní úlohy s HMM
+	- …
+- měření úspěšnosti
+	- precision
+	- recall
+	- F-measure (míra F)
+- kontrola překlepů
+	- porovnávání řetězců se slovy ve slovníků
+	- srovnávání skupin znaků, hledání nedovolených kombinací
+- metody strojového učení berou v úvahu kontext
