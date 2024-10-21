@@ -130,3 +130,23 @@
 		- it tells us everything about zero-sum games
 		- there are no secrets in zero-sum games – each player can always choose the worst-case optimal strategy
 		- original proof uses Brouwer's theorem, we will use linear programming
+	- proof of the minimax theorem
+		- geometry preliminaries
+			- hyperplane
+			- halfspace
+			- polyhedron – intersection of finitely many halfspaces
+			- polytope – bounded polyhedron
+			- $d$-dimensional polytope is simple … all its vertices are adjacent to exactly $d$ edges
+		- linear programming preliminaries
+			- constraints, objective function
+			- Simplex method, Ellipsoid method
+			- duality
+		- the proof
+			- we'll use the duality
+			- first, we find the best response, actually the worst-case best response
+			- …
+	- bimatrix games
+		- example: Prisoner's dilemma, collaborative projects
+		- brute force algorithm (to find NE)
+			- best response condition
+			- 
