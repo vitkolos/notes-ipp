@@ -203,3 +203,71 @@
 	- solution
 		- $\mu_1=2n-1$
 		- $\mu_n=n^2$
+		- $\mu_{i}\leq n^2$
+- 2-SAT problem
+	- input: $\varphi=(x_1\lor x_2)\land(x_3\lor\neg x_1)\land\ldots$
+		- clauses with exactly 2 literals
+	- output: a satisfying assignment OR “unsatisfiable”
+	- there exists a polynomial algorithm
+	- we will show a randomized algorithm
+		1. arbitrarily initialize $(x_1,\dots,x_n)$
+		2. while $\varphi$ has an unsatisfied clause
+			- choose one of the unsatisfied clauses and change one of its variables
+		3. return $(x_1,\dots,x_n)$
+	- repeat (2) $\leq2mn^2$ times
+		- then, if $\varphi$ is still unsatisfied, return “unsatisfiable”
+		- this may introduce errors
+	- theorem: the algorithm makes an error with probability $\leq 2^{-m}$
+	- proof
+		- $x_1^*,\dots,x_n^*$ … one of the satisfying assignments
+		- $D_t$ the number of $i$ such that $x_i\neq x_i^*$ at time $t$
+			- $t=0,1,\dots,2mn^2$
+			- $0\leq D_t\leq n$
+			- $D_t=0\implies$ we found a solution
+		- situation
+			- we assume that clause $(x_1\lor x_2)$ is unsatisfied at time $t$ and we choose it
+			- $\implies x_1=x_2=F$
+				- $(x_1\neq x_2)$
+				- ($x_2\neq\neg x_1)$ … we could remove such clauses
+			- $\implies x_1^*\lor x_2^*$ is $T$
+			- we randomly switch $x_1$ or $x_2$ which increases or decreases $D$
+			- …
+	- we can get a 3-SAT randomized algorithm with $(\frac43)^n$ time complexity this way
+- Hidden Markov Model (HMM)
+	- not observable $(X_t)$ … Markov chain
+	- observable $(Y_t)$ … $Y_t$ is obtained from $X_t$
+	- widely aplplicable
+	- smart algorithm (Vitebri algorithm)
+
+## Probability
+
+- what is probability?
+	- $P:\mathcal F\to[0,1]$ such that
+		- $P(\Omega)=1$
+		- $P(\bigcup A_n)=\sum P(A_n)$ if disjoint
+- where to find/use it?
+	- randomized algorithms
+	- is it possible to have true randomness?
+		- hardware methods to sample random bits
+		- software methods
+			- their independence can be “weak” (for statistics) or “strong” (for cryptography)
+- probabilistic method
+	- we prove that some graph exists by showing that random graph has certain property with probability greater than zero
+	- $G(n,p)$ … graph with vertices $1,\dots,n$
+		- $\forall i,j:i\sim j$ with probability $p$ (all independent)
+	- $P(G(n,\frac12)$ has no $K_k$ nor $\overline K_k$ as an induced subgraph$)\gt 0$ if $n\leq 2^{k/2}$
+	- thus $\exists G$ on $2^{k/2}$ vertices with no induced $K_k$ nor $\overline K_k$
+	- Ramsey theorem
+- statistics
+	- frequentist
+		- $P(A)=$ number of good / number of all
+		- “in long term repetition”
+		- repeat a random experiment independently $n$ times
+		- observe that $A$ happens $k$ times
+		- $P(A):=k/n$
+	- Bayesian
+		- P(it will rain tomorrow)
+		- subjective probability → betting
+			- does satisfy axioms!
+		- “random universe”
+			- $\Omega$ = set of all possible universes
