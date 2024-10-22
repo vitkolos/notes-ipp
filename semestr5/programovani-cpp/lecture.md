@@ -10,3 +10,7 @@
 		- does not have to contain names of the parameters
 		- can contain default values of the parameters
 	- definition – in the source (cpp) file
+- `inline` keyword
+- if you insert something in a container, it is copied
+- `const` keyword
+- `auto&&` → compiler will determine the best way to access the item (might even use const)

@@ -130,3 +130,13 @@
 		- princip maximální entropie
 - odhad maximální věrohodnosti
 	- $L(w)=p_\text{model}(X;w)=\prod_{i=1}^Np_\text{model}(x_i;w)$
+- binární logistická regrese
+- multiclass logistic regression
+	- místo váhového vektoru budeme mít matici vah
+	- místo funkce sigmoid použijeme funkci softmax
+	- $\text{softmax}(z)_i=\frac{\exp(z_i)}{\sum_j\exp(z_j)}$
+	- vyžadujeme, aby data tvořila nějaké konvexní útvary
+- multilayer perceptron
+	- vstupní vrstva a výstupní vrstva „neuronů“
+	- mezi nimi je skrytá vrstva
+	- skrytá vrstva nám jakoby vyrábí features pro lineární model
