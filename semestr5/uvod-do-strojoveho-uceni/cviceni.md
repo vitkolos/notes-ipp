@@ -21,3 +21,13 @@
 	- parametry $\theta=(a,b)\in\mathbb R^2$
 	- predikce $f_\theta(x)=y,\;f:\mathbb R^3\to \mathbb R$
 	- loss $L(\theta,(x,y)),\;L:\mathbb R^4\to \mathbb R$
+- $\text{softmax}(x)_i=\frac{e^{x_i}}{\sum_{k=0}^n e^{x_k}}$
+- $f(x)_i=\frac{|x_i|}{\sum|x|}$
+	- prohodilo by se pořadí (jelikož záporná čísla by se zobrazila mezi kladná čísla)
+- $f_2(x)_i=\frac{x_i-\min(x)}{\sum|x-\min(x)|}$
+	- u minima by to byla nula, což by nám znemožnilo např. u dvojprvkového vektoru vyjádřit nejistotu
+- poissonovská regrese – viz slidy z roku 2022/2023
+	- lze použít k řešení soutěžní úlohy
+- time splines
+	- něco jako one hot
+	- úterý kóduju tak, že dám např. 0.8 úterý, 0.1 pondělí a 0.1 středě 

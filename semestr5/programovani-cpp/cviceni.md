@@ -135,3 +135,41 @@ int main(int argc, char** argv) {
 	- `std::emplace_back` na přidání dvojice na konec kontejneru dvojic
 	- `std::iota`
 	- lambda funkce
+
+---
+
+- časté chyby a poznámky
+	- před `constexpr` by se v hlavičkovém souboru mělo napsat `inline`
+	- `constexpr` je informace pro překladač, `const` je informace pro vývojáře
+	- je potřeba psát u parametrů funkcí `const`, pokud nemodifikují své parametry
+		- jednak tím děsíme programátory
+		- jednak se taková funkce nedá volat s rvalue parametrem
+			- např. takovou funkci, která bere `std::string&` (nikoliv const) nemůžeme zavolat se zřetězením stringů
+	- používat `using` konstrukci
+		- nedávat tam dekorace (const, &), aby bylo vidět, jak se parametr předává
+		- ale můžeme tam dát `*`
+	- kontejnery se inicializují prázdné
+		- takže stačí `std::string out;`
+		- nemusíme psát `std::string out = "";`
+		- funguje taky `std::string out();` nebo `std::string out{};`
+			- může to takhle být lepší, je to explicitnější
+	- chceme-li procpat výsledek operace přes návratovou hodnotu, můžeme použít typ `optional<T>`
+		- `optional<string> x;` je automaticky inicializovaná jako neplatná
+		- existuje operátor `!x`, který nám řekne, že je nevalidní
+			- kdybychom to chtěli otočit, tak použijeme dvojitý vykřičník
+		- k hodnotě se přistupuje pomocí `*x` nebo `x->`
+	- používat referentítka (&)
+		- jinak se hodnota parametru kopíruje
+		- všechno dává smysl předávat jako const reference kromě čísel a hvězdičkových pointerů
+	- bez referentítka nedává smysl použít const
+	- je fajn dělat si referenční lokální proměnné – např. ukázat na prvek pole
+	- nepoužívat typedef, má jinou syntaxi
+- vyhodnocování výrazů
+	- funkce A (aditivní) žere posloupnost M (multiplikativní) oddělených plusy nebo minusy
+	- M dělá to samé, akorát žere T, mezi nimiž jsou hvězdičky (nebo lomítka?)
+	- T žere čísla a závorky
+		- pozor, v repu chybí eat po počáteční kulaté závorce
+	- next je implementovaný jako peek – neposouvá ukazovátko
+	- eat může být jako get
+	- next/eat může přeskakovat mezery
+	- můžeme mít enum pro operátory
