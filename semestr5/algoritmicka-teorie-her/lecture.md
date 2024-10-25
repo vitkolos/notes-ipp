@@ -149,4 +149,5 @@
 		- example: Prisoner's dilemma, collaborative projects
 		- brute force algorithm (to find NE)
 			- best response condition
-			- 
+		- best response polyhedra
+			- labels
