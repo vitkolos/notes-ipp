@@ -221,3 +221,14 @@
 - another problem
 	- we use bit shifting and assume that the first bits of both bounds are the same
 	- what if the first bits differ?
+		- we don't output anything yet and increment a counter
+- adaptive version
+	- Fenwick tree
+		- Fenwick frequency = prefix sum
+
+## Theoretical limits
+
+- Hartley's formula
+	- minimum and average number of yes/no questions to find the answer
+- Shannon's formula
+	- entropy … $H(X)=-\sum_{x\in R}p(x)\log p(x)$
