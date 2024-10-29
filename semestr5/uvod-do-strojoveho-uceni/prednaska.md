@@ -140,3 +140,17 @@
 	- vstupní vrstva a výstupní vrstva „neuronů“
 	- mezi nimi je skrytá vrstva
 	- skrytá vrstva nám jakoby vyrábí features pro lineární model
+	- tip: `numpy.logsumexp`
+- regularizace pomocí dropoutu
+	- při trénování zahazujeme některé neurony
+	- tím nutíme model, aby byl robustnější
+- věta o univerzální aproximaci
+	- máme model, který může modelovat cokoliv
+	- ale neznáme konkrétní $H$
+	- a taky nevíme, jak se naučit cokoliv
+- Lagrangeovy multiplikátory
+	- hledáme extrém na oblasti vymezené omezující podmínkou (rovností)
+	- v bodě extrému bude gradient kolmý na oblast
+- F-skóre
+	- harmonický průměr precision a recall
+	- pokud nás víc zajímá recall, tak se používá parametr $\beta$
