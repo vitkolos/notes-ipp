@@ -31,3 +31,12 @@
 - time splines
 	- něco jako one hot
 	- úterý kóduju tak, že dám např. 0.8 úterý, 0.1 pondělí a 0.1 středě 
+- nástroje k soutěžím
+	- one-hot
+	- RobustScaler
+	- polynomial
+	- regLR
+		- increased maxiter
+	- spline transformer
+	- power transformer
+	- https://scikit-learn.org/1.5/auto_examples/preprocessing/plot_all_scaling.html

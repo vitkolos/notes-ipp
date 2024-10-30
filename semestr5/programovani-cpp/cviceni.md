@@ -167,9 +167,27 @@ int main(int argc, char** argv) {
 - vyhodnocování výrazů
 	- funkce A (aditivní) žere posloupnost M (multiplikativní) oddělených plusy nebo minusy
 	- M dělá to samé, akorát žere T, mezi nimiž jsou hvězdičky (nebo lomítka?)
-	- T žere čísla a závorky
+	- T (term) žere čísla a závorky
 		- pozor, v repu chybí eat po počáteční kulaté závorce
 	- next je implementovaný jako peek – neposouvá ukazovátko
 	- eat může být jako get
 	- next/eat může přeskakovat mezery
 	- můžeme mít enum pro operátory
+- poznámky
+	- kdybych chtěl používat istream, aby to podporovalo ifstream i istringstream
+		- nevystačím si s hodnotou
+		- potřebuju referenci nebo pointer
+	- reference a pointery technicky fungujou stejně, jen se jinak používají
+	- když chceme do pointeru přiřadit referenci, použijeme `&`
+		- `s_ = &p;`
+		- je zvyk předávat streamy do funkcí jako reference (ne pointery), aby se pak lépe používaly se zapisovacími a vypisovacími operátory
+			- předávání hodnotou nedává smysl, jelikož má stream nějaký vnitřní stav
+	- speciální syntaxe pro konstruktor
+		- `parser(istream & p) : s_(p) {}`
+		- takhle můžu mít referenci `s_`
+		- překladač vždycky zajistí volání konstruktoru na těch položkách
+	- ale neočekává se, že když funkci/objektu předám referenci, tak si ji někam schová a bude ji používat dál
+	- takže parametr konstruktoru bude typu pointer
+		- tak upozorníme na to, že si objekt ukazatel nechá
+	- pokud bychom chtěli vytovřit objekt parseru a jen na něm zavolat parse, tak by bylo hezčí, kdybychom místo toho měli statickou metodu parse, která by si uvnitř vytvořila instanci parseru
+		- není důvod, aby byl objekt parseru vidět – není v něm nic zajímavého

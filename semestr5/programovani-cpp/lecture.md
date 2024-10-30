@@ -14,3 +14,29 @@
 - if you insert something in a container, it is copied
 - `const` keyword
 - `auto&&` → compiler will determine the best way to access the item (might even use const)
+- `std::string`
+	- mutable
+	- assignment copies the characters
+	- small strings may be located inside the std::string object (in some implementations)
+	- larger strings are stored in a dynamically allocated block owned by the std::string object
+		- if the appended characters can fit inside the block, they are just appended
+		- otherwise, a larger block is allocated and all the characters are copied there
+- how to (not) share links
+	- value … `T`
+		- default value defined by default constructor
+		- we can use `x.member`
+	- raw (C) pointers … `T *`
+		- undefined by default (if not global)
+			- it is good practice to set them as null pointer
+		- the instance needs to be deleted (exactly once)
+		- star needs to be repeated when creating multiple pointer variables
+		- we can use `(*x).member` or `x->member`
+	- smart pointers … `std::shared_ptr<T>`
+		- initialized as null pointer
+		- we can use `x->member`
+	- references … `T &`
+		- must be initialized
+		- cannot be redirected
+		- we can use `x.member`
+		- reference does not own the object, it has to be owned by someone else
+		- assignment replaces the value of the referenced object
