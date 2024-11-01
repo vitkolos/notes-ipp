@@ -151,3 +151,22 @@
 			- best response condition
 		- best response polyhedra
 			- labels
+		- analysis of the NASH problem (finding nash equilibria in bimatrix games)
+			- as a decision problem it is trivial – there always exists a Nash equilibrium
+				- so it is not NP complete
+			- FNP complexity class (“functional NP”)
+			- clearly, NASH belongs to FNP
+				- checking whether a strategy profile is NE can be done using the best response condition
+			- theorem: if NASH is FNP-complete, then NP = coNP
+				- proof is in the lecutre notes (it is not required)
+			- therefore, it is unlikely that NASH is FNP-complete
+			- new complexity class
+			- END-OF-THE-LINE problem
+				- the graph can be exponentially large with respect to the input size
+			- class PPAD
+- other solution concepts
+	- $\varepsilon$-NE
+	- correlated equilibrium
+		- linear program
+			- any feasible solution will be a correlated equilibrium
+			- we can construct the objective function to maximize the general wellbeing
