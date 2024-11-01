@@ -232,3 +232,18 @@
 	- minimum and average number of yes/no questions to find the answer
 - Shannon's formula
 	- entropy … $H(X)=-\sum_{x\in R}p(x)\log p(x)$
+	- theorem: $H(X)\geq 0$
+	- lemma: Gibbs inequality (or, at least, it looks like it)
+	- theorem: for a random variable $X$ with a finite range $R$, $|R|=n$, we have $H(X)\leq\log n$
+		- and $H(X)=\log n\iff \forall x\in R:p(x)=\frac1n$
+		- we plug it into the inequality … $q_i=\frac1n$
+- entropy axioms
+- Kraft-McMillan theorem
+	- codeword lengths $l_1,l_2,\dots$ of a uniquely decodable code $C$ satisfy $\sum_i 2^{-l_i}\leq 1$
+	- on the other hand, if natural numbers $l_1,l_2,\dots$ satisfy the inequality, then there is a prefix code with codewords of these lengths
+- theorem: let $C$ be a uniquely decodable code for a random variable $X$, then $H(X)\leq L(C)$
+- upper and lower bounds
+- analysis of arithmetic coding
+- problems
+	- we assume that the encoded random variables are independent
+	- we are working with a probabilistic model of our data, which is simplified too much
