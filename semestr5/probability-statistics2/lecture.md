@@ -271,3 +271,21 @@
 			- does satisfy axioms!
 		- “random universe”
 			- $\Omega$ = set of all possible universes
+- Bayes theorem
+- MAP (maximum a posteriori)
+- $\hat\theta_\text{MAP}=\text{argmax}_\theta\,p_{\Theta\mid X}(\theta\mid x)$
+	- $\hat\theta$ is a point estimate for $\Theta$
+- that equals $\text{argmax}\,p_\Theta(\hat\theta)\cdot p_{X\mid\Theta}(x\mid\theta)$ as we can ignore the normalization constant
+- Beta function
+	- $B(\alpha,\beta)=\int_0^1x^{\alpha-1}(1-x)^{\beta-1}=\frac{(\alpha-1)!(\beta-1)!}{(\alpha+\beta-1)!}$
+- Beta distribution
+	- $f_\Theta(x)=\frac1{B(\alpha,\beta)}x^{\alpha-1}(1-x)^{\beta-1}$
+- $(\ln f)'=(c+(\alpha-1)\ln x+(\beta-1)\ln (1-x))'={\alpha-1\over x}-{\beta-1\over 1-x}$
+	- in the maximum, this will be equal to zero
+	- maximum … $\frac{\alpha-1}{\alpha-1+\beta-1}$
+- …
+- LMS point estimate
+	- LMS = least mean square
+	- estimate such that $\mathbb E((\Theta-\hat\theta)^2\mid X=x)$ is minimal
+	- to compute it
+		- …
