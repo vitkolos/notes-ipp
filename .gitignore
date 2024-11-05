@@ -1,14 +1,11 @@
 .obsidian
 .markdownlint.json
 *.pdf
+!*/materialy/*.pdf
 domácí úkoly
-domaci-ukoly
-du
 ukoly
 soukromé materiály
 soukrome
-private
 ucebnice
-!*/materiály/*.pdf
-!*/materialy/*.pdf
 rocnikovy-projekt
+bakalarka
