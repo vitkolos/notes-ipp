@@ -75,3 +75,43 @@
 	- porovnávání řetězců se slovy ve slovníků
 	- srovnávání skupin znaků, hledání nedovolených kombinací
 - metody strojového učení berou v úvahu kontext
+- komerční řešení
+	- k omezení množství nabízených tvarů se používá Levenštejnova vzdálenost
+	- upřednostňuje se přesnost (nenalezené chyby autor nevidí :)) a rychlost
+	- uživatel nechce být rušen – kontrola se provádí na pozadí, nemusí se ručně pouštět
+	- uživatelsky definované slovníky nemají morfologii :(
+- kontextové metody kontroly překlepů
+	- některé chyby nelze odhalit jen pomocí slovníku – weather/whether, there/their apod.
+	- spell checkery využívající kontext obvykle používají statistické metody nebo strojové učení
+	- záměnná množina (confusion set) – množina tvarů, u nichž může snadno dojít k záměně
+- příklady využití pravidelnosti české morfologie
+	- systém ASIMUT
+		- vyhledává klíčová slova v rozsáhlé množině textů
+		- nemá kompletní slovník českých lemmat
+		- aby mohl vyhledávat vyskloňované tvary klíčových slov, využívá pozorování, že mnoho slov, která mají v základním tvaru stejný koncový segment, se stejně skloňuje
+		- má také slovník výjimek
+		- řeší rovněž různé varianty kmenů
+		- má 31 vzorů podstatných a přídavných jmen
+		- slova, která končí na „ý“ a nejsou to přídavná jména podle vzoru mladý
+			- úterý
+			- prý
+			- čehý
+		- někdy nám nepomůže libovolně dlouhý koncový segment – trávník × právník
+		- negativní slovník
+			- slova, která nás nezajímají
+			- typicky spojky, částice
+	- systém MOZAIKA
+		- indexace dokumentů
+		- není nutné vytvářet slovníky odborných termínů, vystačí si s množinou relevantních přípon a koncovek + pravidly a negativním slovníkem
+		- přiděluje váhy výskytům slov
+		- neřeší ale třeba to, že ve větách může být nějaké slovo přítomno jako nevyjádřený podmět
+
+## Syntaxe
+
+- používají se dva hlavní datové typy – závislostní strom a složkový strom
+- závislostní strom
+	- přibližně to, co se učí ve škole (akorát klíčové je sloveso, pod něj se všechno napojuje)
+- anglosaská tradice používá trochu jiný strom než ta naše, která se učí ve škole
+	- složkový strom
+- věta se dělí na jmennou a slovesnou část
+- závislostní stromy se lépe používají

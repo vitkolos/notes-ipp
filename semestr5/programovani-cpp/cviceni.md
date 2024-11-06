@@ -191,3 +191,52 @@ int main(int argc, char** argv) {
 		- tak upozorníme na to, že si objekt ukazatel nechá
 	- pokud bychom chtěli vytovřit objekt parseru a jen na něm zavolat parse, tak by bylo hezčí, kdybychom místo toho měli statickou metodu parse, která by si uvnitř vytvořila instanci parseru
 		- není důvod, aby byl objekt parseru vidět – není v něm nic zajímavého
+- během následujících dvou týdnů navrhovat témata zápočťáku
+- rozdělit projekt parseru do více „modulů“ (postaru)
+	- viz expr_evaluator_modules
+	- je praktické mít v hlavičkovém souboru definovaný alias pro číselný typ
+	- i soukromé věci se musí psát do hlavičkového souboru
+		- jsou potřeba datové položky, aby bylo jasné, jak ty instance mají být velké
+		- soukromé metody by tam potřeba nebyly
+	- chceme udržet pořádek v globálních identifikátorech, ale nevystavovat obsah třídy ven
+	- můžeme mít namespace parser a v něm jenom funkci parse a ten alias – to je kompletní obsah hlavičkového souboru (viz expr_parser_namespaces)
+	- obecně se nedoporučuje mít v namespacu stejnojmennou třídu
+	- aby funkce parse mohla přistupovat k privátním členům té třídy, tak se použije friend deklarace
+		- friend deklarace umožňují napsat i implementaci funkce
+	- aby bylo jasné, že některé věci jsou implementační detaily a že ho nemají zajímat, tak se používají vnořené namespacy s názvem `impl` nebo `detail`
+- strom výrazu
+	- je fajn mít enum na operace
+	- existuje `std::variant`, ale to se tady moc nehodí
+	- nechceme tam mít hvězdičkové pointery, místo nich použijeme `std::unique_ptr`
+- OOP
+	- v C++ je „abstraktní třída“ trochu něco jiného než abstraktní třída, ale ten pojem se používá i pro abstraktní třídy
+	- v abstraktní třídě typicky nebývají žádná data
+	- virtuální funkci označím jako `virtual`
+	- `virtual val_t eval(val_t x) const = 0;`
+		- const, protože eval nemá modifikovat node
+		- 0, protože tělo bude až v potomcích (tzv. čistě virtuální metoda)
+	- `virtual void print(std::ostream& out) const = 0;`
+	- dědičnost
+		- `class PlusNode : public AbstractNode {`
+		- public píšu, protože chci, aby byla dědičnost veřejná, aby byl viditelný vztah mezi potomkem a předkem
+		- virtuální metody můžu předefinovat v privátní sekci
+		- `virtual val_t eval(val_t x) const override {`
+			- to virtual tam být nemusí, ale je to vhodné
+			- to override nám kontroluje, jestli existuje virtuální metoda na předkovi
+		- virtuální metody se overridují v privátní sekci – je to dobrý zvyk
+		- potřebujeme `using owner_ptr_t = std::unique_ptr<AbstractNode>;`
+			- budeme mít privátní `owner_ptr_t left_, right_;`
+			- tenhle pointer reprezentuje vlastnictví, proto je tam owner
+		- potřebujeme veřejný konstruktor, abychom nemuseli za každého uživatele přidávat frienda
+	- předávání pointerů do funkce
+		- hvězdičkové hodnotou
+		- chytré pomocí rvalue reference `&&`
+	- konstruktory je vhodné psát tak, aby bylo všechno v dvojtečkové sekci a tělo bylo prázdné
+		- `PlusNode(owner_ptr_t&& left, owner_ptr_t&& right) : left_(std::move(left)), right_(std::move(right)) {}`
+	- existuje konstrukce `using namespace std;`
+		- to nesmíme napsat do hlavičkového souboru, protože by to ten namespace vysypalo všem
+		- pak bychom v headeru měli hlavičky s prefixem std:: a v cpp souboru bez něj, což by vypadalo divně
+		- ale můžu to napsat do těla funkce, to je někdy užitečné
+			- dokonce lze specificky napsat `using std::make_unique;`
+		- ale třeba v impl namespacu už by to šlo vybalit
+		- kdybychom to vybalili v namespacu parser, tak to povede k tomu, že bude existovat parser::move, parser::endl apod.

@@ -1,0 +1,172 @@
+# Algorithmic Game Theory
+
+- game theory
+	- we want to mathematically model the interactions between rational agents
+- normal-form game … $(P,A,u)$
+	- $P$ … finite set of $n$ players
+	- $A=A_1\times\dots\times A_n$ … set of action profiles
+		- $A$ … set of all possible states of the game
+		- $A_i$ … set of actions available to player $i$
+	- $u=(u_1,\dots,u_n)$
+		- $u_i:A\to\mathbb R$ … utility function for player $i$
+		- assigns happiness of each player to every possible state of the game
+		- sometimes is used cost function instead, $c_i=-u_i$
+	- knowing the utility function, every player $i$ choose an action $a_i$ from $A_i$ (all players at the same time)
+- strategies
+	- prescription how player $i$ chooses his actions from $A_i$
+	- pure strategy $s_i$ of player $i$ is an action from $A_i$
+		- "select a single action and play it"
+		- pure-strategy profile … $(s_1,\dots,s_n)$ where $s_i\in A_i$ for each player $i$
+	- mixed strategy $s_i$ of player $i$ is a probability distribution over $A_i$
+		- $\forall a_i\in A_i:s_i(a_i)\in[0,1]$ so that $\sum_{a_i\in A_i} s_i(a_i)=1$
+		- $s_i(a_i)$ … probability that $i$ chooses $a_i$ as their action
+		- $S_i$ … set of all mixed strategies of player $i$
+		- mixed-strategy profile … $(s_1,\dots,s_n)$ where $s_i\in S_i$ for each player $i$
+	- every pure strategy is a special case of a mixed strategy
+- expected payoff
+	- in $G=(P,A,u)$, the expected payoff for player $i$ of the mixed-strategy profile $s=(s_1,\dots,s_n)$ is $$u_i(s)=\sum_{a=(a_1,\dots,a_n)\in A}u_i(a)\cdot \prod_{j=1}^n s_j(a_j)$$
+- linearity of the expected payoff
+	- $u_i(s)=\sum_{a_i\in A_i}s_i(a_i)\cdot u_i(a_i;s_{-i})$
+	- notation
+		- $s_{-i}=(s_1,\dots,s_{i-1},s_{i+1},\dots,s_n)$
+		- $(s'_i;s_{-i})=(s_1,\dots,s_{i-1},s'_i,s_{i+1},\dots,s_n)$
+- normal form games – examples
+	- games for two players
+	- bimatrix games – we can use two matrices to express utilities
+	- prisoner's dilemma – testify × remain silent
+		- paradoxically, the only stable solution is when both testify
+	- matching pennies
+		- each player chooses heads or tails
+		- if pennies match, player 1 wins, otherwise player 2 wins
+		- zero-sum game (as well as rock-paper-scissors)
+	- battle of sexes (manželský spor)
+		- (husband, wife)
+		- football × opera
+		- if they disagree → (0,0)
+			- they attend the events separately
+		- if they agree
+			- (football, football) → (2,1)
+			- (opera, opera) → (1,2)
+		- there's not a best outcome/solution
+	- game of chicken (hra na zbabělce)
+		- two drives drive towards each other on a collision course
+		- turn × go straight
+		- (turn, turn) → (0,0)
+		- (turn, go straight) → (1,-1)
+		- (go straight, turn) → (1,-1)
+		- (go straight, go straight) → (-10,-10)
+			- both die
+- best response of player $i$ to a strategy profile $s_{-i}$
+	- mixed strategy $s^*_{i}$ such that $u_i(s_i^*;s_{-i})\geq u_i(s'_i;s_{-i})$ for each $s_i'\in S_i$
+	- if player $i$ knew the strategies of other players, the player would choose this one
+	- it maximizes his expected payoff if others play $s_{-i}$
+- Nash equilibrium
+	- a solution concept
+	- for a normal-form game $G=(P,A,u)$ of $n$ players, a Nash equilibrium (NE) in $G$ is a strategy profile (…)
+- remarks
+	- neither best responses nor Nash equilibria are determined uniquely
+	- rock-paper-scissors – unique mixed Nash equilibrium (both players play everything with probability 1/3)
+	- battle of sexes – three Nash equilibria, two pure and one mixed
+	- in every game, there is a Nash equilibrium
+- preparations for the proof of Nash's theorem
+	- the proof is essentially topological
+	- we need Brouwer fixed-point theorem
+	- df: for $d\in\mathbb N$, a subset $X$ of $\mathbb R^d$ is compact $\equiv$ $X$ is closed and bounded
+	- df: $Y\subseteq\mathbb R^d$ is convex $\equiv$ every line segment containing two points from $Y$ is fully contained in $Y$
+		- formally: $(\forall x,y\in Y)(\forall t\in[0,1]):tx+(1-t)y\in Y$
+	- df: for $n$ affinely independent point s $x_1,\dots,x_n\in\mathbb R^d$, an $(n-1)$-simplex $\Delta_n$ on $x_1,\dots,x_n$ is the set of convex combinations of the points $x_1,\dots,x_n$
+		- each simplex is a compact convex set in $\mathbb R^d$
+	- lemma
+		- (…)
+		- “you cannot mess up compactness by using cartesian product”
+	- Brouwer's Fixed Point Theorem
+		- $\forall d\in\mathbb N$, let $K$ be a non-empty compact convex set in $\mathbb R^d$ and $f:K\to K$ be a continuous mapping
+		- then, there exists a fixed point $x_0\in K$ for $f$, that is, $f(x_0)=x_0$
+		- https://www.youtube.com/watch?v=csInNn6pfT4&t=268s
+- proof of Nash's theorem
+	- let $G=(P,A,u)$ be a normal-form game of $n$ players
+	- $S_i$ … set of mixed strategies of player $i$
+	- we want to apply Brouwser's theorem, thus we need to find a suitable compact convex body $K$ and a continuous mapping $f:K\to K$ whose fixed points are NE in $G$
+	- we start with $K$, let $K=S_1\times\dots\times S_n$ be the set of all mixed strategies
+		- we verify that $K$ is compact and convex
+		- by definition, each $S_i$ is a simplex which is compact and convex
+		- by lemma, the set $K$ is compact
+		- for any strategy profiles $s\in K$ and $s'\in K$ and a number $t\in [0,1]$
+		- …
+	- …
+- Nash's theorem requires finite numbers of players and actions
+	- consider 2-player game “who guesses larger number wins”
+- the proof is non-constructive
+	- how to find NE efficiently?
+	- proofs of Brouwer's fixed point theorem are non-constructive as well
+- Pareto optimality
+	- another solution concept
+	- we want to capture “the best” state of a game, it might be difficult (as in battle of sexes)
+	- a strategy profile $s$ in $G$ Pareto dominates $s'$, written $s'\prec s$ if, for every player $i$, $u_i(s)\geq u_i(s')$ and there exists a player $j$ such that $u_j(s)\gt u_j(s')$
+		- …
+	- a strategy profile $s\in S$ is Pareto optimal if there does not exist another strategy profile $s'\in S$ that Pareto dominates $s$
+		- in zero-sum games, all strategy profiles are Pareto-optimal
+		- not all NE are Pareto-optimal (the NE in Prisoner's dilemma)
+	- Vilfredo Pareto
+		- Pareto principle: for many outcomes, roughly 80% of consequences come from 20% of the causes
+- finding Nash equilibria
+	- let's start with two-player zero-sum games
+		- rock paper scissors, chess, table tennis
+	- let $G=(P,A=A_1\times A_2,u)$ be a zero-sum game
+		- that is $u_1(a)+u_2(a)=0$ for every $a\in A$
+		- we can use one payoff matrix $M$ where $M_{ij}=u_1(i,j)=-u_2(i,j)$
+		- for a strategy profile $(s_1,s_2)$, we write $x_i=s_1(i)$ and $y_j=s_2(j)$ representing $(s_1,s_2)$ with mixed strategy vectors $x=(x_1,\dots,x_m)$ and $y=(y_1,\dots,y_n)$ that satisfy $\sum x_i=1$ and $\sum y_j=1$
+		- the expected payoff of player 1 then equals $u_1(s)=\sum_{a=(i,j)\in A}u_1(a)s_1(i)s_2(j)=\sum_{i}\sum_j M_{ij} x_iy_j=x^TMy=-u_2(s)$
+	- player's 2 best response to a strategy $x$ of 1 is a vector $y\in S_2$ that minimizes $x^TMy$
+		- $\beta(x)=\min_y x^TMy$ … best expected payoff of 2
+	- player's 1 best response to a strategy $y$ of 2 is a vector $x\in S_1$ that maximizes $x^TMy$
+		- $\alpha(y)=\max_x x^TMy$
+	- …
+	- the minimax theorem
+		- for every zero-sum game, worst-case optimal strategies for both players exist and can be efficiently computed
+		- there is a number $v$ such that, for any worst-case optimal strategies $x^*$ and $y^*$, the strategy profile $(x^*,y^*)$ is a Nash equilibrium and $\beta(x^*)=(x^*)^TMy^*=\alpha(y^*)=v$
+	- remarks
+		- it was proved by John von Neuman
+		- it tells us everything about zero-sum games
+		- there are no secrets in zero-sum games – each player can always choose the worst-case optimal strategy
+		- original proof uses Brouwer's theorem, we will use linear programming
+	- proof of the minimax theorem
+		- geometry preliminaries
+			- hyperplane
+			- halfspace
+			- polyhedron – intersection of finitely many halfspaces
+			- polytope – bounded polyhedron
+			- $d$-dimensional polytope is simple … all its vertices are adjacent to exactly $d$ edges
+		- linear programming preliminaries
+			- constraints, objective function
+			- Simplex method, Ellipsoid method
+			- duality
+		- the proof
+			- we'll use the duality
+			- first, we find the best response, actually the worst-case best response
+			- …
+	- bimatrix games
+		- example: Prisoner's dilemma, collaborative projects
+		- brute force algorithm (to find NE)
+			- best response condition
+		- best response polyhedra
+			- labels
+		- analysis of the NASH problem (finding nash equilibria in bimatrix games)
+			- as a decision problem it is trivial – there always exists a Nash equilibrium
+				- so it is not NP complete
+			- FNP complexity class (“functional NP”)
+			- clearly, NASH belongs to FNP
+				- checking whether a strategy profile is NE can be done using the best response condition
+			- theorem: if NASH is FNP-complete, then NP = coNP
+				- proof is in the lecutre notes (it is not required)
+			- therefore, it is unlikely that NASH is FNP-complete
+			- new complexity class
+			- END-OF-THE-LINE problem
+				- the graph can be exponentially large with respect to the input size
+			- class PPAD
+- other solution concepts
+	- $\varepsilon$-NE
+	- correlated equilibrium
+		- linear program
+			- any feasible solution will be a correlated equilibrium
+			- we can construct the objective function to maximize the general wellbeing
