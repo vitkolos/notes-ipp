@@ -170,3 +170,21 @@
 		- linear program
 			- any feasible solution will be a correlated equilibrium
 			- we can construct the objective function to maximize the general wellbeing
+- regret minimization of an agent in a hostile environment
+	- we have an agent $A$ in an adversary environment
+	- there are $N$ available actions for $A$ in the set $X=\set{1,\dots,N}$
+	- at each step $t=1,\dots,T$
+		- our agent selects a probability distribution corresponding to the probability of choosing each action $a\in A$
+		- adversary chooses a loss vector, loss $\in [-1,1]$
+	- to be able to tell how well is our agent doing, we compare his loss to the loss of the best agent for some comparison class $\mathcal A$
+		- we will mostly consider the class $\mathcal A_X=\set{A_i:i\in X}$, where an agent $A_i$ always chooses action $i$
+	- external regret … $R^T_A=L^T_A-\min\set{L_B^T:B\in\mathcal A_X}=L_A^T-\min\set{L^T_i:i\in X}$
+	- for now, we will consider loss $\in\set{0,1}$
+	- it might seem that the class $\mathcal A_X$ contains too simple agents
+		- however, we show that large comparison classes lead to a very large regret
+		- let $\mathcal A_\text{all}$ be the set of agents that assign probability 1 to an arbitrary action from $X$ in every step
+		- …
+	- algorithms
+		- greedy
+		- randomized greedy
+		- polynomial weights
