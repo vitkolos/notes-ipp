@@ -242,8 +242,63 @@
 	- codeword lengths $l_1,l_2,\dots$ of a uniquely decodable code $C$ satisfy $\sum_i 2^{-l_i}\leq 1$
 	- on the other hand, if natural numbers $l_1,l_2,\dots$ satisfy the inequality, then there is a prefix code with codewords of these lengths
 - theorem: let $C$ be a uniquely decodable code for a random variable $X$, then $H(X)\leq L(C)$
+- entropy of a discrete random vector
+	- $H(X)=nH(X_i)$
+		- for independent components with the same probability distribution
 - upper and lower bounds
 - analysis of arithmetic coding
+	- $\overline{F(x)}$ … the midpoint of the interval $F(x-1),F(x)$
 - problems
 	- we assume that the encoded random variables are independent
 	- we are working with a probabilistic model of our data, which is simplified too much
+- a better probabilistic model
+	- we cannot use “unlimited” context – the probabilities would be too small
+	- we will use the context of $k$ symbols
+- according to an experimental estimate
+	- the entropy of English is 1.3 bits per symbol
+
+## Context methods
+
+- model of order $i$ … makes use of context of length $i$
+- methods
+	- fixed length contexts
+	- combined
+		- complete
+		- partial
+	- static, adaptive
+- Prediction by Partial Matching
+	- uses arithmetic coding
+	- we try to encode symbol $s$ in context of length $i$
+	- if the context is too large (the frequency is not larger than zero), we output the ESC symbol and decrease the context length
+	- assumption: every symbol has non-zero frequency for some (small) context
+	- data structure … trie (context tree)
+		- where each node has an edge to its largest proper suffix, this simplifies adding of new leaves
+		- it might not fit in the memory
+			- to solve that, we can freeze the model (update frequencies, but stop adding new nodes)
+			- or we can rebuild the model using only the recent history (not the whole file)
+	- advanced data structure: DAWG (Directed Acyclic Word Graph)
+	- PPMII
+		- “information inheritance”
+		- uses heuristics
+		- became part of RAR
+	- PAQ
+		- arithmetic coding over binary alphabet with sophisticated context modelling
+	- this algorithm has probably the best compression ratio
+		- but it is very time and space consuming
+
+## Integer coding
+
+- unary code $\alpha$
+	- $\alpha(1)=1$
+	- $\alpha(i+1)=0\,\alpha(i)$
+	- clearly, $|\alpha(i)|=i$
+- binary code $\beta$
+	- is not a prefix code!
+	- we can use fixed length
+	- or we can gradually increase the codeword length
+- Elias codes
+	- binary code always starts with 1
+	- reduced binary code $\beta'$ … without the first 1
+	- $\gamma'$ … first, we encode the length of the $\beta$ code using $\alpha$, then we encode the $\beta'$
+	- $\gamma$ … we interweave the bits of $\alpha$ and $\beta$
+	- $\delta$ … instead of $\alpha$, we use $\gamma$ to encode the length of $\beta$
