@@ -289,3 +289,29 @@
 	- estimate such that $\mathbb E((\Theta-\hat\theta)^2\mid X=x)$ is minimal
 	- to compute it
 		- …
+- example: measurement error with a normal distribution
+- often, the constant in the denominator does not matter
+- from posterior $f_{\Theta\mid X}$ we can find
+	- point extimates
+		- MAP
+		- LMS
+	- interval estimates
+		- confidence intervals (in classical statistics) → credible sets $S$
+- sampling
+	- rejection sympling
+	- MCMC sampling
+		- Monte Carlo Markov chains
+		- Metropolis Hastings method
+		- we construct a MC from the probability distribution we want
+		- we run the MC for long enough
+- LMS
+- $\Theta\mid X=x$
+	- mean … LMS = $\min\mathbb E((\Theta-\hat\theta)^2\mid X=x)$
+	- median … $\min\mathbb E(|\Theta-\hat\theta|\mid X=x)$
+	- modus … MAP
+- conditional independence
+	- events
+		- $A\perp B\iff P(A\cap B)=P(A)\cdot P(B)$
+		- $A\perp_C B\iff P(A\cap B\mid C)=P(A\mid C)\cdot P(B\mid C)$
+			- $A,B$ are independent conditionally given $C$
+	- it is possible (even typical) that $A\perp_C B$, $A\perp_{C^C} B$, but not $A\perp B$
