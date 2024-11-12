@@ -115,3 +115,48 @@
 	- složkový strom
 - věta se dělí na jmennou a slovesnou část
 - závislostní stromy se lépe používají
+- závislostní strom je pětice $T=\braket{N,E,Q,WO,L}$
+	- $(N,E)$ … orientovaný graf
+	- $Q$ … gramatické kategorie (popisky uzlů)
+	- $WO\subseteq N\times N$ … silné úplné uspořádání (určuje požádek slov)
+	- $L:N\to Q$ … ohodnocovací funkce
+- závislostní strom vytvořený podle této definice má přesně tolik uzlů, kolik je prvků (tokenů) ve větě (slova, interpunkční znaménka)
+	- strom nedává informace o postupu vytváření
+- složkový strom
+	- složka (constituent) = skupina slov, která fungují společně a tvoří jednu syntaktickou jednotku
+	- složku můžeme ve větě rozpoznat například pomocí nahrazovacího testu
+		- Studenti potkali **své přátele** po vyučování.
+		- Studenti **je** potkali po vyučování.
+	- nebo testem přesunem
+		- Jane bought a hat from that strange little shop.
+		- \*From that strange Jane bought a hat little shop.
+	- v češtině se dá často pořadí slov měnit
+		- ale existuje [Wackernagelův zákon](https://cs.wikipedia.org/wiki/Wackernagel%C5%AFv_z%C3%A1kon)
+- závislostní strom
+	- zachycuje vztahy mezi větnými členy
+	- nedává návod, jak strom získat
+	- ne všechny vztahy ve větě jsou přirozeně popsatelné jako závislost, není vždy jasné, co na čem závisí
+		- třeba u souřadného spojení „Petr a Pavel“ (tzv. koordinace) si musíme vybrat, kdo bude nadřazený
+		- slovo „Petr“ reprezentuje celou skupinu, je v čísle jednotném, ale skupina je v čísle množném
+		- asi by nejlépe fungovalo, kdybychom přidali speciální uzel za koordinaci
+		- podobně problematické jsou předložky – není jasné, jestli mají být nad nebo pod jménem
+- složkový strom
+	- odpovídá derivačnímu stromu bezkontextové gramatiky
+	- je méně přehledný, mnohdy obsahuje mnoho nadbytečných uzlů
+	- přirozené jazyky nebývají bezkontextové
+- neprojektivní konstrukce
+	- příklady
+		- Soubor se nepodařilo otevřít.
+		- Vánoeční nadešel čas.
+		- Které děvčata chtěla dostat ovoce?
+		- Tuto knihu jsem se mu rozhodl dát k narozeninám.
+		- Proti odvolání se zítra Petr v práci nakonec důrazně rozhodl protestovat.
+	- větu nelze rozdělit do složkového stromu – vertikály z uzlů protínají hrany
+	- některá slovesa mají povinné vazby
+	- jakmile jsou ve větě dlouhé neprojektivní vazby nad rámec těch povinných, můžou být nejednoznačné
+	- definice: pokrytí uzlu, díry
+- nástroje pro syntaktickou analýzu
+	- Q-systémy
+		- kompletní gramatika se může skládat z více Q-systémů, které na sebe navazují
+		- provádí se linearizace stromu
+		- pravidla mají omezený počet proměnných

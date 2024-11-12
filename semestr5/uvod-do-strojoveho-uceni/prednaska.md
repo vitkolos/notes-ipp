@@ -154,3 +154,25 @@
 - F-skóre
 	- harmonický průměr precision a recall
 	- pokud nás víc zajímá recall, tak se používá parametr $\beta$
+	- macro – průměr F skóre
+	- micro – F skóre z globálního precision a recallu
+
+## Reprezentace textu
+
+- jak reprezentovat dokument
+	- jako „bag of words“ – vektor slov, jedničky u slov, která v dokumentu jsou, jinak nuly
+	- normalizovaný vektor frekvencí slov
+	- můžeme slovům přiřadit váhu podle toho, jestli se v dokumentech obvykle vyskytují (např. určitý člen bude mít nízkou váhu)
+		- v přirozených jazycích se slova řídí Zipfovým zákonem
+			- zastoupení slov (obecně v textech) se přibližně řídí hyperbolou
+		- proto se používá logaritmus, aby se to normalizovalo
+	- mutual information
+	- vstupní slovo můžeme reprezentovat jako one-hot vector
+	- násobíme ho váhovou maticí – tomu říkáme word embedding
+		- vektory pro příbuzná slova jsou blízko
+		- CBOW
+		- SkipGram
+			- negative sampling
+	- dimenzí u embeddingu je typicky pár set
+	- když chceme klasifikovat větu, tak můžeme posčítat embeddingy jejich slov
+	- někdy se hodí při embeddingu zohledňovat kontext slova – některá slova mají více významů
