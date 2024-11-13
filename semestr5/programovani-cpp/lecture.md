@@ -40,3 +40,10 @@
 		- we can use `x.member`
 		- reference does not own the object, it has to be owned by someone else
 		- assignment replaces the value of the referenced object
+- references
+	- `T &` used as an output parameter
+	- `const T &` used as an input parameter
+	- `T &&` used to steal from them
+		- two types of r-values
+			- prvalue (pure r-value)
+			- xvalue (result of std::move or other function/cast returning T&&)

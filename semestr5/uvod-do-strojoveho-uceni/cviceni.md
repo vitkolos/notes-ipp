@@ -41,3 +41,7 @@
 	- power transformer
 	- https://scikit-learn.org/1.5/auto_examples/preprocessing/plot_all_scaling.html
 - https://stats.stackexchange.com/questions/507207/deriving-the-backpropagation-matrix-formulas-for-a-neural-network-matrix-dimen
+- další nástroje
+	- ansámbl několika MLP, které hlasují
+	- scale, pad, crop, rotate
+	- early stopping, když loss na validačním setu neklesá

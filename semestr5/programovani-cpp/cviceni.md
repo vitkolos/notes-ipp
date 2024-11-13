@@ -240,3 +240,44 @@ int main(int argc, char** argv) {
 			- dokonce lze specificky napsat `using std::make_unique;`
 		- ale třeba v impl namespacu už by to šlo vybalit
 		- kdybychom to vybalili v namespacu parser, tak to povede k tomu, že bude existovat parser::move, parser::endl apod.
+- alternativní úloha
+	- `y=1+2*x; x=y+1;` se obvykle řeší pomocí nějaké mezikódu (bytecode)
+	- první výraz
+		- `CONST 1`
+		- `CONST 2`
+		- `LD x`
+		- `MUL`
+		- `ADD`
+		- `ST y`
+		- `LD y`
+		- `CONST 1`
+		- `ADD`
+		- `ST x`
+	- když tam přidáme na začátek návěští a na konec goto, tak tam může být smyčka
+		- `GOTO -10`
+	- tohle se objeví na zkoušce
+	- pozor na načítání ze souboru – často jsou s tím větší problémy než s implementací logiky
+	- úkol
+		- načíst vstup
+		- reprezentovat ho jako posloupnost kroků (ne textově)
+			- 1, 2, x, \*, +
+		- `virtual void exec(double x, stack& s) const = 0;`
+			- double x … pro jednu proměnnou x
+			- stack … odkaz na zásobník
+				- může to být instance knihovní třídy std::stack nebo std::vector
+				- je to vector chytrých pointerů na instrukce
+			- to by nestačilo na goto, ale zatím nám to nevadí
+		- funkce
+			- push_back
+			- chci přesunout chytré pointery z jednoho kontejneru do druhého
+				- to můžu udělat ručně
+				- poznámka: lvalue se pozná tak, že opakovaným použitím výrazu se dostanu k tomu stejnému objektu
+				- ale dá se to udělat pomocí std::move z hlavičkového souboru `<algorithm>`
+					- ale dělá se to natřikrát
+					- pomocí size změříme zdrojový kontejner
+					- přidáme prázdný prostor na konec cílového kontejneru (pomocí insert, třetí verze – kam, kolik, jakých hodnot)
+						- `result.insert(result.end(), right.size(), nullptr);`
+					- `std::move(right.begin(), right.end(), result.end()-right.size());`
+				- může se stát, že se nám invalidují iterátory
+					- takže iterátory je potřeba používat čerstvé
+					- kdykoliv něco přidává do kontejneru, tak můžeme do té doby vytvořené iterátory považovat za nevalidní – nedává smysl, abychom si je pamatovali
