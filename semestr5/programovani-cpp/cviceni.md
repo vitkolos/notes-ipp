@@ -277,6 +277,7 @@ int main(int argc, char** argv) {
 					- pomocí size změříme zdrojový kontejner
 					- přidáme prázdný prostor na konec cílového kontejneru (pomocí insert, třetí verze – kam, kolik, jakých hodnot)
 						- `result.insert(result.end(), right.size(), nullptr);`
+							- tohle nefunguje :)
 					- `std::move(right.begin(), right.end(), result.end()-right.size());`
 				- může se stát, že se nám invalidují iterátory
 					- takže iterátory je potřeba používat čerstvé
