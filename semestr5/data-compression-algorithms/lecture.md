@@ -45,7 +45,9 @@
 		- $n=1000$ … $|M|/2^n\lt 2^{-99}\approx 1.578\cdot 10^{-30}$
 	- we can't compress all data efficiently (but that does not matter, we often focus on specific instances of data)
 
-## Statistical methods
+## Lossless compression
+
+### Statistical methods
 
 - basic concepts
 	- source alphabet … $A$
@@ -197,7 +199,7 @@
 				- by multiplying by $x\in(0,1)$
 			- we'll use integral arithmetic → we need to scale the numbers
 
-## Arithmetic coding
+### Arithmetic coding
 
 - each string $s\in A^*$ associate with a subinterval $I_s\subseteq[0,1]$ such that
 	- $s\neq s'\implies I_s\cap I_{s'}=\emptyset$
@@ -226,7 +228,7 @@
 	- Fenwick tree
 		- Fenwick frequency = prefix sum
 
-## Theoretical limits
+### Theoretical limits
 
 - Hartley's formula
 	- minimum and average number of yes/no questions to find the answer
@@ -257,7 +259,7 @@
 - according to an experimental estimate
 	- the entropy of English is 1.3 bits per symbol
 
-## Context methods
+### Context methods
 
 - model of order $i$ … makes use of context of length $i$
 - methods
@@ -286,7 +288,7 @@
 	- this algorithm has probably the best compression ratio
 		- but it is very time and space consuming
 
-## Integer coding
+### Integer coding
 
 - unary code $\alpha$
 	- $\alpha(1)=1$
@@ -300,5 +302,104 @@
 	- binary code always starts with 1
 	- reduced binary code $\beta'$ … without the first 1
 	- $\gamma'$ … first, we encode the length of the $\beta$ code using $\alpha$, then we encode the $\beta'$
-	- $\gamma$ … we interweave the bits of $\alpha$ and $\beta$
+	- $\gamma$ … we interleave the bits of $\alpha$ and $\beta$
 	- $\delta$ … instead of $\alpha$, we use $\gamma$ to encode the length of $\beta$
+	- we could construct other codes in a similar fashion but $\delta$ code suffices
+		- for large numbers, it is shorter than $\gamma$
+- observation
+	- each probability distribution $p_1\geq p_2\geq\dots\geq p_n$ satisfies $\forall i\in[n]:p_i\leq \frac1i$
+- …
+
+### Dictionary methods
+
+- idea
+	- repeated phrases stored in a dictionary
+	- phrase occurrence in the text → pointer
+- problems
+	- construction of the optimal dictionary is NP-hard → greedy algorithm
+	- dictionary is needed for decoding
+
+#### LZ77
+
+- LZ77
+	- sliding window
+		- search buffer
+		- look-ahead buffer
+	- search for the longest string $S$ such that
+		- $S$ starts in the search buffer
+		- $S$ matches the prefix of the string in look-ahead buffer
+	- $S$ is encoded as a triple $\braket{i,j,z}$ where
+		- $i$ … distance of the beginning of $S$ from the look-ahead buffer
+		- $j=|S|$
+		- $z$ … the symbol following $S$ in the look-ahead buffer
+	- slow compression, fast decompression
+- LZSS
+	- triple $(i,j,z)$ replaced with $(i,j)$ or literal $z$
+		- bit indicator to distinguish one from another
+	- if pair of pointers requires the same space as $p$ symbols, we use pairs to encode only phrases of length $\gt p$ (shorter phrases are simply copied to the output)
+	- sliding window → cyclic buffer
+	- possible implementation
+		- codeword 16b, $|i|=11$, $|j|=5$
+		- 8 bit indicators in 1 byte
+			- one byte describes the types of 8 following items
+- other variants
+	- LZB
+	- LZH
+- Deflate algorithm
+	- by Phil Katz
+	- originally for PKZIP 2
+	- LZSS + static Huffman coding
+	- zip, gzip, jar, cab, png
+	- search buffer size 32 kB
+	- look-ahead buffer size 258 B
+		- match length 3..258 → 256 options
+		- for a smaller match, it uses literals
+	- input divided into blocks
+		- 3bit header
+			- is it last block? (1b)
+			- type of the block (2b)
+		- 3 block types
+			- no compression
+			- fixed coding tables for Huffman code
+			- Huffman code based on input data statistics
+	- type 3 block
+		- starts with two Huffman trees
+		- the first tree for literals and match lengths
+			- 0..255 for literals
+			- 256 = end-of-block
+			- 257..285 for match length (extra bits are used to distinguish between particular numbers)
+		- the second tree for offset (again with extra bits)
+	- hashing is used for string searching in search buffer
+		- hash table stores string of length 3
+		- strings in linked lists sorted by their age
+		- a parameter to limit the maximum list length
+	- greedy strategy extension
+		- first, look for a primary match
+		- slide window one symbol to the right, find a secondary match
+			- if better, encode as literal + secondary match
+- LZ77 disadvantages
+	- limited outlook of the search window
+	- longer window → better compression, more complex search
+
+#### LZ78
+
+- LZ78
+	- sliding window, explicit dictionary
+	- efficient data structure for storing the dictionary … trie
+	- dictionary reconstruction is necessary when the dictionary space is exhausted
+		- we can delete the whole dictionary
+		- or delete only the phrases that occurred least frequently or have not occurred recently
+		- we need to preserve the prefix property
+			- if the dictionary contains $S$, it has to contain all prefixes of $S$
+- LZW
+	- we initialize the dictionary by the alphabet
+	- we encode the longest prefix present in the dictionary
+		- then, we append the next character and add it to the dictionary
+	- when decoding, it may happen that the item is not in the dictionary yet
+		- because the encoder is one step ahead
+		- so we use the last decoded string and append its first character
+- LZC
+	- compress 4.0 utility in Unix
+	- when maximum size was reached, it continued with static dictionary
+	- when compression ratio started getting worse, it deleted the dictionary and started over with the initial setting
+		- we use a special symbol for that
