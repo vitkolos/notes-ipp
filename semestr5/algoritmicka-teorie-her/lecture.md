@@ -188,3 +188,10 @@
 		- greedy
 		- randomized greedy
 		- polynomial weights
+	- no-regret dynamics
+	- modern proof of the minimax theorem
+	- coarse correlated equilibrium
+		- CE is always CCE
+		- but CCE does not imply CE
+	- hierarchy of Nash equilibria
+	- converging to CCE
