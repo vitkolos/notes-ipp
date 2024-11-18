@@ -160,3 +160,37 @@
 		- kompletní gramatika se může skládat z více Q-systémů, které na sebe navazují
 		- provádí se linearizace stromu
 		- pravidla mají omezený počet proměnných
+		- …
+		- závislostní gramatika
+- gramatické formalismy
+	- předchůdci transformační gramatiky
+		- deskriptivismus
+			- cestování po indiánských rezervacích
+		- analytická syntax
+		- logický přístup
+	- transformační gramatika
+		- povrchová a hloubková syntaktická struktura
+		- třeba bychom chtěli větu pasivní snadno převést na aktivní
+			- nebo tázací, rozkazovací apod.
+			- tedy jak z jedné hloubkové syntaktické struktury odvozovat různé povrchové
+		- 3 základní komponenty transformační gramatiky
+			- báze
+				- soubor bezkontextových pravidel, která generují složkové stromy, tzv. frázové ukazatele
+			- transformační komponenta
+				- transformační pravidla operující na celých frázových ukazatelích, dělí se na obligatorní a fakultativní
+			- …
+		- vývoj transformační gramatiky
+	- tree adjoining grammars
+		- substituce stromečků
+	- kategoriální gramatiky
+		- slova vyžadují určité konstrukce
+		- v kategoriálních gramatikách je všechny podstatné gramatické informace obsaženy ve slovníku
+		- čekali bychom, že gramatika bude popisovat třídy slov – ne jednotlivá slova
+			- pokud tyhle informace přesuneme do slovníku přímo ke slovům, bude jich strašně moc
+		- kombinatorická kategoriální gramatika
+			- pravidlo se dá vyjádřit jednou pro všechny jeho permutace
+	- unifikační gramatiky
+		- objekt je popsán tzv. sestavou rysů (feature structure)
+		- unifikace = spojování dvou sestav rysů popisujících stejný objekt
+		- hodnotou vlastnosti může být i sestava rysů nebo proměnná
+		- proměnná nám vynutí, aby se další unifikací dva rysy nemohly lišit
