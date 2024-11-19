@@ -45,3 +45,23 @@
 	- ansámbl několika MLP, které hlasují
 	- scale, pad, crop, rotate
 	- early stopping, když loss na validačním setu neklesá
+- analýza výkonu
+	- modul cProfile
+	- `cProfile.run('kód')`
+	- `python -m memory_profiler`
+- diakritizace
+	- dva přístupy
+		- marks – je to s diakritikou nebo bez?
+		- letters – přímo písmeno
+			- model může pro "o" vrátit "ú"
+		- obecně jsou letters lepší
+	- jako one-hot
+	- kontext (n písmen na každou stranu)
+	- pořadí písmen je vždycky stejné → nemá smysl ho kódovat nějak jinak (u hlubokého učení by to smysl dávalo)
+	- n-gramy
+		- příklad
+			- slovo kocka
+			- pro písmenko c:
+				- bigramy: oc, ck
+				- trigramy: koc, ock, cka
+		- zase se kódujou one-hot
