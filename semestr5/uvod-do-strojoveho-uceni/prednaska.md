@@ -176,3 +176,43 @@
 	- dimenzí u embeddingu je typicky pár set
 	- když chceme klasifikovat větu, tak můžeme posčítat embeddingy jejich slov
 	- někdy se hodí při embeddingu zohledňovat kontext slova – některá slova mají více významů
+
+## Metoda nejbližších sousedů
+
+- k-Nearest Neighbors
+- trénovací data uložíme do vhodné datové struktury
+- když nám přijdou data ke klasifikaci, tak se podíváme, co je jim z trénovacích dat nejpodobnější, a podle toho vrátíme výsledek
+- neučíme se žádné parametry, ukládáme přímo trénovací data (tzv. lazy learning, líné učení, zajímavé věci se dějí až při inferenci, nikoliv při trénování)
+- máme hyperparametry
+	- $k$ … počet sousedů, které používáme k predikci
+	- metrika … jak poznáme, co je nejbližší soused?
+		- typicky se používají $L^p$ normy
+		- kde $||x||_p=\sqrt[p]{\sum_i|x_i|^p}$
+	- váhy
+		- uniformní … všech $k$ nebližších sousedů má stejnou váhu
+		- inverzní … váha je nepřímo úměrná vzdálenosti
+		- softmax
+- nemusí být jednoduché sousedy najít
+	- používají se stromové datové struktury
+- tak jako v domácím úkolu už se to spíš nepoužívá
+- typičtější aplikace
+	- doporučování videí
+	- anonymní rozpoznávání obličejů např. v Google Fotkách
+
+## Bayesovská pravděpodobnost
+
+- v bayesovské interpretaci je pravděpodobnost kvantifikace nejistoty
+- prior probability → posterior probability
+	- na základě nových dat
+- pozor: pokud je apriorní pravděpodobnost hodně malá, i klasifikátor s vysokými precision a recall může mít vysoké množství false positives
+- MAP odhad
+	- u normálního rozdělení vlastně minimalizujeme L2 regularizovaný NLL
+- konjugované distribuce (conjugate distribution)
+	- prior a posterior mají stejný „typ distribuce“
+- credibility intervals máme „zadarmo“
+- jak zvolit priors?
+	- uninformative priors
+	- snažíme se volit prior distributions tak, aby tam bylo co nejmíň předpokladů (využíváme princip maximální entropie)
+	- chceme využívat konjugované distribuce, aby to šlo upočítat
+	- asi se vybírají empiricky tak, aby to hezky vyšlo :D
+- naivní bayesovský klasifikátor
