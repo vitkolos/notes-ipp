@@ -282,3 +282,48 @@ int main(int argc, char** argv) {
 				- může se stát, že se nám invalidují iterátory
 					- takže iterátory je potřeba používat čerstvé
 					- kdykoliv něco přidává do kontejneru, tak můžeme do té doby vytvořené iterátory považovat za nevalidní – nedává smysl, abychom si je pamatovali
+- `std::numeric_limits<T>`
+	- `lowest` … vrací minimum
+	- `min` … pro desetinná čísla vrací „epsilon“ (nejmenší kladnou hodnotu), jinak také minimum
+	- `max` … vrací maximum
+- `std::is_integral_v<T>` … je typ celočíselný?
+- `std::plus` a podobné objekty
+	- mají definovaný volací operátor
+
+```cpp
+template<typename OP>
+class binary : public abstop {
+	public:
+		binary(.... l, .... r) : left(std::move(l)), right(std::move(r)) {}
+		virtual int eval() const override {
+			return f(left->eval(), right->eval())
+		}
+
+	private:
+		..... left, right, OP f;
+}
+```
+
+- taky by tam mohlo být třeba `return OP()(left->eval(), right->eval());`
+	- nebo by první závorky mohly být složené
+- jak udělat genericky i typ, co vrací eval?
+	- můžu to přidat jako další šablonovaný parametr
+	- ale pak to musíme mít i v abstraktní třídě
+- z šablon vyplývají některé zvláštnosti
+- parametr šablony může být typ nebo číselná konstanta
+- jak to udělat, abychom nemuseli mít `int` v typech uvedený dvakrát (jednou pro eval, jednou v rámci plus)?
+
+```cpp
+// chceme použít
+binary<plus<int>>
+// uvnitř bude
+using my_type = typename OP::result_type; // nefunguje v C++20
+// nebo
+// chceme použít
+binary<int, plus>
+// to se dělá takhle
+template<typename my_type, template<typename> typename GOP>
+class binary : public abstrop<my_type> {
+	using OP = GOP<my_type>;
+}
+```
