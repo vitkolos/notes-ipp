@@ -315,3 +315,28 @@
 		- $A\perp_C B\iff P(A\cap B\mid C)=P(A\mid C)\cdot P(B\mid C)$
 			- $A,B$ are independent conditionally given $C$
 	- it is possible (even typical) that $A\perp_C B$, $A\perp_{C^C} B$, but not $A\perp B$
+- conditional expectation
+	- $\mathbb E(Y\mid X=x)$ vs. $\mathbb E(Y\mid X)$
+	- $\mathbb E(Y\mid X=x)=g(x)$ … number
+	- $\mathbb E(Y\mid X)=g(X)$ … random variable
+	- we proved that $\mathbb E(\mathbb E(Y\mid X))=\mathbb E(g(X))=\mathbb EY$
+		- “law of iterated expectation”
+	- basic task of statistics
+		- estimate one quantity (Y) given data/measurement (X)
+	- example: groups of students, their exam results
+	- estimator
+		- $\hat Y=\mathbb E(Y\mid X)=g(X)$
+	- $\tilde Y=\hat Y-Y$
+	- we proved that $\mathbb E(\tilde Y\mid X)=0$
+		- therefore $\mathbb E(\tilde Y)=\mathbb E(\mathbb E(\tilde Y\mid X))=0$
+	- also, $\text{cov}(\tilde Y,\hat Y)=0$
+		- they are uncorellated
+	- note
+		- uncorellated $\impliedby$ independent
+		- uncorellated $\centernot\implies$ independent
+	- conditional variance
+	- iterated variance / eve's rule
+		- $\text{var }Y=\mathbb E(\text{var}(Y\mid X))+\text{var}(\mathbb E(Y\mid X))$
+		- intragroup variance + intergroup variance
+- birthday paradox
+	- $1-x\approx e^{-x}$

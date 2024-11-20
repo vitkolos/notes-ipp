@@ -327,3 +327,5 @@ class binary : public abstrop<my_type> {
 	using OP = GOP<my_type>;
 }
 ```
+
+- naše mainy mají vracet nulu, jinak s tím recodex bude mít problém
