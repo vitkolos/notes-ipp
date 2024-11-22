@@ -195,3 +195,20 @@
 		- but CCE does not imply CE
 	- hierarchy of Nash equilibria
 	- converging to CCE
+	- regrets
+		- external regret
+			- we compare to agents playing only one action
+		- internal regret
+			- we compare to agents that play the same actions as my agent (with same probabilities), only replacing one action by some other one
+		- swap regret
+			- the same as internal but we allow to replace multiple actions (while keeping the probabilities)
+	- we have polynomial weights algorithm for external regret
+		- how to construct algorithm for swap regret?
+		- we will use black-box reduction
+- games in extensive form
+	- chess … extensive form = tree of the game
+	- in perfect-information game, all players know the node they are in
+	- in imperfect-information game, they don't
+		- we partition decision nodes into information sets where all nodes belong to the same player and have the same moves
+	- we can convert any normal-form game of two players to an imperfect-information game in extensive form
+	- pure, mixed and behavioral strategies
