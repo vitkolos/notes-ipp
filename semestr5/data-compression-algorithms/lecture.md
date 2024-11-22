@@ -403,3 +403,92 @@
 	- when maximum size was reached, it continued with static dictionary
 	- when compression ratio started getting worse, it deleted the dictionary and started over with the initial setting
 		- we use a special symbol for that
+- LZMW
+	- new phrase = concatenation of two last ones
+	- dictionary lacks prefix property
+- LZAP
+	- instead of ST add all substrings Sp where p is a prefix of T
+
+### Lossless image compression
+
+- digital images
+	- raster (bitmap)
+	- vector
+- color spaces
+	- RGB
+	- CMYK
+	- HSV
+	- YUV – for  backwards compatibility of the TV broadcast
+- representation of bitmap images
+	- monochrome
+	- shades of gray
+	- color
+		- pixel = $(r, g, b)$
+		- alpha channel
+	- color palette
+		- conversion table (pixel = pointer into the table)
+- GIF
+	- Graphics Interchange Format
+	- originally for image transmission over phone lines
+	- sharp-edged line art with a limited number of colors
+	- color palette, max. 256 colors
+	- more images in one file
+	- interlacing scheme for transmission
+		- rough image after 25–50 % data
+		- we can stop the transmission if it's not the image we wanted
+	- LZW-based compression
+		- actually, it uses LZC
+	- pointers … binary code with increasing length
+	- blocks … up to 255 B
+	- we can increase the number of possible colors by stacking multiple images on top of another (and using transparent pixels)
+- PNG
+	- Portable Network Graphics
+	- motivation: replace GIF with a format based on a non-patented method (LZW was patented by Sperry Corporation / Unisys)
+	- color space
+		- gray scale
+		- true color
+		- palette
+		- alpha channel
+	- no support for CMYK
+	- compression has two phases
+		- preprocessing
+		- dictionary compression
+- interlacing schemes
+
+### Burrows-Wheeler transform
+
+ - BSTW
+	 - *move to front* heuristic to restructure the dictionary
+- Burrows-Wheeler transform
+	- we are looking for a permutation of string $x$ such that the similar symbols are close to each other
+	- matrix of cyclic shifts of $x$
+		- sort rows lexicographically
+		- the desired permutation is the last column
+		- also, we need to store a number of the row where the original string lies in the matrix to be able to restore the original
+		- if we used the first column, it would not be decodable
+	- encoding
+		- MTF (move to front) heuristic
+		- for each symbol, its code would be the number of preceding symbols in the dictionary
+			- then, move the symbol to the front of the dictionary
+		- therefore, the number we use to encode the symbol matches the time that elapsed from the last encoding of that symbol (if it was encoded previously)
+		- RLE … run length encoding
+			- instead of $n$ zeroes, we can just encode the zero and length of the block
+	- decoding
+		- how to obtain the original string from the last column and the number?
+		- we sort the last column to get the first one
+		- we can determine the penultimate symbols from the pairs of first and last – thanks to the cyclic shift
+			- what if there are multiple lines that and with the same symbol? we know that the lines were sorted lexicographically
+- bzip2
+- matrix $n×n$ is not neccessary
+	- we can use suffix array
+- why does BW transform work?
+	- two same letters often share very similar right context
+	- therefore they will be close in the rightmost column
+
+## Lossy compression
+
+- no standard corpora exist
+- how to measure the loss of information
+	- MSE
+	- signal to noise ratio
+	- peak signal to noise ratio
