@@ -353,4 +353,10 @@
 	- $I_i=1$ if $X_i=0$ (otherwise 1)
 	- $\mathbb E(\sum_i I_i)=\sum_i\mathbb EI_i\approx ne^{-\frac mn}$
 - distribution of $X_i$
-	- $X_i\sim \text{Bin}(m,\frac 1n)$
+	- $X_i\sim \text{Bin}(m,\frac 1n)\approx\text{Pois}(\frac mn)$
+	- $\mathbb EX_i=\frac mn$
+- applications
+	- bucket sort
+	- hash collisions
+- exact case vs. Poisson case
+	- theorem: any event that happens with probability $\leq p$ in the Poisson case happens with probability $\leq p\cdot e\sqrt m$ in the exact case
