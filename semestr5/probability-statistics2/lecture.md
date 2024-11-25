@@ -340,3 +340,17 @@
 		- intragroup variance + intergroup variance
 - birthday paradox
 	- $1-x\approx e^{-x}$
+- balls into bins
+	- $m$ balls
+	- $n$ bins
+	- $X_i$ … number of balls in bin $i$
+	- birthday paradox … $P(\max X_i\geq 2)$
+- questions
+	- how many bins are used?
+	- approximation of $X_i$
+	- max load … $\max\set{X_1,\dots,X_n}$
+- $P(X_i=0)=(1-\frac1n)^m\approx e^{-\frac mn}$
+	- $I_i=1$ if $X_i=0$ (otherwise 1)
+	- $\mathbb E(\sum_i I_i)=\sum_i\mathbb EI_i\approx ne^{-\frac mn}$
+- distribution of $X_i$
+	- $X_i\sim \text{Bin}(m,\frac 1n)$
