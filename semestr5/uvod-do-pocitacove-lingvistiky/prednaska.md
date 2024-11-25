@@ -194,3 +194,59 @@
 		- unifikace = spojování dvou sestav rysů popisujících stejný objekt
 		- hodnotou vlastnosti může být i sestava rysů nebo proměnná
 		- proměnná nám vynutí, aby se další unifikací dva rysy nemohly lišit
+- valence
+	- nejen u sloves
+	- dva základní druhy závislých členů
+		- aktanty – každý může být ve větě pouze jednou
+			- konatel
+			- patient
+			- adresát
+			- origo
+			- efekt
+		- volná doplnění – může jich být více (typicky příslovečná určení)
+	- Petr (k.) předělal Pavlovi (a.) loutku (p.) z kašpárka (o.) na čerta (e.).
+	- tektogramatická rovina × povrchová rovina
+	- obligatorní a fakultativní závislé členy
+	- typické sloveso může mít více valencí
+	- valenční rámec – seznam aktantů (obligatorních i fakultativních) a obligatorních volných doplnění
+	- dialogový test – pokud na doplňující otázku nelze odpovědět „nevím“, jedná se o obligatorní aktant
+	- valenční slovník češtiny (Vallex) a angličtiny (EngVallex)
+- kontrola gramatické správnosti
+	- Sportovci věnovali plyšáka.
+	- Co si kdo kam donesl? Tatínek šli do práce.
+	- problémy specifické pro češtinu
+		- gramatická shoda (zejména podmětu s přísudkem)
+		- interpunkce
+		- neprojektivní konstrukce
+		- zájmena (mě/mně)
+	- v korpusech jsou pozitivní příklady
+		- chybí nám negativní daty
+		- to, že v korpusu žádná věta nemá dva podměty, ještě neznamená, že je to špatně
+	- metoda redukční analýzy
+		- z věty postupně vyhazujeme závislá slova
+		- izolujeme chybnou konstrukci (např. podmět a přísudek, pokud se neshodují)
+		- po redukční analýze nám zůstane minimální chybová konfigurace
+	- homonymie je problematická
+	- RFODG
+		- robust free-order dependency grammar
+		- jedno pravidlo gramatiky může popisovat správnou i chybnou konstrukci zároveň
+		- výpočet probíhá ve fázích, interpret gramatiky rozhoduje, jak se bude stejné gramatické pravidlo používat
+		- tvrdé a měkké podmínky
+		- 3 fáze
+			- pozitivní projektivní
+				- všechny měkké podmínky chápu jako tvrdé
+				- když to vyjde, tak vím, že je věta dobře
+			- negativní projektivní nebo pozitivní neprojektivní
+				- buď je ve větě chyba, nebo neprojektivní konstrukce
+			- negativní neprojektivní
+		- jakmile nenajdu správnou variantu a hledám chybu, začíná to být náročné, variant je mnoho
+	- LanGR
+		- nástroj pro desambiguaci české morfologie
+
+## Korpusová lingvistika
+
+- studium jazyka
+	- studium struktury – to jsme řešili doposud
+	- studium užití – jak mluvčí (a pisatelé) jazyk používají?
+- jazykový korpus
+	- sbírka textů, vzorek jazyka
