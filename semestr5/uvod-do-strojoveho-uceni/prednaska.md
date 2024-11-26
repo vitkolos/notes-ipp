@@ -216,3 +216,40 @@
 	- chceme využívat konjugované distribuce, aby to šlo upočítat
 	- asi se vybírají empiricky tak, aby to hezky vyšlo :D
 - naivní bayesovský klasifikátor
+
+## Korelace
+
+- kovariance
+	- střední hodnota je lineární vzhledem k součtu
+	- čemu se rovná rozptyl součtu?
+- korelace
+- Pearsonův kolerační koeficient
+	- „jsou data lineárně závislá?“
+- Spearmanův koeficient pořadové korelace
+	- „je zachováno pořadí?“
+- Kendallův koeficient pořadové korelace $\tau$
+	- „poměr souhlasných párů“
+- „jak často se stane, že mezi 5 nejlepšími jsou ty, které chceme?“
+	- precision pro fixních top 5
+- mean reciprocal rank
+- shoda anotátorů
+	- Cohenovo $\kappa$
+- výkon ML klasifikátoru
+	- měl by být lepší než pár ifů – kdyby ne, děláme něco špatně
+		- jako baseline se typicky nastavuje četnost největší třídy
+	- asi nebude lepší než shoda anotátorů – kdyby byl, asi overfitujeme
+
+## Ensembling
+
+- $y_i(x)=t+\varepsilon_i(x)$
+	- $y_i$ … prediction
+	- $t$ … target
+	- $\varepsilon_i(x)$ … chyba modelu
+- $\mathbb E[(y_i(x)-t)^2]=\mathbb E[\varepsilon_i^2(x)]$
+- bagging – bootstrap aggregation
+	- modely trénuju na různých datech
+	- u některých modelů zakážu nějaké features
+- knowledge distillation / model compression
+	- natrénujeme model „student“ pomocí učitelského modelu/modelů
+	- snažíme se natrénovat model s co nejmenší cross-entropy vůči původnímu modelu
+	- cíl – zmenšit model (abychom nemuseli používat celý ensemble nebo velký model)
