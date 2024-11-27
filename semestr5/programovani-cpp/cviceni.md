@@ -329,3 +329,59 @@ class binary : public abstrop<my_type> {
 ```
 
 - naše mainy mají vracet nulu, jinak s tím recodex bude mít problém
+
+---
+
+- napíšeme si vlastní kontejner
+- v C++ standardní knihovně není podpora pro matice
+- je dobré ty řádky udělat tak, aby se daly iterovat třeba pomocí dvojtečkového for cyklu
+	- třeba `a.rows()` by mohla vracet řádky matice
+		- `.cols()` sloupce
+	- budeme potřebovat iterátory
+- matice by měla být šablona
+	- ale zatím asi psát bez šablon
+- lze implementovat pomocí vektoru vektorů
+	- je to silnější než to, co potřebujeme – umožňuje „jagged array“
+	- museli bychom to hlídat, aby se nám to nerozuteklo
+	- plus to bude žrát hodně paměti – každý vektor má overhead
+	- taky ty řádky budeme mít rozházené po paměti
+- lze implementovat pomocí jednoho vektoru
+	- potřebujeme znát rozměry matice
+	- begin a end pro rows mají vracet řádkový iterátor (`row_iterator`)
+		- vector má metodu data(), která vrací raw pointer na začátek
+		- nebo můžeme držet pointer na celou matici a index řádku
+	- co musí implementovat iterator kromě begin a end
+		- ++ … posune iterátor
+		- != … porovnávání iterátorů
+		- \* … vrací konkrétní prvek
+
+```cpp
+class row_iterator {
+	public:
+		row_iterator &operator ++() {
+			// něco
+			return *this;
+		}
+		// tohle je prefixový ++
+		// kdybychom chtěli postfixový, bylo by to s jedním intovým parametrem
+		// (žádný intový argument se nepředává)
+		// a musíme vracet hodnotou
+		row_iterator operator ++(int) {
+			row_iterator tmp = *this;
+			++*this;
+			return tmp;
+		}
+		row_ref operator *() const { /* ... */ }
+		// trikové řešení: do iterátoru zavřu row_ref
+		// obvykle se z operátoru hvězdičky vrací T&
+		
+}
+bool operator !=(const row_iterator& a, const row_iterator& b) { /* ... */ }
+// můžeme implementovat spaceship operator
+```
+
+- iterátory pro prvky řádku už můžou být přímo C pointery
+	- C pointery mají vlastnosti iterátorů
+- co potřebujeme
+	- z funkce rows vrátíme objekt `rows_t`
+	- `*((*(a.rows().begin())).begin())` … takhle se dostanu k levému hornímu prvku matice

@@ -49,3 +49,5 @@
 			- xvalue (result of std::move or other function/cast returning T&&)
 - resolution of the overloaded function depends on the number and types of the arguments
 	- or, for member functions, it depends on the type of the object (whether it's modifiable or not)
+- rule of five
+- virtual destructor for abstract classes
