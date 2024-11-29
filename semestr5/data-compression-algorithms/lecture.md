@@ -492,3 +492,49 @@
 	- MSE
 	- signal to noise ratio
 	- peak signal to noise ratio
+
+### Digitizing sound
+
+- sound is a physical disturbance in a medium, it propagates as a pressure wave
+- Fourier theorem
+- capturing audio
+	- sampling
+		- Nyquist-Shannon sampling theorem
+		- the sampling frequency should be at least twice the highest frequency we want to record
+		- aliasing = zkreslení
+		- příklad: kola dostavníku ve filmu se točí pozpátku
+	- quantization
+		- we have $B$ bits available
+		- we split the whole interval into $2^B$ subintervals
+	- signal to noise ratio
+	- audio processing
+		- amplifier
+		- band-pass filter
+		- sampler … sampling
+		- A/D converter … quantization
+		- RAM
+- quantization
+	- large set → smaller set
+	- quantizer can be scalar or vector
+	- quantization consists of two mapping – encoding and decoding
+	- central limit theorem
+	- uniform quantizer
+		- midrise
+		- midtread
+	- forward adaptive quantizer (offline)
+		- split input into blocks
+		- analyze each separately, set parameters accordingly
+		- parameters are transmitted as side information
+	- backward adaptive quantizer (online)
+		- no side info necessary
+		- Jayant quantizer
+			- multipliers
+			- intervals can shrink and expand depending on the input
+	- nonuniform quantization
+		- $y_j$ … centroid (see the slides)
+		- Lloyd-Max algorithm
+	- companding
+		- compressing + expanding
+		- first we stretch the high probability regions close to the origin & compress the regions with low probability
+		- then apply uniform quantization
+		- expand afterwards (transform quantized values to the original scale)
