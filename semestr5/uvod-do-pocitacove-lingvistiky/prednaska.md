@@ -250,3 +250,58 @@
 	- studium užití – jak mluvčí (a pisatelé) jazyk používají?
 - jazykový korpus
 	- sbírka textů, vzorek jazyka
+- v Česku až v 90. letech byla dostatečná technika pro sběr a zpracování takového množství dat
+- charakteristika moderních korpusů
+	- výběr vzorků a reprezentativnost – snaha o vyváženost (jazyk je nekonečný, korpus je konečný)
+	- konečná velikost – korpusy mají obvykle pevnou velikost, která umožňuje kvantitativní výzkum, výjimkou jsou monitorovací korpusy, kam jsou data stále přidávána
+	- strojově čitelná forma
+	- standardní reference – korpus splňuje standardy, aby byl široce použitelný
+- typy korpusů
+	- psaný × mluvený jazyk
+	- typy značek – morfologické (POS) značky nebo stromy a syntaktické (analytické) značky, někdy také sémantické značky
+		- rozdíl ve velikosti
+	- jednojazyčné × paralelní
+		- paralelní … jednání kanadského a evropského parlamentu
+	- obecné × doménově specifické
+	- synchronní × diachronní
+		- diachronní se snaží zachytit vývoj jazyka v čase, obvykle nebývají uzavřené
+- konzistence korpusových anotací
+	- problém konzistence morfologických nebo syntaktických značek
+	- na anotaci korpusů se podílí spousta lidí
+	- některé složité jevy se těžko anotují, je potřeba, aby se anotátoři dohodli, jak je budou anotovat
+	- metody zajištění konzistence
+		- detailní manuály
+		- pravidelná setkání anotátorů
+		- automatické metody odhalování chyb v anotaci
+		- měření shody mezi anotátory (IAA, Inter-Annotator Agreement)
+			- Cohenovo $\kappa$
+- Brown korpus
+	- náhodně vybírané texty, aby byl dostatečně reprezentativní
+	- milion slov
+- Penn Treebank
+	- články z Wall Street Journal
+	- milion slov
+	- existuje překlad do češtiny
+	- složkové stromy
+- Český národní korpus
+	- UK, MUNI, ÚJČ AV ČR
+	- morfologické značky
+	- v současné době téměř 5 miliard slov
+	- první SYN2000
+	- zatím poslední SYN2020
+	- největší je SYN2013PUB
+		- 935 milionů slov publicistických textů z let 2005–2009
+- Pražský závislostní korpus (PDT)
+	- propracované anotační schéma aplikovatelné na jazyky různých typů
+	- data jsou malou podmnožinou ČNK
+	- 100 000 vět, 1,25 milionu běžných slov
+	- úrovně anotace
+		- morfologie
+		- analytická rovina (povrchově syntaktická)
+		- tektogramatická rovina (4 podroviny)
+- postupně se ukázalo, že závislostní stromy jsou užitečnější → dnes jsou výrazně častěji zastoupeny
+- Prague Arabic Dependency Treebank
+- iniciativa Universal Dependencies
+	- snaha o vybudování jednotného značkování
+	- aby se stejné jevy v morfologii anotovaly stejně
+	- díky této komunitě se závislostní stromy staly standardem

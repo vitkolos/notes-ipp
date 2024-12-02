@@ -212,3 +212,9 @@
 		- we partition decision nodes into information sets where all nodes belong to the same player and have the same moves
 	- we can convert any normal-form game of two players to an imperfect-information game in extensive form
 	- pure, mixed and behavioral strategies
+		- mixed strategy = probability distribution over vectors
+		- behavioral strategy = vector of probability distributions
+	- in general, the expressive power of behavioral strategies and mixed strategies are incomparable – but there is a class of extensive games for which the two definitions coincide
+		- games of perfect recall
+	- finding NE in extensive games
+	- sequence form
