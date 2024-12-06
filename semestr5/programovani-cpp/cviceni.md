@@ -385,3 +385,46 @@ bool operator !=(const row_iterator& a, const row_iterator& b) { /* ... */ }
 - co potřebujeme
 	- z funkce rows vrátíme objekt `rows_t`
 	- `*((*(a.rows().begin())).begin())` … takhle se dostanu k levému hornímu prvku matice
+
+---
+
+- zápočtový test
+	- možná o hodinu a půl později
+	- v laboratoři
+	- budeme upravovat úlohu csvexpr
+	- opravný termín v prvním týdnu zkouškového
+	- ke zkoušce můžeme jít až po úspěšném testu
+	- na opravné písemce bude další změnové zadání
+	- na řešení bude asi hodina
+	- u testu bude k dispozici recodex a reference c++
+	- cmake soubor si asi můžeme dát do komentáře do kódu do recodexu
+		- v recodexu budeme mít přístup k úlohám tohoto předmětu
+		- jinak nikam
+- úloha
+	- špatné počty sloupců by se asi měly tiše zkorigovat (jako v minulých úlohách)
+	- můžou selhat jména sloupců
+	- jinak problémy řešíme tiše – pomocí prázdných výsledků (dělení nulou vede na prázdný výsledek, aritmetická přetečení nemusíme řešit)
+	- konverzi textu na číslo bychom měli provádět až před prvním operátorem (číselným výpočtem)
+		- poznámka: počítat s možností textových operátorů
+	- vyhledávání jmen sloupců by se mělo dělat jen jednou – nahradit nějakými indexy
+	- možná to raději neoptimalizovat příliš, ať si neztížíme písemku
+	- zatím v recodexu nejsou odladěné testy, ten jeden test nám asi failne
+		- Bednárek něco asi ještě přidá do textu (během nejbližších dnů)
+	- možný přístup
+		- přečíst hlavičku tabulky
+		- přečíst soubor s expressions
+		- přečíst a zpracovat tělo tabulky
+- co když chytám do proměnné typu `auto&&` návratovou hodnotu funkce a funkce mi vrátí hodnotou?
+	- je to v pohodě, počítá se s tím
+	- prodlouží se trvanlivost temporální proměnné, aby to celé fungovalo
+- `size_t` najdeme třeba v `<cstddef>`
+- každý kontejner má v sobě definovat typ `iterator`
+	- každý iterátor má v sobě definovat typ `reference`
+- metody begin a end můžou být konstantní
+- typename
+	- pokud jsem v šabloně a je tam identifikátor, o kterém nemůže překladač vědět, co je zač
+	- je v nějakém namespacu atd.
+	- např. `std::vector<T>::iterator`
+	- když v konstrukci using nenapíšeme typename, seřve nás "dependent name is not a type"
+		- když to uděláme někde jinde, tak nám překladač může dát výrazně méně srozumitelnou hlášku
+- když podporujeme hvězdičku, měli bychom podporovat šipku

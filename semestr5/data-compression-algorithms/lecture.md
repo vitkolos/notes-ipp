@@ -538,3 +538,44 @@
 		- first we stretch the high probability regions close to the origin & compress the regions with low probability
 		- then apply uniform quantization
 		- expand afterwards (transform quantized values to the original scale)
+	- $\mu$-law
+	- A-law
+	- G.711
+- vector quantization
+	- we split the file into vectors
+	- codebook
+		- code-vectors selected to be represented
+		- each one has a binary index
+	- encoder
+		- finds the code-vector closest to the source vector
+		- writes its index
+	- decoder
+		- based on the index, it finds the corresponding code vector
+	- how to measure the distances between code vectors and source vectors?
+		- Euclidean distance
+		- but we can omit the square root as we only compare the distances
+	- k-means
+	- LBG algorithm
+		- initialization
+			- perturbation
+			- random initialization
+			- pairwise nearest neighbor
+		- tree-structured vector quantization
+	- lattice vector quantizers
+		- D lattices
+			- $D_2$ lattice (in two-dimensional space)
+				- $a\cdot v_1+b\cdot v_2=a(0,2)+b(1,1)=(b,2a+b)$
+			- the sum of the coordinates is always even
+		- A lattices
+		- G.719
+	- classifid vector quantization
+		- idea: divide source vectors into classes with different properties, perform quantization separately
+		- example: edge/nonedge regions (in an image)
+	- applications
+		- audio: G.719, CELP, Vorbis, TwinVQ
+		- video: QuickTime, VQA
+- differential encoding
+	- idea: consecutive samples are quite similar (that holds especially for speech and images)
+	- if we quantize the differences directly, the error will accumulate
+	- instead of that, we will quantize the difference between the previous **predicted** value and the current value
+	- DPCM

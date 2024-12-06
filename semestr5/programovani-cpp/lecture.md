@@ -51,3 +51,4 @@
 	- or, for member functions, it depends on the type of the object (whether it's modifiable or not)
 - rule of five
 - virtual destructor for abstract classes
+- conventions for the use of references and pointers
