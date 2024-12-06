@@ -218,3 +218,40 @@
 		- games of perfect recall
 	- finding NE in extensive games
 	- sequence form
+
+## Mechanism design
+
+- single item auctions
+	- seller
+	- $n$ bidders
+		- each has valuation $v_i$
+		- each privately communicates a bid $b_i$ to the seller
+	- seller decides
+		- who receives the item (if anyone)
+		- the selling price $p$
+	- bidders' utility
+		- $u_i=0$ … if the bidder lost the auction
+		- $u_i=v_i-p$ … if the bidder won
+			- we will eventually assume that $p\leq v_i$
+	- design
+		- selling the item for free to the bidder with the highest bid
+			- not a good idea
+			- “who can name the highest number”
+		- selling the item to the bidder with the highest bid for the price equal to the bid
+			- does not work that well
+			- what should be the bid? the bidder does not know what to do
+		- dominant strategy for bidder $i$ … strategy that maximizes $u_i$ no matter what the other bidders do
+		- social surplus … $\sum_i v_ix_i$
+			- $x_i$ is the indicator of the bidder winning the auction
+			- to maximize the social surplus for single item auction, we need the bidder with the highest valuation to win
+		- an auction is awesome if it satisifies…
+			- strong incentive guarantees
+				- DSIC
+			- strong performance guarantees
+			- computational efficiency
+		- there exists an awesome auction!
+			- Vickrey's auction
+			- the winner pays the second highest bid
+- single parameter environments
+	- $v_i$ … valuation “per unit of the goods”
+- Myerson's lemma
