@@ -360,3 +360,51 @@
 	- hash collisions
 - exact case vs. Poisson case
 	- theorem: any event that happens with probability $\leq p$ in the Poisson case happens with probability $\leq p\cdot e\sqrt m$ in the exact case
+- bernoulli process, poisson process
+	- …
+- statistics – descriptive vs. inferential
+	- descriptive – describe what we observed
+	- inferential – deduce properties of a larger set
+		- how many people are left-handed?
+		- we can observe this on a small sample of people
+	- observational study vs. randomized study (RCT, randomized control trial)
+	- treatment – what you do to experimental units
+	- example
+		- experimental units … students
+		- treatment … which tutorial student attends
+			- placebo, control group
+		- observational study → we let the students decide which tutorial to attend
+		- randomized study → we assign the tutorials to students (randomly)
+	- confounders
+		- people can get better because they believe they are treated
+	- random $\neq$ arbitrary
+		- haphazard
+	- statistics – parametric vs. non-parametric
+		- parametric → observations from parametrized random variables
+		- t-test
+		- permutation test
+- example: earbuds
+	- black (4.3/5) vs. navy blue (4/5)
+	- descriptive statistics
+	- observational study
+- example: alpacas
+	- permutation test
+	- https://www.jwilber.me/permutationtest/
+	- we observe … $T(X,Y)$
+	- $Z:=X,Y$
+	- $\mathcal F=\set{T(\pi(Z))\mid \pi\in S_{m+n}}$
+	- p-value: percentage of $\mathcal F$ more extreme than observed
+	- speed-up … we use only $k$ random samples from $S_{m+n}$
+- tests
+	- one-sample test
+	- two-sample test
+	- paired test
+		- quality of wool before/after treatment
+		- give black & blue to $n$ testers, ask each tester to score both
+			- randomize the order of testing the color
+		- use one-sample test on $D_i=X_i-Y_i$
+- parametrized statistics … t-test (assuming normal distribution)
+- non-parametric version … paired test & permutation test
+	- for paired test, we only permute $X_i$ with $Y_i$
+- sign test
+	- $Y_i=$ "sign of $X_i$"
