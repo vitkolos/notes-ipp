@@ -253,3 +253,24 @@
 	- natrénujeme model „student“ pomocí učitelského modelu/modelů
 	- snažíme se natrénovat model s co nejmenší cross-entropy vůči původnímu modelu
 	- cíl – zmenšit model (abychom nemuseli používat celý ensemble nebo velký model)
+
+## Decision trees
+
+…
+
+## SVD, PCA, K-Means
+
+- dekompozice matice
+- líbila by se nám taková, kde budou řádky a sloupečky ortogonální (statisticky nezávislé)
+- vlastní čísla, vlastní vektory
+- možné použití
+	- ztrátová komprese obrázku
+	- doporučovací systémy
+- PCA
+- power iteration
+- k-means
+	- citlivý na inicializaci
+	- můžeme inicializovat víckrát a vybrat si ten s nejnižší chybou
+- může se hodit clustery modelovat jako gaussiány
+	- zvlášť pokud nemají stejnou velikost a jsou třeba elipsy
+- k-means i outliery přiřadí do nějakého clusteru

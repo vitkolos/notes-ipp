@@ -305,3 +305,30 @@
 	- snaha o vybudování jednotného značkování
 	- aby se stejné jevy v morfologii anotovaly stejně
 	- díky této komunitě se závislostní stromy staly standardem
+
+## Strojový překlad
+
+- proč je to tak těžké?
+	- slovník
+	- morfologie
+	- syntax
+	- ustálená spojení
+	- kulturní kontext
+- prehistorie
+- první generace
+	- dvojjazyčný slovník – nestačí
+	- předpony, kmeny, přípony – moc nefunguje (viz němčina → čeština)
+	- preediting – nic moc
+	- postediting – používá/používal se např. v EU
+	- použití pivotního jazyka (např. angličtiny)
+	- první úspěch
+		- Georgetownský experiment
+		- velké zjednodušení problému (omezení domény a používaných jazykových prostředků)
+		- padesátá léta, ruština → angličtina
+- první úspěšný komerční systém
+	- TAUM METEO (1976)
+	- překlad meteorologických zpráv z angličtiny do francouzštiny
+	- podobná situace jako s Georgetownským experimentem
+	- používal Q-systémy
+- strojem podporovaný překlad
+	- překladová paměť

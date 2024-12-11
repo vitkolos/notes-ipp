@@ -428,3 +428,67 @@ bool operator !=(const row_iterator& a, const row_iterator& b) { /* ... */ }
 	- když v konstrukci using nenapíšeme typename, seřve nás "dependent name is not a type"
 		- když to uděláme někde jinde, tak nám překladač může dát výrazně méně srozumitelnou hlášku
 - když podporujeme hvězdičku, měli bychom podporovat šipku
+
+---
+
+- zápočtový test bude 8. 1. v čase cvičení (12:20) v SW1 a SU1
+- typické chyby
+	- implicitní nula … `1+2++` se přečte jako 1+2+0+0 (mělo by to vrátit chybu)
+	- dvojité volání eval
+	- předávání hodnotou u catch bloku (musí tam být reference)
+	- pokud žádná hodnota není platná, neměl bych vrátit minimum a maximum, ale vyhodit výjimku
+	- makro assert se používá jenom k testování interních chyb! v release režimu nic nedělá
+- poznámky
+	- dá se používat optional
+	- některé editory (CLion) vkládají atributy, např. `[[nodiscard]]` (pak by překladač měl ječet, pokud nečteme návratovou hodnotu funkce)
+	- hranaté závorky na mapě se většinou k ničemu nehodí
+
+```cpp
+map<string, size_t> m;
+
+if (m.exists(ident)) {
+	id = m[ident];
+	// neefektivní řešení, v mapě vyhledávám dvakrát
+} else {
+	m[ident] = id = m.size();
+}
+```
+
+- lepší je použít `m.find`, to vrátí iterátor `it`
+	- když chceme hodnotu, použijeme `it->second`
+	- vkládání můžeme dělat pomocí emplace
+	- je vhodné použít emplace_hint
+		- ale co mu dát?
+	- alternativa: m.lower_bound
+- jak to udělat správně?
+
+```cpp
+id = m.size();
+auto [it, b] = m.emplace(ident, id);
+
+if (!b) {
+	id = it->second;
+}
+// b je true, pokud tam ten prvek ještě nebyl
+// když se emplace nepovedl, tak je b false a iterátor míří na překážející prvek
+```
+
+- další varianta: try_emplace
+	- výhodnější – nevytváří objekt, dokud není jasné, že tam půjde vložit
+- je potřeba hlídat časovou složitost `.size()`, u mapy je konstantní
+- úloha index_map
+	- metoda `.data` je logický ekvivalent `.c_str`
+		- vektor nám zaručuje, že při stěhování se odkaz na .data nerozbije – (ale asi jen dokud vektor nezvětšujeme???)
+	- u mapy pointery přežívají inserty
+		- ve vektoru budeme mít pointery na stringy v mapě
+	- ale vždyť máme nahoře čísla směřující do vektoru – to je skoro jako pointery
+	- takže nám místo mapy bude stačit `set<size_t>`?
+		- použijeme `set<size_t, my_cmp>`, pomocí vlastního komparátoru (ten se bude dívat do vektoru) budeme porovnávat čísla
+		- jak bychom implementovali insert?
+			- mohli bychom string vložit na konec vektoru a zkusit ho najít
+			- ale u findu by nám překážel const – navíc kvůli vyhledávání stringu bychom ho museli přidávat do vektoru, to je neefektivní
+		- v C++ existuje templatovaný find, kdy můžeme vyhledávat i něco, co v setu není (má to jiný typ)
+			- normálně bychom si vystačili s přetíženým menšítkem (viz reference)
+			- ale chceme předefinovat porovnávání intů, k tomu budeme potřebovat vlastní funktor
+			- templatovaný find testuje, jestli náš komparátor obsahuje typovou položku is_transparent, k tomu se obvykle používá void
+				- to je užitečné kvůli hashovací tabulce (viz unordered_set)

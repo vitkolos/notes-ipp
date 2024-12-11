@@ -52,3 +52,16 @@
 - rule of five
 - virtual destructor for abstract classes
 - conventions for the use of references and pointers
+- invalidations in containers
+	- modification action in sequential container invalidates…
+		- pointers
+		- references
+		- iterators
+	- associative containers
+		- unordered
+			- pointers – not invalidated
+			- references – not invalidated
+			- iterators – invalidated
+		- ordered
+			- nothing is invalidated
+- for_each makes a copy of the functor using its copy constructor
