@@ -579,3 +579,25 @@
 	- if we quantize the differences directly, the error will accumulate
 	- instead of that, we will quantize the difference between the previous **predicted** value and the current value
 	- DPCM
+	- Wiener-Hopf equations
+	- ADPCM
+		- forward adaptive prediction … we need to transfer coefficients
+		- backward adaptive prediction … no need to transfer additional info
+	- …
+- exam
+	- 60 minutes for written parts
+	- oral part at most 30 minutes, discuss answers
+	- options: 15. 1., 23. 1., 30. 1., 6. 2.
+- transform coding
+	- for images, we have to make a two-dimensional transform
+		- it is better to transform each dimension separately
+	- orthogonal transform … we use orthogonal transform matrix
+	- gain $G_T$ of a transform $T$
+	- Karhunen-Loéve transform
+	- discrete cosine transform (no need to memorize the formulae)
+		- DCT is the cosine component of DFT
+		- redistributes information so that we can quantize it more easily
+	- discrete sine transform
+	- Hadamard matrix
+	- discrete Walsh-Hadamard transform
+	- quantization and coding
