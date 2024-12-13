@@ -255,3 +255,4 @@
 - single parameter environments
 	- $v_i$ … valuation “per unit of the goods”
 - Myerson's lemma
+- maximizing expected revenue

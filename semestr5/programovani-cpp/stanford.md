@@ -1,0 +1,58 @@
+# CS 106L: Standard C++ Programming
+
+- struct – bundle multiple variables into one type
+- using – set an alias to a type
+- auto – compiler deduces the type of the expression
+- initialization
+	- direct initialization
+		- `int a = 42.5;`
+		- `int a(42.5);`
+		- does not check the type, simply stores 42
+		- narrowing conversion
+	- uniform initialization
+		- `int a{42.5};`
+		- does not allow for narrowing conversion, the compiler generates an error
+		- ubiquitous – works for all types
+- structured binding
+	- `auto [x, y, z] = f();`
+	- can be used on objects where the size is known at compile-time
+- reference
+	- pass by value × pass by reference
+- l-value, r-value
+	- l-value can be to the left or the right of an equal sign
+	- r-value can be only to the right of an equal sign
+- const
+	- you can't declare a non-const reference to a const variable
+- streams
+	- stream = a general input/output abstraction
+	- stringstreams
+		- useful when mixing data types
+		- `>>` operator reads until the next whitespace
+		- `getline()`
+	- output streams
+		- buffered
+			- `std::flush` or `std::endl` can be used to flush
+			- flush is expensive → it might be better to use `\n` (and `std::ios::sync_with_stdio(false);`) instead of `std::endl` if we want to use it repeatedly
+		- `ofs.open("hello.txt", std::ios::app);`
+			- `std::ios::app` … append flag
+	- input streams
+		- also buffered
+		- `>>` operator on cin reads until the next whitespace
+		- `getline` reads the whole line
+		- they should not be combined
+- standard template library
+- containers
+	- sequence containers
+		- vector
+		- deque
+	- associative containers
+		- map, set
+			- using comparison
+		- unordered_map, unordered_set
+			- using hashing
+- iterators
+	- streams don't allow multi-pass iterators
+	- special syntax
+		- `(*it).x` ~ `it->x`
+		- `*(it+5)` ~ `it[5]`
+	- pointers work similarly to iterators
