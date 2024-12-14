@@ -65,3 +65,26 @@
 		- ordered
 			- nothing is invalidated
 - for_each makes a copy of the functor using its copy constructor
+
+---
+
+- forwarding (universal) references
+	- compiler selects variable/parameter type according to the actual argument
+	- `auto&&` variable type
+	- as templated function argument `T&&`
+	- perfect forwarding
+		- if we want to forward the variable to another function while keeping its original properties (l/r-value and constness), we should use `std::forward<T>(x)`
+			- it's a cast to `T&&`
+- variadic templates
+	- example: `template<typename... TList> void f(TList&&... plist) { g(std::forward<TList>(plist)...); }`
+	- fold expression
+- traits, policies, functors, tags
+	- traits … used to determine properties of a type used in a template
+		- example: we want to find the numeric limits of the type T in the current specialization
+		- we may use methods like `std::numeric_limits<T>::lowest();` for that – if there exists such specialization for the type
+	- policies … classes used as type parameters in templates to influence the internal behavior of the template
+		- example: allocation policy of a container
+		- we want to pass a set of functions (and types…) that the container should use
+		- usually, the functions would be static
+		- but it is also possible to pass an instantiated policy as a parameter of the constructor (it would be still used as a type parameter of the template)
+		- alternative: to use OOP and require that the allocators implement some interface (stated using an abstract allocator) – this would be slower that the templated version
