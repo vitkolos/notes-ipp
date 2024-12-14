@@ -141,3 +141,47 @@ T min(const T& v, const Args&... args) {
 	- note
 		- `std::ranges` algorithms are eager
 		- `std::ranges::views` are lazy
+- operator overloading
+	- member × non-member
+	- we can use friend declaration to provide access to private fields
+- special member functions
+	- 6 SMFs
+		- default constructor
+		- destructor
+		- copy constructor
+		- copy assignment operator
+		- move constructor
+		- move assignment operator
+	- generated (if not explicitly defined) only when they're called
+	- constructor
+		- using initializer lists is more efficient, we can directly construct member variables with intended values
+	- copy constructor
+		- by default, it creates copies of each member variable
+		- if there is a pointer in member variables, the memberwise copy will point to the same allocated data
+			- we need to define custom copy constructor
+		- what if we want prevent copying?
+			- just set the functions equal to delete
+		- also, we can set the SMFs equal to default
+		- rule of zero: if the default SMFs work, don’t define your own
+		- rule of three
+			- if you need a custom destructor, then you also probably need to define a copy constructor and a copy assignment operator for your class
+- move semantics
+	- rvalues are automatically (?) moved
+		- `Photo retake(0,0);`
+		- `retake = takePhoto();`
+		- does not copy the result of takePhoto, only moves it
+	- what if we want to pass the value to the function and expect the value disappears in the function
+		- if we wanted to use `&` reference, we would need to assign an address to the value first
+			- `Photo selfie = takePhoto();`
+			- `upload(selfie);`
+		- if we use `&&` reference, we don't need to do so
+			- `upload(takePhoto());`
+	- move constructor, move assignment operator
+	- `std::move` casts an lvalue to rvalue
+	- rule of five: if we defined copy constructor/assignment and destructor, we should also define move constructor/assignment (to prevent unnecessary copying)
+- `std::optional<T>` can hold `std::nullopt` or a value of type `T`
+	- there is no `std::optional<T&>` :((
+- RAII … Resource Acquisition is Initialization
+	- resources used by a class should be acquired in the constructor and released in the destructor
+	- lock & unlock → lock_guard
+	- new & delete → smart pointers
