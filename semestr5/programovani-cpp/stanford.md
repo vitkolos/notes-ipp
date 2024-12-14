@@ -56,3 +56,88 @@
 		- `(*it).x` ~ `it->x`
 		- `*(it+5)` ~ `it[5]`
 	- pointers work similarly to iterators
+- classes
+	- structs are like classes but everything is public there
+	- fields
+	- constructor
+	- member functions
+	- destructor
+	- fields and headers in `.h` file (or `.hpp`?)
+	- `this` pointer
+	- `using` … type aliasing (e.g. iterator)
+- inheritance
+	- dynamic polymorphism
+		- virtual functions
+	- inheritance visibility (public, protected, private)
+	- virtual inheritance
+		- to avoid diamond problem (`B:A`, `C:A`, `D:B,C`)
+		- derived class (D) needs to initialize the base class (A)
+			- in initialization list (?)
+- templates
+	- separation of headers and implementation might be problematic
+		- should be in the same file
+	- `template <typename T>` ~ `template <class T>`
+	- (partial) specializations
+- const methods
+	- instead of `T* this`, they can use only `const T* this`
+	- const overloading
+		- `const T& at(size_t index) const;`
+		- `T& at(size_t index);`
+	- const party tricks
+		- `const_cast` … casts away constness
+		- `mutable` … marks field as mutable even in const instances
+- templated function
+	- implicit × explicit instatiation
+- concepts
+	- example
+
+```cpp
+template <typename T>
+concept Comparable = requires(const T a, const T b) {
+	{ a < b } -> std::convertible_to<bool>;
+};
+```
+
+- concepts (cont'd)
+	- everything in the curly braces must compare without error and the result must be bool-like (convertible to bool)
+	- usage
+		- `template <typename T> requires Comparable<T>`
+		- shorthand: `template <Comparable T>`
+- recursion using variadic templates
+
+```cpp
+template <Comparable T>
+T min(const T& v) { return v; }
+
+template <Comparable T, Comparable... Args>
+T min(const T& v, const Args&... args) {
+	auto m = min(args...);
+	return v < m ? v : m;
+}
+```
+
+- compile-time code execution
+	- template meta-programming
+	- `constexpr` … expression should be evaluated at compile time
+	- `consteval` … expression must be evaluated at compile time
+- passing predicates/functors
+	- global functions can be passed as functors
+		- actually, thay are passed as function pointers
+		- `bool isVowel(char c)` is passed as type `bool(*)(char)`
+	- lambdas
+		- can capture context
+		- by reference / by value
+	- functor … any object that defines `operator()`
+- range
+	- everything with begin and end
+	- instead of `std::find(v.begin(), v.end(), x);` for vector `v`, we can use `std::ranges::find(v, x);`
+- view
+	- range that lazily transforms its underlying range, one element at a time
+		- see `std::ranges::views` and `std::ranges::to`
+		- first parameter … underlying range
+	- alternative: range adaptors
+		- omit the range parameter
+		- pipe `|` operator
+	- note
+		- `std::ranges` algorithms are eager
+		- `std::ranges::views` are lazy
