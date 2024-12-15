@@ -161,7 +161,7 @@ T min(const T& v, const Args&... args) {
 			- we need to define custom copy constructor
 		- what if we want prevent copying?
 			- just set the functions equal to delete
-		- also, we can set the SMFs equal to default
+		- also, we can set the SMFs equal to default (this might be necessary in some cases)
 		- rule of zero: if the default SMFs work, don’t define your own
 		- rule of three
 			- if you need a custom destructor, then you also probably need to define a copy constructor and a copy assignment operator for your class
