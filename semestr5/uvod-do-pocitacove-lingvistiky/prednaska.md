@@ -315,6 +315,7 @@
 	- ustálená spojení
 	- kulturní kontext
 - prehistorie
+- trojúhelník strojového překladu
 - první generace
 	- dvojjazyčný slovník – nestačí
 	- předpony, kmeny, přípony – moc nefunguje (viz němčina → čeština)
@@ -332,3 +333,43 @@
 	- používal Q-systémy
 - strojem podporovaný překlad
 	- překladová paměť
+- české experimenty
+	- RUSLAN
+		- překlad manuálů k operačním systémům sálových počítačů
+		- manuály byly potřeba v češtině a v němčině, ale musely být také v ruštině (ty nikdo nečetl)
+		- původně 1 věta za 4 minuty, později třeba i za 20 sekund
+			- stačilo počkat 10 let na výkonnější počítače
+			- nejvíc času nyní zabírá ukládání do souborů (Q-systémy mezi fázemi používají textové soubory k ukládání mezivýsledků)
+		- transdukční slovník (algoritmus)
+			- některá (zvláště technická) slova založená na řeckém nebo latinském základu se dají přeložit jenom přepsáním koncového úseku
+			- překvapivě transdukční slovníky pro překlad angličtina → čeština a ruština → čeština vypadají hodně podobně (mají podobnou množinu slov)
+		- valenční rámce sloves jsou v ruštině podobné jako v češtině
+		- idea: určit, zda se sloveso váže s životnými nebo neživotnými jmény
+			- to nefungovalo, lingvisté si neuměli představit použití (např. program může běžet)
+	- systém Česílko
+		- lokalizace SAPu (a manuálů)
+		- nejdřív kvalitní ruční překlad do češtiny, pak automatizovaný překlad do dalších jazyků (např. slovenštiny)
+		- ukázalo se, že…
+			- pro dobrý překlad mezi češtinou a slovenštinou nestačí transdukční slovník
+			- české „jarní“, slovenské „jarný/jarná/jarné“
+		- překladatelé používali systémy asistovaného překladu s překladovou pamětí
+			- dalo se do ní něco přidávat
+			- idea: překladatel z němčiny do polštiny při překladu nové věty uvidí (polskou) nabídku, kterou vygeneroval počítač automaticky na základě české verze věty
+		- zajímavý syntaktický rozdíl
+			- bude-li (…) → ak (…) bude
+		- překvapivě překlad do polštiny byl méně kvalitní než do litevštiny (větný pořádek je v polštině jiný než v češtině)
+- PC Translator 2003 – asi nejlepší český komerční systém
+	- dlouho byl lepší než Google Translate
+- statistický překlad
+	- pravděpodobnost vs. relativní četnost
+	- in (angličtina) → dans, à, de (francouzština)
+	- hlavní úkol: předpovědět následující slovo v běžném textu
+		- nemůžeme používat celou historii, praktičtější je používat poslední tři slova (3-gramy)
+		- problémem je velikost dat – trojrozměrná matice pro slovník se 40k slovy by byla z většiny prázdná (taková matice by měla $6{,}4\cdot 10^{13}$ buněk, ale trénovací data mají obvykle stamiliony slov, tedy $10^8$)
+			- místo nul tam musíme dát hodně malá čísla, aby se nám to pronásobením nevynulovalo
+			- akorát pak nemůžeme rozlišovat kombinace, které opravdu neexistují
+	- jak to funguje u překladu?
+		- idea: použijeme paralelní korpus jako trénovací data
+	- metoda zašuměného kanálu
+		- model budujeme v opačném směru
+		- umíme posuzovat výsledky překladového modelu („jak je věta hezká?“)
