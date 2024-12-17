@@ -65,6 +65,7 @@
 		- ordered
 			- nothing is invalidated
 - for_each makes a copy of the functor using its copy constructor
+- when calling a function, the compiler may infer its namespace from the arguments
 
 ---
 
