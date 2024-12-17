@@ -274,3 +274,13 @@
 - může se hodit clustery modelovat jako gaussiány
 	- zvlášť pokud nemají stejnou velikost a jsou třeba elipsy
 - k-means i outliery přiřadí do nějakého clusteru
+
+## Testování statistických hypotéz
+
+…
+
+## Zkouška
+
+- písemná
+- když se nám nějaká otázka nebude zdát, na Piazze bude formulář, kam to můžeme napsat
+- v lednu na přednášce/přednášce se podíváme na nejvíc problematické otázky
