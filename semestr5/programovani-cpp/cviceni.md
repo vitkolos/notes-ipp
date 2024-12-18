@@ -492,3 +492,65 @@ if (!b) {
 			- ale chceme předefinovat porovnávání intů, k tomu budeme potřebovat vlastní funktor
 			- templatovaný find testuje, jestli náš komparátor obsahuje typovou položku is_transparent, k tomu se obvykle používá void
 				- to je užitečné kvůli hashovací tabulce (viz unordered_set)
+
+---
+
+- naše řešení můžeme vylepšovat až do okamžiku před testem
+	- deadline je měkký – můžeme submitovat i potom
+- připomenutí
+	- RVO (return value optimization) = move-elision
+		- máme funkci, která vrací `T`
+			- `return prvalue;`
+		- objekt vzniká přímo tam, kde se očekává návratová hodnota
+		- pro všechny překladače povinná
+	- NRVO (named-RVO) = copy-elision OR implicit-move
+		- máme funkci, která vrací `T`
+			- `T x;` … lokální proměnná
+			- `return x;`
+		- buď se musí provést copy-elision (objekt rovnou vzniká tam, kde se očekává návratová hodnota)
+		- nebo se implicitně provede move
+		- tedy pro jednoduché situace platí, že se u returnu nepíše move
+		- argument funkce není lokální proměnná
+- příklad: telefonní seznam
+	- budeme ho uchovávat v paměti
+	- co budeme ukládat
+		- jméno, příjmení
+		- oddělení
+		- telefonní čísla
+	- chceme umět vyhledávat podle příjmení a oddělení
+		- dejme tomu prefixově
+		- `retset find_by_prefix(const string& pref)`
+		- `void set_phone_number(…)`
+	- je dobrý nápad vracet přímo pointery?
+		- těžko říct
+		- co, když objekt smažeme?
+	- telefonní čísla můžou být vektor stringů
+	- může být zajímavé mít objekt, který reprezentuje oddělení
+	- každý člověk sedí v jednom oddělení
+	- jak najít všechny, jejichž jména začínají na Nov?
+		- pomocí lower_bound
+			- upper_bound se liší jenom chováním při nalezení
+		- co s češtinou?
+			- problém
+			- porovnávací funkce mají lokalizaci, ale ta je závislá na platformě
+			- stringy se na to nehodí, měli bychom používat u16string nebo u32string
+			- C++ nějak podporuje i utf8, ale uvnitř programu bychom měli používat stringy s pevnou šířkou znaku
+	- indexy
+		- index příjmení bude multimapa
+		- index oddělení může být taky multimapa nebo mapa s vektory
+			- v multimapě bychom měli mnohokrát uložení string s názvem oddělení
+		- jak mazat?
+			- potřebujeme se dostat od záznamu zpátky do indexu
+			- u mapy můžeme používat iterátory
+			- u vektoru pro oddělení je to problém
+				- ale můžeme místo vektoru použít list (spoják)
+				- tak získáme perzistenci odkazů
+				- ale má to šílený overhead (bez něj to holt nejde)
+				- alternativa: mapa
+		- hlavní datová struktura může být unordered_map podle identifikátorů (asi textových)
+			- ale unordered_map nemá perzistentní iterátory, jenom pointery
+			- takže do indexů musíme dát pointery
+- orientovaný graf
+	- v každém vrcholu hodně hran
+		- vektor není dobrý nápad
+		- spoják všech příchozích hran by byl drahý
