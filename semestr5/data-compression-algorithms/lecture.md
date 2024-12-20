@@ -601,3 +601,24 @@
 	- Hadamard matrix
 	- discrete Walsh-Hadamard transform
 	- quantization and coding
+- JPEG
+	- …
+- WebP
+	- color space: RGB → YCbCr
+	- chroma subsampling 4:2:0
+	- split into macroblocks 16×16 Y, 8×8 Cb, 8×8 Cr
+		- high detail areas: 4×4
+	- macroblock prediction
+	- transform: DCT, DWHT
+	- quantization
+	- coding
+- final exam
+	- if we want to pick an exam slot that is already full, we can let him know
+
+### Subband coding
+
+- example
+	- rapid sample-to-sample variation
+	- but the long-term trend varies slowly
+- idea: let's average the samples using the sliding window
+- …
