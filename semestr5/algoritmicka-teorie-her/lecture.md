@@ -256,3 +256,27 @@
 	- $v_i$ … valuation “per unit of the goods”
 - Myerson's lemma
 - maximizing expected revenue
+- virtual valuation
+	- $\varphi_i(x)=x-\frac{1-F}{f_i(x)}$
+	- where $\frac{1-F}{f_i(x)}$ can be regarded as the loss of not knowing the exact valuation
+- Bulow-Klemperer theorem
+- back to social surplus: knapsack auctions
+	- $n$ bidders
+	- each bidder has
+		- public size $w_i\geq 0$
+		- private valuation $v_i\geq 0$
+	- seller has a capacity $W\geq 0$
+	- feasible set $X$ … 0/1-vectors such that$\sum_ix_iw_i\leq W$
+	- we cannot be awesome :(
+- multi-parameter mechanism design
+	- $n$ bidders
+	- $\Omega$ … finite set of outcomes
+	- $\forall \omega\in\Omega:$ each bidder has a private valuation $v_i(\omega)\geq 0$
+	- $\forall\omega\in\Omega:$ each bidder submits his bids $b_i(\omega)\geq 0$
+	- our goal is to design a mechanism that selects an outcome $\omega\in\Omega$ so that it maximizes the social surplus $\sum_iv_i(\omega)$
+	- bidder A winning and bidder B winning are two separate outcomes → bidders can have opinions about each other bidder winning the item as well
+	- example: single-item auction
+		- $\Omega=\set{\omega_1,\dots,\omega_n,\omega_\emptyset}$
+	- VCG mechanism
+		- states that we can do DSIC social surplus maximization
+	- poznámka: alokační pravidlo může vycházet z toho, že agenti bidují pravdivě, pokud uvažujeme DSIC – ale payment formula musí zajistit DSIC
