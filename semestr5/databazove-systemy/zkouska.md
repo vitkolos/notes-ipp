@@ -11,20 +11,40 @@
 	- přejmenování $R\braket{\text{attr1}\to\text{x1},\text{attr2}\to\text{x2}}$
 	- dělení $R\div S$
 - přirozené spojení
+	- spojení na základě atributů se stejným názvem v obou tabulkách
+	- pokud ho chceme použít na dvě stejné tabulky, je potřeba rozumně použít projekci
 - dělení
+	- vrací největší možný výsledek takový, aby jeho kartézský součin s dělitelem byl „podmnožinou“ dělence
+	- příklad
+		- A … tabulka s dvojicemi (film, herec)
+		- B … tabulka se jmény herců
+		- A ÷ B … tabulka s názvy takových filmů, v nichž hrají všichni herci s tabulky B
 
 ## Normální formy a funkční závislosti
 
 - normální formy
 	- 1NF
+		- všechny atributy jsou atomického typu (nejsou to seznamy, objekty apod.)
+		- předpokládáme, že platí
 	- 2NF
+		- 1NF + neexistuje závislost neklíčového atributu na **části** klíče
 	- 3NF
+		- 1NF + neexistuje tranzitivní závislost neklíčového atributu na klíči
+		- alternativně: 1NF + každá závislost patří do jedné ze tří skupin:
+			- triviální: nadmnožina → podmnožina
+			- závislost na (nad)klíči
+			- atribut vpravo je součástí nějakého klíče
 	- BCNF
+		- 1NF + každý atribut je přímo závislý na klíči
+		- alternativně: dovoluje jen triviální závislosti a závislost na (nad)klíči
 - funkční závislosti
 	- rozepsání na elementární závislosti
+		- tak, aby byl jeden atribut na pravé straně
+		- závislosti s více atributy vpravo prostě „rozepíšu“
 	- redukce redundantních atributů
 	- odstranění redundantních závislostí
 	- nalezení klíčů
+	- bezztrátové spojení
 	- zachování závislostí při dělení podle normálních forem
 
 ## Transakce
