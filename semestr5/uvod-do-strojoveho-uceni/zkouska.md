@@ -3,9 +3,34 @@
 ## 1. Introduction to Machine Learning
 
 - Easy: Explain how reinforcement learning differs from supervised and unsupervised learning in terms of the type of input the learning algorithms use to improve model performance.
+	- supervised, unsupervised
+		- máme vstupní data (v případě supervised také cílové hodnoty)
+	- reinforcement
+		- nemáme vstupní data, ale spíše prostředí
+		- např. necháme program, aby donekonečna hrál šachy proti jiným programům
+	- výkon (performance) vždy měříme pomocí vhodné metriky
 - Medium: Explain why we need separate training and test data. What is generalization, and how does the concept relate to underfitting and overfitting?
+	- testovací data slouží k ověření toho, jak dobře náš model generalizuje – snažíme se zjistit, jak dobré výsledky model vrací pro data, která dosud neviděl
+	- underfitting – model je příliš slabý (příliš jednoduchý), plně jsme nevyužili jeho potenciál
+	- overfitting – model špatně generalizuje, příliš se přizpůsobil trénovacím datům
 - Medium: Define the prediction function of a linear regression model and write down $L^2$-regularized mean squared error loss.
+	- predikce … $y(x;w,b)=x^Tw+b$
+		- někdy je vhodné přidat na konec $x$ jedničku, pak je bias uložen v poslední hodnotě váhového vektoru, tedy $y(x;w)=x^Tw$
+	- MSE
+		- původní vzorec: $\text{MSE}(w)=\frac1N\sum_{i=1}^N(y(x_i;w)-t_i)^2$
+		- místo $\frac1N$ se používá $\frac12$ (při minimalizaci MSE se počet dat nemění) → není to MSE, ale „sum of squares error“
+		- používaný vzorec s $L^2$-regularizací
+			- $\frac12\sum_{i=1}^N(y(x_i;w)-t_i)^2+\frac{\lambda}2 \lVert w\rVert^2$
+		- poznámka: obvykle se $L^2$-regularizace nepoužívá na bias, jelikož ten nezpůsobuje overfitting
 - Medium: Starting from the unregularized sum of squares error of a linear regression model, show how the explicit solution can be obtained, assuming $\boldsymbol X^T \boldsymbol X$ is invertible.
+	- sum of squares error: $\frac12\sum_{i}(x_i^Tw-t_i)^2$
+		- lze ho zapsat jako $\frac12\lVert Xw-t\rVert^2$
+	- snažíme se ho minimalizovat → hledáme hodnoty, kde je derivace chybové funkce podle každé z vah nulová
+		- $\frac{\partial}{\partial w_j}\frac12\sum_{i}(x_i^Tw-t_i)^2=\sum_i x_{ij}(x_i^Tw-t_i)$
+		- chceme, aby $\forall j:\sum_i x_{ij}(x_i^Tw-t_i)=0$
+			- $X^T(Xw-t)=0$
+			- $X^TXw=X^Tt$
+	- je-li $X^TX$ invertibilní, pak lze určit explicitní řešení jako $w=(X^TX)^{-1}X^Tt$
 
 ## 2. Linear Regression, SGD
 
