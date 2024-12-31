@@ -42,10 +42,40 @@
 		- tak, aby byl jeden atribut na pravé straně
 		- závislosti s více atributy vpravo prostě „rozepíšu“
 	- redukce redundantních atributů
+		- máme závislosti, kde vpravo je jeden atribut, vlevo jich ale může být více
+		- jsou všechny atributy vlevo potřeba?
+			- pokud odeberu určitý atribut z levé strany, bude výsledná funkční závislost součástí uzávěru?
+			- uzávěr $X^+$ množiny atributů $X$ podle množiny funkčních závislostí $F$ = všechny atributy, které jsou funkčně závislé na $X$ podle $F$
+				- jejich závislost lze odvodit pomocí [Armstrongových axiomů](https://en.wikipedia.org/wiki/Armstrong%27s_axioms)
+		- jinými slovy
+			- máme $X\to y$, uvažujeme o odebrání atributu $a\in X$
+			- $a$ můžeme odebrat, pokud $y\in (X\setminus\set{a})^+$ podle $F$
 	- odstranění redundantních závislostí
+		- závislost je redundantní, pokud může být odvozena z ostatních
+		- takto testujeme každou závislost – vyjmeme ji a zkoušíme, zda ji lze odvodit z ostatních závislostí
+		- závislost $X\to y$ můžeme odebrat, pokud $y\in X^+$ podle $F\setminus\set{X\to y}$
+	- po postupné aplikaci těchto tří kroků (rozepsání, redukce atributů, odstranění závislostí) bychom měli získat minimální pokrytí množiny funkčních závislostí
 	- nalezení klíčů
-	- bezztrátové spojení
+		- terminologie
+			- množinu všech atributů označíme $A$
+			- nadklíč $X$ je taková množina atributů, že $X^+=A$
+			- klíč $K$ je taková množina atributů, že $K$ je redukovaný superklíč
+				- takových klíčů může být více
+		- nalezení 1\. klíče
+			- uvažujeme funkční závislost $A\to A$, kde $A$ je množina všech atributů
+			- použijeme algoritmus redukce redundantních atributů
+		- nalezení dalších klíčů
+			- máme známý klíč $K$ a závislost $X\to Y$ takovou, že průnik $K\cap Y$ je neprázdný a $X\not\subseteq K$ (tedy $X$ obsahuje nějaké atributy navíc)
+			- pak $K'=(K\cup X)\setminus Y$ je nadklíč $R(A)$, neporovnatelný s $K$ inkluzí
+				- ten musíme opět redukovat
+	- možný postup dekompozice
+		- …
+		- bezztrátové spojení
+			- pokud provádíme dekompozici relací podle funkčních závislostí, přirozeným spojením rozložených relací získáme původní relaci
+			- ale může dojít ke ztrátě funkčních závislostí
+				- mohli bychom přidat další tabulku se ztracenou závislostí
 	- zachování závislostí při dělení podle normálních forem
+		- …
 
 ## Transakce
 
