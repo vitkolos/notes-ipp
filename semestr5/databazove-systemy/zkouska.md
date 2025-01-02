@@ -22,21 +22,6 @@
 
 ## Normální formy a funkční závislosti
 
-- normální formy
-	- 1NF
-		- všechny atributy jsou atomického typu (nejsou to seznamy, objekty apod.)
-		- předpokládáme, že platí
-	- 2NF
-		- 1NF + neexistuje závislost neklíčového atributu na **části** klíče
-	- 3NF
-		- 1NF + neexistuje tranzitivní závislost neklíčového atributu na klíči
-		- alternativně: 1NF + každá závislost patří do jedné ze tří skupin:
-			- triviální: nadmnožina → podmnožina
-			- závislost na (nad)klíči
-			- atribut vpravo je součástí nějakého klíče
-	- BCNF
-		- 1NF + každý atribut je přímo závislý na klíči
-		- alternativně: dovoluje jen triviální závislosti a závislost na (nad)klíči
 - funkční závislosti
 	- rozepsání na elementární závislosti
 		- tak, aby byl jeden atribut na pravé straně
@@ -68,23 +53,91 @@
 			- máme známý klíč $K$ a závislost $X\to Y$ takovou, že průnik $K\cap Y$ je neprázdný a $X\not\subseteq K$ (tedy $X$ obsahuje nějaké atributy navíc)
 			- pak $K'=(K\cup X)\setminus Y$ je nadklíč $R(A)$, neporovnatelný s $K$ inkluzí
 				- ten musíme opět redukovat
+- normální formy
+	- 1NF
+		- všechny atributy jsou atomického typu (nejsou to seznamy, objekty apod.)
+		- předpokládáme, že platí
+	- 2NF
+		- 1NF + neexistuje závislost neklíčového atributu na **části** klíče
+	- 3NF
+		- 1NF + neexistuje **tranzitivní** (nepřímá) závislost neklíčového atributu na klíči
+		- alternativně: 1NF + každá závislost patří do jedné ze tří skupin:
+			- triviální: nadmnožina → podmnožina
+			- závislost na (nad)klíči
+			- atribut vpravo je součástí nějakého klíče
+	- BCNF
+		- 1NF + každý atribut je přímo závislý na klíči
+		- alternativně: dovoluje jen triviální závislosti a závislost na (nad)klíči
+			- tedy je silnější než 3NF
+- dekompozice
+	- cíl: aby byl výsledek v 3NF nebo BCNF
 	- možný postup dekompozice
-		- …
+		- vyberu první závislost, která brání normální formě $X\to y$
+			- relaci rozdělím na dvě
+			- jedna relace bude odpovídat $X\to y$
+			- v druhé bude vše kromě $y$
+				- místo závislostí $y\to *$ tam budou jejich tranzitivní alternativy $X\to *$
+			- případně tento krok opakuju
 		- bezztrátové spojení
 			- pokud provádíme dekompozici relací podle funkčních závislostí, přirozeným spojením rozložených relací získáme původní relaci
-			- ale může dojít ke ztrátě funkčních závislostí
-				- mohli bychom přidat další tabulku se ztracenou závislostí
+		- ale může dojít ke ztrátě funkčních závislostí
+			- např. v situaci $a → b$, $b → c$, $c → d$, $d → e$
+				- pokud vyjmeme $b→c$, ztratí se závislost $c\to d$ (místo ní tam bude $b\to d$, což platí tranzitivně, ale už ne původní závislost)
+			- mohli bychom přidat další tabulku se ztracenou závislostí
 	- zachování závislostí při dělení podle normálních forem
-		- …
+		- řetízek funkčních závislostí $a\to b\to c\to d\to e$ jsme dělili od prostředka
+		- mohli bychom ho ale dělit od kraje, tak se nám žádná závislost neztratí
+		- asi dává největší smysl začít od konce (takže závislostí $d\to e$, která porušuje 3NF)
 
 ## Transakce
 
+- transakce
+	- časová posloupnost operací, která končí příkazem commit nebo abort
+	- plánovač zpracovává několik transakcí najednou – řídí, jaká operace se provede dřív
+	- rozvrh = pořadí provedení operací
 - uspořádatelnost rozvrhu
+	- sériový rozvrh – transakce (jejich operace) se provádějí postupně, pro $n$ transakcí existuje $n!$ sériových rozvrhů
+	- pro zvýšení efektivity dává smysl střídavě provádět operace z různých transakcí
+		- ale prolínání nemůže být libovolné – u dvojic s alespoň jedním zápisem závisí na pořadí operací (dvojice read/read může být v libovolném pořadí)
+	- rozvrh je uspořádatelný (serializable), pokud je ekvivalentní libovolnému sériovému rozvrhu
 - konfliktní uspořádatelnost
+	- konfliktní dvojice: $R(A)\to R(A)$, $R(A)\to W(A)$, $W(A)\to R(A)$
+		- operace jsou v různých transakcích
+		- šipka odpovídá časové posloupnosti
+	- dva rozvrhy jsou konfliktně ekvivalentní, pokud mají stejnou množinu konfliktních dvojic
+	- rozvrh je konfliktně uspořádatelný, pokud je konfliktně ekvivalentní nějakému sériovému rozvrhu
+	- konfliktní uspořádatelnost nezohledňuje zotavitelnost (abort/rollback) ani insert/delete na databázových objektech
+	- detekce konfliktní uspořádatelnosti – pomocí precedenčního grafu
+		- vrcholy jsou commitnuté transakce
+		- orientované hrany odpovídají konfliktním dvojicím
+		- rozvrh je konfliktně uspořádatelný, pokud je graf acyklický
 - pohledová uspořádatelnost
+	- slabší než konfliktní uspořádatelnost
+		- využíváme zde toho, že pokud do konkrétní položky $n$-krát zapisujeme (kde $n\geq 3$) a mezi těmito zápisy ji nečteme, můžeme prvních $n-1$ zápisů provést v libovolném pořadí
+	- dva rozvrhy jsou pohledově ekvivalentní pokud platí tyto 3 podmínky:
+		- pokud operace $O$ čte počáteční hodnotu $X$ v jednom rozvrhu, platí to i ve druhém
+		- pokud operace $O$ zapisuje koncovou hodnotu $X$ v jednom rozvrhu, platí to i ve druhém
+		- pokud operace $O_1$ čte $X$ zapsané operací $O_2$, platí to i ve druhém
+	- pohledově uspořádatelný rozvrh je pohledově ekvivalentní nějakému sériovému rozvrhu
+- zotavitelnost
+	- ze všech konfliktních dvojic vyznačíme ty, kde dochází ke čtení nepotvrzených dat
+		- poznámka: pokud k jednomu čtení vede („konfliktní“) šipka ze dvou zápisů,  „zotavitelná“ šipka bude jen z toho posledního (protože to jsou ta nepotvrzená data, která se reálně čtou)
+	- tak vznikne graf (snad acyklický), který určuje pořadí commitů a případně abortů
 - zamykací protokol
-- 2PL
-- S2PL
+	- operace
+		- $S(A)$ … zamčení sdíleného zámku
+		- $X(A)$ … zamčení exkluzivního zámku
+		- $U(A)$ … odemčení zámku
+	- dobrá formovanost transakcí
+		- před $R$ aspoň $S$
+		- před $W$ aspoň $X$
+		- na konci vše korektně odemknuté
+- 2PL (2fázový zamykací protokol)
+	- po prvním unlocku už se nesmí zamykat → nejdřív se zamyká, pak se odemyká
+	- každý vyhovující rozvrh je konfliktně uspořádatelný, nemusí být zotavitelný
+- S2PL (striktní 2fázový zamykací protokol)
+	- explicitní unlock je zakázaný
+	- odemčení
 
 ## Teorie
 
