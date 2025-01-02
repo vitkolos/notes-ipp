@@ -21,6 +21,7 @@
 		- místo $\frac1N$ se používá $\frac12$ (při minimalizaci MSE se počet dat nemění) → není to MSE, ale „sum of squares error“
 		- používaný vzorec s $L^2$-regularizací
 			- $\frac12\sum_{i=1}^N(y(x_i;w)-t_i)^2+\frac{\lambda}2 \lVert w\rVert^2$
+			- to odpovídá $\frac12\lVert Xw-t\rVert^2+\frac{\lambda}2 \lVert w\rVert^2$
 		- poznámka: obvykle se $L^2$-regularizace nepoužívá na bias, jelikož ten nezpůsobuje overfitting
 - Medium: Starting from the unregularized sum of squares error of a linear regression model, show how the explicit solution can be obtained, assuming $\boldsymbol X^T \boldsymbol X$ is invertible.
 	- sum of squares error: $\frac12\sum_{i}(x_i^Tw-t_i)^2$
@@ -35,13 +36,65 @@
 ## 2. Linear Regression, SGD
 
 - Medium: Describe standard gradient descent and compare it to stochastic (i.e., online) gradient descent and minibatch stochastic gradient descent. Explain what it is used for in machine learning.
+	- snažíme se minimalizovat hodnotu chybové funkce $E(w)$ pro dané váhy $w$ volbou lepších vah
+		- spočítáme $\nabla_wE(w)$ → tak zjistíme, jak váhy upravit
+		- nastavíme $w\leftarrow w-\alpha\nabla_wE(w)$
+			- $\alpha$ … learning rate (hyperparametr), „délka kroku“
+		- tomu se říká gradient descent
+	- standard gradient descent – používáme všechna trénovací data k výpočtu $\nabla_wE(w)$
+	- stochastic (online) gradient descent – používáme jeden náhodný řádek
+	- minibatch stochastic gradient descent – používáme $B$ náhodných nezávislých řádků
 - Easy: Explain possible intuitions behind $L^2$ regularization.
+	- penalizujeme modely s většími váhami
+	- preferujeme menší změny modelu
+	- omezujeme efektivní kapacitu modelu
+	- čím je model složitější, tím větší má váhy
 - Easy: Explain the difference between hyperparameters and parameters.
+	- parametry
+		- jsou předmětem učení
+		- na základě trénovacích dat se model naučí nějaké parametry, podle nichž pak predikuje
+		- příklady: váhový vektor $w$ u lineární regrese, váhová matice $W$ a vektor biases $b$ u MLP, středy clusterů u clusteringu
+	- hyperparametry
+		- ovlivňují učení
+		- učicí algoritmus je nijak neupravuje
+		- k posuzování kvality zvolených hyperparametrů slouží validační/vývojová data
+		- příklady: síla regularizace $\lambda$, maximální stupeň polynomu $M$ (u polynomiálních features), rychlost učení $\alpha$ (u SGD)
 - Medium: Write an $L^2$-regularized minibatch SGD algorithm for training a *linear regression* model, including the explicit formulas (i.e., formulas you would need to code it with `numpy`) of the loss function and its gradient.
+	- náhodně inicializujeme $w$ (nebo nastavíme na nulu)
+	- opakujeme, dokud to nezkonverguje nebo nám nedojde trpělivost
+		- samplujeme minibatch řádků s indexy $\mathbb B$
+			- buď uniformně náhodně, nebo budeme chtít postupně zpracovat všechna trénovací data (to se obvykle dělá, jednomu takovému průchodu se říká epocha), tedy je nasekáme na náhodné minibatche a procházíme postupně
+		- $w\leftarrow w-\alpha\frac1{\mathbb B}\sum_{i\in \mathbb B}((x_i^Tw-t_i)x_i)-\alpha\lambda w$
+			- jako $E$ se používá polovina MSE (s $L^2$ regularizací) – stačí to zderivovat
 - Medium: Does the SGD algorithm for *linear regression* always find the best solution on the training data? If yes, explain under what conditions it happens; if not, explain why it is not guaranteed to converge. What properties of the error function does this depend on?
+	- loss function je $(y(x;w)-t)^2$ (nebo polovina), což je spojitá konvexní funkce, tedy SGD téměř jistě konverguje k optimu, pokud posloupnost $(\alpha_n)$ splňuje podmínky
+		- $\forall n:\alpha_n\gt 0$
+		- $\sum_n \alpha_n=\infty$
+		- $\sum_n \alpha_n^2\lt\infty$
+	- z třetí podmínky vyplývá, že $\alpha_n$ jde k nule
 - Medium: After training a model with SGD, you ended up with a low training error and a high test error. Using the learning curves, explain what might have happened and what steps you might take to prevent this from happening.
+	- pokud se testovací křivka přibližovala a v určitý moment se začala vzdalovat, došlo k přetrénování (overfitting) modelu
+		- je potřeba zesílit regularizaci nebo včas zastavit trénování
+	- pokud se testovací křivka ani nezačala přibližovat, je potřeba trénovat déle
 - Medium: You were given a fixed training set and a fixed test set, and you are supposed to report model performance on that test set. You need to decide what hyperparameters to use. How will you proceed and why?
+	- v procesu trénování modelu a ladění hyperparametrů nesmím použít testovací data
+	- z trénovacích dat vyčlením vývojová data, která se nebudou účastnit trénování, ale budou sloužit k porovnávání výkonu modelu při různých hodnotách hyperparametrů
+	- alternativou by bylo použití cross-validation
+		- trénovací data rozdělím na $n$ dílů
+		- model natrénuju na datech z $n-1$ dílů
+		- na zbylých datech model vyhodnotím
+		- proces opakuju pro $n$ možných voleb
+		- jako výsledné skóre modelu použiju průměr průběžných hodnocení
 - Easy: What methods can be used to normalize feature values? Explain why it is useful.
+	- obvyklé metody
+		- normalizace
+			- přeškálování na rozsah $[0,1]$
+			- $x_\text{norm}=\frac{x-\text{min}}{\text{max}-\text{min}}$
+		- standardizace
+			- vystředění na nulu a přeškálování, aby měla data jednotkový rozptyl
+			- $x_\text{standard}=\frac{x-\hat\mu}{\hat\sigma}$
+		- logaritmizace
+	- pokud bychom měli features s různými rozsahy, potřebovali bychom různé learning rates
 
 ## 3. Perceptron, Logistic Regression
 
