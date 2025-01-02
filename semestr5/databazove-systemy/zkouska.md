@@ -123,6 +123,7 @@
 	- ze všech konfliktních dvojic vyznačíme ty, kde dochází ke čtení nepotvrzených dat
 		- poznámka: pokud k jednomu čtení vede („konfliktní“) šipka ze dvou zápisů,  „zotavitelná“ šipka bude jen z toho posledního (protože to jsou ta nepotvrzená data, která se reálně čtou)
 	- tak vznikne graf (snad acyklický), který určuje pořadí commitů a případně abortů
+	- v zotavitelném rozvrhu může transakce, která četla $X$, commitnout až po commitu transakce, která zapisovala $X$
 - zamykací protokol
 	- operace
 		- $S(A)$ … zamčení sdíleného zámku
@@ -139,7 +140,7 @@
 	- explicitní unlock je zakázaný
 	- odemčení probíhají implicitně s commit/abort
 	- je zotavitelný
-	- ale může nastat deadlock (to plánovač detekuje)
+	- ale může nastat deadlock (to plánovač detekuje, algoritmus opět hledá cykly v grafu závislostí)
 
 ## Teorie
 
