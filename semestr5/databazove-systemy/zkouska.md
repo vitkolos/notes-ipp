@@ -54,7 +54,7 @@
 			- pak $K'=(K\cup X)\setminus Y$ je nadklíč $R(A)$, neporovnatelný s $K$ inkluzí
 				- ten musíme opět redukovat
 - normální formy
-	- 1NF
+	- 1NF (první normální forma)
 		- všechny atributy jsou atomického typu (nejsou to seznamy, objekty apod.)
 		- předpokládáme, že platí
 	- 2NF
@@ -65,7 +65,7 @@
 			- triviální: nadmnožina → podmnožina
 			- závislost na (nad)klíči
 			- atribut vpravo je součástí nějakého klíče
-	- BCNF
+	- BCNF (Boyceho–Coddova normální forma)
 		- 1NF + každý atribut je přímo závislý na klíči
 		- alternativně: dovoluje jen triviální závislosti a závislost na (nad)klíči
 			- tedy je silnější než 3NF
@@ -137,28 +137,147 @@
 	- každý vyhovující rozvrh je konfliktně uspořádatelný, nemusí být zotavitelný
 - S2PL (striktní 2fázový zamykací protokol)
 	- explicitní unlock je zakázaný
-	- odemčení
+	- odemčení probíhají implicitně s commit/abort
+	- je zotavitelný
+	- ale může nastat deadlock (to plánovač detekuje)
 
 ## Teorie
 
 ### Multimédia
 
 - Popište naivní způsob, jak rozšířit Tabulku pro potřeby hledání v obrázcích. Jaké jsou možnosti a omezení tohoto přístupu?
+	- můžeme přidat sloupec, kde budou pro každý obrázek vypsány detekované objekty na obrázku
+	- některé objekty klasifikátor nezná nebo je naopak uživatel neumí popsat slovy
+	- nalezených výsledků může být hodně (příklad: na všech obrázcích je daný objekt, záleží na jeho vlastnostech)
 - Definujte klasický podobnostní model pro dva obrázky, vysvětlete z jakých funkcí se skládá. Na „toy example” ukažte princip hledání v DB, kde je 5 obrázků.
+	- spočítáme skóre (vzdálenost) $\delta(f_e(I_q),f_e(I_o))$
+		- $\delta$ … skóre
+		- $f_e$ … feature extraction
+		- $I_q$ … požadovaný obrázek (query)
+		- $I_o$ … jeden obrázek z databáze (postupně počítáme skóre pro každý obrázek z databáze)
+	- vrátíme obrázky s nejmenší $\delta$
 - Definujte moderní podobnostní model pro text a obrázek, vysvětlete z jakých funkcí se skládá. Na „toy example” ukažte princip hledání v DB, kde je 5 obrázků.
+	- pro obrázek použijeme feature extraction
+	- pro text použijeme embedding
+	- tím dostaneme dva vektory, této dvojici už můžeme přiřadit skóre
 - Popište Bayesovský model pro hledání za pomocí zpětné vazby. Popište všechny kroky jedné iterace.
+	- obrázky reprezentujeme jako vektory (jejich vzdálenost)
+	- vybereme vzorek, který dostatečně pokrývá množinu obrázku, v níž chceme vyhledávat
+	- uživatel ze vzorku vybere obrázek, který nejlépe odpovídá tomu, co hledá
+	- tak můžeme
 
 ### Moderní DB systémy
 
 - Popište limity relačního modelu pro Big Data, které jsou popsány v přednášce.
+	- **škálovatelnost**
+	- vendor lock-in u vertikálního škálování
+	- síťové problémy u horizontálního škálování
+	- joiny a referenční integrita můžou být problematické
 - Key-value – popište model, jaké podporuje základní funkce, názvosloví tabulek atp. v Riak, na jaké úkoly je model vhodný a na jaké ne.
+	- jako tabulka v relační databázi se sloupci *klíč* a *hodnota*
+	- operace: get, put, delete
+	- Riak ekvivalenty pro pojmy z relačních databází
+		- database instance … Riak cluster
+		- table … bucket
+			- je to vlastně jmenný prostor pro klíče
+		- row … key-value
+		- row id … key
+	- úlohy: relace (sessions), uživatelské profily a preference, nákupní košík
+	- antiúlohy: libovolné vyhledávání, hromadné operace, vztahy mezi daty, provádění více provázaných operací najednou (transakce)
 - Column-family – popište model, jaké podporuje základní funkce, názvosloví tabulek atp. v Cassandra, na jaké úkoly je model vhodný a na jaké ne.
+	- struktura
+		- column family obsahuje řádky (je to kolekce *podobných* řádků)
+		- každý řádek má klíč, dále obsahuje sloupce
+		- sloupce můžou mít různou interní strukturu
+	- Cassandra názvosloví
+		- database instance … Cassandra cluster
+		- database … keyspace
+		- table … column family
+		- row … row
+		- column (stejný pro všechny řádky) … column (můžou být různé)
+	- Cassandra column-families
+		- statické – jako relační databáze, každý řádek používá podmnožinu fixní množiny sloupců
+		- dynamické – připravené (předpočítané) výsledky dotazů, řádek odpovídá snapshotu dat pro určitý dotaz → každý řádek je pak vlastně sám o sobě seznamem
+	- nejsou podporované joiny ani žádné složité dotazy, column-family databáze nesplňují pravidla ACID
+	- úlohy: logování, CMS, blogovací platformy
 - Document DB – popište model, jaké podporuje základní funkce, názvosloví tabulek atp. v MongoDB, na jaké úkoly je model vhodný a na jaké ne.
+	- struktura: key-value, akorát value je JSON (nebo XML…), takže se s hodnotou dá lépe pracovat (stavět indexy apod.)
+	- MongoDB názvosloví
+		- database instance … MongoDB instance
+		- schema … database
+		- table … collection
+		- row … document
+		- row id … \_id
+		- join … DBRef
+	- úlohy: logování, CMS, blogy, webová/real-time analytika, e-commerce platformy
+		- antiúlohy: komplexní transakce s různými operacemi, dotazy s měnící se strukturou agregace
 - Graph DB – popište model, jaké podporuje základní funkce, na jaké úkoly je model vhodný a na jaké ne.
+	- struktura
+		- vrcholy – instance objektů, mají vlastnosti
+		- hrany – mají orientaci a typy
+	- v relačních databázích obvykle v jedné tabulce reprezentujeme jen jednu vazbu (hranu), tady jich můžeme reprezentovat kolik chceme
+	- funkce: přidávání hran a vrcholů, hledání vrcholů, *hledání cest*
+	- úlohy: propojená data (sociální sítě apod.), plánování, hledání cest apod. (polohová data), recommendation engines (doporučování podle preferencí přátel…)
+	- antiúlohy: hromadné změny dat, velké množství dat (grafová data se špatně distribuují)
 
 ### Datové struktury a optimalizace
 
-- Nad jakými sloupci je vhodné vytvořit index založený na B+-stromu / bitmapách? Uveďte příklad.
+- Nad jakými sloupci je vhodné vytvořit index založený na $B^+$-stromu / bitmapách? Uveďte příklad.
+	- sloupec s mnoha různými hodnotami → $B^+$-strom
+	- sloupec s malou variabilitou hodnot (např. boolean) → bitmapa
 - Popište změny v rychlosti databázových operací nad tabulkou po vytvoření (no)clusterovaného indexu nad nějakým sloupcem.
+	- lineární operace se zrychlí na logaritmické
+	- ale může být nutné sekvenčně projít několik bloků
 - Popište hlavní rozdíly mezi clusterovaným a neclusterovaným indexem.
+	- clusterovaný index jako položky obsahuje odkazy na jednotlivé bloky
+	- index může být clusterovaný v situaci, kdy každý blok obsahuje právě položky z konkrétního rozsahu hodnot (a rozsahy na sebe navazují)
 - Popište (ne)výhody použití tříděného souboru oproti souboru netříděnému (heap-file) z hlediska rychlosti DB operací pro ukládání záznamů tabulky.
+	- lineární operace se zrychlí na logaritmické, ale může být nutné sekvenčně projít několik bloků
+	- vkládání se zpomalí z konstantního času na logaritmický
+
+### Poznámky z poslední přednášky
+
+- tabulky jsou uložené v souborech na disku, aby přežily vypnutí počítače
+	- disky pracují s bloky, čtecí operace přečte blok
+	- datové struktury musejí být zarovnané na bloky
+	- sekvenční čtení je výrazně rychlejší než náhodné (to platí pro HDD)
+	- časová složitost je primárně ovlivněna množstvím bloků, které musíme přečíst
+	- jeden blok obsahuje nějaké řádky
+	- někdy je problém s tím, že řádka může mít proměnnou šířku
+- databáze má obvykle mezivrstvu
+	- pracuje nad pamětí (bufferem), na disk se zapisuje nezávisle
+	- aby to bylo rychlé
+	- záznamy lze v souboru mít uloženy na hromadě (heap) nebo v nějakém pořadí (sorted file)
+	- taky jsou v souborech typicky nějaké indexy
+- cena operací – heap file vs. sorted file
+- index
+	- clustered × unclustered
+		- unclustered index
+			- bloky nemají správné řazení → musím ukazovat na jednotlivé záznamy
+		- clustered index
+			- stačí ukazovat jen na začátky bloků
+	- jak se ukládají indexy
+		- $B^+$-stromy
+			- ukládají data po blocích
+			- jsou vyvažované
+			- algoritmus vkládání a mazání je dělaný tak, aby bloky byly aspoň z poloviny zabrané
+			- „plus“ znamená to, že jsou listy (obsahují data) pospojované, takže se dají efektivně dělat sekvenční dotazy
+		- to se ale nehodí třeba pro binární hodnoty
+			- k tomu se používají bitmapové indexy
+			- vyrobí se několik bitmap – pro každou hodnotu výčtového typu bude jedna
+- soubory
+	- databáze typicky nedělá pro jednu tabulku jeden reálný soubor
+	- vyrobí si jeden reálný soubor, v něm má spoustu logických souborů, ty si spravuje sama
+- indexy
+	- vyrábějí se automaticky pro primary a unique sloupce
+	- dají se vyrábět i ručně
+	- pokud dělám index nad více sloupečky, tak to bude efektivně index nad zřetězením sloupečků
+- životní cyklus select query
+	- parsování SQL a validace
+	- kontrola existence plánu v shared poolu
+	- pokud plán neexistuje, vygeneruje se co nejvíc plánů a spočítají se jejich ceny → vybere se nejlevnější plán
+	- plán se vykoná
+- plán
+	- jsou různé metody přístupu k datům – každá trvá jinak dlouho
+	- nejlepší plán lze vybrat podle toho, jaké metody používá (rule based), nebo podle toho, jak dlouho by mohl trvat (cost based)
+	- můžeme dávat doporučení plánovači, ale bacha na premature optimization
