@@ -40,19 +40,19 @@
 		- takto testujeme každou závislost – vyjmeme ji a zkoušíme, zda ji lze odvodit z ostatních závislostí
 		- závislost $X\to y$ můžeme odebrat, pokud $y\in X^+$ podle $F\setminus\set{X\to y}$
 	- po postupné aplikaci těchto tří kroků (rozepsání, redukce atributů, odstranění závislostí) bychom měli získat minimální pokrytí množiny funkčních závislostí
-	- nalezení klíčů
-		- terminologie
-			- množinu všech atributů označíme $A$
-			- nadklíč $X$ je taková množina atributů, že $X^+=A$
-			- klíč $K$ je taková množina atributů, že $K$ je redukovaný superklíč
-				- takových klíčů může být více
-		- nalezení 1\. klíče
-			- uvažujeme funkční závislost $A\to A$, kde $A$ je množina všech atributů
-			- použijeme algoritmus redukce redundantních atributů
-		- nalezení dalších klíčů
-			- máme známý klíč $K$ a závislost $X\to Y$ takovou, že průnik $K\cap Y$ je neprázdný a $X\not\subseteq K$ (tedy $X$ obsahuje nějaké atributy navíc)
-			- pak $K'=(K\cup X)\setminus Y$ je nadklíč $R(A)$, neporovnatelný s $K$ inkluzí
-				- ten musíme opět redukovat
+- nalezení klíčů
+	- terminologie
+		- množinu všech atributů označíme $A$
+		- nadklíč $X$ je taková množina atributů, že $X^+=A$
+		- klíč $K$ je taková množina atributů, že $K$ je redukovaný superklíč
+			- takových klíčů může být více
+	- nalezení 1\. klíče
+		- uvažujeme funkční závislost $A\to A$, kde $A$ je množina všech atributů
+		- použijeme algoritmus redukce redundantních atributů
+	- nalezení dalších klíčů
+		- máme známý klíč $K$ a závislost $X\to Y$ takovou, že průnik $K\cap Y$ je neprázdný a $X\not\subseteq K$ (tedy $X$ obsahuje nějaké atributy navíc)
+		- pak $K'=(K\cup X)\setminus Y$ je nadklíč $R(A)$, neporovnatelný s $K$ inkluzí
+			- ten musíme opět redukovat
 - normální formy
 	- 1NF (první normální forma)
 		- všechny atributy jsou atomického typu (nejsou to seznamy, objekty apod.)
