@@ -8,7 +8,7 @@
 
 ## Balls & Bins
 
-- Extremely useful approximation
+- Really useful approximation
 	- $1-x\approx e^{-x}$
 - Balls and bins model
 	- we will be throwing $m$ balls randomly into $n$ bins

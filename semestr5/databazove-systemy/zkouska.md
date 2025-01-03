@@ -255,6 +255,7 @@
 	- clustered × unclustered
 		- unclustered index
 			- bloky nemají správné řazení → musím ukazovat na jednotlivé záznamy
+			- intervalové hledání trvá déle, musí se procházet různé bloky
 		- clustered index
 			- stačí ukazovat jen na začátky bloků
 	- jak se ukládají indexy
