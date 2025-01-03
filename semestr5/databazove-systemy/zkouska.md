@@ -16,9 +16,9 @@
 - dělení
 	- vrací největší možný výsledek takový, aby jeho kartézský součin s dělitelem byl „podmnožinou“ dělence
 	- příklad
-		- A … tabulka s dvojicemi (film, herec)
-		- B … tabulka se jmény herců
-		- A ÷ B … tabulka s názvy takových filmů, v nichž hrají všichni herci s tabulky B
+		- $A$ … tabulka s dvojicemi (film, herec)
+		- $B$ … tabulka se jmény herců
+		- $A \div B$ … tabulka s názvy takových filmů, v nichž hrají všichni herci s tabulky B
 
 ## Normální formy a funkční závislosti
 
@@ -165,7 +165,7 @@
 	- obrázky reprezentujeme jako vektory (jejich vzdálenost)
 	- vybereme vzorek, který dostatečně pokrývá množinu obrázku, v níž chceme vyhledávat
 	- uživatel ze vzorku vybere obrázek, který nejlépe odpovídá tomu, co hledá
-	- tak můžeme
+	- tak můžeme zmenšit množinu obrázků, v níž vyhledáváme, a proces opakovat
 
 ### Moderní DB systémy
 
