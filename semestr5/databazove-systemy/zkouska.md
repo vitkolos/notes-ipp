@@ -211,7 +211,7 @@
 		- row id … \_id
 		- join … DBRef
 	- úlohy: logování, CMS, blogy, webová/real-time analytika, e-commerce platformy
-		- antiúlohy: komplexní transakce s různými operacemi, dotazy s měnící se strukturou agregace
+	- antiúlohy: komplexní transakce s různými operacemi, dotazy s měnící se strukturou agregace
 - Graph DB – popište model, jaké podporuje základní funkce, na jaké úkoly je model vhodný a na jaké ne.
 	- struktura
 		- vrcholy – instance objektů, mají vlastnosti
