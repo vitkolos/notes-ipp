@@ -10,6 +10,12 @@
 
 - Really useful approximation
 	- $1-x\approx e^{-x}$
+	- example usage: birthday paradox
+		- $(1-\frac1{365})(1-\frac2{365})\dots(1-\frac{k-1}{365})\approx e^{-\frac{k(k-1)}{2\cdot 365}}$
+		- because $1-\frac1{365}\approx e^{-\frac1{365}}$ etc.
+- Union bound
+	- for events $A_1,A_2,\ldots$ it holds that $P(\bigcup A_i)\leq \sum P(A_i)$
+	- therefore $P(\text{none of }A_i)\geq 1-\sum P(A_i)$
 - Balls and bins model
 	- we will be throwing $m$ balls randomly into $n$ bins
 	- $X_i$ … number of balls in bin $i$
@@ -20,18 +26,60 @@
 - How many balls are in bin $i$?
 	- $X_i\sim \text{Bin}(m,\frac 1n)\approx\text{Pois}(\frac mn)$
 	- $\mathbb EX_i=\frac mn$
+- Max-load likely upper bound
+	- definition: max-load … $\max\set{X_1,\dots,X_n}$
+	- theorem: for large enough $n$ we have $P(\text{maxload}\geq\frac{3\log\log n}{\log n})\leq\frac1n$
+	- proof
+		- …
+- Max-load likely lower bound
+	- theorem: for large enough $n$ we have $P(\text{maxload}\leq\frac{\log\log n}{\log n})\leq\frac1n$
+	- proof
+		- …
+- Exact case vs. Poisson case
+	- theorem: any event that happens with probability $\leq p$ in the Poisson case happens with probability $\leq p\cdot e\sqrt m$ in the exact case
+	- proof
+		- …
+
+## Stochastic Processes
+
+- Bernoulli process
+	- infinite sequence of independent identically distributed Bernoulli trials
+	- sequence of RVs $X_1,X_2,\dots$ that are independent and each follows $\text{Ber}(p)$ distribution
+	- $X_k=1$ … success/arrival at time $k$
+- Quantities of a Bernoulli process
+	- $N_t$ … number of successes up to time $t$
+		- $N_t\sim\text{Bin}(t,p)$
+		- $\mathbb E[N_t]=t\cdot p$
+	- $T_k$ … time of the $k$-th success
+	- $L_k=T_k-T_{k-1}$
+		- waiting time
+		- memory-less
+		- $L_k\sim\text{Geom}(p)$
+			- $\mathbb E[L_k]=\frac1p$
+			- $P(L=l)=(1-p)^{l-1}\cdot p$
+	- $T_k$ properties
+		- $T_k=L_1+\dots+L_k$
+		- by linearity $\mathbb E[T_k]=\frac kp$
+		- $T_k$ has Pascal distribution of order $k$
+		- $P(T_k=t)=\begin{cases}{t-1\choose k-1}p^{k}(1-p)^{t-k} & \text{for }t\geq k\\ 0& \text{otherwise}\end{cases}$
+- Alternative description of a Bernoulli process
+	- we can describe the situation by the interarrival times
+	- i.i.d. random variables $L_1,L_2,\ldots\sim\text{Geom}(p)$
+	- $T_k=L_1+\dots+L_k$
+	- $X_k=1$ whenever $T_t=k$ for some $t$
+	- clearly, the sequence $X_1,X_2,\dots$ is a Bernoulli process
+- Merging of Bernoulli processes
+	- two independent Bernoulli processes, $Z_i=X_i\lor Y_i$
+	- $BP(p)\text{[merge with]}BP(q)=BP(1-(1-p)(1-q))$
+	- $=BP(p+q-pq)$
+- Splitting of Bernoulli processes
+	- $X_i,Y_i,Z_i$
+	- if $Z_i=0$, then $X_i=Y_i=0$
+	- if $Z_i=1$, then with probability $q$ we set $(X_i,Y_i)=(1,0)$, otherwise $(X_i,Y_i)=(0,1)$
 
 ---
 
-- questions
-	- max load … $\max\set{X_1,\dots,X_n}$
-- applications
-	- bucket sort
-	- hash collisions
-- exact case vs. Poisson case
-	- theorem: any event that happens with probability $\leq p$ in the Poisson case happens with probability $\leq p\cdot e\sqrt m$ in the exact case
-
-## Stochastic Processes
+- Poisson process
 
 ## Non-parametric Tests
 
