@@ -162,6 +162,12 @@
 		- $I_q$ … požadovaný obrázek (query)
 		- $I_o$ … jeden obrázek z databáze (postupně počítáme skóre pro každý obrázek z databáze)
 	- vrátíme obrázky s nejmenší $\delta$
+		- $\delta$ může být vzdálenost/metrika → Euklidovská, Manhattanská…
+	- dá se taky použít kosinová podobnost … $\frac{f_e(I_q)\cdot f_e(I_o)}{\|f_e(I_q)\|\cdot \|f_e(I_o)\|}$
+		- tenhle zlomek se rovná $\cos(\alpha)$, kde $\alpha$ je úhel vektorů $f_e(I_q),f_e(I_o)$
+		- obrázky jsou stejné → +1
+		- obrázky jsou úplně odlišné → –1
+		- takže tady budeme naopak maximalizovat
 - Definujte moderní podobnostní model pro text a obrázek, vysvětlete z jakých funkcí se skládá. Na „toy example” ukažte princip hledání v DB, kde je 5 obrázků.
 	- pro obrázek použijeme feature extraction
 	- pro text použijeme embedding
