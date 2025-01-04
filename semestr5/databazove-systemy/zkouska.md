@@ -87,7 +87,12 @@
 	- zachování závislostí při dělení podle normálních forem
 		- řetízek funkčních závislostí $a\to b\to c\to d\to e$ jsme dělili od prostředka
 		- mohli bychom ho ale dělit od kraje, tak se nám žádná závislost neztratí
-		- asi dává největší smysl začít od konce (takže závislostí $d\to e$, která porušuje 3NF)
+		- idea: do tabulky pro závislost $b\to c$ přihodíme i ostatní atributy, které na $b$ závisí
+			- tedy nebudeme dělit podle závislosti $b\to c$, ale podle $b\to b^+\setminus\set{b}$, což je $b\to cde$
+				- dojde k rozdělení na $R_1(b,c,d,e)$ a $R_2(a,b)$
+				- v další iteraci bychom $R_1$ rozdělili na $cde,bc$, potom $de,cd$
+				- řetízek závislostí dělíme od kraje
+			- obecně pokud závislost $X\to Y$ porušuje NF, pak dělíme podle $X\to X^+\setminus X$
 
 ## Transakce
 
