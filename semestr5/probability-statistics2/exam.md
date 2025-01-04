@@ -97,132 +97,52 @@
 
 ## Non-parametric Tests
 
-- statistics – descriptive vs. inferential
-	- descriptive – describe what we observed
-	- inferential – deduce properties of a larger set
-		- how many people are left-handed?
-		- we can observe this on a small sample of people
-	- observational study vs. randomized study (RCT, randomized control trial)
-	- treatment – what you do to experimental units
-	- example
-		- experimental units … students
-		- treatment … which tutorial student attends
-			- placebo, control group
-		- observational study → we let the students decide which tutorial to attend
-		- randomized study → we assign the tutorials to students (randomly)
-	- confounders
-		- people can get better because they believe they are treated
-	- random $\neq$ arbitrary
-		- haphazard
-	- statistics – parametric vs. non-parametric
-		- parametric → observations from parametrized random variables
-		- t-test
-		- permutation test
-- example: earbuds
-	- black (4.3/5) vs. navy blue (4/5)
-	- descriptive statistics
-	- observational study
-- example: alpacas
-	- permutation test
-	- https://www.jwilber.me/permutationtest/
-	- we observe … $T(X,Y)$
-	- $Z:=X,Y$
-	- $\mathcal F=\set{T(\pi(Z))\mid \pi\in S_{m+n}}$
-	- p-value: percentage of $\mathcal F$ more extreme than observed
-	- speed-up … we use only $k$ random samples from $S_{m+n}$
-- tests
-	- one-sample test
+- Permutation test
 	- two-sample test
-	- paired test
-		- quality of wool before/after treatment
-		- give black & blue to $n$ testers, ask each tester to score both
-			- randomize the order of testing the color
-		- use one-sample test on $D_i=X_i-Y_i$
-- parametrized statistics … t-test (assuming normal distribution)
-- non-parametric version … paired test & permutation test
+	- A/B testing
+		- $A$ … control group (no treatment)
+		- $B$ … group with treatment applied
+		- is the $A$ vs. $B$ difference only random?
+	- we observe … $T(A,B)$
+		- $T$ … test statistic
+		- example: $T=\bar A-\bar B$
+	- $\mathcal F=\set{T(\pi(A\cup B))\mid \pi\in S_{m+n}}$
+	- p-value: percentage of $\mathcal F$ more extreme than observed $T(A,B)$
+	- speed-up … we use only $k$ random samples from $S_{m+n}$
 	- for paired test, we only permute $X_i$ with $Y_i$
-- sign test
-	- $Y_i=$ "sign of $X_i$"
-- example
-	- 10 values
-	- $H_0$ … median = 0
-	- sign $S\sim\text{Bin}(10,\frac12)$
-	- one-sided test … $F_S(3)=P(S\leq 3)=0.17$
-	- two-sided test … $P(S\leq 3\lor S\geq 7)=0.34$
-	- but we are suspicious
-		- we can rank absolute values (from lowest to highest) and write the averages of the ranks (for rank 3–5 → the average will be 4)
-		- we can multiply that by the sign ($S$)
-- test procedure (Wilcoxon signed rank test)
-	- data … $X_1,\dots,X_n$
-	- ranks of $|X_i|$ … $R_1,\dots,R_n$
-	- $T^+=\sum_{X_i\gt 0}R_i$
-	- $T^-=\sum_{X_i\lt 0} R_i$
-	- $T=T^+-T^-=\sum R_i\cdot\text{sign}(X_n)$
-	- $T^++T^-=\sum i=\frac {n(n+1)}2$
-	- we will use stronger null hypothesis
-		- $H_0:$ median = 0 & distribution is symmetric
-	- assuming $H_0$… (and ignoring ties)
-		- $T=\sum_{i=1}^n i\cdot V_i$
-		- $V_i=\begin{cases}+1 \text{ prob. } 1/2\\ -1\end{cases}$
-		- $V_i^+=0/1$
-			- $\sim\text{Ber}(\frac12)$
-		- $T^+=\sum i\cdot V_i^+$
-		- $V_i$ … independent
-		- what can we do?
-			- we can compute CDF of $T$
-			- we can apply CLT to approximate (can we really?)
-- back to our example
-	- `wilcox` test in R → $0.07$
-	- what is correct? $0.07$ or $0.17$?
-	- it depends on what we can assume
-		- sign test
-		- Wilcoxon signed rank test
-		- Student's t-test
-- power of test
-	- $1-P(\text{type II error})$
-	- to increase, we have two choices
-		- we can get more data
-		- or we can make stronger assumptions
-			- but we should not cheat – if it is obvious that the data is not normally distributed, we should not say they are
-- paired test
-	- $X_i=A_i-B_i$
-	- null hypothesis … the procedure did not help nor hurt
-		- the distribution may be very weird
-		- but it will be symmetrical
-	- if $A_i,B_i$ have same distribution, then $A_i-B_i$ has distribution symmetrical around 0, median 0
+- Signed test
+	- paired test
+		- pairs $X_i,Y_i$
+		- $Z_i=Y_i-X_i$
+	- $H_0$ … $P(X_i\gt Y_i)=\frac12$
+	- count number of pairs where $Z_i\gt 0$ (there was a measurable improvement after the treatment)
+	- use $\text{Bin}(n,\frac12)$ to get the p-value
+- Wilcoxon signed rank test
+	- paired test
+	- procedure
+		- let $X_i$ be the difference $B_i-A_i$
+		- sort by absolute value, assign ranks ($R_i$)
+		- calculate $T$ (or $T^+$ or $T^-$, it does not matter)
+			- $T^+=\sum_{X_i\gt 0}R_i$
+			- $T^-=\sum_{X_i\lt 0} R_i$
+			- $T=T^+-T^-=\sum R_i\cdot\text{sign}(X_n)$
+		- compare with scores for measurements with random $+/-$ signs
+	- we use stronger null hypothesis
+		- $H_0:$ median = 0 & distribution of $X$ is symmetric
+		- note: $X$ is symmetric $\iff A,B$ have the same continuous distribution ([source](https://stats.stackexchange.com/questions/348057/wilcoxon-signed-rank-symmetry-assumption))
 - Mann-Whitney U-test
-	- $U=\sum_{i=1}^m\sum_{j=1}^nS(X_i,Y_j)$
-	- $S(X_i,Y_j)=\begin{cases} 1 & X_i\gt Y_j\\ \frac12 & X_i=Y_j \\ 0 & X_i\lt Y_j\end{cases}$
-	- 2-sample test
-	- we have two populations, $X$ and $Y$
+	- two-sample test
+		- we have two populations, $X$ and $Y$
 		- we get $X_1,\dots,X_m$ and $Y_1,\dots,Y_n$
 		- usually, $m\neq n$
+	- $S(X_i,Y_j)=\begin{cases} 1 & X_i\gt Y_j\\ \frac12 & X_i=Y_j \\ 0 & X_i\lt Y_j\end{cases}$
+	- $U=\sum_{i=1}^m\sum_{j=1}^nS(X_i,Y_j)$
 	- sign test is a paired variant of this
 	- we use the same approach as in the permutation test with $U$ instead of $T=\bar X_m-\bar Y_n$
-- types of data
-	- numerical … real numbers (weight, time, price)
-		- → permutation test
-	- ordinal … classes (light/medium/heavy, quick/slow)
-		- → $U$-test
-- bootstrapping
-	- data $X_1,\dots,X_n$ iid
-	- sample mean $\bar X_n=\frac1n\sum_{i=1}^n X_i$
-		- distr. of $\bar X_n:\mathbb E \bar X_n=\mathbb E X_i=\mu$
-		- variance of $\bar X_n:\text{var}\bar X_n=\frac1n\sigma^2$
-		- CLT: $\bar X_n$ has $\approx$ Normal distribution $N(\mu,(\frac\sigma{\sqrt n})^2)$
-		- $P(\bar X_n\lt a)$ can be approximated by the normal distribution $N$
-	- now, we want the same of a different parameter
-		- $M$ … median of $X_i$
-		- $\hat M=$ sample median: “middle value of $X_1,\dots,X_n$”
-		- $X_{\set{1}},\dots,X_{\set{n}}$ … sorted data
-		- $\hat M=X_{\set{\frac n2}}$
-			- estimator function of data we use to estimate the true $M$
-	- bootstrapping … sampling with repetition from $X_1,\dots,X_n$
-		- we can approximate the distribution of $\hat M$
-	- interval estimate for median $M$
-		- $M^*$ … bootstrapped median (median of the one set of bootstrapped data)
-		- $M_\alpha^*=\set{x:P(M^*\leq x)=\alpha}$
-		- this method is simple and does not depend on the distribution of the data
+	- alternative view: we sort $X\cup Y$ and count pairs “$X_i$ before $Y_j$”
+	- when to use it?
+		- numerical data … real numbers (weight, time, price) → permutation test
+		- ordinal data … classes (light/medium/heavy, quick/slow) → $U$-test
 
 ## Moment Generating Functions and their applications
 
