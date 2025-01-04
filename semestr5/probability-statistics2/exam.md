@@ -76,10 +76,24 @@
 	- $X_i,Y_i,Z_i$
 	- if $Z_i=0$, then $X_i=Y_i=0$
 	- if $Z_i=1$, then with probability $q$ we set $(X_i,Y_i)=(1,0)$, otherwise $(X_i,Y_i)=(0,1)$
-
----
-
 - Poisson process
+	- continuous time
+	- $T_1,T_2,T_3,\dots$ are the times of individual arrivals
+	- $N_t$ … number of arrivals up to time $t$
+	- $\lambda$ … intensity (how many successes per unit of time)
+	- $N_t\sim\text{Pois}(\lambda\cdot t)$
+	- $L_k\sim\text{Exp}(\lambda)$
+	- $T_k$ has Erlang distribution, $\mathbb E[T_k]=\frac k\lambda$
+- Poisson process interval independence
+	- for any sequence $0\leq t_0\lt t_1\dots\lt t_k$
+	- RVs $(N_{t_i}-N_{t_{i+1}})$
+		- are independent
+		- each one follows $\text{Pois}(\lambda(t_{i+1}-t_i))$
+- Merging of Poisson process
+	- $PP(\lambda)\text{[merge with]}PP(\lambda')=PP(\lambda+\lambda')$
+- Splitting of Poisson process
+	- for each success of $PP(\lambda)$, we toss a coin with probability $p$ (with probability $p$, the success is counted as valid)
+	- the resulting process is $PP(\lambda p)$
 
 ## Non-parametric Tests
 
@@ -211,3 +225,15 @@
 		- this method is simple and does not depend on the distribution of the data
 
 ## Moment Generating Functions and their applications
+
+- Markov bound
+	- for $X$ nonnegative
+	- $\forall a\geq 1:P(X\geq a\cdot \mu)\leq\frac1a$
+- Chebyshev bound
+	- $\forall a\geq 0:P(|X-\mu|\geq a\cdot\sigma)\leq\frac1{a^2}$
+- Chernoff bound
+	- for $X=\sum_{i=1}^nX_i$ where $X_i\sim\text{Ber}(p_i)$ are independent
+	- $\mu=\sum_{i=1}^np_i$
+	- $\forall\delta\in(0,1]:P(X\geq (1+\delta)\cdot\mu)\leq e^{-\mu\delta^2/3}$
+	- $\forall\delta\in(0,1):P(X\leq(1-\delta)\cdot\mu)\leq e^{-\mu\delta^2/2}$
+	- note: there are many more alternative bounds
