@@ -1,10 +1,34 @@
 # Zápočtový test – vzorečky
 
 - Bernoulliho rozdělení
+	- $X\sim\text{Ber}(p)$
+	- $\mathbb E[X]=p$
+	- $\text{var}(X)=(1-p)p$
 - binomické rozdělení
+	- $X\sim\text{Bin}(n,p)$
+	- $p_X(k)={n\choose k}p^k(1-p)^{n-k}$
+	- $\mathbb E[X]=np$
 - geometrické rozdělení
+	- $X\sim\text{Geom}(p)$
+	- $p_X(k)=(1-p)^{k-1}p$
+	- $\mathbb E[X]=\frac1p$
 - Poissonovo rozdělení
+	- $X\sim\text{Pois}(\lambda)$
+	- $p_X(k)=\frac{\lambda^k}{k!}e^{-\lambda}$
+	- $\mathbb E[X]=\lambda$
+	- $\text{var}(X)=\lambda$
 - exponenciální rozdělení
+	- $X\sim\text{Exp}(\lambda)$
+	- $f_X(x)=\lambda e^{-\lambda x}$
+	- $F_X(x)=1-e^{-\lambda x}$
+	- $\mathbb E[X]=\frac1\lambda$
+	- $\text{var}(X)=\frac1{\lambda^2}$
 - výpočet rozptylu
+	- $\text{var}(X)=\mathbb E[(X-\mathbb E[X])^2]=\mathbb E[X^2]-\mathbb E[X]^2$
 - počítání s rozptylem
+	- $\text{var}(X)\geq 0$
+	- $\text{var}(aX)=a^2\text{var}(X)$
+	- $\text{var}(X+a)=\text{var}(X)$
 - rozptyl součtů n.n.v.
+	- mějme $X_1,\dots,X_n$ nezávislé náhodné veličiny
+	- pak $\text{var}(X_1+\dots+X_n)=\text{var}(X_1)+\dots+\text{var}(X_n)$
