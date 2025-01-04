@@ -99,7 +99,32 @@
 ## 3. Perceptron, Logistic Regression
 
 - Medium: Define binary classification, write down the perceptron algorithm, and show how a prediction is made for a given data instance $\boldsymbol x$.
+	- binární klasifikace je klasifikace do dvou tříd
+		- $t_i\in\set{-1,+1}$
+	- algoritmus
+		- začneme s nulovými váhami $w$
+		- dokud nejsou všechna trénovací data klasifikována správně, postupně bereme řádky po jednom
+			- pro $i$-tý řádek spočítáme predikci $y=x_i^Tw$
+			- pokud $t_iy\leq 0$, je řádek klasifikován špatně
+				- provedeme korekci $w\leftarrow w+t_ix_i$
+	- predikce pro $x_i$ … $\text{sign}(x_i^Tw)$
 - Hard: For discrete random variables, define entropy, cross-entropy, and Kullback-Leibler divergence, and prove the Gibbs inequality (i.e., that KL divergence is non-negative).
+	- self information … $I(x)=-\log P(X)$ 
+	- entropie pravděpodobnostního rozdělení $P$
+		- $H(P)=-\mathbb E[\log P(x)]=-\sum_xP(x)\log P(x)$
+	- cross entropie rozdělení $P,Q$
+		- $H(P,Q)=-\mathbb E_{x\sim P}[\log Q(x)]=-\sum_xP(x)\log Q(x)$
+	- Gibbsova nerovnost
+		- $H(P,Q)\geq H(P)$
+		- $H(P)=H(P,Q)\iff P=Q$
+	- důkaz
+		- chceme $H(P)-H(P,Q)\leq 0$ (s rovností právě když $P=Q$)
+		- $H(P)-H(P,Q)=\sum_xP(x)\log\frac{Q(x)}{P(x)}$
+		- použijeme faktu, že $\log x\leq x-1$ s rovností pouze pro $x=1$
+		- $\sum P(x)\log\frac{Q(x)}{P(x)}\leq\sum P(x)(\frac{Q(x)}{P(x)}-1)=\sum Q(x)-\sum P(x)=1-1=0$
+		- aby platila rovnost, musí být $\frac{Q(x)}{P(x)}$ pro všechny $x$ rovno 1, tedy $P=Q$
+	- Kullback-Leibler divergence
+		- $D_{KL}(P\| Q)=H(P,Q)-H(P)=\mathbb E_{x\sim P}[\log P(x)-\log Q(x)]$
 - Easy: Explain the notion of likelihood in maximum likelihood estimation. What likelihood are we estimating in machine learning, and why do we do it?
 - Hard: Describe maximum likelihood estimation as minimizing NLL, cross-entropy, and KL divergence and explain whether they differ or are the same and why.
 - Easy: Provide an intuitive justification for why cross-entropy is a good optimization objective in machine learning. What distributions do we compare in cross-entropy? Why is it good when the cross-entropy is low?
