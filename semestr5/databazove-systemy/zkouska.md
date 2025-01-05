@@ -106,7 +106,7 @@
 		- ale prolínání nemůže být libovolné – u dvojic s alespoň jedním zápisem závisí na pořadí operací (dvojice read/read může být v libovolném pořadí)
 	- rozvrh je uspořádatelný (serializable), pokud je ekvivalentní libovolnému sériovému rozvrhu
 - konfliktní uspořádatelnost
-	- konfliktní dvojice: $R(A)\to R(A)$, $R(A)\to W(A)$, $W(A)\to R(A)$
+	- konfliktní dvojice: $W(A)\to W(A)$, $R(A)\to W(A)$, $W(A)\to R(A)$
 		- operace jsou v různých transakcích
 		- šipka odpovídá časové posloupnosti
 	- dva rozvrhy jsou konfliktně ekvivalentní, pokud mají stejnou množinu konfliktních dvojic
