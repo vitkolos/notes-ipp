@@ -74,8 +74,10 @@
 	- $=BP(p+q-pq)$
 - Splitting of Bernoulli processes
 	- $X_i,Y_i,Z_i$
+	- $Z_i\sim BP(p)$
 	- if $Z_i=0$, then $X_i=Y_i=0$
 	- if $Z_i=1$, then with probability $q$ we set $(X_i,Y_i)=(1,0)$, otherwise $(X_i,Y_i)=(0,1)$
+	- then $X_i\sim BP(pq)$ and $Y_i\sim BP(p(1-q))$
 - Poisson process
 	- continuous time
 	- $T_1,T_2,T_3,\dots$ are the times of individual arrivals
