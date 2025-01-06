@@ -373,3 +373,32 @@
 	- metoda zašuměného kanálu
 		- model budujeme v opačném směru
 		- umíme posuzovat výsledky překladového modelu („jak je věta hezká?“)
+- evaluace systémů automatického překladu
+	- neexistuje nic jako jediný správný překlad
+	- metrika BLEU
+		- porovnáváme dvě verze systému – dva možné překlady
+		- máme k dispozici tři referenční lidské překlady
+		- stačí, když se kandidátský překlad shoduje s aspoň jedním referenčním
+		- n-gramové přesnosti
+		- penalizace za stručnost (n-gramová přesnost má tendenci zvýhodňovat krátké věty)
+		- v češtině by to nefungovalo moc dobře, různé tvary téhož slova by se vyhodnotily jako různá slova
+			- také by byl problém s volným slovosledem – rozbily by se n-gramy
+		- podmínky, kdy metrika funguje
+			- porovnává různé verze stejného systému (ne různé systémy)
+			- více referenčních překladů
+			- velké množství testovacích vět
+			- taky nedává smysl takto porovnávat různé jazyky
+	- možné vylepšení: pracovat se slovníkem synonym (ale pak už systém nebude tak jednoduchý)
+- sémantika
+	- lexikální význam – jeden z významů daného slova (např. koruna – královská koruna)
+	- reference – vztah mezi objekty, kde jeden odkazuje na jiný (např. zájmeno na podstatné jméno)
+	- tematické role
+	- …
+	- význam × pravdivost tvrzení
+		- i nepravdivá tvrzení mají význam
+		- někdy nelze ověřit pravdivost
+	- jak reprezentovat význam slov? pomocí sémantické sítě!
+		- WordNet
+		- EuroWordNet
+	- anafora, katafora
+	- zásoba sdílených znalostí
