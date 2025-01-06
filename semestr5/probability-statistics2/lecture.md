@@ -488,3 +488,94 @@
 		- $M^*$ … bootstrapped median (median of the one set of bootstrapped data)
 		- $M_\alpha^*=\set{x:P(M^*\leq x)=\alpha}$
 		- this method is simple and does not depend on the distribution of the data
+
+## Moment generating functions
+
+- today: proof of CLT, proof of Chernoff inequality
+- given a random variable $X$, we define $M_X:\mathbb R\to\mathbb R$
+- $M_X(s):=\mathbb E(e^{sX})$
+- $\forall X:M_X(0)=\mathbb E(e^{0x})=1$
+- $X\sim\text{Ber}(p)$
+	- $M_X(s)=p\cdot e^{s\cdot 1}+(1-p)\cdot e^{s\cdot 0}$
+	- $M_X(s)=1-p+pe^s$
+	- note: $e^s=1+s+\frac{s^2}2+\frac{s^3}{3!}+\dots=\sum_{k=0}^\infty\frac{s^k}{k!}$
+	- $M_X(s)=1+p(s+\frac{s^2}2+\frac{s^3}{3!}+\dots)$
+- theorem: $M_X(s)=\sum_{k=0}^\infty\mathbb E[X^k]\cdot \frac{s^k}{k!}$
+	- $\mathbb E[X^k]$ … $k$-th moment of $X$
+- proof
+	- $\mathbb E[e^{sX}]=\mathbb E[\sum\frac{(sX)^k}{k!}]=\mathbb E[\sum X^k\frac{s^k}{k!}]=\sum\mathbb E[X^k\frac{s^k}{k!}]=\sum_{k=0}^\infty\mathbb E[X^k]\cdot \frac{s^k}{k!}$
+- back to Ber(p)
+	- $\mathbb EX=[s^1]M_X(s)=p$
+		- this notation selects the coefficient of the $s^1$ in the GF
+	- $\mathbb EX^2=[\frac{s^2}{2!}]M_X(s)=p$
+- $X\sim N(0,1)$
+	- $M_X(s)=\mathbb E[e^{sX}]\overset{\text{LOTUS}}{=}\int_{-\infty}^\infty e^{sx}f_X(x)\text { d}x$
+	- …
+	- $M_X(s)=e^{s^2/2}$
+- theorem: $M_{aX+b}(s)=e^{sb}M_X(as)$
+- proof: …
+- example usage
+	- $X\sim N(\mu,\sigma^2)$
+	- $\frac{X-\mu}{\sigma}=Y\sim N(0,1)$
+	- $X=\sigma Y+\mu$
+	- $M_X(s)=e^{\mu s}\cdot e^{\sigma^2 s^2/2}$
+- theorem
+	- let $X,Y$ be RVs such that $(\exists\varepsilon\gt 0)(\forall s\in (-\varepsilon,\varepsilon)):M_X(s)=M_Y(s)\in\mathbb R$
+	- then $F_X=F_Y$
+- example
+	- $X_1\sim N(\mu_1,\sigma^2_1)$
+	- $X_2\sim N(\mu_2,\sigma^2_2)$
+	- $\implies X_1+X_2\sim N(\mu,\sigma^2)$
+	- proof
+		- $M_{X_1}=\text{exp}(\mu_1s+\sigma_1^2s^2/2)$
+		- $M_{X_2}=\text{exp}(\mu_2s+\sigma_2^2s^2/2)$
+		- …
+- theorem
+	- $X,Y$ independent $\implies M_{X+Y}=M_X\cdot M_Y$
+- proof
+	- $M_{X+Y}(s)=\mathbb E[e^{s(X+Y)}]=\mathbb E[e^{sX}\cdot e^{sY}]=\mathbb E[e^{sX}]\cdot \mathbb E[e^{sY}]=M_X(s)\cdot M_Y(s)$
+- example
+	- $X\sim\text{Bin}(n,p)$
+	- $M_X(s)=(1-p+pe^s)^n$
+- theorem
+	- $Y,X_1,X_2,X_3,\dots$ RVs
+	- $(\exists\varepsilon\gt 0)(\forall s\in (-\varepsilon,\varepsilon)):\lim_{n\to\infty} M_{X_n}(s)=M_Y(s)$
+	- $F_Y$ is continuous
+	- then $X_n\xrightarrow d Y$
+		- $\lim_{n\to\infty} F_{X_n}(s)=F_Y(s)$
+- theorem (CLT)
+	- $X_1,X_2,\dots$ i.i.d. (independent identically distributed) RVs
+	- $\mathbb EX_i=\mu$, $\text{var} X_i=\sigma^2$
+	- $Y_n:=\frac{X_1+\dots+X_n-n\mu}{\sqrt{n}\sigma}$
+	- $Y_n\xrightarrow d N(0,1)$
+		- that is $\lim_{n\to\infty}F_{Y_n}(t)=\Phi(t)$
+- proof
+	- we may assume $\mu=0$
+		- otherwise, we would set $X_n'=X_n-\mu$
+		- variance would not change
+		- the formula for $Y_n$ also would not change (we subtract $n\mu$ there)
+	- $M_{X_i}(s)=1+as+bs^2+O(s^3)\quad(s\doteq 0)$
+		- $a=\mu=0$
+		- $b=\frac12\mathbb EX_i^2=\frac12(\sigma^2-\mu^2)=\frac12\sigma^2$
+	- $M_{X_i}(s)=1+\frac{\sigma^2}2s^2+O(s^3)$
+	- $M_{Y_n}(s)=\prod M_{X_i}\left(\frac s{\sqrt n\sigma}\right)$
+	- we will use the previous theorem for $Y,Y_1,Y_2,\dots$
+	- we need to show that $\lim M_{Y_n}(s)=M_Y(s)$
+		- or that $\lim_{n\to\infty}M_{X_n}(\frac s{\sqrt n\sigma})^n=e^{s^2/2}$
+	- $M_{X_n}(\frac s{\sqrt n\sigma})^n=…=\text{exp}(n\ln(1+\frac{s^2}{2n}+O(s^3))$
+	- …
+- theorem (Chernoff inequality)
+	- …
+- application
+	- set balancing
+	- discrepancy
+	- we have subsets $S_1,\dots,S_n\subseteq[m]$
+	- we want $T\subseteq[m]$ such that it almost disects every $S_i$
+	- $D_i=|T\cap S_i|-|S_i\setminus T|$
+	- $\text{disc}(T)=\max D_i$
+	- use random $T$!
+	- $D_i=\sum_{j=1}^{|S_i|}X_j$
+	- $\forall a_j\in S_i:X_j$ indicator ($X_j=1\iff a_j\in T$)
+	- $P(D_i\geq t)\leq e^{-\frac{t^2}{2|S_i|}}$
+	- …
+	- idea: it is useful to have an inequality (Chernoff) that holds always, we don't need to worry if our $n$ is big enough
