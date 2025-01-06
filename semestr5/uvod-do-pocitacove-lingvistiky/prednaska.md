@@ -400,5 +400,6 @@
 	- jak reprezentovat význam slov? pomocí sémantické sítě!
 		- WordNet
 		- EuroWordNet
-	- anafora, katafora
+	- anafora
+		- pozor, anafora se používá i jako nadřazený pojem ke katafoře
 	- zásoba sdílených znalostí
