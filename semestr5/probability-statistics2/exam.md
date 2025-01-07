@@ -152,7 +152,7 @@
 	- for $X$ nonnegative
 	- $\forall a\geq 1:P(X\geq a\cdot \mu)\leq\frac1a$
 - Chebyshev inequality
-	- $\forall a\geq 0:P(|X-\mu|\geq a\cdot\sigma)\leq\frac1{a^2}$
+	- $\forall a\gt 0:P(|X-\mu|\geq a\cdot\sigma)\leq\frac1{a^2}$
 - Chernoff bounds
 	- for $X=\sum_{i=1}^nX_i$ where $X_i\sim\text{Ber}(p_i)$ are independent
 	- $\mu=\sum_{i=1}^np_i$
