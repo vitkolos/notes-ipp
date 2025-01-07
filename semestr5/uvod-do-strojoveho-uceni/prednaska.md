@@ -283,4 +283,82 @@
 
 - písemná
 - když se nám nějaká otázka nebude zdát, na Piazze bude formulář, kam to můžeme napsat
-- v lednu na přednášce/přednášce se podíváme na nejvíc problematické otázky
+- v lednu na přednášce/cvičení se podíváme na nejvíc problematické otázky
+
+## Etika
+
+- věda o tom, co je dobře/špatně
+- hlavní teoretické rámce
+	- deontologická etika – máme nějaká pravidla/principy, těch se držíme
+	- konsekvencialistická etika / utilitarianismus – dobré chování maximalizuje dobré následky (ale může být problém měřit, co jsou dobré následky)
+	- etika ctností (virtue) – člověk je dobrý, pokud dělá dobře věci, ke kterým je určený; rozhodnutí je dobré (akce je dobrá), pokud by se takhle rozhodnul ctnostný člověk
+	- kontraktová etika – ze společenské smlouvy (implicitní nebo explicitní) vyplývá, co je dobré
+	- etika péče – rodíme se jako bezbranní, proto má vůči nám společnost nějakou odpovědnost a naopak my máme odpovědnost vůči společnosti; etika péče stojí na vztazích a odpovědnosti, která z nich vyplývá
+- obvykle uvažujeme deontologickou a konsekvencialistickou etiku
+- deontologická etika
+	- zaměřuje se na povahu akcí spíš než na jejich důsledky
+	- řídíme se definovanými pravidly a principy (např. Všeobecná deklarace lidských práv, Desatero přikázání, Kantův kategorický imperativ)
+	- zásady v AI
+		- vlídnost
+		- neškodolibost
+		- soukromí
+		- nediskriminace
+		- autonomie
+		- informovaný souhlas
+	- výhody: jasná pravidla, stabilita, respekt práv
+	- nevýhody: rigidita, možný konflikt dvou pravidel, zanedbání důsledků
+	- kritika: když jsi zlý, vždycky můžeš tvrdit, že vycházíš z dobrých principů, nehledě na důsledky
+- utilitariánská etika
+	- maximalizujeme celkové štěstí / well-being, minimalizujeme újmu
+	- zaměřuje se na důsledky akcí
+	- dobrá rozhodnutí = rozhodnutí, která maximalizují celkový dopad
+	- výhody: flexibilita, kvantifikovatelnost
+	- nevýhody: hrozí, že budeme ignorovat práva jednotlivců, je těžké definovat účelovou funkci
+- někdy se vyplatí mezi frameworky přepínat – např. při hromadném neštěstí přejdeme z deontologické etiky na utilitarianismus
+- články o etice v ML se často zaměřují na negativní důsledky pro znevýhodněné lidi
+- utilitarianismus je problematický, když uvažujeme události s malou pravděpodobností a extrémní hodnotou užitku („je malá šance, že nás AI vyhubí, ale užitek by byl $-\infty$“)
+- příklady, jak dělat etické systémy
+	- deontologická etika
+		- nepoužívat etnickou příslušnost jako feature
+		- budovat důvěru
+		- trvat na soukromí, férovosti a spravedlnosti
+	- utilitariánství
+		- na koho to bude mít dopad
+		- jaká újma může nastat?
+		- jak předejít újmě?
+- problémy v různých fázích vývoje modelu strojového učení
+	- definice problému
+		- rozpoznávání Ujgurů od Číňanů – problém samotný není etický
+		- automatické hodnocení esejí – studenti mají právo vědět, proč dostali špatné hodnocení
+		- predikce recidivismu – porušuje právo na spravedlivý proces, je nedostatečně transparentní
+	- shromažďování dat
+		- reprezentační bias – data nejsou reprezentativní, chybí tam menšiny apod.
+			- rozpoznávání obličejů
+		- data z internetu nepopisují svět takový, jaký je
+		- historický bias – nerovnosti z minulosti jsou v datasetech zachovány
+		- problémy s autorským právem – u generativních modelů
+		- problematické způsoby kolekce dat
+			- crowdsourcing
+				- lidé jsou najati, aby dělali práci, kterou má dělat model
+				- špatně placená monotónní práce, může způsobovat psychologickou újmu (typicky v případě posuzování obrázků ze sociálních sítí)
+				- gig economy – přivýdělek se stane hlavním úvazkem bez pracovněprávní ochrany
+			- sběr uživatelských dat
+				- trénovací data jsou sbírána od uživatelů, kteří nemají jinou možnost než data poskytovat, aby mohli službu používat
+				- netransparentní transakce – uživatel získá službu, platí daty, není jasné, jakou hodnotu data mají
+	- vývoj modelu
+		- diskretizace výstupů zesiluje bias – pokud se rozhodujeme mezi dvěma možnostmi a jedna je pravděpodobnější, vždycky použijeme tu pravděpodobnější
+		- větší modely snadno overfittujou, dají se z nich vytáhnout soukromé údaje, které byly obsaženy v trénovacích datech
+		- destilace modelů také zesiluje biasy
+		- modely se můžou naučit smazané features (etnická příslušnost, gender, …) z jiných features (jméno, škola, …)
+	- vyhodnocení modelu
+		- metriky neobsahují všechno, co bychom potřebovali (třeba gender bias)
+		- v HR nás zajímá jenom accuracy – může se stát, že model systematicky znevýhodňuje nějaké uchazeče
+		- používáme proxy metriky, abychom optimalizovali něco jiného
+			- musíme metriky vhodně zvolit
+			- čas sledování videa nemusí být dobrou metrikou pro jeho kvalitu – favorizuje videa s extrémními názory
+	- použití modelu v praxi
+		- nesoulad mezi trénovacími/testovacími daty a reálným prostředím
+			- jazyk minorit je častěji klasifikován jako hate speech / NSFW
+		- feedback loops (zpětnovazebné smyčky)
+			- predikce ovlivňují chování uživatelů, to se pak používá jako zdroj trénovacích dat
+			- způsobuje to echo chambers na sociálních sítích
