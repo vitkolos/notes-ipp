@@ -66,6 +66,16 @@
 			- nothing is invalidated
 - for_each makes a copy of the functor using its copy constructor
 - when calling a function, the compiler may infer its namespace from the arguments
+- using virtual functions
+	- we need to have pointers/references to the objects to be able to call their functions virtually
+	- otherwise, the call is always non-virtual
+	- what happens if we do this? `Derived d; Base b = d;`
+		- a copy constructor of the base class is invoked
+		- there exists a conversion from the derived class to the base
+		- as a result, `b` would be an instance of the Base class, it would contain only a subset of the data members of `d`
+		- this is called “slicing”
+- casts
+- virtual inheritance
 
 ---
 
