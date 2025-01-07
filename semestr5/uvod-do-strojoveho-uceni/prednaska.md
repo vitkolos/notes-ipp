@@ -362,3 +362,15 @@
 		- feedback loops (zpětnovazebné smyčky)
 			- predikce ovlivňují chování uživatelů, to se pak používá jako zdroj trénovacích dat
 			- způsobuje to echo chambers na sociálních sítích
+
+## Co jsme se naučili
+
+- základy statistiky
+- základy teorie informace
+	- preferujeme modely s větší entropií – nechceme do nich vnášet dodatečné předpoklady
+- optimalizace – nulová derivace, Lagrangeovy multiplikátory, SGD, metody druhého řádu
+- práce s daty – anotace, features, normalizace
+- tréninik a evaluace – splitování dat, overfitting a regularizace, metriky
+- geometrická intuice
+- pravděpodobnostní intuice
+- rozhodovací stromy
