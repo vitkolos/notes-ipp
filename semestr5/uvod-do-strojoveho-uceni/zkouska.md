@@ -126,6 +126,12 @@
 	- Kullback-Leibler divergence
 		- $D_{KL}(P\| Q)=H(P,Q)-H(P)=\mathbb E_{x\sim P}[\log P(x)-\log Q(x)]$
 - Easy: Explain the notion of likelihood in maximum likelihood estimation. What likelihood are we estimating in machine learning, and why do we do it?
+	- máme-li fixní trénovací data, pak likelihood $L(w)$ (kde $w$ jsou váhy modelu) se rovná součinu pravděpodobností targetů trénovacích dat
+	- odhadujeme váhy modelu tak, aby byl likelihood (věrohodnost) trénovacích dat co největší
+	- přesněji
+		- pro model s fixními vahami $w$ máme pravděpodobnostní distribuci $p(x;w)$, že model vygeneruje $x$
+		- pro model s fixními vahami $w$ a konkrétní řádek $x$ máme pravděpodobnostní distribuci $p(t\mid x;w)$, jak model klasifikuje $x$
+		- místo toho zafixujeme trénovací data a budeme měnit váhy → dostaneme $L(w)=p(X\mid w)=\prod_i p(x_i;w)$
 - Hard: Describe maximum likelihood estimation as minimizing NLL, cross-entropy, and KL divergence and explain whether they differ or are the same and why.
 - Easy: Provide an intuitive justification for why cross-entropy is a good optimization objective in machine learning. What distributions do we compare in cross-entropy? Why is it good when the cross-entropy is low?
 - Medium: Considering the binary logistic regression model, write down its parameters (including their size) and explain how we decide what classes the input data belong to (including the explicit formula for the sigmoid function).
