@@ -1,5 +1,7 @@
 # Zkouška
 
+tento dokument je zveřejněn pod licencí [CC BY-SA]([https://creativecommons.org/licenses/by-sa/4.0/](https://creativecommons.org/licenses/by-sa/4.0/)), vychází z materiálů, jejichž autory jsou Jindřich Libovický a Milan Straka
+
 ## 1. Introduction to Machine Learning
 
 - Easy: Explain how reinforcement learning differs from supervised and unsupervised learning in terms of the type of input the learning algorithms use to improve model performance.
@@ -64,7 +66,7 @@
 	- opakujeme, dokud to nezkonverguje nebo nám nedojde trpělivost
 		- samplujeme minibatch řádků s indexy $\mathbb B$
 			- buď uniformně náhodně, nebo budeme chtít postupně zpracovat všechna trénovací data (to se obvykle dělá, jednomu takovému průchodu se říká epocha), tedy je nasekáme na náhodné minibatche a procházíme postupně
-		- $w\leftarrow w-\alpha\frac1{\mathbb B}\sum_{i\in \mathbb B}((x_i^Tw-t_i)x_i)-\alpha\lambda w$
+		- $w\leftarrow w-\alpha\frac1{|\mathbb B|}\sum_{i\in \mathbb B}((x_i^Tw-t_i)x_i)-\alpha\lambda w$
 			- jako $E$ se používá polovina MSE (s $L^2$ regularizací) – stačí to zderivovat
 - Medium: Does the SGD algorithm for *linear regression* always find the best solution on the training data? If yes, explain under what conditions it happens; if not, explain why it is not guaranteed to converge. What properties of the error function does this depend on?
 	- loss function je $(y(x;w)-t)^2$ (nebo polovina), což je spojitá konvexní funkce, tedy SGD téměř jistě konverguje k optimu, pokud posloupnost $(\alpha_n)$ splňuje podmínky
@@ -165,7 +167,7 @@
 	- náhodně inicializujeme $w$ (nebo nastavíme na nulu)
 	- opakujeme, dokud to nezkonverguje nebo nám nedojde trpělivost
 		- samplujeme minibatch řádků s indexy $\mathbb B$
-		- $w\leftarrow w-\alpha\frac1{\mathbb B}\sum_{i\in \mathbb B}(\sigma(x^Tw)-t)x-\alpha\lambda w$
+		- $w\leftarrow w-\alpha\frac1{|\mathbb B|}\sum_{i\in \mathbb B}(\sigma(x^Tw)-t)x-\alpha\lambda w$
 			- jako $E$ se používá NLL (s $L^2$ regularizací)
 			- výsledek se překvapivě podobá lineární regresi
 				- gradient je také $(y(x)-t)x$
@@ -200,7 +202,7 @@
 	- náhodně inicializujeme $w$ (nebo nastavíme na nulu)
 	- opakujeme, dokud to nezkonverguje nebo nám nedojde trpělivost
 		- samplujeme minibatch řádků s indexy $\mathbb B$
-		- $w\leftarrow w-\alpha\frac1{\mathbb B}\sum_{i\in \mathbb B}\left((\text{softmax}(x^TW)-1_t)x^T\right)^T-\alpha\lambda w$
+		- $w\leftarrow w-\alpha\frac1{|\mathbb B|}\sum_{i\in \mathbb B}\left((\text{softmax}(x^TW)-1_t)x^T\right)^T-\alpha\lambda w$
 			- jako $E$ se používá NLL (s $L^2$ regularizací)
 			- srovnání gradientu logistické regrese
 				- binary: $(y(x)-t)x$
@@ -239,8 +241,59 @@
 ## 5. MLP, Softmax as MaxEnt classifier, F1 score
 
 - Hard: Considering a single-layer MLP with $D$ input neurons, a ReLU hidden layer with $H$ units, and a softmax output layer with $K$ units, write down the explicit formulas (i.e., formulas you would use to code it in `numpy`) of the gradient of all the MLP parameters (two weight matrices and two bias vectors), assuming input $\boldsymbol x$, target $t$, and negative log likelihood loss.
+	- algoritmus trénování
+		- náhodně inicializujeme váhy a biasy
+		- opakujeme, dokud to nezkonverguje nebo nám nedojde trpělivost
+			- samplujeme minibatch řádků s indexy $\mathbb B$
+			- gradienty vah a biasů nastavíme na nulu
+			- $\forall i\in\mathbb B:$
+				- nejprve dopředný běh
+					- $h \leftarrow \max(0,x_i W^{(h)} + b^{(h)})$
+					- $y \leftarrow \text{softmax}(h W^{(y)} + b^{(y)})$
+				- pak zpětná propagace
+					- výstupní vrstva
+						- $\nabla y \leftarrow y - 1_{t_i}$
+						- $\nabla W^{(y)} \mathrel{+}= h\nabla y^T$
+						- $\nabla b^{(y)} \mathrel{+}= \nabla y$
+					- skrytá vrstva
+						- $\nabla h \leftarrow (W^{(y)} \nabla y) \cdot 1_{h > 0}$
+						- $\nabla W^{(h)} \mathrel{+}= x_i\nabla h^T$
+						- $\nabla b^{(h)} \mathrel{+}= \nabla h$
+			- od vah a biasů odečteme $\alpha\over\mathbb |B|$-násobek odpovídajícího gradientu
+	- gradienty
+		- $\nabla W^{(y)}=\frac{1}{N}\sum_i h\nabla y_i^T$
+		- $\nabla b^{(y)}=\frac{1}{N}\sum_i \nabla y_i$
+		- $\nabla W^{(h)}=\frac{1}{N}\sum_i x_i\nabla h_i^T$
+		- $\nabla b^{(h)}=\frac{1}{N}\sum_i \nabla h_i$
+		- přičemž
+			- $h_i= \max(0,x_i W^{(h)} + b^{(h)})$
+			- $y_i= \text{softmax}(h W^{(y)} + b^{(y)})$
+			- $\nabla y_i = y_i - 1_{t_i}$
+			- $\nabla h_i = (W^{(y)} \nabla y_i) \cdot 1_{h_i > 0}$
 - Medium: Formulate the computation of MLP as a computation graph. Explain how such a graph can be used to compute the gradients of the parameters in the back-propagation algorithm.
+	- trénování MLP můžeme popsat jako graf operací a datových zdrojů
+	- ![[prilohy/mlp-graph.svg]]
+	- gradienty
+		- $\nabla W^{(y)}=\frac{1}{N}\sum_i h\nabla y_i^T$
+		- $\nabla b^{(y)}=\frac{1}{N}\sum_i \nabla y_i$
+		- $\nabla W^{(h)}=\frac{1}{N}\sum_i x_i\nabla h_i^T$
+		- $\nabla b^{(h)}=\frac{1}{N}\sum_i \nabla h_i$
+		- přičemž
+			- $h_i= \max(0,x_i W^{(h)} + b^{(h)})$
+			- $y_i= \text{softmax}(h W^{(y)} + b^{(y)})$
+			- $\nabla y_i = y_i - 1_{t_i}$
+			- $\nabla h_i = (W^{(y)} \nabla y_i) \cdot 1_{h_i > 0}$
+	- tedy při výpočtu gradientů můžeme postupovat grafem proti směru hran
 - Medium: Formulate the Universal approximation theorem and explain in words what it says about multi-layer perceptron.
+	- mějme $\varphi(x):\mathbb R\to\mathbb R$ nekonstantní omezenou neklesající spojitou funkci (ale lze to ukázat i pro ReLU)
+	- pak $\forall\epsilon\gt 0$ a pro libovolnou spojitou $f:[0,1]^D\to\mathbb R$ existují $H\in\mathbb N$, $v\in\mathbb R^H$, $b\in\mathbb R^H$ a $W\in\mathbb R^{D\times H}$ takové, že…
+		- označíme-li $F(x)=v^T\varphi(x^TW+b)$
+		- přičemž $\varphi$ se aplikuje po prvcích
+		- pak $\forall x\in[0,1]^D:|F(x)-f(x)|\lt\varepsilon$
+	- $v$ … vektor vah výstupní vrstvy
+	- co to znamená?
+		- MLP s jednou skrytou vrstvou dokáže modelovat libovolnou spojitou funkci $f$
+		- ale možná k tomu budeme potřebovat hodně neuronů ve skryté vrstvě
 - Medium: How do we search for a minimum of a function $f(\boldsymbol x): \mathbb{R}^D \rightarrow \mathbb{R}$ subject to equality constraints $g_1(\boldsymbol x)=0, \ldots, g_m(\boldsymbol x)=0$?
 - Medium: Prove which categorical distribution with $N$ classes has maximum entropy.
 - Hard: Consider derivation of softmax using maximum entropy principle, assuming we have a dataset of $N$ examples $(x_i, t_i), x_i \in \mathbb{R}^D, t_i \in \{1, 2, \ldots, K\}$. Formulate the three conditions we impose on the searched $\pi: \mathbb{R}^D \rightarrow \mathbb{R}^K$, and write down the Lagrangian to be minimized. Explain in words what is the interpretation of the conditions.
