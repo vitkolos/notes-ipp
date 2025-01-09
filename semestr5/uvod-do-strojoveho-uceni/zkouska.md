@@ -129,24 +129,112 @@
 	- máme-li fixní trénovací data, pak likelihood $L(w)$ (kde $w$ jsou váhy modelu) se rovná součinu pravděpodobností targetů trénovacích dat
 	- odhadujeme váhy modelu tak, aby byl likelihood (věrohodnost) trénovacích dat co největší
 	- přesněji
-		- pro model s fixními vahami $w$ máme pravděpodobnostní distribuci $p(x;w)$, že model vygeneruje $x$
-		- pro model s fixními vahami $w$ a konkrétní řádek $x$ máme pravděpodobnostní distribuci $p(t\mid x;w)$, jak model klasifikuje $x$
-		- místo toho zafixujeme trénovací data a budeme měnit váhy → dostaneme $L(w)=p(X\mid w)=\prod_i p(x_i;w)$
+		- pro model s fixními vahami $w$ máme pravděpodobnostní distribuci $p_\text{model}(x;w)$, že model vygeneruje $x$
+		- pro model s fixními vahami $w$ a konkrétní řádek $x$ máme pravděpodobnostní distribuci $p_\text{model}(t\mid x;w)$, jak model klasifikuje $x$
+		- místo toho zafixujeme trénovací data a budeme měnit váhy → dostaneme $L(w)=p_\text{model}(X;w)=\prod_i p_\text{model}(x_i;w)$
+		- $w_\text{MLE}=\text{arg max}_w\,p_\text{model}(X;w)$
 - Hard: Describe maximum likelihood estimation as minimizing NLL, cross-entropy, and KL divergence and explain whether they differ or are the same and why.
+	- z distribuce $p_\text{data}$ samplujeme trénovací data $X$
+	- tak získáme empirickou distribuci dat $\hat p_\text{data}(x)$
+	- pro model s fixními vahami $w$ máme pravděpodobnostní distribuci $p_\text{model}(x;w)$, že model vygeneruje $x$
+	- místo $x$ můžeme všude uvažovat $t\mid x$ (protože negenerujeme $x$, ale snažíme se predikovat $t$ pro dané $x$), dopadne to stejně
+	- místo $p_\text{model}$ píšu $p$, místo $\hat p_\text{data}$ píšu $\hat p$
+	- $w_\text{MLE}=\text{arg max}_w\,p(X;w)=\text{arg max}_w\prod_ip(x_i;w)$
+	- $=\text{arg min}_w\sum_i-\log p(x_i;w)$
+		- negative log-likelihood
+	- $=\text{arg min}_w\,\mathbb E_{x\sim\hat p}[-\log p(x;w)]$
+	- $=\text{arg min}_w\,H(\hat p(x),p(x;w))$
+	- $=\text{arg min}_w(D_{KL}(\hat p(x)\|p(x;w))+H(\hat p))$
+	- $=\text{arg min}_w\,D_{KL}(\hat p(x)\|p(x;w))$
+		- protože $H(\hat p)$ není parametrizováno $w$ → neovlivňuje polohu minima
 - Easy: Provide an intuitive justification for why cross-entropy is a good optimization objective in machine learning. What distributions do we compare in cross-entropy? Why is it good when the cross-entropy is low?
+	- pomocí cross-entropy porovnáváme distribuci opravdových targetů a distribuci predikcí modelu
+	- čím víc se distribuce liší (cross-entropy je větší), tím hůř model model predikuje
+	- cross-entropy odpovídá našemu překvapení – pokud jsou dvě distribuce hodně odlišné, jsme hodně překvapení
+	- cross-entropy taky podporuje confidence – nestačí, aby model dal správnému výsledku největší pravděpodobnost (třeba 51 %), měla by co nejvíc odpovídat rozdělení, které je v datech
 - Medium: Considering the binary logistic regression model, write down its parameters (including their size) and explain how we decide what classes the input data belong to (including the explicit formula for the sigmoid function).
+	- $y(x;w)=\sigma(\bar y(x;w))=\sigma(x^Tw)$
+		- správnou třídu získáme zaokrouhlením
+		- přesná hodnota se rovná pravděpodobnosti, že je $x$ klasifikováno jako 1 (uvažujeme třídy 0 a 1)
+	- $\bar y$ … „lineární složka“ logistické regrese
+	- velikost vektoru vah $w$ odpovídá počtu features
+		- nesmíme zapomenout také na bias, ten opět může být reprezentován jako další váha
+	- $\sigma(x)=\frac1{1+e^{-x}}$
 - Hard: Write down an $L^2$-regularized minibatch SGD algorithm for training a binary *logistic regression* model, including the explicit formulas (i.e., formulas you would need to code it in `numpy`) of the loss function and its gradient (saying just $\nabla$ is not enough).
+	- klasifikujeme do tříd $\set{0,1}$, na vstupu máme dataset $X$ a learning rate $\alpha\in\mathbb R^+$
+	- náhodně inicializujeme $w$ (nebo nastavíme na nulu)
+	- opakujeme, dokud to nezkonverguje nebo nám nedojde trpělivost
+		- samplujeme minibatch řádků s indexy $\mathbb B$
+		- $w\leftarrow w-\alpha\frac1{\mathbb B}\sum_{i\in \mathbb B}(\sigma(x^Tw)-t)x-\alpha\lambda w$
+			- jako $E$ se používá NLL (s $L^2$ regularizací)
+			- výsledek se překvapivě podobá lineární regresi
+				- gradient je také $(y(x)-t)x$
+			- kdybychom chtěli derivovat NLL, hodí se trik, kdy jeden člen násobíme $t$ a druhý $1-t$, takže se vždy vybere ten správný
 
 ## 4. Multiclass Logistic Regression, Multilayer Perceptron
 
 - Medium: Define mean squared error and show how it can be derived using MLE. What assumptions do we make during such derivation?
+	- $\text{MSE}(w)=\frac1N\sum_{i=1}^N(y(x_i;w)-t_i)^2$
+	- předpokládáme, že náš model generuje distribuci $p(t\mid x;w)=\mathcal N(t;y(x;w),\sigma^2)$
+		- tedy že jde o normální distribuci se střední hodnotou v predikované hodnotě a fixním rozptylem $\sigma^2$
+	- použijeme maximum likelihood estimation (odhad maximální věrohodnosti)
+	- $\text{arg max}_w\,p(t\mid X;w)=\text{arg min}_w\sum_i-\log p(t_i\mid x_i;w)$
+	- $$=\text{arg min}_w-\sum_{i=1}^N\log\sqrt{\frac1{2\pi\sigma^2}}e^{-\frac{(t_i-y(x_i;w))^2}{2\sigma^2}}$$
+	- $=\text{arg min}_w-\sum_{i=1}^N(\log\sqrt{\frac1{2\pi\sigma^2}}{-\frac{(t_i-y(x_i;w))^2}{2\sigma^2}})$
+	- $=\text{arg min}_w-N\log\sqrt{\frac1{2\pi\sigma^2}}+\sum_{i=1}^N{\frac{(t_i-y(x_i;w))^2}{2\sigma^2}}$
+		- první člen neobsahuje $w$, tak se ho zbavíme
+	- $=\text{arg min}_w\sum_{i=1}^N{\frac{(t_i-y(x_i;w))^2}{2\sigma^2}}$
+		- na konkrétní hodnotě $\sigma$ nezáleží, můžeme tam doplnit $\frac1N$ (na tom taky nezáleží)
+	- $=\text{arg min}_w\,\frac1N\sum_{i=1}^N{{(y(x_i;w)-t_i)^2}}$
 - Medium: Considering $K$-class logistic regression model, write down its parameters (including their size) and explain how we decide what classes the input data belong to (including the formula for the softmax function).
+	- parametry: váhová matice $W$ (sloupce odpovídají třídám, řádky featurám), vektor biasů (jeden bias za každou třídu)
+	- klasifikace: $p(C_i\mid x;W)=y(x;W)_i=\text{softmax}(\bar y(x;W))_i=\text{softmax}(x^TW)_i$
+	- $\text{softmax}(z)_i=\frac{e^{z_i}}{\sum_je^{z_j}}$
+	- poznámka: softmax je invariantní k přičtení konstanty $\text{softmax}(z+c)_i=\text{softmax}(z)_i$
 - Easy: Explain the relationship between the sigmoid function and softmax.
+	- $\sigma(x)=\text{softmax}([x,0])_0=\frac{e^x}{e^x+e^0}=\frac1{1+e^{-x}}$
 - Easy: Show that the softmax function is invariant towards constant shift.
+	- $\text{softmax}(z+c)_i=\frac{e^{z_i+c}}{\sum_je^{z_j+c}}=\frac{e^{z_i}}{\sum_j e^{z_j}}\cdot\frac{e^c}{e^c}=\text{softmax}(z)_i$
 - Hard: Write down an $L^2$-regularized minibatch SGD algorithm for training a $K$-class logistic regression model, including the explicit formulas (i.e., formulas you would use to code it in `numpy`) of the loss function and its gradient.
+	- klasifikujeme do tříd $\set{0,\dots,K-1}$, na vstupu máme dataset $X$ a learning rate $\alpha\in\mathbb R^+$
+	- náhodně inicializujeme $w$ (nebo nastavíme na nulu)
+	- opakujeme, dokud to nezkonverguje nebo nám nedojde trpělivost
+		- samplujeme minibatch řádků s indexy $\mathbb B$
+		- $w\leftarrow w-\alpha\frac1{\mathbb B}\sum_{i\in \mathbb B}\left((\text{softmax}(x^TW)-1_t)x^T\right)^T-\alpha\lambda w$
+			- jako $E$ se používá NLL (s $L^2$ regularizací)
+			- srovnání gradientu logistické regrese
+				- binary: $(y(x)-t)x$
+				- multiclass: $((y(x)-1_t)x^T)^T$
+			- přičemž $1_t$ je one-hot reprezentace targetu $t$ (tedy vektor s jedničkou na $t$-té pozici a nulami všude jinde)
 - Medium: Prove that decision regions of a multiclass logistic regression are convex.
+	- uvažujme dvojici dat $x_A$ a $x_B$, které jsou klasifikovány jako $k$ (jsou ve stejném regionu)
+	- libovolný bod $x$ ležící na jejich spojnici je jejich konvexní kombinace $x=\lambda x_a+(1-\lambda)x_B$ a z linearity $\bar y(x)=x^TW$ vyplývá
+		- $\bar y(x)=\lambda\bar y(x_A)+(1-\lambda)\bar y(x_B)$
+	- jelikož ve vektoru $\bar y(x_A)$ byla největší $k$-tá složka a ve vektoru $\bar y(x_B)$ rovněž, bude i ve vektoru $\bar y(x)$ největší $k$-tá složka
 - Medium: Considering a single-layer MLP with $D$ input neurons, $H$ hidden neurons, $K$ output neurons, hidden activation $f$, and output activation $a$, list its parameters (including their size) and write down how the output is computed.
+	- vstupní data mají $D$ features
+	- parametry
+		- první váhová matice $W^{(h)}$ bude mít tvar $D\times H$
+		- první vektor biasů bude mít $H$ složek
+		- druhá váhová matice $W^{(y)}$ bude mít tvar $H\times K$
+		- druhý vektor biasů bude mít $K$ složek
+	- výsledný vektor bude mít $K$ složek
+	- pro řádek vstupních dat $x$ spočítáme
+		- aktivaci skryté vrstvy $h=f(x^TW^{(h)}+b^{(h)})$
+		- výsledný vektor $y=a(h^TW^{(y)}+b^{(y)})$
 - Medium: List the definitions of frequently used MLP output layer activations (the ones producing parameters of a Bernoulli distribution and a categorical distribution). Then, write down three commonly used hidden layer activations (sigmoid, tanh, ReLU). Explain why identity is not a suitable activation for hidden layers.
+	- aktivační funkce výstupní vrstvy
+		- binární klasifikace (Bernoulliho distribuce) → sigmoid
+		- klasifikace do více tříd (kategorická distribuce) → softmax
+		- lineární regrese → identita
+	- aktivační funkce skryté vrstvy
+		- $\sigma(x)=\frac1{1+e^{-x}}$
+		- $\tanh(x)=2\sigma(2x)-1$
+		- $\text{ReLU}=\max(0,x)$
+	- proč není u skryté vrstvy vhodná identita?
+		- na výstupní vrstvě (před aktivací) by nám vyšlo toto:
+		- $(x^TW^{(h)}+b^{(h)})^TW^{(y)}+b^{(y)}=x^T\underbrace{W^{(h)}W^{(y)}}_{W}+\underbrace{b^{(h)T}W^{(y)}+b^{(y)}}_b$
+		- vyjde to, jako by tam ta skrytá vrstva vůbec nebyla – místo $W^{(h)},W^{(y)},b^{(h)},b^{(y)}$ by nám stačilo $W,b$ a mělo by to stejný efekt
 
 ## 5. MLP, Softmax as MaxEnt classifier, F1 score
 
