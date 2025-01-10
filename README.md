@@ -26,3 +26,10 @@
 - [Matematická analýza 2 (zkouška)](semestr3/matematicka-analyza2/zkouska.md)
 - [Úvod do umělé inteligence (zkouška)](semestr4/uvod-do-umele-inteligence/zkouska.md)
 - [Automaty a gramatiky (zkouška)](semestr4/automaty-gramatiky/zkouska.md)
+- [Pravděpodobnost a statistika 1 (zkouška)](semestr4/pravdepodobnost-statistika1/zkouska.md)
+
+### 2024/2025
+
+- [Databázové systémy (zkouška)](semestr5/databazove-systemy/zkouska.md)
+- [Úvod do strojového učení (zkouška), rozpracováno](semestr5/uvod-do-strojoveho-uceni/zkouska.md)
+- [Probability and Statistics 2 (exam), work in progress](semestr5/probability-statistics2/exam.md)

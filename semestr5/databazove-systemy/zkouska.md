@@ -1,5 +1,7 @@
 # Zkouška
 
+u zkoušky se rovněž může objevit učivo ze zápočtového testu (SQL, UML, ER)
+
 ## Relační algebra
 
 - operace

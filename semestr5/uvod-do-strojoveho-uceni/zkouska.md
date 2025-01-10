@@ -154,6 +154,7 @@ tento dokument je zveřejněn pod licencí [CC BY-SA]([https://creativecommons.o
 	- čím víc se distribuce liší (cross-entropy je větší), tím hůř model model predikuje
 	- cross-entropy odpovídá našemu překvapení – pokud jsou dvě distribuce hodně odlišné, jsme hodně překvapení
 	- cross-entropy taky podporuje confidence – nestačí, aby model dal správnému výsledku největší pravděpodobnost (třeba 51 %), měla by co nejvíc odpovídat rozdělení, které je v datech
+		- ale naopak pokud si na základě features nemůže být jistý klasifikací (šance je třeba 2 : 3), chceme, aby si klasifikací opravdu nebyl jistý a vrátil 60 %
 - Medium: Considering the binary logistic regression model, write down its parameters (including their size) and explain how we decide what classes the input data belong to (including the explicit formula for the sigmoid function).
 	- $y(x;w)=\sigma(\bar y(x;w))=\sigma(x^Tw)$
 		- správnou třídu získáme zaokrouhlením
@@ -295,11 +296,81 @@ tento dokument je zveřejněn pod licencí [CC BY-SA]([https://creativecommons.o
 		- MLP s jednou skrytou vrstvou dokáže modelovat libovolnou spojitou funkci $f$
 		- ale možná k tomu budeme potřebovat hodně neuronů ve skryté vrstvě
 - Medium: How do we search for a minimum of a function $f(\boldsymbol x): \mathbb{R}^D \rightarrow \mathbb{R}$ subject to equality constraints $g_1(\boldsymbol x)=0, \ldots, g_m(\boldsymbol x)=0$?
+	- použijeme metodu Lagrangeových multiplikátorů
+	- předpokládáme, že $f,g1,\dots,g_m$ mají spojité parciální derivace a že gradienty $\nabla g_1,\dots,\nabla g_m$ jsou lineárně nezávislé
+	- pak existují $\lambda_1\in\mathbb R,\dots,\lambda_m\in\mathbb R$ takové, že Lagrangeova funkce $\mathcal L(x,\lambda)=f(x)-\sum_{i=1}^m\lambda_ig_i(x)$ má nulový gradient podle $x$ a $\lambda$
+		- jinými slovy $\nabla f(x)=\sum\lambda_i\nabla g_i(x)$ a $\forall i:g_i(x)=0$
+	- vyřešíme soustavu rovnic a dostaneme hledané $x$
+	- poznámka
+		- proč by mělo „minimum pod podmínkou“ být zrovna v bodě, kde $\nabla f(x)=\lambda\nabla g(x)$?
+		- funkce, jejíž minimum hledáme je $f(x)$
+			- uvažujme její vrstevnice, tedy množiny bodů, kde $f(x)=\alpha$ pro nějakou konstantu $\alpha$
+			- gradient $\nabla f(x)$ je vždy kolmý na vrstevnici, „ukazuje“ směrem, kam funkce roste
+			- chceme najít takový bod, kde bude gradient $\nabla f(x)$ kolmý na podmínku – jinak bychom se po křivce podmínky mohli vydat směrem, kterým gradient ukazuje a funkce by rostla (respektive na opačnou stranu, když hledáme minimum)
+		- podmínka je popsána jako $g(x)=0$
+			- gradient $\nabla g(x)$ je kolmý na každou vrstevnici $g(x)=\alpha$
+			- podmínka $g(x)=0$ je jednou z vrstevnic, tedy je na ni gradient kolmý
+		- takže hledáme bod, kde je gradient $\nabla f(x)$ kolmý na $g(x)=0$ a kde je gradient $\nabla g(x)$ kolmý na $g(x)=0$, což znamená, že gradienty mají být kolineární
+			- $\nabla f(x)=\lambda\nabla g(x)$
 - Medium: Prove which categorical distribution with $N$ classes has maximum entropy.
+	- hledáme kategorickou distribuci $p=(p_1,\dots,p_n)$ s maximální entropií
+	- tedy minimalizujeme $-H(p)$ s podmínkami $\forall i:p_i\geq 0$ a $\sum_i p_i=1$
+		- první z nich zatím ignorujeme
+	- $\mathcal L(x,\lambda)=(\sum_i p_i\log p_i)-\lambda(\sum_i p_i-1)$
+	- $0=\frac{\partial\mathcal L}{\partial p_i}=1\cdot\log p_i+p_i\cdot\frac1{p_i}-\lambda=\log p_i+1-\lambda$
+	- $\log p_i=\lambda-1$
+	- $p_i=e^{\lambda-1}$
+	- tedy všechny pravděpodobnosti musejí být stejné
+	- z podmínky $\sum p_i=1$ vyplývá, že $p_i=\frac1n$
 - Hard: Consider derivation of softmax using maximum entropy principle, assuming we have a dataset of $N$ examples $(x_i, t_i), x_i \in \mathbb{R}^D, t_i \in \{1, 2, \ldots, K\}$. Formulate the three conditions we impose on the searched $\pi: \mathbb{R}^D \rightarrow \mathbb{R}^K$, and write down the Lagrangian to be minimized. Explain in words what is the interpretation of the conditions.
+	- podmínky
+		- $\forall k\in[K]:\pi(x)_k\geq 0$
+		- $\sum_{k=1}^K \pi(x)_k=1$
+		- $\forall k\in[K]:\sum_{i=1}^N\pi(x_i)_kx_i=\sum_{i=1}^N[t_i=k]x_i$
+	- první dvě podmínky: chceme generovat pravděpodobnost
+	- třetí podmínka
+		- chceme, aby součty hodnot jednotlivých features v každé z tříd byly správné
+		- např. klasifikujeme lidi, psy a kočky, chceme, aby se pro feature „počet nohou“ součet ve třídě lidí rovnal dvojnásobku počtu lidí v trénovacích datech (podobně pro třídu psů čtyřnásobku počtu psů)
+		- poznámka: mohli bychom nastavit podmínku $\pi(x_i)=1_{t_i}$, ale ta by byla moc přísná, proto jsme se rozhodli pro tuto alternativu
+	- první podmínku ignorujme
+	- Lagrangián bude vypadat takto: $$\mathcal L=\sum_{i=1}^N\sum_{k=1}^K\pi(x_i)_k\log(\pi(x_i)_k)-\sum_{j=1}^D\sum_{k=1}^K\lambda_{j,k}(\sum_{i=1}^N\pi(x_i)_kx_{i,j}-[t_i=k]x_{i,j})-\sum_{i=1}^N\beta_i(\sum_{k=1}^K\pi(x_i)_k-1)$$
 - Medium: Define precision (including true positives and others), recall, $F_1$ score, and $F_\beta$ score (we stated several formulations for $F_1$ and $F_\beta$ scores; any one of them will do).
+	- základní dělení výsledků klasifikace
+		- predikce je pozitivní, realita (target) rovněž → true positive (TP)
+		- predikce je pozitivní, realita je negativní → false positive (FP)
+		- predikce je negativní, realita je pozitivní → false negative (FN)
+		- predikce je negativní, realita také → true negative (TN)
+	- $\text{precision}=\frac{TP}{TP+FP}$
+	- $\text{recall}=\frac{TP}{TP+FN}$
+	- $F_i=\frac{TP + TP}{TP+FP+TP+FN}$
+	- $F_\beta=\frac{TP+\beta^2\cdot TP}{TP+FP+\beta^2(TP+FN)}$
 - Medium: Explain the difference between micro-averaged and macro-averaged $F_1$ scores. List a few examples of when you would use them.
+	- děláme multiclass clasifikaci
+	- obvykle nějakou třídu považujeme za negativní, tu budeme ignorovat
+	- postupně se díváme na každou z pozitivních tříd jako na binární klasifikaci
+		- např. pokud konkrétní řádek dat patří do dané třídy, ale predikovali jsme, že tam nepatří, je to false negative
+		- takhle pro každou třídu můžeme získat $TP,FP,TN,FN$
+	- micro-averaged $F_1$
+		- nejdřív všechny $TP$, $FP$, $TN$ a $FN$ sečteme dohromady
+		- pak spočítáme $F_1$
+		- takže velikost (frekvence) tříd hraje roli
+	- macro-averaged $F_1$
+		- spočítáme $F_1$ skóre jednotlivých binárních klasifikací
+		- pak je zprůměrujeme
+		- tím zajistíme, že na velikosti tříd moc nezáleží
+	- příklady
+		- rozpoznávání vlastních jmen v textu (jména osob, organizací a míst)
+			- přesnost (accuracy) by byla vysoká, protože je tam hodně true negatives (většina slov nejsou vlastní jména)
+			- micro-averaged $F_1$ nám řekne, jak dobří jsme obecně v určování vlastních jmen (ve všech kategoriích dohromady)
+				- jsme celkově úspěšní?
+			- macro-averaged $F_1$ nám řekne, jak dobře určujeme konkrétní typy vlastních jmen
+				- daří se nám ve všech typech? (i v těch s menší frekvencí?)
+		- podobně kdybychom klasifikovali slovní druhy
+			- kdybychom špatně klasifikovali citoslovce, na micro-averaged bychom to nepoznali, ale na macro-averaged už ano
 - Easy: Explain (using examples) why accuracy is not a suitable metric for unbalanced target classes, e.g., for a diagnostic test for a contagious disease.
+	- $\text{accuracy}=\frac{TP+TN}{TP+TN+FP+FN}$
+	- uvažujme nemoc, kterou má 1 % obyvatel
+	- test, který je vždy negativní nebo pozná jen velmi málo nemocných, bude mít vysokou přesnost/accuracy (cca 99 %)
 
 ## 6. Representing Text (TF-IDF, Word2Vec)
 
