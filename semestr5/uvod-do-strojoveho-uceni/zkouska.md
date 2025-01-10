@@ -375,12 +375,48 @@ tento dokument je zveřejněn pod licencí [CC BY-SA]([https://creativecommons.o
 ## 6. Representing Text (TF-IDF, Word2Vec)
 
 - Easy: Explain how the TF-IDF weight of a given document-term pair is computed.
+	- term frequency … $TF(t;d)$ = počet výskytů slova $t$ v dokumentu $d$ / počet slov v dokumentu $d$
+	- inverse document frequency $IDF(t)$ = log(počet dokumentů / počet dokumentů obsahujících slovo $t$)
+		- někdy se k počtu dokumentů obsahujících $t$ přičítá jednička, aby se to nerozbilo pro slova, která v dokumentech nejsou vůbec
+	- empiricky, součin $TF\cdot IDF$ docela dobře odráží, jak je slovo důležité pro daný dokument z korpusu
 - Easy: What is Zipf's law? Explain how it can be used to provide intuitive justification for using the logarithm when computing IDF.
+	- Zipfův zákon: frekvence slov je přibližně nepřímo úměrná jejich ranku (pořadí podle četnosti)
+	- proto by byl podíl „počet dokumentů / počet dokumentů obsahujících slovo $t$“ extrémně malý pro častá slova a extrémně malý pro málo častá slova
+	- logaritmus to normalizuje, proto $IDF(t)$ = log(počet dokumentů / počet dokumentů obsahujících slovo $t$)
 - Medium: Define conditional entropy and mutual information, write down the relation between them, and finally prove that mutual information is zero if and only if the two random variables are independent (you do not need to prove statements about $D_\textrm{KL}$).
+	- podmíněná entropie: $H(Y\mid X)=\mathbb E_{x,y}[I(y\mid x)]=-\sum_{x,y}P(x,y)\log P(y\mid x)$
+	- vzájemná informace: $I(X;Y)=\mathbb E_{x,y}[\log\frac{P(x,y)}{P(x)P(y)}]$
+	- $H(Y)-H(Y\mid X)=\mathbb E_{x,y}[-\log P(y)]-\mathbb E_{x,y}[-\log P(y\mid x)]=\mathbb E_{x,y}[\log\frac{P(x,y)}{P(x)P(y)}]$
+	- připomenutí: $D_{KL}(P\|Q)=H(P,Q)-H(P)=\mathbb E_{x\sim P}[\log\frac{P(x)}{Q(x)}]$
+		- proto zjevně $I(X;Y)=D_{KL}(P(X,Y)\|P(X)P(Y))$
+		- z Gibbsovy nerovnosti vyplývá, že $H(P,Q)-H(P)=0\iff P=Q$
+		- tedy $I(X;Y)=0\iff P(X,Y)=P(X)P(Y)\iff$ $P,Q$ jsou nezávislé
 - Medium: Show that TF-IDF terms can be considered portions of suitable mutual information.
+	- mějme $\mathcal D$ kolekci dokumentů a $\mathcal T$ kolekci slov
+	- uniformně náhodně vybereme dokument, $P(d)=1/|\mathcal D|$
+	- $I(d)=H(\mathcal D)=\log|\mathcal D|$
+	- $P(d\mid t\in d)=1/|\set{d\in\mathcal D:t\in d}|$
+	- $I(d\mid t\in d)=H(\mathcal D\mid t)=\log|\set{d\in\mathcal D:t\in d}|$
+	- $I(d)-I(d\mid t\in d)=H(\mathcal D)-H(\mathcal D\mid t)=\log\frac{|\mathcal D|}{|\set{d\in\mathcal D:t\in d}|}=IDF(t)$
+	- $I(\mathcal D;\mathcal T)=\sum_{d,t\in d}P(d)\cdot P(t\mid d)\cdot (I(d)-I(d\mid t))=\frac1{|\mathcal D|}\sum_{d,t\in d}TF(t;d)\cdot IDF(t)$
 - Easy: Explain the concept of word embedding in the context of MLP and how it relates to representation learning.
+	- MLP lze interpretovat jako automatickou extrakci features pro zobecněný lineární model
+	- reprezentační učení: model se ze vstupních dat naučí, jak je reprezentovat, aby se tato reprezentace dala použít k dalším specifickým úkolům (klasifikaci apod.)
+	- vstupní slovo budeme reprezentovat jako one-hot vektor
+	- po vynásobení s maticí vah ze skryté vrstvy dostaneme konkrétní řádek ze skryté vrstvy, tomu se říká word embedding
 - Medium: Describe the skip-gram model trained using negative sampling. What is it used for? What are the input and output of the algorithm?
+	- pro každé slovo ze slovníku se chceme naučit embedding
+	- natrénujeme model, který bude predikovat pravděpodobnost jiných slov, že se objeví v kontextu daného slova
+	- model bude mít dvě vrstvy
+		- matici embeddingů
+		- výstupní matici (se softmaxem)
+	- po trénování můžeme první vrstvu použít jako embeddingy (druhá vrstva se obvykle zahazuje)
+	- pro každé slovo samplujeme slova, která se v textu objevují v jeho okolí (obvykle 2 slova doleva a 2 slova doprava)
+	- ale musíme samplovat i slova, která se v jeho kontextu nikdy neobjevují (obvykle 5 slov)
+	- to zohledníme v loss funkci
 - Easy: How would you train a part-of-speech tagger (i.e., you want to assign each word to its part of speech) if you could only use pre-trained word embeddings and MLP classifier?
+	- chceme zohlednit kontext, v jakém se slovo v textu objevuje
+	- použijeme „posuvné okýnko“ nad embeddingy, budeme klasifikovat prostřední slovo
 
 ## 7. K Nearest Neighbors, Naive Bayes
 
