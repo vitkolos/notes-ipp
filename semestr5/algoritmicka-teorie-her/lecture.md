@@ -279,4 +279,12 @@
 		- $\Omega=\set{\omega_1,\dots,\omega_n,\omega_\emptyset}$
 	- VCG mechanism
 		- states that we can do DSIC social surplus maximization
-	- poznámka: alokační pravidlo může vycházet z toho, že agenti bidují pravdivě, pokud uvažujeme DSIC – ale payment formula musí zajistit DSIC
+	- note: allocation rule can assume that the bidders bid truthfully if we consider DSIC – but the payment formula has to provide DSIC
+- proof of Myerson's lemma
+	- payment difference sandwich
+		- $y,z$ are not functions but only coefficients (bids)
+		- $x_i(y;b_{-i})-x_i(z;b_{-i})$ has to be non-positive
+			- because $z\cdot()\leq y\cdot()$ and $y\lt z$
+- revelation principle
+	- is DSIC to restrictive?
+	- if there is a dominant strategy, we can assume that it is truthtelling
