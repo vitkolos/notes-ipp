@@ -622,3 +622,40 @@
 	- but the long-term trend varies slowly
 - idea: let's average the samples using the sliding window
 - …
+
+### Video compression
+
+- video … time sequence of images (frames)
+- can we reduce the problem to image compression?
+	- no!
+	- if we change the average intensity of pixels, it becomes noticeable in a video
+	- on the other hand, we don't care about the reproduction of sharp edges that much
+- basic types of algorithms
+	- two-way communication → symmetric compression / decompression, it needs to be fast, videotelephony etc.
+	- one-way → used for storage, the compression can be more complex
+- video signal representation
+	- CRT
+	- composite signal – YCbCr
+	- Gamma correction – to make colors look more natural
+- MPEG-1
+	- we need to follow Nyquist-Shannon rule to prevent aliasing
+		- horizontal filter removes the frequencies that break the rule
+- H.261
+	- videotelephony, videoconferencing
+	- why do we have to do inverse quantization and transform when encoding? to prevent loss, we need the encoding prediction to be based on the information available to the decoder (see differential encoding)
+	- motion compensation
+		- which parts of the image are moving?
+		- for each block of the frame, we are going to find the most similar block of the previous frame
+		- if there's no similar previous block, we just encode the current block
+		- we can reduce the search space
+		- solution: macroblocks
+	- the loom filter
+		- sharp edges in the block used for prediction have some negative consequences
+		- we use a smoothing filter
+	- transform
+		- discrete cosine transform of the blocks
+		- coder simulates the decoder
+	- quantization
+	- coding
+	- rate control
+- MPEG
