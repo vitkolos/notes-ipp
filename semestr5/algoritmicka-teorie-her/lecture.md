@@ -286,6 +286,5 @@
 		- $x_i(y;b_{-i})-x_i(z;b_{-i})$ has to be non-positive
 			- because $z\cdot()\leq y\cdot()$ and $y\lt z$
 - revelation principle
-	- is DSIC to restrictive?
 	- is DSIC too restrictive?
 	- if there is a dominant strategy, we can assume that it is truthtelling
