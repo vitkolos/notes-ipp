@@ -273,7 +273,7 @@ tento dokument je zveřejněn pod licencí [CC BY-SA]([https://creativecommons.o
 			- $\nabla h_i = (W^{(y)} \nabla y_i) \cdot 1_{h_i > 0}$
 - Medium: Formulate the computation of MLP as a computation graph. Explain how such a graph can be used to compute the gradients of the parameters in the back-propagation algorithm.
 	- trénování MLP můžeme popsat jako graf operací a datových zdrojů
-	- ![[prilohy/mlp-graph.svg]]
+	- ![](prilohy/mlp-graph.svg)
 	- gradienty
 		- $\nabla W^{(y)}=\frac{1}{N}\sum_i h\nabla y_i^T$
 		- $\nabla b^{(y)}=\frac{1}{N}\sum_i \nabla y_i$
@@ -333,7 +333,7 @@ tento dokument je zveřejněn pod licencí [CC BY-SA]([https://creativecommons.o
 		- např. klasifikujeme lidi, psy a kočky, chceme, aby se pro feature „počet nohou“ součet ve třídě lidí rovnal dvojnásobku počtu lidí v trénovacích datech (podobně pro třídu psů čtyřnásobku počtu psů)
 		- poznámka: mohli bychom nastavit podmínku $\pi(x_i)=1_{t_i}$, ale ta by byla moc přísná, proto jsme se rozhodli pro tuto alternativu
 	- první podmínku ignorujme
-	- Lagrangián bude vypadat takto: $$\mathcal L=\sum_{i=1}^N\sum_{k=1}^K\pi(x_i)_k\log(\pi(x_i)_k)-\sum_{j=1}^D\sum_{k=1}^K\lambda_{j,k}(\sum_{i=1}^N\pi(x_i)_kx_{i,j}-[t_i=k]x_{i,j})-\sum_{i=1}^N\beta_i(\sum_{k=1}^K\pi(x_i)_k-1)$$
+	- Lagrangián bude vypadat takto: $$\begin{aligned}\mathcal L=&\sum_{i=1}^N\sum_{k=1}^K\pi(x_i)_k\log(\pi(x_i)_k)\\ &-\sum_{j=1}^D\sum_{k=1}^K\lambda_{j,k}(\sum_{i=1}^N\pi(x_i)_kx_{i,j} -[t_i=k]x_{i,j}) \\ &-\sum_{i=1}^N\beta_i(\sum_{k=1}^K\pi(x_i)_k-1)\end{aligned}$$
 - Medium: Define precision (including true positives and others), recall, $F_1$ score, and $F_\beta$ score (we stated several formulations for $F_1$ and $F_\beta$ scores; any one of them will do).
 	- základní dělení výsledků klasifikace
 		- predikce je pozitivní, realita (target) rovněž → true positive (TP)
