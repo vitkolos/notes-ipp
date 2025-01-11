@@ -21,10 +21,10 @@ tento dokument je zveřejněn pod licencí [CC BY-SA]([https://creativecommons.o
 	- MSE
 		- původní vzorec: $\text{MSE}(w)=\frac1N\sum_{i=1}^N(y(x_i;w)-t_i)^2$
 		- místo $\frac1N$ se používá $\frac12$ (při minimalizaci MSE se počet dat nemění) → není to MSE, ale „sum of squares error“
-		- používaný vzorec s $L^2$-regularizací
+		- používaný vzorec s $L^2$ regularizací
 			- $\frac12\sum_{i=1}^N(y(x_i;w)-t_i)^2+\frac{\lambda}2 \lVert w\rVert^2$
 			- to odpovídá $\frac12\lVert Xw-t\rVert^2+\frac{\lambda}2 \lVert w\rVert^2$
-		- poznámka: obvykle se $L^2$-regularizace nepoužívá na bias, jelikož ten nezpůsobuje overfitting
+		- poznámka: obvykle se $L^2$ regularizace nepoužívá na bias, jelikož ten nezpůsobuje overfitting
 - Medium: Starting from the unregularized sum of squares error of a linear regression model, show how the explicit solution can be obtained, assuming $\boldsymbol X^T \boldsymbol X$ is invertible.
 	- sum of squares error: $\frac12\sum_{i}(x_i^Tw-t_i)^2$
 		- lze ho zapsat jako $\frac12\lVert Xw-t\rVert^2$
@@ -179,7 +179,8 @@ tento dokument je zveřejněn pod licencí [CC BY-SA]([https://creativecommons.o
 - Medium: Define mean squared error and show how it can be derived using MLE. What assumptions do we make during such derivation?
 	- $\text{MSE}(w)=\frac1N\sum_{i=1}^N(y(x_i;w)-t_i)^2$
 	- předpokládáme, že náš model generuje distribuci $p(t\mid x;w)=\mathcal N(t;y(x;w),\sigma^2)$
-		- tedy že jde o normální distribuci se střední hodnotou v predikované hodnotě a fixním rozptylem $\sigma^2$
+		- tedy že jde o normální distribuci se střední hodnotou v predikované hodnotě $y(x;w)$ a s fixním rozptylem $\sigma^2$
+		- poznámka ke značení: pokud $X\sim\mathcal N(\mu,\sigma^2)$, pak $f_X(x)=\mathcal N(x;\mu,\sigma^2)$
 	- použijeme maximum likelihood estimation (odhad maximální věrohodnosti)
 	- $\text{arg max}_w\,p(t\mid X;w)=\text{arg min}_w\sum_i-\log p(t_i\mid x_i;w)$
 	- $$=\text{arg min}_w-\sum_{i=1}^N\log\sqrt{\frac1{2\pi\sigma^2}}e^{-\frac{(t_i-y(x_i;w))^2}{2\sigma^2}}$$
@@ -421,12 +422,70 @@ tento dokument je zveřejněn pod licencí [CC BY-SA]([https://creativecommons.o
 ## 7. K Nearest Neighbors, Naive Bayes
 
 - Medium: Describe the prediction of $k$ for the nearest neighbors, both for regression and classification. Define $L_p$ norm and describe uniform, inverse, and softmax weighting.
+	- regrese: $t=\sum_i\frac{w_i}{\sum_j w_j}\cdot t_i$
+	- klasifikace
+		- pro uniformní váhy můžeme hlasovat (nejčastější třída vyhrává, remízy rozhodujeme náhodně)
+		- jinak uvažujeme one-hot kódování $t_i$ opět můžeme použít predikci $t=\sum_i\frac{w_i}{\sum_j w_j}\cdot t_i$ (zvolíme třídu s největší predikovanou pravděpodobností)
+	- $L_p$ norma: $\|x\|_p=\sqrt[p]{\sum_i|x_i|^p}$
+		- obvykle se používá $p\in\set{1,2,3,\infty}$
+		- vzdálenost $x$ a $y$ lze určit jako $\|x-y\|_p$
+	- weighting
+		- uniform: všech $k$ nejbližších sousedů má stejné váhy
+		- inverse: váhy jsou nepřímo úměrné vzdálenosti
+		- softmax: váhy jsou přímo úměrné softmaxu záporných vzdáleností
 - Medium: Show that $L^2$-regularization can be obtained from a suitable prior by Bayesian inference (from the MAP estimate).
+	- budeme předpokládat, že váhy mají distribuci $\mathcal N(0,\sigma^2)$
+		- používáme princip maximální entropie
+		- $p(w)=\prod_{j=1}^D\mathcal N(w_j;0,\sigma^2)$
+	- $w_{\text{MAP}}=\text{arg max}_w\,p(X\mid w)p(w)=\text{arg max}_w\prod_i p(x_i\mid w)p(w)$
+		- $=\text{arg min}_w\sum_i(-\log p(x_i\mid w)-\log p(w))$
+	- dosadíme normálně rozdělený prior vah
+		- $w_\text{MAP}=\text{arg min}_w\sum_i(-\log p(x_i\mid w)-\log\prod_j \sqrt{\frac1{2\pi\sigma^2}}e^{-\frac{w_j^2}{2\sigma^2}})$
+		- $=\text{arg min}_w\sum_i(-\log p(x_i\mid w)+\frac D2\log (2\pi\sigma^2)+\frac{\|w\|^2}{2\sigma^2})$
+			- prostřední člen nás nezajímá, protože neobsahuje $w$
+		- $=\text{arg min}_w\sum_i(-\log p(x_i\mid w)+\frac{\|w\|^2}{2\sigma^2})$
+			- tak jsme dostali NLL s $L^2$ regularizací
 - Medium: Write down how $p(C_k | \boldsymbol x)$ is approximated in a Naive Bayes classifier, explicitly state the Naive Bayes assumption, and show how the prediction is performed.
+	- hledáme $\text{arg max}_k\,p(C_k\mid x)=\text{arg max}_k\frac{p(x\mid C_k)p(C_k)}{p(x)}=\text{arg max}_k\,{p(x\mid C_k)p(C_k)}$
+	- $p(C_k)$ lze vyčíst snadno z dat, ale jak určíme $p(x\mid C_k)$?
+	- jednotlivé features $x_1,\dots,x_n$ nemusí být nezávislé, tedy $p(x_1,x_2\mid C_k)$ by se měl počítat jako $p(x_1\mid C_k)p(x_2\mid C_k,x_1)$
+	- použijeme naivní bayesovský předpoklad, že všechny $x_d$ jsou nezávislé pro dané $C_k$
+	- tedy $p(x\mid C_k)=\prod_d p(x_d\mid C_k)$
+	- predikce: $\text{arg max}_k\,p(C_k)\prod_d p(x_d\mid C_k)$
+		- přičemž pravděpodobnostní funkce se model naučil z trénovacích dat
 - Medium: Considering a Gaussian Naive Bayes, describe how probabilities $p(x_d | C_k)$ are modeled (what distribution and which parameters it has) and how we estimate it during fitting.
+	- podmíněnou distribuci každé featury budeme modelovat jako $\mathcal N(\mu_{d,k},\sigma^2_{d,k})$
+	- výpočet $\mu$ a $\sigma^2$ odpovídá očekávání
+		- $\mu_{d,k}=\frac1{N_k}\sum_{i=1}^{N_k}x_{i,d}$
+		- $\sigma^2_{d,k}=\frac1{N_k}\sum_{i=1}^{N_k}(x_{i,d}-\mu_{d,k})^2$
+	- k rozptylu se obvykle přičítá konstanta $\alpha$, aby distribuce nebyla moc ostrá
 - Medium: Considering a Bernoulli Naive Bayes, describe how probabilities $p(x_d | C_k)$ are modeled (what distribution and which parameters it has) and how we estimate it during fitting.
+	- podmíněnou distribuci každé featury budeme modelovat jako $\text{Ber}(p)$
+	- pokud jsou features binární, pak $p_{d,k}=\frac1{N_k}\sum_{i=1}^{N_k} x_{i,d}$
+		- tedy $p_{d,k}$ = (počet řádků ve třídě $k$ s nenulovou featurou $d$) / (počet řádků ve třídě $k$)
+	- akorát obvykle nechceme nulovou pravděpodobnost pro features, které jsou pro danou třídu v trénovacích datech vždy nulové
+		- proto budeme uvažovat $p_{d,k}$ = (počet řádků ve třídě $k$ s nenulovou featurou $d$ + $\alpha$) / (počet řádků ve třídě $k$ + $2\alpha$)
+		- tedy k čitateli zlomku přičteme konstantu $\alpha$ a ke jmenovateli $2\alpha$
+			- přičemž $\alpha\gt 0$
+		- tomu se říká Laplace/additive smoothing
 - Medium: What measures can we take to prevent numeric instabilities in the Naive Bayes classifier, particularly if the probability density is too high in Gaussian Naive Bayes and there are zero probabilities in Bernoulli Naive Bayes?
+	- gaussovský NB: k rozptylu přičteme $\alpha$
+		- v Scikit-learn se používá $10^{-9}$-násobek největšího rozptylu ze všech features
+	- bayesovský NB: k čitateli přičteme $\alpha\gt 0$, ke jmenovateli přičteme $2\alpha$
+		- tedy $p_{d,k}$ = (počet řádků ve třídě $k$ s nenulovou featurou $d$ + $\alpha$) / (počet řádků ve třídě $k$ + $2\alpha$)
 - Easy: What is the difference between discriminative and (classical) generative models?
+	- diskriminativní modely modelují podmíněnou pravděpodobnost nějakého targetu, pokud máme data
+		- $p(t\mid x)$
+	- generativní modely generují sdruženou pravděpodobnost
+		- $p(t,x)=p(x\mid t)p(t)$
+		- tedy jsou teoreticky silnější než ty diskriminativní
+	- teoretický příklad
+		- máme dva clustery trénovacích dat, jeden cluster odpovídá jedné třídě, druhý druhé
+		- co nám o řádku testovacích dat, který je úplně mimo clustery řekly modely?
+		- diskriminativní model nám trénovací data lineárně separuje – tedy i pro tento řádek umí určit třídu, kam patří (pokud není přímo na rozhraní)
+		- generativní model by nám řekl, že je ten řádek úplně mimo a nepatří ani do jedné třídy
+	- ale když je dost dat, tak se v praxi ukazuje, že diskriminativní modely jsou vždycky lepší než generativní
+	- pozor, i „generativní AI“ dneska obvykle používá diskriminativní modely
 
 ## 8. Correlation, Model Combination
 
