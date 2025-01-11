@@ -557,17 +557,95 @@ tento dokument je zveřejněn pod licencí [CC BY-SA]([https://creativecommons.o
 ## 9. Decision Trees, Random Forests
 
 - Medium: In a regression decision tree, state what values are kept in internal nodes, define the squared error criterion, and describe how a leaf is split during training (without discussing splitting constraints).
+	- v každém vnitřním vrcholu je uložena feature, podle které dělíme, a konkrétní hodnota, která určuje rozhraní
+	- každému vrcholu náleží podmnožina trénovacích dat
+	- pro dělení dat ve vrcholu $\mathcal T$ při regresi používáme squared error criterion (při klasifikaci se obvykle používá Gini index nebo entropy criterion)
+		- squared error criterion říká, jak homogenní je podmnožina trénovacích dat, která náleží vrcholu $\mathcal T$
+		- $c_\text{SE}(\mathcal T)=\sum_{i\in I_\mathcal T}(t_i-\hat t_{\mathcal T})^2$
+		- $I_\mathcal T$ jsou indexy řádků trénovacích dat, které náleží danému vrcholu
+		- $\hat t_\mathcal T$ je průměr targetů v daném vrcholu
+	- při dělení vrcholu (listu) chceme najít takovou dvojici (feature, dělicí hodnota), která nejvíc sníží celkovou hodnotu „kritéria“, tedy takovou, aby rozdíl $c_{\mathcal T_L}+c_{\mathcal T_R}-c_{\mathcal T}$ byl co nejmenší
+		- $c_\mathcal T$ … criterion současného vrcholu
+		- $c_{\mathcal T_L}$ … criterion nového levého syna
+		- $c_{\mathcal T_R}$ … criterion nového pravého syna
 - Medium: Explain the CART algorithm for constructing a decision tree. Explain the relationship between the loss function that is optimized during the decision tree construction and the splitting criterion that is during the node splitting.
+	- algoritmus CART (Classification and Regression Trees)
+		- trénovací data jsou uložena v listech (predikce listu odpovídá tomu, jaká data v něm jsou)
+		- začneme s jedním listem
+		- list můžeme rozdělit (stane se z něj vnitřní vrchol a pod něj připojíme dva nové listy)
+		- list dělíme tak, aby rozdíl $c_{\mathcal T_L}+c_{\mathcal T_R}-c_{\mathcal T}$ byl co nejmenší
+		- někdy stanovujeme omezení: maximální hloubku stromu, minimální počet dat v děleném listu (abychom nedělili zbytečně listy, co mají málo dat), maximální počet listů
+			- obvykle se listy dělí prohledáváním do hloubky
+			- pokud je stanoven maximální počet listů, je vhodnější je dělit ty s nejmenším rozdílem $c_{\mathcal T_L}+c_{\mathcal T_R}-c_{\mathcal T}$
+	- ztrátová funkce (loss ~~:.|:;~~)
+		- dosud nás vždycky zajímaly parametry, které minimalizují ztrátovou funkci
+		- tím, že minimalizujeme dělicí kritérium, minimalizujeme minimální dosažitelnou hodnotu ztrátové funkce pro daný strom
 - Medium: In a $K$-class classification decision tree, state what values are kept in internal nodes, define the Gini index, and describe how a node is split during training (without discussing splitting constraints).
+	- ve vnitřním vrcholu je uložena dvojice (feature, hodnota), která určuje dělicí rozhraní
+	- Gini index / Gini impurity
+		- $c_\text{Gini}(\mathcal T)=|I_\mathcal T|\sum_kp_\mathcal T(k)(1-p_\mathcal T(k))$
+		- jak často by byl náhodně vybraný prvek špatně klasifikován, kdyby byl klasifikován náhodně podle rozdělení $p_\mathcal T$
+			- $p_\mathcal T(k)$ … pravděpodobnost, že vybereme prvek ze třídy $k$
+			- $(1-p_\mathcal T(k))$ … pravděpodobnost, že mu přiřadíme jinou třídu než $k$
+	- při dělení vrcholu chceme najít takovou dvojici (feature, dělicí hodnota), aby rozdíl $c_{\mathcal T_L}+c_{\mathcal T_R}-c_{\mathcal T}$ byl co nejmenší
 - Medium: In a $K$-class classification decision tree, state what values are kept in internal nodes, define the entropy criterion, and describe how a node is split during training (without discussing splitting constraints).
+	- ve vnitřním vrcholu je uložena dvojice (feature, hodnota), která určuje dělicí rozhraní
+	- entropy criterion
+		- $c_\text{entropy}(\mathcal T)=|I_\mathcal T|\cdot H(p_\mathcal T)=-|I_\mathcal T|\sum_k p_\mathcal T(k)\log p_\mathcal T(k)$
+		- ze součtu vynecháme třídy s nulovou pravděpodobností, aby nám nerozbily logaritmus
+	- při dělení vrcholu chceme najít takovou dvojici (feature, dělicí hodnota), aby rozdíl $c_{\mathcal T_L}+c_{\mathcal T_R}-c_{\mathcal T}$ byl co nejmenší
 - Hard: For binary classification using decision trees, derive the Gini index from a squared error loss.
+	- označme $n(k)$ počet dat s targetem $k$ v daném listu
+	- nechť $p_\mathcal T=\frac1{|I_\mathcal T|}\sum_{i\in I_\mathcal T} t_i=\frac{n(1)}{n(0)+n(1)}$
+	- uvažujme ztrátovou funkci součtu čtverců: $L(p)=\sum_{i\in I_\mathcal T}(p-t_i)^2$
+		- $L'(p)=\sum_i 2(p-t_i)$
+		- nastavme $L'(p)=0$, abychom našli minimum
+		- $\sum_{i\in\mathcal T} 2(p-t_i)=0$
+		- $|I_\mathcal T|p=\sum_{i\in I_\mathcal T}t_i$
+		- tedy $p=p_\mathcal T$
+	- proto $L(p_\mathcal T)=\sum_{i\in I_\mathcal T}(p_\mathcal T-t_i)^2=n(0)(p_\mathcal T-0)^2+n(1)(p_\mathcal T-1)^2=$
+	- $=n(0)p_\mathcal T^2+n(1)(1-p_\mathcal T)^2=n(0)\frac{n(1)^2}{(n(0)+n(1))^2}+n(1)\frac{n(0)^2}{(n(0)+n(1))^2}=$
+	- $=\frac{(n(1)+n(0))n(0)n(1)}{(n(0)+n(1))^2}=(n(0)+n(1))\cdot\frac{n(1)}{n(0)+n(1)}\cdot \frac{n(0)}{n(0)+n(1)}=$
+	- $=|I_\mathcal T|\cdot p_\mathcal T(1-p_\mathcal T)$
 - Hard: For $K$-class classification using decision trees, derive the entropy criterion from a non-averaged NLL loss.
+	- označme $n(k)$ počet dat s targetem $k$ v daném listu
+	- označme $K$ množinu tříd přítomných v datech daného listu (pomůže nám nerozbít logaritmy nulovou pravděpodobností)
+	- $p_\mathcal T(k)=\frac{n(k)}{|I_\mathcal T|}$
+	- uvažujme non-averaged NLL loss
+		- $L(p)=\sum_{i\in I_\mathcal T}-\log p_{t_i}$
+		- pomocí metody Lagrangeových multiplikátorů zjistíme, že $p$ minimalizující loss splňuje $p_k=p_\mathcal T(k)$
+	- proto $L(p_\mathcal T)=\sum_{i\in I_\mathcal T}-\log p_{t_i}=-\sum_{k\in K} n(k)\log p_\mathcal T(k)=-\sum_{k\in K} {|I_\mathcal T|\over |I_\mathcal T|} n(k)\log p_\mathcal T(k)=$
+	- $=-|I_\mathcal T|\sum_k p_\mathcal T(k)\log p_\mathcal T(k)=|I_\mathcal T|\cdot H(p_\mathcal T)$
 - Medium: Describe how a random forest is trained (including bagging and a random subset of features) and how prediction is performed for regression and classification.
+	- trénování
+		- pro každý strom náhodně (s opakováním) vybereme sample trénovacích dat, tomu se říká bagging
+		- pro každý vrchol náhodně vybereme podmnožinu features, které při dělení bereme v úvahu
+	- predikce
+		- u regrese průměrujeme hodnoty jednotlivých stromů
+		- u klasifikace hlasujeme
 
 ## 10. Gradient Boosted Decision Trees
 
 - Easy: Explain the main differences between random forests and gradient-boosted decision trees.
+	- random forest trénuje stromy nezávisle
+	- v GBDT se stromy trénují sekvenčně, snažíme se postupně opravovat chyby předchozích stromů
 - Medium: Explain the intuition for second-order optimization using Newton's root-finding method or Taylor expansions.
+	- v algoritmech typu SGD se postupně posouváme směrem k místu, kde bude derivace chybové funkce nulová
+		- počítáme první derivaci (respektive vektor/matici prvních derivací, pro každou váhu jednu), proto se tomu říká metoda prvního řádu
+	- vlastně hledáme kořen derivace chybové funkce
+		- Newtonova metoda spočívá v tom, že hledáme-li kořen funkce $f$, můžeme ji pro konkrétní bod aproximovat její tečnou (pomocí $f'$) a najít, kde leží kořen tečny
+		- jsme-li v bodě $x$, pak bod $x'$, který bude blíže hledanému kořenu spočítáme jako $x'=x-\frac{f(x)}{f'(x)}$
+		- protože ale ve strojovém učení hledáme kořen derivace, budeme používat druhou derivaci
+			- $x'\leftarrow x-\frac{f'(x)}{f''(x)}$
+	- alternativně můžeme použít Taylorův rozvoj
+		- chybovou funkci aproximujeme pomocí Taylorova rozvoje
+		- $f(x+\varepsilon)\approx f(x)+\varepsilon f'(x)+\frac12\varepsilon^2 f''(x)+O(\varepsilon^3)$
+		- budeme hledat minimum této aproximace
+		- $0=\frac{\partial f(x+\varepsilon)}{\partial\varepsilon}\approx f'(x)+\varepsilon f''(x)$
+		- z toho nám vyjde $\varepsilon=\frac{f'(x)}{f''(x)}$
+		- tedy $x+\varepsilon=x-\frac{f'(x)}{f''(x)}$
+	- tyhle postupy používají druhou derivaci, proto se jim říká metody druhého řádu
+		- s druhou derivací bychom ale měli problém třeba u MLP, jelikož bychom museli počítat druhou derivaci pro každou **dvojici** vah
 - Hard: Write down the loss function that we optimize in gradient-boosted decision trees while constructing $t^\mathrm{}$ tree. Then, define $g_i$ and $h_i$ and show the value $w_\mathcal{T}$ of optimal prediction in node $\mathcal{T}$ and the criterion used during node splitting.
 - Medium: For a $K$-class classification, describe how to perform prediction with a gradient boosted decision tree trained for $T$ time steps (how the individual trees perform prediction and how are the $K \cdot T$ trees combined to produce the predicted categorical distribution).
 - Easy: What type of data are gradient boosted decision trees suitable for as opposed to multilayer perceptron? Explain the intuition why it is the case.
