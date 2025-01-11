@@ -472,12 +472,14 @@ tento dokument je zveřejněn pod licencí [CC BY-SA]([https://creativecommons.o
 	- gaussovský NB: k rozptylu přičteme $\alpha$
 		- v Scikit-learn se používá $10^{-9}$-násobek největšího rozptylu ze všech features
 	- bayesovský NB: k čitateli přičteme $\alpha\gt 0$, ke jmenovateli přičteme $2\alpha$
-		- tedy $p_{d,k}$ = (počet řádků ve třídě $k$ s nenulovou featurou $d$ + $\alpha$) / (počet řádků ve třídě $k$ + $2\alpha$)
+			- tedy $p_{d,k}$ = (počet řádků ve třídě $k$ s nenulovou featurou $d$ + $\alpha$) / (počet řádků ve třídě $k$ + $2\alpha$)
 - Easy: What is the difference between discriminative and (classical) generative models?
 	- diskriminativní modely modelují podmíněnou pravděpodobnost nějakého targetu, pokud máme data
 		- $p(t\mid x)$
+		- model se naučí decision boundary
 	- generativní modely generují sdruženou pravděpodobnost
 		- $p(t,x)=p(x\mid t)p(t)$
+		- model se naučí pravděpodobnostní distribuci dat
 		- tedy jsou teoreticky silnější než ty diskriminativní
 	- teoretický příklad
 		- máme dva clustery trénovacích dat, jeden cluster odpovídá jedné třídě, druhý druhé
@@ -490,14 +492,67 @@ tento dokument je zveřejněn pod licencí [CC BY-SA]([https://creativecommons.o
 ## 8. Correlation, Model Combination
 
 - Medium: Prove that independent discrete random variables are uncorrelated.
+	- kovariance: $\text{cov}(X,Y)=\mathbb E[(X-\mathbb EX)(Y-\mathbb EY)]$
+	- $X,Y$ jsou nekorelované, pokud $\text{cov}(X,Y)=0$
+	- mějme $X,Y$ nezávislé náhodné veličiny
+	- pak $\text{cov}(X,Y)=\mathbb E((X-\mathbb EX)(Y-\mathbb EY))=\sum_{x,y} P(x,y)(x-\mathbb EX)(y-\mathbb EY)$
+	- $=\sum_{x,y} P(x)(x-\mathbb EX)P(y)(y-\mathbb EY)=(\sum_xP(x)(x-\mathbb EX))(\sum_y P(y)(y-\mathbb EY))$
+	- $=\mathbb E[X-\mathbb EX]\cdot\mathbb E[Y-\mathbb EY]=0$
 - Medium: Write down the definition of covariance and Pearson correlation coefficient $\rho$, including its range.
+	- $\text{cov}(X,Y)=\mathbb E[(X-\mathbb EX)(Y-\mathbb EY)]$
+	- $\rho(X,Y)=\frac{\text{cov}(X,Y)}{\sqrt{\text{var}(X)}\sqrt{\text{var}(Y)}}=\frac{\text{cov}(X,Y)}{\sigma_X\cdot\sigma_Y}$
+	- $\forall X,Y:\rho(X,Y)\in[-1,1]$
 - Medium: Explain how Spearman's rank correlation coefficient and Kendall's rank correlation coefficient are computed (there is no need to describe the Pearson correlation coefficient).
+	- $\rho$ nefunguje dobře, pokud chceme počítat nelineární korelaci
+	- Spearmanův koeficient pořadové korelace
+		- počítá se jako $\rho$ na pořadí dat
+		- pořadí (rank) určíme tak, že hodnoty (dvojice $(x,y)$) seřadíme vzestupně (podle dané souřadnice) a vezmeme jejich indexy
+		- značí se také $\rho$
+	- Kendallův koeficient pořadové korelace
+		- data jsou tvořena dvojicemi $(x,y)$
+		- libovolné dvě dvojice vybrané z dat můžou být buď konkordantní (ve správném pořadí, např. pokud je $x_1\gt x_2$, pak i $y_1\gt y_2$) nebo diskordantní (ve špatném pořadí, např. $x_1\gt x_2$, ale $y_1\lt y_2$)
+		- Kendallův koeficient $\tau$ získáme jako rozdíl mezi pravděpodobností, že jsou vybrané dvojice konkordantní, a pravděpodobností, že jsou vybrané dvojice diskordantní
+		- tedy platí $$\begin{aligned}\tau&=\frac{|\{\mathrm{pairs}~i ≠ j: x_j > x_i, y_j > y_i\}| - |\{\mathrm{pairs}~i ≠ j: x_j > x_i, y_j < y_i\}|}{\binom{n}{2}} \\&= \frac{∑_{i < j} \text{sign}(x_j - x_i)\cdot\text{sign}(y_j - y_i)}{\binom{n}{2}}\end{aligned}$$
 - Easy: Describe setups where a correlation coefficient might be a good evaluation metric.
+	- chceme model používat k seřazení (rankování) dokumentů
+		- uživatel zadá dotaz, my mu vrátíme výsledky v nějakém pořadí
+		- pro daný dotaz víme, jaké by pořadí mělo být
+	- chceme vyhodnotit kvalitu embeddingů
+		- z psycholingvistických experimentů máme nějaká skóre pro dvojice slov/vět
+		- model se naučil embeddingy, pro dvojice embeddingů můžeme spočítat jejich vzdálenost
 - Easy: Describe under what circumstance correlation can be used to assess the validity of evaluation metrics.
+	- někdy není jasné, jak vyhodnocovat výkon modelu
+	- typicky u úloh, kde hraje roli subjektivní hodnocení daného člověka, např. u strojového překladu nebo korekce gramatických chyb
+	- snažíme se, aby uměle nastavená metrika korelovala s lidským hodnocením
 - Medium: Define Cohen's $\kappa$ and explain what it is used for when preparing data for machine learning.
+	- mezianotátorská shoda u klasifikačních úloh
+	- $\kappa=\frac{p_O-p_E}{1-p_E}$
+		- $p_O$ … pozorovaná shoda
+		- $p_E$ … shoda, kdyby byla anotace náhodná
 - Easy: Assuming you have collected data for classification by letting people annotate data instances. How do you estimate a reasonable range for classifier performance?
+	- chtěli bychom, aby byl natrénovaný model lepší než triviální klasifikátor, který přiřadí všem datům největší třídu nebo bude používat nějaká jednoduchá pravidla
+	- očekáváme, že výkon modelu nebude lepší než mezianotátorská shoda
+		- pokud se něco takového stane, asi overfitujeme
 - Hard: Considering an averaging ensemble of $M$ models, prove the relation between the average mean squared error of the ensemble and the average error of the individual models, assuming the model errors have zero means and are uncorrelated. Use a formula to explain what uncorrelated errors mean in this context.
+	- chybu $i$-tého modelu v ansámblu pro konkrétní řádek $x$ označíme $\varepsilon_i(x)$
+		- tedy model pro dvojici $(x,t)$ predikuje $y_i(x)=t+\varepsilon_i(x)$
+	- pak MSE $i$-tého modelu bude $\mathbb E[\varepsilon^2_i(x)]$
+	- když používáme „averaging ensemble“, tak celková chyba pro $x$ bude $\frac1M\sum_i\varepsilon_i(x)$
+	- MSE ansámblu tedy bude $\mathbb E[(\frac1M\sum_i\varepsilon_i(x))^2]$
+	- $\mathbb E[(\frac1M\sum_i\varepsilon_i(x))^2]=\mathbb E[\frac1{M^2}\sum_{i,j}\varepsilon_i(x)\varepsilon_j(x)]=\frac1{M^2}\sum_{i,j}\mathbb E[\varepsilon_i(x)\varepsilon_j(x)]$
+		- první rovnost je přímočará, druhou mocninu součtu přepíšeme na roznásobení jednotlivých členů „každý s každým“
+		- druhá rovnost podle linearity střední hodnoty
+	- pro $i\neq j$ platí $\mathbb E[\varepsilon_i(x)\varepsilon_j(x)]=0$
+		- předpokládáme totiž, že jsou chyby nekorelované, tak se střední hodnota jejich součinu rovná součinu středních hodnot
+		- také předpokládáme, že střední hodnota chyb je nulová
+	- proto $\frac1{M^2}\sum_{i,j}\mathbb E[\varepsilon_i(x)\varepsilon_j(x)]=\frac1{M^2}\sum_{i}\mathbb E[\varepsilon_i^2(x)]$
+	- tedy se MSE ansámblu rovná $1\over M$-násobku průměru MSE jednotlivých modelů
 - Medium: Explain knowledge distillation: what it is used for, describe how it is done. What is the loss function? How does it differ from standard training?
+	- ansámbl modelů může být příliš pomalý nebo velký
+	- proto na základě tohoto ansámblu (učitelského modelu) natrénujeme menší/rychlejší studentský model, který ho bude napodobovat
+	- studentský model budeme trénovat tak, že mu místo dvojic $(x,t)$ budeme předhazovat dvojice $(x,p)$, kde $p$ je pravděpodobnostní rozdělení tříd, které pro hodnotu $x$ vrací učitelský model
+		- dokonce můžeme použít data, k nimž nejsou dostupné anotace (targety)
+		- jako loss funkci používáme $H(p_\text{student}(y\mid x;w),p_\text{teacher}(y\mid x;w))$
 
 ## 9. Decision Trees, Random Forests
 
