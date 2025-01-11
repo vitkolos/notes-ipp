@@ -647,9 +647,32 @@ tento dokument je zveřejněn pod licencí [CC BY-SA]([https://creativecommons.o
 	- tyhle postupy používají druhou derivaci, proto se jim říká metody druhého řádu
 		- s druhou derivací bychom ale měli problém třeba u MLP, jelikož bychom museli počítat druhou derivaci pro každou **dvojici** vah
 - Hard: Write down the loss function that we optimize in gradient-boosted decision trees while constructing $t^\mathrm{}$ tree. Then, define $g_i$ and $h_i$ and show the value $w_\mathcal{T}$ of optimal prediction in node $\mathcal{T}$ and the criterion used during node splitting.
-	- 
+	- loss pro strom $t$: $E^{(t)}(w_t;w_{1..{t-1}})=\sum_i[\ell(t_i,y^{(t-1)}(x_i;w_{1..t-1})+y_t(x_i;w_t))]+\frac12\lambda\|w_t\|^2$
+		- kde $\ell$ je loss pro jeden řádek dat, tedy $\ell(t_i,y(x_i;w))=(t_i-y(x_i;w))^2$ pro regresi
+		- $w=(w_1,\dots,w_T)$, kde $w_t$ jsou parametry stromu $t$
+		- $\lambda$ je síla $L^2$ regularizace
+	- zjednodušeně zapíšeme loss jako $E^{(t)}(w_t;w_{1..{t-1}})=\sum_i[\ell(t_i,y^{(t-1)}(x_i)+y_t(x_i))]+\frac12\lambda\|w_t\|^2$
+	- definujme
+		- $g_i=\frac{\partial\ell(t_i,y^{(t-1)}(x_i))}{\partial y^{(t-1)}(x_i)}$
+		- $h_i=\frac{\partial^2\ell(t_i,y^{(t-1)}(x_i))}{\partial y^{(t-1)}(x_i)^2}$
+	- pak můžeme loss aproximovat jako $E^{(t)}(w_t;w_{1..{t-1}})\approx\sum_i[\ell(t_i,y^{(t-1)}(x_i))+g_iy_t(x_i)+\frac12h_iy_t^2(x_i)]+\frac12\lambda\|w_t\|^2$
+	- optimální váha pro vrchol $\mathcal T$ bude $w_\mathcal T^*=-\frac{\sum_{i\in I_\mathcal T} g_i}{\lambda + \sum_{i\in I_{\mathcal T}}h_i}$
+	- dosazením $w^*$ do $E$ dostaneme $E^{(t)}(w^*)\approx-\frac12\sum_{\mathcal T}\frac{(\sum_{i\in I_\mathcal T} g_i)^2}{\lambda + \sum_{i\in I_\mathcal T} h_i}+\text{const}$
+		- to lze použít jako kritérium
 - Medium: For a $K$-class classification, describe how to perform prediction with a gradient boosted decision tree trained for $T$ time steps (how the individual trees perform prediction and how are the $K \cdot T$ trees combined to produce the predicted categorical distribution).
+	- v každém kroku $t$ trénujeme $K$ stromů $w_{t,k}$, každý predikuje jednu hodnotu lineární části zobecněného lineárního modelu
+		- každý strom predikuje logit pro konkrétní třídu (binární predikci)
+	- pak provedeme predikci pomocí softmaxu
+		- $\text{softmax}(y(x_i))=\text{softmax}(\sum_{t=1}^T y_{t,1}(x_i;w_{t,1}),\dots,\sum_{t=1}^T y_{t,K}(x_i;w_{t,K}))$
 - Easy: What type of data are gradient boosted decision trees suitable for as opposed to multilayer perceptron? Explain the intuition why it is the case.
+	- MLP
+		- s jednou/dvěma skrytými vrstvami
+		- hodí se pro data s mnoha dimenzemi (obrázky, řeč, text)
+		- jedna dimenze (feature) v takových datech nenese moc významu
+		- pokud je to možné, je vhodné použít předtrénovanou reprezentaci (např. embedding)
+	- gradient boosted decision trees
+		- fungují nejlépe pro data s méně dimenzemi
+		- tam, kde každá feature má svoji interpretaci
 
 ## 11. SVD, PCA, k-means
 
