@@ -647,6 +647,7 @@ tento dokument je zveřejněn pod licencí [CC BY-SA]([https://creativecommons.o
 	- tyhle postupy používají druhou derivaci, proto se jim říká metody druhého řádu
 		- s druhou derivací bychom ale měli problém třeba u MLP, jelikož bychom museli počítat druhou derivaci pro každou **dvojici** vah
 - Hard: Write down the loss function that we optimize in gradient-boosted decision trees while constructing $t^\mathrm{}$ tree. Then, define $g_i$ and $h_i$ and show the value $w_\mathcal{T}$ of optimal prediction in node $\mathcal{T}$ and the criterion used during node splitting.
+	- 
 - Medium: For a $K$-class classification, describe how to perform prediction with a gradient boosted decision tree trained for $T$ time steps (how the individual trees perform prediction and how are the $K \cdot T$ trees combined to produce the predicted categorical distribution).
 - Easy: What type of data are gradient boosted decision trees suitable for as opposed to multilayer perceptron? Explain the intuition why it is the case.
 
