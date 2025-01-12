@@ -426,7 +426,7 @@ tento dokument je zveřejněn pod licencí [CC BY-SA]([https://creativecommons.o
 	- klasifikace
 		- pro uniformní váhy můžeme hlasovat (nejčastější třída vyhrává, remízy rozhodujeme náhodně)
 		- jinak uvažujeme one-hot kódování $t_i$ opět můžeme použít predikci $t=\sum_i\frac{w_i}{\sum_j w_j}\cdot t_i$ (zvolíme třídu s největší predikovanou pravděpodobností)
-	- $L_p$ norma: $\|x\|_p=\sqrt[p]{\sum_i|x_i|^p}$
+	- $L^p$ norma: $\|x\|_p=\sqrt[p]{\sum_i|x_i|^p}$
 		- obvykle se používá $p\in\set{1,2,3,\infty}$
 		- vzdálenost $x$ a $y$ lze určit jako $\|x-y\|_p$
 	- weighting
@@ -677,12 +677,82 @@ tento dokument je zveřejněn pod licencí [CC BY-SA]([https://creativecommons.o
 ## 11. SVD, PCA, k-means
 
 - Medium: Formulate SVD decomposition of matrix $\boldsymbol X$, describe properties of individual parts of the decomposition. Explain what the reduced version of SVD is.
+	- mějme matici $X\in\mathbb R^{m\times n}$ s hodností $r$
+	- $X=U\Sigma V^T$
+		- $U\in\mathbb R^{m\times m}$ ortonormální
+		- $\Sigma\in\mathbb R^{m\times n}$ diagonální matice s nezápornými hodnotami (tzv. singulárními hodnotami) zvolenými tak, aby byly uspořádány sestupně
+		- $V\in\mathbb R^{n\times n}$ ortonormální
+	- možný pohled na dekompozici
+		- $X=\sigma_1u_1v_1^T+\sigma_2u_2v_2^T+\dots+\sigma_ru_rv_r^T$
+		- $\sigma_i$ … $i$-té singulární číslo
+		- $u_i$ … $i$-tý sloupec matice $U$
+		- $v_i^T$ … $i$-tý řádek matice $V^T$
+	- redukovaná verze SVD
+		- $\sigma$ označme vektor singulárních hodnot
+		- pro matici $X$ s hodností $r$ bude v tom vektoru nejvýše $r$ nenulových hodnot
+		- tedy matici $\Sigma$ můžeme redukovat na rozměry $r\times r$, podobně $U$ můžeme redukovat na $m\times r$ a $V^T$ na $r\times n$, touto kompresí nepřijdeme o žádné informace
+	- dokonce můžeme $\Sigma$ zmenšit ještě víc
+		- zvolíme $k\lt r$
+		- necháme jenom $k$ největších singulárních hodnot, všechny ostatní zahodíme
+		- tím už se nějaké informace ztratí
+		- budeme mít aproximaci původní matice $X$, ta aproximace bude mít rank $k$
 - Medium: Formulate the Eckart-Young theorem. Provide an interpretation of what the theorem says and why it is useful.
+	- věta
+		- mějme matici $X$ a její SVD aproximaci $X_k$ (pomocí $k$ největších singulárních čísel)
+		- pak $X_k$ je nejlepší aproximace s hodností $k$ vzhledem k Frobeniově normě (neexistuje žádná jiná matice s hodností $k$, která by byla „blíže“ $X$)
+	- formálně
+		- mějme $X\in\mathbb R^{m\times n}$ a její SVD aproximaci $X_k\in\mathbb R^{m\times n}$ s rankem $k$
+		- pro každou $B\in\mathbb R^{m\times n}$ s rankem $k$ platí: $\|X-X_k\|_F\leq\|X-B\|_F$
+		- přičemž $\|X\|_F=\sqrt{\sum_i\sum_j x_{ij}^2}$
+			- v podstatě $L^2$ norma, když z matice uděláme jeden dlouhý vektor hodnot
+	- proč to funguje?
+		- násobením ortonormální maticí se norma nemění, tedy Frobeniova norma $X$ je prostě $L^2$ norma diagonály $\Sigma$
+		- když odebíráme nejmenší hodnoty, norma se moc nemění
+	- k čemu se to hodí?
+		- aproximaci pomocí SVD můžeme použít k tomu, abychom data s velkým množstvím dimenzí reprezentovali pomocí méně dimenzí
+		- právě jsme ukázali, že tahle aproximace bude dost blízko realitě
+		- typický use-case je u doporučovacího systému
+			- pokud budeme mít matici, která bude zachycovat, kteří uživatelé viděli který obsah, bude hodně velká a hodně řídká
+			- pomocí SVD ji můžeme vhodně aproximovat jako součin menších matic
+				- jednak se sníží šum (tím, že zahodíme malé singulární hodnoty)
+				- jednak získáme uživatelské vlastní vektory a obsahové vlastní vektory, což lze použít k hledání podobností
 - Medium: Explain how to compute the PCA of dimension $M$ using the SVD decomposition of a data matrix $\boldsymbol X$, and why it works.
+	- jak na to?
+		- spočteme SVD matice $(X-\bar x)$
+			- kde $\bar x$ je průměr řádků matice (vektor průměrných hodnot jednotlivých features)
+		- necháme prvních $M$ řádků $V^T$, ostatní zahodíme (takže $V$ bude mít $M$ sloupců)
+		- pokud chceme získat hodnoty nových $M$ komponent, tak stačí vynásobit $XV$, tak dostaneme matici $N\times M$
+	- proč to funguje?
+		- mějme kovarianční matici $\text{cov}(X)=\frac 1N(X-\bar x)^T(X-\bar x)$
+			- poznámka: v obvyklé definici kovarianční matice se transponuje druhý činitel, protože tam každé náhodné proměnné náleží jeden řádek (my máme features ve sloupcích)
+		- $\|X\|_F=\sqrt{\sum_i\sum_j x_{ij}^2}=\sqrt{\text{trace}(X^TX)}$ (stopa je součet diagonály)
+		- $\|X-\bar x\|_F^2=\text{trace}(\underbrace{(X-\bar x)^T(X-\bar x)}_{N\cdot\text{cov}(X)})$, což se rovná $N$-násobku součtu rozptylů jednotlivých features, jelikož na diagonále kovarianční matice jsou rozptyly
+			- tedy SVD aproximace $(X-\bar x)$ zachovává většinu rozptylu v datech
+		- hlavní komponenty (principal components) matice $X$ odpovídají vlastním vektorům kovarianční matice, ty lze získat pomocí SVD matice $(X-\bar x)$, konkrétně jde o matici $V$
+			- poznámka: kovarianční matice má navíc koeficient $\frac1N$, ten sice škáluje vlastní hodnoty, ale vlastní vektory nemění
 - Hard: Given a data matrix $\boldsymbol X$, write down the algorithm for computing the PCA of dimension $M$ using the power iteration algorithm.
+	- na vstupu máme matici $X$ a požadovaný počet dimenzí (komponent) $M$
+		- budeme hledat vlastní vektory kovarianční matice
+	- spočítáme $\bar x$
+	- spočítáme kovarianční matici $S\leftarrow\frac1N(X-\bar x)^T(X-\bar x)$
+	- pro každou komponentu $i\in[M]$ opakujeme:
+		- náhodně inicializujeme $v_i$
+		- několikrát opakujeme (dokud to nezkonverguje nebo pro fixní počet iterací):
+			- $v_i\leftarrow Sv_i$
+			- $\lambda_i\leftarrow\|v_i\|$
+			- $v_i\leftarrow v_i/\lambda_i$
+		- $S\leftarrow S-\lambda_iv_iv_i^T$
+	- vrátíme $XV$, kde sloupce $V$ odpovídají $v_1,\dots,v_M$
 - Easy: List at least two applications of SVD or PCA.
+	- aproximace matic
+	- snížení šumu v datech
+	- redukce dimenzí dat, extrakce features
+	- vizualizace dat
+	- praktické použití: doporučovací systémy
 - Hard: Describe the $K$-means algorithm, including the `kmeans++` initialization. What is it used for? What is the loss function that the algorithm optimizes? What can you say about the algorithm convergence?
+	- 
 - Medium: Name at least two clustering algorithms. What is their main principle? How do they differ?
+	- 
 
 ## 12. Statistical Hypothesis Testing, Model Comparison
 
