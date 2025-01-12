@@ -31,5 +31,5 @@
 ### 2024/2025
 
 - [Databázové systémy (zkouška)](semestr5/databazove-systemy/zkouska.md)
-- [Úvod do strojového učení (zkouška), rozpracováno](semestr5/uvod-do-strojoveho-uceni/zkouska.md)
+- [Úvod do strojového učení (zkouška)](semestr5/uvod-do-strojoveho-uceni/zkouska.md)
 - [Probability and Statistics 2 (exam), work in progress](semestr5/probability-statistics2/exam.md)
