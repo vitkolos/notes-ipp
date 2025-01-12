@@ -388,7 +388,7 @@
 		- vygenerujeme hodně multinomických rozdělení – díky nim najdeme kritický obor $W$ (pomocí grafu $\chi^2$)
 		- pokud $\chi^2$ pro naši konkrétní kostku náleží $W$, prohlásíme, že kostka není spravedlivá
 - Jednovýběrový vs. dvouvýběrový test vs. párový test
-	- jednovýběrový test … klasický intervalových odhad
+	- jednovýběrový test … klasický intervalový odhad
 		- např. $H_0$ … $\mu=5$
 	- dvouvýběrový test … máme dvě sady dat, porovnáváme parametry
 		- např. $H_0$ … $\mu_X=\mu_Y$

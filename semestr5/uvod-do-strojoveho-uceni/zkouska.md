@@ -789,18 +789,117 @@ tento dokument je zveřejněn pod licencí [CC BY-SA]([https://creativecommons.o
 ## 12. Statistical Hypothesis Testing, Model Comparison
 
 - Medium: Considering statistical hypothesis testing, define type I errors and type II errors (in terms of the null hypothesis). Finally, define what a significance level is.
+	- nulová hypotéza $H_0$ … defaultní, konzervativní model
+	- alternativní hypotéza $H_1$ … alternativní model, „zajímavost“
+	- nulovou hypotézu buď zamítneme, nebo nezamítneme
+	- chyba 1. druhu – chybné zamítnutí, „trapas“
+		- zamítli jsme $H_0$, ale platí
+	- chyba 2. druhu – chybné přijetí, „promarněná příležitost“
+		- nezamítli jsme $H_0$, ale neplatí
+	- hladina významnosti $\alpha$ … pravděpodobnost chyby 1. druhu
+		- typicky se volí $\alpha=0.05$
 - Medium: Explain what a test statistic and a p-value are.
+	- testová statistika (testovací kritérium) je funkce naměřených dat – typicky je to jedna hodnota, třeba průměr
+		- s její pomocí formulujeme $H_0$ a $H_1$
+		- musíme být schopni určit distribuci statistiky, aby bylo jasné, zda můžeme $H_0$ zamítnout nebo ne
+	- $p$-hodnota … pravděpodobnost, že za předpokladu platnosti $H_0$ získáme hodnotu statistiky, která bude aspoň tak extrémní jako ta, kterou jsme naměřili
+		- pokud $p\leq\alpha$, pak zamítáme $H_0$ a výsledek je statisticky významný
 - Medium: Write down the steps of a statistical hypothesis test, including a definition of a p-value.
+	1. formulujeme nulovou hypotézu $H_0$ a případně alternativní hypotézu $H_1$
+	2. vybereme testovou statistiku (testovací kritérium)
+	3. spočítáme pozorovanou hodnotu testové statistiky (pro naměřená data)
+	4. spočítáme $p$-hodnotu, což je pravděpodobnost, že hodnota statistiky bude aspoň tak extrémní jako pozorovaná hodnota, pokud platí $H_0$
+	5. zamítneme $H_0$ (ve prospěch $H_1$), pokud je $p$-hodnota menší než zvolená hladina významnosti $\alpha$ (obvykle se používá $\alpha=5\,\%$)
 - Medium: Explain the differences between a one-sample test, a two-sample test, and a paired test.
+	- jednovýběrový test – samplujeme z jedné distribuce
+		- klasický intervalový odhad, např. $H_0$ … $\mu=5$
+		- nebo můžeme zkoumat, zda data pocházejí z určité distribuce
+	- dvouvýběrový test – samplujeme nezávisle ze dvou distribucí
+		- máme dvě sady dat, porovnáváme parametry
+		- např. $H_0$ … $\mu_X=\mu_Y$
+	- párový test – samplujeme ze dvou distribucí, ale samply jsou spárované
+		- data jsou ve dvojicích, dvojice dat spolu nějak souvisí
+		- např. $H_0$ … $\mu_X=\mu_Y$
+		- uvažuju $R_i=Y_i-X_i$ (rozdíl dvojice), použiju jednovýběrový test
 - Medium: When considering the multiple comparison problem, define the family-wise error rate and prove the Bonferroni correction, which allows limiting the family-wise error rate by a given $\alpha$.
+	- family-wise error rate je pravděpodobnost alespoň jedné chyby 1. druhu při několikanásobném testování
+		- $\text{FWER}=P(\bigcup_i(p_i\leq\alpha))$
+	- Bonferroniho korekce zamítá nulovou hypotézu testu v rodině velikosti $m$, pokud $p_i\leq\frac\alpha m$
+		- předpokládejme použití korekce
+		- pak $\text{FWER}=P(\bigcup_i(p_i\leq\frac\alpha m))\leq\sum_i P(p_i\leq\frac\alpha m)=m\cdot\frac\alpha m=\alpha$
+			- využili jsme Booleovu nerovnost $P(\bigcup_i A_i)\leq\sum_i P(A_i)$
 - Medium: For a trained model and a given test set with $N$ examples and metric $E$, write how to estimate 95\% confidence intervals using bootstrap resampling.
+	- na vstupu máme metriku $E$, počet resamplingů $R$, testovací data, targety a predikce modelu
+	- $R$-krát opakujeme
+		- náhodně nasamplujeme $N$ řádků z testovacích dat – s opakováním
+		- určíme výkon modelu pro tento sample (pomocí metriky $E$)
+	- tak jsme získali $R$ hodnot metriky
+		- pomocí těchto hodnot najdeme 2,5-tý precentil a 97,5-tý percentil (takže $Q_{0.025}$ a $Q_{0.975}$)
+		- tak můžeme určit 95\% konfidenční interval – metrika bude s 95\% pravděpodobností v intervalu $[Q_{0.025},Q_{0.975}]$
 - Medium: For two trained models and a given test set with $N$ examples and metric $E$, explain how to perform a paired bootstrap test that the first model is better than the other.
+	- na vstupu máme metriku $E$, počet resamplingů $R$, testovací data, targety a predikce obou modelů
+	- $R$-krát opakujeme
+		- náhodně nasamplujeme $N$ řádků z testovacích dat – s opakováním
+		- pomocí metriky $E$ určíme výkon obou modelů, uložíme si jejich rozdíl
+	- tak jsme získali $R$ rozdílů výkonů modelů
+		- vrátíme poměr, kolik rozdílů je menších nebo rovno nule
+		- pozor, tohle není $p$-hodnota, protože jsme neuvažovali distribuci statistiky za předpokladu platnosti $H_0$
 - Medium: For two trained models and a given test set with $N$ examples and metric $E$, explain how to perform a random permutation test that the first model is better than the other with a significance level $\alpha$.
+	- na vstupu máme metriku $E$, počet resamplingů $R$, testovací data, targety a predikce obou modelů
+	- pomocí metriky $E$ spočteme výkon prvního modelu
+	- $R$-krát opakujeme
+		- pro každý řádek uniformně náhodně vybereme model, jehož predikci použijeme
+		- pomocí metriky $E$ určíme výkon pro tyto predikce
+	- tak jsme získali $R$ hodnot metriky (výkonů)
+		- $p$-hodnota odpovídá poměru hodnot, které jsou větší nebo stejné jako výkon prvního modelu
+		- pokud je $p\leq\alpha$, tak zamítáme $H_0$ (první model je nejvýše tak dobrý jako ten druhý) ve prospěch $H_1$ (první model je lepší než ten druhý)
+	- poznámka: nenašli jsme přesně $p$, to bychom museli uvažovat všechny způsoby volby modelu (je jich $2^N$, my jsme ale výkon počítali jenom pro $R$, tedy se jedná o aproximaci)
 
 ## 13. Machine Learning Ethics, Final Summary
 
 - Medium: Explain the difference between deontological and utilitarian ethics. List examples of how these theoretical frameworks can be applied in machine learning ethics.
+	- deontologická etika
+		- máme nějaká pravidla/principy, těch se držíme
+		- zaměřuje se na povahu akcí spíš než na jejich důsledky
+		- řídíme se definovanými pravidly a principy (např. Všeobecná deklarace lidských práv, Desatero přikázání, Kantův kategorický imperativ)
+		- zásady v AI: prospěšnost, neškodlivost, soukromí, nediskriminace, autonomie + informovaný souhlas
+		- výhody: jasná pravidla, stabilita, respekt práv
+		- nevýhody: rigidita, možný konflikt dvou pravidel, zanedbání důsledků
+		- kritika: když jsi zlý, vždycky můžeš tvrdit, že vycházíš z dobrých principů, nehledě na důsledky
+	- konsekvencialistická etika / utilitarianismus
+		- dobré chování maximalizuje dobré následky (ale může být problém měřit, co jsou dobré následky)
+		- maximalizujeme celkové štěstí / well-being, minimalizujeme újmu
+		- zaměřuje se na důsledky akcí
+		- dobrá rozhodnutí = rozhodnutí, která maximalizují celkový dopad
+		- výhody: flexibilita, kvantifikovatelnost
+		- nevýhody: hrozí, že budeme ignorovat práva jednotlivců, je těžké definovat účelovou funkci
 - Easy: List at least two potential ethical problems related to data collection.
+	- reprezentační bias – data nejsou reprezentativní, chybí tam menšiny apod.
+		- rozpoznávání obličejů
+	- data z internetu nepopisují svět takový, jaký je
+	- historický bias – nerovnosti z minulosti jsou v datasetech zachovány
+	- problémy s autorským právem – u generativních modelů
+	- problematické způsoby kolekce dat
+		- crowdsourcing
+			- lidé jsou najati, aby dělali práci, kterou má dělat model
+			- špatně placená monotónní práce, může způsobovat psychologickou újmu (typicky v případě posuzování obrázků ze sociálních sítí)
+			- gig economy – přivýdělek se stane hlavním úvazkem bez pracovněprávní ochrany
+		- sběr uživatelských dat
+			- trénovací data jsou sbírána od uživatelů, kteří nemají jinou možnost než data poskytovat, aby mohli službu používat
+			- netransparentní transakce – uživatel získá službu, platí daty, není jasné, jakou hodnotu data mají
 - Easy: List at least two potential ethical problems that can originate in model evaluation.
+	- metriky nezohledňují všechno, co bychom potřebovali (třeba bychom chtěli minimalizovat gender bias)
+	- v HR nás zajímá jenom accuracy – může se stát, že model systematicky znevýhodňuje nějaké uchazeče
+	- používáme proxy metriky, abychom optimalizovali něco jiného
+		- musíme metriky vhodně zvolit
+		- čas sledování videa nemusí být dobrou metrikou pro jeho kvalitu – favorizuje videa s extrémními názory
 - Easy: List at least one example of an ethical problem that can originate in model design or model development.
+	- diskretizace výstupů zesiluje bias (stereotypy) – pokud se rozhodujeme mezi dvěma možnostmi a jedna je pravděpodobnější, vždycky použijeme tu pravděpodobnější
+	- větší modely snadno overfittujou, dají se z nich vytáhnout soukromé údaje, které byly obsaženy v trénovacích datech
+	- destilace modelů také zesiluje biasy (stereotypy)
+	- modely se můžou naučit smazané features (etnická příslušnost, gender, …) z jiných features (jméno, škola, …)
 - Easy: Under what circumstances could train-test mismatch be an ethical problem?
+	- nesoulad mezi trénovacími/testovacími daty a reálným světem je typicky problematický ze dvou důvodů
+		1. pokud jsou menšiny v datech nedostatečně reprezentovány, hrozí jejich diskriminace při reálném použití
+		2. pokud predikcím modelu dáváme velkou váhu, používáme je v kritických situacích apod. (jinak by nám tolik nevadilo, že model nefunguje dobře)
+	- příklad: jazyk minorit je častěji klasifikován jako hate speech / NSFW
