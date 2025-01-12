@@ -750,9 +750,41 @@ tento dokument je zveřejněn pod licencí [CC BY-SA]([https://creativecommons.o
 	- vizualizace dat
 	- praktické použití: doporučovací systémy
 - Hard: Describe the $K$-means algorithm, including the `kmeans++` initialization. What is it used for? What is the loss function that the algorithm optimizes? What can you say about the algorithm convergence?
-	- 
+	- algoritmus
+		- na vstupu máme body $x_1,\dots,x_N$, počet clusterů $K$
+		- inicializujeme středy clusterů $\mu_1,\dots,\mu_K$
+			- buď náhodně (ze vstupních bodů)
+			- nebo pomocí `kmeans++`
+				- první střed se vybere náhodně (ze vstupních bodů)
+				- každý další střed vybereme z nepoužitých bodů tak, že pravděpodobnost výběru každého bodu úměrně roste s druhou mocninou vzdálenosti jeho nejbližšího středu (clusteru)
+		- opakujeme, dokud to nezkonverguje nebo nám nedojde trpělivost
+			- body přiřadíme clusterům (každý bod přiřadíme tomu clusteru, k jehož středu má nejblíž)
+			- aktualizujeme středy clusterů (vždy zprůměrujeme body, které jsme danému clusteru přiřadili)
+	- použití
+		- $K$-means se používá ke clusteringu, tedy k dělení dat do skupin, clusterů
+		- je to technika učení bez učitele (unsupervised), neznáme targety
+		- konkrétní příklady: seskupení pixelů podobné barvy, určení skupin zákazníků
+	- ztrátová funkce (loss ~~:.|:;~~)
+		- $J=\sum_{i=1}^N\sum_{k=1}^Kz_{i,k}\|x_i-\mu_k\|^2$
+		- kde $z_{i,k}$ je indikátor přiřazení bodu $x_i$ do clusteru $k$
+	- konvergence
+		- aktualizace přiřazení bodů ke clusterům nezvyšuje loss
+		- aktualizace středů clusterů nezvyšuje loss
+		- takže $K$-means konverguje k lokálnímu optimu
 - Medium: Name at least two clustering algorithms. What is their main principle? How do they differ?
-	- 
+	- $K$-means
+		- hledání nejbližších bodů pomocí $L^2$ normy
+		- průměrování
+	- Gaussian mixture
+		- clustery modelujeme jako Gaussova rozdělení
+		- hledáme parametry rozdělení, které vygenerovaly clustery
+	- hierarchický clustering
+		- na začátku je každý cluster singleton (patří tam jeden bod)
+		- slučujeme nejpodobnější clustery, dokud nezískáme cílový počet clusterů
+		- dají se používat různé metriky podobnosti clusterů
+	- hustotní clustering
+		- najdeme oblasti, kde je hodně bodů u sebe (je tam vysoká hustota bodů)
+		- tyhle body sloučíme do jednoho clusteru
 
 ## 12. Statistical Hypothesis Testing, Model Comparison
 
