@@ -151,7 +151,7 @@ tento dokument je zveřejněn pod licencí [CC BY-SA]([https://creativecommons.o
 		- protože $H(\hat p)$ není parametrizováno $w$ → neovlivňuje polohu minima
 - Easy: Provide an intuitive justification for why cross-entropy is a good optimization objective in machine learning. What distributions do we compare in cross-entropy? Why is it good when the cross-entropy is low?
 	- pomocí cross-entropy porovnáváme distribuci opravdových targetů a distribuci predikcí modelu
-	- čím víc se distribuce liší (cross-entropy je větší), tím hůř model model predikuje
+	- čím víc se distribuce liší (cross-entropy je větší), tím hůř model predikuje
 	- cross-entropy odpovídá našemu překvapení – pokud jsou dvě distribuce hodně odlišné, jsme hodně překvapení
 	- cross-entropy taky podporuje confidence – nestačí, aby model dal správnému výsledku největší pravděpodobnost (třeba 51 %), měla by co nejvíc odpovídat rozdělení, které je v datech
 		- ale naopak pokud si na základě features nemůže být jistý klasifikací (šance je třeba 2 : 3), chceme, aby si klasifikací opravdu nebyl jistý a vrátil 60 %
@@ -261,7 +261,7 @@ tento dokument je zveřejněn pod licencí [CC BY-SA]([https://creativecommons.o
 						- $\nabla h \leftarrow (W^{(y)} \nabla y) \cdot 1_{h > 0}$
 						- $\nabla W^{(h)} \mathrel{+}= x_i\nabla h^T$
 						- $\nabla b^{(h)} \mathrel{+}= \nabla h$
-			- od vah a biasů odečteme $\alpha\over\mathbb |B|$-násobek odpovídajícího gradientu
+			- od vah a biasů odečteme $\alpha\over |\mathbb B|$-násobek odpovídajícího gradientu
 	- gradienty
 		- $\nabla W^{(y)}=\frac{1}{N}\sum_i h\nabla y_i^T$
 		- $\nabla b^{(y)}=\frac{1}{N}\sum_i \nabla y_i$
@@ -288,7 +288,7 @@ tento dokument je zveřejněn pod licencí [CC BY-SA]([https://creativecommons.o
 	- tedy při výpočtu gradientů můžeme postupovat grafem proti směru hran
 - Medium: Formulate the Universal approximation theorem and explain in words what it says about multi-layer perceptron.
 	- mějme $\varphi(x):\mathbb R\to\mathbb R$ nekonstantní omezenou neklesající spojitou funkci (ale lze to ukázat i pro ReLU)
-	- pak $\forall\epsilon\gt 0$ a pro libovolnou spojitou $f:[0,1]^D\to\mathbb R$ existují $H\in\mathbb N$, $v\in\mathbb R^H$, $b\in\mathbb R^H$ a $W\in\mathbb R^{D\times H}$ takové, že…
+	- pak $\forall\varepsilon\gt 0$ a pro libovolnou spojitou $f:[0,1]^D\to\mathbb R$ existují $H\in\mathbb N$, $v\in\mathbb R^H$, $b\in\mathbb R^H$ a $W\in\mathbb R^{D\times H}$ takové, že…
 		- označíme-li $F(x)=v^T\varphi(x^TW+b)$
 		- přičemž $\varphi$ se aplikuje po prvcích
 		- pak $\forall x\in[0,1]^D:|F(x)-f(x)|\lt\varepsilon$
