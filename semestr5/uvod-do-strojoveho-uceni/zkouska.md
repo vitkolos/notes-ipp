@@ -172,7 +172,9 @@ tento dokument je zveřejněn pod licencí [CC BY-SA]([https://creativecommons.o
 			- jako $E$ se používá NLL (s $L^2$ regularizací)
 			- výsledek se překvapivě podobá lineární regresi
 				- gradient je také $(y(x)-t)x$
-			- kdybychom chtěli derivovat NLL, hodí se trik, kdy jeden člen násobíme $t$ a druhý $1-t$, takže se vždy vybere ten správný
+	- ztrátová funkce (loss ~~:.|:;~~)
+		- $E(w)=\frac1N\sum_i-\log(p(C_{t_i}\mid x_i;w))$
+		- kde $p(C_{t_i}\mid x_i;w)=\sigma(x^Tw)^t(1-\sigma(x^Tw))^{1-t}$
 
 ## 4. Multiclass Logistic Regression, Multilayer Perceptron
 
@@ -350,9 +352,9 @@ tento dokument je zveřejněn pod licencí [CC BY-SA]([https://creativecommons.o
 	- obvykle nějakou třídu považujeme za negativní, tu budeme ignorovat
 	- postupně se díváme na každou z pozitivních tříd jako na binární klasifikaci
 		- např. pokud konkrétní řádek dat patří do dané třídy, ale predikovali jsme, že tam nepatří, je to false negative
-		- takhle pro každou třídu můžeme získat $TP,FP,TN,FN$
+		- takhle pro každou třídu můžeme získat $TP,FP,FN$
 	- micro-averaged $F_1$
-		- nejdřív všechny $TP$, $FP$, $TN$ a $FN$ sečteme dohromady
+		- nejdřív všechny $TP$, $FP$ a $FN$ sečteme dohromady
 		- pak spočítáme $F_1$
 		- takže velikost (frekvence) tříd hraje roli
 	- macro-averaged $F_1$
