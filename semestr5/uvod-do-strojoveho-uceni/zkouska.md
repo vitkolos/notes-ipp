@@ -343,7 +343,7 @@ tento dokument je zveřejněn pod licencí [CC BY-SA]([https://creativecommons.o
 		- predikce je negativní, realita také → true negative (TN)
 	- $\text{precision}=\frac{TP}{TP+FP}$
 	- $\text{recall}=\frac{TP}{TP+FN}$
-	- $F_i=\frac{TP + TP}{TP+FP+TP+FN}$
+	- $F_1=\frac{TP + TP}{TP+FP+TP+FN}$
 	- $F_\beta=\frac{TP+\beta^2\cdot TP}{TP+FP+\beta^2(TP+FN)}$
 - Medium: Explain the difference between micro-averaged and macro-averaged $F_1$ scores. List a few examples of when you would use them.
 	- děláme multiclass clasifikaci
