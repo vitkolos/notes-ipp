@@ -250,6 +250,7 @@ tento dokument je zveřejněn pod licencí [CC BY-SA]([https://creativecommons.o
 		- opakujeme, dokud to nezkonverguje nebo nám nedojde trpělivost
 			- samplujeme minibatch řádků s indexy $\mathbb B$
 			- gradienty vah a biasů nastavíme na nulu
+				- tedy ony to nejsou přímo gradienty, ale akumulační proměnné, nakonec obsahují $|\mathbb B|$-násobek gradientu
 			- $\forall i\in\mathbb B:$
 				- nejprve dopředný běh
 					- $h \leftarrow \max(0,x_i W^{(h)} + b^{(h)})$

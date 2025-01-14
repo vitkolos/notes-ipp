@@ -6,7 +6,7 @@
 	- docházka nebude
 	- cvičení bude většinu semestru předbíhat přednášku
 - zápočtové testy
-	- 8. 1. 2025 12:20 v učebnách SU1 a SU2
+	- 8\. 1. 2025 12:20 v učebnách SU1 a SU2
 	- první týden zkouškového období – opravný termín
 	- když domácí úkol vyřeším včas, tak dostanu zpětnou vazbu
 	- do SU1 můžeme většinou přijít volně, Rotunda je konfigurovaná stejně
@@ -16,16 +16,16 @@
 - zápočtové programy
 	- polovina listopadu – návrh tématu
 		- návrhy psát do Mattermostu jako Direct Messages pro dva příjemce @pavel.koupil a @bednarek
-	- 20. 12. podrobné zadání
+	- 20\. 12. podrobné zadání
 		- zadání psát jako markdown do project/docs
 		- implementace do project/src
 			- musíme to pravidelně commitovat tam
 		- použití knihoven je potřeba uvést v zadání
-	- 14. 2. technologické demo
+	- 14\. 2. technologické demo
 		- obsahuje knihovny a komponenty, které chceme použít
 		- aby to někdo jiný byl schopný jednoduše rozchodit
 		- bude obsahovat krátký návod, co je potřeba postahovat + make/cmake skript
-	- 23. 5. finální verze
+	- 23\. 5. finální verze
 		- osobní předvedení zápočťáku nebude
 		- musíme to udělat tak, aby se zápočťák dal z repozitáře použít
 	- témata
