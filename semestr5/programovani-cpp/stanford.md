@@ -99,7 +99,7 @@ concept Comparable = requires(const T a, const T b) {
 ```
 
 - concepts (cont'd)
-	- everything in the curly braces must compare without error and the result must be bool-like (convertible to bool)
+	- everything in the curly braces must compile without error and the result must be bool-like (convertible to bool)
 	- usage
 		- `template <typename T> requires Comparable<T>`
 		- shorthand: `template <Comparable T>`
@@ -122,7 +122,7 @@ T min(const T& v, const Args&... args) {
 	- `consteval` … expression must be evaluated at compile time
 - passing predicates/functors
 	- global functions can be passed as functors
-		- actually, thay are passed as function pointers
+		- actually, they are passed as function pointers
 		- `bool isVowel(char c)` is passed as type `bool(*)(char)`
 	- lambdas
 		- can capture context
@@ -161,10 +161,11 @@ T min(const T& v, const Args&... args) {
 			- we need to define custom copy constructor
 		- what if we want prevent copying?
 			- just set the functions equal to delete
-		- also, we can set the SMFs equal to default (this might be necessary in some cases)
-		- rule of zero: if the default SMFs work, don’t define your own
-		- rule of three
-			- if you need a custom destructor, then you also probably need to define a copy constructor and a copy assignment operator for your class
+	- also, we can set the SMFs equal to default
+		- this is necessary if we declared one of the five SMFs (default constructor does not count here) as the compiler would not create them otherwise
+	- rule of zero: if the default SMFs work, don’t define your own
+	- rule of three
+		- if you need a custom destructor, then you also probably need to define a copy constructor and a copy assignment operator for your class
 - move semantics
 	- rvalues are automatically (?) moved
 		- `Photo retake(0,0);`
