@@ -21,7 +21,7 @@
 	- larger strings are stored in a dynamically allocated block owned by the std::string object
 		- if the appended characters can fit inside the block, they are just appended
 		- otherwise, a larger block is allocated and all the characters are copied there
-- how to (not) share links
+- how (not) to share links
 	- value … `T`
 		- default value defined by default constructor
 		- we can use `x.member`

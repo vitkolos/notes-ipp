@@ -110,7 +110,7 @@ int main(int argc, char** argv) {
 - debug režim
 	- překladač se nesnaží optimalizovat kód
 	- ve standardních knihovnách jsou testy, jestli je používáme správně
-- starší vrstva standardních knihoven nevypouštějí výjimky
+- starší funkce ze standardní knihovny nevypouštějí výjimky
 	- řeší se to pomocí návratových hodnot, příznaků a jinými způsoby
 	- pokud se `ifstream` nepovede otevřít, nastaví se chybový příznak
 		- metoda `fail()` vrací true, pokud se poslední volání rozbilo

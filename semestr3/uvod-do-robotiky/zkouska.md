@@ -639,7 +639,7 @@
 						- MCL je imunní vůči nepřesnosti GPS
 			- reprezentace odhadů ve spojitém prostoru
 				- bylo by těžké získat obecnou reprezentaci
-				- Kalmanův filr
+				- Kalmanův filtr
 					- odhad založen na Gaussově křivce
 					- nemožné sledovat více hypotéz
 					- příliš striktní předpoklady – měření musejí mít normální rozdělení

@@ -33,3 +33,9 @@
 - [Databázové systémy (zkouška)](semestr5/databazove-systemy/zkouska.md)
 - [Úvod do strojového učení (zkouška)](semestr5/uvod-do-strojoveho-uceni/zkouska.md)
 - [Probability and Statistics 2 (exam), work in progress](semestr5/probability-statistics2/exam.md)
+
+## Nepřehledně zpracované předměty
+
+- [Programování v jazyce C#](semestr3/programovani-c-sharp/programovani-c-sharp.md)
+- [Pokročilé programování v jazyce C#](semestr4/pokrocile-programovani-c-sharp/prednaska.md)
+- [a další…](.)
