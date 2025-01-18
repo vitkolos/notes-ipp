@@ -96,7 +96,6 @@
 	- starts with the symbols that have the lowest frequencies
 	- sum of the frequencies is used as the frequency of the new node
 - greedy algorithm
-- interesting type of Huffman code: [Canonical Huffman code](https://en.wikipedia.org/wiki/Canonical_Huffman_code)
 - optimality of Huffman code
 	- notation
 		- alphabet $A$ of symbols that occur in the input string
@@ -147,6 +146,7 @@
 		- Huffman coding algorithm procudes an optimal uniquely decodable code
 		- if there was some better uniquely decodable code, there would be also a better prefix code (by Kraft-McMillan inequality) so Huffman coding would not be optimal
 - idea: we could encode larger parts of the message, it might be better than Huffman coding
+	- extended Huffman code … we use $n$-grams instead of individual symbols
 - Huffman coding is not deterministic, there is not specified the order in which we take the symbols to form the tree – it may lead to optimal trees of different height
 - can we modify Huffman algorithm to guarantee that the resulting code minimizes the maximum codeword length?
 	- yes, when constructing the tree, we can sort the nodes not only by their frequencies but also by the depth of their subtree
@@ -166,16 +166,14 @@
 	- bitwise input and output (usually, we work with bytes)
 	- overflow problem (for integers etc.)
 	- code reconstruction necessary for decoding
-
----
-
+- canonical Huffman code
+	- if we know that the code contains 2 codewords of length 2 and 4 codewords of length 3, we can construct the code (we don't need to encode the tree)
+	- 00, 01, 100, 101, 110, 111
 - adaptive compression
 	- static × adaptive methods
 	- statistical data compression consists of two parts: modeling and coding
 	- what if we cannot read the data twice?
 		- we will use the adaptive model
-- if we know that the code contains 2 codewords of length 2 and 4 codewords of length 3, we can construct canonical Huffman code
-	- 00, 01, 100, 101, 110, 111
 - adaptive Huffman code
 	- brute force strategy – we reconstruct the whole tree
 		- after each frequency change
@@ -187,16 +185,16 @@
 			- binary tree with nonnegative vertex weights has a sibling property if
 				- $\forall$ parent: weight(parent) = $\sum$ weight(child)
 				- each vertex except root has a sibling
-				- vertices can be listed in order of non-increasing weight with each vertex adjacent to its sibling
-		- theorem (Faller 1973): binary tree with nonnegative vertex weights is a Huffman tree iff it has the sibling property
-		- FGK algorithm
+				- vertices can be listed in order of non-increasing weight with each vertex adjacent to its sibling (the weights are non-decreasing if we print them by levels, bottom to top, left to right)
+		- theorem (Faller 1973): binary tree with non-negative vertex weights is a Huffman tree iff it has the sibling property
+		- FGK algorithm (Faller, Gallagher, Knuth)
 			- we maintain the sibling property
 		- zero-frequency problem
 			- how to encode a novel symbol
-			- 1st solution: initializace Huffman tree with all symbols of the source alphabet, each with weight one
-			- 2nd solution: initialize Huffman tree with a special symbol esc
-				- encode the 1st occurence of symbol s as a Huffman code of esc followed by s
-				- insert a new leaf representing s into the Huffman tree
+			- 1st solution: initialize Huffman tree with all symbols of the source alphabet, each with weight one
+			- 2nd solution: initialize Huffman tree with a special symbol $esc$
+				- encode the 1st occurence of symbol $s$ as a Huffman code of $esc$ followed by $s$
+				- insert a new leaf representing $s$ into the Huffman tree
 		- average codeword length … $l_{FGK}\leq l_H+O(1)$
 	- implementation problems
 		- overflow
@@ -217,6 +215,7 @@
 	- we count the frequencies → probabilities
 	- we sort the symbols in some order
 	- we assign intervals to the symbols in the order
+		- symbol with a higher frequency will be assigned a larger interval
 	- to encode the message, we subdivide the intervals
 		- for example, let's say that $I_B=(0.2,0.3)$ and $I_I=(0.5,0.6)$
 		- then $I_{BI}=(0.25,0.26)$
@@ -227,36 +226,76 @@
 	- we inverse the mapping
 - problem: using floating point arithmetic leads to rounding errors → we will use integers
 	- underflow may happen that way if we use too short integers
+- instead of individual frequencies of each symbol, we will use cumulative frequencies (it directly represents the intervals)
+- if we have $b$ bits available to represent the current state, the (initial) interval can be $\langle 0,2^{b}-1)$ or $\langle 0,2^{b-1})$
 - another problem
 	- we use bit shifting and assume that the first bits of both bounds are the same
 	- what if the first bits differ?
 		- we don't output anything yet and increment a counter
+	- it is similar to the situation (in real numbers) when we get to the range 0.53–0.67
+		- we cannot write 5 or 6 and shift the number because we don't know whether the next range will be something like 0.53–0.56 or 0.63–0.67
+		- we postpone the decision instead
+- algorithm
+	- start with the interval $\langle 0,2^{b-1})$ represented as left bound $L$ and range $R$
+	- encode each character of the block
+	- if the range $R$ falls below $2^{b-2}$, we need to prevent underflow
+		- if the current interval (range) starts in the first half of the interval $\langle 0,2^{b-1})$ and ends in the second half, we don't output anything, only increment the counter and rescale the current interval
+		- otherwise, we output one or more (most significant) bits of $L$ and rescale the current interval (also, we decrement the counter by printing the correct bits)
+- time complexity
+	- encoding $O(|A|+|\text{output}|+|\text{input}|)$
+	- decoding $O(|A|+|\text{output}|+|\text{input}|\log|A|)$
+	- it is also possible to make decoding faster by using more memory
+		- we will represent the table of frequencies as an implicit tree
+		- that way we can decode in time $O(|A|+|\text{output}|+|\text{input}|)$
 - adaptive version
+	- cumulative frequencies table as an implicit tree
 	- Fenwick tree
-		- Fenwick frequency = prefix sum
+		- Fenwick frequency = prefix sum (sum of all the weights of the lexicographically smaller vertices)
 
 ### Theoretical Limits
 
 - Hartley's formula
 	- minimum and average number of yes/no questions to find the answer
+	- if $x$ is a member of $n$ element set, then $x$ carries $\log_2 n$ bits of information
+	- if we have a $k$-tuple of elements of $n$ elements set and $S_k$ is the least number of questions necessary to determine all $x_i$, then $S_k/k$ is the average number of questions necessary to determine one $x_i$
+		- $|R|=n,\;x\in R^k$
+		- $\log n^k\leq S_k\lt \log n^k+1$
+		- $k\log n\leq S_k\lt k\log n+1$
+		- $\log n\leq S_k/k\lt\log n+1/k$
 - Shannon's formula
 	- entropy … $H(X)=-\sum_{x\in R}p(x)\log p(x)$
 	- theorem: $H(X)\geq 0$
-	- lemma: Gibbs inequality (or, at least, it looks like it)
+	- lemma: Gibbs inequality
 	- theorem: for a random variable $X$ with a finite range $R$, $|R|=n$, we have $H(X)\leq\log n$
 		- and $H(X)=\log n\iff \forall x\in R:p(x)=\frac1n$
 		- we plug it into the inequality … $q_i=\frac1n$
-- entropy axioms
 - Kraft-McMillan theorem
 	- codeword lengths $l_1,l_2,\dots$ of a uniquely decodable code $C$ satisfy $\sum_i 2^{-l_i}\leq 1$
 	- on the other hand, if natural numbers $l_1,l_2,\dots$ satisfy the inequality, then there is a prefix code with codewords of these lengths
+- proof
+	- let's start with $k$-th power of the sum of codeword lengths
+	- $(\sum_{i=1}^n 2^{-l_i})^k=(\sum_{x\in R} 2^{-l(x)})^k$
+	- we can rewrite that as the sum of products
+		- and $l(x_{i_1})+l(x_{i_2})=l(x_{i_1}x_{i_2})$
+	- therefore it is equal to $\sum_{x_{i_1}\dots x_{i_k}\in R^*}2^{-l(x_{i_1}\dots x_{i_k})}$
+	- which equals $\sum_{i=1}^{k\cdot l_\text{max}}n(i)\cdot 2^{-i}\leq \sum_{i=1}^{k\cdot l_\text{max}}2^i\cdot 2^{-i}=k\cdot l_\text{max}$
+	- now $\sum_{i=1}^n2^{-l_i}\leq\lim_{k\to\infty}(k\cdot l_\text{max})^{1/k}=1$
+	- also, $R$ can be infinite
+	- we can get the prefix code using arithmetic coding (probably?)
 - theorem: let $C$ be a uniquely decodable code for a random variable $X$, then $H(X)\leq L(C)$
+	- $L(C)$ … average codeword length
+	- $L(C)=\sum_{x\in R} p(x)|C(x)|$
+	- proof: by Gibbs inequality, we use $\frac{2^{-l_i}}{\sum_j 2^{-l_j}}$ as the second distribution
 - entropy of a discrete random vector
 	- $H(X)=nH(X_i)$
-		- for independent components with the same probability distribution
-- upper and lower bounds
+	- for independent components with the same probability distribution
+- theorem: an arbitrary optimal prefix code $C$ for a random variable $X$ satisfies $H(X)\leq L(C)\lt H(X)+1$
+	- proof of the upper bound: put $l_i=\lceil-\log p_i\rceil$, then Kraft-McMillan
+	- this also holds for Huffman code (if we consider the entropy of one symbol)
 - analysis of arithmetic coding
-	- $\overline{F(x)}$ … the midpoint of the interval $F(x-1),F(x)$
+	- $H(X)\leq L(C)\lt H(X)+2$
+	- here, we don't consider one symbol but the whole message → therefore, the result is much better then the Huffman code
+	- the main problem of the Huffman code is that it cannot deal very well with skewed probabilities of symbols as the lengths of the codewords must have integral length
 - problems
 	- we assume that the encoded random variables are independent
 	- we are working with a probabilistic model of our data, which is simplified too much
@@ -265,6 +304,8 @@
 	- we will use the context of $k$ symbols
 - according to an experimental estimate
 	- the entropy of English is 1.3 bits per symbol
+
+---
 
 ### Context Methods
 
