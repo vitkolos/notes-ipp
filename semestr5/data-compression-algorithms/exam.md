@@ -305,27 +305,40 @@
 - according to an experimental estimate
 	- the entropy of English is 1.3 bits per symbol
 
----
-
 ### Context Methods
 
 - model of order $i$ … makes use of context of length $i$
 - methods
 	- fixed length contexts
-	- combined
-		- complete
+	- combined – contexts of various lengths
+		- complete – all contexts of lengths $i,i-1,\dots,0$
 		- partial
 	- static, adaptive
-- Prediction by Partial Matching
+- Prediction by Partial Matching (PPM)
+	- Cleary, Witten, Moffat
 	- uses arithmetic coding
 	- we try to encode symbol $s$ in context of length $i$
 	- if the context is too large (the frequency is not larger than zero), we output the ESC symbol and decrease the context length
 	- assumption: every symbol has non-zero frequency for some (small) context
+	- how to encode symbol $s$
+		- we have read the context $c$ of length $i$ and the current symbol $s$
+		- if $f(s\mid c)\gt 0$, encode $s$ using $f(*\mid c)$
+			- each context $c$ has its own table of frequencies (for arithmetic encoding)
+		- otherwise, output the code for ESC and try order $i-1$ context
+	- exclusion principle
+		- situation: symbol $x$ occurs in context $abc$ for the first time
+		- we will encode it using second order model $f(x\mid bc)$
+		- there is symbol $y$ such that $f(y\mid bc)\gt 0$ and also $f(y\mid abc)\gt 0$
+		- by using ESC, we already signaled that we are not trying to encode any of the letters present in the third order model (such as $y$)
+		- therefore, we can temporarily remove $y$ from the second order model so that the compression is more efficient
+	- there are various approaches to assign $P(esc\mid c)$
+		- for example, we can decrement frequencies of all symbols by one
 	- data structure … trie (context tree)
 		- where each node has an edge to its largest proper suffix, this simplifies adding of new leaves
 		- it might not fit in the memory
-			- to solve that, we can freeze the model (update frequencies, but stop adding new nodes)
+			- to solve that, we can freeze the model (update frequencies in existing contexts, stop adding new contexts)
 			- or we can rebuild the model using only the recent history (not the whole file)
+		- we can rebuild the model either if the free memory size drops or if the relative compression ratio starts decreasing
 	- advanced data structure: DAWG (Directed Acyclic Word Graph)
 	- PPMII
 		- “information inheritance”
@@ -333,6 +346,7 @@
 		- became part of RAR
 	- PAQ
 		- arithmetic coding over binary alphabet with sophisticated context modelling
+		- using weighted average of probability estimates from various models
 	- this algorithm has probably the best compression ratio
 		- but it is very time and space consuming
 
@@ -342,10 +356,12 @@
 	- $\alpha(1)=1$
 	- $\alpha(i+1)=0\,\alpha(i)$
 	- clearly, $|\alpha(i)|=i$
+	- it is the optimal code for probability distribution $p(i)=2^{-i}$
 - binary code $\beta$
 	- is not a prefix code!
 	- we can use fixed length
-	- or we can gradually increase the codeword length
+		- optimal code for $p(i)=\frac1{|A|}$
+	- or we can gradually increase the codeword length as the dictionary size increases
 - Elias codes
 	- binary code always starts with 1
 	- reduced binary code $\beta'$ … without the first 1
@@ -354,9 +370,11 @@
 	- $\delta$ … instead of $\alpha$, we use $\gamma$ to encode the length of $\beta$
 	- we could construct other codes in a similar fashion but $\delta$ code suffices
 		- for large numbers, it is shorter than $\gamma$
-- observation
-	- each probability distribution $p_1\geq p_2\geq\dots\geq p_n$ satisfies $\forall i\in[n]:p_i\leq \frac1i$
-- …
+- Elias codes are universal
+	- observation: each probability distribution $p_1\geq p_2\geq\dots\geq p_n$ satisfies $\forall i\in[n]:p_i\leq \frac1i$
+	- corollary: $-\log p_i\geq -\log\frac1i=\log i$
+	- $|\gamma(i)|=\log i+\Theta(\log i)$
+	- $|\delta(i)|=\log i+o(\log i)$
 
 ### Dictionary Methods
 
@@ -365,11 +383,9 @@
 	- phrase occurrence in the text → pointer
 - problems
 	- construction of the optimal dictionary is NP-hard → greedy algorithm
-	- dictionary is needed for decoding
-
-#### LZ77
-
+	- dictionary is needed for decoding → dynamic methods
 - LZ77
+	- Jacob Ziv, Abraham Lempel
 	- sliding window
 		- search buffer
 		- look-ahead buffer
@@ -380,7 +396,14 @@
 		- $i$ … distance of the beginning of $S$ from the look-ahead buffer
 		- $j=|S|$
 		- $z$ … the symbol following $S$ in the look-ahead buffer
+	- example
+		- `ac|cabracad|abrarr|ar`
+		- `   \search/\lahead/ `
+		- $\to\braket{7,4,r}$
+	- window slides $j+1$ symbols to the right
+	- sliding window size $2^{12}-2^{16}\,B$, look ahead buffer size are usually tens or hundreds of bytes
 	- slow compression, fast decompression
+	- typical application – single compression, multiple decompressions
 - LZSS
 	- triple $(i,j,z)$ replaced with $(i,j)$ or literal $z$
 		- bit indicator to distinguish one from another
@@ -388,16 +411,14 @@
 	- sliding window → cyclic buffer
 	- possible implementation
 		- codeword 16b, $|i|=11$, $|j|=5$
-		- 8 bit indicators in 1 byte
-			- one byte describes the types of 8 following items
+		- 8 bit indicators in 1 byte (one byte describes the types of 8 following items)
 - other variants
-	- LZB
-	- LZH
+	- LZB (LZSS with more efficient encoding of $(i,j)$ – using binary code with increasing length for $i$ and $\gamma$ code for $j$)
+	- LZH (two-pass: LZSS, Huffman)
 - Deflate algorithm
-	- by Phil Katz
-	- originally for PKZIP 2
-	- LZSS + static Huffman coding
+	- by Phil Katz, originally for PKZIP 2
 	- zip, gzip, jar, cab, png
+	- LZSS + static Huffman coding
 	- search buffer size 32 kB
 	- look-ahead buffer size 258 B
 		- match length 3..258 → 256 options
@@ -407,9 +428,9 @@
 			- is it last block? (1b)
 			- type of the block (2b)
 		- 3 block types
-			- no compression
-			- fixed coding tables for Huffman code
-			- Huffman code based on input data statistics
+			1. no compression
+			2. static Huffman code compressed using trees defined in Deflate RFC
+			3. dynamic Huffman code based on input data statistics
 	- type 3 block
 		- starts with two Huffman trees
 		- the first tree for literals and match lengths
@@ -426,19 +447,24 @@
 		- slide window one symbol to the right, find a secondary match
 			- if better, encode as literal + secondary match
 - LZ77 disadvantages
-	- limited outlook of the search window
-	- longer window → better compression, more complex search
-
-#### LZ78
-
+	- limited outlook of the search window (longer window → better compression, more complex search)
+	- limited length of the look-ahead buffer (match length limitation)
 - LZ78
-	- sliding window, explicit dictionary
+	- sliding window, explicit dictionary (but the directory is not transmitted)
 	- efficient data structure for storing the dictionary … trie
+	- compression
+		- start with an empty dictionary
+		- read the longest prefix of the input which matches some phrase $f$ in the dictionary (zero length is also possible – especially if the dictionary is empty)
+		- output $\braket{i,k(s)}$
+			- $i$ points to $f$ in the dictionary
+			- $k(s)$ is a codeword for symbol $s$ which follows $f$ in the input
+		- insert new phrase $fs$ into the dictionary
 	- dictionary reconstruction is necessary when the dictionary space is exhausted
 		- we can delete the whole dictionary
 		- or delete only the phrases that occurred least frequently or have not occurred recently
 		- we need to preserve the prefix property
 			- if the dictionary contains $S$, it has to contain all prefixes of $S$
+		- if compression ratio starts getting worse, we can delete the dictionary and start over
 - LZW
 	- we initialize the dictionary by the alphabet
 	- we encode the longest prefix present in the dictionary
@@ -446,16 +472,22 @@
 	- when decoding, it may happen that the item is not in the dictionary yet
 		- because the encoder is one step ahead
 		- so we use the last decoded string and append its first character
+	- we store only the pointers (and the alphabet?)
 - LZC
 	- compress 4.0 utility in Unix
-	- when maximum size was reached, it continued with static dictionary
-	- when compression ratio started getting worse, it deleted the dictionary and started over with the initial setting
-		- we use a special symbol for that
+	- pointers into dictionary – binary code with increasing length (9–16 bits)
+	- when maximum size was reached, it continues with static dictionary
+	- when compression ratio started getting worse, it deletes the dictionary and starts over with the initial setting (we use a special symbol for that)
 - LZMW
-	- new phrase = concatenation of two last ones
-	- dictionary lacks prefix property
+	- idea: new phrase = concatenation of two last ones (→ phrase length increases faster)
+	- dictionary full → LRU strategy (delete the phrases that have not occurred recently)
+	- dictionary lacks prefix property – this complicates searching, backtracking is used
 - LZAP
-	- instead of ST add all substrings Sp where p is a prefix of T
+	- idea: instead of $ST$ add all substrings $Sp$ where $p$ is a prefix of $T$
+	- larger dictionary → longer codewords, wider choice for phrase selection
+	- faster search → backtracking is not needed
+
+---
 
 ### Lossless Image Compression
 
