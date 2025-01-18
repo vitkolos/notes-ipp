@@ -45,9 +45,9 @@
 		- $n=1000$ … $|M|/2^n\lt 2^{-99}\approx 1.578\cdot 10^{-30}$
 	- we can't compress all data efficiently (but that does not matter, we often focus on specific instances of data)
 
-## Lossless compression
+## Lossless Compression
 
-### Statistical methods
+### Statistical Methods
 
 - basic concepts
 	- source alphabet … $A$
@@ -89,16 +89,17 @@
 	- Shannon-Fano is not optimal
 		- Fano's student David Huffman described a construction of optimal prefix code
 
-### Huffman code
+### Huffman Code
 
-- constructs the tree from the bottom
-- starts with the symbols that have the lowest frequencies
-- sum of the frequencies is used as the frequency of the new node
+- algorithm
+	- constructs the tree from the bottom
+	- starts with the symbols that have the lowest frequencies
+	- sum of the frequencies is used as the frequency of the new node
 - greedy algorithm
 - interesting type of Huffman code: [Canonical Huffman code](https://en.wikipedia.org/wiki/Canonical_Huffman_code)
 - optimality of Huffman code
 	- notation
-		- alphabet $a$ of symbols that occur in the input string
+		- alphabet $A$ of symbols that occur in the input string
 		- $\forall s\in A:f(s)$ … frequency of the symbol
 		- let $T$ be a prefix tree for alphabet $A$ with frequencies $f$
 			- leaves of $T$ … symbols of $A$
@@ -151,11 +152,13 @@
 	- yes, when constructing the tree, we can sort the nodes not only by their frequencies but also by the depth of their subtree
 - what is the maximum height of a Huffman tree for an input message of length $n$?
 	- we find the minimal input size to get the Huffman tree of height $k$
+		- how to make the tree as deep as possible?
+		- the frequencies of the symbols will be a Fibonacci sequence
 	- Huffman tree of height $k\implies n\geq f_{k+1}$
 		- where $f_0=1,\;f_1=1,\;f_{k+2}=f_{k+1}+f_k$
+		- $f_m$ … frequency of the $m$-th symbol
 	- $n\lt f_{k+2}\implies$ max. codeword length $\leq k$
-- is there an optimal prefix code which cannot be obtained using Huffman algorithm?
-	- yes
+- there is an optimal prefix code which cannot be obtained using Huffman algorithm
 - generalize the construction of binary Huffman code to the case of $m$-ary coding alphabet ($m\gt 2$)
 	- the trivial approach does not produce an optimal solution
 	- for the ternary coding alphabet, we can modify the first step – we will only take two leaves to form a subtree
@@ -163,12 +166,15 @@
 	- bitwise input and output (usually, we work with bytes)
 	- overflow problem (for integers etc.)
 	- code reconstruction necessary for decoding
+
+---
+
 - adaptive compression
 	- static × adaptive methods
 	- statistical data compression consists of two parts: modeling and coding
 	- what if we cannot read the data twice?
 		- we will use the adaptive model
-- if we know that the code contains 2 codewords of length 2 and 4 codewords of length 3, we can construct canonical Huffman code (?)
+- if we know that the code contains 2 codewords of length 2 and 4 codewords of length 3, we can construct canonical Huffman code
 	- 00, 01, 100, 101, 110, 111
 - adaptive Huffman code
 	- brute force strategy – we reconstruct the whole tree
@@ -200,7 +206,7 @@
 				- by multiplying by $x\in(0,1)$
 			- we'll use integral arithmetic → we need to scale the numbers
 
-### Arithmetic coding
+### Arithmetic Coding
 
 - each string $s\in A^*$ associate with a subinterval $I_s\subseteq[0,1]$ such that
 	- $s\neq s'\implies I_s\cap I_{s'}=\emptyset$
@@ -229,7 +235,7 @@
 	- Fenwick tree
 		- Fenwick frequency = prefix sum
 
-### Theoretical limits
+### Theoretical Limits
 
 - Hartley's formula
 	- minimum and average number of yes/no questions to find the answer
@@ -260,7 +266,7 @@
 - according to an experimental estimate
 	- the entropy of English is 1.3 bits per symbol
 
-### Context methods
+### Context Methods
 
 - model of order $i$ … makes use of context of length $i$
 - methods
@@ -289,7 +295,7 @@
 	- this algorithm has probably the best compression ratio
 		- but it is very time and space consuming
 
-### Integer coding
+### Integer Coding
 
 - unary code $\alpha$
 	- $\alpha(1)=1$
@@ -311,7 +317,7 @@
 	- each probability distribution $p_1\geq p_2\geq\dots\geq p_n$ satisfies $\forall i\in[n]:p_i\leq \frac1i$
 - …
 
-### Dictionary methods
+### Dictionary Methods
 
 - idea
 	- repeated phrases stored in a dictionary
@@ -410,7 +416,7 @@
 - LZAP
 	- instead of ST add all substrings Sp where p is a prefix of T
 
-### Lossless image compression
+### Lossless Image Compression
 
 - digital images
 	- raster (bitmap)
@@ -456,7 +462,7 @@
 		- dictionary compression
 - interlacing schemes
 
-### Burrows-Wheeler transform
+### Burrows-Wheeler Transform
 
  - BSTW
 	 - *move to front* heuristic to restructure the dictionary
@@ -486,7 +492,7 @@
 	- two same letters often share very similar right context
 	- therefore they will be close in the rightmost column
 
-## Lossy compression
+## Lossy Compression
 
 - no standard corpora exist
 - how to measure the loss of information
@@ -494,7 +500,7 @@
 	- signal to noise ratio
 	- peak signal to noise ratio
 
-### Digitizing sound
+### Digitizing Sound
 
 - sound is a physical disturbance in a medium, it propagates as a pressure wave
 - Fourier theorem
@@ -543,7 +549,7 @@
 	- A-law
 	- G.711
 
-### Vector quantization
+### Vector Quantization
 
 - vector quantization
 	- we split the file into vectors
@@ -579,7 +585,7 @@
 		- audio: G.719, CELP, Vorbis, TwinVQ
 		- video: QuickTime, VQA
 
-### Differential encoding
+### Differential Encoding
 
 - differential encoding
 	- idea: consecutive samples are quite similar (that holds especially for speech and images)
@@ -592,7 +598,7 @@
 		- backward adaptive prediction … no need to transfer additional info
 	- …
 
-### Transform coding
+### Transform Coding
 
 - transform coding
 	- for images, we have to make a two-dimensional transform
@@ -619,7 +625,7 @@
 	- quantization
 	- coding
 
-### Subband coding
+### Subband Coding
 
 - example
 	- rapid sample-to-sample variation
@@ -627,7 +633,7 @@
 - idea: let's average the samples using the sliding window
 - …
 
-### Video compression
+### Video Compression
 
 - video … time sequence of images (frames)
 - can we reduce the problem to image compression?
