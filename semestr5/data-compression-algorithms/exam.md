@@ -227,7 +227,7 @@
 - problem: using floating point arithmetic leads to rounding errors → we will use integers
 	- underflow may happen that way if we use too short integers
 - instead of individual frequencies of each symbol, we will use cumulative frequencies (it directly represents the intervals)
-- if we have $b$ bits available to represent the current state, the (initial) interval can be $\langle 0,2^{b}-1)$ or $\langle 0,2^{b-1})$
+- if we have $b$ bits available to represent the current state, the (initial) interval can be $[0,2^{b}-1)$ or $[0,2^{b-1})$
 - another problem
 	- we use bit shifting and assume that the first bits of both bounds are the same
 	- what if the first bits differ?
@@ -236,10 +236,10 @@
 		- we cannot write 5 or 6 and shift the number because we don't know whether the next range will be something like 0.53–0.56 or 0.63–0.67
 		- we postpone the decision instead
 - algorithm
-	- start with the interval $\langle 0,2^{b-1})$ represented as left bound $L$ and range $R$
+	- start with the interval $[0,2^{b-1})$ represented as left bound $L$ and range $R$
 	- encode each character of the block
 	- if the range $R$ falls below $2^{b-2}$, we need to prevent underflow
-		- if the current interval (range) starts in the first half of the interval $\langle 0,2^{b-1})$ and ends in the second half, we don't output anything, only increment the counter and rescale the current interval
+		- if the current interval (range) starts in the first half of the interval $[0,2^{b-1})$ and ends in the second half, we don't output anything, only increment the counter and rescale the current interval
 		- otherwise, we output one or more (most significant) bits of $L$ and rescale the current interval (also, we decrement the counter by printing the correct bits)
 - time complexity
 	- encoding $O(|A|+|\text{output}|+|\text{input}|)$
@@ -474,7 +474,7 @@
 		- so we use the last decoded string and append its first character
 	- we store only the pointers (and the alphabet?)
 - LZC
-	- compress 4.0 utility in Unix
+	- compress 4.0 utility in Unix (LZC method is the implementation of LZW algorithm)
 	- pointers into dictionary – binary code with increasing length (9–16 bits)
 	- when maximum size was reached, it continues with static dictionary
 	- when compression ratio started getting worse, it deletes the dictionary and starts over with the initial setting (we use a special symbol for that)
@@ -487,13 +487,9 @@
 	- larger dictionary → longer codewords, wider choice for phrase selection
 	- faster search → backtracking is not needed
 
----
-
 ### Lossless Image Compression
 
-- digital images
-	- raster (bitmap)
-	- vector
+- digital images – raster (bitmap), vector
 - color spaces
 	- RGB
 	- CMYK
@@ -507,38 +503,49 @@
 		- alpha channel
 	- color palette
 		- conversion table (pixel = pointer into the table)
-- GIF
-	- Graphics Interchange Format
-	- originally for image transmission over phone lines
-	- sharp-edged line art with a limited number of colors
+		- types: grayscale (pallete with shades of gray), pseudocolor (color palette), direct color (three color palettes, one for each part of the color – R/G/B)
+- GIF (Graphics Interchange Format)
+	- usage
+		- originally for image transmission over phone lines, suitable for WWW
+		- sharp-edged line art with a limited number of colors → can be used for logos
+		- small animations
+		- not used for digital photography
 	- color palette, max. 256 colors
-	- more images in one file
-	- interlacing scheme for transmission
+		- supports “transparent” color
+	- multiple images can be stored in one file
+	- supports interlacing
 		- rough image after 25–50 % data
 		- we can stop the transmission if it's not the image we wanted
-	- LZW-based compression
-		- actually, it uses LZC
+		- 4-pass interlacing by lines
+	- LZW-based compression (actually, it uses LZC)
 	- pointers … binary code with increasing length
 	- blocks … up to 255 B
 	- we can increase the number of possible colors by stacking multiple images on top of another (and using transparent pixels)
-- PNG
-	- Portable Network Graphics
+- PNG (Portable Network Graphics)
 	- motivation: replace GIF with a format based on a non-patented method (LZW was patented by Sperry Corporation / Unisys)
-	- color space
-		- gray scale
-		- true color
-		- palette
-		- alpha channel
-	- no support for CMYK
+	- color space – gray scale, true color, palette
+	- alpha channel – transparency $\in[0,1]$
+	- supports only RGB, no other systems (it was designed for transferring images over the network)
 	- compression has two phases
-		- preprocessing
+		- preprocessing – predict the value of the pixel, encode the difference between the real and predicted value (prediction based on neighboring pixels)
+			- prediction types: none, sub (left pixel), up, average (avera;ge of sub and up), Paeth (more complicated formula)
+			- each line may be processed with a different method
 		- dictionary compression
-- interlacing schemes
+			- deflate (LZ77)
+	- supports interlacing
+		- 7-pass interlacing by blocks of pixels
+		- [![Adam7 interlacing](https://upload.wikimedia.org/wikipedia/commons/2/27/Adam7_passes.gif)](https://commons.wikimedia.org/wiki/File:Adam7_passes.gif)
+	- single image only, no animation
 
 ### Burrows-Wheeler Transform
 
  - BSTW
+	 - Bentley, Sleator, Tarjan, Wei
 	 - *move to front* heuristic to restructure the dictionary
+	 - we start with an empty dictionary $D$
+	 - for input word $s$
+		 - if $s$ s in dictionary $D$ on position $i$, we output $\gamma(i)$ and move $i$-th word in $D$ to the front of $D$
+		- otherwise, we output $\gamma(|D|+1)$ and $s$ itself, we insert $s$ to the front of $D$
 - Burrows-Wheeler transform
 	- we are looking for a permutation of string $x$ such that the similar symbols are close to each other
 	- matrix of cyclic shifts of $x$
