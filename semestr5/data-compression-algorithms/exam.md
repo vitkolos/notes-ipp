@@ -546,7 +546,7 @@
 	 - for input word $s$
 		 - if $s$ s in dictionary $D$ on position $i$, we output $\gamma(i)$ and move $i$-th word in $D$ to the front of $D$
 		- otherwise, we output $\gamma(|D|+1)$ and $s$ itself, we insert $s$ to the front of $D$
-- Burrows-Wheeler transform
+- Burrows–Wheeler transform
 	- we are looking for a permutation of string $x$ such that the similar symbols are close to each other
 	- matrix of cyclic shifts of $x$
 		- sort rows lexicographically
@@ -555,79 +555,149 @@
 		- if we used the first column, it would not be decodable
 	- encoding
 		- MTF (move to front) heuristic
-		- for each symbol, its code would be the number of preceding symbols in the dictionary
+			- for each symbol, its code would be the number of preceding symbols in the dictionary
 			- then, move the symbol to the front of the dictionary
-		- therefore, the number we use to encode the symbol matches the time that elapsed from the last encoding of that symbol (if it was encoded previously)
+			- therefore, the number we use to encode the symbol matches the time that elapsed from the last encoding of that symbol (if it was encoded previously)
 		- RLE … run length encoding
-			- instead of $n$ zeroes, we can just encode the zero and length of the block
+			- instead of $n$ zeros, we can just encode the zero and length of the block
+		- Huffman/arithmetic coding
 	- decoding
 		- how to obtain the original string from the last column and the number?
 		- we sort the last column to get the first one
 		- we can determine the penultimate symbols from the pairs of first and last – thanks to the cyclic shift
-			- what if there are multiple lines that and with the same symbol? we know that the lines were sorted lexicographically
+			- what if there are multiple lines that end with the same symbol? we know that the lines were sorted lexicographically
+	- matrix $n×n$ is not neccessary
+		- we can use suffix array
+		- this would be equivalent to the matrix of rotations of `x$`, where `x`is the original string and `$` is a sentinel character
+	- why does BW transform work?
+		- two same letters often share very similar right context
+		- therefore they will be close in the rightmost column
+		- (we are actually sorting the letters by their right context)
 - bzip2
-- matrix $n×n$ is not neccessary
-	- we can use suffix array
-- why does BW transform work?
-	- two same letters often share very similar right context
-	- therefore they will be close in the rightmost column
+	- Julian Seward
+	- open source
+	- has more efficient compression than gzip/zip
+		- but bzip2 is slower
+		- it does not support archiving
+			- it can only compress single
+			- just like gzip
+			- can be used to compress tar archives
+	- compression
+		- split the input into blocks of 100–900 kB (determinted by an input parameter)
+		- Burrows–Wheeler transform
+		- MTF, RLE
+		- arithmetic coding (patented) was replaced with Huffman coding
 
 ## Lossy Compression
 
 - no standard corpora exist
 - how to measure the loss of information
-	- MSE
-	- signal to noise ratio
+	- mean squared error (MSE)
+	- signal to noise ratio (SNR)
 	- peak signal to noise ratio
 
 ### Digitizing Sound
 
 - sound is a physical disturbance in a medium, it propagates as a pressure wave
 - Fourier theorem
-- capturing audio
-	- sampling
-		- Nyquist-Shannon sampling theorem
-		- the sampling frequency should be at least twice the highest frequency we want to record
-		- aliasing = zkreslení
-		- příklad: kola dostavníku ve filmu se točí pozpátku
-	- quantization
-		- we have $B$ bits available
-		- we split the whole interval into $2^B$ subintervals
-	- signal to noise ratio
-	- audio processing
+- sampling
+	- Nyquist-Shannon sampling theorem
+	- the sampling frequency should be at least twice the highest frequency we want to record
+	- if the condition fails, it leads to aliasing (zkreslení)
+		- there appear false frequency components that were not present in the original analog signal
+		- for sampling frequency $F_s$ and original $f\gt\frac12F_s$, the new false frequency will be $f'=F_s-f$
+	- example: the carriage (or stagecoach) wheels in the movie are spinning backwards
+- quantization
+	- we have $B$ bits available
+	- we split the whole interval into $2^B$ subintervals
+- we want the largest signal to noise ratio that is possible
+- audio processing
+	- input
 		- amplifier
 		- band-pass filter
 		- sampler … sampling
 		- A/D converter … quantization
 		- RAM
-- quantization
+	- output
+		- RAM
+		- D/A converter
+		- band-pass filter
+		- amplifier
+
+#### Quantization
+
+- main idea
 	- large set → smaller set
 	- quantizer can be scalar or vector
 	- quantization consists of two mapping – encoding and decoding
-	- central limit theorem
-	- uniform quantizer
-		- midrise
-		- midtread
-	- forward adaptive quantizer (offline)
-		- split input into blocks
-		- analyze each separately, set parameters accordingly
-		- parameters are transmitted as side information
-	- backward adaptive quantizer (online)
-		- no side info necessary
-		- Jayant quantizer
-			- multipliers
-			- intervals can shrink and expand depending on the input
-	- nonuniform quantization
-		- $y_j$ … centroid (see the slides)
-		- Lloyd-Max algorithm
-	- companding
-		- compressing + expanding
-		- first we stretch the high probability regions close to the origin & compress the regions with low probability
-		- then apply uniform quantization
-		- expand afterwards (transform quantized values to the original scale)
+- central limit theorem
+	- if we collect $n$ samples of random variable $X$, the distribution of the sample mean approaches $N(\mathbb EX,\text{var}(X)/2)$ for a sufficiently large $n$
+- problem formulation
+	- source … random variable $X$ with density $f(x)$ (common assumption – $f$ is symmetric about 0)
+	- determine: number of intervals (levels), interval endpoints (decision boundaries), representative $y_i$ for each interval (reconstruction levels)
+	- goal: to minimize the quantization error (distortion) $\sigma^2$ … MSE
+		- $\sigma^2=\mathbb E[(x-Q(x))^2]$
+	- the number of intervals (levels) may be fixed if we want fixed length codewords
+- uniform quantizer
+	- uniform probability distribution
+	- all intervals of equal length
+	- two types
+		- midrise quantizer – even number of levels, $Q(0+\varepsilon)\neq 0$ (zero is a decision boundary)
+		- midtread quantizer – odd number of levels, $Q(0+\varepsilon)=0$ (zero is in the middle of the central interval)
+	- we assume that the range of $X$ is bounded
+- forward adaptive quantizer (offline)
+	- split the input into blocks
+	- analyze each separately, set parameters accordingly
+	- parameters are transmitted as side information
+- backward adaptive quantizer (online)
+	- no side info necessary
+	- Jayant quantizer
+		- multipliers
+		- intervals can shrink and expand depending on the input
+		- 3bit Jayant quantizer
+			- table of intervals $$\begin{matrix}\text{code} & \text{interval} & \text{multiplier} \\ 0 & (0,\Delta) & 0.8 \\ 1 & (\Delta,2\Delta) & 0.9 \\ 2 & (2\Delta,3\Delta) & 1 \\ 3 & (3\Delta,\infty) & 1.2 \\ 4 & (-\Delta,0) & 0.8 \\ 5 & (-2\Delta,-\Delta) & 0.9 \\ 6 & (-3\Delta,-2\Delta) & 1 \\ 7 & (-\infty,-3\Delta) & 1.2 \end{matrix}$$
+		- for each input value, we get the corresponding code $c$ and we multiply $\Delta$ by the multiplier $M_c$
+		- the intervals automatically adapt to the input data
+- nonuniform quantization
+	- we set $y_j$ to the average value in the interval
+		- $y_j=\frac{\int_{b_{j-1}}^{b_j}xf(x)dx}{\int_{b_{j-1}}^{b_j}f(x)dx}$
+	- we set the interval bounds as the averages of neighboring values
+		- $b_j=\frac{y_{j+1}+y_j}{2}$
+	- Lloyd-Max algorithm
+		- $M$-level symmetric quantizer
+		- we set $b_0=0$
+		- we somehow approximate $y_1$
+		- then we compute $b_1$ from the equation for $y_j$ stated above
+		- $y_2=2b_1-y_1$ (similarly $b_2,y_3,\dots$)
+		- note: the $b$ bounds and $y$ values are symmetrical, $y_{-1}=y_1$ etc.
+		- computation depends on the initial estimate $y_1$
+			- we want to correct our wrong estimate
+			- we know that $b_{M/2}$ = max input value
+			- we can compare the resulting $y_{M/2}$ with the value $y^*_{M/2}$ computed using the quotient of integrals
+			- if they differ too much, we correct the initial estimate of $y_1$ and repeat the whole procedure
+- companding
+	- compressing + expanding
+	- first we stretch the high probability regions close to the origin & compress the regions with low probability
+	- then apply uniform quantization
+	- expand afterwards (transform quantized values to the original scale)
 	- $\mu$-law
+		- telephony, USA, Japan
+		- $\mu=225$
+		- there is $c(x)$ which compresses the values and $c^{-1}(x)$ which expands them (there is the constant $\mu$ in the formulas)
 	- A-law
+		- telephony, Europe
+		- $A=87.6$
+		- there are different $c(x)$ and $c^{-1}(x)$ then in $\mu$-law
 	- G.711
+		- ITU-T standard for audio companding
+		- sampling frequency 8 kHz
+		- sample length is 14b ($\mu$-law) or 13b (A-law)
+		- $\mu$-law uses midtread quantizer
+		- A-law uses midrise quantizer
+		- comparison
+			- $\mu$ … higher dynamic range, noise reduction in blocks of silence (thanks to midtread)
+			- A … lower relative distortion of small values
+		- application: VoIP
 
 ### Vector Quantization
 
