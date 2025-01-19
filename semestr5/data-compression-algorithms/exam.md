@@ -701,39 +701,71 @@
 
 ### Vector Quantization
 
-- vector quantization
-	- we split the file into vectors
-	- codebook
-		- code-vectors selected to be represented
-		- each one has a binary index
-	- encoder
-		- finds the code-vector closest to the source vector
-		- writes its index
-	- decoder
-		- based on the index, it finds the corresponding code vector
-	- how to measure the distances between code vectors and source vectors?
-		- Euclidean distance
-		- but we can omit the square root as we only compare the distances
-	- k-means
-	- LBG algorithm
-		- initialization
-			- perturbation
-			- random initialization
-			- pairwise nearest neighbor
-		- tree-structured vector quantization
-	- lattice vector quantizers
-		- D lattices
-			- $D_2$ lattice (in two-dimensional space)
-				- $a\cdot v_1+b\cdot v_2=a(0,2)+b(1,1)=(b,2a+b)$
-			- the sum of the coordinates is always even
-		- A lattices
-		- G.719
-	- classifid vector quantization
-		- idea: divide source vectors into classes with different properties, perform quantization separately
-		- example: edge/nonedge regions (in an image)
-	- applications
-		- audio: G.719, CELP, Vorbis, TwinVQ
-		- video: QuickTime, VQA
+- we split the file (or group the individual samples) into vectors
+	- $L$ consecutive samples of speech
+	- block of $L$ pixels of an image (a rectangle/square)
+	- → vector of dimension $L$
+- idea: codebook
+	- code-vectors selected to be represented, each one has a binary index
+	- encoder finds the closest vector in the codebook (using Euclidean distance or MSE)
+	- decoder retrieves the code-vector given its binary index
+	- codebook size $K$ → $K$-level vector quantizer
+	- we can design the codebook using k-means algorithm (or we can use LBG as described below)
+- LBG algorithm
+	- Linde, Buzo, Gray
+	- we have codebook $C$, training set $T$, threshold $\varepsilon$
+	- we can compute quantization regions – assign each input vector to its code-vector
+	- we can compute the average distortion (MSE) in each step of the algorithm
+		- if it is less than the threshold, we can return the codebook
+		- otherwise, we need to update it (we set the code-vector to the average of all the input vector in its group – like in k-means)
+	- initialization
+		- LBG splitting technique
+			- start with a single code-vector – the average of all vectors in the training set
+			- in each step we generate a perturbation vector, add it to each code-vector and introduce those new vectors to the codebook → the codebook size doubles
+				- then, we run LBG with the codebook (repeatedly update the code-vectors until the distortion drops below certain level)
+			- we repeat this until the desired number of levels is reached
+		- random init (Hilbert)
+			- initialize $C$ randomly several times
+			- select the alternative with lowest distortion
+		- pairwise nearest neighbor (Equitz)
+			- start with $C=T$
+			- in each step, replace two code-vectors by their mean
+			- goal: smallest increase in distortion
+	- it is possible that during the algorithm, we are left with a code-vector that does not have any corresponding training set vectors (“empty cell problem”) → we will replace it with a new code-vector chosen randomly from the cluster with the highest population of training vectors or the highest associated distortion
+- tree-structured vector quantization (TSVQ)
+	- when quantizing a vector, we don't want to compare it to each vector in the codebook
+	- we will divide the codebook into two groups such that there exists two test vectors that all vectors from the first group are closer to the first vector (and vice versa)
+	- we repeat the process → binary tree
+	- pros: we need a lower number of comparisons, we can build a binary string (code) as we progress down the tree
+	- cons: increased storage requirement (we need to store the test vectors, the codebook does not suffice), possible increase in distortion
+	- we may use LBG splitting technique to get test vectors
+		- we need to modify the technique, we will always run LBG only with two code-vectors and the corresponding subset of the test set
+	- pruned TSVQ
+		- we can remove some subtrees to decrease the average rate (codeword length) – but this will increase average distortion
+		- also, we can split some nodes
+		- this way, we get binary codewords of variable length, the codewords correspond to paths in the decision tree → prefix code
+- lattice vector quantizers
+	- idea: regular arrangement of code-vectors in space
+		- quantization regions should tile the output space of the source
+	- D lattices
+		- $D_2$ lattice (in two-dimensional space)
+			- $a\cdot v_1+b\cdot v_2=a(0,2)+b(1,1)=(b,2a+b)$
+			- squares
+		- the sum of the coordinates is always even
+	- A lattices
+		- $A_2$ lattice is hexagonal
+	- G.719
+		- ITU-T standard for wideband audio coding
+		- modified dicrete cosine transform (DCT)
+		- vector quantizer based on $D_8$ lattice
+- classified vector quantization
+	- idea: divide source vectors into classes with different properties, perform quantization separately
+	- example: edge/nonedge regions (in an image)
+		- large variance of pixels $\implies$ presence of an edge (will use edge codebook for this vector)
+		- output has to contain the codebook label and the vector label
+- applications
+	- audio: G.719, CELP, Ogg Vorbis, TwinVQ
+	- video: QuickTime, VQA
 
 ### Differential Encoding
 
