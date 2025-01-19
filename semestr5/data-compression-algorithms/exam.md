@@ -769,16 +769,57 @@
 
 ### Differential Encoding
 
-- differential encoding
-	- idea: consecutive samples are quite similar (that holds especially for speech and images)
-	- if we quantize the differences directly, the error will accumulate
-	- instead of that, we will quantize the difference between the previous **predicted** value and the current value
-	- DPCM
-	- Wiener-Hopf equations
-	- ADPCM
-		- forward adaptive prediction … we need to transfer coefficients
-		- backward adaptive prediction … no need to transfer additional info
-	- …
+- idea: consecutive samples are quite similar (that holds especially for speech and images)
+- if we quantize the differences directly, the error will accumulate
+- instead of that, we will quantize the difference between the previous **predicted** value and the current value
+	- or we can use a more general function of multiple previous predicted values instead of just the last value
+	- this function can be called $p_n$
+- DPCM
+	- C. Chapin Cutler, Bell Labs
+	- goal: minimize MSE (error between the real value and $p_n$)
+	- linear predictor $p_n=\sum_{i=1}^N a_i\hat x_{n-i}$
+		- where $\hat x_k$ is $k$-th predicted value
+	- problem: find $a_j$ which minimize MSE
+		- set the derivative w.r.t. $a_j$ equal to zero
+		- $\forall j:-2\mathbb E[(x_n-\sum a_ix_{n-i})x_{n-j}]=0$
+		- $\mathbb E[(x_n-\sum a_ix_{n-i})x_{n-j}]=0$
+		- $\mathbb E[x_nx_{n-j}]=\sum a_i\mathbb E[x_{n-i}x_{n-j}]$
+		- we can rewrite this using autocorrelation $R_{XX}(k)=\mathbb E[x_nx_{n+k}]$
+		- we get Wiener-Hopf equations (matrix multiplication)
+		- we will estimate $R_{XX}(k)$ – nothing complicated, it's just an average of products
+			- we assume that the process is stationary
+- ADPCM
+	- adaptive DPCM
+	- forward adaptive prediction (DPCM-APF)
+		- estimate autocorrelation for blocks
+		- we need to transfer coefficients and buffer the input (group it into blocks)
+	- backward adaptive prediction (DPCM-APB)
+		- no need to transfer additional info
+		- we will use stochastic gradient descent during coding (LMS = least mean squares algorithm)
+		- $A^{(n+1)}=A^{(n)}+\alpha \hat d_n\hat X_{n-1}$
+- G.726
+	- ITU-T standard for speech compression based on ADPCM
+	- predictor uses two latest predictions and six latest differences (between predicted values)
+	- simplified LMS algorithm
+	- backward adaptive quantizer (modified Jayant)
+- delta modulation
+	- speech coding
+	- very simple form of DPCM
+	- 2-level quantizer (we can only encode $+\Delta$ or $-\Delta$)
+	- we need really high sampling frequency
+	- problems
+		- constant signal (we encode it as a sequence of `↑↓↑↓↑↓↑↓`)
+			- “granular regions”
+		- a slope steeper than delta
+			- “slope overload region”
+	- solution: adapt $\Delta$ to the characteristics of the input
+- constant factor adaptive delta modulation (CFDM)
+	- objective: increase delta in overload regions, decrease it in granular regions
+	- how to identify the regions?
+		- use a history of one sample (or more)
+	- application: space shuttle ↔ ground terminal (CDFM with 7-sample memory)
+
+---
 
 ### Transform Coding
 
