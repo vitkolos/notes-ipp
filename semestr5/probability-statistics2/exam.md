@@ -2,9 +2,324 @@
 
 ## Markov Chains
 
+- Stochastic process
+	- sequence of random variables $X_0,X_1,\dots$ such that “all probabilities are defined”
+		- e.g. $P(X_0=1\land X_1=2\land X_3=0)$ is defined
+- Markov process/chain
+	- stochastic process such that
+		- $\exists$ finite/countable set $S$ such that $\forall t:\text{Im}\,X_t\subseteq S$
+			- elements of $S$ … states
+			- $t$ … time
+		- $\forall i,j\in S:\exists p_{ij}\in [0,1]$
+	- notes
+		- this is a discrete time Markov chain
+		- discrete space … $|S|\leq |\mathbb N|$
+		- time-homogeneous … $p_{ij}$ not depeding on $t$
+		- Markov condition … “forgetting the past”
+			- $P(X_{t+1}=a_{t+1}\mid X_t=a_t\land \dots\land X_0=a_0)=P(X_{t+1}=a_{t+1}\mid X_t=a_t)$
+- Transition matrix, diagram
+	- transition matrix is a matrix $P$ such that $P_{ij}=p_{ij}$
+	- observation: every row of $P$ sums to 1
+	- transition diagram/graph
+		- vertices … $S$
+		- directed edges … $\set{(i,j)\in S^2:p_{ij}\gt 0}$
+	- Markov chain is equivalent to a random walk on the transition diagram
+		- from state $i$ we go to $j$ with the probability of $p_{ij}$ independent of the past
+- Probability mass function for $X_0,X_1,\dots$
+	- $\pi_i^{(t)}=P(X_t=i)$
+	- theorem: $\pi^{(t+1)}=\pi^{(t)}\cdot P$
+		- where $\pi^{(t)}=(\pi_1^{(t)},\dots,\pi_n^{(t)})$ row vector
+	- proof: definition of matrix multiplication & total probability theorem
+	- by induction, we can prove that $\pi^{(k)}=\pi^{(0)}P^k$ and, more generally, $\pi^{(t+k)}=\pi^{(t)}P^k$
+- Probability of $k$-step transition … $r_{ij}(k)$
+	- $r_{ij}(k)=P(X_{t+k}=j\mid X_t=i)$
+	- $r_{ij}(1)=P(X_{t+1}=j\mid X_t=i)=p_{ij}$
+- Chapman-Kolmogorov theorem
+	- $\forall$ Markov chain, $\forall i,j,k:$
+		- $r_{ij}(k+1)=\sum_{u=1}^n r_{iu}(k) p_{uj}$
+		- $r_{ij}(k+\ell)=\sum_{u=1}^n r_{iu}(k) r_{uj}(\ell)$
+		- $r_{ij}(k)=(P^k)_{ij}$
+	- proof
+		- $2\implies 1$
+			- 1 is a special case of 2 ($r_{uj}(1)=p_{uj})$
+		- $1\implies 3$
+			- matrix multiplication & induction
+		- $2$ … we want $r_{ij}(k+\ell)=\sum_{u=1}^n r_{iu}(k) r_{uj}(\ell)$
+			- $P(X_{t+k+\ell}=j\mid X_t=i)=$
+			- $=\sum_{u=1}^nP(X_{t+k}=u\mid X_t=i)\cdot P(X_{t+k+\ell}=j\mid X_{t+k}=u)$
+			- it follows from total probability theorem
+- Accessible states
+	- definition: $j$ is accessible from $i$ (where $i,j\in S$)
+		- $i\to j$
+		- $j\in A(i)$
+	- $j$ is accessible from $i\equiv$ $\exists t:\underbrace{P(X_t=j\mid X_0=i)}_{r_{ij}(t)}\gt 0$
+	- $\iff$ in the transition digraph exists directed path $i\to j$ of length $t$
+- Communicating states
+	- definition: $i\leftrightarrow j$ ($i$ and $j$ communicate) $\equiv i\in A(j)\land j\in A(i)$
+	- theorem: $\leftrightarrow$ is an equivalence relation
+	- proof
+		- reflexive: $i\in A(i)$ … $t=0$ in the definition
+		- symmetric: the formula $i\in A(j)\land j\in A(i)$ is symmetric
+		- transitive: in the digraph $\exists$ path $i$ to $j$, $\exists$ path $j$ to $k$ $\implies\exists$ walk $i\to k$
+	- decomposition of the transition digraph to components of strong connectivity $\equiv$ finding equivalence classes of $\leftrightarrow$
+- Reducibility
+	- Markov chain is irreducible if $\forall i,j\in S:i\leftrightarrow j$
+- Time to get to $i\in S$
+	- definition: $T_i=\min\set{t\geq 1:X_t=i}$
+	- $T_i=\infty$ if the set is empty (there is no such $t$)
+	- $T_i$ … random variable
+	- $f_{ij}(n)=P(\text{we get to }j\text{ first at time }n\mid X_0=i)=P(T_j=n\mid X_0=i)$
+		- we define it for $n\gt 0$
+	- $f_{ij}=P(T_j\lt\infty\mid X_0=i)=\sum_{n\geq 1} f_{ij}(n)$
+		- probability that we get to $j$ if we start from $i$ (after at least one step)
+- Reccurent state
+	- a state $i\in S$ is recurrent if we return to it with probability 1
+		- it is transient otherwise
+		- česky rekurentní, tranzientní
+	- $i$ is transient
+		- $f_{ii}\lt 1$ … probability of ever getting back
+		- $\iff P(T_i=\infty)\gt 0$
+		- $\iff P(\text{get back infinitely often})\lt 1$
+	- theorem: $i$ is a recurrent state $\iff\sum_{n=1}^\infty r_{ii}(n)=\infty$
+	- theorem: if $i\leftrightarrow j$, then either both $i$ and $j$ are recurrent or both $i$ and $j$ are transient
+	- for finite Markov chains
+		- $C$ … equiv class of $\leftrightarrow$ in a finite Markov chain
+		- $C$ is recurrent ($\forall i\in C$ is recurrent) $\iff(\forall i \in C)(\forall j\in S):$ if $i\to j$ then $j\in C$
+			- → $C$ is closed
+- Stationary distribution / steady state distribution
+	- definition: $\pi:S\to [0,1]$ such that $\sum_{i\in S}\pi_i=1$ is called a stationary distribution if $\text{``}\pi P=\pi\text{"}$
+		- $\forall i:\sum_i\pi_i p_{ij}=\pi_j$
+	- if $\pi^{(0)}$ (the PMF of $X_0$) is $\pi$, then $\pi^{(1)}$ is $\pi$ as well
+	- reminder: $\pi^{(1)}=\pi^{(0)}P$
+	- theorem: if a Markov chain is finite, aperiodic (→ not periodic) and irreducible, then
+		1. $\exists$ unique stat. distribution $\pi$
+		2. $\forall i:\lim_{n\to\infty}(P^n)_{ij}=\pi_j$
+	- example of a periodic Markov chain: two states, we change the state with probability equal to 1
+
+---
+
+- df: $i\in S$ has period $d_i:=\text{gcd}\set{t:r_{ii}(t)\gt 0}$
+	- $i\in S$ is aperiodic if $d_i=1$
+- df: $i$ is null recurrent if $i$ is recurrent and $\mathbb E(T_i\mid X_0=i)=\infty$
+	- $i$ is positive recurrent if $i$ is recurrent and $\mathbb E(T_i\mid X_0=i)\lt\infty$
+- example: random walk on a line
+- theorem
+	- if $i,j\in S$, $i\leftrightarrow j$, then
+		- $d_i=d_j$
+		- $i$ is transient $\iff j$ is trainsient
+		- $i$ is recurrent $\iff j$ is recurrent
+		- $i$ is null recurrent $\iff j$ is null recurrent
+		- $i$ is positive recurrent $\iff j$ is positive recurrent
+	- these are properties of the class of $\leftrightarrow$
+- theorem
+	- if a Markov chain is irreducible, aperiodic and finite, then
+		- there exists a unique stationary distribution $\pi$: $\pi P=\pi$
+		- $\forall ij:\lim(P^t)_{ij}=\pi_j$
+			- $P(X_t=j\mid X_0=i)\doteq\pi_j$
+	- actually, MC does not have to be finite, it suffices if all states are positive recurrent (?)
+	- steady state (?)
+		- if $\pi^{(0)}=\pi$ then $\pi^{(1)}=\pi$
+- the proof is not easy, here is a cheat proof
+	- $Pj=Ij$ (row sums are 1)
+	- $(P-I)j=0$
+	- $P-I$ is sungular matrix
+	- $\exists x:x(P-I)=0\implies xP=x$
+	- $\pi=\frac xc$ such that $\sum \pi_i=1$
+	- problem
+		- $x$ may have negative coordinates
+		- to fix: use Perron-Frobenius theorem
+		- the correct proof is shown in class of probabilistic techniques
+- to find $\pi$, solve system of linear equations $\pi P=\pi$, add $\sum_{i\in S}\pi_i=1$
+	- $\pi$ describes long-term behavior of the MC
+	- Page Rank (original google search) … MC model of people browsing WWW
+	- given $\pi$, we can find a MC such that $\pi$ is its stationary distribution; then we can run the MC to generate random objects with distribution $\pi$
+		- Markov chain Monte Carlo (MCMC)
+- detailed balance equation
+	- MC may have this property
+	- $\forall i\neq j:\pi_iP_{ij}=\pi_jP_{ji}$
+- to imagine this: ant colony moving independently according to a Markov chain
+	- stationary distribution $\iff$ the same number of ants at each state at each time – ants don't "accumulate"
+- detailed balance equation implies $\pi P=\pi$
+	- detailed balance equation is stronger than $\pi P=\pi$
+- MCMC algo. sketch
+	- choose aperiodic irreducible digraph
+	- $p_{ij}=\min\set{1,\frac{\pi _j}{\pi_i}}\cdot C$
+	- $p_{ji}=\min\set{1,\frac{\pi_i}{\pi_j}}\cdot C$
+	- choose $C$ such that
+		- $\forall i:\sum_{j\neq i} p_{ij}\lt 1$
+		- df. $p_{ii}=1-\sum_{j\neq i}p_{ij}\gt 0$
+		- $\implies d_i=1$
+	- tune the process to make convergence fast
+- absorbing state $i:p_{ii}=1$
+	- $A$ … set of absorbing states
+	- question 1: which $i\in A$ we end at?
+	- question 2: how fast?
+- example: $0\in A$ (?)
+	- $a_i=P(\exists t:X_t=0\mid X_0=i)$
+- $\mu_i=\mathbb E(T\mid X_0=i)$
+	- $T=\min\set{t: X_t\in A}$
+- theorem: $(a_i)_{i\in S}$ are the unique solution to
+	- $a_0=1$
+	- $a_i=0$ if $i\in A,\,i\neq 0$
+	- $a_i=\sum_j p_{ij}\cdot a_j$ otherwise
+- theorem: $(\mu_i)_{i\in S}$ are unieque solutions to
+	- $\mu_i=0$ if $i\in A$
+	- $\mu_i=1+\sum_j p_{ij}\mu_j$ if $i\notin A$
+- proof
+	- $P(\exists t:X_t=0\mid X_0=0)=1$
+	- $P(\exists t: X_t=0\mid X_0=i\in A\setminus\set{0})=0$
+	- $i\notin A$
+		- $B_j=\set{\exists t:X_t=0}$
+		- $P(B_i)=\sum_{j\in S} p_{ij}\cdot \underbrace{P(B_i\mid X_1=j)}_{P(B_j)=a_j}$
+- example: drunk person on their way home
+	- $A=\set{0}$
+	- $\mu_0=0$
+	- $\mu_1=1+\frac12\mu_0+\frac12\mu_2$
+	- $\mu_2=1+\frac12\mu_1+\frac12\mu_3$
+	- $\mu_{n-1}=1+\frac12\mu_{n-2}+\frac12\mu_{n}$
+	- $\mu_n=1+\mu_{n-1}$
+	- solution
+		- $\mu_1=2n-1$
+		- $\mu_n=n^2$
+		- $\mu_{i}\leq n^2$
+- 2-SAT problem
+	- input: $\varphi=(x_1\lor x_2)\land(x_3\lor\neg x_1)\land\ldots$
+		- clauses with exactly 2 literals
+	- output: a satisfying assignment OR “unsatisfiable”
+	- there exists a polynomial algorithm
+	- we will show a randomized algorithm
+		1. arbitrarily initialize $(x_1,\dots,x_n)$
+		2. while $\varphi$ has an unsatisfied clause
+			- choose one of the unsatisfied clauses and change one of its variables
+		3. return $(x_1,\dots,x_n)$
+	- repeat (2) $\leq2mn^2$ times
+		- then, if $\varphi$ is still unsatisfied, return “unsatisfiable”
+		- this may introduce errors
+	- theorem: the algorithm makes an error with probability $\leq 2^{-m}$
+	- proof
+		- $x_1^*,\dots,x_n^*$ … one of the satisfying assignments
+		- $D_t$ the number of $i$ such that $x_i\neq x_i^*$ at time $t$
+			- $t=0,1,\dots,2mn^2$
+			- $0\leq D_t\leq n$
+			- $D_t=0\implies$ we found a solution
+		- situation
+			- we assume that clause $(x_1\lor x_2)$ is unsatisfied at time $t$ and we choose it
+			- $\implies x_1=x_2=F$
+				- $(x_1\neq x_2)$
+				- ($x_2\neq\neg x_1)$ … we could remove such clauses
+			- $\implies x_1^*\lor x_2^*$ is $T$
+			- we randomly switch $x_1$ or $x_2$ which increases or decreases $D$
+			- …
+	- we can get a 3-SAT randomized algorithm with $(\frac43)^n$ time complexity this way
+- Hidden Markov Model (HMM)
+	- not observable $(X_t)$ … Markov chain
+	- observable $(Y_t)$ … $Y_t$ is obtained from $X_t$
+	- widely aplplicable
+	- smart algorithm (Vitebri algorithm)
+
 ## Bayesian Statistics
 
+- what is probability?
+	- $P:\mathcal F\to[0,1]$ such that
+		- $P(\Omega)=1$
+		- $P(\bigcup A_n)=\sum P(A_n)$ if disjoint
+- where to find/use it?
+	- randomized algorithms
+	- is it possible to have true randomness?
+		- hardware methods to sample random bits
+		- software methods
+			- their independence can be “weak” (for statistics) or “strong” (for cryptography)
+- probabilistic method
+	- we prove that some graph exists by showing that random graph has certain property with probability greater than zero
+	- $G(n,p)$ … graph with vertices $1,\dots,n$
+		- $\forall i,j:i\sim j$ with probability $p$ (all independent)
+	- $P(G(n,\frac12)$ has no $K_k$ nor $\overline K_k$ as an induced subgraph$)\gt 0$ if $n\leq 2^{k/2}$
+	- thus $\exists G$ on $2^{k/2}$ vertices with no induced $K_k$ nor $\overline K_k$
+	- Ramsey theorem
+- statistics
+	- frequentist
+		- $P(A)=$ number of good / number of all
+		- “in long term repetition”
+		- repeat a random experiment independently $n$ times
+		- observe that $A$ happens $k$ times
+		- $P(A):=k/n$
+	- Bayesian
+		- P(it will rain tomorrow)
+		- subjective probability → betting
+			- does satisfy axioms!
+		- “random universe”
+			- $\Omega$ = set of all possible universes
+- Bayes theorem
+- MAP (maximum a posteriori)
+- $\hat\theta_\text{MAP}=\text{argmax}_\theta\,p_{\Theta\mid X}(\theta\mid x)$
+	- $\hat\theta$ is a point estimate for $\Theta$
+- that equals $\text{argmax}\,p_\Theta(\hat\theta)\cdot p_{X\mid\Theta}(x\mid\theta)$ as we can ignore the normalization constant
+- Beta function
+	- $B(\alpha,\beta)=\int_0^1x^{\alpha-1}(1-x)^{\beta-1}=\frac{(\alpha-1)!(\beta-1)!}{(\alpha+\beta-1)!}$
+- Beta distribution
+	- $f_\Theta(x)=\frac1{B(\alpha,\beta)}x^{\alpha-1}(1-x)^{\beta-1}$
+- $(\ln f)'=(c+(\alpha-1)\ln x+(\beta-1)\ln (1-x))'={\alpha-1\over x}-{\beta-1\over 1-x}$
+	- in the maximum, this will be equal to zero
+	- maximum … $\frac{\alpha-1}{\alpha-1+\beta-1}$
+- …
+- LMS point estimate
+	- LMS = least mean square
+	- estimate such that $\mathbb E((\Theta-\hat\theta)^2\mid X=x)$ is minimal
+	- to compute it
+		- …
+- example: measurement error with a normal distribution
+- often, the constant in the denominator does not matter
+- from posterior $f_{\Theta\mid X}$ we can find
+	- point extimates
+		- MAP
+		- LMS
+	- interval estimates
+		- confidence intervals (in classical statistics) → credible sets $S$
+- sampling
+	- rejection sympling
+	- MCMC sampling
+		- Monte Carlo Markov chains
+		- Metropolis Hastings method
+		- we construct a MC from the probability distribution we want
+		- we run the MC for long enough
+- LMS
+- $\Theta\mid X=x$
+	- mean … LMS = $\min\mathbb E((\Theta-\hat\theta)^2\mid X=x)$
+	- median … $\min\mathbb E(|\Theta-\hat\theta|\mid X=x)$
+	- modus … MAP
+- conditional independence
+	- events
+		- $A\perp B\iff P(A\cap B)=P(A)\cdot P(B)$
+		- $A\perp_C B\iff P(A\cap B\mid C)=P(A\mid C)\cdot P(B\mid C)$
+			- $A,B$ are independent conditionally given $C$
+	- it is possible (even typical) that $A\perp_C B$, $A\perp_{C^C} B$, but not $A\perp B$
+
 ## Conditional Expectation
+
+- $\mathbb E(Y\mid X=x)$ vs. $\mathbb E(Y\mid X)$
+- $\mathbb E(Y\mid X=x)=g(x)$ … number
+- $\mathbb E(Y\mid X)=g(X)$ … random variable
+- we proved that $\mathbb E(\mathbb E(Y\mid X))=\mathbb E(g(X))=\mathbb EY$
+	- “law of iterated expectation”
+- basic task of statistics
+	- estimate one quantity (Y) given data/measurement (X)
+- example: groups of students, their exam results
+- estimator
+	- $\hat Y=\mathbb E(Y\mid X)=g(X)$
+- $\tilde Y=\hat Y-Y$
+- we proved that $\mathbb E(\tilde Y\mid X)=0$
+	- therefore $\mathbb E(\tilde Y)=\mathbb E(\mathbb E(\tilde Y\mid X))=0$
+- also, $\text{cov}(\tilde Y,\hat Y)=0$
+	- they are uncorellated
+- note
+	- uncorellated $\impliedby$ independent
+	- uncorellated $\centernot\implies$ independent
+- conditional variance
+- iterated variance / eve's rule
+	- $\text{var }Y=\mathbb E(\text{var}(Y\mid X))+\text{var}(\mathbb E(Y\mid X))$
+	- intragroup variance + intergroup variance
+
+---
 
 ## Balls & Bins
 
