@@ -774,7 +774,7 @@
 - instead of that, we will quantize the difference between the previous **predicted** value and the current value
 	- or we can use a more general function of multiple previous predicted values instead of just the last value
 	- this function can be called $p_n$
-- DPCM
+- DPCM (differential pulse-code modulation)
 	- C. Chapin Cutler, Bell Labs
 	- goal: minimize MSE (error between the real value and $p_n$)
 	- linear predictor $p_n=\sum_{i=1}^N a_i\hat x_{n-i}$
@@ -942,12 +942,119 @@
 - example
 	- rapid sample-to-sample variation
 	- but the long-term trend varies slowly
-- idea: let's average the samples using the sliding window
-- …
+	- idea: let's average the samples $x_n$ using the sliding window
+		- this would smooth out the rapid variation
+	- we could transmit both the averages $y_n$ and their distances $z_n$ from the original values $x_n$
+		- we would need to transmit twice as many values than before
+		- fortunately, if we transmit only even values, we can reconstruct the odd values from them
+	- takeaway
+		- it is useful to decompose original sequence $(x_n)$ into two subsequences $(y_n)$ and $(z_n)$
+		- it did not result in any increase in the number of values we need to transmit
+		- the two subsequences have different characteristics, we can use different techniques to encode them
+- filters – selectively block frequencies that does not belong to the filtered range
+	- low-pass filters – blocks frequencies above $f_0$
+	- high-pass filters – block frequencies below $f_0$
+	- band-pass filters – lets through only components between $f_1$ and $f_2$
+- digital filter with input $(x_n)$ output $(y_n)$ coefficients $(a_i),(b_i)$
+	- $y_n=\sum_{i=0}^N a_ix_{n-i}+\sum_{i=1}^Mb_iy_{n-i}$
+	- finite impulse response (FIR)
+		- $\forall i:b_i=0$
+		- impulse response dies out after $N$ samples
+		- $N$ … number of taps
+	- infinite impulse response (IIR)
+		- example for $a_0=1$ and $b_1=0.9$ and impulse 1000000…
+			- $y_n:$ 1, 0.9, 0.81, 0.729, …
+			- this $y_n$ is equal to the impulse response $h_n$
+	- we can use convolution…
+		- impulse response completely specifies the filter
+		- $y_n=\sum_{k=0}^M h_kx_{n-k}$
+		- for IIR, $M$ is infinite
+	- examples of filters
+		- averaging
+			- low-pass filter
+			- two-tap FIR filter
+			- $h_n:0.5,0.5,0,\dots$
+		- difference
+			- high-pass filter
+			- $h_n:0.5,-0.5,0,\dots$
+- filters used in subband coding
+	- filter bank
+		- a cascade of stages
+		- each stage contains low-pass and high-pass filters
+	- QMF – quadrature mirror filter
+		- impulse response of the low-pass filter is specified as $(h_n)$
+		- impulse response of the high-pass filter is derived from that as $((-1)^nh_{N-1-n})$
+			- the order is reversed and the signs are flipped
+		- example: 8-tap Johnson QMF filter
+		- fewer taps → lower efficiency in decomposition
+- basic algorithm
+	1. analysis
+		- $M$ filters cover the frequency range of the input
+		- generalized Nyquist rule – the sampling frequency has to be at least twice the supported frequency range
+	2. downsampling (decimation)
+		- keep each $M$th sample
+	3. quantization + coding
+		- allocation of bits between subbands
+			- subband variance is a suitable heuristic
+		- ADPCM, PCM, vector quantization
+	4. decoding
+	5. upsampling
+		- insert appropriate number of zeros
+	6. synthesis
+		- bank of reconstruction filters
+- G.722
+	- ITU recommendation for speech coding
+	- anti-aliasing filter with cutoff frequency 7 kHz
+	- sampling frequency 16 kHz
+	- 14b uniform quantizer
+	- filtering – a bank of 2 QMF filters
+		- 24 tap FIR filter
+		- low-pass 0–4 kHz, high-pass remaining frequencies
+		- down sampling by a factor of two
+	- encoding – ADPCM
+		- low-pass: 6b/sample
+		- high-pass: 2b/sample
+	- quantization – a variation of Jayant algorithm
+- MPEG audio (Moving Picture Experts Group)
+	- three coding schemes – layers (each is more complex than the previous)
+		- MPEG-1 Audio Layer I (MP1)
+		- MPEG-1 (or MPEG-2) Audio Layer II (MP2)
+		- MPEG-1 (or MPEG-2) Audio Layer III (MP3)
+	- subband coding
+		- MP1 and MP2 use a bank of QMF filters
+		- MP3 uses QMF and modified DCT
+	- quantization
+		- uniform (1, 2)
+		- non-uniform (3)
+	- bit allocation to subbands
+		- based on a psychoacoustic model of human perception
+		- sounds at different frequencies are perceived as differently loud even if they have the same pressure levels
+		- threshold-of-hearing curve (boundary of audible sounds)
+		- spectral masking
+			- if there are multiple sounds of the similar frequencies, some might not be audible (audibility threshold rises)
+		- temporal masking
+			- sound raises the audibility threshold for a brief interval preceding and following the sound
+	- coding
+		- fixed codeword length (1, 2)
+		- Huffman coding + a buffer to ensure fixed transmission rate (3)
+- image compression
+	- dependencies in two dimensions – it is better to use two one-dimensional filters rather than one two-dimensional filter
+	- filter each row of an image separately using high-pass and low-pass filters, then perform downsampling by a factor of two
+		- one image N×N → 2 images N×N/2
+	- filter each column of the two images using high-pass and low-pass filters, then perform downsampling by a factor of two
+		- 2 images N×N/2 → 4 images N/2×N/2
+	- then we can stop or continue the decomposition (note: we don't have to decompose all of the subimages)
+	- application: JPEG 2000
+		- wavelet transform
+		- coefficients correspond to details for various resolutions
+			- fairly precise quantization possible
+			- FBI fingerprint image compression standard, medical images compression
+			- data optimization for progressive transmission over a network
+			- a possibility to define regions of interest for higher-quality encoding
 
 ### Video Compression
 
-- video … time sequence of images (frames)
+- video = time sequence of images (frames)
 - can we reduce the problem to image compression?
 	- no!
 	- if we change the average intensity of pixels, it becomes noticeable in a video
@@ -957,27 +1064,128 @@
 	- one-way → used for storage, the compression can be more complex
 - video signal representation
 	- CRT
+	- analog TV standards: NTSC (USA), PAL (Germany), SECAM (France)
 	- composite signal – YCbCr
-	- Gamma correction – to make colors look more natural
-- MPEG-1
-	- we need to follow Nyquist-Shannon rule to prevent aliasing
-		- horizontal filter removes the frequencies that break the rule
-- H.261
+		- Y (luminance) used for black-and-white television 
+	- gamma correction – to make colors look more natural
+- MPEG-SIF format based on ITU-R 601 4:2:2
+	- luminance compression – take odd rows, use horizontal filter and subsample (the horizontal filter prevents aliasing)
+	- chrominance compression – take odd rows, use horizontal filter and subsample, use vertical filter and subsample
+- ITU-R H.261
 	- videotelephony, videoconferencing
-	- why do we have to do inverse quantization and transform when encoding? to prevent loss, we need the encoding prediction to be based on the information available to the decoder (see differential encoding)
+	- format CIF
+	- idea
+		- frame = 8×8 blocks
+		- prediction (by the previous frame) + differencing
+		- DCT
+		- quantization
+		- entropy coder with variable codeword length
+	- why do we have to do inverse quantization and transform when encoding?
+		- to prevent loss, we need the encoding prediction to be based on the information available to the decoder (see differential encoding)
 	- motion compensation
 		- which parts of the image are moving?
 		- for each block of the frame, we are going to find the most similar block of the previous frame
 		- if there's no similar previous block, we just encode the current block
-		- we can reduce the search space
-		- solution: macroblocks
-	- the loom filter
+		- how to reduce the search space?
+			- increase block size
+		- H.261 uses macroblocks
+			- for luminance component, group the blocks by four (into 16×16 macroblocks)
+			- search for the best match (we get the motion vector)
+			- to find the motion vector for chrominance components, we just divide the motion vector by two
+	- the loop filter
 		- sharp edges in the block used for prediction have some negative consequences
 		- we use a smoothing filter
 	- transform
-		- discrete cosine transform of the blocks
+		- DCT of the blocks
 		- coder simulates the decoder
+		- two modes
+			- inter – motion compensation is used (we only have to encode the differences)
+			- intra – original block is encoded directly
 	- quantization
+		- intra blocks have large DC coefficients, inter blocks have smaller ones
+		- there are 32 different quantizers, they are identified in the macroblock header
 	- coding
+		- zigzag scan through the block of quantized coefficients (like in JPEG)
+			- 20 most common → single variable length codeword
+			- other → fixed length 20b
+		- to avoid zero blocks, CBP (coded block pattern) is used to describe which blocks have non-zero coefficients
 	- rate control
+		- during videoconference we need the transmission rate to be steady
+		- transmission buffer – keeps the output rate of the encoder fixed
+			- buffer may request that the coder changes the transmission rate
+			- coder than may change the quantizer (or as a last resort drop some frames)
 - MPEG
+	- standard describes bitstream format and decoder, not encoder
+	- MPEG-1
+		- lossy compression of sound and video
+		- YUV color space
+		- standard for video CD
+		- layer 3 (MP3) format for audio compression
+	- MPEG-2
+		- TV broadcast, DVD
+	- MPEG-3
+		- originally intended for HDTV
+		- development stopped, merged with MPEG-2
+- MPEG-1
+	- same basis as H.261
+	- 8×8 blocks
+	- inter/intra
+	- motion-compensated prediction on macroblock level
+	- DCT
+	- quantization and coding
+	- rate control using a transmission buffer
+	- but has different applications (digital storage and retrieval)
+	- frame types
+		- I-frame (intraframe) – current frame (coded with no reference to other frames)
+		- P-frame (predictive frame) – difference between current and most recent I/P-frame
+		- B-frame (bidirectionally predictive) – difference between two closest I/P-frames (most recent and closest future frame)
+		- e.g. $I:P:B \approx 2:5:12$
+	- group of pictures (GOP)
+		- smallest random access unit in the video sequence
+		- a repeating sequence of 10–30 frames
+		- contains at least one I-frame
+		- starts with an I-frame or “forward-pointing” B-frames
+		- usage
+			- allows the video to replay at original speed even on a slow hardware
+				- some frames may be skipped to keep the original speed
+			- forward, jump forward/back
+		- when processing a GOP, referenced frames have to be processed before the frames that reference them
+	- coding
+		- standard does not specify a particular method for motion compensation
+			- search space size should grow with the distance between frames
+		- DCT & quantization are similar to JPEG (different quantization tables for different frames)
+		- rate control – we can discard B-frames first
+	- properties
+		- VHS quality for low-moderate motion (worse than VHS for high-motion)
+		- interlacing was not considered
+- MPEG-2
+	- idea: application-independent standard, toolkit approach
+	- profiles: simple, main, snr-scalable, spatially scalable, high
+		- simple: no B-frames
+		- main: like MPEG-1
+	- possibility to use several layers (in the other three profiles)
+		- base layer: encodes low-quality videosignal
+		- enhancement layer: differential encoding to improve quality
+	- several resolution levels
+	- interlacing can be used
+		- field-based alternatives to I/P/B-frames
+		- P-frames may be replaced by 2 P-fields
+		- B-frames may be replaced by 2 B-fields
+		- I-frames may be replaced by 2 I-fields or I-field and P-field
+			- predict the bottom field by the top field
+	- new motion-compensated prediction modes
+- MPEG-4
+	- objective: encode video at low bitrates
+	- object oriented approach: audio, video and VRML objects
+	- allows to use arbitrary codecs
+	- MPEG-4 Part 10 … H.264 (used in HDTV, Blu-ray)
+- MPEG-M (Part 2)
+	- HEVC (High Efficiency Video Coding)
+	- ITU-T H.265
+	- used in DVB-T2
+- H.264 improvements (examples)
+	- macroblocks may be further divided
+	- 9 prediction models for 4×4 blocks
+- H.265 improvements (examples)
+	- frame is partitioned into Coded Tree Units
+	- blocks can be subdivided if higher “resolution” is needed
