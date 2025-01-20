@@ -819,25 +819,112 @@
 		- use a history of one sample (or more)
 	- application: space shuttle ↔ ground terminal (CDFM with 7-sample memory)
 
----
-
 ### Transform Coding
 
-- transform coding
-	- for images, we have to make a two-dimensional transform
-		- it is better to transform each dimension separately
-	- orthogonal transform … we use orthogonal transform matrix
-	- gain $G_T$ of a transform $T$
-	- Karhunen-Loéve transform
-	- discrete cosine transform (no need to memorize the formulae)
-		- DCT is the cosine component of DFT
-		- redistributes information so that we can quantize it more easily
-	- discrete sine transform
-	- Hadamard matrix
-	- discrete Walsh-Hadamard transform
-	- quantization and coding
-- JPEG
-	- …
+- scheme: group individual samples into blocks, transform each block, quantization, coding
+- for images, we have to make a two-dimensional transform
+	- it is better to transform each dimension separately = separable transform
+- separable transform using matrix $A$
+	- transformed data $\Theta=AXA^T$
+	- original data $X=A^{-1}\Theta(A^{-1})^T$
+- orthogonal transform … we use orthogonal transform matrix
+	- transformed data $\Theta=AXA^T$
+	- original data $X=A^T\Theta A$
+	- moreover $\sum_i \theta_i^2=\sum_i x_i^2$
+	- gain $G_T$ (of a transform $T$) = arithmetic over geometric mean of $\sigma_*^2$
+		- $\sigma_i^2$ … variance of coefficient $\theta_i$
+- Karhunen-Loéve transform
+	- minimizes the geometric mean of the variance of the transform coefficients
+	- transform matrix consists of eigenvectors of the autocorrelation matrix $R$
+	- problem: non-stationary input → matrix $R$ changes with time → KLT needs to be recomputed
+- discrete cosine transform
+	- DCT is the “cosine component” of DFT
+	- redistributes information so that we can quantize it more easily
+	- why is DCT better than DFT?
+		- FT requires a periodic signal
+		- periodic extension of non-periodic signal would introduce sharp discontinuities and non-zero high-frequency coefficients
+	- DCT may be obtained from DFT (start with the original non-periodic signal consisting of $N$ points, mirror it to get $2N$ points, apply DFT, take the first $N$ points)
+	- DCT transform matrix – 1st row is constant vector, following rows consist of vectors with increasing variation
+		- these are the portions of the original “signal” (data matrix $X$) that the coefficients in the $\Theta$ matrix correspond to
+		- [![DCT](http://www.owlnet.rice.edu/~elec539/Projects99/DRDP/proj1/basis.jpg)](http://www.owlnet.rice.edu/~elec539/Projects99/DRDP/proj1/report2.html)
+			- these can be called “basis matrices”
+		- basis matrix corresponding to $\theta_{11}$ is a constant matrix $\implies$ $\theta_{11}$ is some multiple of the average value in the data matrix
+			- $\theta_{11}$ … DC coefficient
+			- other $\theta_{ij}$ … AC coefficients
+	- gain $G_{DCT}$ is close to the optimum value for Markov sources with high correlation coefficient $\rho=\frac{\mathbb E[x_nx_{n+1}]}{\mathbb E[x_n^2]}$
+- discrete sine transform
+	- gain $G_{DST}$ is close to the optimum value for Markov sources with low correlation coefficient $\rho=\frac{\mathbb E[x_nx_{n+1}]}{\mathbb E[x_n^2]}$
+- Hadamard matrix
+	- square matrix of order $n$ such that $HH^T=nI$
+	- $H_1=(1)$
+	- $H_{2n}=\begin{pmatrix} H_n & H_n \\ H_n & -H_n \end{pmatrix}$
+- discrete Walsh-Hadamard transform
+	- DWHT transform matrix is a rearrangement of $H_n$
+		- multiply $H_n$ by normalizing factor $\frac1{\sqrt n}$
+		- reorder the rows by increasing number of sign changes
+	- pro: speed
+	- con: $G_{DWHT}\ll G_{DCT}$
+- quantization of transform coefficients
+	- zonal sampling
+		- coefficients with higher expected variance are assigned more bits for sampling
+		- pro: simplicity
+		- con: bit allocations based on average rules → local variations (e.g. sharp edges on plain background) might not be reconstructed properly
+- quantization and coding
+	- threshold coding
+		- based on the threshold, we decide which coefficients to keep (or discard)
+		- we have to store the numbers of discarded coefficients
+		- threshold is not decided a priori
+	- Chen & Pratt suggest zigzag scan
+		- tail of the scan should consist of zeros (generally, the higher-order coefficients have smaller amplitude) → for fixed length of the block, we don't need to specify the number of zeros, just send end-of-block (EOB) signal
+- JPEG (Joint Photographic Experts Group)
+	- JPEG standard specifies a codec
+		- lossy / lossless compression
+		- progressive transmission scheme
+	- file format
+		- JPEG/JFIF – minimal format version
+		- JPEG/Exif – digital photography
+	- compression scheme
+		- color space transform
+			- RGB → YCbCr
+			- human eye is more sensitive to details in Y (luminance) component
+		- reduction of colors (chroma subsampling) in color components
+			- 4:4:4 (no reduction) or 4:2:2 or 4:2:0
+			- 4:2:2 or 4:2:0 → colors have lower resolution than the luminance
+			- [![chroma subsampling](https://d1hjkbq40fs2x4.cloudfront.net/2022-04-21/files/video-faq-420-422-colour-sampling_2214-04.jpg)](https://snapshot.canon-asia.com/article/eng/videography-faq-what-do-422-and-420-mean)
+			- J:a:b (see [Chroma subsampling, Wikipedia](https://en.wikipedia.org/wiki/Chroma_subsampling))
+				- J … width of the region (as a reference)
+				- a … number of chrominance samples in the first row
+				- b … number of changes (in chrominance) between first and second row
+		- each color component is handled separately
+			- split into blocks of 8×8 pixels
+			- DCT of each block
+			- uniform quantization of DCT coefficients
+				- coefficients are divided by table values (recommended in the standard, stored in the compressed file) and rounded
+				- table values are adjusted according to specified JPEG quality $\in\set{1,\dots,100}$
+			- coding – zigzag matrix scan, Huffman coding (extended JPEG can use arithmetic coding)
+	- Huffman encoding of coefficients
+		- DC coefficient encoding
+			- $\theta_{11}$ = constant multiple of the average value in the block (see the image in the DCT section above)
+			- instead of $\theta_{11}$ encode the difference between neighboring blocks
+			- split the range of values into categories (so that the Huffman tree is not too large)
+				- we output the Huffman code of the category $n$ and then $n$ bits identifying the exact value
+				- values
+					- category 0 … 0
+					- category 1 … -1, 1
+					- category 2 … -3, -2, 2, 3
+					- etc.
+		- AC coefficient encoding
+			- the categories are the same
+			- but we don't encode zeros – we use Chen & Pratt method with EOB signal
+			- for each value, we need to encode its category (+ value) and the number of previous zeros
+				- use Huffman tree to encode $(Z,C)$ where $Z$ is the number of previous zeros and $C$ is the category
+				- append $C$ bits to store the exact value
+			- if the number of previous zeros is greater than 15, use a special ZRL signal
+				- ZRL is encoded as $(15,0)$
+				- EOB is encoded as $(0,0)$
+	- JPEG use
+		- digitized images, realistic scenes, subtle variations in tone and color
+		- disadvantage: artificial division into blocks → coding artifacts at the block edges → tile effect
 - WebP
 	- color space: RGB → YCbCr
 	- chroma subsampling 4:2:0
@@ -845,8 +932,10 @@
 		- high detail areas: 4×4
 	- macroblock prediction
 	- transform: DCT, DWHT
-	- quantization
-	- coding
+	- quantization – partition to segments with similar features
+	- arithmetic coding
+
+---
 
 ### Subband Coding
 
