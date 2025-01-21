@@ -208,32 +208,50 @@
 	- $p_{\Theta\mid X}(\theta\mid x)=\frac{p_{X\mid\Theta}(x\mid\theta)\cdot p_\Theta(\theta)}{\sum_{\theta'\in\text{Im}\,\Theta} p_{X\mid\Theta}(x\mid\theta')\cdot p_\Theta(\theta')}$
 	- similar for continuous RVs
 	- note: terms with $p_{\Theta}(\theta')=0$ are considered to be zero
+- Bayesian statistics – general approach
+	- $\Theta$ possible worlds
+		- prior distribution $p_\Theta(\theta)$
+		- example: with probability $\frac12$ the coin is fake (has heads on both sides)
+		- $p_\Theta(\text{real})=\frac12$
+		- $p_\Theta(\text{fake})=\frac12$
+	- $X$ … measurement/observation
+		- example: we got heads
+	- posterior distribution
+		- $p_{\Theta\mid X}(\theta\mid x)=\frac{ p_\Theta(\theta)\cdot p_{X\mid\Theta}(x\mid\theta)}{\sum_{t\in\Theta} p_\Theta(t)\cdot p_{X\mid\Theta}(x\mid t)}$
+		- example: $p_{\Theta\mid X}(\text{fake}\mid\text{heads})=\frac{\frac12\cdot 1}{\frac12\cdot1+\frac12\cdot\frac12}=\frac23$
+			- alternatively: which “heads” did we get?
+				- one side of the fake coin
+				- the other side of the fake coin
+				- one side of the real coin
+			- two of the three possible “worlds” are corresponding to the fake coin → $p_{\Theta\mid X}(\text{fake}\mid\text{heads})=\frac23$
+- Bayesian estimates
+	- point estimates
+		- MAP (maximum a posteriori)
+			- we choose $\hat\theta$ to maximize $p_{\Theta\mid X}$ … we replace the random variable by its mode
+		- LMS (“least squares”)
+			- we choose $\hat\theta=\mathbb E(\Theta\mid X=x)$ … we replace the random variable by its mean
+			- we get an unbiased point estimate that has the smallest possible LMS (least mean square) error
+	- interval estimates
+		- credible sets $S$ (similar to confidence intervals used in classical statistics)
+	- note: often, the constant in the denominator does not matter
 ---
 - MAP (maximum a posteriori)
 	- $\hat\theta_\text{MAP}=\text{argmax}_\theta\,p_{\Theta\mid X}(\theta\mid x)$
 		- $\hat\theta$ is a point estimate for $\Theta$
-	- that equals $\text{argmax}\,p_\Theta(\hat\theta)\cdot p_{X\mid\Theta}(x\mid\theta)$ as we can ignore the normalization constant
-	- Beta function
-		- $B(\alpha,\beta)=\int_0^1x^{\alpha-1}(1-x)^{\beta-1}=\frac{(\alpha-1)!(\beta-1)!}{(\alpha+\beta-1)!}$
-	- Beta distribution
-		- $f_\Theta(x)=\frac1{B(\alpha,\beta)}x^{\alpha-1}(1-x)^{\beta-1}$
-	- $(\ln f)'=(c+(\alpha-1)\ln x+(\beta-1)\ln (1-x))'={\alpha-1\over x}-{\beta-1\over 1-x}$
-		- in the maximum, this will be equal to zero
-		- maximum … $\frac{\alpha-1}{\alpha-1+\beta-1}$
+	- that equals $\text{argmax}\,p_\Theta(\hat\theta)\cdot p_{X\mid\Theta}(x\mid\theta)$ as we can ignore the normalizing constant
 	- …
 - LMS point estimate
 	- LMS = least mean square
 	- estimate such that $\mathbb E((\Theta-\hat\theta)^2\mid X=x)$ is minimal
 	- to compute it
 		- …
+- Beta distribution
+	- $f_\Theta(x)=c\cdot x^{\alpha-1}(1-x)^{\beta-1}$
+		- where $c$ is a normalizing constant
+	- properties
+		- $f_\Theta$ is maximal for $\theta=\frac{\alpha-1}{\alpha+\beta-2}$
+		- $\mathbb E\Theta=\frac\alpha{\alpha+\beta}$
 - example: measurement error with a normal distribution
-- often, the constant in the denominator does not matter
-- from posterior $f_{\Theta\mid X}$ we can find
-	- point extimates
-		- MAP
-		- LMS
-	- interval estimates
-		- confidence intervals (in classical statistics) → credible sets $S$
 - sampling
 	- rejection sympling
 	- MCMC sampling
