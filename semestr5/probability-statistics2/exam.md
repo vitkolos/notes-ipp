@@ -86,102 +86,70 @@
 		- $C$ … equiv class of $\leftrightarrow$ in a finite Markov chain
 		- $C$ is recurrent ($\forall i\in C$ is recurrent) $\iff(\forall i \in C)(\forall j\in S):$ if $i\to j$ then $j\in C$
 			- → $C$ is closed
-- Stationary distribution / steady state distribution
-	- definition: $\pi:S\to [0,1]$ such that $\sum_{i\in S}\pi_i=1$ is called a stationary distribution if $\text{``}\pi P=\pi\text{"}$
-		- $\forall i:\sum_i\pi_i p_{ij}=\pi_j$
-	- if $\pi^{(0)}$ (the PMF of $X_0$) is $\pi$, then $\pi^{(1)}$ is $\pi$ as well
-	- reminder: $\pi^{(1)}=\pi^{(0)}P$
-	- theorem: if a Markov chain is finite, aperiodic (→ not periodic) and irreducible, then
-		1. $\exists$ unique stat. distribution $\pi$
-		2. $\forall i:\lim_{n\to\infty}(P^n)_{ij}=\pi_j$
+	- definition: $i$ is null recurrent if $i$ is recurrent and $\mathbb E(T_i\mid X_0=i)=\infty$
+		- $i$ is positive recurrent if $i$ is recurrent and $\mathbb E(T_i\mid X_0=i)\lt\infty$
+	- example: random walk on a line
+- Periodic state
+	- definition: $i\in S$ has period $d_i:=\text{gcd}\set{t:r_{ii}(t)\gt 0}$
+		- $i\in S$ is aperiodic if $d_i=1$
 	- example of a periodic Markov chain: two states, we change the state with probability equal to 1
-
----
-
-- df: $i\in S$ has period $d_i:=\text{gcd}\set{t:r_{ii}(t)\gt 0}$
-	- $i\in S$ is aperiodic if $d_i=1$
-- df: $i$ is null recurrent if $i$ is recurrent and $\mathbb E(T_i\mid X_0=i)=\infty$
-	- $i$ is positive recurrent if $i$ is recurrent and $\mathbb E(T_i\mid X_0=i)\lt\infty$
-- example: random walk on a line
-- theorem
+- Properties of a communicating class
 	- if $i,j\in S$, $i\leftrightarrow j$, then
 		- $d_i=d_j$
-		- $i$ is transient $\iff j$ is trainsient
+		- $i$ is transient $\iff j$ is transient
 		- $i$ is recurrent $\iff j$ is recurrent
 		- $i$ is null recurrent $\iff j$ is null recurrent
 		- $i$ is positive recurrent $\iff j$ is positive recurrent
 	- these are properties of the class of $\leftrightarrow$
-- theorem
-	- if a Markov chain is irreducible, aperiodic and finite, then
-		- there exists a unique stationary distribution $\pi$: $\pi P=\pi$
-		- $\forall ij:\lim(P^t)_{ij}=\pi_j$
-			- $P(X_t=j\mid X_0=i)\doteq\pi_j$
-	- actually, MC does not have to be finite, it suffices if all states are positive recurrent (?)
-	- steady state (?)
-		- if $\pi^{(0)}=\pi$ then $\pi^{(1)}=\pi$
-- the proof is not easy, here is a cheat proof
-	- $Pj=Ij$ (row sums are 1)
-	- $(P-I)j=0$
-	- $P-I$ is sungular matrix
-	- $\exists x:x(P-I)=0\implies xP=x$
-	- $\pi=\frac xc$ such that $\sum \pi_i=1$
-	- problem
-		- $x$ may have negative coordinates
-		- to fix: use Perron-Frobenius theorem
-		- the correct proof is shown in class of probabilistic techniques
-- to find $\pi$, solve system of linear equations $\pi P=\pi$, add $\sum_{i\in S}\pi_i=1$
+- Stationary distribution / steady state distribution
+	- definition: $\pi:S\to [0,1]$ such that $\sum_{i\in S}\pi_i=1$ is called a stationary distribution if $\text{``}\pi P=\pi\text{"}$
+		- $\forall i:\sum_i\pi_i\cdot p_{ij}=\pi_j$
+	- if $\pi^{(0)}$ (the PMF of $X_0$) is $\pi$, then $\pi^{(1)}$ is $\pi$ as well (→ steady state)
+	- reminder: $\pi^{(1)}=\pi^{(0)}P$
+	- theorem
+		- if a Markov chain is irreducible, aperiodic and finite, then
+			- there exists a unique stationary distribution $\pi$ such that $\pi P=\pi$
+			- $\forall ij:\lim(P^t)_{ij}=\pi_j$
+				- $P(X_t=j\mid X_0=i)\doteq\pi_j$
+		- actually, MC does not have to be finite, it suffices if all states are positive recurrent (?)
+	- to find $\pi$, solve system of linear equations $\pi P=\pi$, add $\sum_{i\in S}\pi_i=1$
+		- for every $i$ there should be equation $\pi_i=\sum_j p_{ji}\cdot \pi_j$ (there is a term for every *incoming* arc)
 	- $\pi$ describes long-term behavior of the MC
-	- Page Rank (original google search) … MC model of people browsing WWW
-	- given $\pi$, we can find a MC such that $\pi$ is its stationary distribution; then we can run the MC to generate random objects with distribution $\pi$
-		- Markov chain Monte Carlo (MCMC)
-- detailed balance equation
+		- Page Rank (original google search) … MC model of people browsing WWW
+		- given $\pi$, we can find a MC such that $\pi$ is its stationary distribution; then we can run the MC to generate random objects with distribution $\pi$
+			- Markov chain Monte Carlo (MCMC)
+- Detailed balance equation
 	- MC may have this property
 	- $\forall i\neq j:\pi_iP_{ij}=\pi_jP_{ji}$
-- to imagine this: ant colony moving independently according to a Markov chain
-	- stationary distribution $\iff$ the same number of ants at each state at each time – ants don't "accumulate"
-- detailed balance equation implies $\pi P=\pi$
-	- detailed balance equation is stronger than $\pi P=\pi$
-- MCMC algo. sketch
-	- choose aperiodic irreducible digraph
-	- $p_{ij}=\min\set{1,\frac{\pi _j}{\pi_i}}\cdot C$
-	- $p_{ji}=\min\set{1,\frac{\pi_i}{\pi_j}}\cdot C$
-	- choose $C$ such that
-		- $\forall i:\sum_{j\neq i} p_{ij}\lt 1$
-		- df. $p_{ii}=1-\sum_{j\neq i}p_{ij}\gt 0$
-		- $\implies d_i=1$
-	- tune the process to make convergence fast
-- absorbing state $i:p_{ii}=1$
+	- to imagine this: ant colony moving independently according to a Markov chain
+		- stationary distribution … the same number of ants at each state at each time – ants don't “accumulate”
+	- detailed balance equation implies $\pi P=\pi$ (but it is stronger than that)
+- Absorbing state
+	- $i\in S$ is absorbing state if $p_{ii}=1$
 	- $A$ … set of absorbing states
-	- question 1: which $i\in A$ we end at?
-	- question 2: how fast?
-- example: $0\in A$ (?)
-	- $a_i=P(\exists t:X_t=0\mid X_0=i)$
-- $\mu_i=\mathbb E(T\mid X_0=i)$
-	- $T=\min\set{t: X_t\in A}$
-- theorem: $(a_i)_{i\in S}$ are the unique solution to
-	- $a_0=1$
-	- $a_i=0$ if $i\in A,\,i\neq 0$
-	- $a_i=\sum_j p_{ij}\cdot a_j$ otherwise
-- theorem: $(\mu_i)_{i\in S}$ are unieque solutions to
-	- $\mu_i=0$ if $i\in A$
-	- $\mu_i=1+\sum_j p_{ij}\mu_j$ if $i\notin A$
-- proof
-	- $P(\exists t:X_t=0\mid X_0=0)=1$
-	- $P(\exists t: X_t=0\mid X_0=i\in A\setminus\set{0})=0$
-	- $i\notin A$
-		- $B_j=\set{\exists t:X_t=0}$
-		- $P(B_i)=\sum_{j\in S} p_{ij}\cdot \underbrace{P(B_i\mid X_1=j)}_{P(B_j)=a_j}$
-- example: drunk person on their way home
-	- $A=\set{0}$
-	- $\mu_0=0$
-	- $\mu_1=1+\frac12\mu_0+\frac12\mu_2$
-	- $\mu_2=1+\frac12\mu_1+\frac12\mu_3$
-	- $\mu_{n-1}=1+\frac12\mu_{n-2}+\frac12\mu_{n}$
-	- $\mu_n=1+\mu_{n-1}$
-	- solution
-		- $\mu_1=2n-1$
-		- $\mu_n=n^2$
-		- $\mu_{i}\leq n^2$
+	- which absorbing state do we end at? will it be state $0\in A$?
+		- $a_i=P(\exists t:X_t=0\mid X_0=i)$
+	- theorem: $(a_i)_{i\in S}$ are unique solutions to
+		- $a_0=1$
+		- $a_i=0$ if $i\in A,\,i\neq 0$
+		- $a_i=\sum_j p_{ij}\cdot a_j$ otherwise
+	- what is the expected number of steps to get to an absorbing state
+		- $\mu_i=\mathbb E(T\mid X_0=i)$
+		- $T=\min\set{t: X_t\in A}$
+	- theorem: $(\mu_i)_{i\in S}$ are unique solutions to
+		- $\mu_i=0$ if $i\in A$
+		- $\mu_i=1+\sum_j p_{ij}\cdot\mu_j$ if $i\notin A$
+	- example: drunk person on their way home
+		- $A=\set{0}$
+		- $\mu_0=0$
+		- $\mu_1=1+\frac12\mu_0+\frac12\mu_2$
+		- $\mu_2=1+\frac12\mu_1+\frac12\mu_3$
+		- $\mu_{n-1}=1+\frac12\mu_{n-2}+\frac12\mu_{n}$
+		- $\mu_n=1+\mu_{n-1}$
+		- solution
+			- $\mu_1=2n-1$
+			- $\mu_n=n^2$
+			- $\mu_{i}\leq n^2$
 - 2-SAT problem
 	- input: $\varphi=(x_1\lor x_2)\land(x_3\lor\neg x_1)\land\ldots$
 		- clauses with exactly 2 literals
@@ -204,64 +172,55 @@
 			- $D_t=0\implies$ we found a solution
 		- situation
 			- we assume that clause $(x_1\lor x_2)$ is unsatisfied at time $t$ and we choose it
-			- $\implies x_1=x_2=F$
-				- $(x_1\neq x_2)$
-				- ($x_2\neq\neg x_1)$ … we could remove such clauses
-			- $\implies x_1^*\lor x_2^*$ is $T$
+				- $\implies x_1=x_2=F$
+				- $\implies x_1^*\lor x_2^*=T$
 			- we randomly switch $x_1$ or $x_2$ which increases or decreases $D$
-			- …
+			- if $x_1^*=T$ and $x_2^*=F$ (or vice versa), the random switch may decrease or increase $D$ by one (each with probability $\frac12$)
+				- we will call them “good cases”
+			- if $x_1^*=x_2^*=T$, then the random switch will always decrease $D$ which is nice but it means that we cannot model $D$ using a Markov chain
+				- this is a “bad case”
+			- because of that, we define $D'$ which always decreases or increases with probability $\frac12$
+				- in the good cases, it behaves the same way as $D$
+				- in the bad case, we flip a coin to decide whether it should go up or down
+			- clearly $D\leq D'$ and $T\leq T'$ (where $T$ is the first time $D=0$, similarly for $T',D'$)
+			- we know that $\mathbb ET'\leq n^2$ which means that $\mathbb ET\leq n^2$
+			- using Markov inequality, we get that $P(T\geq 2n^2)\leq\frac{\mathbb ET}{2n^2}\leq\frac{n^2}{2n^2}=\frac12$
+			- we repeat the whole process $m$ times, that way we get the probability of fail $\leq 2^{-m}$ and the running time $O(mn^4)$
+				- there are $O(n^2)$ clauses of two literals, we need to find an unsatisfied one $2mn^2$ times
 	- we can get a 3-SAT randomized algorithm with $(\frac43)^n$ time complexity this way
 - Hidden Markov Model (HMM)
-	- not observable $(X_t)$ … Markov chain
-	- observable $(Y_t)$ … $Y_t$ is obtained from $X_t$
-	- widely aplplicable
-	- smart algorithm (Vitebri algorithm)
+	- there is some not observable $(X_t)$ … Markov chain
+	- we can observe $(Y_t)$ … $Y_t$ is somehow obtained from $X_t$
+	- widely applicable
+	- smart algorithm (Viterbi algorithm)
 
 ## Bayesian Statistics
 
-- what is probability?
-	- $P:\mathcal F\to[0,1]$ such that
-		- $P(\Omega)=1$
-		- $P(\bigcup A_n)=\sum P(A_n)$ if disjoint
-- where to find/use it?
-	- randomized algorithms
-	- is it possible to have true randomness?
-		- hardware methods to sample random bits
-		- software methods
-			- their independence can be “weak” (for statistics) or “strong” (for cryptography)
-- probabilistic method
+- Probabilistic method
 	- we prove that some graph exists by showing that random graph has certain property with probability greater than zero
 	- $G(n,p)$ … graph with vertices $1,\dots,n$
 		- $\forall i,j:i\sim j$ with probability $p$ (all independent)
 	- $P(G(n,\frac12)$ has no $K_k$ nor $\overline K_k$ as an induced subgraph$)\gt 0$ if $n\leq 2^{k/2}$
 	- thus $\exists G$ on $2^{k/2}$ vertices with no induced $K_k$ nor $\overline K_k$
 	- Ramsey theorem
-- statistics
-	- frequentist
-		- $P(A)=$ number of good / number of all
-		- “in long term repetition”
-		- repeat a random experiment independently $n$ times
-		- observe that $A$ happens $k$ times
-		- $P(A):=k/n$
-	- Bayesian
-		- P(it will rain tomorrow)
-		- subjective probability → betting
-			- does satisfy axioms!
-		- “random universe”
-			- $\Omega$ = set of all possible universes
 - Bayes theorem
+	- let $X,\Theta$ be discrete random variables
+	- $p_{\Theta\mid X}(\theta\mid x)=\frac{p_{X\mid\Theta}(x\mid\theta)\cdot p_\Theta(\theta)}{\sum_{\theta'\in\text{Im}\,\Theta} p_{X\mid\Theta}(x\mid\theta')\cdot p_\Theta(\theta')}$
+	- similar for continuous RVs
+	- note: terms with $p_{\Theta}(\theta')=0$ are considered to be zero
+---
 - MAP (maximum a posteriori)
-- $\hat\theta_\text{MAP}=\text{argmax}_\theta\,p_{\Theta\mid X}(\theta\mid x)$
-	- $\hat\theta$ is a point estimate for $\Theta$
-- that equals $\text{argmax}\,p_\Theta(\hat\theta)\cdot p_{X\mid\Theta}(x\mid\theta)$ as we can ignore the normalization constant
-- Beta function
-	- $B(\alpha,\beta)=\int_0^1x^{\alpha-1}(1-x)^{\beta-1}=\frac{(\alpha-1)!(\beta-1)!}{(\alpha+\beta-1)!}$
-- Beta distribution
-	- $f_\Theta(x)=\frac1{B(\alpha,\beta)}x^{\alpha-1}(1-x)^{\beta-1}$
-- $(\ln f)'=(c+(\alpha-1)\ln x+(\beta-1)\ln (1-x))'={\alpha-1\over x}-{\beta-1\over 1-x}$
-	- in the maximum, this will be equal to zero
-	- maximum … $\frac{\alpha-1}{\alpha-1+\beta-1}$
-- …
+	- $\hat\theta_\text{MAP}=\text{argmax}_\theta\,p_{\Theta\mid X}(\theta\mid x)$
+		- $\hat\theta$ is a point estimate for $\Theta$
+	- that equals $\text{argmax}\,p_\Theta(\hat\theta)\cdot p_{X\mid\Theta}(x\mid\theta)$ as we can ignore the normalization constant
+	- Beta function
+		- $B(\alpha,\beta)=\int_0^1x^{\alpha-1}(1-x)^{\beta-1}=\frac{(\alpha-1)!(\beta-1)!}{(\alpha+\beta-1)!}$
+	- Beta distribution
+		- $f_\Theta(x)=\frac1{B(\alpha,\beta)}x^{\alpha-1}(1-x)^{\beta-1}$
+	- $(\ln f)'=(c+(\alpha-1)\ln x+(\beta-1)\ln (1-x))'={\alpha-1\over x}-{\beta-1\over 1-x}$
+		- in the maximum, this will be equal to zero
+		- maximum … $\frac{\alpha-1}{\alpha-1+\beta-1}$
+	- …
 - LMS point estimate
 	- LMS = least mean square
 	- estimate such that $\mathbb E((\Theta-\hat\theta)^2\mid X=x)$ is minimal
@@ -287,15 +246,15 @@
 	- mean … LMS = $\min\mathbb E((\Theta-\hat\theta)^2\mid X=x)$
 	- median … $\min\mathbb E(|\Theta-\hat\theta|\mid X=x)$
 	- modus … MAP
+
+## Conditional Expectation
+
 - conditional independence
 	- events
 		- $A\perp B\iff P(A\cap B)=P(A)\cdot P(B)$
 		- $A\perp_C B\iff P(A\cap B\mid C)=P(A\mid C)\cdot P(B\mid C)$
 			- $A,B$ are independent conditionally given $C$
 	- it is possible (even typical) that $A\perp_C B$, $A\perp_{C^C} B$, but not $A\perp B$
-
-## Conditional Expectation
-
 - $\mathbb E(Y\mid X=x)$ vs. $\mathbb E(Y\mid X)$
 - $\mathbb E(Y\mid X=x)=g(x)$ … number
 - $\mathbb E(Y\mid X)=g(X)$ … random variable
