@@ -531,7 +531,7 @@
 	- supports only RGB, no other systems (it was designed for transferring images over the network)
 	- compression has two phases
 		- preprocessing – predict the value of the pixel, encode the difference between the real and predicted value (prediction based on neighboring pixels)
-			- prediction types: none, sub (left pixel), up, average (avera;ge of sub and up), Paeth (more complicated formula)
+			- prediction types: none, sub (left pixel), up, average (average of sub and up), Paeth (more complicated formula)
 			- each line may be processed with a different method
 		- dictionary compression
 			- deflate (LZ77)
@@ -861,7 +861,7 @@
 	- DCT may be obtained from DFT (start with the original non-periodic signal consisting of $N$ points, mirror it to get $2N$ points, apply DFT, take the first $N$ points)
 	- DCT transform matrix – 1st row is constant vector, following rows consist of vectors with increasing variation
 		- these are the portions of the original “signal” (data matrix $X$) that the coefficients in the $\Theta$ matrix correspond to
-		- [![DCT](http://www.owlnet.rice.edu/~elec539/Projects99/DRDP/proj1/basis.jpg)](http://www.owlnet.rice.edu/~elec539/Projects99/DRDP/proj1/report2.html)
+		- [![DCT](https://users.cs.cf.ac.uk/Dave.Marshall/Multimedia/DCT.jpg)](https://users.cs.cf.ac.uk/Dave.Marshall/Multimedia/node231.html)
 			- these can be called “basis matrices”
 		- basis matrix corresponding to $\theta_{11}$ is a constant matrix $\implies$ $\theta_{11}$ is some multiple of the average value in the data matrix
 			- $\theta_{11}$ … DC coefficient
