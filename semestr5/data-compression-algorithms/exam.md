@@ -657,10 +657,22 @@
 	- Jayant quantizer
 		- multipliers
 		- intervals can shrink and expand depending on the input
-		- 3bit Jayant quantizer
-			- table of intervals $$\begin{matrix}\text{code} & \text{interval} & \text{multiplier} \\ 0 & (0,\Delta) & 0.8 \\ 1 & (\Delta,2\Delta) & 0.9 \\ 2 & (2\Delta,3\Delta) & 1 \\ 3 & (3\Delta,\infty) & 1.2 \\ 4 & (-\Delta,0) & 0.8 \\ 5 & (-2\Delta,-\Delta) & 0.9 \\ 6 & (-3\Delta,-2\Delta) & 1 \\ 7 & (-\infty,-3\Delta) & 1.2 \end{matrix}$$
 		- for each input value, we get the corresponding code $c$ and we multiply $\Delta$ by the multiplier $M_c$
 		- the intervals automatically adapt to the input data
+		- 3bit Jayant quantizer
+			- table of intervals
+
+| code | interval              | multiplier |
+| ---- | --------------------- | ---------- |
+| 0    | $(0,\Delta)$          | 0.8        |
+| 1    | $(\Delta,2\Delta)$    | 0.9        |
+| 2    | $(2\Delta,3\Delta)$   | 1          |
+| 3    | $(3\Delta,\infty)$    | 1.2        |
+| 4    | $(-\Delta,0)$         | 0.8        |
+| 5    | $(-2\Delta,-\Delta)$  | 0.9        |
+| 6    | $(-3\Delta,-2\Delta)$ | 1          |
+| 7    | $(-\infty,-3\Delta)$  | 1.2        |
+
 - nonuniform quantization
 	- we set $y_j$ to the average value in the interval
 		- $y_j=\frac{\int_{b_{j-1}}^{b_j}xf(x)dx}{\int_{b_{j-1}}^{b_j}f(x)dx}$
