@@ -143,7 +143,7 @@
 		- codewords lengths $l_1,l_2,\dots,l_n$ of a uniquely decodable code satisfy $\sum_i 2^{-l_i}\leq 1$
 		- conversely, if positive integers $l_1,l_2,\dots,l_n$ satisfy the inequality, then there is a prefix code with codeword lengths $l_1,l_2,\dots,l_n$
 	- corollary
-		- Huffman coding algorithm procudes an optimal uniquely decodable code
+		- Huffman coding algorithm produces an optimal uniquely decodable code
 		- if there was some better uniquely decodable code, there would be also a better prefix code (by Kraft-McMillan inequality) so Huffman coding would not be optimal
 - idea: we could encode larger parts of the message, it might be better than Huffman coding
 	- extended Huffman code … we use $n$-grams instead of individual symbols
@@ -401,7 +401,7 @@
 		- $z$ … the symbol following $S$ in the look-ahead buffer
 	- example
 		- `ac|cabracad|abrarr|ar`
-		- `   \search/\lahead/ `
+		- `___\search/\lahead/__`
 		- $\to\braket{7,4,r}$
 	- window slides $j+1$ symbols to the right
 	- sliding window size $2^{12}-2^{16}\,B$, look ahead buffer size are usually tens or hundreds of bytes
