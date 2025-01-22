@@ -938,8 +938,6 @@
 	- quantization – partition to segments with similar features
 	- arithmetic coding
 
----
-
 ### Subband Coding
 
 - example
