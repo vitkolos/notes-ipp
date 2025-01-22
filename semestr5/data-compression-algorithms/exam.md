@@ -153,10 +153,9 @@
 - what is the maximum height of a Huffman tree for an input message of length $n$?
 	- we find the minimal input size to get the Huffman tree of height $k$
 		- how to make the tree as deep as possible?
-		- the frequencies of the symbols will be a Fibonacci sequence
+		- the frequencies of the symbols will be Lucas numbers (with the zeroth number broken in two ones) or Fibonacci sequence – depending on the rules of the construction of the tree
 	- Huffman tree of height $k\implies n\geq f_{k+1}$
 		- where $f_0=1,\;f_1=1,\;f_{k+2}=f_{k+1}+f_k$
-		- $f_m$ … frequency of the $m$-th symbol
 	- $n\lt f_{k+2}\implies$ max. codeword length $\leq k$
 - there is an optimal prefix code which cannot be obtained using Huffman algorithm
 - generalize the construction of binary Huffman code to the case of $m$-ary coding alphabet ($m\gt 2$)
@@ -294,6 +293,10 @@
 	- this also holds for Huffman code (if we consider the entropy of one symbol)
 - analysis of arithmetic coding
 	- $H(X)\leq L(C)\lt H(X)+2$
+		- $\overline{F(x)}=0.y_1y_2\dots$ is the midpoint of the interval for $x\in\mathbb R$ ($F$ is a CDF)
+		- then $C(x)=y_1y_2\dots y_{l(x)}$ where $l(x)=\lceil\log\frac1{p(x)}\rceil+1$
+		- in the proof, we show that $C$ is a prefix code
+		- then, we use $L(C)=\sum p(x)\cdot l(x)$ which is upper bounded by $H(X)+2$
 	- here, we don't consider one symbol but the whole message → therefore, the result is much better then the Huffman code
 	- the main problem of the Huffman code is that it cannot deal very well with skewed probabilities of symbols as the lengths of the codewords must have integral length
 - problems
@@ -624,7 +627,7 @@
 		- band-pass filter
 		- amplifier
 
-#### Quantization
+### Quantization
 
 - main idea
 	- large set → smaller set
