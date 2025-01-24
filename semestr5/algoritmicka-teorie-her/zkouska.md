@@ -62,11 +62,13 @@
 			- zvolíme libovolného hráče $i\in P$
 			- v supportu $s_i$ existuje akce $a_i'\in A_i$ taková, že $u_i(a'_i;s_{-i})\leq u_i(s)$
 				- jinak by platilo $u_i(s)\lt\sum_{a_i}s_i(a_i)u_i(a_i;s_{-i})$, což je spor s linearitou střední hodnoty výplatní funkce
+				- support $s_i$ … akce $\in A_i$, které $s_i$ nemapuje na nulu
 			- pro tuto akci $a_i'$ nutně platí $\varphi_{i,a_i'}=0$ (díky té nerovnosti)
 			- tak získáme $s'_i(a'_i)=\frac{s_i(a'_i)}{1+\sum_{b_i\in A_i}\varphi_{i,b_i}(s)}$
 			- $s$ je pevný bod, proto $s_i'(a_i')=s_i(a_i')$, tedy ve jmenovateli musí být jednička a suma bude nulová
 			- proto $u_i(s)\geq u_i(b_i;s_{-i})$ pro každé $b_i\in A_i$
 			- z toho vyplývá, že pro libovolnou smíšenou strategii $s_i''\in S_i$ platí $$u_i(s_i'';s_{-i})=\sum_{b_i\in A_i} s_i''(b_i)u_i(b_i;s_{-i})\leq\sum_{b_i\in A_i} s''_i(b_i)u_i(s)=u_i(s)$$
+				- levá rovnost z linearity, nerovnost z nerovnosti výše, pravá rovnost z jednotkového součtu pravděpodobností
 			- tedy $s_i$ je best response hráče $i$ na $s_{-i}$ a $s$ je smíšené Nashovo ekvilibrium hry $G$
 - Definition: Pareto optimality
 	- strategický profil $s$ v $G$ Pareto dominuje $s'$, píšeme $s'\prec s$, pokud…
@@ -81,7 +83,32 @@
 ## Zero-sum games
 
 - Definition: Zero-sum game and its representation
+	- $G=(P,A=A_1\times A_2,u)$
+	- $\forall a\in A:u_1(a)+u_2(a)=0$
+	- pokud $|A_1|=m$ a $|A_2|=n$, pak můžeme $G$ reprezentovat pomocí výplatní matice $M\in\mathbb R^{m\times n}$, kde $M_{ij}=u_1(i,j)=-u_2(i,j)$
+	- pro strategický profil $(s_1,s_2)$ uvažujeme vektory smíšených strategií $x,y$ takové, že $x_i=s_1(i)$ a podobně $y_i=s_2(j)$
+	- pak platí $u_1(s)=x^TMy=-u_2(s)$
+- Definition: Worst-case optimal strategies
+	- best response druhého hráče je vektor $y\in S_2$, který minimalizuje $x^TMy$
+	- best response prvního hráče je vektor $x\in S_1$, který maximalizuje $x^TMy$
+	- $\beta(x)=\min_{y\in S_2}x^TMy$ je nejlepší očekávaný payoff druhého hráče proti $x$
+	- $\alpha(y)=\max_{x\in S_1} x^TMy$ je nejlepší očekávaný payoff prvního hráče proti $y$
+	- strategický profil $(x,y)$ je NE, právě když $\beta(x)=x^TMy=\alpha(y)$
+	- pokud první hráč předpokládá, že druhý hráč vždy zvolí best response na každou jeho strategii, a snaží se maximalizovat payoff za tohoto předpokladu, zvolí strategii $\overline x\in S_1$ 
+		- pro tuto „worst-case optimal strategy“ platí $\beta(\overline x)=\max_{x\in S_1}\beta(x)$
+	- podobně worst-case optimal strategy je taková strategie $\overline y\in S_2$, že $\alpha(\overline y)=\min_{y\in S_2}\alpha(y)$
 - Theorem: Worst-case optimal strategies and NE
+	- lemma
+		1. $(\forall x\in S_1)(\forall y\in S_2):\beta(x)\leq x^TMy\leq\alpha(y)$
+		2. pokud je strategický profil $(x^*,y^*)$ Nashovým ekvilibriem, pak jsou obě strategie worst-case optimální
+		3. libovolné strategie $x^*\in S_1$ a $y^*\in S_2$ splňující $\beta(x^*)=\alpha(y^*)$ tvoří Nashovo ekvilibrium $(x^*,y^*)$
+	- důkaz
+		1. přímo z definice $\beta,\alpha$ (jedno definujeme jako minimum, druhé jako maximum)
+		2. z (1) vyplývá $\forall x\in S_1:\beta(x)\leq\alpha(y^*)$
+			- $(x^*,y^*)$ je NE, proto $\beta(x^*)=\alpha(y^*)$
+			- tedy $\forall x\in S_1:\beta(x)\leq \beta(x^*)$
+			- proto $x^*$ je worst-case optimální pro prvního hráče, podobně $y^*$ pro druhého hráče
+		3. pokud $\beta(x^*)=\alpha(y^*)$, pak (1) implikuje $\beta(x^*)=(x^*)^TMy^*=\alpha(y^*)$
 - Theorem: The Duality Theorem
 - Theorem: The Minimax Theorem
 
