@@ -28,9 +28,55 @@
 ## Nash equilibrium
 
 - Definition: Best response
+	- best response $i$-tého hráče na strategický profil $s_{-i}$ je smíšená strategie $s_i^*$ taková, že $$\forall s_i'\in S_i:u_i(s_i^*;s_{-i})\geq u_i(s_i';s_{-i})$$
+	- kdyby hráč $i$ znal strategie ostatních, zvolil by si strategii $s_i^*$, protože maximalizuje jeho očekávanou výplatu, pokud ostatní hrají $s_{-i}$
 - Definition: Nash equilibrium
+	- mějme hru $G=(P,A,u)$ v normální tvaru s $n$ hráči
+	- pak Nashovo ekvilibrium (NE) ve hře $G$ je strategický profil $(s_1,\dots,s_n)$ takový, že $s_i$ je best response hráče $i$ na $s_{-i}$ pro každé $i\in P$
+	- tedy žádný hráč by neměnil svou strategii, kdyby znal strategie ostatních
 - Theorem: Nash’s Theorem
+	- Nashova věta: každá hra v normálním tvaru má Nashovo ekvilibrium
+	- $X\subseteq\mathbb R^d$ je kompaktní, pokud je uzavřená a omezená
+	- $Y\subseteq\mathbb R^d$ je konvexní, pokud $\forall\alpha\in [0,1]:\alpha x+(1-\alpha)y\in Y$
+	- pro $n$ afinně nezávislých bodů $x_1,\dots,x_n\in\mathbb R^d$ definujeme $(n-1)$-simplex $\Delta_n$ na $x_1,\dots,x_n$ jako množinu konvexních kombinací bodů $x_1,\dots,x_n$
+		- každý simplex je kompaktní konvexní množina v $\mathbb R^d$
+	- lemma: pokud $K_1,\dots,K_n$ jsou kompaktní množiny a $\forall i:K_i\subseteq\mathbb R^{d_i}$, pak $K_1\times\dots\times K_n$ je kompaktní množina v $\mathbb R^{d_1+\dots+d_n}$
+	- Brouwerova věta o pevném bodu: pokud $K\subseteq\mathbb R^d$ je neprázdná kompaktní konvexní množina a $f:K\to K$ je spojité zobrazení, pak existuje pevný bod $x_0\in K$ pro $f$, tedy $f(x_0)=x_0$
+	- důkaz Nashovy věty
+		- nechť $K=S_1\times\dots\times S_n$ je množina všech smíšených strategií
+			- $S_i$ … množina smíšených strategií hráče $i$
+			- každá množina $S_i$ je simplex, takže je kompaktní a konvexní
+			- proto i $K$ je kompaktní
+			- pro libovolné $s,s'\in K$ a $\alpha\in[0,1]$ je $\alpha s+(1-\alpha)s'$ také smíšený strategický profil v $K$, tedy $K$ je konvexní
+		- pro hráče $i\in S$ a akci $a_i\in A$ definujeme zobrazení $\varphi_{i,a_i}:K\to\mathbb R$ tak, že $\varphi_{i,a_i}(s)=\max\set{0,u_i(a_i;s_{-i})-u_i(s)}$
+			- tato funkce vyjadřuje, o kolik by si hráč polepšil, kdyby místo $s_i$ hrál akci $a_i$ (pokud by si nepolepšil, je nulová)
+			- z definice $u_i$ je toto zobrazení spojité
+		- pro $s\in K$ definujeme nový „vylepšený“ strategický profil $s'\in K$ tak, že přidáme pravděpodobnost akcím, které jsou lepšími odpověďmi na $s_{-i}$
+			- $s'_i(a_i)=\frac{s_i(a_i)+\varphi_{i,a_i}(s)}{\sum_{b_i\in A_i}(s_i(b_i)+\varphi_{i,b_i}(s))}=\frac{s_i(a_i)+\varphi_{i,a_i}(s)}{1+\sum_{b_i\in A_i}\varphi_{i,b_i}(s)}$
+			- ve jmenovateli je normalizační konstanta
+		- pak definujeme $f:K\to K$ tak, že nastavíme $f(s)=s'$
+			- $f$ je spojitá, protože $\varphi$ jsou spojité
+			- podle Brouwerovy věty má $f$ pevný bod
+		- pokud je $s\in K$ Nashovo ekvilibrium, pak všechny $\varphi$ jsou nulové a $f(s)=s$, tedy $s$ je pevný bod funkce $f$
+		- pokud je $s\in K$ pevným bodem funkce $f$…
+			- zvolíme libovolného hráče $i\in P$
+			- v supportu $s_i$ existuje akce $a_i'\in A_i$ taková, že $u_i(a'_i;s_{-i})\leq u_i(s)$
+				- jinak by platilo $u_i(s)\lt\sum_{a_i}s_i(a_i)u_i(a_i;s_{-i})$, což je spor s linearitou střední hodnoty výplatní funkce
+			- pro tuto akci $a_i'$ nutně platí $\varphi_{i,a_i'}=0$ (díky té nerovnosti)
+			- tak získáme $s'_i(a'_i)=\frac{s_i(a'_i)}{1+\sum_{b_i\in A_i}\varphi_{i,b_i}(s)}$
+			- $s$ je pevný bod, proto $s_i'(a_i')=s_i(a_i')$, tedy ve jmenovateli musí být jednička a suma bude nulová
+			- proto $u_i(s)\geq u_i(b_i;s_{-i})$ pro každé $b_i\in A_i$
+			- z toho vyplývá, že pro libovolnou smíšenou strategii $s_i''\in S_i$ platí $$u_i(s_i'';s_{-i})=\sum_{b_i\in A_i} s_i''(b_i)u_i(b_i;s_{-i})\leq\sum_{b_i\in A_i} s''_i(b_i)u_i(s)=u_i(s)$$
+			- tedy $s_i$ je best response hráče $i$ na $s_{-i}$ a $s$ je smíšené Nashovo ekvilibrium hry $G$
 - Definition: Pareto optimality
+	- strategický profil $s$ v $G$ Pareto dominuje $s'$, píšeme $s'\prec s$, pokud…
+		- $\forall i\in P:u_i(s)\geq u_i(s')$
+		- $\exists j\in P:u_j(s)\gt u_j(s')$
+	- $\prec$ je částečná uspořádání množiny $S$ všech strategických profilů hry $G$
+	- za nejlepší výsledky $G$ se považují maxima $S$ podle $\prec$
+	- strategický profil $s\in S$ je Pareto optimální, pokud neexistuje jiný profil, který ho dominuje
+		- ve hrách nulového součtu jsou všechny strategické profily Pareto optimální
+		- ne všechna Nashova ekvilibria jsou Pareto optimální (viz vězňovo dilema)
 
 ## Zero-sum games
 
