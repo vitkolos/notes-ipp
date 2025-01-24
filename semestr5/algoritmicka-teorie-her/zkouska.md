@@ -145,7 +145,33 @@
 ## Bimatrix games
 
 - Definition: Bimatrix game, nondegenerate bimatrix game
+	- maticová hra (bimatrix game) je hra (v normálním tvaru) dvou hráčů
+		- $G=(\set{1,2},A=A_1\times A_2,u)$
+		- $|A_1|=m$, $|A_2|=n$
+		- výplatní funkce $u_1,u_2$ reprezentujeme maticemi $M,N\in\mathbb R^{m\times n}$
+			- $M_{ij}=u_1(i,j)$
+			- $N_{ij}=u_2(i,j)$
+		- tedy akce prvního hráče odpovídají řádkům, akce druhého sloupcům
+		- uvažujeme-li vektory smíšených strategií $x,y$, pak platí $u_1(s)=x^TMy$ a $u_2(s)=x^TNy$
+	- maticová hra je nedegenerovaná, pokud ke každé smíšené strategii se supportem velikosti $k$ existuje nejvýše $k$ čistých best responses
 - Theorem: Best response condition
+	- definice: support (nosič) smíšené strategie $s_i$ je množina $\set{a_i\in A_i:s_i(a_i)\gt 0}$
+	- pozorování (best response condition): ve hře $G=(P,A,u)$ pro každého hráče platí, že smíšená strategie $s_i$ je best response na $s_{-i}$, právě když všechny čisté strategie v supportu $s_i$ jsou best responses na $s_{-i}$
+	- důkaz $\impliedby$
+		- nechť každé $a_i\in\text{Supp}(s_i)$ splňuje $u_i(a_i;s_{-i})\geq u_i(s_i';s_{-i})$ pro každé $s_i' \in S_i$
+		- pak pro každé $s_i'\in S_i$ z linearity $u_i$ vyplývá $$u_i(s)=\sum_{a_i\in\text{Supp}(s_i)}s_i(a_i)u_i(a_i;s_{-i})\geq \sum_{a_i\in\text{Supp}(s_i)}s_i(a_i)u_i(s_i';s_{-i})=u_i(s_i';s_{-i})$$
+	- důkaz $\implies$ (sporem)
+		- nechť $s_i$ je best response hráče $i$ na $s_{-i}$
+		- předpokládejme, že existuje $\overline a_i\in\text{Supp}(s_i)$, co není best response
+		- pak existuje $s_i'\in S_i$, kde $u_i(\overline a_i;s_{-i})\lt u_i(s_i';s_{-i})$
+		- jelikož $s_i$ je best response na $s_{-i}$, nutně $s_i(\overline a_i)\lt 1$
+		- z linearity $u_i$ najdeme $\hat a_i\in\text{Supp}(s_i)$, kde $u_i(\hat a_i;s_{-i})\gt u_i(\overline a_i;s_{-i})$
+		- definujeme novou smíšenou strategii $s^*_i$
+			- $s^*_i(\overline a_i)=0$
+			- $s_i^*(\hat a_i)=s_i(\hat a_i)+s_i(\overline a_i)$
+			- jinak $s^*_i(a_i)=s_i(a_i)$
+		- z linearity $u_i$ dostaneme $$u_i(s_i^*;s_{-i})=\sum_{a_i\in A_i}s^*_i(a_i)u_i(a_i;s_{-i})\gt \sum_{a_i\in A_i}s_i(a_i)u_i(a_i;s_{-i})=u_i(s)$$
+			- což je spor
 - Algorithm: Support enumeration
 - Definition: Best response polyhedra, best response polytope
 - Theorem: NE and Best response polyhedra/polytope
