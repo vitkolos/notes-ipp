@@ -3,9 +3,27 @@
 ## Normal-form games
 
 - Definition: Normal-form game
+	- hra v normální tvaru je trojice $(P,A,u)$
+	- $P$ … konečná množina $n$ hráčů
+	- $A=A_1\times\dots\times A_n$ je množina akčních profilů
+		- $A_i$ … množina akcí $i$-tého hráče
+	- $u=(u_1,\dots,u_n)$, kde $u_i:A\to\mathbb R$ je užitková funkce $i$-tého hráče
 - Definition: Strategies
+	- čistá (pure) strategie $s_i$ hráče $i$ je akce z $A_i$
+		- profil čistých strategií je $n$-tice čistých strategií (akcí) – za každého z $n$ hráčů je tam jedna
+	- smíšená (mixed) strategie $s_i$ hráče $i$ je pravděpodobnostní distribuce přes $A_i$
+		- tedy $s_i(a_i)\in[0,1]$ a $\sum_{a_i\in A_i}s_i(a_i)=1$
+		- profil smíšených strategií je $n$-tice smíšených strategií
+	- každá čistá strategie je smíšená
 - Definition: Expected payoff
-- Example: Four basic games
+	- ve hře $G=(P,A,u)$ je expected payoff (střední hodnota výplatní funkce) pro hráče $i$ z profilu smíšených strategií $s$ je $$u_i(s)=\sum_{a\in A} u_i(a)\cdot \underbrace{\prod_{j=1}^n s_j(a_j)}_{P(a)}$$
+	- platí linearita střední hodnoty výplatní funkce $$u_i(s)=\sum_{a_i\in A_i} s_i(a_i)\cdot u_i(a_i;s_{-i})$$
+- Example: Five basic games
+	- vězňovo dilema
+	- matching pennies
+	- battle of sexes
+	- game of chicken
+	- bitva o duši Gothamu
 
 ## Nash equilibrium
 
