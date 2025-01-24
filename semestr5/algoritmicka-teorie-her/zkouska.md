@@ -110,7 +110,37 @@
 			- proto $x^*$ je worst-case optimální pro prvního hráče, podobně $y^*$ pro druhého hráče
 		3. pokud $\beta(x^*)=\alpha(y^*)$, pak (1) implikuje $\beta(x^*)=(x^*)^TMy^*=\alpha(y^*)$
 - Theorem: The Duality Theorem
+	- lineární program $P$ lze vyjádřit v kanonickém tvaru jako maximalizaci $c^Tx$ při omezujících podmínkách $Ax\leq b$ a $x\geq 0$
+	- k primárnímu programu $P$ najdeme duální program $D$, kde minimalizujeme $b^Ty$ při omezujících podmínkách $A^Ty\geq c$ a $y\geq 0$
+	- věta
+		- pokud oba lineární programy $P,D$ mají přípustná řešení, pak mají oba optimální řešení
+		- navíc, pokud $x^*$ a $y^*$ jsou optimální řešení pro $P$ a $D$ po řadě, pak $c^Tx^*=b^Ty^*$, to znamená maximum $P$ se rovná minimu $D$
 - Theorem: The Minimax Theorem
+	- věta
+		- pro každou hru s nulovým součtem, worst-case optimální strategie pro oba hráče existují a mohou být efektivně spočteny
+		- existuje číslo $v$ takové, že pro libovolné worst-case optimální strategie $x^*,y^*$ je strategický profil $(x^*,y^*)$ Nashovým ekvilibriem a $\beta(x^*)=(x^*)^TMy^*=\alpha(y^*)=v$
+	- důkaz
+		- pro pevné $x\in S_1$ určíme best response druhého hráče
+			- použijeme lineární program $P$ s proměnnými $y_1,\dots,y_n$
+				- minimalizuj $x^TMy$ za podmínek $\sum y_j=1$ a $y\geq 0$
+			- jeho duál je $D$ s proměnnou $x_0$
+				- maximalizuj $x_0$ za podmínky $1x_0\leq M^Tx$
+			- podle věty o dualitě mají oba programy stejné optimum $\beta(x)$
+			- z $x$ uděláme vektor proměnných $x_1,\dots,x_m$
+			- tak získáme lineární program $D'$ s proměnnými $x_0,x_1,\dots,x_m$
+				- maximalizuj $x_0$ za podmínek:
+					- $1x_0-M^Tx\leq 0$
+					- $\sum_{i=1}^mx_i=1$
+					- $x\geq 0$
+			- optimum $x^*$ programu $D'$ je worst-case optimální strategie pro prvního hráče
+		- podobně lze nalézt worst-case optimální strategii pro druhého hráče
+			- minimalizuj $y_0$ za podmínek:
+				- $1y_0-My\geq 0$
+				- $\sum_{j=1}^ny_j=1$
+				- $y\geq 0$
+		- nyní zbývá ukázat, že $(x^*,y^*)$ je NE a $\beta(x^*)=(x^*)^TMy^*=\alpha(y^*)=v$
+		- z věty o dualitě vidíme, že $P'$ a $D'$ mají stejné optimum $\beta(x^*)=x^*_0=y^*_0=\alpha(y^*)$, což je požadované $v$
+		- z části (3) lemmatu o worst-case optimálních strategiích vyplývá, že jsme našli NE a také rovnost $\beta(x^*)=(x^*)^TMy^*=\alpha(y^*)$
 
 ## Bimatrix games
 
