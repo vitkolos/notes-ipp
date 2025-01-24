@@ -63,10 +63,27 @@
 
 - Definition: Extensive game, (im)perfect-information game
 - Definition: Strategies in extensive games
-- Definition: Games of perfect recall, Kuhn's theorem
+- Definition: Games of perfect recall, Kuhn’s theorem
 - Definition: Sequence form
 - Theorem: Using the sequence form to find NE
 
 ## Mechanism design
 
-- 
+- Definition: Single item auction
+- Definition: Dominant strategy, social surplus, awesome auction
+- Theorem: Vickrey’s auction is awesome
+- Definition: Single parameter environment
+- Example: Some single parameter environments
+- Theorem: Myerson’s lemma
+
+## Applications of mechanism design
+
+- Definition: Social surplus, Bayesian model
+- Theorem: Maximizing expected revenue
+- Theorem: Vickrey with reserve price is optimal
+- Theorem: The Bulow–Klemperer theorem
+- Definition: Knapsack auction
+- Theorem: 2-approximation for knapsack auctions
+- Definition: Multi-parameter mechanism design
+- Theorem: VCG mechanism
+- Theorem: Revelation principle
