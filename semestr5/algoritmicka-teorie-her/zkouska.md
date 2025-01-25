@@ -324,9 +324,47 @@
 ## Regret minimization
 
 - Definition: Regret minimization model
+	- máme agenta $A$ v nepřátelském prostředí
+	- agent $A$ má $N$ dostupných akcí z množiny $X=\set{1,\dots,N}$
+	- v každém kroku $t=1,\dots,T$
+		- agent $A$ zvolí pravděpodobnostní rozdělení $p^t=(p_1^t,\dots,p_N^t)$ nad $X$
+			- $p_i^t$ … pravděpodobnost, že $A$ zvolí $i$ v kroku $t$
+		- pak nepřítel zvolí ztrátový vektor $\ell^t=(\ell_1^t,\dots,\ell_n^t)$
+			- $\ell_i^t\in[-1,1]$ … ztráta (loss) akce $i$ v kroku $t$
+		- agent $A$ pak prodělá ztrátu $\ell_A^t=\sum_{i=1}^N p_i^t\ell_i^t$
+			- to je střední hodnota ztráty agenta $A$ v kroku $t$
+	- kumulativní ztráta akce $i$ po $T$ krocích … $L_i^T=\sum_{t=1}^T\ell_i^t$
+	- kumulativní ztráta agenta $A$ … $L_A^T=\sum_{t=1}^T\ell^t_A$
+	- pro zjednodušení budeme často uvažovat pouze ztrátové vektory $\in\set{0,1}^N$, ale vše lze zobecnit
 - Definition: External regret
+	- uvažujme třídu agentů $\mathcal A_X=\set{A_i:i\in X}$
+		- $A_i$ … agent, který vždy zvolí akci $i$
+	- external regret agenta $A$ … $R_A^T=L_A^T-\min\set{L_B^T\mid B\in \mathcal A_X}$
+		- tedy $R_A^T=L_A^T-\min\set{L_i^T\mid i\in X}$
 - Theorem: External regret as a suitable metric
+	- mohlo by se zdát, že $\mathcal A_X$ obsahuje příliš jednoduché agenty, ale lze ukázat, že velké comparison classes vedou k velkému regretu
+	- uvažujme $\mathcal A_\text{all}$ třídu agentů, kteří v každém kroku zvolí náhodou akci z $X$ (přiřadí jí pravděpodobnost 1)
+	- pozorování: pro libovolného agenta $A$ a každé $T\in\mathbb N$ existují posloupnost $T$ ztrátových vektorů a agent $B\in\mathcal A_\text{all}$ takoví, že $L_A^T-L_B^T\geq T(1-1/N)$
+		- horší už to pomalu ani být nemůže
+	- důkaz
+		- pro každé $t$ ať $i_t$ je akce s nejmenší pravděpodobností $p^t_i$
+			- $p_{i_t}^t$ bude nejvýše $1/N$ (kdyby měly všechny akce stejnou pravděpodobnost)
+		- nastavíme $\ell_{i_t}^t=0$ a $\ell_i^t=1$ každému $i\neq i_t$
+		- $p_{i_t}^t\leq 1/N\implies\ell_A^t\geq 1-1/N\implies L_A^T\geq T(1-1/N)$
+		- algoritmus $B\in\mathcal A_\text{all}$, který v kroku $t$ zvolí akci $i_t$ s pravděpodobností 1 bude mít kumulativní ztrátu $L_B^T=0$
 - Algorithm: Greedy algorithm
+	- budeme vybírat akci s nejmenší kumulativní ztrátou $L_i^{t-1}$ v kroku $t-1$
+	- nejprve zvolíme první akci (s pravděpodobností 1), pak vždycky vezmeme první z akcí s minimální kumulativní ztrátou (s pravděpodobností 1)
+		  $S^{t-1}$ … množina akcí s minimální kumulativní ztrátou (v kroku $t-1$)
+	- tvrzení: pro libovolnou posloupnost ztrátových vektorů z $\set{0,1}^N$ bude kumulativní ztráta hladového (greedy) algoritmu v čase $T\in\mathbb N$ splňovat $L_\text{Greedy}^T\leq N\cdot L_\min^T+(N-1)$
+		- přičemž $L^T_\min=\min\set{L_i^T\mid i\in X}$
+	- důkaz
+		- v každém kroku $t$
+			- pokud hladový algoritmus prodělá ztrátu 1 a $L_\min^t$ se nezvýší, pak alespoň jedna akce zmizí z $S^t$ v dalším kroku
+			- to se stane nejvýše $N$-krát a pak se $L_\min^t$ zvýší o 1
+		- tedy mezi dvěma zvýšeními $L_\min^t$ prodělá algoritmus ztrátu nejvýše $N$
+		- z toho vyplývá $L^T_\text{Greedy}\leq N\cdot L^T_\min+N-|S^T|\leq N\cdot L_\min^T+(N-1)$
+	- to je docela slabé, protože $A$ tak může být přibližně $N$-krát horší než nejlepší akce
 - Algorithm: Randomized greedy algorithm
 - Algorithm: Polynomial weights algorithm
 - Algorithm: No-regret dynamics
