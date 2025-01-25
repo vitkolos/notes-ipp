@@ -365,18 +365,124 @@
 		- tedy mezi dvěma zvýšeními $L_\min^t$ prodělá algoritmus ztrátu nejvýše $N$
 		- z toho vyplývá $L^T_\text{Greedy}\leq N\cdot L^T_\min+N-|S^T|\leq N\cdot L_\min^T+(N-1)$
 	- to je docela slabé, protože $A$ tak může být přibližně $N$-krát horší než nejlepší akce
+		- ale žádný deterministický algoritmus nemůže být o moc lepší
 - Algorithm: Randomized greedy algorithm
+	- přidáme „náhodu“ – uniformně náhodně vybereme z těch s minimální kumulativní ztrátou
+	- $p^1$ tentokrát nastavíme na $(1/N,\dots,1/N)$
+	- v dalších krocích vždy všem prvkům množiny $S^{t-1}$ nastavíme pravděpodobnost na $1/|S^{t-1}|$ (ostatní budou mít nulovou)
+		- $S^{t-1}$ … množina akcí s minimální kumulativní ztrátou (v kroku $t-1$)
+	- tvrzení: pro libovolnou posloupnost ztrátových vektorů z $\set{0,1}^N$ bude kumulativní ztráta $L_{RG}^T$ randomizovaného hladového algoritmu v čase $T\in\mathbb N$ splňovat $L_{RG}^T\leq (1+\ln N)\cdot L_\min^T+\ln N$
+	- důkaz
+		- postupujeme jako v důkazu hladového algoritmu
+		- jakou ztrátu algoritmus nasbírá mezi zvýšeními $L_\min^t$?
+		- pokud se $S^t$ v určitém kroku (který je někde mezi dvěma zvýšeními $L_\min^t$) zmenší o $k$, znamená to, že ztráta algoritmu v tomhle kroku byla $k/n'$ (kde $n'$ je původní velikost $S^t$)
+		- zjevně $k/n'=k\cdot\frac 1{n'}\leq\underbrace{\frac1{n'}+\frac1{n'-1}+\dots+\frac1{n'-k+1}}_k$
+		- mezi dvěma zvýšeními $L_\min^t$ se $S^t$ může zmenšit z velikosti $N$ na 1, takže za tu dobu může být ztráta nejvýše $\frac1N+\frac1{N-1}+\dots+\frac11\leq 1+\ln N$
+		- proto $L_{RG}^T\leq (1+\ln N)\cdot L_\min^T+\frac1N+\frac1{N-1}+\dots+\frac1{|S^T|+1}\leq (1+\ln N)\cdot L_\min^T+\ln N$
 - Algorithm: Polynomial weights algorithm
+	- vstup: množina akcí $X=\set{1,\dots,N}$, $T\in\mathbb N$ a $\eta\in(0,\frac12]$
+	- výstup: pravděpodobnostní distribuce $p^t$ pro každé $t\in\set{1,\dots,T}$
+	- algoritmus
+		- $\forall i\in X:w_i^1\leftarrow 1$
+		- $p^1\leftarrow(1/N,\dots,1/N)$
+		- pro $t=2,\dots,T$
+			- $\forall i\in X:w_i^t\leftarrow w_i^{t-1}(1-\eta\ell_i^{t-1})$
+			- $\forall i\in X:p_i^t\leftarrow w_i^t/W^t$
+				- kde $W^t=\sum_j w_j^t$ (normalizační konstanta)
+	- věta
+		- pro $\eta\in(0,\frac12]$, libovolnou posloupnost ztrátových vektorů z $[-1,1]^N$ a libovolnou akci $k\in X$ platí, že kumulativní ztráta $L_{PW}^T$ algoritmu polynomiálních vah splňuje $L^T_{PW}\leq L_k^T+\eta Q_k^T+\ln N/\eta$
+		- přičemž $Q_k^T=\sum_{t=1}^T(\ell_k^t)^2$
+		- zejména pokud $T\geq 4\ln N$, pak volbou $\eta=\sqrt{\ln N/T}$ a přihlédnutím k $Q_k^T\leq T$ získáme $L_{PW}^T\leq L_\min^T+2\sqrt{T\ln N}$
+	- důkaz
+		- pro krok $t$ máme $\ell_{PW}^t=\sum_{i=1}^N w_i^t\ell_i^t/W^t$
+		- váha $w_i^t$ každé akce $i$ se násobí $(1-\eta\ell^{t-1}_i)$ v kroku $t$, proto $W^{t+1}=W^t-\sum_{i=1}^N\eta w_i^t\ell_i^t=W^t(1-\eta\ell_{PW}^t)$
+		- zjevně $W^1=\sum_i w^1_i=N$
+		- použijeme $\forall z\in\mathbb R:1-z\leq e^{-z}$ $$W^{T+1}=W^1\prod_{t=1}^T(1-\eta\ell_{PW}^t)\leq N\prod_{t=1}^Te^{-\eta\ell_{PW}^t}=Ne^{-\eta\sum_{t=1}^T\ell^t_{PW}}$$
+		- zlogaritmujeme $$\ln W^{T+1}\leq\ln N-\eta\sum_{t=1}^T\ell_{PW}^t=\ln N-\eta L_{PW}^T$$
+		- pro horní odhad máme $W^{T+1}\geq w_k^{T+1}$
+		- také platí $w_k^{T+1}=\prod_{t=1}^T(1-\eta\ell_k^t)$
+		- použijeme $\forall z\leq\frac12:\ln(1-z)\geq -z-z^2$ $$\ln W^{T+1}\geq \ln w_k^{T+1}=\sum_{t=1}^T\ln(1-\eta\ell_k^t)\geq-\eta L_k^T-\eta^2Q_k^T$$
+		- oba odhady zkombinujeme $-\eta L_k^T-\eta^2Q_k^t\leq \ln N-\eta L_{PW}^T$
+	- poznámky
+		- tenhle algoritmus produkuje velmi dobrý external regret – time-averaged external regret jde k nule
+		- odhad $L_{PW}^T\leq L_\min^T+2\sqrt{T\ln N}$ je v podstatě optimální
+		- tvrzení: pro $N$ a $T\lt\lfloor\log_2 N\rfloor$ existuje stochastické generování ztrát takové, že pro každý online algoritmus $A$ máme $\mathbb E[L_A^T]\geq T/2$, a přesto $L_\min^T=0$
+		- tvrzení: v případě $N=2$ akcí existuje stochastické generování ztrát takové, že pro každý online algoritmus $A$ máme $\mathbb E[L_A^T-L_\min^T]\geq\Omega(\sqrt{T})$
 - Algorithm: No-regret dynamics
+	- hráči ve hře v normálním tvaru můžou hrát proti sobě tak, že vybírají akce podle algoritmu polynomiálních vah
+	- vstup: $G=(P,A,C)$ hra $n$ hráčů, $T\in\mathbb N$ a $\varepsilon\gt 0$
+		- místo užitku používáme cost funkci $C$
+	- výstup: pravděpodobnostní rozdělení $p_i^t$ na $A_i$ pro každé $i\in P$ a $t\in\set{1,\dots,T}$
+	- pro každý krok $t=1,\dots,T$
+		- každý hráč $i\in P$ nezávisle vybere smíšenou strategii $p_i^t$ pomocí algoritmu s průměrným regretem nejvýše $\varepsilon$ (kde akce odpovídají čistým strategiím)
+		- každý hráč $i\in P$ získá ztrátový vektor $\ell_i^t$, kde $$\ell_i^t(a_i)=\mathop{\mathbb E}_{a_{-i}^t\sim p_{-i}^t}[C_i(a_i;a_{-i}^t)]$$ pro rozdělení $p_{-i}^t=\prod_{j\neq i}p_j^t$
 
 ## Applications of regret minimization
 
 - Theorem: Modern proof of the Minimax Theorem
+	- mějme hru s nulovým součtem $G=(\set{1,2},A,C)$, kde $A_1=\set{a_1,\dots,a_m}$, $A_2=\set{b_1,\dots,b_n}$
+	- hra je reprezentována maticí $M$ s rozměry $m\times n$, kde $M_{ij}=-C_1(a_i,b_j)=C_2(a_i,b_j)\in[-1,1]$
+	- střední hodnota ceny $C_2(s)$ pro druhého hráče se rovná $x^TMy$, kde $x,y$ jsou vektory smíšených strategií
+	- minimaxová věta říká $$\max_{x\in S_1}\min_{y\in S_2}x^TMy=\min_{y\in S_2}\max_{x\in S_1}x^TMy$$
+	- důkaz
+		- nerovnost $\max_x\min_y x^TMy\leq \min_y\max_x x^TMy$ je snadná, protože je horší být druhý na tahu
+		- nyní dokažme $\max_x\min_y x^TMy\geq \min_y\max_x x^TMy$
+		- zvolíme parametr $\varepsilon\in (0,1]$ a spustíme no-regret dynamics pro dostatečný počet kroků $T$, aby oba hráči měli průměrný expected external regret nejvýše $\varepsilon$
+		- s algoritmem polynomiálních vah můžeme nastavit $T=4\ln(\max\set{m,n})/\varepsilon^2$
+			- jelikož $L_{PW}^T\leq L_\min^T+2\sqrt{T\ln N}$
+			- tedy regret za jeden časový krok je $2\sqrt{\ln N/T}=2\sqrt{\ln(\max\set{m,n})/T}$
+		- $p^1,\dots,p^T$ jsou strategie prvního hráče, $q^1,\dots,q^T$ druhého
+		- jako $\overline x=\frac1T\sum_t p^t$ a $\overline y=\frac1T\sum_tq^t$ označíme time-averaged strategie hráčů
+		- time-averaged expected payoff prvního hráče je $v=\frac1T\sum_t (p^t)^TMq^t$
+		- jako $e_i$ označíme vektor čisté strategie $a_i$
+			- $e_i=(0,\dots,0,1,0,\dots,0)$
+		- jelikož external regret prvního hráče je nejvýše $\varepsilon$, získáme $$e_i^TM\overline y=\frac1T\sum_{t=1}^Te_i^TMq^t\leq\frac1T\sum_{t=1}^T(p^t)^TMq^t+\varepsilon=v+\varepsilon$$
+		- každá strategie $x\in S_1$ je konvexní kombinace vektorů $e_i$, takže z linearity střední hodnoty získáme $x^TM\overline y\leq v+\varepsilon$, podobně $(\overline x)^TMy\geq v-\varepsilon$ pro každé $y\in S_2$
+		- když to všechno poskládáme, získáme $\max_x\min_y x^TMy\geq \min_y(\overline x)^TMy\geq v-\varepsilon\geq\max_x x^TM\overline y-2\varepsilon\geq\min_y\max_xx^TMy-2\varepsilon$
+		- pro $T\to\infty$ získáme $\varepsilon\to 0$, čímž dosáhneme požadované nerovnosti
 - Definition: Coarse correlated equilibrium (CCE)
+	- hrubé korelované ekvilibrium (CCE) $$(\forall i\in P)(\forall a'_i\in A_i):\sum_{a\in A}C_i(a)p(a)\leq\sum_{a\in A}C_i(a'_i;a_{-i})p(a)$$
+		- jinak také $$(\forall i\in P)(\forall a_i'\in A_i):\mathop{\mathbb E}_{a\sim p}[C_i(a)]\leq\mathop{\mathbb E}_{a\sim p}[C_i(a_i';a_{-i})]$$
+	- pro srovnání: korelované ekvilibrium (CE) $$(\forall i\in P)(\forall a_i,a_i'\in A_i):\sum_{a_{-i}\in A_{-i}}C_i(a_i;a_{-i})p(a_i;a_{-i})\leq \sum_{a_{-i}\in A_{-i}}C_i(a'_i;a_{-i})p(a_i;a_{-i})$$
+		- jinak také $$(\forall i\in P)(\forall a_i,a_i'\in A_i):\mathop{\mathbb E}_{a\sim p}[C_i(a)\mid a_i]\leq\mathop{\mathbb E}_{a\sim p}[C_i(a_i';a_{-i})\mid a_i]$$
+	- rozdíl mezi CCE a CE
+		- u CE řešíme, jestli je pro hráče výhodné řídit se doporučením poté, co se doporučení dozví
+		- u CCE se hráč musí rozhodnout už předtím, než se doporučení dozví, jestli bude ochotný hrát podle něj
+	- pro $\varepsilon\gt 0$, pravděpodobnostní distribuce $p$ na $A$ je $\varepsilon$-hrubé korelované ekvilibrium ($\varepsilon$-CCE), pokud $\mathbb E_{a\sim p}[C_i(a)]\leq \mathbb E_{a\sim p}[C_i(a_i';a_{-i})]+\varepsilon$
 - Theorem: Converging to CCE
+	- věta
+		- mějme libovolné $G=(P,A,C)$, $\varepsilon\gt 0$ a $T=T(\varepsilon)\in\mathbb N$
+		- pokud má po $T$ krocích no-regret dynamics každý hráč $i\in P$ time-averaged expected regret nejvýše $\varepsilon$, pak $p$ je $\varepsilon$-CCE
+		- přičemž $p^t=\prod_{i=1}^np_i^t$ (součin přes všechny hráče) a $p=\frac1T\sum_{t=1}^T p^t$
+	- důkaz
+		- chceme ukázat $\mathbb E_{a\sim p}[C_i(a)]\leq \mathbb E_{a\sim p}[C_i(a_i';a_{-i})]+\varepsilon$
+		- z definice $p$ rozepíšeme
+			- $\mathbb E_{a\sim p}[C_i(a)]=\frac1T\sum_t \mathbb E_{a\sim p^t}[C_i(a)]$
+			- $E_{a\sim p}[C_i(a_i';a_{-i})]=\frac1T\sum_t E_{a\sim p^t}[C_i(a_i';a_{-i})]$
+		- pravé strany jsou time-averaged expected costs hráče $i$ (když hraje podle algoritmu nebo když hraje vždycky $a_i'$)
+		- každý hráč má regret nejvýše $\varepsilon$, proto $$\frac1T\sum_t \mathbb E_{a\sim p^t}[C_i(a)]\leq\frac1T\sum_t E_{a\sim p^t}[C_i(a_i';a_{-i})]+\varepsilon$$
+		- to ověřuje $\varepsilon$-CCE podmínku pro $p=\frac1T\sum_{t=1}^T p_t$
 - Definition: Internal and swap regret
-- Algorithm: No-swap-regret dynamics
+	- modifikační pravidlo je funkce $F:X\to X$
+		- budeme modifikovat posloupnost $(p^t)_{t=1}^T$ pomocí $F$
+			- modifikovaný agent bude hrát $F(i)$, kdykoliv původní agent hrál $i$
+			- posloupnost $(p^t)$ nahradíme posloupností $(f^t)$, kde $$f^t_i=\sum_{j:F(j)=i}p_j^t$$
+		- kumulativní ztráta $A$ modifikovaná $F$ bude $L_{A,F}^T=\sum_{t=1}^T\sum_{i=1}^N f_i^t\ell_i^t$
+		- pro danou množinu modifikačních pravidel $\mathcal F$ můžeme srovnat agenta $A$ s jeho modifikacemi pravidly z $\mathcal F$, tím dostaneme další pohledy na regret
+	- external regret
+		- $\mathcal F^{ex}=\set{F_i\mid i\in X}$, kde $F_i$ mapuje vše na $i$
+		- $R^T_{A,\mathcal F^{ex}}=\max_{F\in\mathcal F^{ex}}\set{L_A^T-L_{A,F}^T}=\max_{j\in X}\set{\sum_t((\sum_{i\in X}p_i^t\ell_i^t)-\ell_j^t)}$
+	- internal regret
+		- $\mathcal F^{in}=\set{F_{ij}\mid (i,j)\in X^2\land i\neq j}$
+			- $F_{ij}(i)=j$
+			- $\forall i'\neq i:F_{ij}(i')=i'$
+		- $R^T_{A,\mathcal F^{in}}=\max_{i,j\in X}\set{\sum_t p_i^t(\ell_i^t-\ell_j^t)}$
+	- swap regret
+		- $\mathcal F^{sw}$ … množina všech modifikačních pravidel
+		- $R^T_{A,\mathcal F^{sw}}=\sum_{i=1}^N\max_{j\in X}\set{\sum_t p_i^t(\ell_i^t-\ell_j^t)}$
+	- jelikož $\mathcal F^{ex}\subseteq\mathcal F^{sw}$ a $\mathcal F^{in}\subseteq\mathcal F^{sw}$, tak external a internal regret budou nutně menší nebo rovny swap regretu
 - Theorem: Reduction from external regret to swap regret
+- Algorithm: No-swap-regret dynamics
 - Theorem: Converging to CE
 
 ## Games in extensive form
