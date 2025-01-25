@@ -482,8 +482,52 @@
 		- $R^T_{A,\mathcal F^{sw}}=\sum_{i=1}^N\max_{j\in X}\set{\sum_t p_i^t(\ell_i^t-\ell_j^t)}$
 	- jelikož $\mathcal F^{ex}\subseteq\mathcal F^{sw}$ a $\mathcal F^{in}\subseteq\mathcal F^{sw}$, tak external a internal regret budou nutně menší nebo rovny swap regretu
 - Theorem: Reduction from external regret to swap regret
+	- máme algoritmus polynomiálních vah, který umí zajistit libovolně malý external regret
+	- pro swap regret takový algoritmus zkonstruujeme pomocí black-box redukce
+	- definice: $R$-external regret algoritmus $A$ garantuje, že pro každou posloupnost ztrátových vektorů $(\ell^t)_{t=1}^t$ a pro každou akci $j\in X$ budeme mít $L_A^T=\sum_t\ell_A^t\leq \sum_t\ell_j^t+R=L_j^T+R$
+	- věta
+		- pro každý $R$-external regret algoritmus $A$ existuje algoritmus $M=M(A)$ takový, že pro každé $F:X\to X$ a $T\in\mathbb N$ platí $L_M^T\leq L_{M,F}^T+NR$
+		- tedy že swap regret algoritmu $M$ je nejvýše $NR$
+	- důkaz
+		- mějme $N$ kopií algoritmu $A$, označíme je jako $A_1,\dots,A_N$
+			- algoritmus $M$ konstruujeme jako jejich kombinaci
+		- v každém kroku $k$ každý $A_i$ vrací pravděpodobností rozdělení $q_i^t$
+			- přičemž $q^t_{i,j}$ je pravděpodobnost, kterou $A_i$ přiřazuje akci $j\in X$
+			- nechť $Q^t$ je matice $N\times N$ taková, že $Q_{ij}^t=q_{i,j}^t$
+		- zkonstruujeme pravděpodobnostní rozdělení $p^t$ takové, že $(p^t)^T=(p^t)^TQ^t$
+			- tedy $\forall j:p_j^t=\sum_{i=1}^Np_i^tq_{i,j}^t$
+			- lze ukázat, že $p^t$ existuje a lze ho efektivně spočítat (je to stacionární distribuce markovského řetězce)
+			- díky téhle volbě můžeme volbu akcí uvažovat dvěma způsoby – buď akci zvolíme s pravděpodobností $p^t_j$ nebo nejprve zvolíme algoritmus $A_i$ s pravděpodobností $p_i^t$ a pak použijeme algoritmus $A_i$, aby zvolil $j$ s pravděpodobností $q^t_{i,j}$
+		- když získáme ztrátový vektor $\ell^t$, pro každé $i\in X$ přiřadíme algoritmu $A_i$ ztrátový vektor $p_i^t\ell^t$
+			- tak $A_i$ prodělá ztrátu $(p_i^t\ell^t)\cdot q_i^t=p_i^t(q_i^t\cdot\ell^t)$
+			- jelikož $A_i$ je $R$-external regret algoritmus, platí $\forall j\in X:\sum_{t=1}^T p_i^t(q_i^t\cdot \ell^t)\leq\sum_t p_i^t\ell_j^t+R$
+		- když posčítáme ztráty všech algoritmů v kroku $t$, dostaneme celkovou ztrátu $\sum_{i=1}^N p_i^t(q_i^t\cdot\ell^t)=(p^t)^TQ^t\ell^t$
+			- díky volbě $p^t$ máme $(p^t)^T=(p^t)^TQ^t$
+			- proto se celková ztráta v kroku $t$ rovná $p^t\cdot\ell^t$, což je reálná ztráta algoritmu $M$ v kroku $t$
+		- nyní posčítáme za celou dobu běhu (z $R$-external regret) přes všechny algoritmy $$L_M^T=\sum_{i=1}^N\sum_{t=1}^T p_i^t(q_i^t\cdot \ell^t)\leq\sum_{i=1}^N\sum_{t=1}^T p_i^t\ell_{F(i)}^t+NR=L_{M,F}^T+NR$$
+			- kde $F$ je libovolná funkce $F:X\to X$ (v definici $R$-external regret je tam libovolné $j$)
+		- použijeme-li algoritmus polynomiálních vah jako $A$, získáme algoritmus se swap regret nejvýše $O(N\sqrt{T\log N})$
+			- tedy průměrný swap regret jde k nule s $T\to\infty$
 - Algorithm: No-swap-regret dynamics
+	- jako no-regret, akorát je tam swap regret
+	- vstup: $G=(P,A,C)$ hra $n$ hráčů, $T\in\mathbb N$ a $\varepsilon\gt 0$
+	- výstup: pravděpodobnostní rozdělení $p_i^t$ na $A_i$ pro každé $i\in P$ a $t\in\set{1,\dots,T}$
+	- pro každý krok $t=1,\dots,T$
+		- každý hráč $i\in P$ nezávisle vybere smíšenou strategii $p_i^t$ pomocí algoritmu s průměrným swap regretem nejvýše $\varepsilon$ (kde akce odpovídají čistým strategiím)
+		- každý hráč $i\in P$ získá ztrátový vektor $\ell_i^t$, kde $$\ell_i^t(a_i)=\mathop{\mathbb E}_{a_{-i}^t\sim p_{-i}^t}[C_i(a_i;a_{-i}^t)]$$ pro rozdělení $p_{-i}^t=\prod_{j\neq i}p_j^t$
 - Theorem: Converging to CE
+	- věta
+		- mějme libovolné $G=(P,A,C)$, $\varepsilon\gt 0$ a $T=T(\varepsilon)\in\mathbb N$
+		- pokud má po $T$ krocích no-swap-regret dynamics každý hráč $i\in P$ time-averaged expected regret nejvýše $\varepsilon$, pak $p$ je $\varepsilon$-CE
+		- přičemž $p^t=\prod_{i=1}^np_i^t$ (součin přes všechny hráče) a $p=\frac1T\sum_{t=1}^T p^t$
+	- důkaz
+		- chceme ukázat $\mathbb E_{a\sim p}[C_i(a)]\leq \mathbb E_{a\sim p}[C_i(F(a_i);a_{-i})]+\varepsilon$
+		- z definice $p$ rozepíšeme
+			- $\mathbb E_{a\sim p}[C_i(a)]=\frac1T\sum_t \mathbb E_{a\sim p^t}[C_i(a)]$
+			- $E_{a\sim p}[C_i(F(a_i);a_{-i})]=\frac1T\sum_t E_{a\sim p^t}[C_i(F(a_i);a_{-i})]$
+		- pravé strany jsou time-averaged expected costs hráče $i$ (když hraje podle algoritmu nebo když hraje vždycky $F(a_i)$ místo $a_i$)
+		- každý hráč má regret nejvýše $\varepsilon$, proto $$\frac1T\sum_t \mathbb E_{a\sim p^t}[C_i(a)]\leq\frac1T\sum_t E_{a\sim p^t}[C_i(F(a_i);a_{-i})]+\varepsilon$$
+		- to ověřuje $\varepsilon$-CE podmínku pro $p=\frac1T\sum_{t=1}^T p_t$
 
 ## Games in extensive form
 
