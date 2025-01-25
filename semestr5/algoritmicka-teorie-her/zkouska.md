@@ -536,11 +536,76 @@
 		- odpovídá orientovanému stromu, jehož vrcholy představují stavy hry
 		- strom kóduje celou historii hry
 		- hra začíná v kořeni stromu a končí v listu, kde každý hráč získá výplatu
-		- 
+		- hrana stromu odpovídá tomu, že se jeden hráč přesouvá z jednoho stavu hry do druhého
+		- vrcholy, které nejsou listy, se označují jako rozhodovací uzly
+		- tahy, které hráč v daném stavu může provést, odpovídají výstupním hranám daného rozhodovacího uzlu
+	- hra s dokonalou informací – všichni hráči vědí, v jakém jsou stavu
+	- hra s nedokonalou informací – hráči mají jenom částečnou znalost stavu hry
+		- rozdělíme rozhodovací uzly na informační množiny
+			- uzly v jedné informační množině patří stejnému hráči a mají stejné tahy
+			- hráč ví, v jaké informační množině se nachází, ale nedokáže určit, v jakém je uzlu
+		- množina informačních množin hráče $i$ se označuje jako $H_i$
+		- pro $h\in H_i$ nechť $C_h$ je množina možných tahů z $h$
 - Definition: Strategies in extensive games
+	- čistá (pure) strategie hráče $i$
+		- přesný popis, jakou akci zvolit v každé informační množině hráče $i$
+		- pomocí čistých strategií můžeme hru $G$ v rozšířené formě převést na hru $G'$ v normálním tvaru – prostě uděláme tabulku všech čistých strategií
+	- smíšená (mixed) strategie
+		- smíšené strategie $G$ odpovídají smíšeným strategiím $G'$
+		- je to pravděpodobnostní distribuce nad vektory
+	- behaviorální strategie hráče $i$
+		- je to pravděpodobnostní distribuce na $C_h$ pro každé $h\in H_i$
+		- je to vektor pravděpodobnostních distribucí
+		- hráč se v každé informační množině rozhoduje nezávisle
+		- na rozdíl od smíšené strategie se hráč může rozhodnout různě, když do $h$ přijde vícekrát
 - Definition: Games of perfect recall, Kuhn’s theorem
+	- posloupnost $\sigma_i(t)$ tahů hráče $i$ do uzlu $t$ je posloupnost jeho tahů (nehledě na tahy ostatních hráčů) po jedinečné cestě z kořene stromu do $t$
+		- prázdná posloupnost se značí $\emptyset$
+	- hráč $i$ má *dokonalou paměť* (perfect recall), právě když pro každé $h\in H_i$ a libovolné $t,t'\in h$ platí $\sigma_i(t)=\sigma_i(t')$
+		- v takovém případě používáme $\sigma_h$ k označení jedinečné posloupnosti vedoucí do libovolného uzlu $t\in h$
+		- kdyby rovnost neplatila a hráč by si pamatoval historii, byl by schopen rozhodnout, zda se nachází v $t$ nebo v $t'$
+			- podle definice dané hry jsou ale $t,t'$ ve stejné informační množině, tedy je hráč nedovede rozlišit
+			- proto zjevně nemá dokonalou paměť – je to ale vlastnost designu hry, ne hráče
+	- $G$ je hra s dokonalou pamětí, pokud má každý hráč dokonalou paměť
+		- žádný hráč nezapomíná informace, které znal o svých dosavadních tazích
+		- každá hra s dokonalou informací je hra s dokonalou pamětí
+	- Kuhnova věta
+		- ve hře s dokonalou pamětí může být každá smíšená strategie daného hráče nahrazena ekvivalentní behaviorální strategií a libovolná behaviorální strategie může být nahrazena ekvivalentní smíšenou strategií
 - Definition: Sequence form
+	- sekvenční forma (reprezentace posloupnostmi) je čtveřice $(P,S,u,\mathcal C)$
+	- $P$ … množina $n$ hráčů
+	- $S=(S_1,\dots,S_n)$, kde $S_i$ je množina posloupností $i$-tého hráče
+	- $u=(u_1,\dots,u_n)$, kde $u_i:S\to \mathbb R$ je výplatní funkce $i$-tého hráče
+	- $\mathcal C=(\mathcal C_1,\dots,\mathcal C_n)$, kde $\mathcal C_i$ je množina lineárních omezujících podmínek nad realizačními parvděpodobnostmi $i$-tého hráče
+	- posloupnosti $S_i$
+		- libovolná posloupnost z $S_i$ je buď prázdná $\emptyset$, nebo je jednoznačně určena posledním tahem $c$ v informační množině $h$
+		- $S_i=\set\emptyset\cup\set{\sigma_hc\mid h\in H_i,\,c\in C_h}$
+		- $|S_i|=1+\sum_{h\in H_i}|C_h|$, což je lineární vzhledem k velikosti stromu
+	- výplatní funkce $u_i$
+		- mějme hráče $i$ a posloupnosti $\sigma=(\sigma_1,\dots,\sigma_n)\in S$
+		- pokud se po tom, co každý hráč $j$ zahraje svou sekvenci $\sigma_j$, hra dostane do listu $\ell$, rovná se výplatní funkce $u_i(\sigma)$ hodnotě $u_i(\ell)$
+		- jinak $u_i(\sigma)=0$
+		- výplatní funkce lze popisovat (řídkými) maticemi – pokud jsou hráči dva, používají se matice $A,B$
+	- realizační plán behaviorální strategie $\beta_i$ pro hráče $i$ je zobrazení $x:S_i\to [0,1]$, definované jako $x(\sigma_i)=\prod_{c\in\sigma_i}\beta_i(c)$
+		- realizační plán je pravděpodobnost, že hráč zahraje určitou posloupnost, pokud hraje danou behaviorální strategii
+		- ekvivalentně můžeme použít lineární rovnice
+			- realizační plán hráče $i$ je zobrazení $x: S_i\to[0,1]$ splňující $x(\emptyset)=1$ a $\sum_{c\in C_h}x(\sigma_hc)=x(\sigma_h)$ pro každé $h\in H_i$
+			- $\mathcal C_i$ je množina těchto rovnic
+	- omezující podmínky $\mathcal C_i$
+		- lze je zapsat jako $Ex=e,\;x\geq 0$
+		- $E$ má $1+|H_i|$ řádků
+		- první řádek rovnice $Ex=e$ odpovídá $x(\emptyset)=1$
+		- další řádky odpovídají $-x(\sigma_h)+\sum_{c\in C_h}x(\sigma_hc)=0$ pro každé $h\in H_i$
+	- realizační plán lze převést na behaviorální strategii tak, že $\beta_i(h,c)=\frac{x(\sigma_hc)}{x(\sigma_h)}$
 - Theorem: Using the sequence form to find NE
+	- mohli bychom $G$ převést na $G'$ v normálním tvaru a použít Lemke–Howsonův algoritmus, ale počet akcí v $G'$ je exponenciální vůči velikosti $G$, takže by byl počet kroků algoritmu dvojitě exponenciální → proto jsme si definovali sekvenční formu
+	- best responses
+		- pro pevný realizační plán $y$ druhého hráče spočítáme best response $x$ prvního hráče
+		- $x$ je řešení lineárního programu $P$
+			- $\max x^TAy$ za podmínek $Ex=e,\;x\geq 0$
+		- duál $D$ má tvar
+			- $\min e^Tu$ za podmínky $E^Tu\geq Ay$
+	- TODO …
 
 ## Mechanism design
 
