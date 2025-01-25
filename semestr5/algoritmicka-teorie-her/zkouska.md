@@ -532,6 +532,11 @@
 ## Games in extensive form
 
 - Definition: Extensive game, (im)perfect-information game
+	- hra v rozšířené (explicitní) formě
+		- odpovídá orientovanému stromu, jehož vrcholy představují stavy hry
+		- strom kóduje celou historii hry
+		- hra začíná v kořeni stromu a končí v listu, kde každý hráč získá výplatu
+		- 
 - Definition: Strategies in extensive games
 - Definition: Games of perfect recall, Kuhn’s theorem
 - Definition: Sequence form
