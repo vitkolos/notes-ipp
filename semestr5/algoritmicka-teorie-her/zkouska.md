@@ -173,18 +173,153 @@
 		- z linearity $u_i$ dostaneme $$u_i(s_i^*;s_{-i})=\sum_{a_i\in A_i}s^*_i(a_i)u_i(a_i;s_{-i})\gt \sum_{a_i\in A_i}s_i(a_i)u_i(a_i;s_{-i})=u_i(s)$$
 			- což je spor
 - Algorithm: Support enumeration
+	- best response condition (BRC) v maticových hrách
+		- $u_1(s)=x^TMy,\;u_2(s)=x^TNy$
+		- podle BRC je $x$ best response na $y$, právě když $$\forall i\in A_1:x_i\gt 0\implies M_{i,*}y=\max\set{M_{k,*}y\mid k\in A_1}$$
+			- pro každý support platí, že jeho čistá strategie je maximální z čistých strategií
+		- podobně $y$ je best response na $x$, právě když $$\forall j\in A_2:y_j\gt 0\implies N^T_{j,*}x=\max\set{N^T_{k,*}x:k\in A_2}$$
+	- hledáme NE v nedegenerované maticové hře $G$
+	- nechť $I\subseteq A_1$ a $J\subseteq A_2$ jsou supporty v $G$
+	- sestavíme soustavu rovnic o $|I|+|J|+2$ neznámých
+		- $\sum_{i\in I} x_i=1$
+		- $\sum_{j\in J} y_j=1$
+		- $\forall j:N^T_{j,*}x=v$
+		- $\forall i:M_{i,*}y=u$
+	- $u,v$ budou nabývat hodnot maxim plynoucích z BRC (viz výše)
+	- také požadujeme nezápornost proměnných
+	- pořád je ale nezbytné získat $I,J$, to za nás provede algoritmus
+	- u nedegenerovaných her vyplývá přímo z BRC, že supporty strategií v Nashově ekvilibriu budou mít stejnou velikost
+	- tedy můžeme projít všechny možné supporty $I,J$ velikosti $k\in\set{1,\dots,\min\set{m,n}}$ a pro každou dvojici řešíme soustavu rovnic (pokud najdeme nezáporné řešení, máme NE)
+	- algoritmus běží přibližně v čase $4^n$ pro $m=n$
+		- $m=|A_1|,\;n=|A_2|$
 - Definition: Best response polyhedra, best response polytope
+	- mějme strategický profil $s$ se smíšenými strategiemi $x,y$
+	- polyedr nejlepších odpovědí
+		- pro prvního hráče: $\overline P=\set{(x,v)\in\mathbb R^m\times \mathbb R:x\geq 0\land 1^Tx=1\land N^Tx\leq 1v}$
+		- pro druhého hráče: $\overline Q=\set{(y,u)\in\mathbb R^n\times\mathbb R:y\geq 0\land 1^Ty=1\land My\leq 1u}$
+		- poslední nerovnice $My\leq 1u$ říká, že střední hodnota výplatní funkce $u_1(s)$ je nejvýše $u$, jelikož $u_1(s)=x^TMy\leq x^T1u=u\sum x_i=u$ (podobné je to s nerovnicí $N^Tx\leq 1v$)
+		- definujeme labels
+			- bod $(x,v)\in\overline P$ má label $i\in A_1\cup A_2$, pokud buď $i\in A_1\land x_i=0$, nebo $i\in A_2\land N^T_{i,*}x=v$ (tedy pokud $i\in A_1$ není v supportu nebo pokud $i\in A_2$ je best response na $x$)
+			- podobně (opačně) pro $(y,u)\in\overline Q$
+			- každý bod může mít více labels
+	- (normalizovaný) polytop nejlepších odpovědí
+		- předpokládám, že $M,N^T$ jsou nezáporné a nemají nulový sloupec (jednoduše přičteme velkou konstantu k výplatám)
+		- každou nerovnost $N^T_{i,*}x\leq v$ vydělíme $v$
+		- $x_i/v$ bude naše nová proměnná
+		- podobně pro $\overline Q$
+		- tak normalizujeme výplaty na jedničku a získáme (normalizované) polytopy nejlepších odpovědí
+			- pro prvního hráče: $P=\set{x\in\mathbb R^m:x\geq 0\land N^Tx\leq 1}$
+			- pro druhého hráče: $Q=\set{y\in\mathbb R^n:y\geq 0\land My\leq 1}$
+		- nerovnosti mají stejné významy (co se týče supportu / best response)
+		- z předpokladu na $M,N$ jsou polyedry $P,Q$ omezené (jsou to polytopy) a mají dimenze $m$ a $n$
+		- nevýhoda: složky $x$ a $y$ se nesečtou na jedničku, takže je musíme přeškálovat
+		- polytop $\overline P$ odpovídá $P\setminus\set{0}$ podle projektivní transformace $(x,v)\mapsto x/v$ (podobně $\overline Q$ odpovídá $P\setminus\set{0}$)
+			- projektivní transformace zachovává incidence, tedy labels zůstávají stejné
 - Theorem: NE and Best response polyhedra/polytope
+	- tvrzení: strategický profil $s$ je NE, právě když je pár $((x,v),(y,u))\in\overline P\times\overline Q$ kompletně označen, tedy každý label $i\in A_1\cup A_2$ se objevuje jako label $(x,v)$ nebo $(y,u)$
+	- důkaz
+		- podle best response condition je $s_i$ best response na $s_{-i}$, právě když všechny čisté strategie supportu $s_i$ jsou best responses na $s_{-i}$
+		- pokud chybí label $i$, znamená to, že $i$ je v supportu, ale čistá strategie $i$ není best response
+		- pokud má dvojice bodů dohromady všechny labely, pak $s_1$ a $s_2$ jsou navzájem best responses, jelikož každá čistá strategie je buď best response, nebo není v supportu
+		- pak je $s$ Nashovo ekvilibrium
+	- důsledek pro polytop
+		- strategický profil $s$ je NE, právě když je bod $(x/u_2(s),y/u_1(s))\in P\times Q\setminus\set{(0,0)}$ kompletně označen
 - Algorithm: Vertex enumeration
+	- z nedegenerovanosti $G$ víme, že každý bod $P$ má nejvýše $m$ labels, podobně každý bod $Q$ má nejvýše $n$ labels (pro $k$ prvků supportu je nejvýše $k$ best responses)
+	- labely odpovídají stěnám polytopu, proto pouze vrcholy můžou mít přesně $m$ a $n$ labels (je to jednoduchý polytop, žádné body nemají víc než $m$, respektive $n$ vrcholů)
+	- algoritmus
+		- vstup: nedegenerovaná maticová hra $G$
+		- výstup: všechna Nashova ekvilibria hry $G$
+		- pro každou dvojici vrcholů $(x,y)$ z $(P\setminus\set{0})\times(Q\setminus\set{0})$
+			- pokud je $(x,y)$ kompletně označen, vrať $(x/(1^Tx),y/(1^Ty))$ jako Nashovo ekvilibrium
+	- všechny vrcholy jednoduchého polytopu v $\mathbb R^d$ s $v$ vrcholy a $N$ popisujícími nerovnostmi mohou být nalezeny v čase $O(dNv)$
+	- ale pokud $m=n$, polytopy nejlepších odpovědí mohou mít $c^n$ vrcholů pro nějakou konstantu $c\in(1,2.9)$
+	- hledání zrychlíme tak, že budeme sledoval labels (viz Lemke–Howson)
 - Algorithm: Lemke–Howson algorithm
+	- $P$ je jednoduchý polytop dimenze $m$, každému jeho vrcholu přiléhá $m$ hran a $m$ stěn
+	- každý vrchol polytopu $P$ má $m$ labels a každá hrana má $m-1$ labels
+	- když „upustíme“ label $\ell\in A_1\cup A_2$ z vrcholu $x$ polytopu $P$, znamená to, že se přesouváme po hraně $P$, která je incidentní s vrcholem $x$ a má stejné labely jako $x$ kromě $\ell$
+	- druhý konec hrany má stejné labels jako $x$, akorát místo $\ell$ má jiný label, který „sebereme“
+	- podobně definujeme upouštění a sbírání labels v $Q$
+	- algoritmus
+		- začínáme v $(0,0)$ a střídavě prochází po hranách v $P$ a $Q$
+		- v prvním kroku vybereme (náhodný) label $k\in A_1\cup A_2$ a upustíme ho
+		- pak sebereme nový label $\ell$
+		- ten má duplikát ve druhém polytopu
+		- v dalším kroku tento duplikát upustíme a sebereme nový label $\ell'$
+		- takhle iterujeme pořád dál, zastavíme se v momentě, kdy $\ell'=k$
+	- duplikát buď odpovídá nové best response, která má kladnou pravděpodobnost, nebo čisté strategii, jejíž pravděpodobnost jsme vynulovali a přesouváme se směrem od její best response stěny
+	- algoritmus vrací jedno Nashovo ekvilibrium v $G$, funguje pro nedegenerované maticové hry
+	- správnost
+		- věta: algoritmus zastaví po konečném počtu kroků a vrátí vektory smíšených strategií NE
+		- nechť $k$ je label vybraný v prvním kroku
+		- sestavíme konfigurační graf $\mathcal G$, kde jsou vrcholy tvořeny páry $(x,y)$ vrcholů z $P\times Q$, které jsou $k$-téměř kompletně označené (každý label z $A_1\cup A_2\setminus\set{k}$ je labelem $x$ nebo $y$)
+		- mezi vrcholy v $\mathcal G$ vede hrana, právě když se mezi dvojicí párů dá projít v jednom kroku algoritmu (jeden vrchol dvojice se nemění, druhý vrchol změníme průchodem po hraně polytopu)
+		- $\mathcal G$ je zjevně konečný
+		- $\mathcal G$ má vrcholy stupně 1 nebo 2 (tedy je to disjunktní sjednocení cest a cyklů)
+			- pokud má $(x,y)$ všechny labels z $A_1\cup A_2$, pak je připojen k právě jednomu vrcholu, jelikož právě jeden z vrcholů $x,y$ má $k$ a můžeme ho upustit jenom z tohoto vrcholu
+			- jinak $x,y$ sdílejí jeden label a $(x,y)$ je incidentní se dvěma hranami, jelikož duplikát můžeme upustit z vrcholu $x$ nebo z vrcholu $y$
+		- Lemke–Howson začíná v listu $(0,0)$, prochází po cestě a do žádného vrcholu se nevrací, skončí na konci cesty v listu $(x^*,y^*)$
+	- poznámka: v $\mathcal G$ jsou všechna Nashova ekvilibria, z každého z nich můžeme odebrat $k$, takže jsou vždy na konci cest
+	- součet vrcholů stupně 1 musí být sudý, jeden z nich je $(0,0)$, ostatní jsou NE, z čehož vyplývá, že *v nedegerované maticové hře je lichý počet NE*
+		- Lemke–Howson vždy najde jedno NE
+		- degenerované hry můžou mít nekonečně mnoho NE
+	- algoritmus lze implementovat pomocí komplementárního pivotování
+	- může běžet exponenciálně dlouho ($O(2^n)$ kroků pro $n=m$)
+		- v praxi je dostatečně rychlý (polynomiální čas na uniformně náhodných hrách)
 - Theorem: Computational complexity of NASH
+	- NASH = problém nalezení NE v maticových hrách
+	- NASH není NP-úplný, protože víme, že NE vždycky existuje
+	- třída FNP
+		- vstupem FNP problému je instance problému z NP, algoritmus nám vrátí řešení, pokud existuje, jinak vrátí „ne“
+		- NASH patří do FNP, protože ověření NE lze provést pomocí best response condition
+		- ale NASH pravděpodobně není FNP-úplný, protože *kdyby byl, NP = coNP*
+	- strukturu NASH lze zachytit jako hledání konce cesty v grafu stupně nejvýše 2 (viz důkaz korektnosti Lemke–Howsonova algoritmu)
+		- problém END-OF-THE-LINE = pro orientovaný graf $G$, kde má každý vrchol nejvýše jednoho předchůdce a jednoho následníka, a zadaný vrchol $s$ bez předchůdce najdi vrchol $t\neq s$ bez předchůdce nebo následníka
+			- $G$ je specifikován tak, že funkce $f(v)$, co běží v polynomiálním čase, vrací předchůdce a následníka $v$, pokud existují
+			- tedy $G$ může být exponenciálně velký vůči velikosti vstupu
+		- PPAD je složitostní třída, kam spadají problémy, které lze v polynomiálním čase převést na END-OF-THE-LINE
+	- *NASH je PPAD-úplný* (dokázáno v roce 2009)
+	- pravděpodobně neexistuje polynomiální algoritmus pro NASH
+	- hledání aproximace NE ve hrách s aspoň třemi hráči náleží PPAD, ale ten problém se zdá ostře těžší než PPAD
+	- když upravíme NASH tak, aby jeho existence nebyla zaručena, výsledný problém se často stane NP-úplný
+- Example: Problems from PPAD
+	- end-of-the-line
+	- NASH (bimatrix, non-degenerate)
+	- Sperner's lemma
+	- ham sandwich theorem
+	- Borsuk–Ulam theorem
 
 ## Other notions of equilibria
 
 - Definition: $\varepsilon$-Nash equilibrium
+	- pro $\epsilon\gt 0$ je strategický profil $s$ ve hře $G=(P,A,u)$ $\varepsilon$-Nashovým ekvilibriem, pokud pro každého hráče $i\in P$ a každou $s_i'\in S_i$ platí $u_i(s_i;s_{-i})\geq u_i(s_i';s_{-i})-\varepsilon$
+		- tedy žádná jiná strategie hráči nezlepší payoff o více než $\varepsilon$
+		- pro $\varepsilon=0$ bychom získali klasické NE
+	- výhody
+		- jednoduchá definice
+		- $\varepsilon$-NE vždycky existuje podle Nashovy věty (každé NE je $\varepsilon$-NE)
+		- pokud použijeme $\varepsilon$ jako „přesnost počítače“, nemusíme počítat s iracionálními čísly
+	- nevýhody
+		- existují $\varepsilon$-NE, která nejsou blízko žádným NE
+		- pořád je dost těžké najít $\varepsilon$-NE
 - Theorem: Algorithmic aspects of $\varepsilon$-Nash equilibria
+	- nemáme FPTAS (fully polynomial-time approximation scheme) ani PTAS (polynomial-time approximation scheme)
+		- FPTAS ani nemůže existovat, pokud neplatí, že $PPAD\subseteq FP$
+	- ale máme kvazi-polynomiální algoritmus
+	- věta: nechť $G$ je hra dvou hráčů v normálním tvaru, každý z hráčů má $m$ akcí takových, že výplatní matice obsahují hodnoty v intervalu $[0,1]$, pak pro každé $\varepsilon\gt 0$ existuje algoritmus, který spočítá $\varepsilon$-NE hry $G$ v čase $m^{O(\log m/\varepsilon^2)}$
 - Definition: Correlated equilibrium (CE)
+	- ve hře $G=(P,A,u)$ nechť $p$ je pravděpodobnostní distribuce na $A$
+		- tedy $p(a)\geq 0$ pro každé $a\in A$ a $\sum p(a)=1$
+	- distribuce $p$ je korelované ekvilibrium (CE) v $G$, pokud $$(\forall i\in P)(\forall a_i,a_i'\in A_i):\sum_{a_{-i}\in A_{-i}}u_i(a_i;a_{-i})p(a_i;a_{-i})\geq \sum_{a_{-i}\in A_{-i}}u_i(a'_i;a_{-i})p(a_i;a_{-i})$$
+	- možný pohled
+		- jako by důvěryhodná třetí strana samplovala $a\in A$ podle známého rozdělení $p$ a soukromě by doporučila každému hráči $i$ strategii $a_i$
+		- každý hráč se doporučením může, ale nemusí řídit
+		- $p$ je CE, pokud každý hráč maximalizuje střední hodnotu užitku tak, že se řídí doporučením
 - Theorem: Properties of correlated equilibria
+	- každé NE je CE, takže CE vždy existuje
+	- každé NE $s$ je CE s distribucí $p=\prod_{i=1}^n s_i$, takže CE může dávat lepší payoffs než NE
+	- CE lze spočítat v polynomiálním čase pomocí lineárního programování, jako proměnné použijeme $(p(a))_{a\in A}$
 
 ## Regret minimization
 
