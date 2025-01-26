@@ -605,7 +605,9 @@
 			- $\max x^TAy$ za podmínek $Ex=e,\;x\geq 0$
 		- duál $D$ má tvar
 			- $\min e^Tu$ za podmínky $E^Tu\geq Ay$
-	- TODO …
+	- hry s nulovým součtem
+		- použijeme větu o dualitě na $P$ a $D$
+		- věta: Nashova ekvilibria hry dvou hráčů v rozšířené formě s nulovým součtem s dokonalou pamětí jsou řešení lineárního programu $$\min_{u,e}$$
 
 ## Mechanism design
 

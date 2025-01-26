@@ -363,7 +363,7 @@
 		- všimněme si $\forall e\in\text{Out}(A):f(e)=c(e)$
 		- $\forall e'\in\text{In}(A):f(e')=0$
 		- z lemmatu výše víme, že pro $A\subseteq V$, kde $z\in A,\,s\notin A$, platí $w(f)=\underbrace{f[\text{Out}(A)]}_{c(\text{Out}(A))=c(R)}-\underbrace{f[\text{In}(A)]}_{0}=c(R)\quad\square$
-- důsledek („Minimaxová věta o toku a řezu“): nechť $f_\max$ je maximální tok a $R_\min$ je minimální řez v $(V,E,z,s,c)$, potom $w(f_\max)=c(R_\min)$
+- důsledek („Minimaxová věta o toku a řezu“): nechť $f_\max$ je maximální tok a $R_\text{min}$ je minimální řez v $(V,E,z,s,c)$, potom $w(f_\max)=c(R_\min)$
 - dk: $w(f_\max)\leq c(R_\min)$ – víme, viz výše; $w(f_\max)\geq c(R_\min)$ … dle věty $w(f_\max)=c(R)\geq c(R_\min)$
 - důsledek 2: v síti, kde všechny kapacity jsou celočíselné, Fordův-Fulkersonův algoritmus najde maximální tok, který bude celočíselný (celočíselnost vyvozujeme ze znalosti FF algoritmu)
 
