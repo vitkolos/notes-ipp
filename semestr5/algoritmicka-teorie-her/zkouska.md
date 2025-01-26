@@ -790,8 +790,75 @@
 		- pokud mají všichni zápornou virtuální valuaci, nedáme ji nikomu
 		- z regularity $F$ je $\varphi$ ostře rostoucí → alokační pravidlo je monotónní → z Myersonova lemmatu máme DSIC aukci $(x,p)$
 - Theorem: The Bulow–Klemperer theorem
+	- věta
+		- nechť $F$ je regulární pravděpodobnostní rozdělení
+		- pak $\mathbb E_{v_1,\dots,v_{n+1}\sim F}[\text{Rev}(VA_{n+1})]\geq \mathbb E_{v_1,\dots,v_n\sim F}[\text{Rev}(OPT_{F,n})]$
+		- kde $\text{Rev}(VA_{n+1})$ je zisk z Vickreyho aukce s $n+1$ zájemci *bez rezervy*
+			- tedy nezávisí na $F$
+		- a $\text{Rev}(OPT_{F,n})$ je zisk z optimální aukce pro $F$ s $n$ zájemci
+			- tedy Vickreyho aukce s rezervou $\varphi^{-1}(0)$
+			- závisí na $F$
+	- důkaz
+		- budeme uvažovat aukci $A$ s $n+1$ zájemci
+			- bude simulovat $OPT_{F,n}$ na zájemcích $1,\dots,n$
+			- pokud položka nebyla nikomu přidělena, dáme ji zdarma zájemci $n+1$
+		- takže $A$ z definice vždy přidělí položku a střední hodnota zisku se rovná optimální aukci na $n$ zájemcích
+		- budeme chtít ukázat, že Vickreyho aukce maximalizuje střední hodnotu zisku přes všechny aukce, které přidělí položku
+		- uvažujme optimální aukci (maximalizující zisk), která vždy přidělí položku
+			- taková aukce ji vždy dá zájemci s nejvyšší virtuální valuací
+			- z regularity a rovnosti distribucí plyne, že to bude rovněž zájemce s nejvyšší valuací
+			- takovému zájemci ji dá právě Vickreyho aukce $VA_{n+1}$
+		- tedy Vickreyho aukce má střední hodnotu zisku aspoň takovou jako libovolná aukce, která vždycky přidělí položku (což je třeba $A$)
+			- $\mathbb E[\text{Rev}(VA_{n+1})]\geq \mathbb E[\text{Rev}(A)]= \mathbb E[\text{Rev}(OPT_{F,n})]$
+	- důsledek
+		- střední hodnota zisku z $VA_n$ je aspoň $\frac{n-1}{n}$násobek střední hodnoty zisku z $OPT_{F,n}$
+		- lze to dokázat podobně jako BK větu, zkonstruujeme aukci, kde budeme jednoho hráče ignorovat (pravděpodobnost, že by ji vyhrál je $\frac1n=\frac{n-1}n$ → zisk bude přibližně tolikrát menší)
 - Definition: Knapsack auction
+	- každý z $n$ zájemců má veřejně známou velikost $w_i\geq 0$ a soukromou valuaci $v_i\geq 0$
+	- prodejce má kapacitu $W\geq 0$
+	- přípustná množina $X$ se skládá z vektorů $(x_1,\dots,x_n)\in\set{0,1}^n$ takových, že $\sum_{i=1}^n x_iw_i\leq W$
+		- $x_i$ je indikátor toho, že zájemce $i$ vyhrál
+	- jak zkonstruovat úžasný mechanismus?
+		- zvolíme alokaci $x(b)$ tak, abychom maximalizovali $\sum_i b_ix_i$, tak by se při pravdivém bidování maximalizoval sociální zisk
+		- alokační pravidlo je monotónní, proto nám Myersonovo lemma dá $p$ takové, že $(x,p)$ je DSIC
+		- třetí podmínku úžasných aukcí ale nesplníme, protože $x$ řeší NP-těžký problém batohu
+	- co s tím?
+		- kolidují nám druhá a třetí podmínka
+		- to vyřešíme tak, že tu druhou trochu uvolníme, čímž získáme polynomiální algoritmus
+		- použijeme FPTAS
 - Theorem: 2-approximation for knapsack auctions
+	- hladové alokační pravidlo
+		- předpokládáme, že $\forall i: w_i\leq W$
+		- nechť jsou zájemci seřazeni tak, že $\frac{b_1}{w_1}\geq\dots\geq\frac{b_n}{w_n}$
+		- nejprve se budeme snažit v tomto pořadí „batoh“ naplnit co nejvíce – dokud se tam zájemci vejdou → tak získáme možné řešení
+		- vrátíme buď nalezené řešení nebo zájemce s největší nabídkou – podle toho, z čeho bude větší sociální zisk
+	- věta: pokud jsou nabídky pravdivé (podle valuace), sociální zisk hladového alokačního pravidla je aspoň polovina maximálního možného sociálního zisku
+	- důkaz
+		- uvažujme relaxaci problému, kde můžeme použít zlomek zájemce
+		- hladové pravidlo upravíme tak, že použijeme kousek zájemce, který už by se nám nevešel
+		- tak určitě najdeme optimální řešení, protože jsme si zájemce seřadili podle „hustoty“ – libovolné jiné řešení by bylo horší (formálnější důkaz ve skriptech)
+		- vybrané zájemce si označíme $1,\dots,k$, přičemž z $k$-tého jsme použili jenom kousek
+		- několik pozorování
+			- sociální zisk z prvního kroku hladového pravidla (nezlomkového) je $\sum_{i=1}^{k-1}v_i$
+			- sociální zisk z druhého kroku je aspoň $v_k$ (vybíráme ze maximální $v_i$ ze zájemců, které jsme nepoužili, $v_k$ patří do této množiny)
+			- $(\sum_{i=1}^{k-1}v_i)+v_k\gt$ optimum
+		- výsledný sociální zisk bude $\max\set{v_k,\sum_{i=1}^{k-1}v_i}$
+		- to bude nutně aspoň polovina optima (to vyplývá z pozorování – celek se nedá rozdělit na dvě části menší než polovina)
 - Definition: Multi-parameter mechanism design
+	- $n$ zájemců
+	- konečná množina $\Omega$ výsledků
+	- každý zájemce $i$ má soukromou valuaci $v_i(\omega)\geq 0$ pro každý výsledek $\omega\in \Omega$
+	- každý zájemce $i$ odevzdá své nabídky $b_i(\omega)\geq 0$ pro každou $\omega\in\Omega$
+	- našim cílem je navrhnout algoritmus, který vybere výsledek $\omega\in\Omega$, aby maximalizoval sociální zisk $\sum_i v_i(\omega)$
 - Theorem: VCG mechanism
+	- věta: v každém prostředí multi-parameter mechanism designu existuje DSIC mechanismus maximalizující sociální zisk
+	- idea důkazu
+		- jakou ztrátu sociálního zisku způsobuje $i$-tý zájemce ostatním?
+			- třeba v jednopoložkových aukcích způsobuje vítěz ostatním ztrátu rovnou druhé nejvyšší nabídce
+		- definujeme platby tak, aby se zájemci museli zajímat o ostatní
+		- alokační pravidlo bude $x(b)=\text{argmax}_{\omega\in\Omega}\sum_{i=1}^n b_i(\omega)$
+		- platební vzorec bude $$p_i(b)=\max_{\omega\in\Omega}\left\lbrace\sum_{\substack{j=1 \\ j\neq i}}^n b_j(\omega)\right\rbrace-\sum_{\substack{j=1 \\ j\neq i}}^n b_j(\omega^*)$$
+			- přičemž $\omega^*=x(b)$, tedy výsledek vybraný naším alokačním pravidlem
+	- důkaz
+		- 
 - Theorem: Revelation principle
