@@ -32,6 +32,7 @@
 
 - [Databázové systémy (zkouška)](semestr5/databazove-systemy/zkouska.md)
 - [Úvod do strojového učení (zkouška)](semestr5/uvod-do-strojoveho-uceni/zkouska.md)
+- [Algoritmická teorie her (zkouška)](semestr5/algoritmicka-teorie-her/zkouska.md)
 - [Probability and Statistics 2 (exam), work in progress](semestr5/probability-statistics2/exam.md)
 
 ## Nepřehledně zpracované předměty
