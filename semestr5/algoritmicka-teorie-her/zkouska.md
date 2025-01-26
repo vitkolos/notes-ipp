@@ -606,14 +606,44 @@
 		- duál $D$ má tvar
 			- $\min e^Tu$ za podmínky $E^Tu\geq Ay$
 	- hry s nulovým součtem
-		- použijeme větu o dualitě na $P$ a $D$
-		- věta: Nashova ekvilibria hry dvou hráčů v rozšířené formě s nulovým součtem s dokonalou pamětí jsou řešení lineárního programu $$\min_{u,e}$$
+		- použijeme větu o dualitě na $P$ a $D$, tím dostaneme lineární program pro nalezení NE
+		- druhý hráč chce minimalizovat $x^TAy$, což se z duality rovná $e^Tu$, pokud první hráč maximalizuje svůj payoff $x^TAy$
+		- věta: Nashova ekvilibria hry dvou hráčů v rozšířené formě s nulovým součtem s dokonalou pamětí jsou řešení lineárního programu
+			- $\min_{u,y}e^Tu$ za podmínek $Fy=f,\;E^Tu-Ay\geq 0,\;y\geq 0$
+		- duál k tomuto programu najde realizační plán $x$ pro prvního hráče
+		- počet nenulových položek v maticích $E,F,A$ je lineární vůči velikosti stromu, takže lineární programy lze vyřešit v polynomiálním čase vůči velikosti hry → to je exponenciální zlepšení
+	- hry dvou hráčů
+		- věta: dvojice $(x,y)$ realizačních plánů ve hře dvou hráčů v extenzivní formě s dokonalou pamětí je Nashovo ekvilibrium, právě když existují vektory $u,v$ takové, že $$\begin{aligned}x^T(E^Tu-Ay)=0,\quad& y^T(F^Tv-B^Tx)=0 \\ Ex=e,\;x\geq 0,\quad& Fy=f,\;y\geq 0 \\ E^Tu-Ay\geq 0,\quad& F^Tv-B^Tx\geq 0\end{aligned}$$
+		- to není lineární program, ale problém lineární komplementarity (linear complementarity problem, LCP)
+		- lze ho řešit pomocí Lemkeho algoritmu, který má exponenciálně mnoho kroků, ale je exponenciálně rychlejší, než kdybychom použili Lemke–Howsonův algoritmus na indukované hře v normálním tvaru
 
 ## Mechanism design
 
 - Definition: Single item auction
+	- v jednopoložkové aukci nabízí prodejce jeden kus zboží $n$ zájemcům
+	- každý zájemce $i$ má svou tajnou valuaci $v_i$, kterou je ochoten zaplatit za zboží
+	- každý zájemce prodejci tajně sdělí svou nabídku (bid) $b_i$
+	- prodejce se rozhodne, který zájemce (jestli nějaký) obdrží zboží a jakou bude muset zaplatit prodejní cenu $p$
+	- pokud zájemce (bidder) prohraje aukci, jeho užitek $u_i$ je nulový, pokud vyhraje aukci, jeho užitek se rovná $u_i=v_i-p$
+	- chceme navrhnout mechanismus, který zajistí, že přidělení položky zájemci nemůže být strategicky manipulováno
 - Definition: Dominant strategy, social surplus, awesome auction
+	- dominantní strategie zájemce $i$ je strategie, která maximalizuje jeho užitek nehledě na to, co dělají ostatní zájemci
+	- sociální zisk (social surplus) je $\sum_{i=1}^nv_ix_i$, kde $x_i$ je indikátor toho, zda zájemce $i$ vyhrál
+	- chceme, aby naše aukce byla **úžasná**, tedy aby garantovala:
+		- DSIC (dominant-strategy incentive compatible)
+			1. dominantní strategie každého zájemce je bidovat pravdivě (zvolit $b_i=v_i$)
+			2. užitek každého pravdivě bidujícího zájemce bude vždy nezáporný
+		- maximalizaci sociálního zisku – pokud zájemci bidují pravdivě
+		- výpočetní efektivitu – aukce by měla jít implementovat v polynomiálním čase
+	- proč to chceme?
+		- DSIC – aby mohli zájemci snadno určit bid a aby mohl prodejce při práci s výsledkem aukce předpokládat, že zájemci bidovali pravdivě
+		- sociální zisk – jenom DSIC by nám nestačilo, chceme identifikovat zájemce s největší valuací
+		- výpočetní efektivita je prostě praktická
 - Theorem: Vickrey’s auction is awesome
+	- DSIC
+		- 
+	- sociální zisk – pokud všichni bidují pravdivě, vyhraje hráč s největší valuací
+	- efektivita – aukce běží v lineárním čase
 - Definition: Single parameter environment
 - Example: Some single parameter environments
 - Theorem: Myerson’s lemma
