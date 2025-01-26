@@ -641,12 +641,43 @@
 		- výpočetní efektivita je prostě praktická
 - Theorem: Vickrey’s auction is awesome
 	- DSIC
-		- 
+		- uvažujme hráče $i$
+		- dokážeme, že jeho užitek je maximalizován pro $b_i=v_i$
+		- nechť $B=\max_{j\in\set{1,\dots,n}\setminus\set{i}} b_j$
+		- pokud $b_i\lt B$, pak $i$ prohrává a jeho užitek je 0
+		- pokud $b_i\geq B$, pak $i$ vyhrává a získá užitek $v_i-B$
+		- pokud $v_i\lt B$, pak může získat nejvýše $\max\set{0,v_i-B}=0$
+		- pokud $v_i\geq B$, pak může získat nejvýše $\max\set{0,v_i-B}=v_i-B\geq 0$
+		- těchto užitků dosáhne, pokud biduje pravdivě
 	- sociální zisk – pokud všichni bidují pravdivě, vyhraje hráč s největší valuací
 	- efektivita – aukce běží v lineárním čase
 - Definition: Single parameter environment
+	- $n$ zájemců, každý má soukromou valuaci $v_i$, což je hodnota „za jednotku zboží“
+	- $X\subseteq\mathbb R^n$ … přípustná množina (množina přípustných výsledků)
+		- prvky $X$ jsou vektory $x=(x_1,\dots,x_n)$, kde $x_i$ označuje část výsledku, která se týká $i$-tého zájemce
+	- sealed-bid aukce v jednoparametrovém prostředí probíhá ve třech krocích
+		- vybereme nabídky $b=(b_1,\dots,b_n)$
+		- alokační pravidlo
+			- zvolíme přípustnou alokaci výsledku $x=x(b)$ z $X$ jako funkci nabídek $b$
+		- platební pravidlo
+			- zvolíme platby $p(b)=(p_1(b),\dots,p_n(b))\in\mathbb R^n$ jako funkci nabídek $b$
+	- dvojice $(x,p)$ tvoří *mechanismus*
+	- užitek $u_i(b)$ zájemce $i$ je $u_i(b)=v_i\cdot x_i(b)-p_i(b)$
+	- budeme uvažovat jenom platby $p_i(b)\in[0,b_i\cdot x_i(b)]$
+		- nikdy nebudeme platit zájemcům
+		- zájemce nikdy nebude platit vyšší jednotkovou cenu, než byla jeho nabídka (tedy pravdivě bidující bude mít nezáporný užitek)
+	- budeme maximalizovat sociální zisk $\sum_{i=1}^n v_i\cdot x_i(b)$
 - Example: Some single parameter environments
+	- jednopoložkové aukce
+		- $X=\set{(x_1,\dots,x_n)\in\set{0,1}^n:\sum_i x_i\leq 1}$
+	- sponzorované hledání
+- Definition: Implementable allocation rule, monotone allocation rule
+	- alokační pravidlo $x$ pro jednoparametrové prostředí je implementovatelné, pokud existuje platební pravidlo $p$ takové, že $(x,p)$ je DSIC
+		- alokační pravidlo „dej položku zájemci s nejvyšší nabídkou“ je v jednopoložkových aukcích implementovatelné, protože platební pravidlo „ať zaplatí druhou nejvyšší cenu“ zajišťuje DSIC
+	- alokační pravidlo $x$ je monotónní, pokud pro každého zájemce $i$ a všechny nabídky ostatních zájemců $b_{-i}$ je alokace $x_i(z;b_{-i})$ hráči $i$ neklesající vzhledem k jeho nabídce $z$
+		- alokační pravidlo „dej položku zájemci s nejvyšší nabídkou“ je monotónní, alokační pravidlo „dej položku zájemci s druhou nejvyšší nabídkou“ už není
 - Theorem: Myerson’s lemma
+	- TODO
 
 ## Applications of mechanism design
 
