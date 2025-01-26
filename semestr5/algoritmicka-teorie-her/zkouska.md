@@ -729,8 +729,51 @@
 
 ## Applications of mechanism design
 
-- Definition: Social surplus, Bayesian model
+- Definition: Bayesian model
+	- součástí bayesovského modelu jsou
+		- jednoparametrové prostředí $(x,p)$
+		- pravděpodobnostní distribuce $F_1,\dots,F_n$
+			- $F_i$ … distribuce určující soukromou valuaci $i$ tého hráče
+			- support $F_i$ je obsažen v $[0,v_\text{max}]$
+			- $F_i$ má hustotní funkci $f_i$
+			- jednotlivé $F_i$ jsou nezávislé, ale ne nutně stejné
+	- distribuce $F_1,\dots,F_n$ jsou známy návrháři mechanismu, zájemci je neznají, ale ani je znát nepotřebují, neboť uvažujeme pouze DSIC aukce a oni mají dominantní strategie
+	- cílem je maximalizovat střední hodnotu zisku (revenue) $\sum_{i=1}^n p_i(v)$
+		- přičemž středí hodnotu počítáme podle distribucí valuací hráčů
+	- to se obvykle dělá tak, že zvolíme minimální cenu
+		- té se říká monopoly price
 - Theorem: Maximizing expected revenue
+	- věta
+		- nechť $(x,p)$ je DSIC mechanismus v jednoparametrovém prostředí tvořící bayesovský model s $n$ zájemci a distribucemi $F_1,\dots,F_n$, nechť $F=F_1\times\dots\times F_n$
+		- pak $$\mathop{\mathbb E}_{v\sim F}\left[\sum_{i=1}^np_i(v)\right]=\mathop{\mathbb E}_{v\sim F}\left[\sum_{i=1}^n \varphi_i(v_i)\cdot x_i(v) \right]$$
+		- kde $\varphi_i(v_i)=v_i-\frac{1-F_i(v_i)}{f_i(v_i)}$ je virtuální valuace zájemce $i$
+			- $f_i$ … hustota rozdělení $F_i$
+			- $F_i$ … distribuční funkce (CDF) rozdělení $F_i$
+	- poznámky
+		- tedy bychom místo maximalizace (našeho) zisku mohli maximalizovat virtuální sociální zisk
+		- virtuální valuace může být i záporná, závisí jenom na $v_i$ a $F_i$, ne na parametrech ostatních hráčů
+		- jakási intuice pro virtuální valuaci
+			- $v_i$ … maximální zisk, který můžeme získat od zájemce
+			- $\frac{1-F_i(v_i)}{f_i(v_i)}$ … ztráta způsobená tím, že $v_i$ neznáme
+	- důkaz
+		- $(x,p)$ je DSIC, takže budeme předpokládat $b_i=v_i$ pro každého zájemce $i$
+		- podle Myersonova lemmatu $p_i(b_i;b_{-i})=\int_{0}^{b_i}z\cdot\frac {\text d}{\text dz} x_i(z;b_{-i})\text{ d}z$
+		- zafixujeme zájemce $i$ a nabídky ostatních $v_{-i}$
+			- $\mathbb E[p_i(v)]=\int_0^{v_\text{max}}p_i(v)f_i(v_i)\text{ d}v_i$
+		- dosadíme $p_i$, dostaneme $$\mathbb E[p_i(v)]=\int_0^{v_\text{max}}\left(\int_{0}^{v_i}z\cdot\frac {\text d}{\text dz} x_i(z;v_{-i})\text{ d}z\right) f_i(v_i)\text{ d}v_i$$
+		- použijeme Fubiniovu větu a obrátíme pořadí integrování $$\mathbb E[p_i(v)]=\int_0^{v_\text{max}}\left(\int_{z}^{v_\text{max}}f_i(v_i)\text{ d}v_i\right) z\cdot\frac {\text d}{\text dz} x_i(z;v_{-i})\text{ d}z$$
+			- změnili jsme meze integrálu (?), u toho jsme použili, že $z\leq v_i$
+		- $f_i$ je hustota, takže to zjednodušíme na $$\mathbb E[p_i(v)]=\int_0^{v_\text{max}}(1-F_i(z))\cdot z\cdot\frac {\text d}{\text dz} x_i(z;v_{-i})\text{ d}z$$
+		- provedeme integraci per partes
+			- $\int fg'=fg-\int f'g$
+			- $f(z)=(Q-F_i(z))\cdot z$
+			- $g'(z)=\frac d{dz} x_i(z;v_{-i})$
+		- dostaneme $[(1-F_i(z))\cdot z\cdot x_i(z;v_{-i})]_0^{v_\text{max}}-\int_0^{v_\text{max}} x_i(z;v_{-i})\cdot(1-F_i(z)-zf_i(z))\text{ d}z$
+			- první člen je nulový (pro obě meze)
+		- druhý člen přepíšeme na $\int_0^{v_\text{max}} (z-\frac{1-F_i(z)}{f_i(z)})x_i(z;v_{-i})f_i(z)\text{ d}z$
+		- což se rovná $\int_0^{v_\text{max}} \varphi_i(z)x_i(z;v_{-i})f_i(z)\text{ d}z$
+		- takže $\mathbb E[p_i(v_i;v_{-i})]=\mathbb E[\varphi_i(v_i)\cdot x_i(v_i;v_{-i})]$
+		- z linearity střední hodnoty dostaneme požadovanou rovnost
 - Theorem: Vickrey with reserve price is optimal
 - Theorem: The Bulow–Klemperer theorem
 - Definition: Knapsack auction
