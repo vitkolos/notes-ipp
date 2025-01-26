@@ -891,6 +891,7 @@
 		- threshold is not decided a priori
 	- Chen & Pratt suggest zigzag scan
 		- tail of the scan should consist of zeros (generally, the higher-order coefficients have smaller amplitude) → for fixed length of the block, we don't need to specify the number of zeros, just send end-of-block (EOB) signal
+		- note: DC coefficients correspond to contours, higher-order coefficients correspond to details of the image → we can get rid of them
 - JPEG (Joint Photographic Experts Group)
 	- JPEG standard specifies a codec
 		- lossy / lossless compression

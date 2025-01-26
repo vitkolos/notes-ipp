@@ -558,6 +558,7 @@
 		- je to vektor pravděpodobnostních distribucí
 		- hráč se v každé informační množině rozhoduje nezávisle
 		- na rozdíl od smíšené strategie se hráč může rozhodnout různě, když do $h$ přijde vícekrát
+			- ve hře s dokonalou pamětí hráč nemůže do jedné $h$ přijít vícekrát, proto tam pojmy smíšené a behaviorální strategie splývají (viz Kuhnova věta)
 - Definition: Games of perfect recall, Kuhn’s theorem
 	- posloupnost $\sigma_i(t)$ tahů hráče $i$ do uzlu $t$ je posloupnost jeho tahů (nehledě na tahy ostatních hráčů) po jedinečné cestě z kořene stromu do $t$
 		- prázdná posloupnost se značí $\emptyset$
@@ -634,7 +635,7 @@
 			1. dominantní strategie každého zájemce je bidovat pravdivě (zvolit $b_i=v_i$)
 			2. užitek každého pravdivě bidujícího zájemce bude vždy nezáporný
 		- maximalizaci sociálního zisku – pokud zájemci bidují pravdivě
-		- výpočetní efektivitu – aukce by měla jít implementovat v polynomiálním čase
+		- výpočetní efektivitu – aukce by měla jít „spočítat“ v polynomiálním čase
 	- proč to chceme?
 		- DSIC – aby mohli zájemci snadno určit bid a aby mohl prodejce při práci s výsledkem aukce předpokládat, že zájemci bidovali pravdivě
 		- sociální zisk – jenom DSIC by nám nestačilo, chceme identifikovat zájemce s největší valuací
@@ -671,13 +672,60 @@
 	- jednopoložkové aukce
 		- $X=\set{(x_1,\dots,x_n)\in\set{0,1}^n:\sum_i x_i\leq 1}$
 	- sponzorované hledání
+		- pro $n$ zájemců máme $k$ dostupných pozic
+		- každá pozice $j$ má click-through-rate $\alpha_j$, přičemž $\alpha_1\gt\dots\gt\alpha_k\gt 0$
+		- $X$ se skládá z vektorů $(x_1,\dots,x_n)$, přičemž $x_i\in\set{\alpha_1,\dots,\alpha_k,0}$ a pokud $x_i=x_j$, pak jsou obě nulová
+		- takže hodnota slotu $j$ pro zájemce $i$ je $v_i\alpha_j$
 - Definition: Implementable allocation rule, monotone allocation rule
 	- alokační pravidlo $x$ pro jednoparametrové prostředí je implementovatelné, pokud existuje platební pravidlo $p$ takové, že $(x,p)$ je DSIC
 		- alokační pravidlo „dej položku zájemci s nejvyšší nabídkou“ je v jednopoložkových aukcích implementovatelné, protože platební pravidlo „ať zaplatí druhou nejvyšší cenu“ zajišťuje DSIC
 	- alokační pravidlo $x$ je monotónní, pokud pro každého zájemce $i$ a všechny nabídky ostatních zájemců $b_{-i}$ je alokace $x_i(z;b_{-i})$ hráči $i$ neklesající vzhledem k jeho nabídce $z$
 		- alokační pravidlo „dej položku zájemci s nejvyšší nabídkou“ je monotónní, alokační pravidlo „dej položku zájemci s druhou nejvyšší nabídkou“ už není
 - Theorem: Myerson’s lemma
-	- TODO
+	- Myersonovo lemma: v jednoparametrovém prostředí platí následující tři výroky
+		1. alokační pravidlo je implementovatelné, právě když je monotónní
+		2. pokud je alokační pravidlo $x$ monotónní, pak existuje unikátní platební pravidlo $p$ takové, že mechanismus $(x,p)$ je DSIC
+			- za předpokladu, že $b_i=0\implies p_i(b)=0$
+		3. platební pravidlo $p$ je $$\forall i:p_i(b_i;b_{-i})=\int_{0}^{b_i}z\cdot\frac {\text d}{\text dz} x_i(z;b_{-i})\text{ d}z$$
+	- důkaz
+		- nechť $x$ je alokační pravidlo a $p$ je platební pravidlo takové, že $(x,p)$ je DSIC
+		- dokážeme všechny tři výroky naráz pomocí chytrého prohození
+		- DSIC vlastnost říká, že $\forall z:u_i(z;b_{-i})=v_i\cdot x_i(z;b_{-i})-p_i(z;b_{-i})\leq v_i\cdot x_i(v_i;b_{-i})-p_i(v_i;b_{-i})$
+		- mějme dvě nabídky $y,z$ takové, že $0\leq y\lt z$
+			- zájemce $i$ může mít soukromou valuaci $z$ a nepravdivě bidovat $y$
+			- dosadíme do DSIC: $u_i(y;b_{-i})=z\cdot x_i(y;b_{-i})-p_i(y;b_{-i})\leq z\cdot x_i(z;b_{-i})-p_i(z;b_{-i})=u_i(z;b_{-i})$
+			- taky by to mohlo být naopak, že by zájemce přestřelil svou valuaci
+				- tedy $v_i=y$ a $b_i=z$
+			- $u_i(z;b_{-i})=y\cdot x_i(z;b_{-i})-p_i(z;b_{-i})\leq y\cdot x_i(y;b_{-i})-p_i(y;b_{-i})=u_i(y;b_{-i})$
+		- když dáme tyhle nerovnosti dohromady, získáme payment difference sandwich
+			- $z\cdot (x_i(y;b_{-i})-x_i(z;b_{-i}))$
+				- $\leq p_i(y;b_{-i})-p_i(z;b_{-i})$
+				- $\leq y\cdot (x_i(y;b_{-i})-x_i(z;b_{-i}))$
+			- takže $z\cdot\alpha\leq y\cdot\alpha$, přičemž $y\lt z$
+			- proto $\alpha=x_i(y;b_{-i})-x_i(z;b_{-i})$ musí být menší nebo rovno nule
+			- tudíž $x_i(y;b_{-i})\leq x_i(z;b_{-i})$
+			- proto pokud je $(x,p)$ DSIC, pak je $x$ monotónní
+		- dále budeme předpokládat, že je $x$ monotónní
+		- zafixujeme $i,b_{-i}$, takže $x_i,p_i$ budou funkce $z$
+		- budeme předpokládat, že $x_i$ je piecewise konstantní
+			- takže se skládá z konečného počtu intervalů se „skoky“ mezi nimi
+			- velikost skoku funkce $x_i$ v bodě $t$ označíme jako $\text{jump}(f,t)$
+		- zafixujeme $z$ v payment difference sendviči a budeme $y$ přibližovat k $z$ (zespodu)
+			- pokud $x_i$ nemá skok v $z$, obě strany se vynulují
+			- pokud $\text{jump}(x_i,z)=h\gt 0$, obě strany půjdou k $z\cdot h$
+		- tedy má-li $(x,p)$ být DISC, musí pro každé $z$ platit následující omezující podmínka funkce $p$
+			- $\text{jump}(p_i,z)=z\cdot\text{jump}(x_i,z)$
+		- zkombinujeme-li tuhle podmínku s původní podmínkou $p_i(0;b_{-i})=0$, získáme vzorec $$p_i(b_i;b_{-i})=\sum_{j=1}^\ell z_j\cdot\text{jump}(x_i(\bullet;b_{-i}),z_j)$$
+			- kde $z_1,\dots,z_\ell$ jsou zlomy alokační funkce $x_i(\bullet;b_{-i})$ v intervalu $[0,b_i]$
+			- tenhle argument by se dal zobecnit pro obecné monotónní funkce $x_i$, ale k tomu bychom potřebovali matematickou analýzu
+		- je potřeba ukázat, že pokud je $x$ monotónní, pak je $(x,p)$ opravdu DSIC
+			- ukážeme to pro piecewise konstantní funkce, ale fungovalo by to i obecně
+			- platba $p_i(b_i;b_{-i})$ se zjevně rovná ploše nalevo od křivky $x_i(\bullet;b_{-i})$ v intervalu $[0,b_i]$
+			- připomeňme, že užitek $u_i(b_i;b_{-i})=v_i\cdot x_i(b_i;b_{-i})-p_i(b_i;b_{-i})$
+				- tedy užitek odpovídá rozdílu obdélníku „valuace × alokováno“ a platby (tedy plochy nalevo od křivky)
+			- DSIC nahlédneme rozborem případů (viz obrázek, jeho autorem je Martin Balko)
+
+[![rozbor případů](prilohy/myerson.png)](prilohy/myerson.png)
 
 ## Applications of mechanism design
 
