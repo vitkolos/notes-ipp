@@ -775,6 +775,20 @@
 		- takže $\mathbb E[p_i(v_i;v_{-i})]=\mathbb E[\varphi_i(v_i)\cdot x_i(v_i;v_{-i})]$
 		- z linearity střední hodnoty dostaneme požadovanou rovnost
 - Theorem: Vickrey with reserve price is optimal
+	- tvrzení
+		- nechť $F$ je regulární pravděpodobnostní rozdělení s hustotou $f$ a valuací $\varphi$ a nechť $F_1,\dots,F_n$ jsou nezávislé pravděpodobnostní rozdělení na valuacích $n$ zájemců taková, že $F=F_1=\dots=F_n$ (a tedy $\varphi=\varphi_1=\dots=\varphi_n$)
+		- pak Vickreyho aukce s rezervní cenou $\varphi^{-1}(0)$ maximalizuje střední hodnotu zisku
+	- poznámky
+		- $F$ je regulární, pokud $\varphi(v)$ je ostře rostoucí podle $v$
+		- Vickreyho aukce s rezervní cenou $r$
+			- položka se přidělí zájemci s nejvyšší nabídkou, pokud tato nabídka je větší nebo rovna $r$
+			- pokud jsou všechny nabídky menší než $r$, nikdo položku nezíská
+			- vítěz musí zaplatit druhou nejvyšší nabídku nebo $r$
+	- důkaz
+		- podle předchozí věty budeme maximalizovat střední hodnotu virtuálního sociálního zisku
+		- položku dáme zájemci s nejvyšší virtuální valuací
+		- pokud mají všichni zápornou virtuální valuaci, nedáme ji nikomu
+		- z regularity $F$ je $\varphi$ ostře rostoucí → alokační pravidlo je monotónní → z Myersonova lemmatu máme DSIC aukci $(x,p)$
 - Theorem: The Bulow–Klemperer theorem
 - Definition: Knapsack auction
 - Theorem: 2-approximation for knapsack auctions
