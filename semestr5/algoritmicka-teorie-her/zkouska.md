@@ -356,14 +356,14 @@
 	- budeme vybírat akci s nejmenší kumulativní ztrátou $L_i^{t-1}$ v kroku $t-1$
 	- nejprve zvolíme první akci (s pravděpodobností 1), pak vždycky vezmeme první z akcí s minimální kumulativní ztrátou (s pravděpodobností 1)
 		  $S^{t-1}$ … množina akcí s minimální kumulativní ztrátou (v kroku $t-1$)
-	- tvrzení: pro libovolnou posloupnost ztrátových vektorů z $\set{0,1}^N$ bude kumulativní ztráta hladového (greedy) algoritmu v čase $T\in\mathbb N$ splňovat $L_\text{Greedy}^T\leq N\cdot L_\min^T+(N-1)$
-		- přičemž $L^T_\min=\min\set{L_i^T\mid i\in X}$
+	- tvrzení: pro libovolnou posloupnost ztrátových vektorů z $\set{0,1}^N$ bude kumulativní ztráta hladového (greedy) algoritmu v čase $T\in\mathbb N$ splňovat $L_\text{Greedy}^T\leq N\cdot L_\text{min}^T+(N-1)$
+		- přičemž $L^T_\text{min}=\min\set{L_i^T\mid i\in X}$
 	- důkaz
 		- v každém kroku $t$
-			- pokud hladový algoritmus prodělá ztrátu 1 a $L_\min^t$ se nezvýší, pak alespoň jedna akce zmizí z $S^t$ v dalším kroku
-			- to se stane nejvýše $N$-krát a pak se $L_\min^t$ zvýší o 1
-		- tedy mezi dvěma zvýšeními $L_\min^t$ prodělá algoritmus ztrátu nejvýše $N$
-		- z toho vyplývá $L^T_\text{Greedy}\leq N\cdot L^T_\min+N-|S^T|\leq N\cdot L_\min^T+(N-1)$
+			- pokud hladový algoritmus prodělá ztrátu 1 a $L_\text{min}^t$ se nezvýší, pak alespoň jedna akce zmizí z $S^t$ v dalším kroku
+			- to se stane nejvýše $N$-krát a pak se $L_\text{min}^t$ zvýší o 1
+		- tedy mezi dvěma zvýšeními $L_\text{min}^t$ prodělá algoritmus ztrátu nejvýše $N$
+		- z toho vyplývá $L^T_\text{Greedy}\leq N\cdot L^T_\text{min}+N-|S^T|\leq N\cdot L_\text{min}^T+(N-1)$
 	- to je docela slabé, protože $A$ tak může být přibližně $N$-krát horší než nejlepší akce
 		- ale žádný deterministický algoritmus nemůže být o moc lepší
 - Algorithm: Randomized greedy algorithm
@@ -371,14 +371,14 @@
 	- $p^1$ tentokrát nastavíme na $(1/N,\dots,1/N)$
 	- v dalších krocích vždy všem prvkům množiny $S^{t-1}$ nastavíme pravděpodobnost na $1/|S^{t-1}|$ (ostatní budou mít nulovou)
 		- $S^{t-1}$ … množina akcí s minimální kumulativní ztrátou (v kroku $t-1$)
-	- tvrzení: pro libovolnou posloupnost ztrátových vektorů z $\set{0,1}^N$ bude kumulativní ztráta $L_{RG}^T$ randomizovaného hladového algoritmu v čase $T\in\mathbb N$ splňovat $L_{RG}^T\leq (1+\ln N)\cdot L_\min^T+\ln N$
+	- tvrzení: pro libovolnou posloupnost ztrátových vektorů z $\set{0,1}^N$ bude kumulativní ztráta $L_{RG}^T$ randomizovaného hladového algoritmu v čase $T\in\mathbb N$ splňovat $L_{RG}^T\leq (1+\ln N)\cdot L_\text{min}^T+\ln N$
 	- důkaz
 		- postupujeme jako v důkazu hladového algoritmu
-		- jakou ztrátu algoritmus nasbírá mezi zvýšeními $L_\min^t$?
-		- pokud se $S^t$ v určitém kroku (který je někde mezi dvěma zvýšeními $L_\min^t$) zmenší o $k$, znamená to, že ztráta algoritmu v tomhle kroku byla $k/n'$ (kde $n'$ je původní velikost $S^t$)
+		- jakou ztrátu algoritmus nasbírá mezi zvýšeními $L_\text{min}^t$?
+		- pokud se $S^t$ v určitém kroku (který je někde mezi dvěma zvýšeními $L_\text{min}^t$) zmenší o $k$, znamená to, že ztráta algoritmu v tomhle kroku byla $k/n'$ (kde $n'$ je původní velikost $S^t$)
 		- zjevně $k/n'=k\cdot\frac 1{n'}\leq\underbrace{\frac1{n'}+\frac1{n'-1}+\dots+\frac1{n'-k+1}}_k$
-		- mezi dvěma zvýšeními $L_\min^t$ se $S^t$ může zmenšit z velikosti $N$ na 1, takže za tu dobu může být ztráta nejvýše $\frac1N+\frac1{N-1}+\dots+\frac11\leq 1+\ln N$
-		- proto $L_{RG}^T\leq (1+\ln N)\cdot L_\min^T+\frac1N+\frac1{N-1}+\dots+\frac1{|S^T|+1}\leq (1+\ln N)\cdot L_\min^T+\ln N$
+		- mezi dvěma zvýšeními $L_\text{min}^t$ se $S^t$ může zmenšit z velikosti $N$ na 1, takže za tu dobu může být ztráta nejvýše $\frac1N+\frac1{N-1}+\dots+\frac11\leq 1+\ln N$
+		- proto $L_{RG}^T\leq (1+\ln N)\cdot L_\text{min}^T+\frac1N+\frac1{N-1}+\dots+\frac1{|S^T|+1}\leq (1+\ln N)\cdot L_\text{min}^T+\ln N$
 - Algorithm: Polynomial weights algorithm
 	- vstup: množina akcí $X=\set{1,\dots,N}$, $T\in\mathbb N$ a $\eta\in(0,\frac12]$
 	- výstup: pravděpodobnostní distribuce $p^t$ pro každé $t\in\set{1,\dots,T}$
@@ -392,7 +392,7 @@
 	- věta
 		- pro $\eta\in(0,\frac12]$, libovolnou posloupnost ztrátových vektorů z $[-1,1]^N$ a libovolnou akci $k\in X$ platí, že kumulativní ztráta $L_{PW}^T$ algoritmu polynomiálních vah splňuje $L^T_{PW}\leq L_k^T+\eta Q_k^T+\ln N/\eta$
 		- přičemž $Q_k^T=\sum_{t=1}^T(\ell_k^t)^2$
-		- zejména pokud $T\geq 4\ln N$, pak volbou $\eta=\sqrt{\ln N/T}$ a přihlédnutím k $Q_k^T\leq T$ získáme $L_{PW}^T\leq L_\min^T+2\sqrt{T\ln N}$
+		- zejména pokud $T\geq 4\ln N$, pak volbou $\eta=\sqrt{\ln N/T}$ a přihlédnutím k $Q_k^T\leq T$ získáme $L_{PW}^T\leq L_\text{min}^T+2\sqrt{T\ln N}$
 	- důkaz
 		- pro krok $t$ máme $\ell_{PW}^t=\sum_{i=1}^N w_i^t\ell_i^t/W^t$
 		- váha $w_i^t$ každé akce $i$ se násobí $(1-\eta\ell^{t-1}_i)$ v kroku $t$, proto $W^{t+1}=W^t-\sum_{i=1}^N\eta w_i^t\ell_i^t=W^t(1-\eta\ell_{PW}^t)$
@@ -405,9 +405,9 @@
 		- oba odhady zkombinujeme $-\eta L_k^T-\eta^2Q_k^t\leq \ln N-\eta L_{PW}^T$
 	- poznámky
 		- tenhle algoritmus produkuje velmi dobrý external regret – time-averaged external regret jde k nule
-		- odhad $L_{PW}^T\leq L_\min^T+2\sqrt{T\ln N}$ je v podstatě optimální
-		- tvrzení: pro $N$ a $T\lt\lfloor\log_2 N\rfloor$ existuje stochastické generování ztrát takové, že pro každý online algoritmus $A$ máme $\mathbb E[L_A^T]\geq T/2$, a přesto $L_\min^T=0$
-		- tvrzení: v případě $N=2$ akcí existuje stochastické generování ztrát takové, že pro každý online algoritmus $A$ máme $\mathbb E[L_A^T-L_\min^T]\geq\Omega(\sqrt{T})$
+		- odhad $L_{PW}^T\leq L_\text{min}^T+2\sqrt{T\ln N}$ je v podstatě optimální
+		- tvrzení: pro $N$ a $T\lt\lfloor\log_2 N\rfloor$ existuje stochastické generování ztrát takové, že pro každý online algoritmus $A$ máme $\mathbb E[L_A^T]\geq T/2$, a přesto $L_\text{min}^T=0$
+		- tvrzení: v případě $N=2$ akcí existuje stochastické generování ztrát takové, že pro každý online algoritmus $A$ máme $\mathbb E[L_A^T-L_\text{min}^T]\geq\Omega(\sqrt{T})$
 - Algorithm: No-regret dynamics
 	- hráči ve hře v normálním tvaru můžou hrát proti sobě tak, že vybírají akce podle algoritmu polynomiálních vah
 	- vstup: $G=(P,A,C)$ hra $n$ hráčů, $T\in\mathbb N$ a $\varepsilon\gt 0$
@@ -429,7 +429,7 @@
 		- nyní dokažme $\max_x\min_y x^TMy\geq \min_y\max_x x^TMy$
 		- zvolíme parametr $\varepsilon\in (0,1]$ a spustíme no-regret dynamics pro dostatečný počet kroků $T$, aby oba hráči měli průměrný expected external regret nejvýše $\varepsilon$
 		- s algoritmem polynomiálních vah můžeme nastavit $T=4\ln(\max\set{m,n})/\varepsilon^2$
-			- jelikož $L_{PW}^T\leq L_\min^T+2\sqrt{T\ln N}$
+			- jelikož $L_{PW}^T\leq L_\text{min}^T+2\sqrt{T\ln N}$
 			- tedy regret za jeden časový krok je $2\sqrt{\ln N/T}=2\sqrt{\ln(\max\set{m,n})/T}$
 		- $p^1,\dots,p^T$ jsou strategie prvního hráče, $q^1,\dots,q^T$ druhého
 		- jako $\overline x=\frac1T\sum_t p^t$ a $\overline y=\frac1T\sum_tq^t$ označíme time-averaged strategie hráčů

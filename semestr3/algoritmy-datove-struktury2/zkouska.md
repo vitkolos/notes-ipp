@@ -963,16 +963,16 @@
 - Definice: Plně polynomiální aproximační schéma (FPTAS)
 	- FPTAS $\equiv$ algoritmus, který pro vstup velikosti $n$ a $\varepsilon\gt 0$ najde aproximaci s chybou $\leq\varepsilon$ v čase $O(\text{polynom}(n,\frac1\varepsilon))$
 - Algoritmus: FPTAS pro problém batohu
-	- umíme řešit v čase $O(nC)$, kde $C=\sum_ic_i,\;C\leq n\cdot c_\max$
+	- umíme řešit v čase $O(nC)$, kde $C=\sum_ic_i,\;C\leq n\cdot c_\text{max}$
 	- chceme menší $C$
-	- idea: $\set{0,\dots,c_\max}\to\set{0,\dots,M}$
-		- $\hat c_i:= c_i\cdot\frac M{c_\max}$
+	- idea: $\set{0,\dots,c_\text{max}}\to\set{0,\dots,M}$
+		- $\hat c_i:= c_i\cdot\frac M{c_\text{max}}$
 		- $\hat c_i$ … přeškálovaná cena $i$-tého předmětu
-	- chyba pro jeden předmět $\leq\frac{c_\max}M$
+	- chyba pro jeden předmět $\leq\frac{c_\text{max}}M$
 		- když dělíme nějakým $k$, tak je to ekvivalentní zaokrouhlení na násobky $k$, takže chyba je nejvýš $k$
-	- chyba celkem $\leq n\cdot \frac{c_\max}M\overset{\text{chceme}}\leq\varepsilon\cdot c^*$
-	- pozorování: po zahození předmětů s $h_i\gt H$ bude $c^*\geq c_\max$
-		- chyba celkem $\leq n\cdot\frac{c_\max}M\leq n\cdot\frac{c^*}{M}\overset{\text{chceme}}\leq\varepsilon\cdot c^*$
+	- chyba celkem $\leq n\cdot \frac{c_\text{max}}M\overset{\text{chceme}}\leq\varepsilon\cdot c^*$
+	- pozorování: po zahození předmětů s $h_i\gt H$ bude $c^*\geq c_\text{max}$
+		- chyba celkem $\leq n\cdot\frac{c_\text{max}}M\leq n\cdot\frac{c^*}{M}\overset{\text{chceme}}\leq\varepsilon\cdot c^*$
 		- takže musíme zvolit $M\geq \frac n\varepsilon$
 	- časová složitost
 		- škálování v lineárním čase
@@ -983,24 +983,24 @@
 		- jen je při implementaci potřeba dávat pozor na horní a dolní celé části
 	- algoritmus
 		- odstraníme předměty s $h_i\gt H$
-		- najdeme $c_\max$
+		- najdeme $c_\text{max}$
 		- určíme $M$ jako $\lceil n/\varepsilon\rceil$
-		- určíme $\hat c_i$ jako $\left\lfloor c_i\cdot \frac M{c_\max}\right\rfloor$
+		- určíme $\hat c_i$ jako $\left\lfloor c_i\cdot \frac M{c_\text{max}}\right\rfloor$
 		- použijeme dynamické programování (tedy nám známý pseudopolynomiální algoritmus)
 	- analýza chyby
 		- P … optimální řešení původní úlohy
 		- Q … optimální přeškálované úlohy
 		- chceme $c(Q)\geq(1-\varepsilon)\cdot c(P)$
-		- $\hat c(P)=\sum_{i\in P}\left\lfloor c_i\cdot \frac M{c_\max}\right\rfloor\geq\sum_{i\in P}(c_i\cdot\frac M{c_\max}-1)\geq$
-		- $\geq(\frac M{c_\max}\underbrace{\sum_{i\in P}c_i}_{c(P)})-n$
+		- $\hat c(P)=\sum_{i\in P}\left\lfloor c_i\cdot \frac M{c_\text{max}}\right\rfloor\geq\sum_{i\in P}(c_i\cdot\frac M{c_\text{max}}-1)\geq$
+		- $\geq(\frac M{c_\text{max}}\underbrace{\sum_{i\in P}c_i}_{c(P)})-n$
 			- protože $|P|\leq n$
-		- $c(Q)=\sum_{i\in Q}c_i\geq\sum_{i\in Q}\hat c_i\cdot\frac{c_\max}M=\frac{c_\max}M\cdot\hat c(Q)\geq\frac{c_\max}M\cdot\hat c(P)$
+		- $c(Q)=\sum_{i\in Q}c_i\geq\sum_{i\in Q}\hat c_i\cdot\frac{c_\text{max}}M=\frac{c_\text{max}}M\cdot\hat c(Q)\geq\frac{c_\text{max}}M\cdot\hat c(P)$
 			- poslední nerovnost platí, protože $Q$ je optimální řešení přeškálované úlohy, zatímco $P$ je *nějaké* řešení přeškálované úlohy
 		- dohromady dostaneme
-			- $c(Q)\geq\frac{c_\max}M\left(\frac M{c_\max}c(P)-n\right)=c(P)-n\cdot\frac{c_\max}M$
-			- $\geq c(P)-\varepsilon c_\max$
+			- $c(Q)\geq\frac{c_\text{max}}M\left(\frac M{c_\text{max}}c(P)-n\right)=c(P)-n\cdot\frac{c_\text{max}}M$
+			- $\geq c(P)-\varepsilon c_\text{max}$
 				- protože $M\geq n/\varepsilon$
 			- $\geq c(P)-\varepsilon c(P)$
-				- protože $c(P)\geq c_\max$
+				- protože $c(P)\geq c_\text{max}$
 			- tudíž $c(Q)\geq(1-\varepsilon)\cdot c(P)$, což jsme chtěli
 	- takto jsme vyrobili plně polynomiální aproximační schéma, protože algoritmus má složitost $O(n^3/\varepsilon)$

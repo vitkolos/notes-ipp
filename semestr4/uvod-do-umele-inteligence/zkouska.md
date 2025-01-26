@@ -641,10 +641,10 @@
 		- $U(A)\lt U(B)\iff A\lt B$
 		- $U(A)=U(B)\iff A\sim B$
 	- alternativní způsob – získáme normalizovanou utility funkci
-		- nejlepšímu možnému stavu $S_\max$ přiřadíme $U(S_\max) = 1$
-		- nejhorší možné katastrofě $S_\min$ přiřadíme $U(S_\min) = 0$
+		- nejlepšímu možnému stavu $S_\text{max}$ přiřadíme $U(S_\text{max}) = 1$
+		- nejhorší možné katastrofě $S_\text{min}$ přiřadíme $U(S_\text{min}) = 0$
 		- pro každý další stav $S$ necháme agenta rozhodnout se mezi standardní loterií a stavem $S$
-			- standardní loterie … $S_\max$ s pravděpodobností $p$ a $S_\min$ s pravděpodobností $1-p$
+			- standardní loterie … $S_\text{max}$ s pravděpodobností $p$ a $S_\text{min}$ s pravděpodobností $1-p$
 			- upravujeme pravděpodnost $p$, dokud agent není indiferentní mezi $S$ a standardní loterií
 				- pak $U(S):=p$
 - rozhodovací sítě (decision networks, influence diagrams) kombinují bayesovské sítě s dodatečnými typy vrcholů pro akce a utility
@@ -665,7 +665,7 @@
 		- utility function $U([s_0,s_1,s_2,\dots])=R(s_0)+\gamma R(s_1)+\gamma^2 R(s_2)+\dots$
 			- kde $\gamma$ je *discount factor*, číslo mezi 0 a 1
 			- utility je „dlouhodobá lokální odměna“
-			- hodnota utility funkce je konečná i pro nekonečnou posloupnost stavů, protože zjevně $U([s_0,\dots])\leq \frac{R_\max}{1-\gamma}$
+			- hodnota utility funkce je konečná i pro nekonečnou posloupnost stavů, protože zjevně $U([s_0,\dots])\leq \frac{R_\text{max}}{1-\gamma}$
 	- řešením MDP je policy (strategie) – funkce doporučující akci pro každý stav
 		- protože kdyby řešením byla fixní sekvence akcí, tak by to nefungovalo pro stochastická prostředí (mohlo by se stát, že skončíme v jiném stavu, než jsme mysleli)
 		- optimální strategie $\equiv$ strategie, která vrací největší očekávanou utilitu
@@ -766,7 +766,7 @@
 		- vítěz aukce je agent, který si věci nejvíc cení
 		- zájemci by měli mít dominantní strategii
 	- anglická aukce (ascending-bid)
-		- začnu s $b_\min$, pokud je to nějaký zájemce ochotný zaplatit, tak se ptám na $b_\min+d$
+		- začnu s $b_\text{min}$, pokud je to nějaký zájemce ochotný zaplatit, tak se ptám na $b_\text{min}+d$
 		- strategie: přihazuju, dokud cena není vyšší než moje hodnota
 			- jednoduchá dominantní strategie
 		- má to problémy

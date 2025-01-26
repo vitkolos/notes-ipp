@@ -363,8 +363,8 @@
 		- všimněme si $\forall e\in\text{Out}(A):f(e)=c(e)$
 		- $\forall e'\in\text{In}(A):f(e')=0$
 		- z lemmatu výše víme, že pro $A\subseteq V$, kde $z\in A,\,s\notin A$, platí $w(f)=\underbrace{f[\text{Out}(A)]}_{c(\text{Out}(A))=c(R)}-\underbrace{f[\text{In}(A)]}_{0}=c(R)\quad\square$
-- důsledek („Minimaxová věta o toku a řezu“): nechť $f_\max$ je maximální tok a $R_\text{min}$ je minimální řez v $(V,E,z,s,c)$, potom $w(f_\max)=c(R_\min)$
-- dk: $w(f_\max)\leq c(R_\min)$ – víme, viz výše; $w(f_\max)\geq c(R_\min)$ … dle věty $w(f_\max)=c(R)\geq c(R_\min)$
+- důsledek („Minimaxová věta o toku a řezu“): nechť $f_\text{max}$ je maximální tok a $R_\text{min}$ je minimální řez v $(V,E,z,s,c)$, potom $w(f_\text{max})=c(R_\text{min})$
+- dk: $w(f_\text{max})\leq c(R_\text{min})$ – víme, viz výše; $w(f_\text{max})\geq c(R_\text{min})$ … dle věty $w(f_\text{max})=c(R)\geq c(R_\text{min})$
 - důsledek 2: v síti, kde všechny kapacity jsou celočíselné, Fordův-Fulkersonův algoritmus najde maximální tok, který bude celočíselný (celočíselnost vyvozujeme ze znalosti FF algoritmu)
 
 ### Aplikace toků
@@ -376,8 +376,8 @@
 - dk:
 	- nechť $G=(V,E)$ je bipartitní graf s partitami $A,B$
 	- vytvořme tokovou síť $(V\cup\set{z,s},E^+,z,s,c)$, kde $E^+=\set{zx\mid x\in A}\cup\set{ys\mid y\in B}\cup \set{xy\mid \set{x,y}\in E\land x\in A\land y\in B}$ (nestačí použít $E$, protože orientujeme hrany z ) a $c(zx)=c(ys)=1$ pro $x\in A,\,y\in B$ a $c(xy)=|A|+|B|+1$ (prakticky nekonečno)
-	- nechť $C_\min$ je nejmenší vrcholové pokrytí v $G$, $M_\max$ největší párování v $G$
-	- jistě $|M_\max|\leq |C_\min|$
+	- nechť $C_\text{min}$ je nejmenší vrcholové pokrytí v $G$, $M_\text{max}$ největší párování v $G$
+	- jistě $|M_\text{max}|\leq |C_\text{min}|$
 	- nechť $f$ je maximální tok v té síti a $R$ minimální řez
 	- dle minimaxové věty $w(f)=c(R)$
 	- BÚNO $f$ má celočíselné hodnoty
@@ -388,7 +388,7 @@
 		- jistě $C_R$ je vrcholové pokrytí $G$
 		- kdyby $C_R$ nebylo pokrytí, tak existuje nepokrytá hrana $\set{x,y}\in E$, potom cesta $z\to x\to y\to s$ je ve sporu s tím, že $R$ je řez
 		- navíc $|C_R|=|R|=c(R)$
-		- máme $|C_\min|\leq |C_R|=c(R)=w(f)=|M_f|\leq |M_\max|\leq |C_\min|$
+		- máme $|C_\text{min}|\leq |C_R|=c(R)=w(f)=|M_f|\leq |M_\text{max}|\leq |C_\text{min}|$
 - pozorování: v bipartitním grafu s partitami $A,B$ má každé párování velikost nejvýše $|A|$ (i nejvýše $|B|$)
 - df: pro graf $G=(V,E)$ a množinu $X\subseteq V$ označím $N(X):=\set{y\in V\setminus X\mid \exists x\in X:\set{x,y}\in E}$
 - věta (Hallova věta … bipartitní grafová verze): nechť $G$ je bipartitní graf s partitami $A,B$, potom $G$ má párování velikosti $|A|$ $\iff\underbrace{\forall X\subseteq A:|N(X)|\geq |X|}_{\text{„Hallova podmínka“}}$
@@ -505,13 +505,13 @@
 - důkaz
 	- $\impliedby$ kružnice je 2-souvislá a přidání ucha nevytvoří řez velikosti $\leq 1$
 	- $\implies$
-		- nechť $G=(V,E)$ je 2-souvislý, nechť $C$ je libovolná kružnice v $G$, nechť $G_\max=(V_\max,E_\max)$ je největší podgraf $G$, který se dá vyrobit přidáváním uší k $C$
-		- tvrdíme, že $G_\max=G$
+		- nechť $G=(V,E)$ je 2-souvislý, nechť $C$ je libovolná kružnice v $G$, nechť $G_\text{max}=(V_\text{max},E_\text{max})$ je největší podgraf $G$, který se dá vyrobit přidáváním uší k $C$
+		- tvrdíme, že $G_\text{max}=G$
 		- kdyby ne:
-			- $V_\max=V,\,E_\max\subsetneq E:$ spor s maximalitou $G_\max$, protože přidání hrany je přidání ucha
-			- $V_\max\subsetneq V:G$ je souvislý, tak $\exists e=\set{xy}\in E$ taková, že $x\in V_\max$ a $y\notin V_\max$
+			- $V_\text{max}=V,\,E_\text{max}\subsetneq E:$ spor s maximalitou $G_\text{max}$, protože přidání hrany je přidání ucha
+			- $V_\text{max}\subsetneq V:G$ je souvislý, tak $\exists e=\set{xy}\in E$ taková, že $x\in V_\text{max}$ a $y\notin V_\text{max}$
 			- $G-x$ je souvislý, protože $G$ je 2-souvislý
-			- takže bude existovat ještě další cesta do $V_\max$
+			- takže bude existovat ještě další cesta do $V_\text{max}$
 			- tato cesta + hrana $xy$ = další ucho
 
 ## Cayleyho vzorec
