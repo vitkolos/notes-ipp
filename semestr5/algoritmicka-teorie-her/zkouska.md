@@ -860,5 +860,39 @@
 		- platební vzorec bude $$p_i(b)=\max_{\omega\in\Omega}\left\lbrace\sum_{\substack{j=1 \\ j\neq i}}^n b_j(\omega)\right\rbrace-\sum_{\substack{j=1 \\ j\neq i}}^n b_j(\omega^*)$$
 			- přičemž $\omega^*=x(b)$, tedy výsledek vybraný naším alokačním pravidlem
 	- důkaz
-		- 
+		- předpokládejme, že zájemci budou bidovat pravdivě → jaký výsledek zvolit?
+		- maximalizujeme sociální zisk, takže definujeme alokační pravidlo jako $x(b)=\text{argmax}_{\omega\in\Omega}\sum_{i=1}^n b_i(\omega)$
+		- teď zajistíme, aby měli zájemci motivaci bidovat pravdivě (DSIC) – zvolíme vhodné platební pravidlo
+		- nechť $p_i(b)=\max_{\omega\in\Omega}\left\lbrace\sum_{\substack{j=1 \\ j\neq i}}^n b_j(\omega)\right\rbrace-\sum_{\substack{j=1 \\ j\neq i}}^n b_j(\omega^*)$
+			- „social surplus ostatních v aukci bez $i$“ $-$ „social surplus ostatních v této aukci“
+			- tedy vlastně „o kolik si ostatní pohoršili účastí $i$“
+		- lze ukázat, že $0\leq p_i(b)\leq b_i(\omega^*)$, takže pravdiví zájemci mají garantovaný nezáporný užitek
+		- zafixujeme $i$ a nabídky ostatních zájemců $b_{-i}$
+		- pokud $x(b)=\omega^*$ pak se užitek $i$-tého zájemce rovná $v_i(\omega^*)-p_i(b)$
+		- což se rovná $$\left(v_i(\omega^*)+\sum_{j\neq i} b_j(\omega^*)\right)-\left(\max_{\omega\in\Omega}\left\lbrace\sum_{j\neq i}b_j(\omega)\right\rbrace\right)$$
+		- pravý člen je nezávislý na $b_i$, takže zájemce $i$ musí maximalizovat první člen, pokud chce maximalizovat svůj užitek
+		- zájemce $i$ ale nemůže přímo ovlivnit $\omega^*$, jelikož ho volí mechanismus tak, aby byl součet nabídek maximální
+		- zájemce $i$ chce, aby mechanismus vybral $\text{argmax}_\omega\set{v_i(\omega)+\sum_{j\neq i} b_j(\omega)}$
+		- pokud $i$ biduje pravdivě, tak to přesně odpovídá naší volbě $x$, takže pravdivé bidování maximalizuje utilitu $i$
 - Theorem: Revelation principle
+	- DSIC můžeme rozdělit na dvě části
+		- každý hráč má dominantní strategii
+		- dominantní strategie je přímé odhalení valuace $v_i$
+	- dává smysl zbavit se druhé části?
+		- ne, důležitá je ta první
+		- druhou část dostaneme zdarma
+	- věta: pro každý multi-parameter mechanismus $M$, v němž má každý zájemce dominantní strategii nehledě na jeho soukromou valuaci, existuje ekvivalentní mechanismus $M'$, kde má každý zájemce dominantní strategii, která přímo odhaluje jeho valuaci
+	- důkaz
+		- použijeme simulační argument
+		- pro každého zájemce $i$ mějme jeho valuace $v_i(\omega)_{\omega\in\Omega}$
+		- pro každého zájemce $i$ ať $s_i(v_i(\omega)_\omega)$ je jeho dominantní strategie v mechanismu $M$
+		- zkonstruujeme $M'$
+			- $M'$ přijme zapečetěné nabídky $b_1(\omega)_{\omega\in\Omega},\dots,b_n(\omega)_{\omega\in\Omega}$ od všech zájemců
+			- $M'$ odešle nabídky $s_1(b_1(\omega)_{\omega\in\Omega}),\dots,s_n(b_n(\omega)_{\omega\in\Omega})$ do mechanismu $M$
+			- $M'$ vrátí stejný výsledek jako $M$
+		- kdyby zájemce $i$ do $M'$ odevzdal jiné nabídky než $v_i(\omega)_\omega$, hrozilo by, že bude hrát jinou strategii než $s_i(v_i(\omega)_\omega)$, což by mu mohlo jedině snížit užitek
+		- proto je přímé odhalení valuací dominantní strategie v $M'$
+	- příklad
+		- uvažujme jednopoložkovou aukci, kde prodávající přijme nabídky $(b_1,\dots,b_n)$ a následně provede Vickreyho aukci na nabídkách $(2b_1,\dots,2b_n)$
+		- dominantní strategie je zde nabídnout polovinu své hodnoty
+		- z důkazu věty vyplývá, že bychom mohli zkonstruovat $M'$, který bude nabídky hráčů půlit → pro tento $M'$ už by bylo dominantní strategií bidovat pravdivě
