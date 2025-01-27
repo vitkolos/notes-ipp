@@ -459,7 +459,7 @@
 		- chceme ukázat $\mathbb E_{a\sim p}[C_i(a)]\leq \mathbb E_{a\sim p}[C_i(a_i';a_{-i})]+\varepsilon$
 		- z definice $p$ rozepíšeme
 			- $\mathbb E_{a\sim p}[C_i(a)]=\frac1T\sum_t \mathbb E_{a\sim p^t}[C_i(a)]$
-			- $E_{a\sim p}[C_i(a_i';a_{-i})]=\frac1T\sum_t E_{a\sim p^t}[C_i(a_i';a_{-i})]$
+			- $\mathbb E_{a\sim p}[C_i(a_i';a_{-i})]=\frac1T\sum_t E_{a\sim p^t}[C_i(a_i';a_{-i})]$
 		- pravé strany jsou time-averaged expected costs hráče $i$ (když hraje podle algoritmu nebo když hraje vždycky $a_i'$)
 		- každý hráč má regret nejvýše $\varepsilon$, proto $$\frac1T\sum_t \mathbb E_{a\sim p^t}[C_i(a)]\leq\frac1T\sum_t E_{a\sim p^t}[C_i(a_i';a_{-i})]+\varepsilon$$
 		- to ověřuje $\varepsilon$-CCE podmínku pro $p=\frac1T\sum_{t=1}^T p_t$
@@ -525,7 +525,7 @@
 		- chceme ukázat $\mathbb E_{a\sim p}[C_i(a)]\leq \mathbb E_{a\sim p}[C_i(F(a_i);a_{-i})]+\varepsilon$
 		- z definice $p$ rozepíšeme
 			- $\mathbb E_{a\sim p}[C_i(a)]=\frac1T\sum_t \mathbb E_{a\sim p^t}[C_i(a)]$
-			- $E_{a\sim p}[C_i(F(a_i);a_{-i})]=\frac1T\sum_t E_{a\sim p^t}[C_i(F(a_i);a_{-i})]$
+			- $\mathbb E_{a\sim p}[C_i(F(a_i);a_{-i})]=\frac1T\sum_t E_{a\sim p^t}[C_i(F(a_i);a_{-i})]$
 		- pravé strany jsou time-averaged expected costs hráče $i$ (když hraje podle algoritmu nebo když hraje vždycky $F(a_i)$ místo $a_i$)
 		- každý hráč má regret nejvýše $\varepsilon$, proto $$\frac1T\sum_t \mathbb E_{a\sim p^t}[C_i(a)]\leq\frac1T\sum_t E_{a\sim p^t}[C_i(F(a_i);a_{-i})]+\varepsilon$$
 		- to ověřuje $\varepsilon$-CE podmínku pro $p=\frac1T\sum_{t=1}^T p_t$
