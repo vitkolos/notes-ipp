@@ -16,7 +16,7 @@
 		- profil smíšených strategií je $n$-tice smíšených strategií
 	- každá čistá strategie je smíšená
 - Definition: Expected payoff
-	- ve hře $G=(P,A,u)$ je expected payoff (střední hodnota výplatní funkce) pro hráče $i$ z profilu smíšených strategií $s$ je $$u_i(s)=\sum_{a\in A} u_i(a)\cdot \underbrace{\prod_{j=1}^n s_j(a_j)}_{P(a)}$$
+	- ve hře $G=(P,A,u)$ je expected payoff (střední hodnota výplatní funkce) pro hráče $i$ z profilu smíšených strategií $s$ určena vzorcem $$u_i(s)=\sum_{a\in A} u_i(a)\cdot \underbrace{\prod_{j=1}^n s_j(a_j)}_{P(a)}$$
 	- platí linearita střední hodnoty výplatní funkce $$u_i(s)=\sum_{a_i\in A_i} s_i(a_i)\cdot u_i(a_i;s_{-i})$$
 - Example: Five basic games
 	- vězňovo dilema
@@ -118,7 +118,7 @@
 		- navíc, pokud $x^*$ a $y^*$ jsou optimální řešení pro $P$ a $D$ po řadě, pak $c^Tx^*=b^Ty^*$, to znamená maximum $P$ se rovná minimu $D$
 - Theorem: The Minimax Theorem
 	- věta
-		- pro každou hru s nulovým součtem, worst-case optimální strategie pro oba hráče existují a mohou být efektivně spočteny
+		- pro každou hru s nulovým součtem platí, že worst-case optimální strategie pro oba hráče existují a mohou být efektivně spočteny
 		- existuje číslo $v$ takové, že pro libovolné worst-case optimální strategie $x^*,y^*$ je strategický profil $(x^*,y^*)$ Nashovým ekvilibriem a $\beta(x^*)=(x^*)^TMy^*=\alpha(y^*)=v$
 	- důkaz
 		- pro pevné $x\in S_1$ určíme best response druhého hráče
@@ -146,7 +146,7 @@
 ## Bimatrix games
 
 - Definition: Bimatrix game, nondegenerate bimatrix game
-	- maticová hra (bimatrix game) je hra (v normálním tvaru) dvou hráčů
+	- maticová hra (bimatrix game) je hra dvou hráčů v normálním tvaru
 		- $G=(\set{1,2},A=A_1\times A_2,u)$
 		- $|A_1|=m$, $|A_2|=n$
 		- výplatní funkce $u_1,u_2$ reprezentujeme maticemi $M,N\in\mathbb R^{m\times n}$
