@@ -356,7 +356,7 @@
 - Algorithm: Greedy algorithm
 	- budeme vybírat akci s nejmenší kumulativní ztrátou $L_i^{t-1}$ v kroku $t-1$
 	- nejprve zvolíme první akci (s pravděpodobností 1), pak vždycky vezmeme první z akcí s minimální kumulativní ztrátou (s pravděpodobností 1)
-		  $S^{t-1}$ … množina akcí s minimální kumulativní ztrátou (v kroku $t-1$)
+		- $S^{t-1}$ … množina akcí s minimální kumulativní ztrátou (v kroku $t-1$)
 	- tvrzení: pro libovolnou posloupnost ztrátových vektorů z $\set{0,1}^N$ bude kumulativní ztráta hladového (greedy) algoritmu v čase $T\in\mathbb N$ splňovat $L_\text{Greedy}^T\leq N\cdot L_\text{min}^T+(N-1)$
 		- přičemž $L^T_\text{min}=\min\set{L_i^T\mid i\in X}$
 	- důkaz
