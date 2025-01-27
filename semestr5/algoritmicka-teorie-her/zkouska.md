@@ -459,16 +459,16 @@
 		- chceme ukázat $\mathbb E_{a\sim p}[C_i(a)]\leq \mathbb E_{a\sim p}[C_i(a_i';a_{-i})]+\varepsilon$
 		- z definice $p$ rozepíšeme
 			- $\mathbb E_{a\sim p}[C_i(a)]=\frac1T\sum_t \mathbb E_{a\sim p^t}[C_i(a)]$
-			- $\mathbb E_{a\sim p}[C_i(a_i';a_{-i})]=\frac1T\sum_t E_{a\sim p^t}[C_i(a_i';a_{-i})]$
+			- $\mathbb E_{a\sim p}[C_i(a_i';a_{-i})]=\frac1T\sum_t\mathbb E_{a\sim p^t}[C_i(a_i';a_{-i})]$
 		- pravé strany jsou time-averaged expected costs hráče $i$ (když hraje podle algoritmu nebo když hraje vždycky $a_i'$)
-		- každý hráč má regret nejvýše $\varepsilon$, proto $$\frac1T\sum_t \mathbb E_{a\sim p^t}[C_i(a)]\leq\frac1T\sum_t E_{a\sim p^t}[C_i(a_i';a_{-i})]+\varepsilon$$
+		- každý hráč má regret nejvýše $\varepsilon$, proto $$\frac1T\sum_t \mathbb E_{a\sim p^t}[C_i(a)]\leq\frac1T\sum_t \mathbb E_{a\sim p^t}[C_i(a_i';a_{-i})]+\varepsilon$$
 		- to ověřuje $\varepsilon$-CCE podmínku pro $p=\frac1T\sum_{t=1}^T p_t$
 - Definition: Internal and swap regret
 	- modifikační pravidlo je funkce $F:X\to X$
 		- budeme modifikovat posloupnost $(p^t)_{t=1}^T$ pomocí $F$
 			- modifikovaný agent bude hrát $F(i)$, kdykoliv původní agent hrál $i$
 			- posloupnost $(p^t)$ nahradíme posloupností $(f^t)$, kde $$f^t_i=\sum_{j:F(j)=i}p_j^t$$
-		- kumulativní ztráta $A$ modifikovaná $F$ bude $L_{A,F}^T=\sum_{t=1}^T\sum_{i=1}^N f_i^t\ell_i^t$
+		- kumulativní ztráta agenta $A$ modifikovaného pravidlem $F$ bude $L_{A,F}^T=\sum_{t=1}^T\sum_{i=1}^N f_i^t\ell_i^t$
 		- pro danou množinu modifikačních pravidel $\mathcal F$ můžeme srovnat agenta $A$ s jeho modifikacemi pravidly z $\mathcal F$, tím dostaneme další pohledy na regret
 	- external regret
 		- $\mathcal F^{ex}=\set{F_i\mid i\in X}$, kde $F_i$ mapuje vše na $i$
@@ -525,9 +525,9 @@
 		- chceme ukázat $\mathbb E_{a\sim p}[C_i(a)]\leq \mathbb E_{a\sim p}[C_i(F(a_i);a_{-i})]+\varepsilon$
 		- z definice $p$ rozepíšeme
 			- $\mathbb E_{a\sim p}[C_i(a)]=\frac1T\sum_t \mathbb E_{a\sim p^t}[C_i(a)]$
-			- $\mathbb E_{a\sim p}[C_i(F(a_i);a_{-i})]=\frac1T\sum_t E_{a\sim p^t}[C_i(F(a_i);a_{-i})]$
+			- $\mathbb E_{a\sim p}[C_i(F(a_i);a_{-i})]=\frac1T\sum_t \mathbb E_{a\sim p^t}[C_i(F(a_i);a_{-i})]$
 		- pravé strany jsou time-averaged expected costs hráče $i$ (když hraje podle algoritmu nebo když hraje vždycky $F(a_i)$ místo $a_i$)
-		- každý hráč má regret nejvýše $\varepsilon$, proto $$\frac1T\sum_t \mathbb E_{a\sim p^t}[C_i(a)]\leq\frac1T\sum_t E_{a\sim p^t}[C_i(F(a_i);a_{-i})]+\varepsilon$$
+		- každý hráč má regret nejvýše $\varepsilon$, proto $$\frac1T\sum_t \mathbb E_{a\sim p^t}[C_i(a)]\leq\frac1T\sum_t \mathbb E_{a\sim p^t}[C_i(F(a_i);a_{-i})]+\varepsilon$$
 		- to ověřuje $\varepsilon$-CE podmínku pro $p=\frac1T\sum_{t=1}^T p_t$
 
 ## Games in extensive form
@@ -897,3 +897,84 @@
 		- uvažujme jednopoložkovou aukci, kde prodávající přijme nabídky $(b_1,\dots,b_n)$ a následně provede Vickreyho aukci na nabídkách $(2b_1,\dots,2b_n)$
 		- dominantní strategie je zde nabídnout polovinu své hodnoty
 		- z důkazu věty vyplývá, že bychom mohli zkonstruovat $M'$, který bude nabídky hráčů půlit → pro tento $M'$ už by bylo dominantní strategií bidovat pravdivě
+
+## Survey questions
+
+- Survey: Nash equilibria
+    - Normal-form games
+    	- Normal-form game
+    	- Strategies
+    	- Expected payoff
+    	- Five basic games
+    - Nash equilibrium
+    	- Best response
+    	- Nash equilibrium
+    	- Nash’s Theorem
+    	- Pareto optimality
+		- ε-Nash equilibrium
+    - Zero-sum games
+    	- Zero-sum game and its representation
+    	- Worst-case optimal strategies
+    	- Worst-case optimal strategies and NE
+    	- The Duality Theorem
+    	- The Minimax Theorem
+		- Modern proof of the Minimax Theorem
+    - Bimatrix games
+    	- Bimatrix game, nondegenerate bimatrix game
+    	- Best response condition
+    	- Support enumeration
+    	- Best response polyhedra, best response polytope
+    	- NE and Best response polyhedra/polytope
+    	- Vertex enumeration
+    	- Lemke–Howson algorithm
+    	- Computational complexity of NASH
+    	- Problems from PPAD
+- Survey: Correlated equilibria
+	- Correlated equilibrium (CE)
+	- Properties of correlated equilibria
+	- Polynomial weights algorithm
+	- No-regret dynamics
+	- Coarse correlated equilibrium (CCE)
+	- Converging to CCE
+	- Internal and swap regret
+	- Reduction from external regret to swap regret
+	- No-swap-regret dynamics
+	- Converging to CE
+- Survey: Regret minimization
+	- Regret minimization model
+	- External regret
+	- External regret as a suitable metric
+	- Greedy algorithm
+	- Randomized greedy algorithm
+	- Polynomial weights algorithm
+	- No-regret dynamics
+	- Modern proof of the Minimax Theorem
+	- Coarse correlated equilibrium (CCE)
+	- Converging to CCE
+	- Internal and swap regret
+	- Reduction from external regret to swap regret
+	- No-swap-regret dynamics
+	- Converging to CE
+- Survey: Games in extensive form
+	- Extensive game, (im)perfect-information game
+	- Strategies in extensive games
+	- Games of perfect recall, Kuhn’s theorem
+	- Sequence form
+	- Using the sequence form to find NE
+- Survey: Mechanism design
+	- Single item auction
+	- Dominant strategy, social surplus, awesome auction
+	- Vickrey’s auction is awesome
+	- Single parameter environment
+	- Some single parameter environments
+	- Implementable allocation rule, monotone allocation rule
+	- Myerson’s lemma
+	- Bayesian model
+	- Maximizing expected revenue
+	- Vickrey with reserve price is optimal
+	- The Bulow–Klemperer theorem
+	- Knapsack auction
+	- 2-approximation for knapsack auctions
+	- Multi-parameter mechanism design
+	- VCG mechanism
+	- Revelation principle
