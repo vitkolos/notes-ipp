@@ -901,34 +901,34 @@
 ## Survey questions
 
 - Survey: Nash equilibria
-    - Normal-form games
-    	- Normal-form game
-    	- Strategies
-    	- Expected payoff
-    	- Five basic games
-    - Nash equilibrium
-    	- Best response
-    	- Nash equilibrium
-    	- Nash’s Theorem
-    	- Pareto optimality
+	- Normal-form games
+		- Normal-form game
+		- Strategies
+		- Expected payoff
+		- Five basic games
+	- Nash equilibrium
+		- Best response
+		- Nash equilibrium
+		- Nash’s Theorem
+		- Pareto optimality
 		- ε-Nash equilibrium
-    - Zero-sum games
-    	- Zero-sum game and its representation
-    	- Worst-case optimal strategies
-    	- Worst-case optimal strategies and NE
-    	- The Duality Theorem
-    	- The Minimax Theorem
+	- Zero-sum games
+		- Zero-sum game and its representation
+		- Worst-case optimal strategies
+		- Worst-case optimal strategies and NE
+		- The Duality Theorem
+		- The Minimax Theorem
 		- Modern proof of the Minimax Theorem
-    - Bimatrix games
-    	- Bimatrix game, nondegenerate bimatrix game
-    	- Best response condition
-    	- Support enumeration
-    	- Best response polyhedra, best response polytope
-    	- NE and Best response polyhedra/polytope
-    	- Vertex enumeration
-    	- Lemke–Howson algorithm
-    	- Computational complexity of NASH
-    	- Problems from PPAD
+	- Bimatrix games
+		- Bimatrix game, nondegenerate bimatrix game
+		- Best response condition
+		- Support enumeration
+		- Best response polyhedra, best response polytope
+		- NE and Best response polyhedra/polytope
+		- Vertex enumeration
+		- Lemke–Howson algorithm
+		- Computational complexity of NASH
+		- Problems from PPAD
 - Survey: Correlated equilibria
 	- Correlated equilibrium (CE)
 	- Properties of correlated equilibria
