@@ -227,17 +227,17 @@
 		- strategický profil $s$ je NE, právě když je bod $(x/u_2(s),y/u_1(s))\in P\times Q\setminus\set{(0,0)}$ kompletně označen
 - Algorithm: Vertex enumeration
 	- z nedegenerovanosti $G$ víme, že každý bod $P$ má nejvýše $m$ labels, podobně každý bod $Q$ má nejvýše $n$ labels (pro $k$ prvků supportu je nejvýše $k$ best responses)
-	- labely odpovídají stěnám polytopu, proto pouze vrcholy můžou mít přesně $m$ a $n$ labels (je to jednoduchý polytop, žádné body nemají víc než $m$, respektive $n$ vrcholů)
+	- labely odpovídají stěnám polytopu, proto pouze vrcholy můžou mít přesně $m$ a $n$ labels (je to prostý polytop, žádné body nemají víc než $m$, respektive $n$ vrcholů)
 	- algoritmus
 		- vstup: nedegenerovaná maticová hra $G$
 		- výstup: všechna Nashova ekvilibria hry $G$
 		- pro každou dvojici vrcholů $(x,y)$ z $(P\setminus\set{0})\times(Q\setminus\set{0})$
 			- pokud je $(x,y)$ kompletně označen, vrať $(x/(1^Tx),y/(1^Ty))$ jako Nashovo ekvilibrium
-	- všechny vrcholy jednoduchého polytopu v $\mathbb R^d$ s $v$ vrcholy a $N$ popisujícími nerovnostmi mohou být nalezeny v čase $O(dNv)$
+	- všechny vrcholy prostého polytopu v $\mathbb R^d$ s $v$ vrcholy a $N$ popisujícími nerovnostmi mohou být nalezeny v čase $O(dNv)$
 	- ale pokud $m=n$, polytopy nejlepších odpovědí mohou mít $c^n$ vrcholů pro nějakou konstantu $c\in(1,2.9)$
 	- hledání zrychlíme tak, že budeme sledoval labels (viz Lemke–Howson)
 - Algorithm: Lemke–Howson algorithm
-	- $P$ je jednoduchý polytop dimenze $m$, každému jeho vrcholu přiléhá $m$ hran a $m$ stěn
+	- $P$ je prostý polytop dimenze $m$, každému jeho vrcholu přiléhá $m$ hran a $m$ stěn
 	- každý vrchol polytopu $P$ má $m$ labels a každá hrana má $m-1$ labels
 	- když „upustíme“ label $\ell\in A_1\cup A_2$ z vrcholu $x$ polytopu $P$, znamená to, že se přesouváme po hraně $P$, která je incidentní s vrcholem $x$ a má stejné labely jako $x$ kromě $\ell$
 	- druhý konec hrany má stejné labels jako $x$, akorát místo $\ell$ má jiný label, který „sebereme“
