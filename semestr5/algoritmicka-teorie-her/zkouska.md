@@ -767,7 +767,7 @@
 		- $f_i$ je hustota, takže to zjednodušíme na $$\mathbb E[p_i(v)]=\int_0^{v_\text{max}}(1-F_i(z))\cdot z\cdot\frac {\text d}{\text dz} x_i(z;v_{-i})\text{ d}z$$
 		- provedeme integraci per partes
 			- $\int fg'=fg-\int f'g$
-			- $f(z)=(Q-F_i(z))\cdot z$
+			- $f(z)=(1-F_i(z))\cdot z$
 			- $g'(z)=\frac d{dz} x_i(z;v_{-i})$
 		- dostaneme $[(1-F_i(z))\cdot z\cdot x_i(z;v_{-i})]_0^{v_\text{max}}-\int_0^{v_\text{max}} x_i(z;v_{-i})\cdot(1-F_i(z)-zf_i(z))\text{ d}z$
 			- první člen je nulový (pro obě meze)
