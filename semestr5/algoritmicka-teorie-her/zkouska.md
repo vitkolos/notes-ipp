@@ -36,12 +36,13 @@
 	- tedy žádný hráč by neměnil svou strategii, kdyby znal strategie ostatních
 - Theorem: Nash’s Theorem
 	- Nashova věta: každá hra v normálním tvaru má Nashovo ekvilibrium
-	- $X\subseteq\mathbb R^d$ je kompaktní, pokud je uzavřená a omezená
-	- $Y\subseteq\mathbb R^d$ je konvexní, pokud $\forall\alpha\in [0,1]:\alpha x+(1-\alpha)y\in Y$
-	- pro $n$ afinně nezávislých bodů $x_1,\dots,x_n\in\mathbb R^d$ definujeme $(n-1)$-simplex $\Delta_n$ na $x_1,\dots,x_n$ jako množinu konvexních kombinací bodů $x_1,\dots,x_n$
-		- každý simplex je kompaktní konvexní množina v $\mathbb R^d$
-	- lemma: pokud $K_1,\dots,K_n$ jsou kompaktní množiny a $\forall i:K_i\subseteq\mathbb R^{d_i}$, pak $K_1\times\dots\times K_n$ je kompaktní množina v $\mathbb R^{d_1+\dots+d_n}$
-	- Brouwerova věta o pevném bodu: pokud $K\subseteq\mathbb R^d$ je neprázdná kompaktní konvexní množina a $f:K\to K$ je spojité zobrazení, pak existuje pevný bod $x_0\in K$ pro $f$, tedy $f(x_0)=x_0$
+	- pomocné definice a tvrzení
+		- $X\subseteq\mathbb R^d$ je kompaktní, pokud je uzavřená a omezená
+		- $Y\subseteq\mathbb R^d$ je konvexní, pokud $(\forall x,y\in Y)(\forall\alpha\in [0,1]):\alpha x+(1-\alpha)y\in Y$
+		- pro $n$ afinně nezávislých bodů $x_1,\dots,x_n\in\mathbb R^d$ definujeme $(n-1)$-simplex $\Delta_n$ na $x_1,\dots,x_n$ jako množinu konvexních kombinací bodů $x_1,\dots,x_n$
+			- každý simplex je kompaktní konvexní množina v $\mathbb R^d$
+		- lemma: pokud $K_1,\dots,K_n$ jsou kompaktní množiny a $\forall i:K_i\subseteq\mathbb R^{d_i}$, pak $K_1\times\dots\times K_n$ je kompaktní množina v $\mathbb R^{d_1+\dots+d_n}$
+		- Brouwerova věta o pevném bodu: pokud $K\subseteq\mathbb R^d$ je neprázdná kompaktní konvexní množina a $f:K\to K$ je spojité zobrazení, pak existuje pevný bod $x_0\in K$ pro $f$, tedy $f(x_0)=x_0$
 	- důkaz Nashovy věty
 		- nechť $K=S_1\times\dots\times S_n$ je množina všech smíšených strategií
 			- $S_i$ … množina smíšených strategií hráče $i$
@@ -870,7 +871,7 @@
 		- zafixujeme $i$ a nabídky ostatních zájemců $b_{-i}$
 		- pokud $x(b)=\omega^*$ pak se užitek $i$-tého zájemce rovná $v_i(\omega^*)-p_i(b)$
 		- což se rovná $$\left(v_i(\omega^*)+\sum_{j\neq i} b_j(\omega^*)\right)-\left(\max_{\omega\in\Omega}\left\lbrace\sum_{j\neq i}b_j(\omega)\right\rbrace\right)$$
-		- pravý člen je nezávislý na $b_i$, takže zájemce $i$ musí maximalizovat první člen, pokud chce maximalizovat svůj užitek
+		- pravý člen je nezávislý na $b_i$, takže zájemce $i$ musí maximalizovat levý člen, pokud chce maximalizovat svůj užitek
 		- zájemce $i$ ale nemůže přímo ovlivnit $\omega^*$, jelikož ho volí mechanismus tak, aby byl součet nabídek maximální
 		- zájemce $i$ chce, aby mechanismus vybral $\text{argmax}_\omega\set{v_i(\omega)+\sum_{j\neq i} b_j(\omega)}$
 		- pokud $i$ biduje pravdivě, tak to přesně odpovídá naší volbě $x$, takže pravdivé bidování maximalizuje utilitu $i$
