@@ -84,8 +84,7 @@
 	- theorem: if $i\leftrightarrow j$, then either both $i$ and $j$ are recurrent or both $i$ and $j$ are transient
 	- for finite Markov chains
 		- $C$ … equiv class of $\leftrightarrow$ in a finite Markov chain
-		- $C$ is recurrent ($\forall i\in C$ is recurrent) $\iff(\forall i \in C)(\forall j\in S):$ if $i\to j$ then $j\in C$
-			- → $C$ is closed
+		- $C$ is recurrent ($\forall i\in C$ is recurrent) $\iff(\forall i \in C)(\forall j\in S):$ if $i\to j$ then $j\in C$ (“$C$ is closed”)
 	- definition: $i$ is null recurrent if $i$ is recurrent and $\mathbb E(T_i\mid X_0=i)=\infty$
 		- $i$ is positive recurrent if $i$ is recurrent and $\mathbb E(T_i\mid X_0=i)\lt\infty$
 	- example: random walk on a line
@@ -124,6 +123,21 @@
 	- to imagine this: ant colony moving independently according to a Markov chain
 		- stationary distribution … the same number of ants at each state at each time – ants don't “accumulate”
 	- detailed balance equation implies $\pi P=\pi$ (but it is stronger than that)
+- MCMC sampling
+	- Monte Carlo Markov chains
+	- Metropolis–Hastings method
+	- we construct a MC from the probability distribution we want
+		- choose aperiodic irreducible digraph
+		- use detailed balance equation
+			- $p_{ij}=\min\set{1,\frac{\pi _j}{\pi_i}}\cdot C$
+			- $p_{ji}=\min\set{1,\frac{\pi_i}{\pi_j}}\cdot C$
+		- choose $C$ such that
+			- $\forall i:\sum_{j\neq i} p_{ij}\lt 1$
+			- df. $p_{ii}=1-\sum_{j\neq i}p_{ij}\gt 0$
+			- $\implies d_i=1$
+	- tune the process to make convergence fast
+	- we run the MC for long enough
+	- alternative sampling approach: rejection sampling
 - Absorbing state
 	- $i\in S$ is absorbing state if $p_{ii}=1$
 	- $A$ … set of absorbing states
@@ -224,6 +238,7 @@
 				- the other side of the fake coin
 				- one side of the real coin
 			- two of the three possible “worlds” are corresponding to the fake coin → $p_{\Theta\mid X}(\text{fake}\mid\text{heads})=\frac23$
+				- $\hat\theta=\text{fake}$ … MAP estimate
 - Bayesian estimates
 	- point estimates
 		- MAP (maximum a posteriori)
@@ -234,17 +249,33 @@
 	- interval estimates
 		- credible sets $S$ (similar to confidence intervals used in classical statistics)
 	- note: often, the constant in the denominator does not matter
----
 - MAP (maximum a posteriori)
 	- $\hat\theta_\text{MAP}=\text{argmax}_\theta\,p_{\Theta\mid X}(\theta\mid x)$
 		- $\hat\theta$ is a point estimate for $\Theta$
-	- that equals $\text{argmax}\,p_\Theta(\hat\theta)\cdot p_{X\mid\Theta}(x\mid\theta)$ as we can ignore the normalizing constant
-	- …
+	- that equals $\text{argmax}\,p_\Theta(\hat\theta)\cdot p_{X\mid\Theta}(x\mid\theta)$
+		- we can ignore the normalizing constant
+	- we are replacing the random variable by its mode
+	- node: maximum likelihood is similar but it uses $\text{argmax}\,p_{X\mid\Theta}(x\mid\theta)$
+		- it assumes “flat prior” (uniform or discrete uniform)
+- Naive Bayes classifier
+	- let $x=(x_1,\dots,x_n)$
+		- in machine learning … vector of features
+	- we need $p_{X\mid\Theta}(x\mid\theta)$ to get MAP estimate
+	- “naive assumption”: $p(x\mid\theta)=p(x_1\mid\theta)\cdot p(x_2\mid\theta)\cdot\ldots\cdot p(x_n\mid\theta)$
 - LMS point estimate
 	- LMS = least mean square
 	- estimate such that $\mathbb E((\Theta-\hat\theta)^2\mid X=x)$ is minimal
 	- to compute it
-		- …
+		- $\hat\theta_\text{LMS}=\mathbb E(\Theta\mid X=x)=\sum_{t\in\Theta}t\cdot p_{\Theta\mid X}(t\mid x)$
+		- we find the mean of the random variable
+	- proof
+		- $\mathbb E((\Theta-\hat\theta)^2\mid X=x)=\mathbb E(\Theta^2\mid X=x)-\mathbb E(2\Theta\hat\theta\mid X=x)+\mathbb E(\hat\theta^2\mid X=x)$
+		- we want to minimize it
+		- the first term does not depend on $\hat\theta$, we get rid of it
+		- we get $-2\hat\theta\mathbb E(\Theta\mid X=x)+\hat\theta^2$
+		- to find its minimum, we find the derivative and set it equal to zero
+		- $-2\mathbb E(\Theta\mid X=x)+2\hat\theta=0$
+		- therefore $\hat\theta=\mathbb E(\Theta\mid X=x)$ as we wanted
 - Beta distribution
 	- $f_\Theta(x)=c\cdot x^{\alpha-1}(1-x)^{\beta-1}$
 		- where $c$ is a normalizing constant
@@ -252,18 +283,6 @@
 		- $f_\Theta$ is maximal for $\theta=\frac{\alpha-1}{\alpha+\beta-2}$
 		- $\mathbb E\Theta=\frac\alpha{\alpha+\beta}$
 - example: measurement error with a normal distribution
-- sampling
-	- rejection sympling
-	- MCMC sampling
-		- Monte Carlo Markov chains
-		- Metropolis Hastings method
-		- we construct a MC from the probability distribution we want
-		- we run the MC for long enough
-- LMS
-- $\Theta\mid X=x$
-	- mean … LMS = $\min\mathbb E((\Theta-\hat\theta)^2\mid X=x)$
-	- median … $\min\mathbb E(|\Theta-\hat\theta|\mid X=x)$
-	- modus … MAP
 
 ## Conditional Expectation
 
