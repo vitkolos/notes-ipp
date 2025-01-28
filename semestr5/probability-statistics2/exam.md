@@ -364,17 +364,52 @@
 	- $\mathbb EX_i=\frac mn$
 - Max-load likely upper bound
 	- definition: max-load … $\max\set{X_1,\dots,X_n}$
+		- we assume $m=n$ in max-load bounds
 	- theorem: for large enough $n$ we have $P(\text{maxload}\geq\frac{3\log\log n}{\log n})\leq\frac1n$
 	- proof
-		- …
+		- $X_i$ … number of balls in bin $i$
+		- $P(X_i\geq M)\leq{n\choose M}{1\over n^M}$
+			- probability that bin $i$ gets at least $M$ balls
+			- for all $M$-tuples of balls, we sum their probability to all fall in bin $B_i$ (using union bound)
+		- $B_i$ … $X_i\geq M$
+		- $P(\bigcup_i B_i)=P(\max X_i\geq M)$
+		- $P(\bigcup_i B_i)\leq\sum_{i=1}^n P(B_i)\leq n{n\choose M}{1\over n^M}\leq n({e\over M})^M$
+			- union bound again, then we use an estimate of factorial
+		- we need to show that $n({e\over M})^M\lt^? \frac1n$
+			- $\log(n^2({e\over M})^M)\lt^? \log 1$
+			- $2L+M(1-\log M)\lt^? 0$
+				- where $L$ is $\log n$ ($LL$ is $\log\log n$ etc.)
+				- we substitute $M=\frac{3L}{LL}$
+			- $2L+\frac{3L}{LL}(1-(\log 3+LL-LLL))\lt^? 0$
+			- $2L+\frac{3L(1-\log3-LL+LLL)}{LL}\lt^? 0$
+			- $-L+\frac{3L(1-\log 3)}{LL}+\frac{3L(LLL)}{LL}\lt^? 0$
+			- second and third term are much smaller than $L$
+			- therefore it holds
+- Exact case vs. Poisson case
+	- theorem: any event that happens with probability $\leq p$ in the Poisson case happens with probability $\leq p\cdot e\sqrt m$ in the exact case
 - Max-load likely lower bound
 	- theorem: for large enough $n$ we have $P(\text{maxload}\leq\frac{\log\log n}{\log n})\leq\frac1n$
 	- proof
-		- …
-- Exact case vs. Poisson case
-	- theorem: any event that happens with probability $\leq p$ in the Poisson case happens with probability $\leq p\cdot e\sqrt m$ in the exact case
-	- proof
-		- …
+		- Poisson case
+			- $P(X_i\lt M)\leq 1-P(X_i=M)=1-e^{-\lambda}\frac{\lambda^M}{M!}=1-\frac1{eM!}$
+				- $\lambda=\frac mn=1$
+			- $P(\max X_i\lt M)=P(X_1\lt M)\cdot\ldots\cdot P(X_n\lt M)\leq(1-\frac1{eM!})^n$
+				- $\leq(e^{-\frac1{eM!}})^n=\text{exp}(-\frac n{eM!})=:p$
+		- exact case
+			- $P(\max X_i\lt M)\leq p\cdot e\sqrt{m}=e\sqrt n\cdot \text{exp}(-\frac n{eM!})$
+			- we want $e\sqrt n\cdot \text{exp}(-\frac n{eM!})\lt^?\frac1n$
+			- $\text{exp}(-\frac n{eM!})\lt^?\frac1{n^2}$
+			- $\frac n{eM!}\gt^? 2\log n$
+			- $M!\lt^?\frac{n}{2e\log n}$
+			- $\log M!\lt^? L-LL-\log 2e$
+			- we know $M!\leq M(\frac Me)^M$
+			- $\log M!\leq\log M+M(\log M-1)$
+				- $\leq LL-LLL+\frac L{LL}(LL-LLL-1)$
+					- here, we substituted the $M$
+				- $\leq L-L\frac{LLL}{LL}+LL\leq L-LL-c$
+					- as $2LL\leq L\frac{LLL}{LL}$ (it's not that clear but it holds)
+			- therefore $\log M!\leq L-LL-c$
+				- that's what we wanted to prove
 
 ## Stochastic Processes
 
