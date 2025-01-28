@@ -138,6 +138,7 @@
 	- tune the process to make convergence fast
 	- we run the MC for long enough
 	- alternative sampling approach: rejection sampling
+	- MCMCs are useful in Bayesian statistics – we only need the ratios so the normalizing constants cancel out (and we don't have to compute them)
 - Absorbing state
 	- $i\in S$ is absorbing state if $p_{ii}=1$
 	- $A$ … set of absorbing states
@@ -282,40 +283,64 @@
 	- properties
 		- $f_\Theta$ is maximal for $\theta=\frac{\alpha-1}{\alpha+\beta-2}$
 		- $\mathbb E\Theta=\frac\alpha{\alpha+\beta}$
-- example: measurement error with a normal distribution
+- Conjugated distributions
+	- Beta (prior) & binomial (likelihood) → Beta (posterior)
+		- “Beta and Beta are conjugate distributions with respect to binomial distribution”
+	- normal (prior) & normal (likelihood) → normal (posterior)
+		- was proved in the lecture
+	- it is an algebraic convenience, it does not work for all distributions
 
 ## Conditional Expectation
 
-- conditional independence
+- Conditional independence
 	- events
 		- $A\perp B\iff P(A\cap B)=P(A)\cdot P(B)$
 		- $A\perp_C B\iff P(A\cap B\mid C)=P(A\mid C)\cdot P(B\mid C)$
 			- $A,B$ are independent conditionally given $C$
 	- it is possible (even typical) that $A\perp_C B$, $A\perp_{C^C} B$, but not $A\perp B$
-- $\mathbb E(Y\mid X=x)$ vs. $\mathbb E(Y\mid X)$
-- $\mathbb E(Y\mid X=x)=g(x)$ … number
-- $\mathbb E(Y\mid X)=g(X)$ … random variable
-- we proved that $\mathbb E(\mathbb E(Y\mid X))=\mathbb E(g(X))=\mathbb EY$
-	- “law of iterated expectation”
-- basic task of statistics
-	- estimate one quantity (Y) given data/measurement (X)
-- example: groups of students, their exam results
-- estimator
-	- $\hat Y=\mathbb E(Y\mid X)=g(X)$
-- $\tilde Y=\hat Y-Y$
-- we proved that $\mathbb E(\tilde Y\mid X)=0$
-	- therefore $\mathbb E(\tilde Y)=\mathbb E(\mathbb E(\tilde Y\mid X))=0$
-- also, $\text{cov}(\tilde Y,\hat Y)=0$
-	- they are uncorellated
-- note
-	- uncorellated $\impliedby$ independent
-	- uncorellated $\centernot\implies$ independent
-- conditional variance
-- iterated variance / eve's rule
+- Conditional expectation
+	- $\mathbb E(Y\mid X=x)$ vs. $\mathbb E(Y\mid X)$
+	- $\mathbb E(Y\mid X=x)=g(x)$ … number
+	- $\mathbb E(Y\mid X)=g(X)$ … random variable
+- Law of iterated expectation
+	- $\mathbb E(\mathbb E(Y\mid X))=\mathbb E(Y)$
+	- proof
+		- $\mathbb E(E(Y\mid X))=\mathbb E(g(X))=\sum_x P(X=x)\cdot g(x)$
+			- by LOTUS
+		- $\mathbb E(Y)=\sum_x P(X=x)\cdot\mathbb E(Y\mid X=x)=\sum_x P(X=x)\cdot g(x)$
+			- by law of total probability
+- Estimate error
+	- basic task of statistics
+		- estimate one quantity (Y) given data/measurement (X)
+	- example: groups of students, their exam results
+		- $X$ … groups of students
+			- $X=2$ … we are currently looking at the second group
+		- $Y$ … students' exam results
+			- $\mathbb E(Y\mid X=3)$ … the expectation of the results in group 3
+	- estimator
+		- $\hat Y=\mathbb E(Y\mid X)=g(X)$
+	- we want the estimate error
+		- $\tilde Y=\hat Y-Y$
+	- what is $\mathbb E(\tilde Y\mid X)$ equal to?
+		- $\mathbb E(\tilde Y\mid X)=\mathbb E(\hat Y-Y\mid X)=\mathbb E(\hat Y\mid X)-\mathbb E(Y\mid X)=\hat Y-\hat Y=0$
+		- because $\mathbb E(\hat Y\mid X)=\mathbb E(\mathbb E(Y\mid X)\mid X)=\mathbb E(Y\mid X)$
+	- by law of iterated expectation
+		- $\mathbb E(\tilde Y)=\mathbb E(\mathbb E(\tilde Y\mid X))=0$
+- Estimate error covariance and variance
+	- $\text{cov}(\tilde Y,\hat Y)=\mathbb E(\tilde Y\hat Y)-\underbrace{\mathbb E(\tilde Y)}_0\mathbb E(\hat Y)=\mathbb E(\mathbb E(\tilde Y\hat Y\mid X))=\mathbb E(\hat Y\underbrace{\mathbb E(\tilde Y\mid X)}_0)=0$
+		- the penultimate equivalence holds because $\hat Y$ is constant for specified $X=x$
+	- $\tilde Y,\hat Y$ are uncorellated
+	- note
+		- uncorellated $\impliedby$ independent
+		- uncorellated $\centernot\implies$ independent
+- Law of iterated variance / Eve's rule
 	- $\text{var }Y=\mathbb E(\text{var}(Y\mid X))+\text{var}(\mathbb E(Y\mid X))$
 	- intragroup variance + intergroup variance
-
----
+	- proof
+		- $Y=\hat Y-\tilde Y$
+		- $\text{var }Y=\text{var}(\hat Y)+\text{var}(\tilde Y)-\underbrace{2\text{cov}(\hat Y,\tilde Y)}_0=\text{var}(\hat Y)+\text{var}(\tilde Y)$
+		- $\text{var}(\tilde Y)=\mathbb E(\tilde Y^2)-\underbrace{(\mathbb E\tilde Y)^2}_0=\mathbb E(\mathbb E(\tilde Y^2\mid X))$
+			- $=\mathbb E(\mathbb E((Y-\hat Y)^2\mid X))=\mathbb E(\text{var}(Y\mid X))$
 
 ## Balls & Bins
 
