@@ -291,7 +291,7 @@
 	- properties
 		- $f_\Theta$ is maximal for $\theta=\frac{\alpha-1}{\alpha+\beta-2}$
 		- $\mathbb E\Theta=\frac\alpha{\alpha+\beta}$
-- Conjugated distributions
+- Conjugate distributions
 	- Beta (prior) & binomial (likelihood) → Beta (posterior)
 		- “Beta and Beta are conjugate distributions with respect to binomial distribution”
 	- normal (prior) & normal (likelihood) → normal (posterior)
