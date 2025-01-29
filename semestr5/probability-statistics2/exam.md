@@ -373,7 +373,7 @@
 - Max-load likely upper bound
 	- definition: max-load … $\max\set{X_1,\dots,X_n}$
 		- we assume $m=n$ in max-load bounds
-	- theorem: for large enough $n$ we have $P(\text{maxload}\geq\frac{3\log\log n}{\log n})\leq\frac1n$
+	- theorem: for large enough $n$ we have $P(\text{maxload}\geq\frac{3\log n}{\log\log n})\leq\frac1n$
 	- proof
 		- $X_i$ … number of balls in bin $i$
 		- $P(X_i\geq M)\leq{n\choose M}{1\over n^M}$
@@ -396,7 +396,7 @@
 - Exact case vs. Poisson case
 	- theorem: any event that happens with probability $\leq p$ in the Poisson case happens with probability $\leq p\cdot e\sqrt m$ in the exact case
 - Max-load likely lower bound
-	- theorem: for large enough $n$ we have $P(\text{maxload}\leq\frac{\log\log n}{\log n})\leq\frac1n$
+	- theorem: for large enough $n$ we have $P(\text{maxload}\leq\frac{\log n}{\log\log n})\leq\frac1n$
 	- proof
 		- Poisson case
 			- $P(X_i\lt M)\leq 1-P(X_i=M)=1-e^{-\lambda}\frac{\lambda^M}{M!}=1-\frac1{eM!}$
@@ -468,7 +468,7 @@
 	- $T_k$ has Erlang distribution, $\mathbb E[T_k]=\frac k\lambda$
 - Poisson process interval independence
 	- for any sequence $0\leq t_0\lt t_1\dots\lt t_k$
-	- RVs $(N_{t_i}-N_{t_{i+1}})$
+	- RVs $(N_{t_{i+1}}-N_{t_{i}})$
 		- are independent
 		- each one follows $\text{Pois}(\lambda(t_{i+1}-t_i))$
 - Merging of Poisson process
@@ -584,7 +584,7 @@
 		- $(\exists\varepsilon\gt 0)(\forall s\in (-\varepsilon,\varepsilon)):\lim_{n\to\infty} M_{X_n}(s)=M_Y(s)$
 		- $F_Y$ is continuous
 		- then $X_n\xrightarrow d Y$
-			- $\lim_{n\to\infty} F_{X_n}(s)=F_Y(s)$
+			- $\lim_{n\to\infty} F_{X_n}(x)=F_Y(x)$
 - Central limit theorem
 	- theorem
 		- $X_1,X_2,\dots$ i.i.d. (independent identically distributed) RVs
