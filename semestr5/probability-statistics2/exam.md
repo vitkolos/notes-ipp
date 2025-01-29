@@ -295,7 +295,7 @@
 	- Beta (prior) & binomial (likelihood) → Beta (posterior)
 		- “Beta and Beta are conjugate distributions with respect to binomial distribution”
 	- normal (prior) & normal (likelihood) → normal (posterior)
-		- was proved in the lecture
+	- both were proved in the lecture
 	- it is an algebraic convenience, it does not work for all distributions
 
 ## Conditional Expectation
@@ -340,7 +340,7 @@
 	- $\tilde Y,\hat Y$ are uncorellated
 	- note
 		- uncorellated $\impliedby$ independent
-		- uncorellated $\centernot\implies$ independent
+		- uncorellated $\;\;\not\!\!\!\implies$ independent
 - Law of iterated variance / Eve's rule
 	- $\text{var }Y=\mathbb E(\text{var}(Y\mid X))+\text{var}(\mathbb E(Y\mid X))$
 	- intragroup variance + intergroup variance
