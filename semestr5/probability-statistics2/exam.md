@@ -590,13 +590,16 @@
 		- $M_{X_i}(s)=1+as+bs^2+O(s^3)\quad(s\doteq 0)$
 			- $a=\mu=0$
 			- $b=\frac12\mathbb EX_i^2=\frac12(\sigma^2-\mu^2)=\frac12\sigma^2$
+				- from the alternative formula for $\text{var}$
 		- $M_{X_i}(s)=1+\frac{\sigma^2}2s^2+O(s^3)$
 		- $M_{Y_n}(s)=\prod M_{X_i}\left(\frac s{\sqrt n\sigma}\right)$
-		- we will use the previous theorem for $Y,Y_1,Y_2,\dots$
-		- we need to show that $\lim M_{Y_n}(s)=M_Y(s)$
+			- because $Y_n=\frac{X_1+\dots+X_n}{\sqrt n\sigma}$
+		- we need to show that $\lim M_{Y_n}(s)=M_{Y}(s)$ where $Y\sim N(0,1)$
 			- or that $\lim_{n\to\infty}M_{X_n}(\frac s{\sqrt n\sigma})^n=e^{s^2/2}$
-		- $M_{X_n}(\frac s{\sqrt n\sigma})^n=…=\text{exp}(n\ln(1+\frac{s^2}{2n}+O(s^3))$
-		- …
+		- $M_{Y_n}(s)=M_{X_i}(\frac s{\sqrt n\sigma})^n=(1+\frac{\sigma^2}2(\frac s{\sqrt n\sigma})^2+O(s^3))^n=(1+\frac{s^2}{2n}+O(s^3))^n$
+			- we substituted $s=\frac s{\sqrt n\sigma}$ into $M_{X_i}$
+		- we know that $(1+\frac xn)^n\to e^x$
+		- therefore $(1+\frac{s^2/2}{n}+O(s^3))^n\to e^{s^2/2}$
 - Chernoff inequality
 	- theorem
 		- suppose i.i.d.  $X_1,X_2,\dots,X_n$ are $\pm1$, each with probability $\frac12$
@@ -604,7 +607,17 @@
 		- we have $\sigma^2=n$
 		- $\forall t\gt 0:P(X\geq t)=P(X\leq -t)\leq e^{-t^2/2\sigma^2}$
 	- proof
-		- …
+		- $M_{X_i}=\frac{e^{-s}+e^{s}}2$
+		- Markov inequality
+			- for $X$ nonnegative
+			- $\forall a\geq 1:P(X\geq a)\leq\frac \mu a$
+		- we use it
+			- $\forall s\gt 0:P(X\geq t)=P(e^{sX}\geq e^{st})\leq\frac{\mathbb E(e^{sX})}{e^{st}}$
+		- $\frac{\mathbb E(e^{sX})}{e^{st}}=\frac{M_{X_i}(s)^n}{e^{st}}=\frac{(\frac{e^{-s}+e^{s}}2)^n}{e^{st}}$
+		- it can be shown that $\frac{e^{-s}+e^{s}}2\leq e^{s^2/2}$
+		- therefore $P(X\geq t)\leq \frac{e^{ns^2/2}}{e^{st}}=e^{ns^2/2-st}$
+		- we set $s=t/n$
+		- then $P(X\geq t)\leq e^{-t^2/2n}$
 - Set balancing using Chernoff inequality
 	- discrepancy
 	- we have subsets $S_1,\dots,S_n\subseteq[m]$
