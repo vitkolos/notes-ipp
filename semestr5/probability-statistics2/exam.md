@@ -261,7 +261,7 @@
 - MAP (maximum a posteriori)
 	- $\hat\theta_\text{MAP}=\text{argmax}_\theta\,p_{\Theta\mid X}(\theta\mid x)$
 		- $\hat\theta$ is a point estimate for $\Theta$
-	- that equals $\text{argmax}\,p_\Theta(\hat\theta)\cdot p_{X\mid\Theta}(x\mid\theta)$
+	- that equals $\text{argmax}\,p_\Theta(\theta)\cdot p_{X\mid\Theta}(x\mid\theta)$
 		- we can ignore the normalizing constant
 	- we are replacing the random variable by its mode
 	- node: maximum likelihood is similar but it uses $\text{argmax}\,p_{X\mid\Theta}(x\mid\theta)$
