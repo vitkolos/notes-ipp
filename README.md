@@ -34,7 +34,7 @@
 - [Úvod do strojového učení (zkouška)](semestr5/uvod-do-strojoveho-uceni/zkouska.md)
 - [Data Compression Algorithms (exam)](semestr5/data-compression-algorithms/exam.md)
 - [Algoritmická teorie her (zkouška)](semestr5/algoritmicka-teorie-her/zkouska.md)
-- [Probability and Statistics 2 (exam), work in progress](semestr5/probability-statistics2/exam.md)
+- [Probability and Statistics 2 (exam)](semestr5/probability-statistics2/exam.md)
 
 ## Nepřehledně zpracované předměty
 
