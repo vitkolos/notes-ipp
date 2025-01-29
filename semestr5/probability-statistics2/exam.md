@@ -440,7 +440,8 @@
 		- $T_k=L_1+\dots+L_k$
 		- by linearity $\mathbb E[T_k]=\frac kp$
 		- $T_k$ has Pascal distribution of order $k$
-		- $P(T_k=t)=\begin{cases}{t-1\choose k-1}p^{k}(1-p)^{t-k} & \text{for }t\geq k\\ 0& \text{otherwise}\end{cases}$
+		- $\forall t\geq k:P(T_k=t)={t-1\choose k-1}p^{k}(1-p)^{t-k}$
+		- $\forall t\lt k:P(T_k=t)=0$
 - Alternative description of a Bernoulli process
 	- we can describe the situation by the interarrival times
 	- i.i.d. random variables $L_1,L_2,\ldots\sim\text{Geom}(p)$
