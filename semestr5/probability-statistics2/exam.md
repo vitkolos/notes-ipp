@@ -401,8 +401,8 @@
 		- Poisson case
 			- $P(X_i\lt M)\leq 1-P(X_i=M)=1-e^{-\lambda}\frac{\lambda^M}{M!}=1-\frac1{eM!}$
 				- $\lambda=\frac mn=1$
-			- $P(\max X_i\lt M)=P(X_1\lt M)\cdot\ldots\cdot P(X_n\lt M)\leq(1-\frac1{eM!})^n$
-				- $\leq(e^{-\frac1{eM!}})^n=\text{exp}(-\frac n{eM!})=:p$
+			- $P(\max X_i\lt M)=P(X_1\lt M)\cdot\ldots\cdot P(X_n\lt M)$
+				- $\leq(1-\frac1{eM!})^n\leq(e^{-\frac1{eM!}})^n=\text{exp}(-\frac n{eM!})=:p$
 		- exact case
 			- $P(\max X_i\lt M)\leq p\cdot e\sqrt{m}=e\sqrt n\cdot \text{exp}(-\frac n{eM!})$
 			- we want $e\sqrt n\cdot \text{exp}(-\frac n{eM!})\lt^?\frac1n$
@@ -629,14 +629,20 @@
 		- we set $s=t/n$
 		- then $P(X\geq t)\leq e^{-t^2/2n}$
 - Set balancing using Chernoff inequality
-	- discrepancy
 	- we have subsets $S_1,\dots,S_n\subseteq[m]$
+		- if may be features like “men”, “old people”, …
 	- we want $T\subseteq[m]$ such that it almost dissects every $S_i$
+		- to get two groups with the same (or similar) representation of every feature
 	- $D_i=|T\cap S_i|-|S_i\setminus T|$
 	- $\text{disc}(T)=\max D_i$
+		- discrepancy
 	- use random $T$!
+	- $\forall a_j\in S_i$ we define “indicators”
+		- $X_j=1\iff a_j\in T$
+		- $X_j=-1\iff a_j\notin T$
 	- $D_i=\sum_{j=1}^{|S_i|}X_j$
-	- $\forall a_j\in S_i:X_j$ indicator ($X_j=1\iff a_j\in T$)
-	- $P(D_i\geq t)\leq e^{-\frac{t^2}{2|S_i|}}$
-	- …
+	- $P(D_i\geq t)\leq e^{-\frac{t^2}{2|S_i|}}\leq e^{-\frac{t^2}{2m}}$
+	- $P(|D_i|\geq t)\leq 2e^{-t^2/2m}$
+	- $P(\exists j:|D_j|\geq t)\leq n\cdot 2e^{-t^2/2m}\leq \frac2n$
+		- for $t=\sqrt{4m\log n}$
 	- idea: it is useful to have an inequality (Chernoff) that holds always, we don't need to worry if our $n$ is big enough
