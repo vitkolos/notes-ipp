@@ -110,7 +110,7 @@
 			- there exists a unique stationary distribution $\pi$ such that $\pi P=\pi$
 			- $\forall ij:\lim(P^t)_{ij}=\pi_j$
 				- $P(X_t=j\mid X_0=i)\doteq\pi_j$
-		- actually, MC does not have to be finite, it suffices if all states are positive recurrent (?)
+		- actually, MC does not have to be finite, it suffices if all states are positive recurrent
 	- to find $\pi$, solve system of linear equations $\pi P=\pi$, add $\sum_{i\in S}\pi_i=1$
 		- for every $i$ there should be equation $\pi_i=\sum_j p_{ji}\cdot \pi_j$ (there is a term for every *incoming* arc)
 	- $\pi$ describes long-term behavior of the MC
