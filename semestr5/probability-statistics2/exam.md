@@ -313,7 +313,7 @@
 - Law of iterated expectation
 	- $\mathbb E(\mathbb E(Y\mid X))=\mathbb E(Y)$
 	- proof
-		- $\mathbb E(E(Y\mid X))=\mathbb E(g(X))=\sum_x P(X=x)\cdot g(x)$
+		- $\mathbb E(\mathbb E(Y\mid X))=\mathbb E(g(X))=\sum_x P(X=x)\cdot g(x)$
 			- by LOTUS
 		- $\mathbb E(Y)=\sum_x P(X=x)\cdot\mathbb E(Y\mid X=x)=\sum_x P(X=x)\cdot g(x)$
 			- by law of total probability
