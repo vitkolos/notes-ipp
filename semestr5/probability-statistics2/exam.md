@@ -165,6 +165,14 @@
 			- $\mu_1=2n-1$
 			- $\mu_n=n^2$
 			- $\mu_{i}\leq n^2$
+		- how to compute it
+			- we start from the bottom up by combining the two last equations
+				- we get $\mu_{n-1}=3+\mu_{n-2}$
+			- then we get $\mu_{n-2}=5+\mu_{n-3}$
+			- it can be shown that we can get to $\mu_1=2n-1+\mu_{0}=2n-1$
+			- we see that $\mu_2=2n-3+\mu_1$
+			- we can substitute $\mu_1$
+			- when we get back to the bottom, we have $\mu_n=1+3+5+\dots+(2n-1)=n^2$
 - 2-SAT problem
 	- input: $\varphi=(x_1\lor x_2)\land(x_3\lor\neg x_1)\land\ldots$
 		- clauses with exactly 2 literals
