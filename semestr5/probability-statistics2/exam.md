@@ -489,6 +489,7 @@
 		- $T$ … test statistic
 		- example: $T=\bar A-\bar B$
 	- $\mathcal F=\set{T(\pi(A\cup B))\mid \pi\in S_{m+n}}$
+		- usually the sizes of the groups stay the same: we use $T(\text{first }|A|\text{ elements of }\pi(A\cup B),\,\text{rest of }\pi(A\cup B))$
 	- p-value: percentage of $\mathcal F$ more extreme than observed $T(A,B)$
 	- speed-up … we use only $k$ random samples from $S_{m+n}$
 	- for paired test, we only permute $X_i$ with $Y_i$
