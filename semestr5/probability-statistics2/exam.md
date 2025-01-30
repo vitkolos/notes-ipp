@@ -370,6 +370,8 @@
 - How many balls are in bin $i$?
 	- $X_i\sim \text{Bin}(m,\frac 1n)\approx\text{Pois}(\frac mn)$
 	- $\mathbb EX_i=\frac mn$
+- Applications – bucket sort and hasing
+	- (see the lecture)
 - Max-load likely upper bound
 	- definition: max-load … $\max\set{X_1,\dots,X_n}$
 		- we assume $m=n$ in max-load bounds
