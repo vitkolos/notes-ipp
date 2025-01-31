@@ -17,10 +17,12 @@
 - morfologie studuje vnitřní strukturu slov
 	- lexikologie – slova se studují jako jednotky slovní zásoby
 	- lexikografie – sestavování slovníků
----
 - morfém – nejmenší znaková jednotka jazyka nesoucí význam
 	- lexikální morfém – nese význam slova jako takového
 	- gramatický morfém – určuje gramatickou roli slovního tvaru
+	- příklad: „zahradou“
+		- „zahrad“ je lexikální morfém
+		- „ou“ je gramatický morfém
 - další pojmy
 	- morfologie studuje skloňování a časování
 	- tvaroslovné dublety – odlišné slovní tvary mající stejnou gramatickou funkci (na hradě / o hradu, o balíčcích/balíčkách apod.)
@@ -29,29 +31,60 @@
 	- autosémantická (plnovýznamová) slova
 	- synsémantická (pomocná) slova
 - morfologická typologie jazyků
-	- přílkad: vyjádření množného čísla – nulový rozdíl, funkční slovo, afixace, zvukový rozdíl, reduplikace
+	- přílkad: vyjádření množného čísla
+		- nulový rozdíl – např. sheep
+		- funkční slovo – označuje plurál
+		- afixace – např. koncové -s (obecně předpona/přípona)
+		- zvukový rozdíl – např. man × men
+		- reduplikace – zdvojení slova
 	- jazyky
 		- analytické – slovo = morfém
-			- izolační jazyky
+			- izolační jazyky – vietnamština, čínština
 		- syntetické – slovo > morfém
-			- flektivní jazyky (skloňování, časování, hodně tvarů ke každému základu)
+			- flektivní jazyky (skloňování, časování, hodně tvarů ke každému základu) – latina, stará řečtina, slovanské jazyky
 				- introflexe – změny probíhají v kořeni
-			- aglutinační jazyky (lepí se k sobě morfémy)
+			- aglutinační jazyky (lepí se k sobě morfémy) – maďarština, japonština
 		- polysyntetické – slovo = věta
+			- inuitské a indiánské jazyky
+	- žádný moderní jazyk ale obvykle nemá výhradně čisté vlastnosti jednoho z těchto typů – jazyky se navzájem ovlivňují, tak vznikají výjimky
 - přístupy ke zpracování morfologie
-	- morfologie založená na morfémech – vidí slovo jako řetízek morfémů, jako korálky na niti
-	- morfologie založená na lexémech – vidí slovo jako výsledek aplikace pravidel, která slovo mění a tím vytváří nový slovní tvar
-	- morfologie založená na slovech – centrální roli mají vzory
-		- ze základního tvaru a vzoru (k němuž slovo patří) umíme vygenerovat všechny tvary slova
+	- morfologie založená na morfémech
+		- slovo = řetízek morfémů, jako korálky na niti
+		- to odpovídá aglutinačním jazykům
+	- morfologie založená na lexémech 
+		- slovo = výsledek aplikace pravidel, která slovo mění a tím vytváří nový slovní tvar
+		- viz Two-Level Morphology
+	- morfologie založená na slovech (vzorech)
+		- centrální roli mají vzory
+		- ze základního tvaru slova a vzoru, k němuž slovo patří, umíme vygenerovat všechny tvary
 - Two-Level Morphology
 	- první obecný model zpracování morfologie přirozeného jazyka
 	- založen na konečných automatech
-	- tradiční počítačové zpracování morfologie se orientovalo na generování tvarů slov ze základního tvaru – nebralo v úvahu, že opačný směr (analýza) může být víceznačný
+	- pro každý jazyk bylo nutné vytvořit slovník a pravidla, mechanismus morfologie byl společný
+	- tradiční počítačové zpracování morfologie (do té doby) se orientovalo na generování tvarů slov ze základního tvaru
+		- nebralo v úvahu, že opačný směr (analýza) může být víceznačný
+		- uplatnění pravidel bývalo sekvenční
 	- 2 úrovně – lexikální a povrchová
 	- základní myšlenky
 		- pravidla se aplikují paralelně, ne sekvenčně
 		- podmínky se mohou vztahovat k jedné nebo oběma úrovním
-		- lexikální vyhledávání (trie) a morfologická analýza probíhají současně
+		- lexikální vyhledávání (pomocí trie) a morfologická analýza probíhají současně
+- morfologie založená na vzorech
+	- potřebujeme slovník kmenů slov (s informacemi o jejich vzoru) a seznam koncovek, které u sebe mají seznam vzorů, rodů, čísel a pádů/osob
+	- algoritmus
+		- v textu se vyskytl slovní tvar „kačena“
+		- odtrhneme všechny možné koncovky → „kačen“, „kače“, „kač“
+		- kmen „kačen“ je ve slovníku s informací, že je to podstatné jméno vzoru žena
+		- ze seznamu u příslušné koncovky vybereme čísla a pády uvedené pro vzor žena
+		- výsledkem je Kačena(podstatné jméno, rod ženský, 1. pád čísla jednotného)
+	- poznámky
+		- výsledek morfologické analýzy bývá víceznačný
+		- neřešíme zde změny uvnitř kmene, o ty je třeba algoritmus obohatit
+- morfologické značky (part of speech tags)
+	- něco jako slovní druhy
+	- v kontextu angličtiny to stačí pro identifikaci všech morfologických vlastností slovního tvaru
+		- je to spíše izolační jazyk
+---
 - česká morfologie
 	- vyvíjena od roku 1989 zejména profesorem Hajičem
 	- využívá poziční značky, každá pozice má svůj jednoznačný význam
