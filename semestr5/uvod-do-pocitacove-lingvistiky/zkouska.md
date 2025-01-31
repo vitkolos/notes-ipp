@@ -1,0 +1,418 @@
+# Zkouška
+
+## Úvod
+
+- počítačová lingvistika vs. zpracování přirozeného jazyka
+	- počítačová lingvistika – formální popis vlastností/fungování přirozených jazyků a jejich automatické zpracování
+	- počítačové zpracování přirozeného jazyka – aplikace metod strojového učení na jazyková data
+- oblasti počítačové lingvistiky: morfologie (tvarosloví), syntaxe (skladba), sémantika (význam), formalismy (syntaktické), korpusová lingvistika, strojový překlad, rozpoznávání/generování mluvené řeči, vyhledávání informací v textu, dialogové systémy
+
+## Morfologie
+
+- historie
+	- indický lingvista Pānini ve 4. století př.n.l. formuloval pravidla morfologie sanskrtu
+		- bylo to blízké složkové gramatice
+		- jeden ze zakladatelů moderní lingvisitky, Ferdinand de Saussure, byl profesorem sanskrtu
+	- morfologií se zabývala i řecko-římská gramatická tradice, protože stará řečtina a latina jsou flektivní jazyky
+- morfologie studuje vnitřní strukturu slov
+	- lexikologie – slova se studují jako jednotky slovní zásoby
+	- lexikografie – sestavování slovníků
+---
+- morfém – nejmenší znaková jednotka jazyka nesoucí význam
+	- lexikální morfém – nese význam slova jako takového
+	- gramatický morfém – určuje gramatickou roli slovního tvaru
+- další pojmy
+	- morfologie studuje skloňování a časování
+	- tvaroslovné dublety – odlišné slovní tvary mající stejnou gramatickou funkci (na hradě / o hradu, o balíčcích/balíčkách apod.)
+	- homonymní tvary – stejné slovní tvary odvozené od různých slovních základů (žena, tři, hnát, stát, už apod.)
+	- alternace – změna hlásek uvnitř kmene (vůz – vozu, švec – ševce, prkno – prken)
+	- autosémantická (plnovýznamová) slova
+	- synsémantická (pomocná) slova
+- morfologická typologie jazyků
+	- přílkad: vyjádření množného čísla – nulový rozdíl, funkční slovo, afixace, zvukový rozdíl, reduplikace
+	- jazyky
+		- analytické – slovo = morfém
+			- izolační jazyky
+		- syntetické – slovo > morfém
+			- flektivní jazyky (skloňování, časování, hodně tvarů ke každému základu)
+				- introflexe – změny probíhají v kořeni
+			- aglutinační jazyky (lepí se k sobě morfémy)
+		- polysyntetické – slovo = věta
+- přístupy ke zpracování morfologie
+	- morfologie založená na morfémech – vidí slovo jako řetízek morfémů, jako korálky na niti
+	- morfologie založená na lexémech – vidí slovo jako výsledek aplikace pravidel, která slovo mění a tím vytváří nový slovní tvar
+	- morfologie založená na slovech – centrální roli mají vzory
+		- ze základního tvaru a vzoru (k němuž slovo patří) umíme vygenerovat všechny tvary slova
+- Two-Level Morphology
+	- první obecný model zpracování morfologie přirozeného jazyka
+	- založen na konečných automatech
+	- tradiční počítačové zpracování morfologie se orientovalo na generování tvarů slov ze základního tvaru – nebralo v úvahu, že opačný směr (analýza) může být víceznačný
+	- 2 úrovně – lexikální a povrchová
+	- základní myšlenky
+		- pravidla se aplikují paralelně, ne sekvenčně
+		- podmínky se mohou vztahovat k jedné nebo oběma úrovním
+		- lexikální vyhledávání (trie) a morfologická analýza probíhají současně
+- česká morfologie
+	- vyvíjena od roku 1989 zejména profesorem Hajičem
+	- využívá poziční značky, každá pozice má svůj jednoznačný význam
+	- značky jsou 15místné, rozeznává se pouze 13 kategorií
+	- lemma – jednoznačný identifikátor slova
+- činnosti využívající morfologii
+	- morfologická analýza – na vstupu slovní tvar, na výstupu seznam všech lemmat a značek, které jsou pravděpodobné
+	- morfologické značkování (tagging) – proces výběru správné značky v daném kontextu (statistické metody)
+	- částečná morfologická desambiguace založená na pravidlech (Olive, Petkevič) – pomocí spolehlivých pravidel redukuje počet značek
+	- lemmatizace – na vstupu slovní tvar, na výstupu lemma
+	- stemming – odříznutí koncovky (na vstupu slovní tvar, na výstupu kmen slova)
+	- generování – výběr správného slovního tvaru na základě lemmatu a kombinace gramatických kategorií
+- ^^ doplnit
+- značkování bere v úvahu kontext přibližně tří slov
+- v češtině je více značek než v angličtině (v angličtině do stovky, v češtině kolem tisíce)
+- skryté Markovovy modely (HMM)
+	- standardní metoda analýzy řad (poslopuností událostí v čase) na základě kontextu
+	- posloupnost rozhodnutí, která jsou na sobě závislá
+	- …
+- HMM se skládají z následujících komponent
+	- množina N stavů
+	- matice přechodových pravděpodobností (pravděpodobnost přechodu z jednoho stavu do druhého)
+	- posloupnost pravděpodobností pozorování (pravděpodobnost nějakého pozorování v konkrétním stavu)
+	- počáteční distribuce pravděpodobností nad stavy
+- tři základní úlohy s HMM
+	- …
+- měření úspěšnosti
+	- precision
+	- recall
+	- F-measure (míra F)
+- kontrola překlepů
+	- porovnávání řetězců se slovy ve slovníků
+	- srovnávání skupin znaků, hledání nedovolených kombinací
+- metody strojového učení berou v úvahu kontext
+- komerční řešení
+	- k omezení množství nabízených tvarů se používá Levenštejnova vzdálenost
+	- upřednostňuje se přesnost (nenalezené chyby autor nevidí :)) a rychlost
+	- uživatel nechce být rušen – kontrola se provádí na pozadí, nemusí se ručně pouštět
+	- uživatelsky definované slovníky nemají morfologii :(
+- kontextové metody kontroly překlepů
+	- některé chyby nelze odhalit jen pomocí slovníku – weather/whether, there/their apod.
+	- spell checkery využívající kontext obvykle používají statistické metody nebo strojové učení
+	- záměnná množina (confusion set) – množina tvarů, u nichž může snadno dojít k záměně
+- příklady využití pravidelnosti české morfologie
+	- systém ASIMUT
+		- vyhledává klíčová slova v rozsáhlé množině textů
+		- nemá kompletní slovník českých lemmat
+		- aby mohl vyhledávat vyskloňované tvary klíčových slov, využívá pozorování, že mnoho slov, která mají v základním tvaru stejný koncový segment, se stejně skloňuje
+		- má také slovník výjimek
+		- řeší rovněž různé varianty kmenů
+		- má 31 vzorů podstatných a přídavných jmen
+		- slova, která končí na „ý“ a nejsou to přídavná jména podle vzoru mladý
+			- úterý
+			- prý
+			- čehý
+		- někdy nám nepomůže libovolně dlouhý koncový segment – trávník × právník
+		- negativní slovník
+			- slova, která nás nezajímají
+			- typicky spojky, částice
+	- systém MOZAIKA
+		- indexace dokumentů
+		- není nutné vytvářet slovníky odborných termínů, vystačí si s množinou relevantních přípon a koncovek + pravidly a negativním slovníkem
+		- přiděluje váhy výskytům slov
+		- neřeší ale třeba to, že ve větách může být nějaké slovo přítomno jako nevyjádřený podmět
+
+## Syntaxe
+
+- používají se dva hlavní datové typy – závislostní strom a složkový strom
+- závislostní strom
+	- přibližně to, co se učí ve škole (akorát klíčové je sloveso, pod něj se všechno napojuje)
+- anglosaská tradice používá trochu jiný strom než ta naše, která se učí ve škole
+	- složkový strom
+- věta se dělí na jmennou a slovesnou část
+- závislostní stromy se lépe používají
+- závislostní strom je pětice $T=\braket{N,E,Q,WO,L}$
+	- $(N,E)$ … orientovaný graf
+	- $Q$ … gramatické kategorie (popisky uzlů)
+	- $WO\subseteq N\times N$ … silné úplné uspořádání (určuje požádek slov)
+	- $L:N\to Q$ … ohodnocovací funkce
+- závislostní strom vytvořený podle této definice má přesně tolik uzlů, kolik je prvků (tokenů) ve větě (slova, interpunkční znaménka)
+	- strom nedává informace o postupu vytváření
+- složkový strom
+	- složka (constituent) = skupina slov, která fungují společně a tvoří jednu syntaktickou jednotku
+	- složku můžeme ve větě rozpoznat například pomocí nahrazovacího testu
+		- Studenti potkali **své přátele** po vyučování.
+		- Studenti **je** potkali po vyučování.
+	- nebo testem přesunem
+		- Jane bought a hat from that strange little shop.
+		- \*From that strange Jane bought a hat little shop.
+	- v češtině se dá často pořadí slov měnit
+		- ale existuje [Wackernagelův zákon](https://cs.wikipedia.org/wiki/Wackernagel%C5%AFv_z%C3%A1kon)
+- závislostní strom
+	- zachycuje vztahy mezi větnými členy
+	- nedává návod, jak strom získat
+	- ne všechny vztahy ve větě jsou přirozeně popsatelné jako závislost, není vždy jasné, co na čem závisí
+		- třeba u souřadného spojení „Petr a Pavel“ (tzv. koordinace) si musíme vybrat, kdo bude nadřazený
+		- slovo „Petr“ reprezentuje celou skupinu, je v čísle jednotném, ale skupina je v čísle množném
+		- asi by nejlépe fungovalo, kdybychom přidali speciální uzel za koordinaci
+		- podobně problematické jsou předložky – není jasné, jestli mají být nad nebo pod jménem
+- složkový strom
+	- odpovídá derivačnímu stromu bezkontextové gramatiky
+	- je méně přehledný, mnohdy obsahuje mnoho nadbytečných uzlů
+	- přirozené jazyky nebývají bezkontextové
+- neprojektivní konstrukce
+	- příklady
+		- Soubor se nepodařilo otevřít.
+		- Vánoeční nadešel čas.
+		- Které děvčata chtěla dostat ovoce?
+		- Tuto knihu jsem se mu rozhodl dát k narozeninám.
+		- Proti odvolání se zítra Petr v práci nakonec důrazně rozhodl protestovat.
+	- větu nelze rozdělit do složkového stromu – vertikály z uzlů protínají hrany
+	- některá slovesa mají povinné vazby
+	- jakmile jsou ve větě dlouhé neprojektivní vazby nad rámec těch povinných, můžou být nejednoznačné
+	- definice: pokrytí uzlu, díry
+- nástroje pro syntaktickou analýzu
+	- Q-systémy
+		- kompletní gramatika se může skládat z více Q-systémů, které na sebe navazují
+		- provádí se linearizace stromu
+		- pravidla mají omezený počet proměnných
+		- …
+		- závislostní gramatika
+- gramatické formalismy
+	- předchůdci transformační gramatiky
+		- deskriptivismus
+			- cestování po indiánských rezervacích
+		- analytická syntax
+		- logický přístup
+	- transformační gramatika
+		- povrchová a hloubková syntaktická struktura
+		- třeba bychom chtěli větu pasivní snadno převést na aktivní
+			- nebo tázací, rozkazovací apod.
+			- tedy jak z jedné hloubkové syntaktické struktury odvozovat různé povrchové
+		- 3 základní komponenty transformační gramatiky
+			- báze
+				- soubor bezkontextových pravidel, která generují složkové stromy, tzv. frázové ukazatele
+			- transformační komponenta
+				- transformační pravidla operující na celých frázových ukazatelích, dělí se na obligatorní a fakultativní
+			- …
+		- vývoj transformační gramatiky
+	- tree adjoining grammars
+		- substituce stromečků
+	- kategoriální gramatiky
+		- slova vyžadují určité konstrukce
+		- v kategoriálních gramatikách je všechny podstatné gramatické informace obsaženy ve slovníku
+		- čekali bychom, že gramatika bude popisovat třídy slov – ne jednotlivá slova
+			- pokud tyhle informace přesuneme do slovníku přímo ke slovům, bude jich strašně moc
+		- kombinatorická kategoriální gramatika
+			- pravidlo se dá vyjádřit jednou pro všechny jeho permutace
+	- unifikační gramatiky
+		- objekt je popsán tzv. sestavou rysů (feature structure)
+		- unifikace = spojování dvou sestav rysů popisujících stejný objekt
+		- hodnotou vlastnosti může být i sestava rysů nebo proměnná
+		- proměnná nám vynutí, aby se další unifikací dva rysy nemohly lišit
+- valence
+	- nejen u sloves
+	- dva základní druhy závislých členů
+		- aktanty – každý může být ve větě pouze jednou
+			- konatel
+			- patient
+			- adresát
+			- origo
+			- efekt
+		- volná doplnění – může jich být více (typicky příslovečná určení)
+	- Petr (k.) předělal Pavlovi (a.) loutku (p.) z kašpárka (o.) na čerta (e.).
+	- tektogramatická rovina × povrchová rovina
+	- obligatorní a fakultativní závislé členy
+	- typické sloveso může mít více valencí
+	- valenční rámec – seznam aktantů (obligatorních i fakultativních) a obligatorních volných doplnění
+	- dialogový test – pokud na doplňující otázku nelze odpovědět „nevím“, jedná se o obligatorní aktant
+	- valenční slovník češtiny (Vallex) a angličtiny (EngVallex)
+- kontrola gramatické správnosti
+	- Sportovci věnovali plyšáka.
+	- Co si kdo kam donesl? Tatínek šli do práce.
+	- problémy specifické pro češtinu
+		- gramatická shoda (zejména podmětu s přísudkem)
+		- interpunkce
+		- neprojektivní konstrukce
+		- zájmena (mě/mně)
+	- v korpusech jsou pozitivní příklady
+		- chybí nám negativní daty
+		- to, že v korpusu žádná věta nemá dva podměty, ještě neznamená, že je to špatně
+	- metoda redukční analýzy
+		- z věty postupně vyhazujeme závislá slova
+		- izolujeme chybnou konstrukci (např. podmět a přísudek, pokud se neshodují)
+		- po redukční analýze nám zůstane minimální chybová konfigurace
+	- homonymie je problematická
+	- RFODG
+		- robust free-order dependency grammar
+		- jedno pravidlo gramatiky může popisovat správnou i chybnou konstrukci zároveň
+		- výpočet probíhá ve fázích, interpret gramatiky rozhoduje, jak se bude stejné gramatické pravidlo používat
+		- tvrdé a měkké podmínky
+		- 3 fáze
+			- pozitivní projektivní
+				- všechny měkké podmínky chápu jako tvrdé
+				- když to vyjde, tak vím, že je věta dobře
+			- negativní projektivní nebo pozitivní neprojektivní
+				- buď je ve větě chyba, nebo neprojektivní konstrukce
+			- negativní neprojektivní
+		- jakmile nenajdu správnou variantu a hledám chybu, začíná to být náročné, variant je mnoho
+	- LanGR
+		- nástroj pro desambiguaci české morfologie
+
+## Korpusová lingvistika
+
+- studium jazyka
+	- studium struktury – to jsme řešili doposud
+	- studium užití – jak mluvčí (a pisatelé) jazyk používají?
+- jazykový korpus
+	- sbírka textů, vzorek jazyka
+- v Česku až v 90. letech byla dostatečná technika pro sběr a zpracování takového množství dat
+- charakteristika moderních korpusů
+	- výběr vzorků a reprezentativnost – snaha o vyváženost (jazyk je nekonečný, korpus je konečný)
+	- konečná velikost – korpusy mají obvykle pevnou velikost, která umožňuje kvantitativní výzkum, výjimkou jsou monitorovací korpusy, kam jsou data stále přidávána
+	- strojově čitelná forma
+	- standardní reference – korpus splňuje standardy, aby byl široce použitelný
+- typy korpusů
+	- psaný × mluvený jazyk
+	- typy značek – morfologické (POS) značky nebo stromy a syntaktické (analytické) značky, někdy také sémantické značky
+		- rozdíl ve velikosti
+	- jednojazyčné × paralelní
+		- paralelní … jednání kanadského a evropského parlamentu
+	- obecné × doménově specifické
+	- synchronní × diachronní
+		- diachronní se snaží zachytit vývoj jazyka v čase, obvykle nebývají uzavřené
+- konzistence korpusových anotací
+	- problém konzistence morfologických nebo syntaktických značek
+	- na anotaci korpusů se podílí spousta lidí
+	- některé složité jevy se těžko anotují, je potřeba, aby se anotátoři dohodli, jak je budou anotovat
+	- metody zajištění konzistence
+		- detailní manuály
+		- pravidelná setkání anotátorů
+		- automatické metody odhalování chyb v anotaci
+		- měření shody mezi anotátory (IAA, Inter-Annotator Agreement)
+			- Cohenovo $\kappa$
+- Brown korpus
+	- náhodně vybírané texty, aby byl dostatečně reprezentativní
+	- milion slov
+- Penn Treebank
+	- články z Wall Street Journal
+	- milion slov
+	- existuje překlad do češtiny
+	- složkové stromy
+- Český národní korpus
+	- UK, MUNI, ÚJČ AV ČR
+	- morfologické značky
+	- v současné době téměř 5 miliard slov
+	- první SYN2000
+	- zatím poslední SYN2020
+	- největší je SYN2013PUB
+		- 935 milionů slov publicistických textů z let 2005–2009
+- Pražský závislostní korpus (PDT)
+	- propracované anotační schéma aplikovatelné na jazyky různých typů
+	- data jsou malou podmnožinou ČNK
+	- 100 000 vět, 1,25 milionu běžných slov
+	- úrovně anotace
+		- morfologie
+		- analytická rovina (povrchově syntaktická)
+		- tektogramatická rovina (4 podroviny)
+- postupně se ukázalo, že závislostní stromy jsou užitečnější → dnes jsou výrazně častěji zastoupeny
+- Prague Arabic Dependency Treebank
+- iniciativa Universal Dependencies
+	- snaha o vybudování jednotného značkování
+	- aby se stejné jevy v morfologii anotovaly stejně
+	- díky této komunitě se závislostní stromy staly standardem
+
+## Strojový překlad
+
+- proč je to tak těžké?
+	- slovník
+	- morfologie
+	- syntax
+	- ustálená spojení
+	- kulturní kontext
+- prehistorie
+- trojúhelník strojového překladu
+- první generace
+	- dvojjazyčný slovník – nestačí
+	- předpony, kmeny, přípony – moc nefunguje (viz němčina → čeština)
+	- preediting – nic moc
+	- postediting – používá/používal se např. v EU
+	- použití pivotního jazyka (např. angličtiny)
+	- první úspěch
+		- Georgetownský experiment
+		- velké zjednodušení problému (omezení domény a používaných jazykových prostředků)
+		- padesátá léta, ruština → angličtina
+- první úspěšný komerční systém
+	- TAUM METEO (1976)
+	- překlad meteorologických zpráv z angličtiny do francouzštiny
+	- podobná situace jako s Georgetownským experimentem
+	- používal Q-systémy
+- strojem podporovaný překlad
+	- překladová paměť
+- české experimenty
+	- RUSLAN
+		- překlad manuálů k operačním systémům sálových počítačů
+		- manuály byly potřeba v češtině a v němčině, ale musely být také v ruštině (ty nikdo nečetl)
+		- původně 1 věta za 4 minuty, později třeba i za 20 sekund
+			- stačilo počkat 10 let na výkonnější počítače
+			- nejvíc času nyní zabírá ukládání do souborů (Q-systémy mezi fázemi používají textové soubory k ukládání mezivýsledků)
+		- transdukční slovník (algoritmus)
+			- některá (zvláště technická) slova založená na řeckém nebo latinském základu se dají přeložit jenom přepsáním koncového úseku
+			- překvapivě transdukční slovníky pro překlad angličtina → čeština a ruština → čeština vypadají hodně podobně (mají podobnou množinu slov)
+		- valenční rámce sloves jsou v ruštině podobné jako v češtině
+		- idea: určit, zda se sloveso váže s životnými nebo neživotnými jmény
+			- to nefungovalo, lingvisté si neuměli představit použití (např. program může běžet)
+	- systém Česílko
+		- lokalizace SAPu (a manuálů)
+		- nejdřív kvalitní ruční překlad do češtiny, pak automatizovaný překlad do dalších jazyků (např. slovenštiny)
+		- ukázalo se, že…
+			- pro dobrý překlad mezi češtinou a slovenštinou nestačí transdukční slovník
+			- české „jarní“, slovenské „jarný/jarná/jarné“
+		- překladatelé používali systémy asistovaného překladu s překladovou pamětí
+			- dalo se do ní něco přidávat
+			- idea: překladatel z němčiny do polštiny při překladu nové věty uvidí (polskou) nabídku, kterou vygeneroval počítač automaticky na základě české verze věty
+		- zajímavý syntaktický rozdíl
+			- bude-li (…) → ak (…) bude
+		- překvapivě překlad do polštiny byl méně kvalitní než do litevštiny (větný pořádek je v polštině jiný než v češtině)
+- PC Translator 2003 – asi nejlepší český komerční systém
+	- dlouho byl lepší než Google Translate
+- statistický překlad
+	- pravděpodobnost vs. relativní četnost
+	- in (angličtina) → dans, à, de (francouzština)
+	- hlavní úkol: předpovědět následující slovo v běžném textu
+		- nemůžeme používat celou historii, praktičtější je používat poslední tři slova (3-gramy)
+		- problémem je velikost dat – trojrozměrná matice pro slovník se 40k slovy by byla z většiny prázdná (taková matice by měla $6{,}4\cdot 10^{13}$ buněk, ale trénovací data mají obvykle stamiliony slov, tedy $10^8$)
+			- místo nul tam musíme dát hodně malá čísla, aby se nám to pronásobením nevynulovalo
+			- akorát pak nemůžeme rozlišovat kombinace, které opravdu neexistují
+	- jak to funguje u překladu?
+		- idea: použijeme paralelní korpus jako trénovací data
+	- metoda zašuměného kanálu
+		- model budujeme v opačném směru
+		- umíme posuzovat výsledky překladového modelu („jak je věta hezká?“)
+- evaluace systémů automatického překladu
+	- neexistuje nic jako jediný správný překlad
+	- metrika BLEU
+		- porovnáváme dvě verze systému – dva možné překlady
+		- máme k dispozici tři referenční lidské překlady
+		- stačí, když se kandidátský překlad shoduje s aspoň jedním referenčním
+		- n-gramové přesnosti
+		- penalizace za stručnost (n-gramová přesnost má tendenci zvýhodňovat krátké věty)
+		- v češtině by to nefungovalo moc dobře, různé tvary téhož slova by se vyhodnotily jako různá slova
+			- také by byl problém s volným slovosledem – rozbily by se n-gramy
+		- podmínky, kdy metrika funguje
+			- porovnává různé verze stejného systému (ne různé systémy)
+			- více referenčních překladů
+			- velké množství testovacích vět
+			- taky nedává smysl takto porovnávat různé jazyky
+	- možné vylepšení: pracovat se slovníkem synonym (ale pak už systém nebude tak jednoduchý)
+
+## Sémantika
+
+- lexikální význam – jeden z významů daného slova (např. koruna – královská koruna)
+- reference – vztah mezi objekty, kde jeden odkazuje na jiný (např. zájmeno na podstatné jméno)
+- tematické role
+- …
+- význam × pravdivost tvrzení
+	- i nepravdivá tvrzení mají význam
+	- někdy nelze ověřit pravdivost
+- jak reprezentovat význam slov? pomocí sémantické sítě!
+	- WordNet
+	- EuroWordNet
+- anafora
+	- pozor, anafora se používá i jako nadřazený pojem ke katafoře
+- zásoba sdílených znalostí
