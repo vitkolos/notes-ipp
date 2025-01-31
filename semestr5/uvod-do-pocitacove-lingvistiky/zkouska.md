@@ -99,30 +99,57 @@
 		- příklad: AAFP3----3N----
 			- adjective, regular, feminine, plural, dative, (no poss. gender, no poss. number, no person, no tense), superlative, negated, (no voice, reserve1, reserve2, base variant)
 	- lemma – jednoznačný identifikátor slova
-		- sloveso stát → stát-1
-		- šel → jít
----
+		- sloveso stát → lemma „stát-1“
+		- šel → lemma „jít“
 - činnosti využívající morfologii
 	- morfologická analýza – na vstupu slovní tvar, na výstupu seznam všech lemmat a značek, které jsou pravděpodobné
 	- morfologické značkování (tagging) – proces výběru správné značky v daném kontextu (statistické metody)
-	- částečná morfologická desambiguace založená na pravidlech (Olive, Petkevič) – pomocí spolehlivých pravidel redukuje počet značek
-	- lemmatizace – na vstupu slovní tvar, na výstupu lemma
-	- stemming – odříznutí koncovky (na vstupu slovní tvar, na výstupu kmen slova)
+	- lemmatizace – na vstupu slovní tvar, na výstupu lemma (důležité pro vyhledávání v textech)
+	- stemming – odříznutí koncovky (na vstupu slovní tvar, na výstupu kmen slova), populární je Porterův stemmer
 	- generování – výběr správného slovního tvaru na základě lemmatu a kombinace gramatických kategorií
-- ^^ doplnit
-- značkování bere v úvahu kontext přibližně tří slov
-- v češtině je více značek než v angličtině (v angličtině do stovky, v češtině kolem tisíce)
+- částečná morfologická desambiguace založená na pravidlech
+	- Oliva, Petkevič
+	- pomocí spolehlivých pravidel redukuje počet značek
+	- pravidla mají dvě části – popis kontextu a akce (odstranění nevhodných značek nebo potvrzení správné značky)
+	- pravidla byla tvořena ručně a testována na anotovaném korpusu, jsou na sobě nezávislá
+	- cílem bylo snížit počet variant značek, aby následné statistické značkování mělo lehčí úlohu
+	- opravdu došlo k nepatrnému zlepšení celkového výsledku
+	- v podstatě se tak potvrdilo, že statistický přístup založený na anotovaném korpusu se dokáže správně rozhodovat velmi podobně jako lingvistický expert
+	- příklad pravidla: pokud je po slově „se“ sloveso, pak „se“ nemůže být předložka, protože mezi předložkou a jejím řídícím podstatným jménem nemůže být sloveso
+- značkování (POS tagging)
+	- výběr nejpravděpodobnější morfologické značky pro daný slovní tvar
+	- neřešíme slova izolovaně, hledáme nejpravděpodobnější posloupnost značek pro celou větu
+	- použijeme MAP estimation → $\hat t_1^n=\text{argmax}_{t_1^n}\, P(w_1^n\mid t_1^n)\cdot P(t_1^n)$
+	- nutná zjednodušení
+		- pravděpodobnost výskytu slovního tvaru závisí pouze na jeho značce
+		- pravděpodobnost výskytu značky závisí pouze na předchozí značce
+	- po úpravě: $\hat t_1^n\approx\text{argmax}_{t_1^n}\, \prod_{i=1}^n P(w_i\mid t_i)\cdot P(t_i\mid t_{i-1})$
+	- obvykle značkování bere v úvahu kontext přibližně tří slov
 - skryté Markovovy modely (HMM)
-	- standardní metoda analýzy řad (poslopuností událostí v čase) na základě kontextu
+	- standardní metoda analýzy řad (posloupností událostí v čase) na základě kontextu
 	- posloupnost rozhodnutí, která jsou na sobě závislá
-	- …
+	- Markovova hypotéza – kontext je možno zkrátit na délku, která je spočitatelná (bigramy, trigramy)
+	- skryté – některé vlastnosti posloupnosti nejsou pozorovatelné (vidíme slova, nikoliv jejich morfologické značky)
+	- jedná se v podstatě o stochastický konečný automat
 - HMM se skládají z následujících komponent
 	- množina N stavů
 	- matice přechodových pravděpodobností (pravděpodobnost přechodu z jednoho stavu do druhého)
 	- posloupnost pravděpodobností pozorování (pravděpodobnost nějakého pozorování v konkrétním stavu)
 	- počáteční distribuce pravděpodobností nad stavy
 - tři základní úlohy s HMM
-	- …
+	- učení statistického modelu
+		- je dána struktura modelu (počet skrytých stavů) a trénovací množina, cílem je najít parametry modelu (pravděpodobnosti přechodů mezi stavy a pravděpodobnosti jednotlivých prvků posloupnosti)
+		- Baum–Welshův algoritmus
+	- rozpoznávání (ohodnocení) statistického modelu
+		- jsou dány parametry HMM, cílem je spočítat pravděpodobnost, že je pozorována posloupnost X
+		- dynamické programování, forward-backward algoritmus
+	- dekódování
+		- hledání nejpravděpodobnější posloupnosti skrytých stavů (pro daný statistický model a posloupnost pozorování)
+		- dynamické programování, Viterbiho algoritmus
+		- Viterbiho algoritmus
+			- v podstatě hledání nejkratší cesty v grafu
+			- ohodnocení hran grafu odpovídají pravděpodobnostem přechodu
+---
 - měření úspěšnosti
 	- precision
 	- recall
