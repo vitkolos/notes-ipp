@@ -84,12 +84,24 @@
 	- něco jako slovní druhy
 	- v kontextu angličtiny to stačí pro identifikaci všech morfologických vlastností slovního tvaru
 		- je to spíše izolační jazyk
----
+	- POS značky dělíme na dva základní typy – otevřenou a uzavřenou třídu slovních druhů
+		- otevřené slovní druhy – jejich seznam není nikdy kompletní, protože se jazyk vyvíjí
+			- podstatná jména, přídavná jména, slovesa, příslovce
+		- uzavřené slovní druhy – lze je v podstatě popsat výčtem
+			- předložky, pomocná slova, spojky, …
+	- tagset (sada používaných značek) se liší i mezi různými přístupy v rámci téhož jazyka – PennTreebank používá 45 značek, Brown Corpus jich má 87
+	- kdybychom chtěli stejně přistupovat k češtině, muselo by značek být přes tisíc
 - česká morfologie
 	- vyvíjena od roku 1989 zejména profesorem Hajičem
 	- využívá poziční značky, každá pozice má svůj jednoznačný význam
-	- značky jsou 15místné, rozeznává se pouze 13 kategorií
+	- značky jsou 15místné, rozeznává se ale pouze 13 kategorií
+		- kategorie: pos, subpos, gender, number, case, possgender, possnumber, person, tense, grade, negation, voice, var
+		- příklad: AAFP3----3N----
+			- adjective, regular, feminine, plural, dative, (no poss. gender, no poss. number, no person, no tense), superlative, negated, (no voice, reserve1, reserve2, base variant)
 	- lemma – jednoznačný identifikátor slova
+		- sloveso stát → stát-1
+		- šel → jít
+---
 - činnosti využívající morfologii
 	- morfologická analýza – na vstupu slovní tvar, na výstupu seznam všech lemmat a značek, které jsou pravděpodobné
 	- morfologické značkování (tagging) – proces výběru správné značky v daném kontextu (statistické metody)
