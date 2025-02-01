@@ -254,9 +254,6 @@
 		- přibližně to, co se učí ve škole (akorát klíčové je sloveso, pod něj se všechno napojuje)
 	- složkový strom
 		- anglosaská tradice
-
-### Závislostní strom
-
 - závislostní strom je pětice $T=\braket{N,E,Q,WO,L}$
 	- $(N,E)$ … orientovaný graf
 	- $Q$ … gramatické kategorie (popisky uzlů)
