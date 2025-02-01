@@ -149,62 +149,129 @@
 		- Viterbiho algoritmus
 			- v podstatě hledání nejkratší cesty v grafu
 			- ohodnocení hran grafu odpovídají pravděpodobnostem přechodu
----
+
+### Kontrola překlepů
+
+- základní požadavky při kontrole překlepů – je obtížné je splnit všechny najednou
+	- všechny překlepy musejí být nalezeny a opraveny
+	- musejí být přezkoušeny kontextové podmínky korigované verze
+	- slova, která systém nezná, by neměla být hlášena jako chyby
+	- systém by neměl dávat falešná chybová hlášení
+	- korektura musí být co nejvíce automatická
+	- čas zpracování musí být velmi krátký
 - měření úspěšnosti
-	- precision
-	- recall
-	- F-measure (míra F)
-- kontrola překlepů
+	- precision P = TP/(TP+FP)
+		- počet správně zachycených chyb ÷ celkový počet chybových hlášení
+	- recall R = TP/(TP+FN)
+		- počet správně zachycených chyb ÷ celkový počet chyb v textu
+	- F-measure/F-score (míra F / F skóre)
+		- F = 2PR/(P+R)
+		- $F_1=\frac{TP + TP}{TP+FP+TP+FN}$
+- kontrola překlepů – 2 základní metody
 	- porovnávání řetězců se slovy ve slovníků
+		- buď seznam všech slovních tvarů (wordlist), nebo seznam lemmat + morfologická analýza
+		- spolehlivé a jednoduché, ale pomalé a náročné na kvalitu slovníku, nerozezná to chybná slova od neznámých
 	- srovnávání skupin znaků, hledání nedovolených kombinací
-- metody strojového učení berou v úvahu kontext
+		- rychle a nezávislé na slovníku, ale velmi neúplné, jelikož spousta chybných slov se skládá z vhodných kombinací znaků
+- jak nabízet opravy
+	- chceme nabízet pouze relevantní opravy – ale ne všechny, chceme je uspořádat podle relevance a vybrat několik málo možností
+	- co lze zohlednit při nabízení oprav
+		- okolnosti vzniku chyb (blízké klávesy apod.)
+		- statistiku chyb
+		- možné pravopisné chyby (mně × mě)
+		- heuristiku na oddělení chyb a neznámých slov
+		- syntax a sémantiku
+		- kontext (lze porovnávat s korpusy apod.)
+	- lze použít Levenštejnovu vzdálenost – minimální počet elementárních editačních operací
 - komerční řešení
 	- k omezení množství nabízených tvarů se používá Levenštejnova vzdálenost
 	- upřednostňuje se přesnost (nenalezené chyby autor nevidí :)) a rychlost
 	- uživatel nechce být rušen – kontrola se provádí na pozadí, nemusí se ručně pouštět
 	- uživatelsky definované slovníky nemají morfologii :(
+	- omezená možnost dalších rozvoje – vylepšení jdou směrem k většímu uplatnění kontextu
 - kontextové metody kontroly překlepů
-	- některé chyby nelze odhalit jen pomocí slovníku – weather/whether, there/their apod.
-	- spell checkery využívající kontext obvykle používají statistické metody nebo strojové učení
-	- záměnná množina (confusion set) – množina tvarů, u nichž může snadno dojít k záměně
-- příklady využití pravidelnosti české morfologie
-	- systém ASIMUT
-		- vyhledává klíčová slova v rozsáhlé množině textů
-		- nemá kompletní slovník českých lemmat
-		- aby mohl vyhledávat vyskloňované tvary klíčových slov, využívá pozorování, že mnoho slov, která mají v základním tvaru stejný koncový segment, se stejně skloňuje
-		- má také slovník výjimek
-		- řeší rovněž různé varianty kmenů
-		- má 31 vzorů podstatných a přídavných jmen
-		- slova, která končí na „ý“ a nejsou to přídavná jména podle vzoru mladý
-			- úterý
-			- prý
-			- čehý
+	- některé chyby nelze odhalit jen pomocí slovníku – weather/whether, there/their, form/from apod.
+	- spellcheckery využívající kontext obvykle používají statistické metody nebo strojové učení
+		- kvalita výsledků je ovlivněna velikostí tréninkových dat a podobností tréninkových dat a vstupního textu
+	- příklady kontextových spellcheckerů
+		- Ghotit
+		- WinSpell
+			- používá záměnnou množinu (confusion set) – to je množina tvarů, u nichž může snadno dojít k záměně
+- systém ASIMUT
+	- „Automatická selekce informací metodou úplného textu“
+	- Králíková, Panevová
+	- vyhledává klíčová slova v rozsáhlé množině textů (sbírka zákonů, technické texty, sady návodů apod.)
+	- nemá kompletní slovník českých lemmat – využívá pravidelnost české morfologie
+	- aby mohl vyhledávat vyskloňované tvary klíčových slov, využívá pozorování, že mnoho slov, která mají v základním tvaru stejný koncový segment, se stejně skloňuje
+		- toto pozorování vychází z retrográdního slovníku dr. Slavíčkové
+		- je uplatněno v *jazykovém modulu*
+		- výjimky je možné uložit do zvláštního slovníku výjimek
+	- řeší rovněž různé varianty kmenů
+	- algoritmus
+		- porovnávají se jednotlivé znaky základního slova odzadu, dokud není možné jednoznačně určit, jak slovo skloňovat
+			- rovněž se generují alternativní kmeny (v případě změn kmenových hlásek)
+		- projde se slovník výjimek odpovídajících konkrétnímu koncovému segmentu
+		- všem slovním základům se přidají všechny pádové koncovky pro daný vzor
+	- perlička – slova, která končí na „ý“ a nejsou to přídavná jména podle vzoru mladý: úterý, prý, čehý
+	- problémy
 		- někdy nám nepomůže libovolně dlouhý koncový segment – trávník × právník
-		- negativní slovník
-			- slova, která nás nezajímají
-			- typicky spojky, částice
-	- systém MOZAIKA
-		- indexace dokumentů
+		- příliš hrubá klasifikace (31 vzorů podstatných a přídavných jmen), pádové koncovky mají varianty, je nutné je všechny vygenerovat
+		- malý rozsah retrográdního slovníku – je nutné přidávat výjimky
+		- nefunguje tak spolehlivě pro slovesa (víceznačné koncové segmenty)
+	- negativní slovník
+		- slova, která nás nezajímají
+		- typicky spojky, částice
+	- konkordance
+		- všem slovním tvarům nezařazeným do negativního slovníku byla přiřazena adresa a frekvence výskytu
+		- používá se pro urychlení hledání
+		- slova z negativního slovníku obdržela pouze adresu kvůli správnému určení vzdálenosti mezi významovými slovy v textu
+- systém Mozaika
+	- MOSAIC, Morphemic Oriented System of Automatic Indexing and Condensation
+	- indexace dokumentů
+	- řada přípon a koncovek nese význam, např. v angličtině:
+		- -er/-or … konatel děje
+		- -tion … činnost
+		- -ity/-ness … vlastnosti
+	- algoritmus
+		- na vstupu nepředzpracovaný text
+		- lematizace a morfologická analýza poskytnou lemata a morfologické značky
+		- nalezená lemata jsou profiltrována (typicky pomocí minimální délky slov nebo pomocí malého negativního slovníku, také obvykle požadujeme, aby se slova týkala dané tematické oblasti)
+		- syntaktická analýza jmenných skupin pomocí Q-systémů (některé termíny mají více slov)
+		- přiřazení vah na základě výskytu termínů v různě důležitých místech textu (nadpisy, první a poslední odstavce apod.)
+		- normalizace vah vzhledem k délce dokumentů
+		- výstupem je seznam deseti nejvýznamnějších termínů seřazených podle četnosti výskytu
+	- výhody
 		- není nutné vytvářet slovníky odborných termínů, vystačí si s množinou relevantních přípon a koncovek + pravidly a negativním slovníkem
-		- přiděluje váhy výskytům slov
-		- neřeší ale třeba to, že ve větách může být nějaké slovo přítomno jako nevyjádřený podmět
+		- lokální syntaktická analýza umožňuje větší flexibilitu při hledání termínů
+	- problémy
+		- pracná vytváření slovníků a omezujících pravidel podle tematické oblasti
+		- neřeší to, že ve větách může být nějaké slovo přítomno jako nevyjádřený podmět
 
 ## Syntaxe
 
-- používají se dva hlavní datové typy – závislostní strom a složkový strom
-- závislostní strom
-	- přibližně to, co se učí ve škole (akorát klíčové je sloveso, pod něj se všechno napojuje)
-- anglosaská tradice používá trochu jiný strom než ta naše, která se učí ve škole
+- používají se dva hlavní datové typy
+	- závislostní strom
+		- přibližně to, co se učí ve škole (akorát klíčové je sloveso, pod něj se všechno napojuje)
 	- složkový strom
-- věta se dělí na jmennou a slovesnou část
-- závislostní stromy se lépe používají
+		- anglosaská tradice
+
+### Závislostní strom
+
 - závislostní strom je pětice $T=\braket{N,E,Q,WO,L}$
 	- $(N,E)$ … orientovaný graf
 	- $Q$ … gramatické kategorie (popisky uzlů)
 	- $WO\subseteq N\times N$ … silné úplné uspořádání (určuje požádek slov)
-	- $L:N\to Q$ … ohodnocovací funkce
-- závislostní strom vytvořený podle této definice má přesně tolik uzlů, kolik je prvků (tokenů) ve větě (slova, interpunkční znaménka)
-	- strom nedává informace o postupu vytváření
+	- $L:N\to Q$ … ohodnocovací funkce (určuje gramatické kategorie uzlů)
+	- závislostní strom vytvořený podle této definice má přesně tolik uzlů, kolik je prvků (tokenů) ve větě (slova, interpunkční znaménka)
+- vlastnosti závislostního stromu
+	- nedává informace o postupu vytváření – jen o vztazích mezi uzly
+	- zachycuje vztahy mezi větnými členy
+	- nedává návod, jak strom získat
+	- ne všechny vztahy ve větě jsou přirozeně popsatelné jako závislost, není vždy jasné, co na čem závisí
+		- třeba u souřadného spojení „Petr a Pavel“ (tzv. koordinace) si musíme vybrat, kdo bude nadřazený
+		- slovo „Petr“ reprezentuje celou skupinu, je v čísle jednotném, ale skupina je v čísle množném
+		- asi by nejlépe fungovalo, kdybychom přidali speciální uzel za koordinaci
+		- podobně problematické jsou předložky – není jasné, jestli mají být nad nebo pod jménem
 - složkový strom
 	- složka (constituent) = skupina slov, která fungují společně a tvoří jednu syntaktickou jednotku
 	- složku můžeme ve větě rozpoznat například pomocí nahrazovacího testu
@@ -215,36 +282,45 @@
 		- \*From that strange Jane bought a hat little shop.
 	- v češtině se dá často pořadí slov měnit
 		- ale existuje [Wackernagelův zákon](https://cs.wikipedia.org/wiki/Wackernagel%C5%AFv_z%C3%A1kon)
-- závislostní strom
-	- zachycuje vztahy mezi větnými členy
-	- nedává návod, jak strom získat
-	- ne všechny vztahy ve větě jsou přirozeně popsatelné jako závislost, není vždy jasné, co na čem závisí
-		- třeba u souřadného spojení „Petr a Pavel“ (tzv. koordinace) si musíme vybrat, kdo bude nadřazený
-		- slovo „Petr“ reprezentuje celou skupinu, je v čísle jednotném, ale skupina je v čísle množném
-		- asi by nejlépe fungovalo, kdybychom přidali speciální uzel za koordinaci
-		- podobně problematické jsou předložky – není jasné, jestli mají být nad nebo pod jménem
-- složkový strom
+- vlastnosti složkového stromu
 	- odpovídá derivačnímu stromu bezkontextové gramatiky
-	- je méně přehledný, mnohdy obsahuje mnoho nadbytečných uzlů
+	- je méně přehledný, mnohdy obsahuje spoustu nadbytečných uzlů
 	- přirozené jazyky nebývají bezkontextové
 - neprojektivní konstrukce
 	- příklady
 		- Soubor se nepodařilo otevřít.
-		- Vánoeční nadešel čas.
+		- Vánoční nadešel čas.
 		- Které děvčata chtěla dostat ovoce?
 		- Tuto knihu jsem se mu rozhodl dát k narozeninám.
 		- Proti odvolání se zítra Petr v práci nakonec důrazně rozhodl protestovat.
 	- větu nelze rozdělit do složkového stromu – vertikály z uzlů protínají hrany
 	- některá slovesa mají povinné vazby
 	- jakmile jsou ve větě dlouhé neprojektivní vazby nad rámec těch povinných, můžou být nejednoznačné
-	- definice: pokrytí uzlu, díry
-- nástroje pro syntaktickou analýzu
-	- Q-systémy
-		- kompletní gramatika se může skládat z více Q-systémů, které na sebe navazují
-		- provádí se linearizace stromu
-		- pravidla mají omezený počet proměnných
-		- …
-		- závislostní gramatika
+	- závislostní strom je projektivní, pokud neobsahuje neprojektivní závislosti
+	- pokrytí uzlu v závislostním stromu je množina indexů uzlů, které jsou (i nepřímo) závislé na daném uzlu
+		- do pokrytí kořene patří indexy všech uzlů
+	- pokud má uzel $u$ např. pokrytí $4, 5, 6, 8, 9$, pak uzly $6, 8$ tvoří tzv. díru v pokrytí uzlu $u$
+	- počet děr v závislostním stromu je spolehlivou mírou složitosti syntaktické analýzy
+- Q-systémy
+	- Alain Colmerauer 1969
+	- nástroj pro syntaktickou analýzu
+	- formalismus pro transformaci grafů
+	- popisky hran v grafech reprezentují slova nebo syntaktické stromy
+	- stromy jsou linearizovány, což usnadňuje práci s nimi
+	- kompletní gramatika se může skládat z více Q-systémů, které na sebe navazují
+	- používá se závislostní gramatika
+	- základní vlastnosti
+		- grafový analyzátor (chart parser)
+		- tři typy proměnných: atomy, stromy, seznamy stromů
+			- pravidla mají omezený počet proměnných
+			- typy jsou implicitní – podle toho, jaké písmeno použijeme pro název proměnné (např. atomy používají písmena A–J)
+		- operátory -DANS-, -HORS-, -ET-, -NON-, …
+	- vstupní graf se postupně upravuje podle gramatiky
+	- čištění stromu
+		- první fáze – odstranění hran, které byly použity na levé straně libovolného pravidla
+		- druhá fáze – odstranění hran, které nejsou umístěny na žádné cestě vedoucí od startovního nebo do koncového uzlu
+		- těmito operacemi se graf zbaví nežádoucích dílčích výsledků před vstupem do navazujícího Q-systému → tak se dá složitá gramatika rozdělit na jednodušší části
+---
 - gramatické formalismy
 	- předchůdci transformační gramatiky
 		- deskriptivismus
