@@ -477,9 +477,14 @@
 
 - studium jazyka
 	- studium struktury – to jsme řešili doposud
+		- identifikuje strukturní jednotky a třídy jazyka
+		- popisuje, jak se malé jednotky mohou kombinovat a tvořit velké
 	- studium užití – jak mluvčí (a pisatelé) jazyk používají?
+		- potřebujeme velké objemy (pokud možno anotovaných) dat
+		- můžeme objevovat hlubší spojení mezi jazykovými jednotkami
 - jazykový korpus
 	- sbírka textů, vzorek jazyka
+	- může být doplněn o značky (tagy) identifikující a klasifikující slova nebo jiné útvary
 - v Česku až v 90. letech byla dostatečná technika pro sběr a zpracování takového množství dat
 - charakteristika moderních korpusů
 	- výběr vzorků a reprezentativnost – snaha o vyváženost (jazyk je nekonečný, korpus je konečný)
@@ -493,6 +498,7 @@
 	- jednojazyčné × paralelní
 		- paralelní … jednání kanadského a evropského parlamentu
 	- obecné × doménově specifické
+		- doménově specifické: nářečí, slang, texty nerodilých mluvčích, …
 	- synchronní × diachronní
 		- diachronní se snaží zachytit vývoj jazyka v čase, obvykle nebývají uzavřené
 - konzistence korpusových anotací
@@ -504,17 +510,25 @@
 		- pravidelná setkání anotátorů
 		- automatické metody odhalování chyb v anotaci
 		- měření shody mezi anotátory (IAA, Inter-Annotator Agreement)
-			- Cohenovo $\kappa$
-- Brown korpus
-	- náhodně vybírané texty, aby byl dostatečně reprezentativní
-	- milion slov
+			- Cohenovo $\kappa=\frac{p_O-p_E}{1-p_E}$
+				- $p_O$ … pozorovaná shoda
+				- $p_E$ … shoda, kdyby byla anotace náhodná
+			- $\kappa\in[-1,1]$
+				- 1 odpovídá naprosté shodě
+				- 0 značí shodu odpovídající náhodnému výběru
+				- negativní skóre indikuje, že anotátoři použili odlišná kritéria
+- Brown Corpus of Standard American English
+	- texty vytištěné v roce 1961
+		- náhodně vybírané, aby byl korpus dostatečně reprezentativní
+		- milion slov
+	- morfologické značky
 - Penn Treebank
 	- články z Wall Street Journal
 	- milion slov
 	- existuje překlad do češtiny
-	- složkové stromy
+	- syntakticky anotovaný korpus (složkové stromy)
 - Český národní korpus
-	- UK, MUNI, ÚJČ AV ČR
+	- UK, MUNI, ÚJČ AV
 	- morfologické značky
 	- v současné době téměř 5 miliard slov
 	- první SYN2000
@@ -524,17 +538,19 @@
 - Pražský závislostní korpus (PDT)
 	- propracované anotační schéma aplikovatelné na jazyky různých typů
 	- data jsou malou podmnožinou ČNK
+	- teoretický základ – teorie funkčního generativního popisu profesora Petra Sgalla
 	- 100 000 vět, 1,25 milionu běžných slov
 	- úrovně anotace
 		- morfologie
 		- analytická rovina (povrchově syntaktická)
 		- tektogramatická rovina (4 podroviny)
-- postupně se ukázalo, že závislostní stromy jsou užitečnější → dnes jsou výrazně častěji zastoupeny
-- Prague Arabic Dependency Treebank
-- iniciativa Universal Dependencies
-	- snaha o vybudování jednotného značkování
-	- aby se stejné jevy v morfologii anotovaly stejně
-	- díky této komunitě se závislostní stromy staly standardem
+- prosazení závislostních stromů
+	- postupně se ukázalo, že závislostní stromy jsou užitečnější → dnes jsou výrazně častěji zastoupeny
+	- Prague Arabic Dependency Treebank
+	- iniciativa Universal Dependencies
+		- snaha o vybudování jednotného značkování
+		- aby se stejné jevy v morfologii anotovaly stejně
+		- díky této komunitě se závislostní stromy staly standardem
 
 ## Strojový překlad
 
@@ -544,8 +560,13 @@
 	- syntax
 	- ustálená spojení
 	- kulturní kontext
-- prehistorie
 - trojúhelník strojového překladu
+	- analýza – morfologická a syntaktická, někdy také (částečná) sémantická
+	- transfer – převod lexikálních jednotek a transformace syntaktického stromu
+	- generování – rozpouštění syntaktického stromu do správné povrchové formy
+	- teoreticky bychom se mohli obejít bez transferu
+		- pro danou dvojici jazyků může existovat interlingua – logická (formální) reprezentace významu věty společná pro oba jazyky
+		- žádná taková obecně akceptovaná formální reprezentace významu (zatím) neexistuje
 - první generace
 	- dvojjazyčný slovník – nestačí
 	- předpony, kmeny, přípony – moc nefunguje (viz němčina → čeština)
@@ -556,13 +577,43 @@
 		- Georgetownský experiment
 		- velké zjednodušení problému (omezení domény a používaných jazykových prostředků)
 		- padesátá léta, ruština → angličtina
+	- následoval bouřlivý rozvoj
+		- příklon k teorii, práce se syntaxí jazyka, druhá generace systémů
+	- pak přišlo vystřízlivění
+		- zpráva ALPAC (American Language Processing Advisory Committee)
+		- konstatuje nutnost investic do dlouhodobého teoretického lingvistického výzkumu
+		- důsledkem byl konec podpory
+		- ale práce mimo USA pokračovaly
 - první úspěšný komerční systém
 	- TAUM METEO (1976)
 	- překlad meteorologických zpráv z angličtiny do francouzštiny
 	- podobná situace jako s Georgetownským experimentem
+		- dobře definovaná a výrazně omezená podmnožina jazyka
 	- používal Q-systémy
+	- systém sám rozezná text, který mu dělá potíže, a předá jej lidskému překladateli
+- další významné systémy
+	- SYSTRAN
+		- překlad dokumentů EU
+		- přímý překlad mezi cca 20 páry jazyků, ale uspokojivá kvalita jen u nejstarších párů (angličtina, francouzština, němčina)
+	- EUROTRA
+		- oficiální projekt EU
+		- megalomanie – 72 jazykových párů
+		- nezvládnutá modularita
+		- do jisté míry podobný negativní efekt jako zpráva ALPAC
 - strojem podporovaný překlad
-	- překladová paměť
+	- vhodný zejména pro opakované překlady mírně aktualizovaných textů (příklad: technické manuály)
+	- *překladová paměť* obsahuje páry přeložených segmentů obohacené o sadu metadat umožňující efektivní správu pamětí
+	- nové vstupní věty se vyhledávají v paměti – v případě nalezení se nabídnou překladateli se zvýrazněnými rozdíly
+		- praxe ukazuje, že při shodě menší než 70 % je lepší větu přeložit celou znovu
+	- dva základní přístupy
+		- věta po větě
+			- každá věta je samostatně vyhledávána v překladové paměti, překladatel postupně prochází celý text (vidí kontext věty)
+			- IBM Translation Manager, TRADOS Studio
+		- překladová tabulka
+			- překladatel nevidí kompletní kontext
+			- překládá každou větu pouze jednou
+			- Déjà Vu (Atril)
+---
 - české experimenty
 	- RUSLAN
 		- překlad manuálů k operačním systémům sálových počítačů
