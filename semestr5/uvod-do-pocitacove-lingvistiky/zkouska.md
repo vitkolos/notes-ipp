@@ -12,7 +12,7 @@
 - historie
 	- indický lingvista Pānini ve 4. století př.n.l. formuloval pravidla morfologie sanskrtu
 		- bylo to blízké složkové gramatice
-		- jeden ze zakladatelů moderní lingvisitky, Ferdinand de Saussure, byl profesorem sanskrtu
+		- jeden ze zakladatelů moderní lingvistiky, Ferdinand de Saussure, byl profesorem sanskrtu
 	- morfologií se zabývala i řecko-římská gramatická tradice, protože stará řečtina a latina jsou flektivní jazyky
 - morfologie studuje vnitřní strukturu slov
 	- lexikologie – slova se studují jako jednotky slovní zásoby
@@ -317,72 +317,137 @@
 		- první fáze – odstranění hran, které byly použity na levé straně libovolného pravidla
 		- druhá fáze – odstranění hran, které nejsou umístěny na žádné cestě vedoucí od startovního nebo do koncového uzlu
 		- těmito operacemi se graf zbaví nežádoucích dílčích výsledků před vstupem do navazujícího Q-systému → tak se dá složitá gramatika rozdělit na jednodušší části
----
-- gramatické formalismy
-	- předchůdci transformační gramatiky
-		- deskriptivismus
-			- cestování po indiánských rezervacích
-		- analytická syntax
-		- logický přístup
-	- transformační gramatika
-		- povrchová a hloubková syntaktická struktura
-		- třeba bychom chtěli větu pasivní snadno převést na aktivní
-			- nebo tázací, rozkazovací apod.
-			- tedy jak z jedné hloubkové syntaktické struktury odvozovat různé povrchové
-		- 3 základní komponenty transformační gramatiky
-			- báze
-				- soubor bezkontextových pravidel, která generují složkové stromy, tzv. frázové ukazatele
-			- transformační komponenta
-				- transformační pravidla operující na celých frázových ukazatelích, dělí se na obligatorní a fakultativní
-			- …
-		- vývoj transformační gramatiky
-	- tree adjoining grammars
-		- substituce stromečků
-	- kategoriální gramatiky
-		- slova vyžadují určité konstrukce
-		- v kategoriálních gramatikách je všechny podstatné gramatické informace obsaženy ve slovníku
+
+## Gramatické formalismy
+
+- předchůdci transformační gramatiky
+	- deskriptivismus
+		- jazyková data klasifikuje, ale nevysvětluje
+		- zpracovává zejména povrchovou větnou strukturu
+		- cestování po indiánských rezervacích
+	- analytická syntax
+	- logický přístup
+		- kategoriální gramatika
+		- využívá koncept povrchové a hloubkové syntaktické struktury
+			- povrch … konkrétní vyjádření
+			- hloubka … význam
+			- jednomu významu může odpovídat více vyjádření
+			- jedno vyjádření může mít více významů
+- transformační gramatika
+	- Noam Chomsky
+	- povrchová a hloubková syntaktická struktura
+	- třeba bychom chtěli větu pasivní snadno převést na aktivní
+		- nebo tázací, rozkazovací apod.
+		- tedy jak z jedné hloubkové syntaktické struktury odvozovat různé povrchové
+	- 3 základní komponenty transformační gramatiky
+		- báze
+			- soubor bezkontextových pravidel, která generují složkové stromy, tzv. frázové ukazatele (phrase markers)
+		- transformační komponenta
+			- transformační pravidla operující na celých frázových ukazatelích
+			- pravidla se dělí na obligatorní a fakultativní
+		- fonologická komponenta
+			- obsahuje regulární přepisovací pravidla přidělující řetězcům morfémů fonetické interpretace
+	- generativní procedura
+		- vytváří množinu přijatelných vět daného jazyka
+		- je to soubor konečného počtu přepisovacích pravidel
+		- je to v podstatě bezkontextová nebo kontextová gramatika
+		- není schopna zachytit vztahy mezi variantami vět (tázací × ozmanovací)
+	- transformační složka
+		- obsahuje pravidla, která z frázových ukazatelů vytváření povrchovou strukturu věty
+		- John chose a book → a book was chosen by John
+	- vývoj transformační gramatiky
+		- Standard Theory
+		- Extended Standard Theory
+		- Government-binding theory
+			- založená na obecných principech univerzální gramatiky a parametrech platných pro jednotlivé jazyky
+			- Chomsky si myslí, že schopnost naučit se lidský jazyk je univerzální vrozenou schopností každého člověka a že odlišnost jazyků je způsobena různými parametry
+		- Teorie minimalismu
+			- pouze dvě roviny – rovina logické formy (LF) a fonetická rovina (PF)
+			- PF – rozhraní mezi zvukem a reprezentací jazyka
+			- LF – rozhraní mezi reprezentací jazyka a významem
+		- kritika Chomského teorií – jeho základní předpoklady se dají těžko dokázat, nejsou založeny na datech
+- tree adjoining grammars
+	- substituce stromů
+	- elementární struktury jsou stromy
+	- některé uzly je možné substituovat stromem (ty jsou označené šipkou ↓)
+		- v daném uzlu je neterminál (např. N), můžeme tam substituovat jenom stromy, které mají stejný neterminál v kořeni
+		- pořadí substitucí nehraje roli
+		- proces končí, pokud už žádný neterminál nelze nahradit
+	- nakonec dostaneme strom reprezentující syntaktickou strukturu věty
+	- generativní síla odpovídá bezkontextovým gramatikám, po modifikacích mohou být i silnější (kontextové)
+- kategoriální gramatiky
+	- slova vyžadují určité konstrukce – to reprezentujeme pomocí tzv. kategorií
+		- kategorie reprezentuje popis syntaktických vlastností dané slovní formy
+		- sloveso likes má kategorii (NP\\S)/NP
+		- obecně mají kategorie formát $\alpha/\beta$ nebo $\beta\backslash\alpha$, lomítko určuje pozici argumentu (používají se ale i jiné notace)
+		- „čistá“ kategoriální gramatika umožňuje jenom dvě pravidla
+			- `X/Y Y => X`
+			- `Y Y\X => X`
+	- obvykle se úkoly syntaktické analýzy rozdělují mezi gramatiku a slovník
+		- v kategoriálních gramatikách jsou však všechny podstatné gramatické informace obsaženy ve slovníku
 		- čekali bychom, že gramatika bude popisovat třídy slov – ne jednotlivá slova
-			- pokud tyhle informace přesuneme do slovníku přímo ke slovům, bude jich strašně moc
+		- pokud tyhle informace přesuneme do slovníku přímo ke slovům, bude jich strašně moc
 		- kombinatorická kategoriální gramatika
 			- pravidlo se dá vyjádřit jednou pro všechny jeho permutace
-	- unifikační gramatiky
-		- objekt je popsán tzv. sestavou rysů (feature structure)
-		- unifikace = spojování dvou sestav rysů popisujících stejný objekt
-		- hodnotou vlastnosti může být i sestava rysů nebo proměnná
-		- proměnná nám vynutí, aby se další unifikací dva rysy nemohly lišit
+- unifikační gramatiky
+	- objekt je popsán tzv. sestavou rysů (feature structure)
+		- rys (feature) je dvojice `klíč : hodnota`
+	- unifikace = spojování dvou sestav rysů popisujících stejný objekt
+		- je povolena, pokud si rysy neodporují
+	- hodnotou vlastnosti může být i sestava rysů nebo proměnná
+	- proměnná nám vynutí, aby se při další unifikaci dva rysy nemohly lišit
+	- problém: je možné unifikovat vlastnosti, které spolu nijak nesouvisejí
+	- typované sestavy rysů – typ sestavy určuje její vlastnosti (typ *verb* → vlastnosti *person, number, mode*)
+- funkční generativní popis
+	- Sgall, Hajičová, Panevová
+	- navazuje na Pražskou lingvistickou školu
+	- základní vlastnosti
+		- stratifikační teorie (5 rovin – fonetická, fonologická, morfematická, povrchová, tektogramatická)
+		- formy a funkce – jednotka na vyšší rovině reprezentuje funkci jednotky na rovině nižší (TG rovina je nejvyšší)
+		- závislostní reprezentace
+		- teorie valence (vazby, vyžadované nebo povolené řídícími slovy, zejména slovesy)
 - valence
-	- nejen u sloves
+	- popisuje schopnost některých slovních druhů vázat k sobě jiná slova nebo skupiny slov ve větě
+		- v závislostním pojetí hrají klíčovou roli slovesa – větné členy, které jsou na nich závislé, tvoří jakousi kostru závislostního stromu
 	- dva základní druhy závislých členů
-		- aktanty – každý může být ve větě pouze jednou
-			- konatel
+		- aktanty – každý může být ve větě pouze jednou (ale samozřejmě je lze koordinovat)
+			- konatel (aktor, agens)
 			- patient
 			- adresát
 			- origo
 			- efekt
 		- volná doplnění – může jich být více (typicky příslovečná určení)
+	- další dělení – obligatorní a fakultativní
+		- obligatorní aktant ve větě nesmí chybět (na tektogramatické rovině – naopak může chybět na povrchové rovině, je-li známý z kontextu apod.)
 	- Petr (k.) předělal Pavlovi (a.) loutku (p.) z kašpárka (o.) na čerta (e.).
-	- tektogramatická rovina × povrchová rovina
-	- obligatorní a fakultativní závislé členy
 	- typické sloveso může mít více valencí
 	- valenční rámec – seznam aktantů (obligatorních i fakultativních) a obligatorních volných doplnění
 	- dialogový test – pokud na doplňující otázku nelze odpovědět „nevím“, jedná se o obligatorní aktant
+		- příklad: Moji přátelé přijeli.
+		- kam? ~~nevím~~ … obligatorní aktant
+		- odkud? nevím … fakultativní aktant
 	- valenční slovník češtiny (Vallex) a angličtiny (EngVallex)
 - kontrola gramatické správnosti
-	- Sportovci věnovali plyšáka.
-	- Co si kdo kam donesl? Tatínek šli do práce.
+	- problematické příklady
+		- Sportovci věnovali plyšáka.
+		- (Co si kdo kam donesl?) Tatínek šli do práce.
 	- problémy specifické pro češtinu
 		- gramatická shoda (zejména podmětu s přísudkem)
 		- interpunkce
 		- neprojektivní konstrukce
 		- zájmena (mě/mně)
+	- jak kontrolovat?
+		- chybové vzorky – vhodnější pro jazyky s pevným slovosledem, kde se chybné konstrukce vyskytují převážně v lokálním kontextu
+		- gramatika – nelze rozeznat, kdy je konstrukce chybná pouze vzhledem k neúplné gramatice a kdy je opravdu špatně
 	- v korpusech jsou pozitivní příklady
-		- chybí nám negativní daty
+		- chybí nám negativní data
 		- to, že v korpusu žádná věta nemá dva podměty, ještě neznamená, že je to špatně
 	- metoda redukční analýzy
 		- z věty postupně vyhazujeme závislá slova
 		- izolujeme chybnou konstrukci (např. podmět a přísudek, pokud se neshodují)
 		- po redukční analýze nám zůstane minimální chybová konfigurace
 	- homonymie je problematická
+		- příklad: Jeho čelisti (cellisti) klapali naprázdno.
 	- RFODG
 		- robust free-order dependency grammar
 		- jedno pravidlo gramatiky může popisovat správnou i chybnou konstrukci zároveň
@@ -398,6 +463,15 @@
 		- jakmile nenajdu správnou variantu a hledám chybu, začíná to být náročné, variant je mnoho
 	- LanGR
 		- nástroj pro desambiguaci české morfologie
+		- redukční metoda – snaha udržet 100% přesnost
+		- pracuje s pozitivními a negativními desambiguačními pravidly
+			- mohou mít neomezený kontext
+			- psána ručně, avšak na základě dat z korpusu
+			- vzájemně nezávislá, neuspořádaná, uplatňována v cyklech
+		- 4 části: kontext, desambiguační část, report, akce
+		- příklad
+			- The letter a(Article | Noun) from(Preposition) the given alphabet is represented in blue.
+			- máme pravidlo, které říká, že před slovesem/předložkou/spojkou nemůže být člen
 
 ## Korpusová lingvistika
 
