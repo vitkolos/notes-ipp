@@ -652,51 +652,164 @@
 	- zajímavý syntaktický rozdíl
 		- bude-li (…) → ak (…) bude
 	- překvapivě překlad do polštiny byl méně kvalitní než do litevštiny (větný pořádek je v polštině jiný než v češtině)
----
-- PC Translator 2003 – asi nejlepší český komerční systém
+- PC Translator 2003
+	- asi nejlepší český komerční systém
 	- dlouho byl lepší než Google Translate
 - statistický překlad
+	- příklad: in (angličtina) → dans, à, de (francouzština)
 	- pravděpodobnost vs. relativní četnost
-	- in (angličtina) → dans, à, de (francouzština)
+		- pokud máme hodně dat, relativní četnost se může začít blížit reálné pravděpodobnosti jevů
 	- hlavní úkol: předpovědět následující slovo v běžném textu
 		- nemůžeme používat celou historii, praktičtější je používat poslední tři slova (3-gramy)
 		- problémem je velikost dat – trojrozměrná matice pro slovník se 40k slovy by byla z většiny prázdná (taková matice by měla $6{,}4\cdot 10^{13}$ buněk, ale trénovací data mají obvykle stamiliony slov, tedy $10^8$)
 			- místo nul tam musíme dát hodně malá čísla, aby se nám to pronásobením nevynulovalo
+				- tzv. vyhlazování
 			- akorát pak nemůžeme rozlišovat kombinace, které opravdu neexistují
 	- jak to funguje u překladu?
 		- idea: použijeme paralelní korpus jako trénovací data
 	- metoda zašuměného kanálu
-		- model budujeme v opačném směru
-		- umíme posuzovat výsledky překladového modelu („jak je věta hezká?“)
-- evaluace systémů automatického překladu
+		- hledáme pravděpodobnost $P(a\mid f)$, tedy pravděpodobnost konkrétní anglické věty $a$ jako překladu francouzského originálu $f$
+		- z Bayesovy věty odvodíme $P(a\mid f)=\frac{P(f\mid a)\cdot P(a)}{P(f)}$
+			- jmenovatel není závislý na $a$
+		- pravděpodobnosti tak můžeme získat ze dvou modelů
+			- $P(f\mid a)$ z překladového modelu
+			- $P(a)$ z jazykového modelu cílového jazyka
+		- „obrátili“ jsme směr překladu
+		- jako bychom obdrželi (anglickou) větu „pokaženou“ přenosem přes nespolehlivý kanál, hledáme její správný originál
+		- překladový model $P(F\mid A)$ může být založen na poměrně malém paralelním korpusu
+			- budujeme ho v opačném směru než chceme reálně překládat
+		- jazykový model $P(A)$ může být trigramový model založený na rozsáhlém korpusu cílového jazyka
+			- odfiltruje nepodařené překlady, vyrovná chyby překladového modelu
+			- vybírá pouze „hezké věty“, nemá vztah k originálu
+		- ale hledání překladových hypotéz (tzv. dekódování) je těžké samo o sobě
+- metrika BLEU
+	- slouží k evaluaci systémů automatického překladu
 	- neexistuje nic jako jediný správný překlad
-	- metrika BLEU
-		- porovnáváme dvě verze systému – dva možné překlady
+	- porovnáváme dvě verze systému – dva možné překlady
 		- máme k dispozici tři referenční lidské překlady
 		- stačí, když se kandidátský překlad shoduje s aspoň jedním referenčním
-		- n-gramové přesnosti
-		- penalizace za stručnost (n-gramová přesnost má tendenci zvýhodňovat krátké věty)
-		- v češtině by to nefungovalo moc dobře, různé tvary téhož slova by se vyhodnotily jako různá slova
-			- také by byl problém s volným slovosledem – rozbily by se n-gramy
-		- podmínky, kdy metrika funguje
-			- porovnává různé verze stejného systému (ne různé systémy)
-			- více referenčních překladů
-			- velké množství testovacích vět
-			- taky nedává smysl takto porovnávat různé jazyky
+	- n-gramové přesnosti
+		- unigramová přesnost … $C/N$
+			- $N$ … počet slov, které kandidát obsahuje
+			- $C$ … počet slov z kandidáta, které se vyskytují v alespoň jednom referenčním překladu
+		- můžeme zobecnit na n-gramy
+	- penalizace za stručnost (n-gramová přesnost má tendenci zvýhodňovat krátké věty)
+	- $BLEU=BP\cdot\sqrt[4]{p_1p_2p_3p_4}$
+		- $BP$ … penalizace za stručnost (brevity penalty)
+		- $p_n$ … $n$-gramová přesnost
+		- $BLEU\in[0,1]$
+	- v češtině by to nefungovalo moc dobře, různé tvary téhož slova by se vyhodnotily jako různá slova
+		- také by byl problém s volným slovosledem – rozbily by se n-gramy
+	- výhody: rychlý výpočet, poměrně objektivní míra, koreluje s lidským hodnocením, stala se obecně přijímaným standardem
+	- nevýhody
+		- získání dostatečného počtu referenčním překladů je drahé
+		- favorizuje statistické systémy, které se vůči ní ladí
+		- špatně zachycuje varianty (slovosledné, lexikální, morfologické)
+		- často se používá špatným způsobem (k porovnávání různých systémů a odlišných jazykových párů)
+		- přeceňuje se, není tak univerzální, jak vypadá
+	- podmínky, kdy metrika funguje
+		- porovnává různé verze stejného systému (ne různé systémy)
+		- více referenčních překladů
+		- velké množství testovacích vět
+		- taky nedává smysl takto porovnávat různé jazyky
 	- možné vylepšení: pracovat se slovníkem synonym (ale pak už systém nebude tak jednoduchý)
 
 ## Sémantika
 
-- lexikální význam – jeden z významů daného slova (např. koruna – královská koruna)
-- reference – vztah mezi objekty, kde jeden odkazuje na jiný (např. zájmeno na podstatné jméno)
-- tematické role
-- …
-- význam × pravdivost tvrzení
-	- i nepravdivá tvrzení mají význam
-	- někdy nelze ověřit pravdivost
-- jak reprezentovat význam slov? pomocí sémantické sítě!
-	- WordNet
-	- EuroWordNet
+- popis syntaxe umožňuje rozlišit správně a nesprávně utvořené věty
+- i syntakticky správné věty však můžou být nesmyslné
+- význam a pravdivost sdělení (v přirozených jazycích) jsou odlišné záležitosti – i nepravdivá sdělení mají svůj význam
+	- u formálních jazyků spolu pravdivost a význam často úzce souvisejí
+- vyplývání – věta v sobě často nese i další informace, které nejsou explicitně zmíněny
+	- příklad: Karel prodal auto sousedovi → Karel měl auto, už ho nemá, soused je od něj koupil a teď ho má
+- Fregeho princip kompozicionality
+	- význam složeného výrazu je jednoznačně určen významy jeho částí a způsobem jejich kombinace
+- lexikální sémantika
+	- význam slov můžeme popisovat pomocí nějakého (meta)jazyka
+		- formálního
+		- přirozeného
+		- či v reálném světě kombinací jazyka a situace
+			- příklad: „Toto je křída.“
+	- význam často závisí na kontextu
+	- význam slov můžeme nezávisle na kontextu popisovat pomocí významových (sémantických) tříd (rysů)
+		- ontologie = množina tříd objektů, ty klasifikují objekty universa
+		- možné třídy: fyzické objekty, kvantity, vztahy, vlastnosti, akce, …
+		- tyto třídy lze dále zjemňovat
+		- existují doménové (domain) a vrcholové (upper) ontologie
+		- význam slov ale není jednoznačný (některá slova mají více lexikálních významů)
+			- lexikální význam – jeden z významů daného slova (např. koruna – královská koruna)
+- jak reprezentovat význam slov
+	- ve slovnících – několik způsobů
+		- synonyma
+		- definice
+		- množina vybraných primitivních výrazů daného přirozeného jazyka
+		- speciální metajazyk – sémantické rysy
+	- pomocí sémantické sítě
+		- lepší zachycení víceznačností
+		- lze pracovat s hierarchií pojmů
+		- výhodnější pro počítačové zpracování
+		- WordNet
+			- anglická podstatná a přídavná jména, slovesa a příslovce
+			- seskupená do množiny synonym (synsetů)
+			- každý synset vyjadřuje určitý koncept, jsou mezi sebou navzájem propojeny sémantickými a lexikálními relacemi
+			- volně k dispozici
+		- EuroWordNet
+			- několik jazyků
+			- vrcholové ontologie (63 nejdůležitějších jazykově nezávislých konceptů)
+			- množiny základních konceptů
+			- jazykově nezávislý soubor indexů
+			- vztahy ekvivalence
+			- není k dispozici zdarma
+	- aplikace WordNetu
+		- automatický překlad – může fungovat jako slovník
+		- extrakce informací – umožňuje pracovat se sémantickými vztahy (zejména se synonymy), může sloužit při vícejazyčném vyhledávání
+		- určování významů slov (word sense disambiguation)
+		- reprezentace znalostí, odvozování
+		- vyhodnocování kvality překladu (zlepšení BLEU a podobných metrik)
+- reprezentace významu věty
+	- predikátová logika 1. řádu
+		- z částí věty se sestaví logická formule
+	- pokud chceme reprezentovat modalitu, čas a postoj, musíme přidat nové operátory, které mají jako argumenty formule
+	- presupozice – předpoklad, který musí být pravdivý, aby celá věta vůbec měla pravdivostní hodnotu
+		- příklad: Jupiterův měsíc má oranžové pruhy. – Jupiter musí mít právě jeden měsíc.
+	- neurčitost (fuzziness)
+		- někdy potřebujeme jemnější dělení než true/false
 - anafora
-	- pozor, anafora se používá i jako nadřazený pojem ke katafoře
+	- výraz, jehož interpretace závisí na kontextu
+	- druhy anafory
+		- exofora – odkazování mimo text
+			- „Vidíš ho?“
+		- endofora – odkazování v rámci textu
+			- anafora (zpětně)
+				- „Petr vyzradil tajemství. To neměl dělat.“
+			- katafora (dopředu)
+				- „Věřte tomu nebo ne, máme schodkový rozpočet.“
+	- reference – vztah mezi objekty, kde jeden odkazuje na jiný (např. zájmeno na podstatné jméno)
+- anaforický vztah předchůdce – následník
+	- typy výrazů
+		- zájmena a „nulové výrazy“ (nevyjádřený podmět nebo jiný větný člen)
+			- „Petr si koupil vstupenku. Vsunul ji do kapsy. Byla děravá.“
+		- určité jmenné výrazy
+			- „Elektronický zesilovač Tesla… Toto zařízení…“
+		- elipsa (vypuštěné části výrazů na základě paralelismu s předchůdcem), jmenná a slovesná
+			- „Včera jsem šel pěšky. Kam? Domů.“
+			- „Petr přinesl dva stoly. Dřevěný a kovový.“
+		- textové spojovací výrazy vyjadřující mezivětné souvislosti v textu
+			- na jedné straně – na druhé straně
+			- jednak – jednak
+	- důležitost pro aplikace: získávání informací z textu, automatický překlad, dialogové systémy
+	- řešení – používáme celou řadu informací
+		- morfologické značky (u zájmen musí být shoda v rodě)
+		- syntaktická struktura věty
+		- statistické přístupy
+		- členění věty – rozlišujeme jádro a ohnisko věty (viz algoritmus Zásoba sdílených znalostí)
+		- rozsáhlé pomocné znalosti – např. sémantické sítě, tezaury, ontologie
 - zásoba sdílených znalostí
+	- modeluje zásobu znalostí, o které mluvčí předpokládá, že ji sdílí s posluchačem
+	- zásoba se mění podle toho, co je „v centru pozornosti“ v daném okamžiku
+	- každý objekt má určitý stupeň aktivace (čím menší, tím více je „v centru pozornosti“)
+	- jednoduchá pravidla
+		- pokud k objektu referujeme, jeho stupeň se nemění
+		- pokud ho explicitně zmíníme ve větě, jeho stupeň aktivace klesá na 0 nebo 1 (podle toho, na jakém místě ho zmiňujeme)
+		- všechny objekty asociované s daným objektem (nemusely v textu vůbec zaznít) mají aktivaci o dva vyšší
+		- po každé větě se stupeň nezmíněných objektů zvyšuje o dva
