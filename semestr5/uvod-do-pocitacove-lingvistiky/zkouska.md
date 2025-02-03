@@ -15,15 +15,16 @@
 		- bylo to blízké složkové gramatice
 		- jeden ze zakladatelů moderní lingvistiky, Ferdinand de Saussure, byl profesorem sanskrtu
 	- morfologií se zabývala i řecko-římská gramatická tradice, protože stará řečtina a latina jsou flektivní jazyky
-- morfologie studuje vnitřní strukturu slov
-	- lexikologie – slova se studují jako jednotky slovní zásoby
-	- lexikografie – sestavování slovníků
-- morfém – nejmenší znaková jednotka jazyka nesoucí význam
-	- lexikální morfém – nese význam slova jako takového
-	- gramatický morfém – určuje gramatickou roli slovního tvaru
-	- příklad: „zahradou“
-		- „zahrad“ je lexikální morfém
-		- „ou“ je gramatický morfém
+- morfologie
+	- studuje vnitřní strukturu slov
+		- lexikologie – slova se studují jako jednotky slovní zásoby
+		- lexikografie – sestavování slovníků
+	- morfém – nejmenší znaková jednotka jazyka nesoucí význam
+		- lexikální morfém – nese význam slova jako takového
+		- gramatický morfém – určuje gramatickou roli slovního tvaru
+		- příklad: „zahradou“
+			- „zahrad“ je lexikální morfém
+			- „ou“ je gramatický morfém
 - další pojmy
 	- morfologie studuje skloňování a časování
 	- tvaroslovné dublety – odlišné slovní tvary mající stejnou gramatickou funkci (na hradě / o hradu, o balíčcích/balíčkách apod.)
@@ -86,9 +87,9 @@
 	- v kontextu angličtiny to stačí pro identifikaci všech morfologických vlastností slovního tvaru
 		- je to spíše izolační jazyk
 	- POS značky dělíme na dva základní typy – otevřenou a uzavřenou třídu slovních druhů
-		- otevřené slovní druhy – jejich seznam není nikdy kompletní, protože se jazyk vyvíjí
+		- otevřené slovní druhy – seznam slov, která k nim patří, není nikdy kompletní, protože se jazyk vyvíjí
 			- podstatná jména, přídavná jména, slovesa, příslovce
-		- uzavřené slovní druhy – lze je v podstatě popsat výčtem
+		- uzavřené slovní druhy – slova každého z nich lze v podstatě popsat výčtem (další nepřibývají)
 			- předložky, pomocná slova, spojky, …
 	- tagset (sada používaných značek) se liší i mezi různými přístupy v rámci téhož jazyka – PennTreebank používá 45 značek, Brown Corpus jich má 87
 	- kdybychom chtěli stejně přistupovat k češtině, muselo by značek být přes tisíc
@@ -99,16 +100,16 @@
 		- kategorie: pos, subpos, gender, number, case, possgender, possnumber, person, tense, grade, negation, voice, var
 		- příklad: AAFP3----3N----
 			- adjective, regular, feminine, plural, dative, (no poss. gender, no poss. number, no person, no tense), superlative, negated, (no voice, reserve1, reserve2, base variant)
-	- lemma – jednoznačný identifikátor slova
-		- sloveso stát → lemma „stát-1“
-		- šel → lemma „jít“
 - činnosti využívající morfologii
 	- morfologická analýza – na vstupu slovní tvar, na výstupu seznam všech lemmat a značek, které jsou pravděpodobné
 	- morfologické značkování (tagging) – proces výběru správné značky v daném kontextu (statistické metody)
 	- lemmatizace – na vstupu slovní tvar, na výstupu lemma (důležité pro vyhledávání v textech)
+		- lemma – jednoznačný identifikátor slova
+			- sloveso stát → lemma „stát-1“
+			- šel → lemma „jít“
 	- stemming – odříznutí koncovky (na vstupu slovní tvar, na výstupu kmen slova), populární je Porterův stemmer
 	- generování – výběr správného slovního tvaru na základě lemmatu a kombinace gramatických kategorií
-- částečná morfologická desambiguace založená na pravidlech
+- Částečná morfologická desambiguace založená na pravidlech
 	- Oliva, Petkevič
 	- pomocí spolehlivých pravidel redukuje počet značek
 	- pravidla mají dvě části – popis kontextu a akce (odstranění nevhodných značek nebo potvrzení správné značky)
@@ -120,7 +121,7 @@
 - značkování (POS tagging)
 	- výběr nejpravděpodobnější morfologické značky pro daný slovní tvar
 	- neřešíme slova izolovaně, hledáme nejpravděpodobnější posloupnost značek pro celou větu
-	- použijeme MAP estimation → $\hat t_1^n=\text{argmax}_{t_1^n}\, P(w_1^n\mid t_1^n)\cdot P(t_1^n)$
+	- použijeme MAP estimation: $\hat t_1^n=\text{argmax}_{t_1^n}\, P(w_1^n\mid t_1^n)\cdot P(t_1^n)$
 	- nutná zjednodušení
 		- pravděpodobnost výskytu slovního tvaru závisí pouze na jeho značce
 		- pravděpodobnost výskytu značky závisí pouze na předchozí značce
@@ -159,13 +160,12 @@
 		- korektura musí být co nejvíce automatická
 		- čas zpracování musí být velmi krátký
 	- měření úspěšnosti
-		- precision P = TP/(TP+FP)
+		- precision $P = {TP\over TP+FP}$
 			- počet správně zachycených chyb ÷ celkový počet chybových hlášení
-		- recall R = TP/(TP+FN)
+		- recall $R = {TP\over TP+FN}$
 			- počet správně zachycených chyb ÷ celkový počet chyb v textu
 		- F-measure/F-score (míra F / F skóre)
-			- F = 2PR/(P+R)
-			- $F_1=\frac{TP + TP}{TP+FP+TP+FN}$
+			- $F_1 = {2PR\over P+R}=\frac{TP + TP}{TP+FP+TP+FN}$
 	- kontrola překlepů – 2 základní metody
 		- porovnávání řetězců se slovy ve slovníků
 			- buď seznam všech slovních tvarů (wordlist), nebo seznam lemmat + morfologická analýza
@@ -187,7 +187,7 @@
 		- upřednostňuje se přesnost (nenalezené chyby autor nevidí :)) a rychlost
 		- uživatel nechce být rušen – kontrola se provádí na pozadí, nemusí se ručně pouštět
 		- uživatelsky definované slovníky nemají morfologii :(
-		- omezená možnost dalších rozvoje – vylepšení jdou směrem k většímu uplatnění kontextu
+		- omezená možnost dalšího rozvoje – vylepšení jdou směrem k většímu uplatnění kontextu
 	- kontextové metody kontroly překlepů
 		- některé chyby nelze odhalit jen pomocí slovníku – weather/whether, there/their, form/from apod.
 		- spellcheckery využívající kontext obvykle používají statistické metody nebo strojové učení
@@ -243,7 +243,7 @@
 		- není nutné vytvářet slovníky odborných termínů, vystačí si s množinou relevantních přípon a koncovek + pravidly a negativním slovníkem
 		- lokální syntaktická analýza umožňuje větší flexibilitu při hledání termínů
 	- problémy
-		- pracná vytváření slovníků a omezujících pravidel podle tematické oblasti
+		- pracné vytváření slovníků a omezujících pravidel podle tematické oblasti
 		- neřeší to, že ve větách může být nějaké slovo přítomno jako nevyjádřený podmět
 
 ## Syntaxe
@@ -257,7 +257,7 @@
 	- pětice $T=\braket{N,E,Q,WO,L}$
 		- $(N,E)$ … orientovaný graf
 		- $Q$ … gramatické kategorie (popisky uzlů)
-		- $WO\subseteq N\times N$ … silné úplné uspořádání (určuje požádek slov)
+		- $WO\subseteq N\times N$ … silné úplné uspořádání (určuje pořádek slov)
 		- $L:N\to Q$ … ohodnocovací funkce (určuje gramatické kategorie uzlů)
 	- závislostní strom vytvořený podle této definice má přesně tolik uzlů, kolik je prvků (tokenů) ve větě (slova, interpunkční znaménka)
 	- vlastnosti závislostního stromu
@@ -275,8 +275,8 @@
 		- Studenti potkali **své přátele** po vyučování.
 		- Studenti **je** potkali po vyučování.
 	- nebo testem přesunem
-		- Jane bought a hat from that strange little shop.
-		- \*From that strange Jane bought a hat little shop.
+		- Jane bought a hat **from that strange** little shop.
+		- \***From that strange** Jane bought a hat little shop.
 	- v češtině se dá často pořadí slov měnit
 		- ale existuje [Wackernagelův zákon](https://cs.wikipedia.org/wiki/Wackernagel%C5%AFv_z%C3%A1kon)
 	- vlastnosti složkového stromu
@@ -289,7 +289,6 @@
 		- Vánoční nadešel čas.
 		- Které děvčata chtěla dostat ovoce?
 		- Tuto knihu jsem se mu rozhodl dát k narozeninám.
-		- Proti odvolání se zítra Petr v práci nakonec důrazně rozhodl protestovat.
 	- větu nelze rozdělit do složkového stromu – vertikály z uzlů protínají hrany
 	- některá slovesa mají povinné vazby
 	- jakmile jsou ve větě dlouhé neprojektivní vazby nad rámec těch povinných, můžou být nejednoznačné
@@ -311,7 +310,7 @@
 		- tři typy proměnných: atomy, stromy, seznamy stromů
 			- pravidla mají omezený počet proměnných
 			- typy jsou implicitní – podle toho, jaké písmeno použijeme pro název proměnné (např. atomy používají písmena A–J)
-		- operátory -DANS-, -HORS-, -ET-, -NON-, …
+		- operátory `-DANS-`, `-HORS-`, `-ET-`, `-NON-`, …
 	- vstupní graf se postupně upravuje podle gramatiky
 	- čištění stromu
 		- první fáze – odstranění hran, které byly použity na levé straně libovolného pravidla
@@ -567,6 +566,7 @@
 	- teoreticky bychom se mohli obejít bez transferu
 		- pro danou dvojici jazyků může existovat interlingua – logická (formální) reprezentace významu věty společná pro oba jazyky
 		- žádná taková obecně akceptovaná formální reprezentace významu (zatím) neexistuje
+	- [![Vauquoisův trojúhelník](https://upload.wikimedia.org/wikipedia/commons/c/c2/The_Vauquois_triangle_version_1985.svg)](https://commons.wikimedia.org/wiki/File:The_Vauquois_triangle_version_1985.svg?uselang=cs)
 - první generace
 	- dvojjazyčný slovník – nestačí
 	- předpony, kmeny, přípony – moc nefunguje (viz němčina → čeština)
@@ -627,8 +627,8 @@
 		- nejvíc času nyní zabírá ukládání do souborů (Q-systémy mezi fázemi používají textové soubory k ukládání mezivýsledků)
 	- transdukční slovník (algoritmus)
 		- některá (zvláště technická) slova založená na řeckém nebo latinském základu se dají přeložit jenom přepsáním koncového úseku
-			- příklad: statistický → statističeskij
-		- překvapivě transdukční slovníky pro překlad angličtina → čeština a ruština → čeština vypadají hodně podobně (mají podobnou množinu slov)
+			- příklad: statistický → статистический (statističeskij)
+		- překvapivě transdukční slovníky pro překlad *angličtina → čeština* a *ruština → čeština* vypadají hodně podobně (mají podobnou množinu slov)
 	- valenční rámce sloves jsou v ruštině podobné jako v češtině
 	- idea: určit, zda se sloveso váže s životnými nebo neživotnými jmény
 		- to nefungovalo, lingvisté si neuměli představit použití (např. program může běžet)
