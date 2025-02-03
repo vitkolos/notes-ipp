@@ -5,7 +5,8 @@
 - počítačová lingvistika vs. zpracování přirozeného jazyka
 	- počítačová lingvistika – formální popis vlastností/fungování přirozených jazyků a jejich automatické zpracování
 	- počítačové zpracování přirozeného jazyka – aplikace metod strojového učení na jazyková data
-- oblasti počítačové lingvistiky: morfologie (tvarosloví), syntaxe (skladba), sémantika (význam), formalismy (syntaktické), korpusová lingvistika, strojový překlad, rozpoznávání/generování mluvené řeči, vyhledávání informací v textu, dialogové systémy
+- oblasti počítačové lingvistiky
+	- morfologie (tvarosloví), syntaxe (skladba), sémantika (význam), formalismy (syntaktické), korpusová lingvistika, strojový překlad, rozpoznávání/generování mluvené řeči, vyhledávání informací v textu, dialogové systémy
 
 ## Morfologie
 
@@ -131,72 +132,70 @@
 	- Markovova hypotéza – kontext je možno zkrátit na délku, která je spočitatelná (bigramy, trigramy)
 	- skryté – některé vlastnosti posloupnosti nejsou pozorovatelné (vidíme slova, nikoliv jejich morfologické značky)
 	- jedná se v podstatě o stochastický konečný automat
-- HMM se skládají z následujících komponent
-	- množina N stavů
-	- matice přechodových pravděpodobností (pravděpodobnost přechodu z jednoho stavu do druhého)
-	- posloupnost pravděpodobností pozorování (pravděpodobnost nějakého pozorování v konkrétním stavu)
-	- počáteční distribuce pravděpodobností nad stavy
-- tři základní úlohy s HMM
-	- učení statistického modelu
-		- je dána struktura modelu (počet skrytých stavů) a trénovací množina, cílem je najít parametry modelu (pravděpodobnosti přechodů mezi stavy a pravděpodobnosti jednotlivých prvků posloupnosti)
-		- Baum–Welshův algoritmus
-	- rozpoznávání (ohodnocení) statistického modelu
-		- jsou dány parametry HMM, cílem je spočítat pravděpodobnost, že je pozorována posloupnost X
-		- dynamické programování, forward-backward algoritmus
-	- dekódování
-		- hledání nejpravděpodobnější posloupnosti skrytých stavů (pro daný statistický model a posloupnost pozorování)
-		- dynamické programování, Viterbiho algoritmus
-		- Viterbiho algoritmus
-			- v podstatě hledání nejkratší cesty v grafu
-			- ohodnocení hran grafu odpovídají pravděpodobnostem přechodu
-
-### Kontrola překlepů
-
-- základní požadavky při kontrole překlepů – je obtížné je splnit všechny najednou
-	- všechny překlepy musejí být nalezeny a opraveny
-	- musejí být přezkoušeny kontextové podmínky korigované verze
-	- slova, která systém nezná, by neměla být hlášena jako chyby
-	- systém by neměl dávat falešná chybová hlášení
-	- korektura musí být co nejvíce automatická
-	- čas zpracování musí být velmi krátký
-- měření úspěšnosti
-	- precision P = TP/(TP+FP)
-		- počet správně zachycených chyb ÷ celkový počet chybových hlášení
-	- recall R = TP/(TP+FN)
-		- počet správně zachycených chyb ÷ celkový počet chyb v textu
-	- F-measure/F-score (míra F / F skóre)
-		- F = 2PR/(P+R)
-		- $F_1=\frac{TP + TP}{TP+FP+TP+FN}$
-- kontrola překlepů – 2 základní metody
-	- porovnávání řetězců se slovy ve slovníků
-		- buď seznam všech slovních tvarů (wordlist), nebo seznam lemmat + morfologická analýza
-		- spolehlivé a jednoduché, ale pomalé a náročné na kvalitu slovníku, nerozezná to chybná slova od neznámých
-	- srovnávání skupin znaků, hledání nedovolených kombinací
-		- rychle a nezávislé na slovníku, ale velmi neúplné, jelikož spousta chybných slov se skládá z vhodných kombinací znaků
-- jak nabízet opravy
-	- chceme nabízet pouze relevantní opravy – ale ne všechny, chceme je uspořádat podle relevance a vybrat několik málo možností
-	- co lze zohlednit při nabízení oprav
-		- okolnosti vzniku chyb (blízké klávesy apod.)
-		- statistiku chyb
-		- možné pravopisné chyby (mně × mě)
-		- heuristiku na oddělení chyb a neznámých slov
-		- syntax a sémantiku
-		- kontext (lze porovnávat s korpusy apod.)
-	- lze použít Levenštejnovu vzdálenost – minimální počet elementárních editačních operací
-- komerční řešení
-	- k omezení množství nabízených tvarů se používá Levenštejnova vzdálenost
-	- upřednostňuje se přesnost (nenalezené chyby autor nevidí :)) a rychlost
-	- uživatel nechce být rušen – kontrola se provádí na pozadí, nemusí se ručně pouštět
-	- uživatelsky definované slovníky nemají morfologii :(
-	- omezená možnost dalších rozvoje – vylepšení jdou směrem k většímu uplatnění kontextu
-- kontextové metody kontroly překlepů
-	- některé chyby nelze odhalit jen pomocí slovníku – weather/whether, there/their, form/from apod.
-	- spellcheckery využívající kontext obvykle používají statistické metody nebo strojové učení
-		- kvalita výsledků je ovlivněna velikostí tréninkových dat a podobností tréninkových dat a vstupního textu
-	- příklady kontextových spellcheckerů
-		- Ghotit
-		- WinSpell
-			- používá záměnnou množinu (confusion set) – to je množina tvarů, u nichž může snadno dojít k záměně
+	- HMM se skládají z následujících komponent
+		- množina N stavů
+		- matice přechodových pravděpodobností (pravděpodobnost přechodu z jednoho stavu do druhého)
+		- posloupnost pravděpodobností pozorování (pravděpodobnost nějakého pozorování v konkrétním stavu)
+		- počáteční distribuce pravděpodobností nad stavy
+	- tři základní úlohy s HMM
+		- učení statistického modelu
+			- je dána struktura modelu (počet skrytých stavů) a trénovací množina, cílem je najít parametry modelu (pravděpodobnosti přechodů mezi stavy a pravděpodobnosti jednotlivých prvků posloupnosti)
+			- Baum–Welshův algoritmus
+		- rozpoznávání (ohodnocení) statistického modelu
+			- jsou dány parametry HMM, cílem je spočítat pravděpodobnost, že je pozorována posloupnost X
+			- dynamické programování, forward-backward algoritmus
+		- dekódování
+			- hledání nejpravděpodobnější posloupnosti skrytých stavů (pro daný statistický model a posloupnost pozorování)
+			- dynamické programování, Viterbiho algoritmus
+			- Viterbiho algoritmus
+				- v podstatě hledání nejkratší cesty v grafu
+				- ohodnocení hran grafu odpovídají pravděpodobnostem přechodu
+- kontrola překlepů
+	- základní požadavky při kontrole překlepů – je obtížné je splnit všechny najednou
+		- všechny překlepy musejí být nalezeny a opraveny
+		- musejí být přezkoušeny kontextové podmínky korigované verze
+		- slova, která systém nezná, by neměla být hlášena jako chyby
+		- systém by neměl dávat falešná chybová hlášení
+		- korektura musí být co nejvíce automatická
+		- čas zpracování musí být velmi krátký
+	- měření úspěšnosti
+		- precision P = TP/(TP+FP)
+			- počet správně zachycených chyb ÷ celkový počet chybových hlášení
+		- recall R = TP/(TP+FN)
+			- počet správně zachycených chyb ÷ celkový počet chyb v textu
+		- F-measure/F-score (míra F / F skóre)
+			- F = 2PR/(P+R)
+			- $F_1=\frac{TP + TP}{TP+FP+TP+FN}$
+	- kontrola překlepů – 2 základní metody
+		- porovnávání řetězců se slovy ve slovníků
+			- buď seznam všech slovních tvarů (wordlist), nebo seznam lemmat + morfologická analýza
+			- spolehlivé a jednoduché, ale pomalé a náročné na kvalitu slovníku, nerozezná to chybná slova od neznámých
+		- srovnávání skupin znaků, hledání nedovolených kombinací
+			- rychle a nezávislé na slovníku, ale velmi neúplné, jelikož spousta chybných slov se skládá z vhodných kombinací znaků
+	- jak nabízet opravy
+		- chceme nabízet pouze relevantní opravy – ale ne všechny, chceme je uspořádat podle relevance a vybrat několik málo možností
+		- co lze zohlednit při nabízení oprav
+			- okolnosti vzniku chyb (blízké klávesy apod.)
+			- statistiku chyb
+			- možné pravopisné chyby (mně × mě)
+			- heuristiku na oddělení chyb a neznámých slov
+			- syntax a sémantiku
+			- kontext (lze porovnávat s korpusy apod.)
+		- lze použít Levenštejnovu vzdálenost – minimální počet elementárních editačních operací
+	- komerční řešení
+		- k omezení množství nabízených tvarů se používá Levenštejnova vzdálenost
+		- upřednostňuje se přesnost (nenalezené chyby autor nevidí :)) a rychlost
+		- uživatel nechce být rušen – kontrola se provádí na pozadí, nemusí se ručně pouštět
+		- uživatelsky definované slovníky nemají morfologii :(
+		- omezená možnost dalších rozvoje – vylepšení jdou směrem k většímu uplatnění kontextu
+	- kontextové metody kontroly překlepů
+		- některé chyby nelze odhalit jen pomocí slovníku – weather/whether, there/their, form/from apod.
+		- spellcheckery využívající kontext obvykle používají statistické metody nebo strojové učení
+			- kvalita výsledků je ovlivněna velikostí tréninkových dat a podobností tréninkových dat a vstupního textu
+		- příklady kontextových spellcheckerů
+			- Ghotit
+			- WinSpell
+				- používá záměnnou množinu (confusion set) – to je množina tvarů, u nichž může snadno dojít k záměně
 - systém ASIMUT
 	- „Automatická selekce informací metodou úplného textu“
 	- Králíková, Panevová
@@ -254,21 +253,22 @@
 		- přibližně to, co se učí ve škole (akorát klíčové je sloveso, pod něj se všechno napojuje)
 	- složkový strom
 		- anglosaská tradice
-- závislostní strom je pětice $T=\braket{N,E,Q,WO,L}$
-	- $(N,E)$ … orientovaný graf
-	- $Q$ … gramatické kategorie (popisky uzlů)
-	- $WO\subseteq N\times N$ … silné úplné uspořádání (určuje požádek slov)
-	- $L:N\to Q$ … ohodnocovací funkce (určuje gramatické kategorie uzlů)
+- závislostní strom
+	- pětice $T=\braket{N,E,Q,WO,L}$
+		- $(N,E)$ … orientovaný graf
+		- $Q$ … gramatické kategorie (popisky uzlů)
+		- $WO\subseteq N\times N$ … silné úplné uspořádání (určuje požádek slov)
+		- $L:N\to Q$ … ohodnocovací funkce (určuje gramatické kategorie uzlů)
 	- závislostní strom vytvořený podle této definice má přesně tolik uzlů, kolik je prvků (tokenů) ve větě (slova, interpunkční znaménka)
-- vlastnosti závislostního stromu
-	- nedává informace o postupu vytváření – jen o vztazích mezi uzly
-	- zachycuje vztahy mezi větnými členy
-	- nedává návod, jak strom získat
-	- ne všechny vztahy ve větě jsou přirozeně popsatelné jako závislost, není vždy jasné, co na čem závisí
-		- třeba u souřadného spojení „Petr a Pavel“ (tzv. koordinace) si musíme vybrat, kdo bude nadřazený
-		- slovo „Petr“ reprezentuje celou skupinu, je v čísle jednotném, ale skupina je v čísle množném
-		- asi by nejlépe fungovalo, kdybychom přidali speciální uzel za koordinaci
-		- podobně problematické jsou předložky – není jasné, jestli mají být nad nebo pod jménem
+	- vlastnosti závislostního stromu
+		- nedává informace o postupu vytváření – jen o vztazích mezi uzly
+		- zachycuje vztahy mezi větnými členy
+		- nedává návod, jak strom získat
+		- ne všechny vztahy ve větě jsou přirozeně popsatelné jako závislost, není vždy jasné, co na čem závisí
+			- třeba u souřadného spojení „Petr a Pavel“ (tzv. koordinace) si musíme vybrat, kdo bude nadřazený
+			- slovo „Petr“ reprezentuje celou skupinu, je v čísle jednotném, ale skupina je v čísle množném
+			- asi by nejlépe fungovalo, kdybychom přidali speciální uzel za koordinaci
+			- podobně problematické jsou předložky – není jasné, jestli mají být nad nebo pod jménem
 - složkový strom
 	- složka (constituent) = skupina slov, která fungují společně a tvoří jednu syntaktickou jednotku
 	- složku můžeme ve větě rozpoznat například pomocí nahrazovacího testu
@@ -279,10 +279,10 @@
 		- \*From that strange Jane bought a hat little shop.
 	- v češtině se dá často pořadí slov měnit
 		- ale existuje [Wackernagelův zákon](https://cs.wikipedia.org/wiki/Wackernagel%C5%AFv_z%C3%A1kon)
-- vlastnosti složkového stromu
-	- odpovídá derivačnímu stromu bezkontextové gramatiky
-	- je méně přehledný, mnohdy obsahuje spoustu nadbytečných uzlů
-	- přirozené jazyky nebývají bezkontextové
+	- vlastnosti složkového stromu
+		- odpovídá derivačnímu stromu bezkontextové gramatiky
+		- je méně přehledný, mnohdy obsahuje spoustu nadbytečných uzlů
+		- přirozené jazyky nebývají bezkontextové
 - neprojektivní konstrukce
 	- příklady
 		- Soubor se nepodařilo otevřít.
@@ -485,7 +485,7 @@
 - jazykový korpus
 	- sbírka textů, vzorek jazyka
 	- může být doplněn o značky (tagy) identifikující a klasifikující slova nebo jiné útvary
-- v Česku až v 90. letech byla dostatečná technika pro sběr a zpracování takového množství dat
+	- v Česku až do 90. let nebyla dostatečná technika pro sběr a zpracování takového množství dat
 - charakteristika moderních korpusů
 	- výběr vzorků a reprezentativnost – snaha o vyváženost (jazyk je nekonečný, korpus je konečný)
 	- konečná velikost – korpusy mají obvykle pevnou velikost, která umožňuje kvantitativní výzkum, výjimkou jsou monitorovací korpusy, kam jsou data stále přidávána
@@ -655,6 +655,7 @@
 - PC Translator 2003
 	- asi nejlepší český komerční systém
 	- dlouho byl lepší než Google Translate
+		- ten pak používal statistický strojový překlad, dnes se používají neuronové sítě
 - statistický překlad
 	- příklad: in (angličtina) → dans, à, de (francouzština)
 	- pravděpodobnost vs. relativní četnost
@@ -716,14 +717,15 @@
 
 ## Sémantika
 
-- popis syntaxe umožňuje rozlišit správně a nesprávně utvořené věty
-- i syntakticky správné věty však můžou být nesmyslné
-- význam a pravdivost sdělení (v přirozených jazycích) jsou odlišné záležitosti – i nepravdivá sdělení mají svůj význam
-	- u formálních jazyků spolu pravdivost a význam často úzce souvisejí
-- vyplývání – věta v sobě často nese i další informace, které nejsou explicitně zmíněny
-	- příklad: Karel prodal auto sousedovi → Karel měl auto, už ho nemá, soused je od něj koupil a teď ho má
-- Fregeho princip kompozicionality
-	- význam složeného výrazu je jednoznačně určen významy jeho částí a způsobem jejich kombinace
+- základní poznámky k sémantice
+	- popis syntaxe umožňuje rozlišit správně a nesprávně utvořené věty
+	- i syntakticky správné věty však můžou být nesmyslné
+	- význam a pravdivost sdělení (v přirozených jazycích) jsou odlišné záležitosti – i nepravdivá sdělení mají svůj význam
+		- u formálních jazyků spolu pravdivost a význam často úzce souvisejí
+	- vyplývání – věta v sobě často nese i další informace, které nejsou explicitně zmíněny
+		- příklad: Karel prodal auto sousedovi → Karel měl auto, už ho nemá, soused je od něj koupil a teď ho má
+	- Fregeho princip kompozicionality
+		- význam složeného výrazu je jednoznačně určen významy jeho částí a způsobem jejich kombinace
 - lexikální sémantika
 	- význam slov můžeme popisovat pomocí nějakého (meta)jazyka
 		- formálního
@@ -762,7 +764,7 @@
 			- není k dispozici zdarma
 	- aplikace WordNetu
 		- automatický překlad – může fungovat jako slovník
-		- extrakce informací – umožňuje pracovat se sémantickými vztahy (zejména se synonymy), může sloužit při vícejazyčném vyhledávání
+		- extrakce informací (IE) – umožňuje pracovat se sémantickými vztahy (zejména se synonymy), může sloužit při vícejazyčném vyhledávání
 		- určování významů slov (word sense disambiguation)
 		- reprezentace znalostí, odvozování
 		- vyhodnocování kvality překladu (zlepšení BLEU a podobných metrik)
@@ -804,7 +806,7 @@
 		- statistické přístupy
 		- členění věty – rozlišujeme jádro a ohnisko věty (viz algoritmus Zásoba sdílených znalostí)
 		- rozsáhlé pomocné znalosti – např. sémantické sítě, tezaury, ontologie
-- zásoba sdílených znalostí
+- Zásoba sdílených znalostí
 	- modeluje zásobu znalostí, o které mluvčí předpokládá, že ji sdílí s posluchačem
 	- zásoba se mění podle toho, co je „v centru pozornosti“ v daném okamžiku
 	- každý objekt má určitý stupeň aktivace (čím menší, tím více je „v centru pozornosti“)
@@ -813,3 +815,4 @@
 		- pokud ho explicitně zmíníme ve větě, jeho stupeň aktivace klesá na 0 nebo 1 (podle toho, na jakém místě ho zmiňujeme)
 		- všechny objekty asociované s daným objektem (nemusely v textu vůbec zaznít) mají aktivaci o dva vyšší
 		- po každé větě se stupeň nezmíněných objektů zvyšuje o dva
+	- má své slabiny
