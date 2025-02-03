@@ -613,32 +613,46 @@
 			- překladatel nevidí kompletní kontext
 			- překládá každou větu pouze jednou
 			- Déjà Vu (Atril)
----
-- české experimenty
-	- RUSLAN
-		- překlad manuálů k operačním systémům sálových počítačů
+- RUSLAN
+	- překlad manuálů k operačním systémům sálových počítačů
 		- manuály byly potřeba v češtině a v němčině, ale musely být také v ruštině (ty nikdo nečetl)
-		- původně 1 věta za 4 minuty, později třeba i za 20 sekund
-			- stačilo počkat 10 let na výkonnější počítače
-			- nejvíc času nyní zabírá ukládání do souborů (Q-systémy mezi fázemi používají textové soubory k ukládání mezivýsledků)
-		- transdukční slovník (algoritmus)
-			- některá (zvláště technická) slova založená na řeckém nebo latinském základu se dají přeložit jenom přepsáním koncového úseku
-			- překvapivě transdukční slovníky pro překlad angličtina → čeština a ruština → čeština vypadají hodně podobně (mají podobnou množinu slov)
-		- valenční rámce sloves jsou v ruštině podobné jako v češtině
-		- idea: určit, zda se sloveso váže s životnými nebo neživotnými jmény
-			- to nefungovalo, lingvisté si neuměli představit použití (např. program může běžet)
-	- systém Česílko
-		- lokalizace SAPu (a manuálů)
-		- nejdřív kvalitní ruční překlad do češtiny, pak automatizovaný překlad do dalších jazyků (např. slovenštiny)
-		- ukázalo se, že…
-			- pro dobrý překlad mezi češtinou a slovenštinou nestačí transdukční slovník
-			- české „jarní“, slovenské „jarný/jarná/jarné“
-		- překladatelé používali systémy asistovaného překladu s překladovou pamětí
-			- dalo se do ní něco přidávat
-			- idea: překladatel z němčiny do polštiny při překladu nové věty uvidí (polskou) nabídku, kterou vygeneroval počítač automaticky na základě české verze věty
-		- zajímavý syntaktický rozdíl
-			- bude-li (…) → ak (…) bude
-		- překvapivě překlad do polštiny byl méně kvalitní než do litevštiny (větný pořádek je v polštině jiný než v češtině)
+		- výzkum zastaven v roce 1990 těsně před provozními zkouškami
+	- fungování
+		- klasický dvojjazyčný slovník + transdukční slovník
+		- klasická architektura: analýza, transfer, syntéza
+		- gramatika zapsaná pomocí Q-systémů
+		- záchranná pravidla pro případ problémů při syntaktické analýze
+	- původně 1 věta za 4 minuty, později třeba i za 20 sekund
+		- stačilo počkat 10 let na výkonnější počítače
+		- nejvíc času nyní zabírá ukládání do souborů (Q-systémy mezi fázemi používají textové soubory k ukládání mezivýsledků)
+	- transdukční slovník (algoritmus)
+		- některá (zvláště technická) slova založená na řeckém nebo latinském základu se dají přeložit jenom přepsáním koncového úseku
+			- příklad: statistický → statističeskij
+		- překvapivě transdukční slovníky pro překlad angličtina → čeština a ruština → čeština vypadají hodně podobně (mají podobnou množinu slov)
+	- valenční rámce sloves jsou v ruštině podobné jako v češtině
+	- idea: určit, zda se sloveso váže s životnými nebo neživotnými jmény
+		- to nefungovalo, lingvisté si neuměli představit použití (např. program může běžet)
+- systém Česílko
+	- lokalizace velkých softwarových systémů
+		- SAP a jeho manuály
+	- nejdřív kvalitní ruční překlad do češtiny, pak automatizovaný překlad do dalších jazyků (např. slovenštiny)
+		- idea: využití příbuznosti jazyků
+	- typ překladu
+		- FAHQ (plně automatizovaný, vysoce kvalitní)
+		- velmi blízké jazyky
+		- statistické značkování češtiny
+		- dvojjazyčný slovník – slova nelze přímo přepisovat
+	- ukázalo se, že…
+		- pro dobrý překlad mezi češtinou a slovenštinou nestačí transdukční slovník
+		- příklad: české „jarní“, slovenské „jarný/jarná/jarné“
+		- shodná syntax, většinou shodné pořadí slov ve větě, ale odlišné slovníky (jistá pravidelnost), odlišné tvarosloví
+	- překladatelé používali systémy asistovaného překladu s překladovou pamětí
+		- dalo se do ní něco přidávat
+		- idea: překladatel z němčiny do polštiny při překladu nové věty uvidí (polskou) nabídku, kterou vygeneroval počítač automaticky na základě české verze věty
+	- zajímavý syntaktický rozdíl
+		- bude-li (…) → ak (…) bude
+	- překvapivě překlad do polštiny byl méně kvalitní než do litevštiny (větný pořádek je v polštině jiný než v češtině)
+---
 - PC Translator 2003 – asi nejlepší český komerční systém
 	- dlouho byl lepší než Google Translate
 - statistický překlad
