@@ -555,7 +555,7 @@ tento dokument je zveřejněn pod licencí [CC BY-SA]([https://creativecommons.o
 	- proto na základě tohoto ansámblu (učitelského modelu) natrénujeme menší/rychlejší studentský model, který ho bude napodobovat
 	- studentský model budeme trénovat tak, že mu místo dvojic $(x,t)$ budeme předhazovat dvojice $(x,p)$, kde $p$ je pravděpodobnostní rozdělení tříd, které pro hodnotu $x$ vrací učitelský model
 		- dokonce můžeme použít data, k nimž nejsou dostupné anotace (targety)
-		- jako loss funkci používáme $H(p_\text{student}(y\mid x;w),p_\text{teacher}(y\mid x;w))$
+		- jako loss funkci používáme $H(p_\text{teacher}(y\mid x;w),p_\text{student}(y\mid x;w))$
 
 ## 9. Decision Trees, Random Forests
 
