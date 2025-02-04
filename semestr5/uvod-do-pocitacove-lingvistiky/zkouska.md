@@ -251,8 +251,10 @@
 - používají se dva hlavní datové typy
 	- závislostní strom
 		- přibližně to, co se učí ve škole (akorát klíčové je sloveso, pod něj se všechno napojuje)
+		- dependency grammar
 	- složkový strom
 		- anglosaská tradice
+		- phrase structure grammar 
 - závislostní strom
 	- pětice $T=\braket{N,E,Q,WO,L}$
 		- $(N,E)$ … orientovaný graf
@@ -469,7 +471,7 @@
 			- vzájemně nezávislá, neuspořádaná, uplatňována v cyklech
 		- 4 části: kontext, desambiguační část, report, akce
 		- příklad
-			- The letter a(Article | Noun) from(Preposition) the given alphabet is represented in blue.
+			- The letter a(Article|Noun) from(Preposition) the given alphabet is represented in blue.
 			- máme pravidlo, které říká, že před slovesem/předložkou/spojkou nemůže být člen
 
 ## Korpusová lingvistika
