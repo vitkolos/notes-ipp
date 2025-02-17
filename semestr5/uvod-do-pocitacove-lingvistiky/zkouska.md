@@ -395,8 +395,9 @@
 		- rys (feature) je dvojice `klíč : hodnota`
 	- unifikace = spojování dvou sestav rysů popisujících stejný objekt
 		- je povolena, pokud si rysy neodporují
+		- máme definována gramatická pravidla, která unifikaci ovlivňují
 	- hodnotou vlastnosti může být i sestava rysů nebo proměnná
-	- proměnná nám vynutí, aby se při další unifikaci dva rysy nemohly lišit
+		- proměnná nám vynutí, aby se při další unifikaci dva rysy nemohly lišit
 	- problém: je možné unifikovat vlastnosti, které spolu nijak nesouvisejí
 	- typované sestavy rysů – typ sestavy určuje její vlastnosti (typ *verb* → vlastnosti *person, number, mode*)
 - funkční generativní popis

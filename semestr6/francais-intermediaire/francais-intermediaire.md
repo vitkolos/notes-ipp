@@ -1,0 +1,43 @@
+# Français
+
+- but = účel
+- zápočet
+	- aspoň 50% účast
+	- 2–3 omluvené absence jsou v pohodě, kdybychom chyběli víc, musíme udělat práci navíc
+	- pokud chybíme, můžeme odevzdávat do moodlu (?)
+- mots – travail
+	- travail, emploi, boulot, job (brigáda)
+	- stressant (→ soucis)
+	- épanouissant
+	- bien payé
+	- réunion, meeting
+	- rendez-vous
+	- visioconférence
+	- assister au réunion
+	- le salaire, la rémunération
+	- toucher/avoir un salaire
+	- bureau
+	- ordinateur
+	- employé, salarié
+	- emploi, poste
+	- travailler en équipe
+	- esprit d'équipe
+	- congé (payé), vacances
+	- profession, métier
+	- voyager
+	- nomade digital
+	- télétravail
+	- faire une pause
+	- démissioner × licencier, virer
+	- enterprise
+	- employeur
+	- embaucher, employer, engager, recruter
+	- entretien d'embauche
+	- prendre sa retraite, étre à la retraite
+	- postuler
+	- mi-temps × plein-temps (temps complet) × temps partíel
+	- chômage
+	- le taux de chômage
+	- patron
+	- patronage
+	- se reconvertir
