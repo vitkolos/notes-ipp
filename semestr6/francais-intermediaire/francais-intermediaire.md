@@ -41,3 +41,27 @@
 	- patron
 	- patronage
 	- se reconvertir
+- exprimer l'insatisfaction
+	- Je suis fatigué(e) de + inf.
+	- Je n'en paux plus de
+	- J'en ai marre de
+	- J'en ai assez de
+	- J'en ai ras le bol de
+- les pronons relatifs simples
+	- qui … nahrazuje podmět (sujet)
+	- que … nahrazuje COD
+	- dont … nahrazuje complément s **de**
+		- pozor, vedlejší věta musí začít podmětem
+	- où … nahrazuje místo nebo **čas**
+	- jiné předložky → předložka + quoi
+		- nebo složená vztažná zájmena
+- slovíčka
+	- P.-D. G. – président directeur général (CEO)
+	- exercer – vykonávat
+	- consister à qqc
+	- modeste – skromný
+	- multiprise – rozdvojka
+	- la plage – úsek
+	- exiguïté – těsnost
+	- service – oddělení
+	- la prime – prémie/odměna

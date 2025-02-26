@@ -1,0 +1,34 @@
+# Labs
+
+- for the sake of our homework … $p(w_1,w_2,\dots,w_n)\approx \prod_i p(w_i)$ (unigram)
+	- or $\approx\prod_i p(w_{i}\mid w_{i-1})$ (bigram)
+- n-gram language models
+- task
+	- create text corpus
+		- popular corpora
+			- Brown, CNK, PDT
+			- Common Crawl, Internet Archive, arXiv
+			- RedPajama
+		- what we can use
+			- books (Gutenberg)
+			- Wikipedia, W2C
+		- we should store the data as 1 plaintext file, the size should be at least 500k tokens (words), UTF-8, at least 2 languages (one of them should be English), one file for each language
+	- unigram statistics
+		- guess 10 frequent words
+		- compute 10 frequent words
+		- show least frequent words
+		- show unigram p's of efverything
+	- tokenize data
+		- Sacremoses
+		- we may use truecase
+	- bigram stats
+		- guess top 10 frequent bigram
+		- function for joint & conditional probability
+			- for most frequent unigrams (or some words)
+		- show top 10 bigrams
+- homework assignment
+	- estimate character 3-gram (trojice znaků) probabilities from data
+	- get test data, compute its probability
+	- calculate cross-entropy of the test data
+	- calculate probability that test data belong to the language
+	- deadline cca in 4 weeks
