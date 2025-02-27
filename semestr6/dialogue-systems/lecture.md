@@ -125,3 +125,166 @@
 	- multimodality – adding video (input/output)
 	- context dependency – understand/reply in context (grounding, speaker adaptation)
 	- incrementality – don't wait for the whole sentence to start processing
+
+## What happens in a dialogue
+
+- dialogue = conversational communication between two or more people
+	- verbal + non-verbal
+	- collaborative, social
+	- practical, related to actions
+	- interactive, incremental, messy
+	- dialogue systems are simpler than that
+- linguistic description
+	- phonetics/phonology
+	- morphology
+	- syntax
+	- semantics – sentence (propositional) meaning
+	- **pragmatics** – meaning in context, communication goal
+		- underlying meaning of the sentence
+- turn-taking (interactivity)
+	- turn = continuous utterance from one speaker
+	- normal dialogue – very fluent, fast
+		- minimizing overlaps and gaps
+		- cues/markers for turn boundaries
+	- overlaps happen naturally
+		- ambiguities in turn-taking
+		- barge-in
+- natural speech is very different from written text
+- turn taking in dialogue systems
+	- consecutive turns are typically assumed
+	- system waits for the user to finish their turn
+	- voice activity detection (VAD)
+		- quite hard
+		- we need to figure out if it is the user speaking and if they are speaking to the system
+	- wake words are making VAD easier
+	- some systems allow user's barge-in
+		- may be tied to the wake word
+- voice activity detection
+	- overlapping windows of ~30 ms + binary classifier
+	- features are similar to speech recognition itself
+	- onset is easier to detect than end of speech
+		- but it is hard to detect speech towards the system vs. someone else (that's why wake words are used)
+	- postprocessing – smoothing out short-term errors
+- speech acts
+	- John L. Austin, John Searle
+	- each utterance is an act (intentional, changing the state of the world)
+	- speech acts consist of
+		- utterance act – uttering of the words
+		- propositional act – semantics (surface meaning)
+		- illocutionary act – pragmatic meaning
+		- perlocutionary act – listener obeys command, listener's worldview changes, …
+	- types of speech acts
+		- assertive – speaker commits to he truth of a proposition
+		- directive – speaker wants the listener to do something
+		- commissive – speaker commits to do something themselves
+		- expressive – speaker expresses their psychological state
+		- declarative – performing actions (“performative verbs”)
+	- explicit (using a verb directly corresponding to the act) vs. implicit
+		- I **promise** to come by later. × I'll come by later.
+	- direct vs. indirect
+		- indirect – the surface meaning does not correspond to the actual one
+			- primary illocution – the actual meaning
+			- secondary illocution – how it's expressed
+		- example
+			- direct: Please close the window.
+			- indirect: Could you close the window?
+			- more indirect: I'm cold.
+- conversational maxims
+	- Paul Grice
+	- based on Grice's cooperative principle (“dialogue is cooperative”)
+	- 4 maxims: quantity, quality, relation, manner
+	- implicatures
+		- obvious violation of the maxim implies additional meanings
+- speech acts, maxims and implicatures in dialogue systems
+	- learned from the data / hand-coded
+	- understanding
+		- tested on real users → usually knows indirect speech acts
+		- implicatures limited – there's no common sense
+	- responses
+		- mostly strive for clarity – user doesn't really need to imply
+- grounding
+	- dialogue is cooperative → need to ensure mutual understanding
+	- common ground = shared knowledge, mutual assumptions of dialogue participants
+		- knowingly shared
+		- expanded/updated/refined in an informative conversation
+	- validated/verified via grounding feedback/evidence
+		- positive – understanding/acceptance signals
+			- visual, backchannels
+			- explicit feedback
+			- implicit feedback – showing understanding implicitly in the next utterance
+		- negative – misunderstanding
+			- visual
+			- implicit/explicit repairs
+			- clarification requests
+			- repair requests
+	- in dialogue systems
+		- crucial for successful dialogue
+		- backchanels / visual signals typically not present
+		- implicit confirmation very common
+		- explicit confirmation may be required for important steps
+		- clarification & repair requests very common
+		- part of dialogue management
+- deixis = pointing
+	- relating between language & context/world
+	- very important in dialogue
+	- deictic expressions
+		- meaning dependent on the context
+		- pronouns, verbs (tense and person markers), adverbs, other (lexical meaning – e.g. come/go)
+	- typically egocentric, *I – here – now* is the center (origo)
+	- main types of deixis: personal, temporal, local
+		- other: social, discourse/textual
+	- anaphora/coreference
+		- anaphora – referring back
+		- cataphora – referring forward
+	- in dialogue systems
+		- system typically assume a single user → personal deixis becomes much easier
+		- most systems are aware of time, location is more complicated
+		- coreference resolution is a separate problem
+- prediction
+	- dialogue is a social interaction
+	- brain does not listen passively
+	- prediction is crucial for human cognition
+	- this is why we understand in adverse condition
+		- we predict what the person might say → we can understand even in noisy environment
+- entropy
+	- Claude Shannon
+	- communication channel, entropy
+	- plays well with the social interaction perspective
+		- people tend to use all available channel capacity
+			- in noisy environment, we speak louder and slower
+		- people tend to spread information evenly
+			- words carrying more information are emphasized
+	- conditional entropy
+		- how hard is it to guess the next word in the sentence?
+		- given n-gram preceding context
+		- related to Shannon entropy but may differ
+- prediction in dialogue systems
+	- used a lot in speech recognition
+		- statistical language models – based on information theory
+	- not as good as humans
+	- less use in other DS components
+- adaptation/entrainment
+	- people subconsciously adapt/align/entrain to their dialogue partner over the course of the dialogue
+		- wording, grammar
+		- speech rate, prosody, loudness
+		- accent/dialect
+	- this helps a successful dialogue and social bonding, feels natural
+	- dialogue systems typically don't align
+		- NLG is rigid (templates, machine learning trained without context)
+		- but people align to dialogue systems
+- politeness
+	- dialogue as social interaction – follows social conventions
+	- indirect is polite
+		- this is the point of most indirect speech acts
+		- clashes with conversational maxims (maxim of manner)
+		- appropriate level of politeness might be hard to find (culturally dependent)
+	- face-saving (Brown & Lewinson)
+		- positive face = desire to be accepted, liked
+		- negative face = desire to act freely
+		- face-threatening acts – potentially any utterance
+			- threatening other's/own negative/positive face
+		- politeness softens FTAs
+	- in dialogue systems
+		- typically handcrafted, does not adapt to the situation
+		- typically not much indirect speech, but trying to stay polite
+		- learning from data can be tricky – may contain offensive speech (not just swearwords, problems can be hard to find)
