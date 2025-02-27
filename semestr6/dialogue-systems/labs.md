@@ -14,3 +14,10 @@
 		- anything that operates on top of a database or API
 	- we don't need to focus on parsing errors (or misunderstanding) in the flowchart
 	- we can use anything as the backend – even a local file
+- second assignment
+	- look at the data in `data/hw2` (only the train data?)
+	- write a script that separates the user and the system turns
+	- some search calls (after silence) will be parts of the text
+		- we ignore only the lines without tabs
+	- don't forget to comment the results
+	- we should run the tests locally
