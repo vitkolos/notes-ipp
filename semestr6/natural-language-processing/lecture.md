@@ -42,3 +42,44 @@
 	- we can derive that $I(X,Y)=H(X)-H(X\mid Y)$
 		- by symmetry $I(X,Y)=H(Y)-H(Y\mid X)$
 - cross-entropy
+
+## Noisy channel model
+
+- we try to recover the original input from a noised output
+	- original input $A$ = the message in someone's mind
+	- noised output $B$ = the written/spoken representation
+- usage: OCR, handwriting, speech recognition, machine translation, POS tagging
+- to get input
+	- $p(A\mid B)=p(B\mid A)\cdot\frac{p(A)}{p(B)}$
+	- $A^*=\text{argmax}_A\;p(B\mid A)\cdot p(A)$
+		- $p(B\mid A)$ … acoustic model
+		- $p(A)$ … language model
+- language modelling
+	- we need to model the probabilities of sequences of words
+	- we will use n-gram probabilities so that we don't need many parameters
+		- $p(w_i\mid w_{i-1},w_{i-2})=\frac{c(w_{i-2},w_{i-1},w_i)}{c(w_{i-2},w_{i-1})}$
+	- number of parameters
+		- uniform … 1
+		- unigram … $|V|-1$
+		- bigram … $\sim|V|^2$
+		- trigram … $\sim|V|^3$
+			- for $|V|\approx 60k$, it is larger than the number of parameters of the Llama model
+- smoothing
+	- we can add 1 to all of the counts
+		- ADD-1 smoothing
+		- $p(w\mid h)=\frac{c(w,h)+1}{c(h)+|V|}$
+		- what if there is an word that we did not see in the training set? we will have a special word for that `<unk>`
+	- we can add $\lambda$ to all of the counts
+		- ADD-$\lambda$
+		- $p(w\mid h)=\frac{c(w,h)+\lambda}{c(h)+\lambda\cdot |V|}$
+		- how to estimate $\lambda$
+		- we want to minimize the cross-entropy
+		- we cannot use training (nor test) data for that, we need holdout (dev) data
+		- $p(w_i\mid w_{i-2},w_{i-1})=\lambda_0\cdot p_0+\lambda_1 \cdot p_1(w_i)+\lambda_2\cdot p_2(w_i\mid w_{i-1})+\lambda_3\cdot p_3(w_i\mid w_{i-1},w_{i-2})$
+			- $\sum\lambda_i=1$
+		- expectation maximization (EM) algorithm
+			- expectation: $c(\lambda_j)=\sum\lambda _jp_j(w\mid h)/p'(w\mid h)$
+			- maximization: $\lambda_j=\frac{c(\lambda_j)}{\sum c(\lambda_h)}$
+- homework
+	- language identification using char-level language model
+	- at least 2 languages
