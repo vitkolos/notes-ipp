@@ -288,3 +288,119 @@
 		- typically handcrafted, does not adapt to the situation
 		- typically not much indirect speech, but trying to stay polite
 		- learning from data can be tricky – may contain offensive speech (not just swearwords, problems can be hard to find)
+
+## Data
+
+- two main questions before building a dialogue system
+	- what data to base it on
+	- how to evaluate it
+- observation: if you have extensive data of a high-enough quality, the LLM learns how to count etc. just from the examples
+- data
+	- corpus/dataset = collection of linguistic data
+	- Hugging Face, Czech National Corpus, …
+- dialogue corpora/dataset types
+	- modality: written/spoken/multimodal
+	- source
+		- human-human conversations – real dialogues, scripted (from movies)
+		- human-machine
+		- automatically generated
+	- domain
+		- closed/constrained/limited domain
+		- multi-domain (more closed domains)
+		- open domain (any topic, chitchat)
+- dialogue data collection
+	- in-house collection using experts (or students)
+		- safe, high-quality
+		- expensive, time-consuming
+		- Wizard-of-Oz (WoZ)
+			- for in-house data collection
+				- also: to prototype/evaluate a system before implementing it
+			- users believe they're talking to a system
+				- they behave differently than when talking to a human
+				- usually simpler
+			- system in fact controlled by a human “wizard”
+				- typically selecting options (free typing is too slow)
+	- web crawling
+		- typically not real dialogues
+		- offensive stuff
+		- many copies of the same content
+		- problematic licensing
+	- crowdsourcing
+		- compromise: employing (untrained) people over the web
+		- platforms: Amazon Mechanical Turk, Appen, Prolific
+		- people tend to game the system, causing noise
+- corpus annotation
+	- what we need to add to the data (recordings)
+		- transcriptions (textual representation of audio)
+		- semantic annotation such as dialogues acts
+		- name entity labelling
+		- other linguistic annotation: POS, syntax (usually not in DSs)
+	- getting annotation
+		- similar task as getting the data itself
+	- inter-annotator agreement
+		- typical measure: Cohen's Kappa
+			- for categorical annotation
+			- $\kappa\in(0,1)$
+			- 0.4 ~ fair, >0.7 ~ great
+			- $\kappa=\frac{\text{agreement}-\text{chance}}{1-\text{chance}}$
+- corpus size
+	- we need enough examples for an accurate model
+	- speech: 10s–100s of hours minimum
+		- pretrained LMs/audio LLMs: 100k–10M hours
+	- NLU, DM, NLG
+		- handcrafting: 10s–100s of dialogues may be OK to inform you
+		- simple model / limited domain: 100s–1000s dialogues might be fine
+		- open domain: sky's the limit (LLMs: 1T+ tokens)
+	- TTS – single person, several hours at least
+		- it pays off to have high-quality recordings of only one person with flat tone
+		- pretrained LMs: 10k+ hours (multilingual)
+- available dialogue datasets
+	- domain choice is rather limited
+	- size is very often not enough
+	- vast majority is English-only
+	- few free datasets with audio
+		- non-dialogue ones: https://www.openslr.org/
+- MultiWOZ
+	- task-oriented written dataset
+	- crowdsourced
+- dataset types
+- dataset splits
+	- train/dev/test spit
+	- dev … validation
+	- test … evaluation
+	- cross-validation
+
+## Evaluation
+
+- types
+	- extrinsic (how does the system affect the world) × intrinsic (how do its components work)
+	- subjective (what users think about it, manual) × objective (measuring properties directly from data, automatic)
+- we use quantitative evaluation (based on numeric data), not qualitative (detailed interviews with the users)
+- significance testing (Student's t-test, Mann-Whitney U-test), bootstrap resampling
+- getting the subjects for extrinsic evaluation
+	- can't do without people
+- extrinsic evaluation
+	- how to measure
+		- record people
+		- analyze the logs
+	- metrics
+		- task success
+		- duration
+		- retention rate (percentage of returning users)
+		- fallback rate (percentage of failed dialogues)
+		- number of users – not in research setting
+	- subjective
+		- questionnaires
+		- question types: open-ended, yes/no, Likert scales
+	- …
+- intrinsic
+	- ASR: word error rate ~ length-normalized Levenshtein distance
+	- NLU
+		- slot precision & recall & F1-measure
+		- accuracy used for intent/act type
+	- dialogue manager
+		- objective measures can be collected with user simulator
+	- NLG
+		- word-overlap (BLEU score)
+		- slot error rate
+		- diversity
