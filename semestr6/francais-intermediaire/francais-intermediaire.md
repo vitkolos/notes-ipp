@@ -65,3 +65,5 @@
 	- exiguïté – těsnost
 	- service – oddělení
 	- la prime – prémie/odměna
+	- le mémoire de license – bakalářská práce
+	- CDD/CDI – contrat à durée indeterminée/determiné, smlouva na dobu neurčitou/určitou

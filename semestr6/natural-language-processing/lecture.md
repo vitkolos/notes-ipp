@@ -83,3 +83,80 @@
 - homework
 	- language identification using char-level language model
 	- at least 2 languages
+
+## Morphological analysis
+
+- morphological annotation
+	- POS tags
+- tagsets
+	- English: Penn Treebank (45 tags), Brown Corpus (87), Claws c5 (62), London-Lund (197)
+	- Czech: Prague Dependency Treebank (4294; positional), Multext-East (1485; Orwell 1984 parallel corpus), Prague Spoken Corpus (over 10000)
+	- Universal Dependencies: 17 universal POS tags, 27 universal features (each with 1–37 possible values)
+- Czech positional tags of PDT
+	- positions: part of speech, subpos, gender, number, case, poss gender, poss number, person, tense, degree, polarity, voice, (reserved), (reserved), style
+	- gender ambiguities → more values of the position
+- Penn Treebank tagset
+	- prepositions and subordinate conjunctions have the same tag (hard to distinguish)
+	- “to” has its own tag (it denotes and infinitive or works as a preposition, not easy to distinguish)
+- universal POS tags (from Universal Dependencies)
+	- noun, proper noun, verb, adjective, adverb, interjection, pronoun, determiner, auxiliary, numeral, adposition, subordinating conjunction, coordinating conjunction, particle, punctuation, symbol, unknown
+- ancient Greek word classes
+	- adjectives are missing
+		- they are a relatively new invention from France
+		- in French, adjectives behave quite differently than nouns
+- traditional parts of speech
+	- English: noun, verb, adjective, adverb, pronoun, preposition, conjunction, interjection
+	- Czech: noun, adjective, pronoun, numeral, verb, adverb, preposition, conjunction, particle, interjection
+- openness vs. closeness, content vs. function words
+	- open classes (take new words)
+		- verbs (non-auxiliary), nouns, adjectives, adjectival adverbs, interjections
+		- word formation (derivation) across classes
+	- closed classes (words can be enumerated)
+		- pronouns/determiners, adpositions, conjunctions particles
+		- pronominal adverbs
+		- auxiliary and modal verbs/particles
+		- numerals
+		- typically thay are not base for derivation
+	- even closed classes evolve but over longer period of time
+- morphological analysis
+	- input: word form (token)
+	- output
+		- set of analyses (possibly empty)
+		- an analysis
+			- lemma (base form of the lexeme)
+			- tag (morphological, POS)
+				- POS
+				- features and their values
+- morphological analysis vs. tagging
+	- tagging … context-based disambiguation
+	- most taggers employ ML methods
+	- taggers may or may not work on top of morphological analysis
+- finite-state morphology
+	- finite-state automaton/machine
+	- example: FSA checking correct spelling of Czech *dě, tě, ně*
+- lexicon is implemented as a FSA (trie)
+	- composed of multiple sublexicons (prefixes, stems, suffixes)
+	- notes (glosses) at the end of every sublexicon
+		- e.g. POS tags
+	- lexicon is a DAG, not a tree
+- problem with phonology: baby+s → babies (not babys)
+	- two-level mophology solves that
+		- upper (lexical) language
+		- lower (surface) language
+	- two-level rules
+		- lexical: `baby+0s`
+		- surface: `babi0es`
+	- zero is treated as a normal symbol (but corresponds to an empty string)
+- finite-state transducer (převodník)
+	- transudcer is a special case of automaton
+	- checking (finite-state automaton)
+		- does the word belong to the language (lexicon)?
+	- analysis (finite-state transducer)
+		- surface string → lexical string
+	- generation (finite-state transducer)
+		- lexical string → surface string
+- another way of rule notation: two-level grammar
+	- `a:b <=> l:l _ r:r`
+	- lexical `a` must be realized as surface `b` in this context and only in this context
+		- context … between `l` and `r`
+	- FST can be constructed from that
