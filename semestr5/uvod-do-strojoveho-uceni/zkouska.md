@@ -869,7 +869,7 @@ tento dokument je zveřejněn pod licencí [CC BY-SA]([https://creativecommons.o
 		- výhody: jasná pravidla, stabilita, respekt práv
 		- nevýhody: rigidita, možný konflikt dvou pravidel, zanedbání důsledků
 		- kritika: když jsi zlý, vždycky můžeš tvrdit, že vycházíš z dobrých principů, nehledě na důsledky
-	- konsekvencialistická etika / utilitarianismus
+	- konsekvencialistická etika / utilitarismus
 		- dobré chování maximalizuje dobré následky (ale může být problém měřit, co jsou dobré následky)
 		- maximalizujeme celkové štěstí / well-being, minimalizujeme újmu
 		- zaměřuje se na důsledky akcí

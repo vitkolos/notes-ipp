@@ -67,3 +67,68 @@
 	- la prime – prémie/odměna
 	- le mémoire de license – bakalářská práce
 	- CDD/CDI – contrat à durée indeterminée/determiné, smlouva na dobu neurčitou/určitou
+- entretien d'embauche
+	- nettoyer des chaussures
+	- ne pas arriver en retard
+	- de répondre en phrases assez longues
+	- de savoir assez d'information sur l'enterprise et le poste
+	- s'habiller bien
+	- bien dormir, se coucher tôt pour être bien reposé
+	- connaître les produits
+	- utiliser le langage formel
+	- de poser des question
+- slovíčka
+	- piège … past
+	- des questions pièges
+	- surpasser des problèmes, résoudre des problèmes
+	- astuce … šikovnost
+	- artisan … řemeslník
+	- ouvrier … dělník
+	- interlocuteur
+	- dénoncer … oznámit, udávat
+	- vaincre … porazit
+	- steward, hôtesse de l'air
+	- scientifique, chercheuse … vědkyně
+	- maçonne … zednice
+	- infirmier … zdravotní bratr
+	- pédiatre
+	- styliste
+	- informaticienne
+	- l'emporter sur … mít navrch nad
+	- infléchir … ohnout
+	- ne (…) guère … ne příliš, ne moc
+	- répandu … běžný, rozšířený
+	- tirer parti … využít v prospěch
+	- acharné … zapálený
+	- afin que … aby
+	- přestože
+		- bien que, quoique + subj.
+		- même si + ind.
+- des expressions
+	- selon moi
+	- d'après moi
+	- à mon avis
+	- à mes yeux
+	- je crois que
+	- j'imagine que
+	- je suppose que
+	- j'avoue que
+	- je suis persuadé que
+	- je trouve que
+	- quant a moi
+	- pour moi
+	- moi, personnellement
+	- en ce qui me concerne
+- des réponses
+	- je n'ai aucune idée
+	- à vrai dire, je n'y ai pas réfléchi
+	- je n'en sais rien
+	- je n'ai pas d'opinion
+	- ça dépend
+	- d'accord
+- https://www.expressio.fr
+- l'expression du but
+	- pour / afin de + infinitif (un seul sujet)
+	- pour que / afin que + subjonctif (des sujets différents)
+	- Je viens pour / afin de t'aider.
+	- Je t'aide pour que / afin que tu puisses terminer ton travail plus tôt.

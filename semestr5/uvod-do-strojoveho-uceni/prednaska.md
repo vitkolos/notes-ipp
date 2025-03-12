@@ -290,7 +290,7 @@
 - věda o tom, co je dobře/špatně
 - hlavní teoretické rámce
 	- deontologická etika – máme nějaká pravidla/principy, těch se držíme
-	- konsekvencialistická etika / utilitarianismus – dobré chování maximalizuje dobré následky (ale může být problém měřit, co jsou dobré následky)
+	- konsekvencialistická etika / utilitarismus – dobré chování maximalizuje dobré následky (ale může být problém měřit, co jsou dobré následky)
 	- etika ctností (virtue) – člověk je dobrý, pokud dělá dobře věci, ke kterým je určený; rozhodnutí je dobré (akce je dobrá), pokud by se takhle rozhodnul ctnostný člověk
 	- kontraktová etika – ze společenské smlouvy (implicitní nebo explicitní) vyplývá, co je dobré
 	- etika péče – rodíme se jako bezbranní, proto má vůči nám společnost nějakou odpovědnost a naopak my máme odpovědnost vůči společnosti; etika péče stojí na vztazích a odpovědnosti, která z nich vyplývá
@@ -314,9 +314,9 @@
 	- dobrá rozhodnutí = rozhodnutí, která maximalizují celkový dopad
 	- výhody: flexibilita, kvantifikovatelnost
 	- nevýhody: hrozí, že budeme ignorovat práva jednotlivců, je těžké definovat účelovou funkci
-- někdy se vyplatí mezi frameworky přepínat – např. při hromadném neštěstí přejdeme z deontologické etiky na utilitarianismus
+- někdy se vyplatí mezi frameworky přepínat – např. při hromadném neštěstí přejdeme z deontologické etiky na utilitarismus
 - články o etice v ML se často zaměřují na negativní důsledky pro znevýhodněné lidi
-- utilitarianismus je problematický, když uvažujeme události s malou pravděpodobností a extrémní hodnotou užitku („je malá šance, že nás AI vyhubí, ale užitek by byl $-\infty$“)
+- utilitarismus je problematický, když uvažujeme události s malou pravděpodobností a extrémní hodnotou užitku („je malá šance, že nás AI vyhubí, ale užitek by byl $-\infty$“)
 - příklady, jak dělat etické systémy
 	- deontologická etika
 		- nepoužívat etnickou příslušnost jako feature

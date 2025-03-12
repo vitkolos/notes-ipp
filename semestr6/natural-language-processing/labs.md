@@ -32,3 +32,6 @@
 	- calculate cross-entropy of the test data
 	- calculate probability that test data belong to the language
 	- deadline cca in 4 weeks
+- corpora
+	- TEITOK Universal Dependencies
+	- querying in CQL
