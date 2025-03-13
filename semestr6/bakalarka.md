@@ -1,0 +1,111 @@
+- papírová verze se neodevzdává
+- elektronická verze
+	- PDF/A + přílohy (omezení formátů!)
+		- výjimky lze povolit
+	- do SISu
+	- přílohy nad 850 MB mají speciální postup
+	- také český a anglický abstrakt
+	- po obhajobě lze do 15 dnů doplnit errata
+- úprava práce
+	- kdybychom chtěli dělat něco jinak, můžeme se poradit s vedoucím
+	- nepřidává se kopie oficiálního zadání
+	- povinnost označit výstup z AI
+	- všechno důležité je v oficiální šabloně
+		- pokud máme v práci jednu tabulku, nemusí tam být seznam tabulek :)
+- smysl práce
+	- nejdůležitější otázka
+	- máme důvod, máme cíl
+- úvod práce
+	- smyslem úvodu je stručně popsat aktuální stav poznání v blízkém okolí účelu práce a co tam chybí (to je ten účel práce)
+	- někde by tam mělo být: „Cílem této práce je”
+		- ale ne na prvním odstavci, začíná se popisem „brambory“ (aktuální situace)
+- stať/maso
+	- příbuzné práce / related work
+		- trochu podrobněji popisuje bramboru, svět kolem nás
+		- doplňuje úvod, tam je to jenom stručně
+		- pokud náš problém někdo na světě řešil, je potřeba to přiznat a říct, proč to chceme dělat líp
+		- tato kapitola se typicky píše za úvod nebo před závěr – podle toho, kdy to čtenář potřebuje vědět
+		- nestačí popsat ostatní práce, je potřeba je vztáhnout k mému cíli
+	- analýza
+		- jak jsme dospěli k řešení
+		- často je důležitější než výsledné řešení
+		- „narazil jsem na tenhle software/knihovnu, ale rozhodl jsem se ho nepoužít proto a proto“
+	- závěr
+		- jak jsme splnili cíl (nebo že jsme ho nesplnili, posunuli)
+		- k čemu je to dobré, jak na to někdo může navázat
+			- případně sekce/podsekce future work
+- abstrakt
+	- práce v kostce
+	- „jedna věta/idea z každé kapitoly“
+	- jaký je problém, cíl, jak jsme na to šli, co jsme udělali, jak jsme to otestovali a co z toho plyne pro blaho lidstva
+- co se typicky čte
+	- název
+	- abstrakt
+	- úvod
+	- závěr
+- závěr by měl být čitelný, když na něj rovnou přeskočím z úvodu
+- implementační práce
+	- stanovit podcíle
+	- analýza požadavků – na práci koukáme z pozice zákazníka, který ji chce používat
+	- číslovat požadavky zákazníka, abych na ně mohl zpětně odkazovat
+	- požadavky zákazníka je fajn interpretovat
+	- sekce background – pokud chceme čtenáři připomenout nějaké zásadní koncepty, které budeme v práci používat
+	- analýza řešení je něco jiného než analýza požadavků – je to analýza netriviálních rozhodnutí
+	- vývojová dokumentace – tam by mělo být to, co ve zdrojácích není, co se z nich špatně vykouká
+		- začít tím nejdůležitějším
+		- nemusím tam popisovat každou třídu, každou metodu
+		- mělo by mi to pomoci pochopit, co ve zdrojácích najdu a proč to tam je
+	- uživatelská dokumentace – vysvětlit, jak se to spouští, instaluje, jak se to používá
+		- popíšu postup (tutoriál), jak něco konkrétního provést
+		- taky je důležité zdokumentovat datové formáty, jak se používají
+- začátek (včetně analýzy) má být tak podrobný, aby to někdo jiný zvládl udělat podobně
+- bakalářka se součástí studia, učíme se psát text, je fajn to postupně iterovat s vedoucím
+- experimentální práce
+	- sekce experimenty – rozmyslíme si, jaké experimenty vlastně budeme dělat
+	- v každém experimentu máme podsekci metoda, která relativně detailně popíše, jak se experiment dá udělat, aby to bylo replikovatelné
+	- jeden experiment: design, metoda, výsledky, diskuse
+- napsat si skript, který mi spustí všechny experimenty a vyplivne všechny obrázky, které v práci mám
+- teoretické práce
+	- je normální déle vysvětlovat potřebnou teorii (třeba deset, dvacet stran)
+	- pokud něco tvrdíme, měli bychom to dokázat nebo citovat někoho, kdo to dokázal
+	- pokud to neumíme dokázat, existuje možnost podpořit to experimenty
+- poslední detaily
+	- dát si pozor na termíny
+	- je potřeba do odevzdat do půlnoci deadlinu, je potřeba řešit technické věci včas
+	- týden před obhajobou dostaneme posudek
+		- zaškrtávací políčka – mít všude OK je normální (jednička), ale nikde nechceme mít „nevyhovuje“
+- obhajoba
+	- liší se podle katedry vedoucího
+	- na KAMu a IÚUKu je to formou prezentace
+		- obvykle slidy
+		- ale můžeme i psát na tabuli, jak chceme
+	- u ostatních kateder je to formou posteru
+		- přineseme ho až fyzicky na den obhajoby
+		- je potřeba tam mít vše důležité
+	- pak vedoucí poví, co si myslí, oponent poví, co si myslí
+		- můžeme reagovat
+		- je poměrně důležité umět vhodně reagovat
+	- kdokoliv může něco říct, zeptat se
+	- je důležité nepodcenit obhajobu, hodnocení se může lišit od navrženého
+- existuje draft instrukcí k bakalářské práci – bude nám poslán odkaz
+	- je to představa státnicové komise
+	- je to seznam věcí, u nichž se můžeme zamyslet, jestli by tam náhodou neměly být – není nutné tam všechny mít
+- je potřeba správně citovat všechno externího, co používáme
+	- dát pozor na licence, jak to smíme zveřejňovat apod.
+- jazyková kultura
+	- obvykle píšeme v 1. osobě množného čísla
+	- česky, slovensky nebo anglicky (jinak explicitní povolení)
+	- používat vhodnou terminologii
+	- provázet čtenáře tématem, používat přehledné a srozumitelné věty
+	- pořádně vysvětlovat
+	- zamyslet se nad pořadím, raději nedělat dopředné odkazy
+	- psát jednotně, zachovat jeden styl
+	- píšeme pro kolegu matfyzáka – neorientuje se v naše specifickém zákoutí
+	- přečíst si text nahlas
+	- testovat na lidech – často nevidíme problémy, protože jsme zaslepeni vlastní představou, jak jsme to chtěli (autorská slepota)
+- pozor na obrázky, ať jsou vektorové nebo mají dost velké rozlišení
+- do SISu můžeme klidně pár dní předem nahrát data, až pak se kliká na odevzdat
+	- kdyby nás SIS s něčím vyhazoval, můžeme případně napsat Medvědovi
+- všechno korektně citovat – klidně celou pasáž
+	- lze i osobní komunikaci
+	- výstup citačních nástrojů (např. Zotero) je nutné ručně upravit
