@@ -160,3 +160,37 @@
 	- lexical `a` must be realized as surface `b` in this context and only in this context
 		- context … between `l` and `r`
 	- FST can be constructed from that
+	- disadvantage: capturing of long-distance dependencies is clumsy
+		- example of long-distance dependencies – Czech adjectives (superlatives in particular)
+		- `nej-` prefix is legal only if there is `-ší` suffix
+
+## Syntactic analysis
+
+- syntactic annotation
+	- dependency tree – we need only „pointers“ to parent elements and labels of the connections
+	- ways of annotation differ (e.g. Prague Dependency Treebank vs. Universal Dependencies)
+- surface syntax
+	- relations between sentence parts
+	- sentence part = token (word, number, punctuation)
+	- we do not restore elided constituents at this level
+	- different shapes in different theories, hierarchical structure (tree)
+		- phrasal (constituent) tree, parse tree
+		- dependency tree
+	- constituent vs. dependencies
+		- there exist multiple constituent tree for one dependency tree
+		- in dependency tree, the phrases have “heads” (parent nodes of the words of the phrases)
+	- phrases
+		- phrase replaceability – a phrase can be replaced by a different phrase of the same type
+		- different POS phrases
+		- propositional phrase attachment ambiguity
+		- verb phrase × clause
+		- coordination
+		- ellipsis
+- syntactic parsers
+	- transition-based Malt parser
+		- complete for projective trees
+			- there are extensions that can produce non-projective trees
+		- transitions
+			- Shift – move word from buffer to stack
+			- Larc – connect two topmost stack words, higher is parent (remove child from stack)
+			- Rarc – connect two topmost stack words, lower is parent (remove child from stack)
