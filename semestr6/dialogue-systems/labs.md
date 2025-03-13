@@ -21,3 +21,19 @@
 		- we ignore only the lines without tabs
 	- don't forget to comment the results
 	- we should run the tests locally
+- third assignment
+	- NLU, just understanding, no reply
+	- we will install dialmonkey using pip (see readme)
+		- it's an empty shell
+	- there is a config file
+		- there are some components
+	- jupyter notebook with demo snippets
+	- pick one domain
+	- implement ruse-based NLU
+		- there are restaurant examples we can look at
+		- we need to update our repo from the upstream
+	- we should create a config file – we can start with the sample config and replace the dummy NLU with our own implementation
+	- we should test it (write 15 test utterances)
+		- input on the left, dialogue act on the right
+		- we should separate it by a real `tab` character
+		- there can be multiple intents on the right (with `&` separating them)

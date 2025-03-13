@@ -404,3 +404,62 @@
 		- word-overlap (BLEU score)
 		- slot error rate
 		- diversity
+
+## Natural Language Understanding
+
+- words → meaning
+- challenges
+	- non-grammaticality
+	- disfluencies
+	- ASR errors
+	- synonymy
+	- out-of-domain utterances
+- semantic representations
+	- syntax/semantic trees
+	- frames
+	- graphs
+	- **dialogue acts**
+- basic approaches
+	- for trees/frames/graphs
+		- grammar-based parsing
+			- grammars are expensive, hard to maintain
+			- hardware-hungry, brittle
+			- CFGs are too simple for full natural language
+			- Phoenix Parser
+		- statistical
+	- for dialogue acts (both options can be rule-based or statistical)
+		- classification
+			- concepts: intent, slot-value pair
+			- consistency problems (conflicting intents, conflicting values) need to be solved externally
+		- sequence labelling
+- named-entity recognition (NER) + delexicalization
+	- identify slot values / named entities
+	- delexicalize = replace them with placeholders (indicating entity type)
+- slot filling as sequence tagging
+	- get slot values directly, automatic delexicalization
+	- each word classified
+	- IOB format (inside-outside-beginning)
+		- O … word does not belong to any slot
+		- B … beginning of the slot
+		- I … another word inside the slot
+	- it is useful to combine rules and classifiers
+		- keywords/regexes found at specific position
+		- apply classifier to each word in the sentence left-to-right
+		- problem: overall consistency (slots found elsewhere in the sentence might influence what's classified now)
+	- solution: structured/sequence prediction
+		- HMM, MEMM, CRF
+- machine learning
+	- generative × discriminative models
+		- example: elephants vs. dogs
+		- generative: ~ 2 models, what elephants and dogs look like
+		- discriminative: establish decision boundary
+	- logistic regression
+	- SVM
+	- soft-margin SVM
+	- regularized logistic regression
+- sequence prediction
+	- maximum entropy Markov model
+		- one error might lead to a series of errors
+	- hidden Markov model
+		- limited feature function
+	- linear-chain conditional random field
