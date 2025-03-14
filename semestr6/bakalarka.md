@@ -108,3 +108,4 @@
 	- kdyby nás SIS s něčím vyhazoval, můžeme případně napsat Medvědovi
 - všechno korektně citovat – klidně celou pasáž
 	- lze i osobní komunikaci
+	- výstup citačních nástrojů (např. Zotero) je nutné ručně upravit
