@@ -132,3 +132,26 @@
 	- pour que / afin que + subjonctif (des sujets différents)
 	- Je viens pour / afin de t'aider.
 	- Je t'aide pour que / afin que tu puisses terminer ton travail plus tôt.
+- les autres expressions
+	- dans l'intention de + inf.
+	- dans le but de + inf.
+	- de façon à + inf.
+	- de manière à + inf.
+	- en vue de + inf. ou nom
+- slovíčka
+	- décrocher … sundat, najít
+	- Pôle emploi … úřad práce
+	- prospecter … hledat
+	- embaucher … přijmout
+	- requérir … vyžadovat
+	- faire le point … posoudit, zvážit pro a proti
+	- transmettre … předávat znalosti, schopnosti, zkušenosti
+	- tirer parti … využít, ponaučit se
+	- un point fort/faible … silná/slabá stránka
+	- être polyvalent … mít více talentů
+	- être un touche-à-tout … “jack of all trades”
+	- l'augmentation … zvýšení (mzdy)
+	- l'impôt, la contribution … daň
+	- gagner sa vie … vydělávat si na živobytí
+	- pot de colle … hrnec lepidla
+	- c'est fichu … je to v háji

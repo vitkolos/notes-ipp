@@ -194,3 +194,62 @@
 			- Shift – move word from buffer to stack
 			- Larc – connect two topmost stack words, higher is parent (remove child from stack)
 			- Rarc – connect two topmost stack words, lower is parent (remove child from stack)
+
+## Information Retrieval
+
+- there will be a homework similar to the last year (but with slight modifications)
+- information retrieval
+- boolean retrieval
+	- queries are boolean expressions
+	- search engine returns documents that satisfy the expression
+	- term-document incidence matrix
+	- for bigger collections, the incidence matrix would be very sparse
+		- we will use a different way of storage
+		- inverted index
+			- for each term in a dictionary, we store a list of all documents that contain the term (postings list)
+	- the tokens are usually normalized (lemmatized?), also we sort the whole list of (token, document) pairs
+	- we want to have the dictionary in the memory, the postings can be stored on the disk
+	- data structures for looking up term – hashes and trees
+		- is there a fixed number of terms or will it be growing?
+		- what are the frequencies with which various keys will be accessed?
+		- how many terms are we likely to have?
+	- hashing tables
+		- term → integer, try to avoid collisions
+		- fast lookup time
+		- no way to find minor variants, no prefix search
+		- might need to be rehashed
+	- trees
+		- prefix can be searched
+		- slightly slower search
+		- need to be rebalanced
+		- …
+		- binary tree
+		- B-tree
+	- simple conjunctive query (two terms)
+		- we need to find the intersection of two postings
+		- that is linear if the postings are sorted
+	- boolean queries
+		- use `and`, `or`, `not`
+		- each document is considered to be a set of terms
+- text processing
+	- format, language, character set
+	- normalization, tokenization
+	- hyphens and compound words are problematic
+		- accents and umlauts too
+	- capital letters
+	- stop words – extremely common words
+		- older IR systems usually ignored them
+		- you need stop words for phrase queries like “King of Denmark”
+	- more equivalence classing
+		- phonetic equivalence (Soundex)
+		- semantic equivalence (thesauri)
+	- lemmatization – we reduce the word to its proper dictionary headword form
+		- inflectional
+		- derivational
+	- stemming
+		- uses heuristics to chop off the end of the word
+		- Porter stemmer
+			- conventions + 5 phases of reductions applied sequentially
+			- each phase consists of a set of commands
+			- sample command – delete final *ement* if what remains is longer than 1 character (replacement → replac)
+		- stemming is usually good enough (we don't need lemmatization)
