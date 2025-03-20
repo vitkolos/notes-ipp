@@ -463,3 +463,67 @@
 	- hidden Markov model
 		- limited feature function
 	- linear-chain conditional random field
+- neural networks
+	- both for classification & sequence models
+	- non-linear functions, composed of basic building blocks, stacked into layers
+	- activation functions
+		- linear functions
+		- nonlinearities – sigmoid, tanh, ReLU
+		- softmax – probability estimates
+	- fully differentiable – training by gradient descent
+		- gradients backpropagated from outputs to all parameters
+	- features: word embeddings
+	- recurrent neural networks (RNN)
+		- many identical layers with shared parameters
+		- output of the first layer is fed as an input to the second
+		- additionally, each layer gets another token from the input
+		- other cell types: GRU, LSTM
+			- make backpropagation work better
+			- gates to keep old values
+	- encoder-decoder networks
+		- …
+	- attention = “memory” of all encoder hidden states
+	- transformer
+		- getting rid of encoder recurrences
+		- the whole encoder part can be parallel → networks (and datesets) can be larger, they are faster to train
+		- …
+		- apart from word embedding, it has also positional embedding
+- neural NLU
+	- various architectures possible
+	- classification
+		- feed-forward NN
+		- RNN + attention weight → softmax
+		- convolutional networks
+		- transformer
+	- sequence tagging
+		- RNN (LSTM/GRU) → softmax over hidden states
+		- transformer works the same
+		- intent can be tagged at start of sentence
+- handling ASR noise
+	- we can run NLU for all the hypotheses and sum the results
+	- we can use confusion networks
+	- the word features can be weighed by word confidence
+- context
+	- user response can depend on last system action
+	- we might need to add last system DA/text into input features
+	- but the system cannot expect the user to always respond to the last question
+
+## Dialogue State Tracking
+
+- we need to remember what happened in the past during the dialogue
+	- past system actions! (user may react to them)
+- ontology
+	- to describe possible states
+	- defines all concepts in the system
+- problems with dialogue state
+	- NLU is unreliable
+	- to solve that, we can ignore low-confidence input
+		- but if there is some level of noise and the user repeats multiple times the same thing, is the confidence still low?
+- belief state
+	- we estimate a probability distribution over all possible states
+	- Markov decision process
+	- partially observable Markov decision process
+	- naïve generative belief tracking
+	- parameter tying
+	- …
+- LLM prompting
