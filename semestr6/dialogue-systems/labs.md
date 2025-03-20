@@ -37,3 +37,12 @@
 		- input on the left, dialogue act on the right
 		- we should separate it by a real `tab` character
 		- there can be multiple intents on the right (with `&` separating them)
+- fourth assignment
+	- we won't work with our domain, we will use DSTC2 restaurant data
+	- for each sentence, there is a DA annotation (sentence-level, not token-level)
+	- our goal is to do sentence-level classification (no need for sequence analysis)
+	- idea: for each intent-slot pair we should train a classifier (~ 50 classifiers total)
+		- the goal is to make it work, we don't have to follow that strictly
+	- we should put the classification results back together into DAs
+	- there's an evaluation script
+	- then we should set it up so that we can use it to chat
