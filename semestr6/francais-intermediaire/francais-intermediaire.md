@@ -155,3 +155,5 @@
 	- gagner sa vie … vydělávat si na živobytí
 	- pot de colle … hrnec lepidla
 	- c'est fichu … je to v háji
+- slovíčka
+	- location … pronájem
