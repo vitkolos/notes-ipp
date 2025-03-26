@@ -35,3 +35,26 @@
 - corpora
 	- TEITOK Universal Dependencies
 	- querying in CQL
+- information retrieval – assignment
+	- implement simple IR system
+	- we will be given a document collection and queries
+	- the goal is to process the queries, generate the output, and evaluate the results
+	- steps
+		- inverted index
+		- boolean query operators (AND, OR, AND NOT)
+		- query set
+		- evaluation (precision, recall)
+		- submission
+	- the test data should not be distributed
+	- the topics are quite rich – we need only the num and the query
+		- the description and the narative we used for human evaluation of the document relevance
+	- there are parallel queries in both languages, we should use them for the respective documents
+	- we index only the textual content of the documents
+	- the files are in SGML, XML parser might not work, we can use regex
+	- the minimum is to do lowercasing and punctuation removal
+		- we can do also lemmatisation, stemming etc. but it is not necessary
+	- details tomorrow on the website
+- Levenshtein edit distance
+	- basic operations: insert, delete, replace
+	- Damerau-Levenshtein: transposition as a fourth possible operation
+	- weighted edit distance – weights correspond to the distance on the keyboard (if we want to detect mistyping/misspelling)
