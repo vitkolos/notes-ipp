@@ -46,3 +46,13 @@
 	- we should put the classification results back together into DAs
 	- there's an evaluation script
 	- then we should set it up so that we can use it to chat
+- fifth assignment
+	- belief tracker
+	- so far we've been filling dial.nlu
+	- now, we need to fill dial.state dictionary … key = slot, value = dict (value → probability)
+		- `dial.state = {'price': {'cheap': 0.2, 'moderate': 0.5, 'expensive': 0.1, None: 0.2}, 'area': {'north': 0.5, 'east': 0.1, None: 0.4}}`
+		- after each turn we update the values with probabilities from dial.nlu
+		- (initially: `dial.state = {'price': {None: 1.0}, 'area': {None: 1.0}}`)
+	- the probabilities should sum up to one! (it's a job of NLU to assure that)
+	- in hw4 we don't need to set the probabilities (but we can do that)
+	- in hw5 the NLU needs to set the probabilities (in sklearn, predict_proba)
