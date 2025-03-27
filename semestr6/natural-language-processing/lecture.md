@@ -253,3 +253,31 @@
 			- each phase consists of a set of commands
 			- sample command – delete final *ement* if what remains is longer than 1 character (replacement → replac)
 		- stemming is usually good enough (we don't need lemmatization)
+
+### Ranked Retrieval
+
+- boolean retrieval: good for experts, good for applications, not good for the majority of users
+	- most users are not capable (or don't want) to write boolean queries
+	- we usually get either too few or too many results
+- with ranking, we can just show the top 10 results
+- more relevant results are ranked higher than less relevant results
+- we will use rank $\in[0,1]$
+- Jaccard coefficient
+- term weighting
+- bag of words model
+- “term frequency”
+- we want high weights for terms that occur rarely in the collection
+- inverse document frequency
+- collection frequency vs. document frequency
+- tf-idf weighting
+	- $w_{t,d}=(1+\log\text{tf}_{t,d})\cdot\log\frac N{\text{df}_t}$
+- documents (and the query) as vectors (components = tf-idf scores)
+- we want to somehow measure similarity between the query and the documents
+	- distance does not work well – longer documents are far from the shorter ones
+	- we will use angle (cosine similarity)
+	- cosine similarity for normalized vectors is just the dot product
+- evaluation
+	- precision, recall, F-score
+	- accuracy is usually not helpful in information retrieval as $TP\ll TN$
+	- precision and recall are computed for unranked sets
+		- we can compute it for top $n$ results (for different values of $n$)
