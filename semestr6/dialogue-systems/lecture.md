@@ -527,3 +527,76 @@
 	- parameter tying
 	- …
 - LLM prompting
+
+## Dialogue Policy
+
+- dialogue management
+	- DST tracks the past
+	- dialogue policy navigates towards the future
+- policy selects the next action
+- action selection approaches
+	- finite-state machines
+		- good for tone-selection phone systems
+	- frame-based
+		- state = frame with slots
+		- slots can be filled in any order
+		- more information in one utterance possible
+		- the system asks until all the slots are filled
+		- standard implementation: VoiceXML
+	- rule-based
+		- if-then-else rules in programming code
+		- very flexible, but gets messy
+		- dialogue policy is still pre-set which might not be the best approach
+	- statistical – with machine learning
+- dialogue management with supervised learning
+	- action selection ~ classification → use supervised learning?
+	- hard to get sufficiently large human-human data
+	- dialogue is ambiguous and complex, there's no single correct next action
+		- some paths are not explored in the data but you may encounter them
+	- DSs should behave differently than people, they are in a different situation
+- DM as a Markov Decision Process
+	- it has Markov property – current state defines everything
+- deterministic vs. stochastic policy
+	- ~ pure vs. mixed strategy profile
+	- deterministic … for every state, the next action is fixed
+	- stochastic … for a state, there is a probability distribution of possible actions
+- reinforcement learning
+	- finding a policy that maximizes long-term reward
+	- example reward mechanism
+		- for each turn … -1 (to minimize total number of turns)
+		- success … +20
+		- fail … -10
+	- discount factor … assigns less priority to older rewards
+	- state-value function
+	- bellman equation
+		- the equations will not be required :)
+	- action-value function
+	- optimal policy
+	- RL agent taxonomy
+	- RL approaches
+		- dynamic programming – exact solution from Bellman equation
+		- Monte Carlo – sample, learn from experience
+		- temporal difference – look-ahead sampling (bootstrap), refine estimates as you go
+	- sampling & updates – on-policy vs. off-policy
+- examples of RL approaches
+	- value iteration
+		- dynamic programming, model-based, value-based
+		- we update the $V(s)$ value until it converges for all the states
+		- can be done with $Q$ instead
+		- we assume $p$ and $r$ to be known, can be estimated from the data but it's expensive
+	- Monte Carlo methods
+	- SARSA (state-action-reward-state-action)
+		- on-policy
+	- Q-learning
+		- off-policy
+	- REINFORCE
+		- we are learning the policy directly (we update its parameters)
+- POMDP
+	- MDP algorithms need the states to be quantized/discretized
+	- policy gradients work out of the box
+- summary space
+	- nowadays, probably not necessary when using deep neural networks
+- simulated users
+	- RL needs a lot of data
+	- in the beginning, the system will behave randomly, people don't like this
+	- that's why we need to build another dialogue system (or at least dialogue manager) that can simulate the user
