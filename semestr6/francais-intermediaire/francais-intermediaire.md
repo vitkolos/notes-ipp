@@ -157,3 +157,10 @@
 	- c'est fichu … je to v háji
 - slovíčka
 	- location … pronájem
+	- faire le troc = troquer, échanger (vyměnit)
+	- déposer qqc dans des bornes de collecte
+	- déposer qqc dans des conteneurs de relais
+	- plébisciter … chválit
+	- gaspillage … plýtvání
+	- un bien … věc
+	- la trottinette … koloběžka
