@@ -281,3 +281,23 @@
 	- accuracy is usually not helpful in information retrieval as $TP\ll TN$
 	- precision and recall are computed for unranked sets
 		- we can compute it for top $n$ results (for different values of $n$)
+
+## Neural Networks
+
+- the old view: a network of artificial neurons
+- the current view: a network of layers
+- …
+- representing words
+	- words are not vectors of continuous numbers :((
+	- one-hot encoding
+	- prediction of next word
+	- result has interesting properties, similar words have similar weight vectors
+- representing sequences
+	- RNN = information pipeline
+	- CNN = information in tree-like data structure (used in speech-recognition)
+	- self-attentive = Transformers = information flow in a weighted complete bipartite graph
+- Transformers
+	- originally for machine translation
+	- attention weights = similarity matrix between all pairs of states
+	- the $\sqrt{d}$ helps the numerical stability
+	- feed-forward layer
