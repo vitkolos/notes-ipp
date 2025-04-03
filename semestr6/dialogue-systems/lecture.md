@@ -600,3 +600,33 @@
 	- RL needs a lot of data
 	- in the beginning, the system will behave randomly, people don't like this
 	- that's why we need to build another dialogue system (or at least dialogue manager) that can simulate the user
+- deep reinforcement learning
+	- part of the agent is handled by a neural network
+- deep Q-networks
+	- Q function is represented by a nerual net
+	- usual Q-learning does not converge well with NNs
+		- SGD is unstable
+		- correlated samples (data is sequential)
+		- …
+	- there are some fixes we can use
+	- interesting tricks
+		- experience replay – buffer of 10k moves → we sample from a set of both old and recent moves
+		- target Q function freezing – have a copy of Q function that does not get updated every time
+
+## Natural Language Generation
+
+- subtasks
+	- content planning
+	- sentence planning
+	- surface realization
+- NLG basic approaches
+	- canned text – hand-written prompts
+	- templates – “fill in blanks” approach
+	- grammars & rules
+	- machine learning´– with or without NNs
+- neural networks
+	- Seq2seq RNNs
+	- Transformer
+		- in theory, it's weaker then RNNs
+		- but the models can be larger (we can train them in parallel)
+		- usually, only the decoder model is used

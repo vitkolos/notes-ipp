@@ -56,3 +56,8 @@
 	- the probabilities should sum up to one! (it's a job of NLU to assure that)
 	- in hw4 we don't need to set the probabilities (but we can do that)
 	- in hw5 the NLU needs to set the probabilities (in sklearn, predict_proba)
+- assignments 6 & 7
+	- implement the rule-based policy
+	- we should take the instructions about the policy with a grain of salt
+	- we can merge hw3, we should not delete the branch
+	- the database can be CSV table, SQLite database, …
