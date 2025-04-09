@@ -164,3 +164,8 @@
 	- gaspillage … plýtvání
 	- un bien … věc
 	- la trottinette … koloběžka
+- adjectifs non qualificatifs = zájmena, číslovky
+	- za jménem
+- adjectifs qualificatifs = přídavná jména
+	- krátká, často používaná se dávají před jméno, jinak za jméno
+	- když chci zdůraznit přídavné jméno, které se dává za podstatné, můžu ho (někdy?) dát před podstatné jméno
