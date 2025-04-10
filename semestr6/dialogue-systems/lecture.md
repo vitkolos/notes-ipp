@@ -630,3 +630,5 @@
 		- in theory, it's weaker then RNNs
 		- but the models can be larger (we can train them in parallel)
 		- usually, only the decoder model is used
+
+## Voice Assistants & Question Answering

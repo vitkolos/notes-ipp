@@ -301,3 +301,9 @@
 	- attention weights = similarity matrix between all pairs of states
 	- the $\sqrt{d}$ helps the numerical stability
 	- feed-forward layer
+- named entity recognition
+- LM as sequence labeling
+	- for each word, we predict the following one
+	- we need to modify the attention not to attend the right context
+	- otherwise, it could look in the future and predict the word
+- LM itself only computes probability

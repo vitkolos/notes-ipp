@@ -58,3 +58,13 @@
 	- basic operations: insert, delete, replace
 	- Damerau-Levenshtein: transposition as a fourth possible operation
 	- weighted edit distance – weights correspond to the distance on the keyboard (if we want to detect mistyping/misspelling)
+- úkol: interpretovat neuronku – pokud bychom ji nezvládli vytvořit, tak nám ji pošle (blízko deadlinu)
+	- můžeme přidat vlastní slovní druh pro neúplná slova
+	- pro zpětnou vazbu před deadlinem mu můžeme poslat e-mail
+- https://colab.research.google.com/drive/1ukk3OsonPqdVt-tL0c3CKGDOSq32OjnH?usp=sharing
+- attention_mask tells the transformer what is a valid content of the sentence and what is padding
+- the model has a training mode – it uses dropout technique to make the model more robust
+- our (first) task
+	- take a sentence
+	- assign word embeddings to the words
+	- average the embeddings
