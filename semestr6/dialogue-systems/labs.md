@@ -61,3 +61,8 @@
 	- we should take the instructions about the policy with a grain of salt
 	- we can merge hw3, we should not delete the branch
 	- the database can be CSV table, SQLite database, …
+- hw 2
+	- how to count the bigrams?
+- assignment 8
+	- we don't need to optimize the number of used templates (in the third requirement) – if we do not find the match, we can go one by one
+	- load the upstream changes into the repository, there is a reference implementation we can use
