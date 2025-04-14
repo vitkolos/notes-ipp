@@ -169,3 +169,12 @@
 - adjectifs qualificatifs = přídavná jména
 	- krátká, často používaná se dávají před jméno, jinak za jméno
 	- když chci zdůraznit přídavné jméno, které se dává za podstatné, můžu ho (někdy?) dát před podstatné jméno
+- des → de
+	- des filles → de belles filles
+	- des fleurs → de joies fleurs
+	- des petits-enfants
+- la vente en vrac – prodej věcí bez obalu
+	- le thé en vrac – sypaný čaj
+- plus de → s se vyslovuje
+- plus se slovesem → s se vyslovuje (abychom odlišili od negace)
+- plus s podstatným jménem → s se nevyslovuje (většinou)
