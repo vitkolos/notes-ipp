@@ -307,3 +307,17 @@
 	- we need to modify the attention not to attend the right context
 	- otherwise, it could look in the future and predict the word
 - LM itself only computes probability
+
+## Strojový překlad
+
+- „královská disciplína počítačové lingvistiky“
+- model transformer původně vznikl pro účely strojového překladu
+- the space of good solutions is large
+- manual evaluation depends on the expectations – one sentence can be evaluated very differently by different people
+- metrics can drive the research for the topics they evaluate
+- BLEU score combines precision and recall
+	- precision: n-gram counting
+	- recall: brevity penalty
+- phrase-based machine translation
+	- the morphology is in the dictionary – there are the exact forms of the words
+	- there are both longer and shorter units in the dictionary
