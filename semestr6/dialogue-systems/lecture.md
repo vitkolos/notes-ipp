@@ -632,3 +632,6 @@
 		- usually, only the decoder model is used
 
 ## Voice Assistants & Question Answering
+
+## MAMA AI
+

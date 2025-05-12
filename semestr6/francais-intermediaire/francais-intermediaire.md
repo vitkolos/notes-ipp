@@ -178,3 +178,51 @@
 - plus de → s se vyslovuje
 - plus se slovesem → s se vyslovuje (abychom odlišili od negace)
 - plus s podstatným jménem → s se nevyslovuje (většinou)
+- obchody
+	- une droguerie
+	- une épicerie
+	- une mercerie
+	- une quincaillerie
+	- un traiteur
+	- un antiquaire
+	- un primeur
+	- un caviste
+- place de l'adjective
+- COD, COI, y, en
+	- COD: me, te, le/la, nous, vous, les
+	- COI: me, te, lui, nous, vous, leur
+	- s'intéresser à qc → je m'y intéresse
+		- nebo místo
+	- parler de qc → j'en parle
+		- nebo výraz množství (plus de) / dělivý člen / neurčitý člen
+	- pořadí: nejprve předmět (COD/COI), pak y/en
+	- pořadí: nejprve COI, pak COD
+		- ale pokud je COI ve třetí osobě, tak je až za COD
+		- Il me le dit.
+		- Nous vous les envoyons.
+		- Il le leur raconte.
+		- Vous la leur expliquez.
+	- technicky vzato pět skupin podle pořadí
+		- me, te, se, nous, vous
+		- le, la, les
+		- lui, leur
+		- y
+		- en
+	- pro jiné předložky než à se používají přízvučná zájmena moi, toi, lui, elle, nous, vous, eux
+- kam patří zájmeno kolem slovesa?
+	- u jednoduchého slovesného tvaru před sloveso
+		- Je vous en parle.
+		- Je ne vous en parle pas.
+	- před pomocné sloveso avoir/être
+		- Je vous en ai parlé.
+		- Je ne vous en ai pas parlé.
+	- pokud je tam infinitiv, tak před něj
+		- Je vais vous en parler.
+		- Je ne vais pas vous en parler.
+	- rozkaz
+		- Parlez-nous-en !
+		- Ne nous en parlez pas !
+		- nepřízvučné zájmeno me/te se v kladném rozkazu mění na moi/toi
+		- Raconte-moi !
+		- Parle-m'en !
+- je ne m'y ferai jamais – na to si nikdy nezvyknu

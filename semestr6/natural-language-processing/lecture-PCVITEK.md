@@ -1,0 +1,323 @@
+# Lecture
+
+- credit
+	- homeworks
+	- attendance to practicals is mandatory, 3 absences allowed at maximum
+	- final test
+
+## Probability, information theory
+
+- sample space $\Omega$
+- event $A$ as a set of basic outcomes
+	- $A\subseteq\Omega$
+- we can estimate the probability of event $A$ by experiment
+	- we divide the number of $A$ occurring by the number of experiments
+	- maximum likelihood estimation
+- axioms
+	- $p(A)\in[0,1]$
+	- $p(\Omega)=1$
+	- $p(\bigcup A_i)=\sum p(A_i)$
+- joint probability, conditional probability
+- estimating conditional probability
+- Bayes rule
+- independence
+- chain rule
+- golden rule of statistical NLP
+- expectation
+- entropy
+	- nothing can be more uncertain than the uniform distribution
+- perplexity
+	- $G(p)=2^{H(p)}$
+- joint entropy, conditional entropy
+- entropy is non-negative
+- chain rule
+	- $H(X,Y)=H(Y\mid X)+H(X)$
+- $H(Y\mid X)\leq H(Y)$
+- other properties of entropy
+- coding interpretation
+	- entropy … the least average number of bits needed to encode a message
+- KL distance (divergence)
+- mutual information
+	- $I(X,Y)=D(p(x,y)\Vert p(x)p(y))$
+	- we can derive that $I(X,Y)=H(X)-H(X\mid Y)$
+		- by symmetry $I(X,Y)=H(Y)-H(Y\mid X)$
+- cross-entropy
+
+## Noisy channel model
+
+- we try to recover the original input from a noised output
+	- original input $A$ = the message in someone's mind
+	- noised output $B$ = the written/spoken representation
+- usage: OCR, handwriting, speech recognition, machine translation, POS tagging
+- to get input
+	- $p(A\mid B)=p(B\mid A)\cdot\frac{p(A)}{p(B)}$
+	- $A^*=\text{argmax}_A\;p(B\mid A)\cdot p(A)$
+		- $p(B\mid A)$ … acoustic model
+		- $p(A)$ … language model
+- language modelling
+	- we need to model the probabilities of sequences of words
+	- we will use n-gram probabilities so that we don't need many parameters
+		- $p(w_i\mid w_{i-1},w_{i-2})=\frac{c(w_{i-2},w_{i-1},w_i)}{c(w_{i-2},w_{i-1})}$
+	- number of parameters
+		- uniform … 1
+		- unigram … $|V|-1$
+		- bigram … $\sim|V|^2$
+		- trigram … $\sim|V|^3$
+			- for $|V|\approx 60k$, it is larger than the number of parameters of the Llama model
+- smoothing
+	- we can add 1 to all of the counts
+		- ADD-1 smoothing
+		- $p(w\mid h)=\frac{c(w,h)+1}{c(h)+|V|}$
+		- what if there is an word that we did not see in the training set? we will have a special word for that `<unk>`
+	- we can add $\lambda$ to all of the counts
+		- ADD-$\lambda$
+		- $p(w\mid h)=\frac{c(w,h)+\lambda}{c(h)+\lambda\cdot |V|}$
+		- how to estimate $\lambda$
+		- we want to minimize the cross-entropy
+		- we cannot use training (nor test) data for that, we need holdout (dev) data
+		- $p(w_i\mid w_{i-2},w_{i-1})=\lambda_0\cdot p_0+\lambda_1 \cdot p_1(w_i)+\lambda_2\cdot p_2(w_i\mid w_{i-1})+\lambda_3\cdot p_3(w_i\mid w_{i-1},w_{i-2})$
+			- $\sum\lambda_i=1$
+		- expectation maximization (EM) algorithm
+			- expectation: $c(\lambda_j)=\sum\lambda _jp_j(w\mid h)/p'(w\mid h)$
+			- maximization: $\lambda_j=\frac{c(\lambda_j)}{\sum c(\lambda_h)}$
+- homework
+	- language identification using char-level language model
+	- at least 2 languages
+
+## Morphological analysis
+
+- morphological annotation
+	- POS tags
+- tagsets
+	- English: Penn Treebank (45 tags), Brown Corpus (87), Claws c5 (62), London-Lund (197)
+	- Czech: Prague Dependency Treebank (4294; positional), Multext-East (1485; Orwell 1984 parallel corpus), Prague Spoken Corpus (over 10000)
+	- Universal Dependencies: 17 universal POS tags, 27 universal features (each with 1–37 possible values)
+- Czech positional tags of PDT
+	- positions: part of speech, subpos, gender, number, case, poss gender, poss number, person, tense, degree, polarity, voice, (reserved), (reserved), style
+	- gender ambiguities → more values of the position
+- Penn Treebank tagset
+	- prepositions and subordinate conjunctions have the same tag (hard to distinguish)
+	- “to” has its own tag (it denotes and infinitive or works as a preposition, not easy to distinguish)
+- universal POS tags (from Universal Dependencies)
+	- noun, proper noun, verb, adjective, adverb, interjection, pronoun, determiner, auxiliary, numeral, adposition, subordinating conjunction, coordinating conjunction, particle, punctuation, symbol, unknown
+- ancient Greek word classes
+	- adjectives are missing
+		- they are a relatively new invention from France
+		- in French, adjectives behave quite differently than nouns
+- traditional parts of speech
+	- English: noun, verb, adjective, adverb, pronoun, preposition, conjunction, interjection
+	- Czech: noun, adjective, pronoun, numeral, verb, adverb, preposition, conjunction, particle, interjection
+- openness vs. closeness, content vs. function words
+	- open classes (take new words)
+		- verbs (non-auxiliary), nouns, adjectives, adjectival adverbs, interjections
+		- word formation (derivation) across classes
+	- closed classes (words can be enumerated)
+		- pronouns/determiners, adpositions, conjunctions particles
+		- pronominal adverbs
+		- auxiliary and modal verbs/particles
+		- numerals
+		- typically thay are not base for derivation
+	- even closed classes evolve but over longer period of time
+- morphological analysis
+	- input: word form (token)
+	- output
+		- set of analyses (possibly empty)
+		- an analysis
+			- lemma (base form of the lexeme)
+			- tag (morphological, POS)
+				- POS
+				- features and their values
+- morphological analysis vs. tagging
+	- tagging … context-based disambiguation
+	- most taggers employ ML methods
+	- taggers may or may not work on top of morphological analysis
+- finite-state morphology
+	- finite-state automaton/machine
+	- example: FSA checking correct spelling of Czech *dě, tě, ně*
+- lexicon is implemented as a FSA (trie)
+	- composed of multiple sublexicons (prefixes, stems, suffixes)
+	- notes (glosses) at the end of every sublexicon
+		- e.g. POS tags
+	- lexicon is a DAG, not a tree
+- problem with phonology: baby+s → babies (not babys)
+	- two-level mophology solves that
+		- upper (lexical) language
+		- lower (surface) language
+	- two-level rules
+		- lexical: `baby+0s`
+		- surface: `babi0es`
+	- zero is treated as a normal symbol (but corresponds to an empty string)
+- finite-state transducer (převodník)
+	- transudcer is a special case of automaton
+	- checking (finite-state automaton)
+		- does the word belong to the language (lexicon)?
+	- analysis (finite-state transducer)
+		- surface string → lexical string
+	- generation (finite-state transducer)
+		- lexical string → surface string
+- another way of rule notation: two-level grammar
+	- `a:b <=> l:l _ r:r`
+	- lexical `a` must be realized as surface `b` in this context and only in this context
+		- context … between `l` and `r`
+	- FST can be constructed from that
+	- disadvantage: capturing of long-distance dependencies is clumsy
+		- example of long-distance dependencies – Czech adjectives (superlatives in particular)
+		- `nej-` prefix is legal only if there is `-ší` suffix
+
+## Syntactic analysis
+
+- syntactic annotation
+	- dependency tree – we need only „pointers“ to parent elements and labels of the connections
+	- ways of annotation differ (e.g. Prague Dependency Treebank vs. Universal Dependencies)
+- surface syntax
+	- relations between sentence parts
+	- sentence part = token (word, number, punctuation)
+	- we do not restore elided constituents at this level
+	- different shapes in different theories, hierarchical structure (tree)
+		- phrasal (constituent) tree, parse tree
+		- dependency tree
+	- constituent vs. dependencies
+		- there exist multiple constituent tree for one dependency tree
+		- in dependency tree, the phrases have “heads” (parent nodes of the words of the phrases)
+	- phrases
+		- phrase replaceability – a phrase can be replaced by a different phrase of the same type
+		- different POS phrases
+		- propositional phrase attachment ambiguity
+		- verb phrase × clause
+		- coordination
+		- ellipsis
+- syntactic parsers
+	- transition-based Malt parser
+		- complete for projective trees
+			- there are extensions that can produce non-projective trees
+		- transitions
+			- Shift – move word from buffer to stack
+			- Larc – connect two topmost stack words, higher is parent (remove child from stack)
+			- Rarc – connect two topmost stack words, lower is parent (remove child from stack)
+
+## Information Retrieval
+
+- there will be a homework similar to the last year (but with slight modifications)
+- information retrieval
+- boolean retrieval
+	- queries are boolean expressions
+	- search engine returns documents that satisfy the expression
+	- term-document incidence matrix
+	- for bigger collections, the incidence matrix would be very sparse
+		- we will use a different way of storage
+		- inverted index
+			- for each term in a dictionary, we store a list of all documents that contain the term (postings list)
+	- the tokens are usually normalized (lemmatized?), also we sort the whole list of (token, document) pairs
+	- we want to have the dictionary in the memory, the postings can be stored on the disk
+	- data structures for looking up term – hashes and trees
+		- is there a fixed number of terms or will it be growing?
+		- what are the frequencies with which various keys will be accessed?
+		- how many terms are we likely to have?
+	- hashing tables
+		- term → integer, try to avoid collisions
+		- fast lookup time
+		- no way to find minor variants, no prefix search
+		- might need to be rehashed
+	- trees
+		- prefix can be searched
+		- slightly slower search
+		- need to be rebalanced
+		- …
+		- binary tree
+		- B-tree
+	- simple conjunctive query (two terms)
+		- we need to find the intersection of two postings
+		- that is linear if the postings are sorted
+	- boolean queries
+		- use `and`, `or`, `not`
+		- each document is considered to be a set of terms
+- text processing
+	- format, language, character set
+	- normalization, tokenization
+	- hyphens and compound words are problematic
+		- accents and umlauts too
+	- capital letters
+	- stop words – extremely common words
+		- older IR systems usually ignored them
+		- you need stop words for phrase queries like “King of Denmark”
+	- more equivalence classing
+		- phonetic equivalence (Soundex)
+		- semantic equivalence (thesauri)
+	- lemmatization – we reduce the word to its proper dictionary headword form
+		- inflectional
+		- derivational
+	- stemming
+		- uses heuristics to chop off the end of the word
+		- Porter stemmer
+			- conventions + 5 phases of reductions applied sequentially
+			- each phase consists of a set of commands
+			- sample command – delete final *ement* if what remains is longer than 1 character (replacement → replac)
+		- stemming is usually good enough (we don't need lemmatization)
+
+### Ranked Retrieval
+
+- boolean retrieval: good for experts, good for applications, not good for the majority of users
+	- most users are not capable (or don't want) to write boolean queries
+	- we usually get either too few or too many results
+- with ranking, we can just show the top 10 results
+- more relevant results are ranked higher than less relevant results
+- we will use rank $\in[0,1]$
+- Jaccard coefficient
+- term weighting
+- bag of words model
+- “term frequency”
+- we want high weights for terms that occur rarely in the collection
+- inverse document frequency
+- collection frequency vs. document frequency
+- tf-idf weighting
+	- $w_{t,d}=(1+\log\text{tf}_{t,d})\cdot\log\frac N{\text{df}_t}$
+- documents (and the query) as vectors (components = tf-idf scores)
+- we want to somehow measure similarity between the query and the documents
+	- distance does not work well – longer documents are far from the shorter ones
+	- we will use angle (cosine similarity)
+	- cosine similarity for normalized vectors is just the dot product
+- evaluation
+	- precision, recall, F-score
+	- accuracy is usually not helpful in information retrieval as $TP\ll TN$
+	- precision and recall are computed for unranked sets
+		- we can compute it for top $n$ results (for different values of $n$)
+
+## Neural Networks
+
+- the old view: a network of artificial neurons
+- the current view: a network of layers
+- …
+- representing words
+	- words are not vectors of continuous numbers :((
+	- one-hot encoding
+	- prediction of next word
+	- result has interesting properties, similar words have similar weight vectors
+- representing sequences
+	- RNN = information pipeline
+	- CNN = information in tree-like data structure (used in speech-recognition)
+	- self-attentive = Transformers = information flow in a weighted complete bipartite graph
+- Transformers
+	- originally for machine translation
+	- attention weights = similarity matrix between all pairs of states
+	- the $\sqrt{d}$ helps the numerical stability
+	- feed-forward layer
+- named entity recognition
+- LM as sequence labeling
+	- for each word, we predict the following one
+	- we need to modify the attention not to attend the right context
+	- otherwise, it could look in the future and predict the word
+- LM itself only computes probability
+
+## Strojový překlad
+
+- „královská disciplína počítačové lingvistiky“
+- model transformer původně vznikl pro účely strojového překladu
+- the space of good solutions is large
+- manual evaluation depends on the expectations – one sentence can be evaluated very differently by different people
+- metrics can drive the research for the topics they evaluate
+- BLEU score combines precision and recall
+	- precision: n-gram counting
+	- recall: brevity penalty
+- phrase-based machine translation
+	- the morphology is in the dictionary – there are the exact forms of the words
+	- there are both longer and shorter units in the dictionary
