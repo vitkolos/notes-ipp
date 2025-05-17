@@ -8,6 +8,14 @@
 	- où … nahrazuje místo nebo **čas**
 	- jiné předložky → předložka + quoi
 		- nebo složená vztažná zájmena
+- exprimer l'insatisfaction
+	- Je suis fatigué(e) de + inf.
+	- Je n'en paux plus de
+	- J'en ai marre de
+	- J'en ai assez de
+	- J'en ai ras le bol de
+- des expressions: selon moi, d'après moi, à mon avis, à mes yeux, je crois que, j'imagine que, je suppose que, j'avoue que, je suis persuadé que, je trouve que, quant a moi, pour moi; moi, personnellement; en ce qui me concerne
+- des réponses: je n'ai aucune idée; à vrai dire, je n'y ai pas réfléchi; je n'en sais rien, je n'ai pas d'opinion, ça dépend, d'accord
 - l'expression du but (but = účel)
 	- pour / afin de + infinitif (un seul sujet)
 	- pour que / afin que + subjonctif (des sujets différents)
@@ -19,6 +27,9 @@
 	- de façon à + inf.
 	- de manière à + inf.
 	- en vue de + inf. ou nom
+- comparatif, superlatif
+	- bon, meilleur; bien, mieux
+	- mauvais, pire; mal
 - adjectifs non qualificatifs = zájmena, číslovky
 	- za jménem
 - adjectifs qualificatifs = přídavná jména
@@ -68,7 +79,7 @@
 		- Parle-m'en !
 - je ne m'y ferai jamais – na to si nikdy nezvyknu
 
-## Mots, expressions
+## Vocabulaire
 
 - travail
 	- travail, emploi, boulot, job (brigáda)
@@ -105,12 +116,6 @@
 	- patron
 	- patronage
 	- se reconvertir
-- exprimer l'insatisfaction
-	- Je suis fatigué(e) de + inf.
-	- Je n'en paux plus de
-	- J'en ai marre de
-	- J'en ai assez de
-	- J'en ai ras le bol de
 - travail
 	- P.-D. G. – président directeur général (CEO)
 	- exercer – vykonávat
@@ -160,14 +165,6 @@
 	- přestože
 		- bien que, quoique + subj.
 		- même si + ind.
-- des expressions: selon moi, d'après moi, à mon avis, à mes yeux, je crois que, j'imagine que, je suppose que, j'avoue que, je suis persuadé que, je trouve que, quant a moi, pour moi; moi, personnellement; en ce qui me concerne
-- des réponses
-	- je n'ai aucune idée
-	- à vrai dire, je n'y ai pas réfléchi
-	- je n'en sais rien
-	- je n'ai pas d'opinion
-	- ça dépend
-	- d'accord
 - travail
 	- décrocher … sundat, najít
 	- Pôle emploi … úřad práce
@@ -185,6 +182,7 @@
 	- gagner sa vie … vydělávat si na živobytí
 	- pot de colle … hrnec lepidla
 	- c'est fichu … je to v háji
+	- l'usine (f) … továrna
 - consommation
 	- location … pronájem
 	- faire le troc = troquer, échanger (vyměnit)
@@ -194,6 +192,13 @@
 	- gaspillage … plýtvání
 	- un bien … věc
 	- la trottinette … koloběžka
+	- le bijou … šperk
+	- le gilet … vesta
+	- skai / simili cuir … koženka
+	- la soie … hedvábí
+	- la garde-robe … šatník
+	- le couturier … krejčí/návrhář
+	- de fil en aiguille … od nitě k jehle (postupně)
 - la vente en vrac – prodej věcí bez obalu
 	- le thé en vrac – sypaný čaj
 - obchody : une droguerie, une épicerie, une mercerie, une quincaillerie, un traiteur, un antiquaire, un primeur, un caviste
