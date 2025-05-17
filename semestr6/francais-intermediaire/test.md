@@ -1,0 +1,199 @@
+## Grammaire
+
+- les pronons relatifs simples
+	- qui … nahrazuje podmět (sujet)
+	- que … nahrazuje COD
+	- dont … nahrazuje complément s **de**
+		- pozor, vedlejší věta musí začít podmětem
+	- où … nahrazuje místo nebo **čas**
+	- jiné předložky → předložka + quoi
+		- nebo složená vztažná zájmena
+- l'expression du but (but = účel)
+	- pour / afin de + infinitif (un seul sujet)
+	- pour que / afin que + subjonctif (des sujets différents)
+	- Je viens pour / afin de t'aider.
+	- Je t'aide pour que / afin que tu puisses terminer ton travail plus tôt.
+- les autres expressions
+	- dans l'intention de + inf.
+	- dans le but de + inf.
+	- de façon à + inf.
+	- de manière à + inf.
+	- en vue de + inf. ou nom
+- adjectifs non qualificatifs = zájmena, číslovky
+	- za jménem
+- adjectifs qualificatifs = přídavná jména
+	- krátká, často používaná se dávají před jméno, jinak za jméno
+	- když chci zdůraznit přídavné jméno, které se dává za podstatné, můžu ho (někdy?) dát před podstatné jméno
+- des → de
+	- des filles → de belles filles
+	- des fleurs → de joies fleurs
+	- des petits-enfants
+- place de l'adjective
+- COD, COI, y, en
+	- COD: me, te, le/la, nous, vous, les
+	- COI: me, te, lui, nous, vous, leur
+	- s'intéresser à qc → je m'y intéresse
+		- nebo místo
+	- parler de qc → j'en parle
+		- nebo výraz množství (plus de) / dělivý člen / neurčitý člen
+	- pořadí: nejprve předmět (COD/COI), pak y/en
+	- pořadí: nejprve COI, pak COD
+		- ale pokud je COI ve třetí osobě, tak je až za COD
+		- Il me le dit.
+		- Nous vous les envoyons.
+		- Il le leur raconte.
+		- Vous la leur expliquez.
+	- technicky vzato pět skupin podle pořadí
+		- me, te, se, nous, vous
+		- le, la, les
+		- lui, leur
+		- y
+		- en
+	- pro jiné předložky než à se používají přízvučná zájmena moi, toi, lui, elle, nous, vous, eux
+- kam patří zájmeno kolem slovesa?
+	- u jednoduchého slovesného tvaru před sloveso
+		- Je vous en parle.
+		- Je ne vous en parle pas.
+	- před pomocné sloveso avoir/être
+		- Je vous en ai parlé.
+		- Je ne vous en ai pas parlé.
+	- pokud je tam infinitiv, tak před něj
+		- Je vais vous en parler.
+		- Je ne vais pas vous en parler.
+	- rozkaz
+		- Parlez-nous-en !
+		- Ne nous en parlez pas !
+		- nepřízvučné zájmeno me/te se v kladném rozkazu mění na moi/toi
+		- Raconte-moi !
+		- Parle-m'en !
+- je ne m'y ferai jamais – na to si nikdy nezvyknu
+
+## Mots, expressions
+
+- travail
+	- travail, emploi, boulot, job (brigáda)
+	- stressant (→ soucis)
+	- épanouissant
+	- bien payé
+	- réunion, meeting
+	- rendez-vous
+	- visioconférence
+	- assister au réunion
+	- le salaire, la rémunération
+	- toucher/avoir un salaire
+	- bureau
+	- ordinateur
+	- employé, salarié
+	- emploi, poste
+	- travailler en équipe
+	- esprit d'équipe
+	- congé (payé), vacances
+	- profession, métier
+	- voyager
+	- nomade digital
+	- télétravail
+	- faire une pause
+	- démissioner × licencier, virer
+	- enterprise
+	- employeur
+	- embaucher, employer, engager, recruter
+	- entretien d'embauche
+	- prendre sa retraite, étre à la retraite
+	- postuler
+	- mi-temps × plein-temps (temps complet) × temps partíel
+	- chômage, le taux de chômage
+	- patron
+	- patronage
+	- se reconvertir
+- exprimer l'insatisfaction
+	- Je suis fatigué(e) de + inf.
+	- Je n'en paux plus de
+	- J'en ai marre de
+	- J'en ai assez de
+	- J'en ai ras le bol de
+- travail
+	- P.-D. G. – président directeur général (CEO)
+	- exercer – vykonávat
+	- consister à qqc
+	- modeste – skromný
+	- multiprise – rozdvojka
+	- la plage – úsek
+	- exiguïté – těsnost
+	- service – oddělení
+	- la prime – prémie/odměna
+	- le mémoire de license – bakalářská práce
+	- CDD/CDI – contrat à durée indeterminée/determiné, smlouva na dobu neurčitou/určitou
+- entretien d'embauche
+	- nettoyer des chaussures
+	- ne pas arriver en retard
+	- de répondre en phrases assez longues
+	- de savoir assez d'information sur l'enterprise et le poste
+	- s'habiller bien
+	- bien dormir, se coucher tôt pour être bien reposé
+	- connaître les produits
+	- utiliser le langage formel
+	- de poser des question
+- travail
+	- piège … past
+	- des questions pièges
+	- surpasser des problèmes, résoudre des problèmes
+	- astuce … šikovnost
+	- artisan … řemeslník
+	- ouvrier … dělník
+	- interlocuteur
+	- dénoncer … oznámit, udávat
+	- vaincre … porazit
+	- steward, hôtesse de l'air
+	- scientifique, chercheuse … vědkyně
+	- maçonne … zednice
+	- infirmier … zdravotní bratr
+	- pédiatre
+	- styliste
+	- informaticienne
+	- l'emporter sur … mít navrch nad
+	- infléchir … ohnout
+	- ne (…) guère … ne příliš, ne moc
+	- répandu … běžný, rozšířený
+	- tirer parti … využít v prospěch
+	- acharné … zapálený
+	- afin que … aby
+	- přestože
+		- bien que, quoique + subj.
+		- même si + ind.
+- des expressions: selon moi, d'après moi, à mon avis, à mes yeux, je crois que, j'imagine que, je suppose que, j'avoue que, je suis persuadé que, je trouve que, quant a moi, pour moi; moi, personnellement; en ce qui me concerne
+- des réponses
+	- je n'ai aucune idée
+	- à vrai dire, je n'y ai pas réfléchi
+	- je n'en sais rien
+	- je n'ai pas d'opinion
+	- ça dépend
+	- d'accord
+- travail
+	- décrocher … sundat, najít
+	- Pôle emploi … úřad práce
+	- prospecter … hledat
+	- embaucher … přijmout
+	- requérir … vyžadovat
+	- faire le point … posoudit, zvážit pro a proti
+	- transmettre … předávat znalosti, schopnosti, zkušenosti
+	- tirer parti … využít, ponaučit se
+	- un point fort/faible … silná/slabá stránka
+	- être polyvalent … mít více talentů
+	- être un touche-à-tout … “jack of all trades”
+	- l'augmentation … zvýšení (mzdy)
+	- l'impôt, la contribution … daň
+	- gagner sa vie … vydělávat si na živobytí
+	- pot de colle … hrnec lepidla
+	- c'est fichu … je to v háji
+- consommation
+	- location … pronájem
+	- faire le troc = troquer, échanger (vyměnit)
+	- déposer qqc dans des bornes de collecte
+	- déposer qqc dans des conteneurs de relais
+	- plébisciter … chválit
+	- gaspillage … plýtvání
+	- un bien … věc
+	- la trottinette … koloběžka
+- la vente en vrac – prodej věcí bez obalu
+	- le thé en vrac – sypaný čaj
+- obchody : une droguerie, une épicerie, une mercerie, une quincaillerie, un traiteur, un antiquaire, un primeur, un caviste
