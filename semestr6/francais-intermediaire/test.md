@@ -201,4 +201,4 @@
 	- de fil en aiguille … od nitě k jehle (postupně)
 - la vente en vrac – prodej věcí bez obalu
 	- le thé en vrac – sypaný čaj
-- obchody : une droguerie, une épicerie, une mercerie, une quincaillerie, un traiteur, un antiquaire, un primeur, un caviste
+- obchody : une droguerie, une épicerie (potraviny), une mercerie (galanterie), une quincaillerie (železářství), un traiteur (lahůdkář), un antiquaire (starožitník), un primeur (zelinář), un caviste (sklepmistr)
