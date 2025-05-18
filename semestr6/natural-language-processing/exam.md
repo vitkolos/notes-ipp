@@ -124,19 +124,45 @@
 	- morphology of a language can be described using a finite-state automaton
 	- attaching a suffix may result in phoneme or grapheme (spelling) changes
 		- we call this phonology for simplicity
-	- plural of baby is not \*babys but babies
+		- plural of baby is not \*babys but babies
 	- we will use two-level morphology: upper (lexical) language and lower (surface) language
 	- finite-state transducer
-		- a special case of automaton
-		- symbols are pairs (r:s) from finite alphabets $R$ and $S$
+		- a type of finite-state automaton that maps between two sets of symbols
+		- pairs ($r:s$) from finite alphabets $R$ and $S$
 			- $R$ … lexical language
 			- $S$ … surface language
 		- tasks: analysis (get lexical string based on a surface string), generation (generate surface string from a lexical string)
-	- …
+	- difference
+		- FSA defines a set of accepted strings (lexicon)
+		- FST defines a relation between sets of strings (lexical string → surface string or surface → lexical)
+	- algorithm
+		- initialize set of paths $P=\set{}$
+		- read input symbols one-by-one
+		- for each input symbol $x$:
+			- generate all lexical symbols $y$ that may correspond to the empty symbol $y:0$
+			- repeat until the maximum possible number of subsequent zeros is reached:
+				- extend all paths in $P$ by all corresponding pairs $y:0$
+				- check all new extensions against the phonological transducers and the lexical automaton; remove disallowed paths (partial solutions) from $P$
+			- generate all possible lexical symbols $z$ for the current input symbol $x$ (pairs $z:x$); extend each path in $P$ by all such pairs
+			- check all paths in $P$ (the next transition in FST/FSA); remove impossible paths
+		- collect glosses from the lexicon for all paths that survived
 - Give an example of a phonological or an orthographical change caused by morphological inflection (any natural language). Describe the rule that would take care of the change during analysis or generation. It is not required that you draw a transducer, although drawing a transducer is one of the possible ways of describing the rule.
-	- 
+	- Czech: káď → kádě
+	- `ď:d <=> _ +:0 e:ě`
+		- `káď+e` (lexical)
+		- `kád0ě` (surface)
+	- another example: nať → nati
 - Give an example of a long-distance dependency in morphology (any natural language). How would you handle it in a morphological analyzer?
-	- 
+	- umlauts in German plurals
+	- Buch → Bücher
+	- simplified rule: `u:ü <= _ c:c h:h +:0 e:e r:r`
+		- `Buch+er` (lexical)
+		- `Büch0er` (surface)
+	- context should contain `+:0` and perhaps test end of word (`#`)
+	- this is too simplified, the suffix must be plural and the stem must be marked for plural umlauting (Kocher and Besucher are correct!)
+	- capturing long-distance dependencies is clumsy
+		- Kraut / Kräuter has different intervening symbols → different rule
+		- a transducer could be more general but it would probably overgenerate
 
 ## Syntactic analysis
 
