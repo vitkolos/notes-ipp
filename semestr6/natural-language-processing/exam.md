@@ -106,10 +106,37 @@
 ## Morphological analysis
 
 - What is a morphological tag? List at least five features that are often encoded in morphological tag sets.
+	- morphological tag = a summary of the grammatical information about a specific word in the given context
+	- features: part of speech, case (pád) number, gender, person, mood (způsob), tense, animacy (životnost), degree, voice (rod), aspect (vid), polarity (zápor), …
 - List the open and closed part-of-speech classes and explain the difference between open and closed classes.
+	- open classes
+		- verbs (non-auxiliary), nouns, adjectives, adjectival adverbs, interjections
+		- take new words
+		- word formation (derivation) across classes
+	- closed classes
+		- pronouns/determiners, adpositions, conjunctions, particles, pronomial adverbs, auxiliary and modal verbs, numerals
+		- words can be enumerated (even though these classes also evolve but over longer period of time)
+		- the words are typically not base for derivation
 - Explain the difference between a finite-state automaton and a finite-state transducer. Describe the algorithm of using a finite-state transducer to transform a surface string to a lexical string (pseudocode or source code in your favorite programming language). (2 points)
+	- finite-state machine is a five-tuple $(A,Q,P,q_0,F)$
+		- input alphabet $A$, set of states $Q$, transition function $P$, initial state $q_0$, accepting states $F$
+		- it can accept or reject a word
+	- morphology of a language can be described using a finite-state automaton
+	- attaching a suffix may result in phoneme or grapheme (spelling) changes
+		- we call this phonology for simplicity
+	- plural of baby is not \*babys but babies
+	- we will use two-level morphology: upper (lexical) language and lower (surface) language
+	- finite-state transducer
+		- a special case of automaton
+		- symbols are pairs (r:s) from finite alphabets $R$ and $S$
+			- $R$ … lexical language
+			- $S$ … surface language
+		- tasks: analysis (get lexical string based on a surface string), generation (generate surface string from a lexical string)
+	- …
 - Give an example of a phonological or an orthographical change caused by morphological inflection (any natural language). Describe the rule that would take care of the change during analysis or generation. It is not required that you draw a transducer, although drawing a transducer is one of the possible ways of describing the rule.
+	- 
 - Give an example of a long-distance dependency in morphology (any natural language). How would you handle it in a morphological analyzer?
+	- 
 
 ## Syntactic analysis
 
