@@ -23,20 +23,85 @@
 - Explain the notion of Entropy (formula expected too).
 	- measure of uncertainty
 	- higher entropy → higher uncertainty → higher "surprise"
-	- $H(X)=-\sum_{X\in\Omega}p(X)\log_2 p(X)$
+	- $H(X)=-\sum_{x\in\Omega}p(x)\log_2 p(x)$
 	- or $H(X)=\mathbb E[\log_2(\frac1{p(X)})]$
 	- coding interpretation: the least (average) number of bits needed to encode a message
 	- note that $H(X)\geq 0$
+	- $H(X)=0$ if a result of an experiment is known ahead of time
+	- there is no upper bound in general
+	- nothing can be more uncertain than the uniform distribution
 - Explain Kullback-Leibler distance (formula expected too).
+	- relative entropy
+	- “if we estimate $p$ using a series of experiments, how big error are we making?”
+	- $D(p\|q)=\sum_{x\in\Omega} p(x)\log_2\frac{p(x)}{q(x)}=\mathbb E_p[\log_2\frac{p(x)}{q(x)}]$
+	- it is not symmetric and does not satisfy triangle inequality
+		- it is better to use “KL divergence” instead of ”KL distance”
+	- $H(p)+D(p\|q)$ bits needed to encode $p$ using $q$
 - Explain Mutual Information (formula expected too).
+	- $I(X,Y)=D(p(x,y)\| p(x)p(y))$
+	- how much our knowledge of $Y$ contributes (on average) to easing the prediction of $X$
+		- by how many bits the knowledge of $Y$ lowers the entropy $H(X)$
+		- $I(X,Y)=H(X)-H(X\mid Y)=H(Y)-H(Y\mid X)$
+	- how $p(x,y)$ deviates from $p(x)p(y)$
+	- $I(X,Y)=\sum_{x\in\Omega}\sum_{y\in\Psi} p(x,y)\log_2\frac{p(x,y)}{p(x)p(y)}$
+	- measured in bits
+	- $I(X,X)=H(X)$
+	- $I(X,Y)=I(Y,X)$
+	- $I(X,Y)\geq 0$
 
 ## Language models, the noisy channel model
 
 - Explain the notion of The Noisy Channel.
+	- idea: we have the noisy output, we want to “predict” the original input
+	- we want to find such an original input that $p(\text{original}\mid\text{noisy})$ is maximum
+	- Bayes formula: $p(A\mid B)=\frac{p(B\mid A)p(A)}{p(B)}$
+	- The Golden Rule: $A_\text{best}=\text{argmax}_A\;p(B\mid A)p(A)$
+	- if used for speech recognition
+		- $p(B\mid A)$ … acoustic model
+		- $p(A)$ … language model
 - Explain the notion of the n-gram language model.
+	- it would be impractical to compute the probability of a sequence of words as $p(W)=p(w_1,w_2,\dots,w_n)=$ $p(w_1)\cdot p(w_2\mid w_1)\cdot\ldots\cdot p(w_n\mid w_1,w_2,\dots,w_{n-1})$
+		- there would be too many parameters in the model
+	- in an $n$-gram language model, we only remember $n-1$ previous words
+	- examples
+		- 0-gram LM (uniform model) … $p(w)=1/|V|$
+		- 1-gram LM … we store $p(w)$ for every word
+		- 2-gram LM … $p(w_i\mid w_{i-1})$ for every pair of words
+		- 3-gram LM … $p(w_i\mid w_{i-2},w_{i-1})$ etc.
+	- so in 3-gram LM, we estimate $p(W)=p(w_1\mid s,s)\cdot p(w_2\mid s,w_1)\cdot p(w_3\mid w_1,w_2)$ $\cdot\, p(w_4\mid w_2,w_3)\cdot\ldots\cdot p(w_n\mid w_{n-2},w_{n-1})$
 - Describe how Maximum Likelihood estimate of a trigram language model is computed. (2 points)
+	- we estimate $p(w_i\mid w_{i-2},w_{i-1})=\frac{c_3(w_{i-2},w_{i-2},w_i)}{c_2(w_{i-2},w_{i-1})}$
+	- to get $c_3$, we count sequences of three words in training data
+	- to get $c_2$ we count sequences of two words
+		- we can either get it from $c_3$
+			- $c_2(y,z)=\sum_w c_3(y,z,w)$
+		- or count differently at the beginning of the data
 - Why do we need smoothing (in language modelling)?
+	- in the trigram model, there will be always some zeros
+	- however, we cannot be sure that the trigram really does not exist in the language as our data is possibly incomplete
+	- when calculating the probability of a sequence, one trigram with zero probability makes the whole sequence have zero probability, which is impractical
+	- we need to make the system more robust and avoid infinite cross entropy (this happens when test data contain an event which has not been seen in training data)
+	- solution: redistribute probabilities (take from non-zero words, give to words with zero probabilities)
 - Give at least two examples of smoothing methods. (2 points)
+	- add 1
+		- $\forall w\in V:p'(w\mid h)=\frac{c(h,w)+1}{c(h)+|V|}$
+			- $h$ … history
+			- $V$ … vocabulary
+		- problem if $|V|>c(h)$, it happens often
+	- add less than 1
+		- $p'(w\mid h)=\frac{c(h,w)+\lambda}{c(h)+\lambda |V|}$
+			- $\lambda \lt 1$
+		- we choose $\lambda$ in a way that minimizes cross-entropy of $p'$ relative to holdout (dev) data
+			- cross-entropy of $q$ relative to $p$: $H(p,q)=-\mathbb E_p[\log q]$
+	- linear interpolation, multiple lambdas
+		- $p'(w_i\mid w_{i-2},w_{i-1})=\lambda_3p_3(w_i\mid w_{i-2},w_{i-1})$
+			- $+\ \lambda_2p_2(w_i\mid w_{i-1})+\lambda_1 p_1(w_i)+\lambda_0/|V|$
+		- we can normalize it so that…
+			- $\lambda_i\gt 0$
+			- $\sum_i\lambda_i=1$
+				- $\lambda_0=1-\lambda_1-\lambda_2-\lambda_3$
+		- estimated using expectation maximization (EM) algorithm
+		- another version: bucketed smoothing
 
 ## Morphological analysis
 
