@@ -3,10 +3,30 @@
 ## Basic notions from probability and information theory
 
 - What are the three basic properties of a probability function?
+	- $p:2^\Omega\to[0,1]$
+	- $p(\Omega)=1$
+	- it holds $p(\bigcup_i A_i)=\sum_i p(A_i)$ for disjoint events $A_1,\dots,A_n\subseteq\Omega$
+	- ($\Omega$ is a sample space / set of possible basic outcomes)
 - When do we say that two events are (statistically) independent?
+	- $A,B$ are independent iff $p(A\cap B)=p(A)\cdot p(B)$
+	- or $p(B\mid A)=p(B)$
 - Show how Bayes' Theorem can be derived.
+	- $p(A\cap B)=p(B\cap A)$
+		- or $p(A,B)=p(B,A)$
+	- $p(A\mid B)\cdot p(B)=p(B\mid A)\cdot p(A)$
+		- from the definition of conditional probability $p(A\mid B)=\frac{p(A,B)}{p(B)}$
+	- theorem: $p(A\mid B)=\frac{p(B\mid A)\cdot p(A)}{p(B)}$
 - Explain Chain Rule.
+	- chain rule: $p(A_1,A_2,A_3,\dots,A_n)=p(A_1\mid A_2,A_3,\dots,A_n)\cdot p(A_2\mid A_3,\dots,A_n)\cdot\ldots$
+		- $\cdot\,p(A_{n-1}\mid A_n)\cdot p(A_n)$
+	- if follows directly from the definition of conditional probability (or from Bayes rule) as $p(A_1,(A_2,\dots,A_n))=p(A_1\mid (A_2,\dots,A_n))\cdot p(A_2,\dots,A_n)$ etc.
 - Explain the notion of Entropy (formula expected too).
+	- measure of uncertainty
+	- higher entropy → higher uncertainty → higher "surprise"
+	- $H(X)=-\sum_{X\in\Omega}p(X)\log_2 p(X)$
+	- or $H(X)=\mathbb E[\log_2(\frac1{p(X)})]$
+	- coding interpretation: the least (average) number of bits needed to encode a message
+	- note that $H(X)\geq 0$
 - Explain Kullback-Leibler distance (formula expected too).
 - Explain Mutual Information (formula expected too).
 
