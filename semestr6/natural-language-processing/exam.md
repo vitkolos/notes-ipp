@@ -167,9 +167,63 @@
 ## Syntactic analysis
 
 - Describe dependency trees, constituent trees, differences between them and phenomena that must be addressed when converting between them. (2 points)
+	- constituent tree
+		- sentence is divided to phrases (contituents)
+		- recursive: phrases are divided into smaller phrases
+		- the smallest phrases are words
+	- dependency tree
+		- similar to “větný rozbor” taught in Czech schools (there are some differences, e.g., in dependency trees, the subject depends on the verb)
+		- graph of dependencies between words (constituents)
+		- head of phrase = governing node, parent node
+		- the other nodes are dependent nodes
+	- differences
+		- phrase (constituent) trees
+			- usually do not mark the head
+			- may not mark the function of the constituent in the superordinate constituent
+			- cannot capture nonprojective relations (see [Úvod do počítačové lingvistiky](../../semestr5/uvod-do-pocitacove-lingvistiky/zkouska.md#syntaxe))
+		- dependency trees
+			- do not show nonterminals (phrase types, like NP, VP, …) nor any other phrase-level features
+			- do not show “how the sentence is generated” (order, recursion, proximity of constituents)
 - Give an example of a sentence (in any natural language) that has at least two plausible, semantically different syntactic analyses (readings). Draw the corresponding dependency trees and explain the difference in meaning. Are there other additional readings that are less probable but still grammatically acceptable? (2 points)
+	- I saw the man with a telescope.
+		- saw with a telescope × man with a telescope
+	- Ženu holí stroj.
+		- (já) ženu (čím?) holí (koho, co?) stroj
+			- ženu – root/verb
+			- holí – adverbial
+			- stroj – object
+		- (koho?) ženu (čím?) holí (ty) stroj
+			- stroj – root/verb
+			- ženu – subject
+			- holí – adverbial
+		- (koho?) ženu holí (kdo, co?) stroj
+			- holí – root/verb
+			- stroj – subject
+			- ženu – object
+		- there will be always a special node for the period (punctuation)
 - What is coordination? Why is it difficult in dependency parsing? How would you capture coordination in a dependency structure? What are the advantages and disadvantages of your solution?
+	- examples
+		- chickens, hens, rabbits, cats, and dogs
+		- new or even newer
+		- quickly and finely
+		- either now or later
+		- the sun was shining, **so** we went outside
+	- there is no real head → difficult to capture in dependency trees
+	- the coordinate phrases (conjuncts) are usually of the same type
+	- my solution
+		- add a special node acting as a root of the coordination
+		- advantage: we do not emphasize any of the conjuncts as the most important
+		- disadvantage: we add a new element that was not in the original sentence
+		- it is not clear where the connective(s) should be
+	- see [Universal Dependencies](https://universaldependencies.org/u/dep/cc.html) for a different possible solution
 - What is ellipsis? Why is it difficult in parsing? Give examples of different kinds of ellipsis (any natural language).
+	- a phrase omitted from the sentence (its surface form) although it is present in the underlying meaning (deep structure)
+	- to parse the sentence correctly, we need to deduce some missing information from the context
+	- examples
+		- Whom did you see there? — Peter. (missing verb)
+		- Czech and German researchers discussed… (it means that Czech researchers and German researchers discussed; another possible meaning is that every researcher was both Czech and German)
+		- The Penguins are leading 4:0, while the Colorado Avalanches only 3:2. (missing verb in the second part)
+		- Sedím. (omitted subject; the information is contained in the verb form)
 
 ## Information retrieval
 
