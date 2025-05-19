@@ -228,12 +228,50 @@
 ## Information retrieval
 
 - Explain the difference between information need and query.
+	- information need
+		- a topic that the user desires to know more about
+		- a vague idea of what the user is looking for
+	- query
+		- what the user conveys to the computer in an attempt to communicate the information need
+		- formal statement of information need
 - What is inverted index and what are the optimal data structures for it?
+	- for each term in the dictionary, we store a list of all documents that contain it (postings; ids of such documents)
+	- the lists of documents should be sorted so that we can easily merge/intersect them
+	- an optimal data structure for storing an inverted index is a hash table or a tree (binary search tree, B-tree, …)
 - What is stopword and what is it useful for?
+	- stop words = extremely common words which would appear to be of little value in helping select documents matching a user need
+	- examples: a, an, and, are, as, at, be, by, for, from, …
+	- it may be useful to skip the words to save the space needed to store the postings
+	- however, you need stop words for phrase queries like “King of Denmark”
 - Explain the bag-of-word principle?
+	- we do not consider the order of words in a document
+	- we only store the information whether the document contains a given word (and how many such words it contains)
 - What is the main advantage and disadvantage of boolean model.
+	- advantage
+		- the model is simple and fast; we do not need any scoring function
+		- good for experts: precise understanding of the needs and collection
+		- good for applications: can easily consume thousands of results
+	- disadvantage
+		- not good for the majority of users
+		- most users are not capable or lazy to write Boolean queries
+		- Boolean queries often result in either too few or too many results
+		- in Boolean retrieval, it takes a lot of skill to come up with a query that produces a manageable number of hits
+	- solution: ranked retrieval
+		- we score the documents by relevance
+		- show the top 10 results
 - Explain the role of the two components in the TF-IDF weighting scheme.
+	- tf-idf … measure of importance of a word to a document in a collection
+	- tf-idf weight of a term is product of its tf weight and its idf weight
+		- $w_{t,d}=(1+\log\mathrm{tf}_{t,d})\cdot\log\frac{N}{\mathrm{df}_t}$
+	- $\mathrm{tf}_{t,d}$ … term frequency (number of times that $t$ occurs in $d$)
+	- $\mathrm{df}_t$ … document frequency (number of documents in the collection that $t$ occurs in)
+		- the fewer documents $t$ appears in, the more informative it is
 - Explain length normalization in vector space model what is it useful for?
+	- we represent the documents and the query as vectors in a vector space
+	- it is a bad idea to use Euclidean distance as a measure of similarity
+		- Euclidean distance is large for vectors of different lengths
+	- instead, we use cosine similarity $\cos(q,d)=\frac{q\cdot d}{|q|\cdot |d|}$ where $q,d$ are vectors
+		- this normalizes the vector lengths
 
 ## Language data resources
 
