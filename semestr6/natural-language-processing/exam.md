@@ -351,20 +351,75 @@
 ## Evaluation measures in NLP
 
 - Give at least two examples of situations in which measuring a percentage accuracy is not adequate.
+	- if the classes are imbalanced (e.g. a rare disease)
 	- if there is more than one correct answer for each instance
 	- if our system does not give exactly one answer for each instance
 	- if there are some errors that are more wrong than others
 - Explain: precision, recall
 	- let's assume our system either gives prediction (”positive”) or does nothing (“negative”)
-	- …
+	- precision = if our systems gives a prediction, what’s its avarage quality
+		- correct answers given ÷ all answers given
+		- $\frac{tp}{tp+fp}$
+	- recall = what average proportion of all possible correct answers is given by our system
+		- correct answers given ÷ all possible correct answers
+		- $\frac{tp}{tp+fn}$
 - What is F-measure, what is it useful for?
-- What is k-fold cross-validation ?
+	- weighted harmonic mean of precision and recall
+	- $F_\beta=\frac{(\beta^2+1)PR}{\beta^2P+R}$
+	- $F_1=\frac{2PR}{P+R}$
+	- why?
+		- using both precision and recall means that we are in 2D
+		- “is it better to have a system with $P=0.8$ and $R=0.2$, or $P=0.9$ and $R=0.1$?”
+		- we want to be able to use a single scale → F-measure
+- What is k-fold cross-validation?
+	- it is a special way to train and evaluate a (ML) model based on train/test data
+	- used especially in the case of very small data, when an actual train/test division could have huge impact on the measured quantities
+	- we partition the data into $k$ subsamples
+	- we train the model based on $k-1$ subsamples and evaluate it using the last unused subsample → we get a score
+		- we repeat this $k$ times so that every time, we use a different subsample for evaluation → we get $K$ scores and compute their average (this is our final score)
 - Explain BLEU (the exact formula not needed, just the main principles).
+	- BLEU = bilingual evaluation understudy
+	- it is a common measure in machine translation
+	- it measures similarity between a machine's output and a human translation
+	- usually, there are multiple reference (human) translations
+	- n-gram precision = $C/N$
+		- where $N$ … number of n-grams that the candidate translation contains
+		- and $C$ … number of n-grams from the candidate translation that exist in at least one reference translation
+	- brevity penalty
+		- shorter sentences naturally achieve better n-gram precision
+		- to make it fair, we penalize them
+	- to compute BLEU score, we get 1-gram, 2-gram, 3-gram, and 4-gram precisions, compute their geometric mean, and multiply it by the brevity penalty
 - Explain the purpose of brevity penalty in BLEU.
+	- shorter sentences naturally achieve better n-gram precision
+	- to make it fair, we penalize them
 - What is Labeled Attachment Score (in parsing)?
+	- percentage of words that are assigned the correct head and the correct dependency tag (label)
+	- this metric is used to evaluate generated dependency trees
+		- head = the parent node of a given word
+		- label = the relation between the head and the given word
 - What is Word Error Rate (in speech recognition)?
+	- it is a common metric for speech recognition
+	- the number of recognized words can be quite different from the number of true words
+	- $WER=\frac{S+D+I}{S+D+C}$
+		- $S$ … substituted word
+		- $D$ … deleted words
+		- $I$ … inserted words
+		- $C$ … correct words
 - What is inter-annotator agreement? How can it be measured?
+	- inter-annotator agreement (IAA) measures the reliability of manual annotations
+	- “how good human experts perform?”
+	- baseline: what if they annotated randomly?
+	- possible ways to measure IAA
+		- treat one annotator as a virtual gold standard and measure the accuracy of the second annotator
+		- use F-measure instead of accuracy
+		- Cohen's kappa
 - What is Cohen's kappa?
+	- inter-annotator agreement metric that takes into account the agreement by chance
+	- $\kappa=\frac{P_a-P_e}{1-P_e}$
+	- $P_a$ … relative observed agreement between the annotators
+	- $P_e$ … probability of agreement by chance
+	- scale from $-1$ to $+1$ (negative kappa unexpected but possible)
+	- interpretation still unclear, but at least we abstracted from the by-chance agreement baseline
 
 ## Deep learning for NLP
 
