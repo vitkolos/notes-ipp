@@ -424,9 +424,33 @@
 ## Deep learning for NLP
 
 - Describe the two methods for training of the Word2Vec model.
+	- we use a sliding window over the input text → the embedding of a given word is influenced by the neighboring words
+	- either we can predict the neighboring words based on the current word or vice versa
+	- two methods
+		- CBOW: minimize cross-entropy of the middle word of a sliding window
+			- the model predicts the middle word based on the other words in the window
+		- skip-gram: minimize cross-entropy of a bag of words around a word
+			- the model predicts the neighboring words (without specifying their order) based on the middle word
 - Use formulas to describe how Word2Vec is trained with negative sampling. (2 points)
+	- we don't do softmax of all the words that could be in the window but are not – that would be computationally expensive
+	- instead of softmax, we use sigmoid function: “can this word be in this context?”
+	- we randomly sample negative samples from the vocabulary
+	- as our loss function, we use $L=-\log\sigma(U^T_{w_O}V_{w_I})-\sum_{i=1}^k\log\sigma(-U^T_{w_i}V_{w_I})$
+		- where $w_I$ is an input word, $w_O$ is an output word
+		- there are $k$ negative samples $w_1,\dots,w_k$
+		- $V$ is the first layer of the neural network (input embedding matrix)
+		- $U$ is the second layer (output matrix)
 - Explain the difference between Word2Vec and FastText embeddings.
+	- Word2Vec training treats words as independent entities
+	- there are regularities in how words look like (morphology)
+	- FastText tackles this
+		- represent each word as a bag of character n-grams
+		- keep a table of character n-grams embeddings instead of words
+		- word embedding = average of character n-gram embeddings
 - Sketch the structure of the Transformer model. (2 points)
+	- [![Transformer model](files/transformer.png)](files/transformer)
+		- author: Jindřich Libovický
+		- license: [CC BY-SA](https://creativecommons.org/licenses/by-sa/4.0/)
 - Why do we use positional encodings in the Transformer model.
 - What are residual connections in neural networks? Why do we use them?
 - Use formulas to express the loss function for training sequence labeling tasks.

@@ -1,6 +1,6 @@
 # Zkouška
 
-tento dokument je zveřejněn pod licencí [CC BY-SA]([https://creativecommons.org/licenses/by-sa/4.0/](https://creativecommons.org/licenses/by-sa/4.0/)), vychází z materiálů, jejichž autory jsou Jindřich Libovický a Milan Straka
+tento dokument je zveřejněn pod licencí [CC BY-SA](https://creativecommons.org/licenses/by-sa/4.0/), vychází z materiálů, jejichž autory jsou Jindřich Libovický a Milan Straka
 
 ## 1. Introduction to Machine Learning
 
