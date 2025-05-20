@@ -435,7 +435,7 @@
 	- we don't do softmax of all the words that could be in the window but are not – that would be computationally expensive
 	- instead of softmax, we use sigmoid function: “can this word be in this context?”
 	- we randomly sample negative samples from the vocabulary
-	- as our loss function, we use $L=-\log\sigma(U^T_{w_O}V_{w_I})-\sum_{i=1}^k\log\sigma(-U^T_{w_i}V_{w_I})$
+	- as our loss function, we use $\mathcal L=-\log\sigma(U^T_{w_O}V_{w_I})-\sum_{i=1}^k\log\sigma(-U^T_{w_i}V_{w_I})$
 		- where $w_I$ is an input word, $w_O$ is an output word
 		- there are $k$ negative samples $w_1,\dots,w_k$
 		- $V$ is the first layer of the neural network (input embedding matrix)
@@ -451,9 +451,24 @@
 	- [![Transformer model](files/transformer.png)](files/transformer)
 		- author: Jindřich Libovický
 		- license: [CC BY-SA](https://creativecommons.org/licenses/by-sa/4.0/)
+	- there are several such layers
+	- each layer has two sublayers (self-attention and feed-forward)
 - Why do we use positional encodings in the Transformer model.
+	- attention mechanism does not have any information about the order of the tokens
+	- one way to solve this is to sum positional coefficients with the token embeddings
 - What are residual connections in neural networks? Why do we use them?
+	- we always sum the output of the sublayer with the output of the previous sublayer
+	- we use them to make the learning numerically stable and to prevent the vanishing gradient problem
+		- in a deep network, there are many forward propagation steps and the gradients of earlier weights (layers) are calculated with too many multiplications → they become too small
+		- to solve this, we add the output of the previous sublayer to the output of the current one
+		- it helps, because summation is linear with respect to the gradient
 - Use formulas to express the loss function for training sequence labeling tasks.
+	- we use cross-entropy between estimated distribution $P$ and one-hot ground-truth distribution $T$
+	- for a single item
+		- $\mathcal L=H(T,P)=-\mathbb E_{i\sim T}\log P(i)=-\sum_i T(i)\log P(i)=-\log P(y^*)$
+		- $y^*$ … ground truth
+	- for a sequence of $T$ items
+		- $\mathcal L=-\sum_{t=1}^T\log P_t(y^*_t)$
 - Explain the pre-training procedure of the BERT model. (2 points)
 - Explain what is the pre-train and finetune paradigm in NLP.
 - Describe the task of named entitity recognition (NER). Explain the intution behind the CRF models compared to standard sequence labeling. (2 points)
