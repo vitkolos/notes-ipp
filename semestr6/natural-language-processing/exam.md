@@ -514,9 +514,73 @@
 ## Machine translation fundamentals
 
 - Why is MT difficult from linguistic point of view? Provide examples and explanation for at least three different phenomena. (2 points)
+	- ambiguity and word senses
+		- “The plant is next to the bank.”
+		- ”Ženu holí stroj.”
+		- a single word can have several meanings
+	- target word forms
+		- tenses, cases, genders
+		- it is necessary to select the right word form
+		- “The cat is on the mat.” → kočka
+		- “He saw a cat.” → kočku
+	- negation
+		- French negation is around the verb: “Je ne parle pas français.”
+		- Czech negation is doubled: “Nemám žádné námitky.”
+		- phrases with negation can be ambiguous
+	- pronouns
+		- English requires the subject explicit; in Czech, the information is implicitly in the verb
+			- Četl knihu. He read a book.
+			- Spal jsem. I slept.
+		- the gender must match the referent
+			- He saw a book; **it** was red.
+			- Viděl knihu. **Byla** černá.
+		- tricky “svůj”
+			- Could I use your cell phone?
+			- an old machine translation: Mohl bych používat svůj mobilní telefon?
+	- coordination and apposition, word order
+		- “This book is dedicated to my parents, Ayn Rand and God.”
+	- space of possible translations
+		- there are many correct translations
+	- idioms
+	- cultural context (local time, customs, etc.)
 - Why is MT difficult from computational point of view?
+	- the space of possible translations is quite large – there are many bad translations but also many acceptable translations
+	- there is a lot of ambiguity in language; language is messy (not all sentences are grammatical)
+	- evaluation is hard
 - Briefly describe at least three methods of manual MT evaluation. (1-2 points)
+	- ranking of constituents on the scale 1–5
+		- we see the original sentence, reference translation, and several machine translations
+		- we assign a score to the highlighted part (constituent) of the translated sentence
+		- this way, we do not evaluate overall coherence, which can be important
+	- ranking sentences
+		- scoring the whole sentences
+		- eye tracking can be used
+		- long sentences are hard to rank
+		- candidates are incomparably poor :(
+	- comprehension test
+		- blind editing + correctness check
+		- first, we look at the result (without seeing the original sentence) and edit it to make it as fluent as possible
+		- second, the edited sentences are checked against the originals (whether the meaning is the same)
+	- task-based
+		- does MT output help as much as the original?
+		- do I dress appropriately given a translated weather forecast?
+	- evaluation by flagging errors
+		- classification of MT errors
+		- we label the words/phrases in the MT output using the corresponding errors
 - Describe BLEU. 1 point for the core properties explained, 1 point for the (commented) formula.
+	- it is based on geometric mean of n-gram precision and a brevity penalty
+	- $BLEU=BP\cdot\sqrt[4]{p_1p_2p_3p_4}$
+		- or $BLEU =BP\cdot\exp(\frac14\sum_{n=1}^4 \log p_n)$
+		- where $p_n$ … $n$-gram precision
+		- and $BP$ … brevity penalty
+			- $BP=\begin{cases}1&\text{if }c\gt r\\ e^{1-r/c}&\text{if }c\leq r\end{cases}$
+	- note that “.” (dot) counts as an unigram
+	- for other properties of BLEU score, see [Evaluation measures in NLP](#evaluation-measures-in-nlp)
+	- BLEU scores are not comparable…
+		- across languages
+		- on different test sets
+		- with different number of reference translations
+		- with different implementations of the evaluation tool
 - Describe IBM Model 1 for word alignment, highlighting the EM structure of the algorithm.
 - Explain using equations the relation between Noisy channel model and log-linear model for classical statistical MT. (2 points)
 - Describe the loop of weight optimization for the log-linear model as used in phrase-based MT.
