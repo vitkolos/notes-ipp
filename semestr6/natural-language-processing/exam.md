@@ -575,15 +575,59 @@
 		- and $BP$ … brevity penalty
 			- $BP=\begin{cases}1&\text{if }c\gt r\\ e^{1-r/c}&\text{if }c\leq r\end{cases}$
 	- note that “.” (dot) counts as an unigram
-	- for other properties of BLEU score, see [Evaluation measures in NLP](#evaluation-measures-in-nlp)
+	- for more information about BLEU score, see [Evaluation measures in NLP](#evaluation-measures-in-nlp)
 	- BLEU scores are not comparable…
 		- across languages
 		- on different test sets
 		- with different number of reference translations
 		- with different implementations of the evaluation tool
+	- BLEU is overly sensitive to token forms and sequences
+		- solutions: use coarser units, use more references
 - Describe IBM Model 1 for word alignment, highlighting the EM structure of the algorithm.
+	- it estimates lexical probabilities (probabilities that a word in the first language equals a word in the second language)
+	- lexical probabilities disregard the position of words in sentences
+	- they are estimated using Expectation-Maximization loop
+		- initialize model parameters (e.g. uniform)
+		- iterate until convergence:
+			- assign probabilities to the missing data
+			- estimate model parameters from complete data
+	- real usage (see the [slides by Philipp Koehn](http://mt-class.org/jhu/slides/lecture-ibm-model1.pdf))
+		- we start with all alignments equally likely
+		- there are these phrases in the training data
+			- la maison, the house
+			- la maison blue, the blue house
+			- la fleur, the flower
+		- during the EM algorithm, the alignment of “la” and “the” becomes more likely
+		- the pigeon hole principle leads to the words “fleur” and “flower” being aligned
+	- unsupervised learning
 - Explain using equations the relation between Noisy channel model and log-linear model for classical statistical MT. (2 points)
+	- we translate $f$ → $e$
+	- Noisy channel: $\hat e=\mathrm{argmax}_e\ p(f\mid e)\cdot p(e)$
+		- $p(f\mid e)$ … translation model (reversed)
+			- “is it a likely translation?”
+		- $p(e)$ … language model
+			- “is it a likely sentence of the target language?”
+	- log-linear model
+		- we model $p(e\mid f)$ as a weighted combination of models (“feature functions”)
+		- $p(e\mid f)=\frac{\exp(\sum_m \lambda_m h_m(e, f))}{\sum_{e'}\exp(\sum_m\lambda_mh_m(e',f))}$
+			- each feature function $h_m(e,f)$ relates source $f$ to target $e$
+			- model weights $\lambda_m$ specify the relative importance of features
+		- the constant denominator is not needed in maximization
+			- $\hat e=\mathrm{argmax}_e\ \exp(\sum_m\lambda_m h_m(e,f))$
+	- log-linear model → Noisy channel
+		- we consider equal widths and only two features
+			- $h_{TM}(e,f)=\log p(f\mid e)$
+			- $h_{LM}(e,f)=\log p(e)$
+		- $\hat e=\mathrm{argmax}_e\ \exp(\sum_m\lambda_mh_m(e,f))$
+		- $=\mathrm{argmax}_e\ \exp(h_{TM}(e,f)+h_{LM}(e,f))$
+		- $=\mathrm{argmax}_e\ \exp(\log p(f\mid e)+\log p(e))$
+		- $=\mathrm{argmax}_e\ p(f\mid e)\cdot p(e)$
 - Describe the loop of weight optimization for the log-linear model as used in phrase-based MT.
+	- MERT (Minimum Error Rate Training) loop
+		- translate input
+		- evaluate candidates using an external score
+		- find new weights for a better match of external and internal score
+		- if the internal weights stayed the same, stop; otherwise loop
 
 ## Neural machine translation
 
