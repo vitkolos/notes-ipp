@@ -624,6 +624,7 @@
 		- $=\mathrm{argmax}_e\ p(f\mid e)\cdot p(e)$
 - Describe the loop of weight optimization for the log-linear model as used in phrase-based MT.
 	- MERT (Minimum Error Rate Training) loop
+		- (start with some initial weights $\lambda_1,\dots,\lambda_M$)
 		- translate input
 		- evaluate candidates using an external score
 		- find new weights for a better match of external and internal score
@@ -632,13 +633,54 @@
 ## Neural machine translation
 
 - Describe the critical limitation of PBMT that NMT solves. Provide example training data and example input where PBMT is very likely to introduce an error.
+	- PBMT = phrase-based machine translation
+	- limitation: too strong phrase-independence assumption
+		- but phrases do depend on each other
+	- example training data
+		- **Nemám** žádného psa. → **I have** no dog.
+		- Viděl **kočku**. → He saw **a cat**.
+	- example input
+		- *Nemám* kočku. (→ *I have* a cat.)
+	- the negation is expressed not only as “žádného” but also in the verb
 - Use formulas to highlight the similarity of NMT and LMs.
+	- if we modeled $p(e\mid f)$ directly…
+		- $p(e\mid f)=p(e_1,\dots,e_I\mid f)=\prod_{i=1}^I p(e_i\mid e_1,\dots,e_{i-1},f)$
+	- this is “just a cleverer language model”
+		- $p(e)=\prod_{i=1}^Ip(e_i\mid e_1,\dots,e_{i-1})$
+	- a neural network with a single hidden layer (possibly huge) can approximate any continuous function to any precision
+		- we will use NNs to model $p(e_i\mid e_1,\dots,e_{i-1},f)$
+		- “what is the next word in the translated sentence?”
 - Describe, how words are fed to current NMT architectures and explain why is this beneficial over 1-hot representation.
+	- using word embeddings
+		- each word is mapped to a dense vector
+		- in practice 300–2000 dimensions are used (they have no clear interpretation)
+		- embeddings are trained for each particular task
+	- in 1-hot representation, there are no relations among the words; they are all equally close/far
+		- word embeddings somehow reflect the meanings of the words
 - Sketch the structure of an encoder-decoder architecture of neural MT, remember to describe the components in the picture (2 points)
+	- [![architecture of neural MT](https://developer-blogs.nvidia.com/wp-content/uploads/2015/06/Figure2_NMT_system.png)](https://developer.nvidia.com/blog/introduction-neural-machine-translation-gpus-part-2/#attachment_5438)
+	- the encoder first processed the English sentence, then the decoder generated the French sentence
 - What is the difference in RNN decoder application at training time vs. at runtime?
+	- …
 - What problem does attention in NMT address? Provide the key idea of the method.
+	- …
 - What problem/task do both RNN and self-attention resolve and what is the main benefit of self-attention over RNN?
+	- …
 - What are the three roles each state at a Transformer encoder layer takes in self-attention.
+	- …
 - What are the three uses of self-attention in the Transformer model?
+	- …
 - Provide an example of NMT improvement that was assumed to come from additional linguistic information but occurred also for a simpler reason.
+	- …
 - Summarize and compare the strategy of "classical statistical MT" vs. the strategy of neural approaches to MT.
+	- goal of “classical” SMT
+		- find minimum translation units / graph partitions
+		- such that they are frequent across many sentence pairs
+		- without imposing (too hard) constraints on reordering
+		- in an unsupervised fashion
+	- goal of neural MT
+		- avoid minimum translation units
+		- find NN architecture that…
+			- reads input in as original form as possible
+			- produces output in as final form as possible
+			- can be optimized end-to-end in practice
