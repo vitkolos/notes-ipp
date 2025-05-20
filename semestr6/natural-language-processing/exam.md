@@ -276,19 +276,87 @@
 ## Language data resources
 
 - Explain what a corpus is.
+	- dataset of language resources, collection of texts
+	- it is often annotated
+	- it should be somehow balanced
+	- there are special types of corpora: spoken, parallel, domain-specific, diachronic
 - Explain what annotation is (in the context of language resources). What types of annotation do you know? (2 points)
+	- annotation = adding selected linguistic information in an explicit form to a corpus
+		- raw texts are difficult to exploit
+	- examples
+		- morphological annotation – lemma, POS, other categories)
+		- syntactic annotation – constituent trees, dependency trees
+		- semantic annotation – dozens of approaches, no consensus so far
+		- anaphora – “what does the pronoun refer to?”
+		- word sense disambiguated corpora – which sense is used for a given polysemous word in a given context
+		- sentiment corpora – positive/negative emotions induced by some expressions in a text
 - What are the reasons for variability of even basic types of annotation, such as the annotation of morphological categories (parts of speech etc.).
+	- different languages may have different morphological categories
+	- different linguistic traditions of different national schools
 - Explain what a treebank is. Why trees are used? (2 points)
+	- treebank = a corpus in which the syntax and/or semantics of sentences is analyzed using tree-shaped data structures
+	- why trees? we believe that…
+		- trees are attractive data structures :D
+		- sentences can be represented by discrete units and relations among them
+		- some relations make more sense than others
+		- there is an identifiable discrete structure hidden in each sentence
+		- the structure must allow for various kinds of nestedness → recursivity → trees
+	- two types of trees that are broadly used: constituency (phrase-structure) trees, dependency trees
 - Explain what a parallel corpus is. What kind of alignments can we distinguish? (2 points)
+	- it contains texts in two (or more) languages
+	- the texts are aligned (for example, we know which Czech and English documents are equivalent)
+	- there are multiple possible levels of alignment
+		- document level alignment
+		- sentence level alignment
+		- word level alignment
+		- (morpheme level alignment?)
+	- examples
+		- The Rosetta Stone
+		- CzEng
+		- Canadian parliamentary transcripts (Hansard)
 - What is a sentiment-annotated corpus? How can it be used?
+	- it captures the attitude (emotional polarity) of a speaker with respect to some topic/expression
+	- examples
+		- “it was an *ok* (neutral) club, but *terribly crowded* (negative)”
+		- “Taiwan-made products *stood a good chance* (positive) of becoming *even more competitive thanks to* (positive) wider access to overseas markets”
+	- obviously over-simplified, but highly demanded e.g. by the marketing industry
 - What is a coreference-annotated corpus?
+	- it captures relations between expressions that refer to the same entity of the real world
+		- for example, the expressions “Audi”, “the company”, and “the Audi company” all refer to one entity
+	- example of a coreference-annotated corpus: Prague Dependency Treebanks
 - Explain how WordNet is structured?
+	- it is a hyponymy forest composed of synsets (sets of synonymous words)
+	- example of a branch
+		- event
+		- act, human action, human activity
+		- action
+		- change
+		- motion, movement, move
+		- locomotion, travel
+		- run, running
+		- dash, sprint
+	- another subbranch
+		- motion, movement, move
+		- descent
+		- jump, parachuting
 - Explain the difference between derivation and inflection?
+	- inflection = ohýbání (skloňování, časování)
+		- change in the form of a word to express a grammatical function/attribute (tense, mood, person, number, case, gender)
+	- derivation = odvození
+		- forming a new word from an existing word
+		- usually prefixing and suffixing
+	- inflection does not change the core meaning of the word
+	- derivation produces a new word (a distinct lexeme), inflection produces grammatical variants of the same word
 
 ## Evaluation measures in NLP
 
 - Give at least two examples of situations in which measuring a percentage accuracy is not adequate.
+	- if there is more than one correct answer for each instance
+	- if our system does not give exactly one answer for each instance
+	- if there are some errors that are more wrong than others
 - Explain: precision, recall
+	- let's assume our system either gives prediction (”positive”) or does nothing (“negative”)
+	- …
 - What is F-measure, what is it useful for?
 - What is k-fold cross-validation ?
 - Explain BLEU (the exact formula not needed, just the main principles).
