@@ -470,9 +470,46 @@
 	- for a sequence of $T$ items
 		- $\mathcal L=-\sum_{t=1}^T\log P_t(y^*_t)$
 - Explain the pre-training procedure of the BERT model. (2 points)
+	- it is a “masked language model”
+	- it is trained as sequence labeling: change some input token, labeler guesses original tokens
+	- when trained, throw away labeling, use last layer as the representation
+	- for some of the words in the training data (randomly sampled; 15 % in the original paper), we do one of the following things:
+		- with 80% probability replace the word with special MASK token
+		- with 10% probability replace the word with a random token
+		- with 10% probability keep the original word
+	- the classifier should then predict the correct (original) word
 - Explain what is the pre-train and finetune paradigm in NLP.
+	- two steps: pre-training and finetuning
+	- pre-training
+		- do once, large (unlabeled) data, long time
+		- for example, masked language modeling
+	- finetuning
+		- small data (task-specific), fast
+		- to fulfill a task-specific objective
 - Describe the task of named entitity recognition (NER). Explain the intution behind the CRF models compared to standard sequence labeling. (2 points)
+	- the goal of named entity recognition is to find named entities in the text
+		- examples of named entities: person, location, organization, event, product, skill, address, phone, email, URL, IP, datetime, quantity
+		- it is linked to coreference resolution
+		- usage: entity linking, indexing text for search, direct use in smart devices (making addresses clickable etc.)
+		- the entities can span multiple words; they can be nested
+			- there are multiple schemes to deal with that
+			- example (IOB scheme)
+				- There are **over 1000** compositions by **Johan Sebastian Bach**.
+				- O O B-QUANT I-QUANT O O B-PERSON I-PERSON I-PERSON O
+	- standard tagging
+		- conditional independence assumption
+		- but tags have their internal grammar: I-PERSON cannot follow after O
+	- CRF (Conditional Random Fields)
+		- instead of doing probability distribution over each token independently, we do a probability distribution over all possible tagging sequences
+		- for a tagging sequence, we get a score, how probable it is
 - Explain how does the self-attention differ in encoder-only and decoder-only models.
+	- encoder-only models
+		- predict sentence labeling (e.g. POS tags)
+		- the self-attention mechanism can look in all directions (at the previous and following tokens)
+	- decoder-only models
+		- predict the next word
+		- we have to ensure that the self-attention mechanism cannot look at the future words
+			- we need to use a mask (a triangular matrix with negative infinities)
 
 ## Machine translation fundamentals
 
