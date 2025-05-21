@@ -658,7 +658,7 @@
 	- in 1-hot representation, there are no relations among the words; they are all equally close/far
 		- word embeddings somehow reflect the meanings of the words
 - Sketch the structure of an encoder-decoder architecture of neural MT, remember to describe the components in the picture (2 points)
-	- [![architecture of neural MT](https://developer-blogs.nvidia.com/wp-content/uploads/2015/06/Figure2_NMT_system.png)](https://developer.nvidia.com/blog/introduction-neural-machine-translation-gpus-part-2/#attachment_5438)
+	- [![architecture of neural MT](files/encoder-decoder.png)](https://developer.nvidia.com/blog/introduction-neural-machine-translation-gpus-part-2/#attachment_5438)
 	- the encoder first processed the English sentence, then the decoder generated the French sentence
 - What is the difference in RNN decoder application at training time vs. at runtime?
 	- at runtime, the decoder generates the next word based on the previous generated word and its internal (hidden) state
