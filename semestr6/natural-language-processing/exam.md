@@ -268,6 +268,7 @@
 	- $\mathrm{df}_t$ … document frequency (number of documents in the collection that $t$ occurs in)
 		- the fewer documents $t$ appears in, the more informative it is
 		- the collection has $N$ documents in total
+		- idf … inverse document frequency
 - Explain length normalization in vector space model what is it useful for?
 	- we represent the documents and the query as vectors in a vector space
 	- it is a bad idea to use Euclidean distance as a measure of similarity
