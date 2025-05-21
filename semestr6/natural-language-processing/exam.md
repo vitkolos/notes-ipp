@@ -148,9 +148,10 @@
 		- collect glosses from the lexicon for all paths that survived
 - Give an example of a phonological or an orthographical change caused by morphological inflection (any natural language). Describe the rule that would take care of the change during analysis or generation. It is not required that you draw a transducer, although drawing a transducer is one of the possible ways of describing the rule.
 	- Czech: káď → kádě
-	- `ď:d <=> _ +:0 e:ě`
+	- `ď:d <= _ +:0 e:ě`
 		- `káď+e` (lexical)
 		- `kád0ě` (surface)
+	- complete version of the rule: `[ď:d | ň:n | ť:t] <=> _ +:0 [e:ě | i:i | í:í]`
 	- another example: nať → nati
 - Give an example of a long-distance dependency in morphology (any natural language). How would you handle it in a morphological analyzer?
 	- umlauts in German plurals
@@ -266,6 +267,7 @@
 	- $\mathrm{tf}_{t,d}$ … term frequency (number of times that $t$ occurs in $d$)
 	- $\mathrm{df}_t$ … document frequency (number of documents in the collection that $t$ occurs in)
 		- the fewer documents $t$ appears in, the more informative it is
+		- the collection has $N$ documents in total
 - Explain length normalization in vector space model what is it useful for?
 	- we represent the documents and the query as vectors in a vector space
 	- it is a bad idea to use Euclidean distance as a measure of similarity
