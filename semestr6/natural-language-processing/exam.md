@@ -379,7 +379,7 @@
 	- used especially in the case of very small data, when an actual train/test division could have huge impact on the measured quantities
 	- we partition the data into $k$ subsamples
 	- we train the model based on $k-1$ subsamples and evaluate it using the last unused subsample → we get a score
-		- we repeat this $k$ times so that every time, we use a different subsample for evaluation → we get $K$ scores and compute their average (this is our final score)
+		- we repeat this $k$ times so that every time, we use a different subsample for evaluation → we get $k$ scores and compute their average (this is our final score)
 - Explain BLEU (the exact formula not needed, just the main principles).
 	- BLEU = bilingual evaluation understudy
 	- it is a common measure in machine translation
