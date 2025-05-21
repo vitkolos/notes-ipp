@@ -577,6 +577,8 @@
 		- where $p_n$ … $n$-gram precision
 		- and $BP$ … brevity penalty
 			- $BP=\begin{cases}1&\text{if }c\gt r\\ e^{1-r/c}&\text{if }c\leq r\end{cases}$
+			- $c$ … candidate length
+			- $r$ … effective reference length
 	- note that “.” (dot) counts as an unigram
 	- for more information about BLEU score, see [Evaluation measures in NLP](#evaluation-measures-in-nlp)
 	- BLEU scores are not comparable…
