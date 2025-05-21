@@ -70,7 +70,7 @@
 		- 3-gram LM … $p(w_i\mid w_{i-2},w_{i-1})$ etc.
 	- so in 3-gram LM, we estimate $p(W)=p(w_1\mid s,s)\cdot p(w_2\mid s,w_1)\cdot p(w_3\mid w_1,w_2)$ $\cdot\, p(w_4\mid w_2,w_3)\cdot\ldots\cdot p(w_n\mid w_{n-2},w_{n-1})$
 - Describe how Maximum Likelihood estimate of a trigram language model is computed. (2 points)
-	- we estimate $p(w_i\mid w_{i-2},w_{i-1})=\frac{c_3(w_{i-2},w_{i-2},w_i)}{c_2(w_{i-2},w_{i-1})}$
+	- we estimate $p(w_i\mid w_{i-2},w_{i-1})=\frac{c_3(w_{i-2},w_{i-1},w_i)}{c_2(w_{i-2},w_{i-1})}$
 	- to get $c_3$, we count sequences of three words in training data
 	- to get $c_2$ we count sequences of two words
 		- we can either get it from $c_3$
