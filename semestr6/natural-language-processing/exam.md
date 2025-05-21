@@ -677,6 +677,7 @@
 	- attention allows the decoder to look at different parts of the source sentence at each decoding step
 		- it uses a weighted sum
 - What problem/task do both RNN and self-attention resolve and what is the main benefit of self-attention over RNN?
+	- the problem of representing source sentence (of an arbitrary length) using a fixed-size vector
 	- RNN
 		- it has turned out that reading input backwards (in RNNs) works better: the information contained in the early words is not diluted that much when generating the first words of the translation
 		- bi-directional RNN can be used to “attend” to all hidden states
