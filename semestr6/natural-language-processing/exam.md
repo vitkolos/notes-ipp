@@ -672,7 +672,7 @@
 - What problem does attention in NMT address? Provide the key idea of the method.
 	- arbitrary-length sentences fit badly into a fixed vector
 	- without attention
-		- encoder needs to compress the information contained in the original sentence
+		- encoder needs to compress the information contained in the original (source) sentence
 		- for longer sentences, important details can be lost
 	- attention allows the decoder to look at different parts of the source sentence at each decoding step
 		- it uses a weighted sum
@@ -686,11 +686,29 @@
 		- the decoder can look at any hidden state of the encoder (kind of)
 		- there is a sub-network predicting the importance of source states at each step
 - What are the three roles each state at a Transformer encoder layer takes in self-attention.
-	- …
+	- query, key, value
+	- to get any of the roles based on the word (embedding), we multiply the word by a corresponding weight matrix ($W_Q$, $W_K$, or $W_V$)
+	- by multiplying queries and keys (and softmaxing them), the self-attention mechanism finds which words are relevant – then gets their values
 - What are the three uses of self-attention in the Transformer model?
-	- …
+	- encoder-decoder attention
+		- $Q$ … previous decoder layers
+		- $K = V$ … outputs of encoder
+		- decoder positions attend to all positions of the input
+	- encoder self-attention
+		- $Q=K=V$ … outputs of the previous layer of the encoder
+		- encoder positions attend to all positions of previous layer
+	- decoder self-attention
+		- $Q=K=V$ … outputs of the previous decoder layer
+		- masking used to prevent depending on future outputs
+		- decoder attends to all its previous outputs
 - Provide an example of NMT improvement that was assumed to come from additional linguistic information but occurred also for a simpler reason.
-	- …
+	- interleaving the generated output with syntax tags
+		- it was better than generating output without tags
+		- but with random tags, the model achieved even better results (when using seq2seq)
+		- likely reason: the model had “more thinking time” (the decoder was “deeper”)
+	- requiring that one of the self-attention heads in one of the layers corresponds to dependency tree of the source sentence
+		- it improved the performance of the model
+		- but again, producing a “linear” (dummy) tree improved the performance even more
 - Summarize and compare the strategy of "classical statistical MT" vs. the strategy of neural approaches to MT.
 	- goal of “classical” SMT
 		- find minimum translation units / graph partitions
