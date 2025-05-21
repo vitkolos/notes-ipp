@@ -661,11 +661,30 @@
 	- [![architecture of neural MT](https://developer-blogs.nvidia.com/wp-content/uploads/2015/06/Figure2_NMT_system.png)](https://developer.nvidia.com/blog/introduction-neural-machine-translation-gpus-part-2/#attachment_5438)
 	- the encoder first processed the English sentence, then the decoder generated the French sentence
 - What is the difference in RNN decoder application at training time vs. at runtime?
-	- …
+	- at runtime, the decoder generates the next word based on the previous generated word and its internal (hidden) state
+	- at training time, we “force” the decoder to produce the target sentence (kind of)
+		- the decoder generates the probability distribution of the next word based on the previous **target** word and its internal state
+		- we get the loss function from the probability distributions (their difference from the one-hot distributions of target words)
+	- [![RNN decoder](files/rnn-decoder.png)](files/rnn-decoder.png)
+		- author: Ondřej Bojar
+		- source: [NMT slides](https://ufal.mff.cuni.cz/~zabokrtsky/courses/npfl124/slides/lect12-nmt.pdf)
+		- the two applications of the decoder are on the right: the training phase is on top; the runtime is below
 - What problem does attention in NMT address? Provide the key idea of the method.
-	- …
+	- arbitrary-length sentences fit badly into a fixed vector
+	- without attention
+		- encoder needs to compress the information contained in the original sentence
+		- for longer sentences, important details can be lost
+	- attention allows the decoder to look at different parts of the source sentence at each decoding step
+		- it uses a weighted sum
 - What problem/task do both RNN and self-attention resolve and what is the main benefit of self-attention over RNN?
-	- …
+	- RNN
+		- it has turned out that reading input backwards (in RNNs) works better: the information contained in the early words is not diluted that much when generating the first words of the translation
+		- bi-directional RNN can be used to “attend” to all hidden states
+		- we could use the two outputs of the encoder – reading the sentence forwards and backwards
+			- but the middle words would be still quite lost in the representation
+	- self-attention
+		- the decoder can look at any hidden state of the encoder (kind of)
+		- there is a sub-network predicting the importance of source states at each step
 - What are the three roles each state at a Transformer encoder layer takes in self-attention.
 	- …
 - What are the three uses of self-attention in the Transformer model?
