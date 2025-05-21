@@ -715,6 +715,7 @@
 		- such that they are frequent across many sentence pairs
 		- without imposing (too hard) constraints on reordering
 		- in an unsupervised fashion
+		- there is the independence assumption of the translation units
 	- goal of neural MT
 		- avoid minimum translation units
 		- find NN architecture that…
