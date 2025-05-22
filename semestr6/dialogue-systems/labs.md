@@ -66,3 +66,7 @@
 - assignment 8
 	- we don't need to optimize the number of used templates (in the third requirement) – if we do not find the match, we can go one by one
 	- load the upstream changes into the repository, there is a reference implementation we can use
+- assignment 12
+	- find the top 10 corresponding keys (utterances) using TF-IDF cosine similarity
+	- select one utterance randomly
+	- return the response to that utterance
