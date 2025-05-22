@@ -635,3 +635,20 @@
 
 ## MAMA AI
 
+## Chitchat/Open-Domain Dialogue
+
+- main goal
+	- keep the user entertained
+	- evaluation: conversation length, user engagement
+- usually different architecture than task-oriented dialogue systems
+	- it is hard to have explicit NLU/state for open domain
+	- DB connection is optional
+- evaluation history
+	- Turing test
+	- Loebner Prize
+	- Amazon Alexa Prize
+- basic architectures
+	- rule-based
+	- data-based
+		- retrieval
+		- generative
