@@ -5,19 +5,107 @@ The exam will have 10 questions, mostly from this pool. In general, none of them
 ## Introduction
 
 - What's the difference between task-oriented and non-task-oriented systems?
-- Describe the difference between closed-domain, multi-domain, and open-doman systems.
+	- task-oriented
+		- focused on completing certain tasks (booking restaurants/flights/hotels, finding bus schedules, smart home, …)
+		- most actual dialogue systems in production
+		- “backend access” vs. “agent/assistant”
+	- non-task-oriented
+		- chitchat – social conversation, entertainment
+			- getting to know the user, specific persona
+		- gaming the Turing test
+- Describe the difference between closed-domain, multi-domain, and open-domain systems.
+	- single/closed-domain – on a well-defined area, small set of specific tasks (e.g. banking system on a specific phone number)
+	- multi-domain – joining several single-domain systems
+	- open-domain – “responds to anything”, used to be mostly chitchat, now somewhat working via LLMs
 - Describe the difference between user-initiative, mixed-initiative, and system-initiative systems.
+	- user-initiative – user asks, machine responds
+	- system-initiative – “form-filling”, system asks questions, user must reply (traditional, most robust, least natural)
+	- mixed-initiative – system and user both can ask & react to queries; most natural, most complex
 
 ## Linguistics of Dialogue
 
 - What are turn taking cues/hints in a dialogue? Name a few examples.
+	- a speaker can use a turn taking cue/hint to signalize when their turn ends (they yield)
+	- examples: linguistic (e.g. finished sentence), voice pitch, timing (gaps), eye gaze, gestures, …
 - Explain the main idea of the speech acts theory.
+	- each utterance is an act: intentional, changing the state of the world (changing the knowledge/mood of the listener, influencing their behavior)
+	- speech acts consist of several levels: the words, their semantics, meaning, effect
+	- types of speech acts: assertive, directive, commissive, expressive, declarative
+	- explicit vs. implicit; direct vs. indirect
+		- explicit: I **promise** to come by later.
+		- implicit: I’ll come by later.
+		- direct: Please close the window.
+		- indirect: Could you close the window?
+		- even more indirect: I’m cold.
 - What is grounding in dialogue?
+	- dialogue is cooperative → need to ensure mutual understanding
+	- common ground = shared knowledge, mutual assumptions of dialogue participants
+		- the knowledge has to be *knowingly* shared
+	- common ground is expanded/updated/refined in an informative conversation
+	- validated/verified via grounding feedback/evidence
+		- speaker presents utterance
+		- listener accepts utterance by providing evidence of understanding
+	- information added to common ground only after acceptance
 - Give some examples of grounding signals in dialogue.
+	- positive – understanding/acceptance signals
+		- visual – eye gaze, facial expressions, smile
+		- backchannels – particles (částice) signalling understanding (uh-uh, hmm, yeah, …)
+		- explicit feedback – explicitly stating understanding (I know; yes, I understand)
+		- implicit feedback – showing understanding implicitly in the next utterance
+	- negative – misunderstanding
+		- visual – stunned/puzzled silence
+		- implicit/explicit repairs – denying (no, that's not right) / presenting alternative
+		- clarification requests – demonstrating ambiguity & asking for additional information (Which John? John Smith or John Doe?)
+		- repair requests – showing non-understanding & asking for correction (Oh, so you’re not flying to London? Where are you going then?)
 - What is deixis? Give some examples of deictic expressions.
+	- “pointing” – relating between language & context/world
+		- dialogue is typically set/situated in a specific context
+	- deictic expressions
+		- their meaning depends on the context (who is talking, when, where)
+		- pronouns (I, you, him, this)
+		- verbs: tense & person markers
+		- adverbs (here, now, yesterday)
+		- lexical meaning (come × go)
+		- non-verbal (gestures, gaze)
+	- typically egocentric
+	- main types of deixis
+		- personal – I, me, you, she
+		- temporal – now, yesterday, later, on Monday
+		- local – here, there
+	- other types: social (politeness), discourse/textual (next chapter)
 - What is coreference and how is it used in dialogue?
+	- expression referring to something mentioned in context
+		- anaphora = referring back
+		- cataphora = referring forward
+	- avoiding repetition, faster expression
+	- can refer to basically anything (objects/persons/events, qualities, actions / full sentences / portions of text)
+	- used frequently in dialogue, may be ambiguous
+	- examples
+		- anaphora: Susan dropped the plate. **It** shattered.
+		- cataphora: When **he** hears that fire alarm, Sam is always cool and calm.
+		- I don’t like it as much as he **does**.
+		- Her dress is green. **So** is mine.
+		- Shall I book a room for you? – Sure, I’d like **that**.
+		- ambiguity: Bill stands next to John. **He** is tall.
 - What does Shannon entropy and conditional entropy measure? No need to give the formula, just the principle.
+	- entropy – expected value of information conveyed (in bits)
+		- $H(\mathrm{text})=-\mathbb E[\log p(\mathrm{word})]$
+	- entropy plays well with the social interaction perspective
+		- people tend to use all available channel capacity
+		- people tend to spread information evenly (words carrying more information are emphasized)
+	- conditional entropy – how hard is to guess the next word in the sentence?
+		- given preceding context (n-gram)
+		- related to Shannon entropy but may differ (it is typically much lower than Shannon entropy)
+		- better estimate of prediction difficulty (although humans work with “unlimited” preceding context and reevaluate using following context)
+		- $H_\mathrm{cond}(\mathrm{text})=-\mathbb E_p[\log\frac{p(c,w)}{q(c)}]$
 - What is entrainment/adaptation/alignment in dialogue?
+	- people subconsciously adapt/align/entrain to their dialogue partner over the course of the dialogue
+		- wording (lexical items) – they use the same words as their dialogue partner
+		- grammar (sentential constructions)
+		- speech rate, prosody, loudness
+		- accent/dialect – BrE speaker uses AmE words when talking to AmE speaker
+	- this helps a successful dialogue (also helps social bonding, feels natural)
+	- systems typically don't align, people align to dialogue systems
 
 ## Data & Evaluation
 
