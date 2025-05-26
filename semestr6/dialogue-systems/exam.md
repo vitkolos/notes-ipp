@@ -324,9 +324,17 @@ The exam will have 10 questions, mostly from this pool. In general, none of them
 	- solution: we use belief state (probability distribution over all possible states)
 		- per-slot distributions are used in practice
 	- dialogue state tracker updates the belief state based on new information
-	- to make it more robust, 
+	- to make it more robust, the state tracker can accumulate probability mass over multiple turns / over NLU n-best lists
+	- probabilistic dialogue state tracker plays well with probabilistic dialogue policies
 - What's a partially observable Markov decision process?
+	- Markov decision process
+		- model for sequential decision making when outcomes are uncertain
+		- set of states, actions, probabilities that action leads from a state $s$ to a state $s'$, and rewards received after transitioning from state $s$ to state $s'$ using action $a$
+		- we are looking for a policy function – mapping from state space to action space (can be probabilistic)
+	- partially observable MDP – we do not know the current state certainly
+		- belief state can be modelled using a hidden Markov model
 - Describe a viable architecture for a belief state tracker.
+	- TODO
 - What is the difference between dialogue state and belief state?
 - What's the difference between a static and a dynamic state tracker?
 - How can you use pretrained language models or large language models for state tracking?
