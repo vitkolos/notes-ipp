@@ -388,6 +388,7 @@ The exam will have 10 questions, mostly from this pool. In general, none of them
 		- there are ASR errors, limited NLU, limited environment model/actions
 		- dialogue systems *should* behave differently than people – make the best of what they have
 	- in reinforcement learning, the goal is to find a policy that maximizes long-term reward – this somehow corresponds to the goal of dialogue management
+	- note that for a typical dialogue system, the belief state is too large to make RL tractable – we map state into a reduced space, optimize there, and map it back
 - Describe the main idea of reinforcement learning (agent, environment, states, rewards).
 	- Markov decision process (MDP)
 		- agent in an environment
@@ -456,12 +457,69 @@ The exam will have 10 questions, mostly from this pool. In general, none of them
 ## Neural Policies & Natural Language Generation
 
 - How do you involve neural networks in reinforcement learning (describe a Q network or a policy network)?
+	- part of the agent is handled by a neural network – value function (typically $Q$) or policy
+	- we are assuming huge state space (no more summary space)
+	- REINFORCE (policy gradients)
+		- works out of the box
+		- we maximize performance – value of the initial state
+	- deep Q-networks
+		- Q-learning, where $Q$ function is represented by a neural net
+		- problems we need to fix
+			- SGD is unstable
+			- correlated samples (data is sequential)
+			- TD updates aim at a moving target (using $Q$ to compute updates to $Q$)
+			- numeric instability (scale of rewards and $Q$ values unknown)
+		- fixes
+			- minibatches (updates by averaged $n$ samples, not just one)
+			- experience replay – to break correlated samples (store experience in a buffer, train using minibatches sampled from the buffer)
+			- target $Q$ function freezing (so that the target is not moving that often)
+			- clipping rewards
 - What are the main steps of a traditional NLG pipeline – describe at least 2.
+	- entire process: inputs → content plan → sentence plan → text
+	- content/text/document planning
+		- inputs → content plan
+		- content selection according to communication goal
+		- basic structuring & ordering
+		- typically handled by dialogue manager
+	- sentence planning / microplanning
+		- content plan → sentence plan
+		- organizing content into sentences, merging simple sentences
+		- lexical choice, referring expressions (restaurant vs. it)
+	- surface realization
+		- sentence plan → text
+		- linearization according to grammar
+		- word order, morphology
+	- for NLG in dialogue systems, we need sentence planning and surface realization
 - Describe one approach to NLG of your choice.
+	- canned text
+		- most trivial – completely hand-written prompts, no variation
+		- doesn't scale (good for DTMF phone systems)
+	- templates
+		- “fill in blanks” approach
+		- simple, but much more expressive, covers most common domains nicely
+		- can scale, but still laborious
+		- most production dialogue systems
+	- grammars & rules
+		- rules: mostly content & sentence planning
+		- grammars: mostly older research systems, realization
+	- machine learning
+		- modern research systems
+		- pre-neural attempts often combined with rules/grammar
+		- neural nets made it work much better
 - Describe how template-based NLG works.
+	- we define templates for system DAs
+	- it can be enhances with rules
+		- inflection of the filled-in phrases
+		- template coverage/selection rules
 - What are some problems you need to deal with in template-based NLG?
+	- it lacks generality and variation; it is difficult to maintain, expensive to scale up
+	- the texts may sound unnatural
+	- it is difficult to express rich information – the templates may be limiting
+	- the templates lack context awareness
 - Describe a possible neural networks based NLG architecture.
+	- TODO
 - How can you use pretrained language models or large language models in NLG?
+	- TODO
 
 ## Voice assistants & Question Answering
 
