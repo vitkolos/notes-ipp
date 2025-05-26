@@ -212,25 +212,123 @@ The exam will have 10 questions, mostly from this pool. In general, none of them
 ## Natural Language Understanding
 
 - What are some alternative semantic representations of utterances, in addition to dialogue acts?
+	- syntax/semantic trees (dependency trees, constituent trees, …)
+	- frames – technically also trees, not directly connected to words
+	- graphs – abstract meaning representation (AMR), more of a toy task, but popular
+	- predicate logic
 - Describe language understanding as classification and language understanding as sequence tagging.
+	- NLU as classification
+		- we treat DAs as a set of semantic concepts
+		- concepts: intents, slot-value pairs
+		- binary classification: is concept Y contained in utterance X?
+			- independent for each concept
+		- consistency problems – conflicting intents/values need to be solved externally (e.g. based on classifier confidence)
+	- language understanding as sequence tagging
+		- we want to parse slot values from the text
+		- we can classify each word using IOB format (inside/outside/beginning) – isolate the slot values (can consist of several words)
+		- pure classification can lead to inconsistencies (I cannot follow after O)
+		- it is useful to tag the whole sentences (sequences of words) at once
 - How do you deal with conflicting slots or intents in classification-based NLU?
+	- we need to resolve such situations externally (e.g. based on classifier confidence)
 - What is delexicalization and why is it helpful in NLU?
+	- delexicalization = replacement of slot values / named entities with placeholders (indicating entity type)
+	- generally needed for NLU as classification (otherwise in-domain data is too sparse)
+	- named-entity recognition (NER) is a problem on its own
+		- in-domain gazetteers (dictionaries of names) alone may be enough
 - Describe one of the approaches to slot tagging as sequence tagging.
+	- basic idea
+		- we classify each word using IOB format to isolate the slot values
+		- to avoid inconsistencies, we tag the whole sentences (sequences of words) at once
+	- approaches
+		- maximum entropy Markov model (MEMM)
+			- looking at past classifications when making next ones
+			- whole history would be too sparse/complex → Markov assumption: only the most recent classifications matter
+			- looking at the whole input
+			- not modelling the sequence globally
+			- error propagation … during inference (prediction), one error can lead to a series of errors
+			- label bias problem
+		- hidden Markov model (HMM)
+			- modelling the sequence as a whole
+			- very basic model – tag depends on current word + previous tag
+				- Markov assumption
+			- we can get globally best tagging (using Viterbi algorithm)
+		- linear-chain conditional random field (CRF)
+			- somehow combines HMM and MEMM
+			- uses global normalization → slow to train
+			- state-of-the-art for many sequence tagging tasks (until neural networks took over; can be also used in conjunction with NNs)
 - What is the IOB/BIO format for slot tagging?
+	- it is used to get the slot values from the text
+	- the words in the text can be tagged
+	- tags
+		- B-$s$ … beginning of slot $s$
+		- I-$s$ … inside slot $s$
+		- O … outside
+	- slots can be nested
+	- example
+	    - There are **over 1000** compositions by **Johan Sebastian Bach**.
+	    - O O B-quantity I-quantity O O B-person I-person I-person O
 - What is the label bias problem?
+	- in occurs in maximum entropy Markov models (MEMM)
+	- due to local normalization, states with fewer outbound transitions are preferred – the transitions have larger probabilities than in states with more transitions
+	- this makes the model less immune to error propagation (= one wrongly classified word leads to a series of errors)
 - How can an NLU system deal with noisy ASR output? Propose an example solution.
+	- simple approach
+		- ASR produces multiple hypotheses (texts)
+		- ASR → $p(\mathrm{text}\mid\mathrm{audio})$
+		- NLU → $p(\mathrm{DA}\mid \mathrm{text})$
+		- we want $p(\mathrm{DA}\mid \mathrm{audio})$
+		- we sum it up: $p(\mathrm{DA}\mid\mathrm{audio})=\sum_{\mathrm{texts}} P(\mathrm{DA}\mid\mathrm{text})P(\mathrm{text}\mid\mathrm{audio})$
+	- alternative approach: confusion networks
+		- we use per-word ASR confidence
 
 ## Neural NLU & Dialogue State Tracking
 
 - Describe an example of a neural architecture for NLU.
+	- we can use simple classification or sequence tagging
+	- when using sequence tagging, we can tag the intent at the start of the sentence (and then assign the IOB tags to all of its words)
+	- examples of architecture
+		- RNN-based NLU
+			- bidirectional encoder (see [NLP notes](../natural-language-processing/exam.md#neural-machine-translation))
+			- decoder that tags word-by-word (uses the encoder as one of its inputs)
+			- intent classification – we can do softmax over last encoder state
+			- attention can be used in the decoder and to classify the intent
+		- (pretrained) Transformer-based NLU
+			- slot tagging on top of pretrained BERT Transformer model
+				- BERT was trained to guess masked words
+				- further trained for NLU
+			- standard IOB approach
+				- softmax the final hidden layers → output tags
+				- in case of split words, classify only the first subword (IOB tags should not change mid-word)
+			- special start token tagged with intent
+			- optional CRF on top of the tagger
 - How can you use pretrained language models in NLU?
+	- we can use BERT Transformer model and fine-tune it for NLU
+	- BERT was trained to guess masked words
 - What is the dialogue state and what does it contain?
+	- dialogue state remembers what was said in the past
+	- it acts as a basis for action selection decisions
+	- contents = “all that is used when the system decides what to say next”
+		- user goal / preferences (slots & values provided, information requested)
+		- past system actions
+		- other semantic context
+	- usually, we consider a probability distribution over all possible states
 - What is an ontology in task-oriented dialogue systems?
+	- it is used to describe possible states
+	- it defines all concepts in the system
+		- list of slots
+		- possible range of values per slot
+		- possible actions per slot
+		- dependencies (some concepts are only applicable for some values of parent concepts)
 - Describe the task of a dialogue state tracker.
+	- NLU is unreliable (it takes unreliable ASR output and adds its own errors), output might conflict with ontology
+	- solution: we use belief state (probability distribution over all possible states)
+		- per-slot distributions are used in practice
+	- dialogue state tracker updates the belief state based on new information
+	- to make it more robust, 
 - What's a partially observable Markov decision process?
 - Describe a viable architecture for a belief state tracker.
 - What is the difference between dialogue state and belief state?
-- What's the difference between a static and a dynamiic state tracker?
+- What's the difference between a static and a dynamic state tracker?
 - How can you use pretrained language models or large language models for state tracking?
 
 ## Dialogue Policies
