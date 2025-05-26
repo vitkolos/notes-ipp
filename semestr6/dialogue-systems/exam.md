@@ -307,6 +307,7 @@ The exam will have 10 questions, mostly from this pool. In general, none of them
 - What is the dialogue state and what does it contain?
 	- dialogue state remembers what was said in the past
 	- it acts as a basis for action selection decisions
+	- dialogue state … current context of the conversation
 	- contents = “all that is used when the system decides what to say next”
 		- user goal / preferences (slots & values provided, information requested)
 		- past system actions
@@ -334,15 +335,59 @@ The exam will have 10 questions, mostly from this pool. In general, none of them
 	- partially observable MDP – we do not know the current state certainly
 		- belief state can be modelled using a hidden Markov model
 - Describe a viable architecture for a belief state tracker.
-	- TODO
+	- basic discriminative belief tracker – we assume slot independence and trust the NLU
+	- we have probabilities of states $p_s$ (tracked by our belief tracker) and probabilities of observations $p_o$ (returned by NLU)
+	- in each step, for every slot…
+		- we have the probability of null observation $p_o(\mathrm{null})$
+		- for every state $x$, we multiply $p_s(x)$ by $p_o(\mathrm{null})$
+		- for every non-null $x$, we then add $p_o(x)$ to every $p_s(x)$
+	- such belief tracker is very fast and parameter-free
 - What is the difference between dialogue state and belief state?
+	- dialogue state is the current context of a conversation
+	- belief state is a probability distribution over dialogue states – it reflects the fact that the NLU is not completely reliable
 - What's the difference between a static and a dynamic state tracker?
+	- static state tracker encodes whole history into features
+	- dynamic/sequence state tracker explicitly models dialogue as sequential
+		- can use CRF or RNNs
 - How can you use pretrained language models or large language models for state tracking?
+	- BERT (pretrained language model)
+		- we let BERT process previous system & current user utterance
+		- we use it to predict per-slot span (value of a dialogue state slot – where to find it in the message)
+		- from the first token's representation, we get a single decision: none/dontcare/span
+		- using 2 softmaxes over tokens, we can then predict start & end token
+		- we apply rule-based update to the static state tracker – if *none* was predicted, we keep the previous value
+	- LLM prompting – two alternatives were presented
+		- SQL & examples: we present SQL schema to the LLM, show several examples, and provide the previous state + one dialogue turn → the (dynamic) state changes are produced as SQL requests
+		- chain-of-thought style: we prompt the LLM to explain the inputs and produce state based on them (it uses the whole history, the state tracker is static)
 
 ## Dialogue Policies
 
 - What are the non-statistical approaches to dialogue management/action selection?
+	- finite-state machines
+		- dialogue state is machine state
+		- nodes – system actions
+		- edges – possible user response semantics
+		- FSMs are easy to design and predictable, but very rigid and do not scale to complex domains
+		- good for basic DTML (tone-selection) phone systems
+	- frame-based (VoiceXML)
+		- slot-filling + providing information
+		- required slots need to be filled, this can be done in any order, more information in one utterance possible
+		- if all slots are filled, query the database
+	- rule-based – any kind of rules (e.g. Python code)
+		- we can use a probabilistic belief state
+		- if-then-else rules in programming code, using thresholds over belief state for reasoning
+		- output: system DA
+		- very flexible and easy to code, but gets messy, the dialogue policy is pre-set (not flexible)
 - Why is reinforcement learning preferred over supervised learning for training dialogue managers?
+	- you need large human-human data for supervised learning (hard to get)
+		- if we used human-machine, the model would just mimic the original system
+	- dialogue is ambiguous & complex
+		- there is no single correct next action
+		- some paths will be unexplored in data, but you may encounter them
+	- dialogue systems won't behave the same as people
+		- there are ASR errors, limited NLU, limited environment model/actions
+		- dialogue systems *should* behave differently than people – make the best of what they have
+	- in reinforcement learning, the goal is to find a policy that maximizes long-term reward – this somehow corresponds to the goal of dialogue management
 - Describe the main idea of reinforcement learning (agent, environment, states, rewards).
 - What are deterministic and stochastic policies in dialogue management?
 - What's a value function in a reinforcement learning scenario?
