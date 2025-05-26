@@ -397,7 +397,7 @@
 	- to make it fair, we penalize them
 - What is Labeled Attachment Score (in parsing)?
 	- percentage of words that are assigned the correct head and the correct dependency tag (label)
-	- this metric is used to evaluate generated dependency trees
+	- this measure is used to evaluate generated dependency trees
 		- head = the parent node of a given word
 		- label = the relation between the head and the given word
 - What is Word Error Rate (in speech recognition)?

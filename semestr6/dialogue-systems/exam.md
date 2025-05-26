@@ -33,10 +33,10 @@ The exam will have 10 questions, mostly from this pool. In general, none of them
 	- types of speech acts: assertive, directive, commissive, expressive, declarative
 	- explicit vs. implicit; direct vs. indirect
 		- explicit: I **promise** to come by later.
-		- implicit: I’ll come by later.
+		- implicit: I'll come by later.
 		- direct: Please close the window.
 		- indirect: Could you close the window?
-		- even more indirect: I’m cold.
+		- even more indirect: I'm cold.
 - What is grounding in dialogue?
 	- dialogue is cooperative → need to ensure mutual understanding
 	- common ground = shared knowledge, mutual assumptions of dialogue participants
@@ -56,7 +56,7 @@ The exam will have 10 questions, mostly from this pool. In general, none of them
 		- visual – stunned/puzzled silence
 		- implicit/explicit repairs – denying (no, that's not right) / presenting alternative
 		- clarification requests – demonstrating ambiguity & asking for additional information (Which John? John Smith or John Doe?)
-		- repair requests – showing non-understanding & asking for correction (Oh, so you’re not flying to London? Where are you going then?)
+		- repair requests – showing non-understanding & asking for correction (Oh, so you're not flying to London? Where are you going then?)
 - What is deixis? Give some examples of deictic expressions.
 	- “pointing” – relating between language & context/world
 		- dialogue is typically set/situated in a specific context
@@ -83,9 +83,9 @@ The exam will have 10 questions, mostly from this pool. In general, none of them
 	- examples
 		- anaphora: Susan dropped the plate. **It** shattered.
 		- cataphora: When **he** hears that fire alarm, Sam is always cool and calm.
-		- I don’t like it as much as he **does**.
+		- I don't like it as much as he **does**.
 		- Her dress is green. **So** is mine.
-		- Shall I book a room for you? – Sure, I’d like **that**.
+		- Shall I book a room for you? – Sure, I'd like **that**.
 		- ambiguity: Bill stands next to John. **He** is tall.
 - What does Shannon entropy and conditional entropy measure? No need to give the formula, just the principle.
 	- entropy – expected value of information conveyed (in bits)
@@ -110,17 +110,104 @@ The exam will have 10 questions, mostly from this pool. In general, none of them
 ## Data & Evaluation
 
 - What are the typical options for collecting dialogue data?
+	- in-house collection using experts or students
+		- safe, high-quality, but very expensive & time-consuming
+		- free talk / scripting whole dialogues / Wizard-of-Oz
+	- web crawling
+		- fast & cheap, but typically not real dialogues, may not be fit for purpose
+		- potentially unsafe (offensive stuff)
+		- need to be careful about the licensing
+	- crowdsourcing
+		- compromise: employing (untrained) people over the web
+		- crowd workers tend to game the system
 - How does Wizard-of-Oz data collection work?
+	- users believe they're talking to a system → their behavior is simpler than when talking to a human
+	- system is in fact controlled by a human “wizard”, who is selecting options (free typing is too slow)
+	- usage: in-house data collection, prototyping/evaluating the system before implementing it
 - What is corpus annotation, what is inter-annotator agreement?
+	- annotation = labels, description added to the collected data (dialogues)
+		- transcriptions
+		- semantic annotation (NLU: dialogue acts, …)
+		- named entity labelling (NLU)
+	- inter-annotator agreement (IAA)
+		- measures the reliability of manual annotations
+		- multiple people annotate the same thing
+		- needs to account for agreement by chance
+		- typical measure: Cohen's kappa
+			- $\kappa=\frac{\text{agreement}-\text{chance}}{1-\text{chance}}$
 - What is the difference between intrinsic and extrinsic evaluation?
+	- intrinsic … checks properties of systems/components in isolation, self-contained
+	- extrinsic … how the system/component works in its intended purpose
+		- effect of the system on something outside itself, in the real world (i.e. user)
 - What is the difference between subjective and objective evaluation?
+	- subjective … asking users' opinions, e.g. questionnaires (manual)
+		- not repeatable
+		- we should ask many people → not so subjective
+	- objective … measuring properties directly from data (automatic)
+		- might or might not correlate with users' perception
 - What are the main extrinsic evaluation techniques for task-oriented dialogue systems?
+	- objective metrics (we record people interacting with the system, analyze the logs)
+		- task success / goal completion rate – did the user get what they wanted?
+			- testers can have agenda → we can check if they found what they were supposed to
+			- basic check: did we provide any information at all? (any bus/restaurant)
+		- duration – number of turns or time (less is better)
+		- retention rate – percentage of users that return to use our dialogue system again (over a time period)
+		- fallback rate – percentage of failed dialogues
+		- number of total/new/active users
+	- subjective evaluation
+		- questionnaires for users/testers
+		- example questions
+			- success rate: Did you get all the information you wanted?
+			- future use: Would you use the system again?
+			- ASR/NLU: Do you think the system understood you well?
+			- NLG: Were the system replies fluent/well-phrased?
+			- TTS: Was the system's speech natural?
 - What are some evaluation metrics for non-task-oriented systems (chatbots)?
+	- objective metrics
+		- duration (longer = better)
+		- other: % returning users, checks for users swearing vs. thanking the system
+	- subjective
+		- likeability/engagement: Did you enjoy the conversation?
+		- other similar to task-oriented
 - What's the main metric for evaluating ASR systems?
+	- word error rate (WER)
+	- ASR output is compared to human-authored reference
+	- $\mathrm{WER}=\frac{S+I+D}{N}$
+		- $S$ … substitutions
+		- $I$ … insertions
+		- $D$ … deletions
+		- $N$ … reference length
+	- ~ length-normalized edit distance (Levenshtein distance)
+	- sometimes insertions & deletions are weighted $0.5\times$
+	- can be $\gt 1$
+	- assumes one correct answer
 - What's the main metric for NLU (both slots and intents)?
+	- slots: precision, recall, F-measure (F1)
+		- precision $P=\frac{\mathrm{correct}}{\mathrm{detected}}$
+		- recall $R=\frac{\mathrm{correct}}{\mathrm{true}}$
+		- F-measure $F=\frac{2PR}{P+R}$ harmonic mean
+		- example
+			- NLU: inform(name=Golden Dragon, food=Chinese)
+			- true: inform(name=Golden Dragon, food=Czech, price=high)
+			- $P=1/3,\;R=1/2,\;F=0.2$
+	- accuracy (% correct) used for intent/act type
+		- alternatively also exact matches on the whole semantic structure (easier, but ignores partial matches)
+		- one true answer assumed
 - Explain an NLG evaluation metric of your choice.
+	- BLEU score
+		- word-overlap with reference text(s)
+		- $BLEU=BP\cdot\sqrt[4]{p_1p_2p_3p_4}$
+		- $p_n$ … $n$-gram precision (how many $n$-grams of the output text exist in any reference text)
+		- $BP$ … brevity penalty (short sentences achieve higher $n$-gram precisions, so we penalize them)
+	- slot error rate
+	- diversity – can our system produce different replies?
 - Why do you need to check for statistical significance (when evaluating an NLP experiment and comparing systems)?
+	- higher score is not enough to prove your model is better
+		- it can happen by chance
+	- we need to define the hypotheses and select a significance level $\alpha$, then compute the observed value of test statistic and reject $H_0$ or not
 - Why do you need to evaluate on a separate test set?
+	- we want to know how well our model works on new, unseen data (how well it generalizes)
+	- memorizing training data would give us 100% accuracy (on training data)
 
 ## Natural Language Understanding
 
