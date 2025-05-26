@@ -389,12 +389,69 @@ The exam will have 10 questions, mostly from this pool. In general, none of them
 		- dialogue systems *should* behave differently than people – make the best of what they have
 	- in reinforcement learning, the goal is to find a policy that maximizes long-term reward – this somehow corresponds to the goal of dialogue management
 - Describe the main idea of reinforcement learning (agent, environment, states, rewards).
+	- Markov decision process (MDP)
+		- agent in an environment
+			- has internal state
+			- chooses actions according to policy
+			- gets rewards and state changes from the environment
+		- Markov property – state defines everything (no other temporal dependency)
+	- RL = finding a policy that maximizes long-term reward
+		- unlike supervised learning, we don't know if an action is good
+		- immediate reward might be low while long-term reward high
+	- return $R_t$ = accumulated long-term reward (from timestep $t$ onwards)
+	- state transition is stochastic (has a random probability distribution) → we maximize expected return
 - What are deterministic and stochastic policies in dialogue management?
+	- deterministic policy
+		- always take the same action $\pi(s)$ in state $s$
+		- enumerable in a table, equivalent to a rule-based system
+		- but can be learned instead of hand-coded!
+	- stochastic
+		- specifies a probability distribution
+		- $\pi(s,a)$ … probability of choosing action $a$ in state $s$
 - What's a value function in a reinforcement learning scenario?
+	- state-value function $V^\pi(s)$ … the value of a state $s$ under policy $\pi$
+		- expected return for starting in state $s$ and following policy $\pi$
+	- action-value function $Q^\pi(s,a)$
+		- expected return of taking action $a$ in state $s$ under policy $\pi$
+	- value functions can be used to evaluate states (or actions) and make better decisions
 - What's the difference between actor and critic methods in reinforcement learning?
+	- actor model learns the policy
+		- for a given state, it predicts a probability distribution over actions
+		- the agent can then decide according to this distribution
+	- critic model learns the value function
+		- for a given state $s$, it predicts its value function $V(s)$ or $Q(s,a)$ for action $a$
+		- this guides the agent (they can then use the greedy policy or something like that)
 - What's the difference between model-based and model-free approaches in RL?
+	- model-based
+		- we assume that transition probabilities and rewards are known
+		- the solutions are mathematically nice
+		- but you can only know the full model in limited settings
+	- model-free
+		- we don't assume anything
+		- this is the one for “real-world” use
+		- using $Q$ instead of $V$ comes handy here (we do not need the transition probability $p(s'\mid s,a)$ to get the expected return of taking action $a$ in state $s$)
 - What are the main optimization approaches in reinforcement learning (what measures can you optimize and how)?
+	- quantity to otpimize
+		- value function – critic
+		- policy – actor
+	- environment model: model-based × model-free
+	- how to optimize
+		- dynamic programming – find the exact solution from Bellman equation
+			- iterative algorithms, refining estimates
+			- expensive, assumes known environment (model-based)
+		- Monte Carlo learning – learn from experience
+			- sample, then update based on experience
+			- when we arrive to state $s$, we update the model to match the observation
+		- Temporal difference learning – like MC but look ahead (bootstrap)
+			- sample, refine estimates as you go
+			- even before we arrive to $s$, we have a good idea what the observation will be when we arrive to $s$ → we can update the model based on that guess
+	- sampling & updates
+		- on-policy – improve the policy while we are using it for decision
+		- off-policy – decide according to a different policy
 - Why do you typically need a user simulator to train a reinforcement learning dialogue policy?
+	- we can't really learn just from static datasets
+		- on-policy algorithms don't work (the system needs to navigate the dialogues according to the current policy – old dialogues are not sufficient)
+	- RL needs a lot of data, more than real people would handle (also, the system behaves weirdly in the early phases of RL)
 
 ## Neural Policies & Natural Language Generation
 
