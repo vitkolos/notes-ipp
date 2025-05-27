@@ -517,27 +517,100 @@ The exam will have 10 questions, mostly from this pool. In general, none of them
 	- it is difficult to express rich information – the templates may be limiting
 	- the templates lack context awareness
 - Describe a possible neural networks based NLG architecture.
-	- TODO
+	- our example: neural end-to-end NLG using recurrent neural networks (RNNs)
+	- we don't need alignments
+	- binary-encoded DA (is intent/slot-value present?)
+	- delexicalized: does not use real values – generates templates
+	- this approach uses modified LSTM (long short-term memory) cells – input DA is passed in every time step
+	- it generates delexicalized templates word-by-word (decoder-only architecture)
+	- other approaches: seq2seq, Transformer
 - How can you use pretrained language models or large language models in NLG?
-	- TODO
+	- pretrained LMs
+		- architectures
+			- guess masked word (encoder only: BERT)
+			- generate next word (decoder only: GPT-2)
+			- fix distorted sentences (both: BART, T5)
+		- can be finetuned for our task/domain and for meaning representation (MR), can learn implicit copying
+		- lot of them released online, plug-and-play (including multilingual versions)
+	- LLMs
+		- Transformer decoder models (slightly updated)
+		- instruction tuning – finetune on problems & solutions
+		- trained using reinforcement learning from human feedback (RLHF)
+			- humans are paid to rate different solutions for instructions
+			- rating model is trained based on these rating → such model can be used as RL reward for LLM training
+		- usage: simple prompting, no need for finetuning
+			- just feed in instructions/questions/example → LLM generates solution
 
 ## Voice assistants & Question Answering
 
 - What is a smart speaker made of and how does it work?
+	- smart speaker = internet-connected mic & speaker with a virtual assistant running
+		- optionally display/camera
+		- multiple microphones for far-field ASR
+	- it listens for a wake word
+		- everything is then processed in vendor's cloud service (raw audio is sent to the cloud)
+		- follow-up mode – no wake word needed for follow-up questions
+		- privacy concerns
+	- NLU includes domain detection
+	- rules on top of machine learning
 - Briefly describe a viable approach to question answering.
+	- our example: IR-based QA pipeline
+		- IR … information retrieval
+	- three steps
+		- question processing
+			- query formulation
+			- answer type detection (what should the answer look like?)
+		- passage retrieval
+			- get relevant documents from the index (similar to web search) … document retrieval
+			- find phrases in the documents that respond to the question
+		- answer processing
+			- generate a suitable answer to the original question
 - What is document retrieval and how is it used in question answering?
+	- document retrieval = getting relevant documents (candidates) according to the query by searching in the index
+	- can use TF-IDF (or other metrics) for weighting
+	- document retrieval works as a coarse filter that filters out irrelevant documents (selects the ones that are relevant to the query and can possibly contain an answer to the question)
 - What is dense retrieval (in the context of question answering)?
+	- the documents are embedded in a vector space
+	- such embeddings can then be compared to query embeddings via cosine similarity
+	- they can be also clustered into Voronoi cells, quantized, …
+	- dense retrieval focuses more on semantics than on the specific contained words
 - How can you use neural models in answer extraction (for question answering)?
+	- passage extraction
+		- we feed the question and extracted passage(s) to Transformer model (e.g. BERT)
+		- 2 classifiers: start + end of answer span (softmax over passage tokens)
+	- generative QA
+		- feed in passage
+		- generate reply word-by-word
 - How can you use retrieval-augmented generation in question answering?
+	- Transformer generative language model (decoder architecture)
+		- input: retrieved passage
+		- output: full-sentence response
+	- not just extraction, but full-sentence answer formulation
+	- the model has to be trained to provide reply (avoid hallucination, avoid copying everything verbatim)
 - What is a knowledge graph?
+	- large repository of structured, linked information
+	- entities … nodes
+	- relations … edges
+	- entities and relations are typed, the types form a similar graph (ontology)
+	- knowledge graphs can be used for question answering
 
 ## Dialogue Tooling
 
 - What is a dialogue flow/tree?
+	- graph structure that describes a non-linear dialogue
+	- there are conditions to get to the individual nodes of the graph (and fallback strategies if none of the conditions is specified)
 - What are intents and entities/slots?
+	- intents correspond to the actions supported by the dialogue (represent what the user wants to achieve)
+	- entities/slots are parameters of the actions (intents) – information needed to fulfill the intents
+	- example
+		-  intent: reserve table
+		- slots: date, time, number of guests
 - How can you improve a chatbot in production?
+	- TODO
 - What is the containment rate (in the context of using dialogue systems in call centers)?
+	- TODO
 - What is retrieval-augmented generation?
+	- TODO
 
 ## Automatic Speech Recognition
 
