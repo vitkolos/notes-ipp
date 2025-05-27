@@ -669,19 +669,87 @@ The exam will have 10 questions, mostly from this pool. In general, none of them
 ## Text-to-speech Synthesis
 
 - How do humans produce sounds of speech?
+	- air flow from lungs → vocal cords resonation → frequency characteristics further moderated by vocal tract
+	- resonation
+		- base frequency (F0)
+		- upper harmonic frequencies
+	- vocal tract moderation
+		- shape of vocal tract changes (tongue, soft palate, lip, jaw positions)
+		- some frequencies resonate
+		- some are suppressed
 - What's the difference between a vowel and a consonant?
+	- vowel – sound produced with open vocal tract
+		- typically voiced (vocal chords vibrate)
+		- quality of vowels depends mainly on vocal tract shape (raised tongue position, jaw/tongue height, shape of lips)
+	- consonant – sound produced with (partially) closed vocal tract
+		- voiced/voiceless (often come in pairs, e.g. \[p], \[b])
+		- quality also depends on type + position of closing
 - What is F0 and what are formants?
-	- F0 … vocal cord frequency (voice pitch)
-	- formants … loud multiples of F0 (distinct for different phonemes)
+	- F0 … base vocal cord frequency (voice pitch)
+	- formants … loud multiples (upper harmonics) of F0
+		- distinct for different phonemes
+		- F1, F2 – first, second formant
 - What is a spectrogram?
 	- frequency-time-loudness graph
 - What are main distinguishing characteristics of consonants?
+	- do vocal chords vibrate? (voiced × voiceless)
+	- type and position of vocal tract closing; vocal tract shape
+		- stops/plosives … total closing + “explosive” release (p, d, k)
+		- nasals … stops with open nasal cavity (n, m)
+		- fricatives … partial closing (f, s, z)
+		- approximants … movement towards partial closing and back, half-vowels (w, j)
 - What is a phoneme?
+	- sound that distinguishes meaning
+	- changing it for another would change meaning (**d**og → **f**og)
 - What are the main distinguishing characteristics of different vowel phonemes (both how they're produced and perceived)?
+	- raised tongue position – front, central, back
+	- jaw/tongue height – open, open-mid, close-mid, close
+	- shape of lips – round, non-round
 - What are the main approaches to grapheme-to-phoneme conversion in TTS?
+	- main approaches: pronouncing dictionaries + rules
+		- rules are good for languages with regular orthography (spelling)
+			- Czech, German, Dutch
+		- dictionaries good for irregular/historical orthography
+			- English, French
+		- typically it's a combination anyway
+			- rules = fallback for out-of-vocabulary items
+			- dictionary used for foreign words (overrides rules)
+		- can be a pain in a domain with a lot of foreign names
+	- pronunciation is sometimes context dependent
+		- part-of-speech tagging
+		- contextual rules
+	- phonemes typically coded using ASCII
 - Describe the main idea of concatenative speech synthesis.
+	- cut & paste on recordings
+	- but there are too many words/syllables; there are too few phonemes
+	- so we use diphones = second half of one phoneme and first half of another
+		- about 1500 diphones in English – manageable (even though we need lots of recordings of a single person)
+		- this eliminates the heaviest coarticulation problems (but not all)
+		- still artefacts at diphones boundaries
+	- smoothing/overlay & F0 adjustments
+		- over-smoothing makes the sound robotic
+		- pitch adjustments limited – don't sound natural
+	- modification: unit-selection concatenative synthesis
+		- more instances of each diphone
+		- we select units that best match the target position (to minimize adjustments needed)
 - Describe the main ideas of statistical parametric speech synthesis.
+	- trying to be more flexible, less resource-hungry than unit selection
+	- inverse of model-based ASR
+	- based on HMMs (hidden Markov models)
+	- principle
+		- in corpus, we have text and audio
+		- for training and prediction, we need:
+			- model that can extract linguistic features (phonemes, stress, pitch) from the text
+			- vocoder that can both extract acoustic features (spectrum, excitation) from a waveform (audio) and synthesize a waveform from acoustic features
+		- to train the statistical acoustic model, we extract both acoustic and linguistic features from the corpus and use the features as training data
+		- during prediction, we first extract the linguistic features from the text, then the acoustic model predicts acoustic features, and vocoder synthesizes them into a waveform
 - How can you use neural networks in speech synthesis?
+	- we can use feed-forward networks or recurrent neural networks to replace HMMs used in statistical speech synthesis
+	- RNNs predict smoother outputs (given temporal dependencies)
+	- NNs allow better features (e.g. raw spectrum)
+	- examples
+		- WaveNet generates waveform directly, it is based on convolutional NNs
+		- Tacotron is trained on waveforms and transcriptions (no linguistic features), it is based on seq2seq models with attention 
 
 ## Chatbots
 
