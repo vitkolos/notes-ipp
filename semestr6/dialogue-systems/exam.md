@@ -615,7 +615,7 @@ The exam will have 10 questions, mostly from this pool. In general, none of them
 			- coverage – is the chatbot confident that it can address the user's request? (per dialogue turn)
 			- containment – can the chatbot satisfy a user's request without human intervention? (per conversation)
 - What is the containment rate (in the context of using dialogue systems in call centers)?
-	- rate at which your chatbot can satisfy a user’s request without human intervention, i.e. connect to human agent not requested (per conversation)
+	- rate at which your chatbot can satisfy a user's request without human intervention, i.e. connect to human agent not requested (per conversation)
 	- it is a measure that can be used to evaluate the chatbot
 - What is retrieval-augmented generation?
 	- process of optimizing the output of a large language model so that it references an authoritative knowledge base *outside of its training data sources* before generating a response
@@ -754,16 +754,65 @@ The exam will have 10 questions, mostly from this pool. In general, none of them
 ## Chatbots
 
 - What are the three main approaches to building chitchat/non-task-oriented open-domain chatbots?
+	- rule-based
+		- human-scripted, react to keywords/phrases in user input
+		- very time-consuming to make, but still popular
+	- data-driven: retrieval
+		- gets replies from a corpus
+		- “nearest neighbor” approaches
+		- corpus can contain past conversations with users
+		- chatbots differ in the sophistication of reply selection
+	- data-driven: generative
+		- seq2seq-based models (typically RNN/Transformer)
+		- usually trained on static corpora
+		- (theoretically) able to handle unseen inputs, produce original replies
+		- basic seq2seq architecture is weak (dull responses) → many extensions
 - How does the Turing test work? Does it have any weaknesses?
+	- evaluator leads two text-only conversations – with a machine and a human
+	- needs to tell which is which
+	- the evaluator can be gamed if the conversation is framed well (paranoid schizophrenic, therapist, Ukrainian boy, …)
 - What are some techniques rule-based chitchat chatbots use to convince their users that they're human-like?
 	- signalling understanding – repeating and reformulating user's phrasing
 	- good framing – it's easier to appear human as a therapist (or paranoid schizophrenic, Ukrainian boy, …)
 - Describe how a retrieval-based chitchat chatbot works.
-	- it first checks for similar inputs in the corpus
-		- rough retrieval
-	- then it retrieves and reranks corresponding outputs
-	- TODO
+	- it first checks for similar inputs in the corpus (rough retrieval)
+	- then it reranks the best candidates to find the most suitable one
+		- this step can use machine learning (problem: we need negative examples to train the classifier)
+	- it cannot produce unseen sentences and sometimes replies inconsistently
+		- postprocessing and rules can partially fix this
 - How can you use neural networks for chatbots (non-task-oriented, open-domain systems)? Does that have any problems?
+	- we can use neural networks for reranking
+		- training data problem – datasets contain only positive examples, but we also need negative examples
+	- NNs can be also used end-to-end
+		- we can use similar approach as in phrase-based machine translation (MT)
+			- the task is harder than MT – possible responses are much more variable than possible translations
+			- it works, but fluency is not ideal and the context is too limited
+		- RNN LMs without LSTM
+			- more fluent than phrase-based
+			- problems with long replies (less fluent, wander off-topic)
+		- encoder-decoder RNN model with LSTM (seq2seq)
+			- encode input, decode response
+			- generic/dull responses
+				- MLE/softmax prefer 1 option → models settle on safe replies and become over-confident
+			- limited context
+				- encoding long contexts is slow and ineffective
+				- contexts are too sparse to learn much
+			- inconsistency
+				- ask the same question twice, get two different answers
+				- no notion of own personality
 - Describe a possible architecture of an ensemble non-task-oriented chatbot.
+	- rule-based for sensitive/frequent/important questions
+	- retrieval for jokes, trivia etc.
+	- task-oriented-like (handcrafted / specially trained) systems for specific topics – news, weather, etc.
+	- seq2seq as a backup or not at all
 - What do you need to train a large language model?
+	- trillions of tokens
+	- enough compute power
+	- well-defined evaluation metrics
 - What are some issues you may encounter when chatting to LLMs?
+	- it may not be factually accurate
+	- it only uses information it memorized
+	- hallucinates instead of saying “I don't know”
+	- eager to please, easily swayed
+	- hard to control
+	- over-hyped
