@@ -37,6 +37,7 @@
 - [Probability and Statistics 2 (exam)](semestr5/probability-statistics2/exam.md)
 - [Úvod do počítačové lingvistiky (zkouška)](semestr5/uvod-do-pocitacove-lingvistiky/zkouska.md)
 - [Natural Language Processing (exam)](semestr6/natural-language-processing/exam.md)
+- [Dialogue Systems (exam)](semestr6/dialogue-systems/exam.md)
 
 ## Nepřehledně zpracované předměty
 
