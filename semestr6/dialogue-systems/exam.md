@@ -606,27 +606,75 @@ The exam will have 10 questions, mostly from this pool. In general, none of them
 		-  intent: reserve table
 		- slots: date, time, number of guests
 - How can you improve a chatbot in production?
-	- TODO
+	- automatically
+		- learning from user selections
+		- statistics on user selections → automated pre-selection for next users
+	- semi-automatically or manually
+		- chat log analysis → model update
+		- used measures
+			- coverage – is the chatbot confident that it can address the user's request? (per dialogue turn)
+			- containment – can the chatbot satisfy a user's request without human intervention? (per conversation)
 - What is the containment rate (in the context of using dialogue systems in call centers)?
-	- TODO
+	- rate at which your chatbot can satisfy a user’s request without human intervention, i.e. connect to human agent not requested (per conversation)
+	- it is a measure that can be used to evaluate the chatbot
 - What is retrieval-augmented generation?
-	- TODO
+	- process of optimizing the output of a large language model so that it references an authoritative knowledge base *outside of its training data sources* before generating a response
 
 ## Automatic Speech Recognition
 
 - What is a speech activity detector?
+	- it is a preprocessing step in ASR
+		- to save CPU – run ASR only when there is speech, ignore non-speech sounds
+	- approaches
+		- handcrafted (now obsolete) – track signal amplitude contours, assumes low noise
+		- statistical / neural – binary classifier trained on large corpora, accurate but more CPU-demanding than handcrafted detector
 - Describe the main components of an ASR pipeline system.
+	- speech activity detector – detects that someone is speaking, can depend on wake words
+	- feature extractor – uses Fourier transform and mel frequency subsampling to extract features from the sound, also somehow normalizes the sound
+	- acoustic model – models probability that a word corresponds to a given audio
+	- language model – models probability of words and sentences, uses pronouncing dictionary
+	- decoder – combines acoustic and language model
 - How do input features for an ASR model look like?
+	- mel frequency cepstral coefficients (MFCCs)
+		- representation of the sound that is inspired by human perception
+		- in older systems
+	- mel spectrogram (filterbank)
+		- uses mel (logarithmic) scale
+		- less processed than MFCCs
+	- raw spectrograms
+	- raw audio
 - What is the function of the acoustic model in a pipeline ASR system?
+	- to estimate $P(\mathrm{audio}\mid \mathrm{text})$
+	- it helps to map audio features to phonemes or subwords (using Gaussian mixtures or neural networks)
 - What's the function of a decoder/language model in a pipeline ASR system?
+	- to estimate $P(\mathrm{text})$
+		- what is the probability of certain words/sentences in our language?
+	- it decodes audio features back to text (with the help of an acoustic model)
+	- it can use a pronouncing dictionary
 - Describe an (example) architecture of an end-to-end neural ASR system.
+	- our example: attention encoder-decoder
+		- encoder encodes audio features
+		- decoder decodes text character-by-character
+		- RNN (LSTM) + attention / Transformer
+		- if the audio is too fast, we slow it down
+	- pros
+		- direct audio to letter (no need to model pronunciation explicitly)
+		- no need to align phones & audio frames
+		- audio & transcript is enough to train
+	- cons
+		- inaccurate word/character timestamps
+		- not low-latency
+		- hard to customize
 
 ## Text-to-speech Synthesis
 
 - How do humans produce sounds of speech?
 - What's the difference between a vowel and a consonant?
 - What is F0 and what are formants?
+	- F0 … vocal cord frequency (voice pitch)
+	- formants … loud multiples of F0 (distinct for different phonemes)
 - What is a spectrogram?
+	- frequency-time-loudness graph
 - What are main distinguishing characteristics of consonants?
 - What is a phoneme?
 - What are the main distinguishing characteristics of different vowel phonemes (both how they're produced and perceived)?
@@ -646,7 +694,7 @@ The exam will have 10 questions, mostly from this pool. In general, none of them
 	- it first checks for similar inputs in the corpus
 		- rough retrieval
 	- then it retrieves and reranks corresponding outputs
-	- …
+	- TODO
 - How can you use neural networks for chatbots (non-task-oriented, open-domain systems)? Does that have any problems?
 - Describe a possible architecture of an ensemble non-task-oriented chatbot.
 - What do you need to train a large language model?
