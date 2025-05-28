@@ -701,9 +701,11 @@ The exam will have 10 questions, mostly from this pool. In general, none of them
 	- sound that distinguishes meaning
 	- changing it for another would change meaning (**d**og → **f**og)
 - What are the main distinguishing characteristics of different vowel phonemes (both how they're produced and perceived)?
-	- raised tongue position – front, central, back
-	- jaw/tongue height – open, open-mid, close-mid, close
-	- shape of lips – round, non-round
+	- production – influenced by vocal tract shape
+		- raised tongue position – front, central, back
+		- jaw/tongue height – open, open-mid, close-mid, close
+		- shape of lips – round, non-round
+	- perception – depends on which formants are present in the spectrum or not (which are suppressed)
 - What are the main approaches to grapheme-to-phoneme conversion in TTS?
 	- main approaches: pronouncing dictionaries + rules
 		- rules are good for languages with regular orthography (spelling)
