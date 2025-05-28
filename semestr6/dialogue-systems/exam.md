@@ -126,9 +126,9 @@ The exam will have 10 questions, mostly from this pool. In general, none of them
 	- usage: in-house data collection, prototyping/evaluating the system before implementing it
 - What is corpus annotation, what is inter-annotator agreement?
 	- annotation = labels, description added to the collected data (dialogues)
-		- transcriptions
-		- semantic annotation (NLU: dialogue acts, …)
-		- named entity labelling (NLU)
+		- transcriptions (for ASR)
+		- semantic annotation (for NLU) – dialogue acts, …
+		- named entity labelling (for NLU)
 	- inter-annotator agreement (IAA)
 		- measures the reliability of manual annotations
 		- multiple people annotate the same thing
@@ -258,12 +258,11 @@ The exam will have 10 questions, mostly from this pool. In general, none of them
 			- state-of-the-art for many sequence tagging tasks (until neural networks took over; can be also used in conjunction with NNs)
 - What is the IOB/BIO format for slot tagging?
 	- it is used to get the slot values from the text
-	- the words in the text can be tagged
+	- the words in the text are tagged; the slots can be nested
 	- tags
 		- B-$s$ … beginning of slot $s$
 		- I-$s$ … inside slot $s$
 		- O … outside
-	- slots can be nested
 	- example
 	    - There are **over 1000** compositions by **Johan Sebastian Bach**.
 	    - O O B-quantity I-quantity O O B-person I-person I-person O
@@ -432,7 +431,7 @@ The exam will have 10 questions, mostly from this pool. In general, none of them
 		- this is the one for “real-world” use
 		- using $Q$ instead of $V$ comes handy here (we do not need the transition probability $p(s'\mid s,a)$ to get the expected return of taking action $a$ in state $s$)
 - What are the main optimization approaches in reinforcement learning (what measures can you optimize and how)?
-	- quantity to otpimize
+	- quantity to optimize
 		- value function – critic
 		- policy – actor
 	- environment model: model-based × model-free
