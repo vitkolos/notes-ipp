@@ -2,12 +2,17 @@
 
 ## 1. Základy diferenciálního a integrálního počtu
 
-- Posloupnosti reálných čísel a jejich limity
-	- definice, aritmetika limit
-	- věta o dvou policajtech, limity a uspořádání
-- Řady
-	- definice částečného součtu a součtu
-	- geometrická řada, harmonická řada
+- Posloupnosti reálných čísel a jejich limity (definice)
+	- posloupnost s hodnotami v množině $M$ je zobrazení z $\mathbb N$ do $M$
+	- nechť $(a_n)$ je reálná posloupnost a $L \in \mathbb R^*$
+	- pokud $(\forall\varepsilon\gt 0)(\exists n_0\in\mathbb N):(n\geq n_0\implies |a_n-L|\lt\varepsilon)$, píšeme, že $\lim a_n=L$ nebo $\lim_{n\to\infty}a_n=L$ nebo $a_n\to L$, a řekneme, že posloupnost $(a_n)$ má limitu $L$
+	- pro $L\in \mathbb R$ mluvíme o vlastní limitě a pro $L=\pm\infty$ o limitě nevlastní
+	- posloupnost, která má vlastní limitu, konverguje (pokud ji nemá, tak diverguje)
+	- každá posloupnost reálných čísel má nejvýše jednu limitu
+- Aritmetika limit
+- Věta o dvou policajtech, limity a uspořádání
+- Řady: definice částečného součtu a součtu
+- Geometrická řada, harmonická řada
 - Reálné funkce jedné reálné proměnné
 	- limita funkce v bodě
 		- definice, aritmetika limit
