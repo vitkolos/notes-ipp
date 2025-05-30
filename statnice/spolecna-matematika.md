@@ -10,8 +10,23 @@
 	- posloupnost, která má vlastní limitu, konverguje (pokud ji nemá, tak diverguje)
 	- každá posloupnost reálných čísel má nejvýše jednu limitu
 - Aritmetika limit
-- Věta o dvou policajtech, limity a uspořádání
-- Řady: definice částečného součtu a součtu
+	- nechť $(a_n),(b_n)$ jsou posloupnosti reálných čísel takové, že $\lim a_n=a$ a $\lim b_n=b$
+	- pak…
+		- $\lim\,(a_n+b_n)=a+b$
+		- $\lim\,(a_nb_n)=ab$
+		- pokud $b_n\neq 0$ pro každé $n\gt 0$, pak $\lim\,(a_n/b_n)=a/b$
+	- to vše platí za předpokladu, že je výraz na pravé straně definován
+		- neurčité výrazy (nejsou definované): součet nekonečen s různými znaménky, součin nekonečna s nulou, podíl nekonečen, dělení reálného čísla nulou
+	- pokud je $(a_n)$ omezená a $(b_n)$ konverguje k nule, pak $\lim\,(a_nb_n)=0$
+		- tzn. limita $(a_n)$ nemusí existovat
+- Limity a uspořádání
+	- nechť $(a_n),(b_n)$ jsou posloupnosti reálných čísel takové, že mají limity $\lim a_n=a$ a $\lim b_n=b$
+	- když $a\lt b$, tak existuje $n_0$, že $n\gt n_0\implies a_n\lt b_n$
+	- a naopak, když $a_n\leq b_n$ pro každé $n\gt n_0$, pak $a\leq b$
+	- poznámka: může se stát, že $\forall n:a_n\lt b_n$, ale $\lim a_n=\lim b_n$
+		- např. uvažujme $a_n=1-\frac1n\lt b_n=1$, přičemž $\lim a_n=\lim b_n=1$
+- Věta o dvou policajtech
+- Součet řady a částečný součet řady
 - Geometrická řada, harmonická řada
 - Reálné funkce jedné reálné proměnné
 	- limita funkce v bodě
