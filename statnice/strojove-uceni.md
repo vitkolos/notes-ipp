@@ -131,7 +131,44 @@
 ## Logistická regrese
 
 - binární klasifikace (sigmoid, metody trénování)
+	- aktivační funkce sigmoid … $\sigma(x)=\frac1{1+e^{-x}}$
+	- predikce $y(x;w)=\sigma(\bar y(x;w))=\sigma(x^Tw)$
+		- správnou třídu získáme zaokrouhlením
+		- přesná hodnota se rovná pravděpodobnosti, že je $x$ klasifikováno jako 1 (uvažujeme třídy 0 a 1)
+		- $\bar y$ … „lineární složka“ logistické regrese
+	- velikost vektoru vah $w$ odpovídá počtu features
+		- nesmíme zapomenout také na bias, ten opět může být reprezentován jako další váha
+	- při trénování se jako ztrátová funkce (loss) používá negative log likelihood (NLL)
+		- pravděpodobnost targetu $t$ pro položku $x$ lze vyjádřit jako $p(t\mid x;w)=\sigma(x^Tw)^{t}(1-\sigma(x^Tw))^{1-{t}}$
+	- algoritmus trénování pomocí minibatch SGD
+		- klasifikujeme do tříd $\set{0,1}$, na vstupu máme dataset $X$ a learning rate $\alpha\in\mathbb R^+$
+		- náhodně inicializujeme $w$ (nebo nastavíme na nulu)
+		- opakujeme, dokud to nezkonverguje nebo nám nedojde trpělivost
+			- samplujeme minibatch řádků s indexy $\mathbb B$
+			- $w\leftarrow w-\alpha\frac1{|\mathbb B|}\sum_{i\in \mathbb B}(\sigma(x^Tw)-t)x-\alpha\lambda w$
+				- jako $E$ se používá NLL (s $L^2$ regularizací)
+				- výsledek se překvapivě podobá lineární regresi
+					- gradient je také $(y(x)-t)x$
 - klasifikace do více tříd (softmax, metody trénování)
+	- klasifikujeme do jedné z $K$ tříd
+	- parametry modelu: váhová matice $W$ (sloupce odpovídají třídám, řádky featurám), vektor biasů (jeden bias za každou třídu)
+	- aktivační funkce … $\text{softmax}(z)_i=\frac{e^{z_i}}{\sum_je^{z_j}}$
+		- softmax je invariantní k přičtení konstanty $\text{softmax}(z+c)_i=\text{softmax}(z)_i$
+		- $\sigma(x)=\text{softmax}([x,0])_0=\frac{e^x}{e^x+e^0}=\frac1{1+e^{-x}}$
+	- klasifikace: $p(C_i\mid x;W)=y(x;W)_i=\text{softmax}(\bar y(x;W))_i=\text{softmax}(x^TW)_i$
+		- softmax zajišťuje normalizaci (aby se pravděpodobnosti sečetly na jedničku)
+	- z linearity $\bar y$ lze dokázat, že oblasti tříd jsou konvexní – nemůže se stát, že by na úsečce mezi dvěma body v jedné třídě byl bod v jiné třídě
+	- algoritmus trénování pomocí minibatch SGD
+		- klasifikujeme do tříd $\set{0,\dots,K-1}$, na vstupu máme dataset $X$ a learning rate $\alpha\in\mathbb R^+$
+		- náhodně inicializujeme $w$ (nebo nastavíme na nulu)
+		- opakujeme, dokud to nezkonverguje nebo nám nedojde trpělivost
+			- samplujeme minibatch řádků s indexy $\mathbb B$
+			- $w\leftarrow w-\alpha\frac1{|\mathbb B|}\sum_{i\in \mathbb B}\left((\text{softmax}(x^TW)-1_t)x^T\right)^T-\alpha\lambda w$
+				- jako $E$ se používá NLL (s $L^2$ regularizací)
+				- srovnání gradientu logistické regrese
+					- binary: $(y(x)-t)x$
+					- multiclass: $((y(x)-1_t)x^T)^T$
+				- přičemž $1_t$ je one-hot reprezentace targetu $t$ (tedy vektor s jedničkou na $t$-té pozici a nulami všude jinde)
 
 ## Rozhodovací stromy
 

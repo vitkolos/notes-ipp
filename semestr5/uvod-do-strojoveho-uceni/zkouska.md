@@ -173,8 +173,8 @@ tento dokument je zveřejněn pod licencí [CC BY-SA](https://creativecommons.or
 			- výsledek se překvapivě podobá lineární regresi
 				- gradient je také $(y(x)-t)x$
 	- ztrátová funkce (loss ~~:.|:;~~)
-		- $E(w)=\frac1N\sum_i-\log(p(C_{t_i}\mid x_i;w))$
-		- kde $p(C_{t_i}\mid x_i;w)=\sigma(x^Tw)^t(1-\sigma(x^Tw))^{1-t}$
+		- $\mathrm{NLL}(w)=\sum_i-\log(p(C_{t_i}\mid x_i;w))$
+		- kde $p(C_{t}\mid x;w)=\sigma(x^Tw)^t(1-\sigma(x^Tw))^{1-t}$
 
 ## 4. Multiclass Logistic Regression, Multilayer Perceptron
 
