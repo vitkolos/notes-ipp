@@ -102,7 +102,31 @@
 ## Lineární regrese
 
 - analytické řešení metodou nejmenších čtverců
+	- sum of squares error: $\frac12\sum_{i}(x_i^Tw-t_i)^2$
+		- lze ho zapsat jako $\frac12\lVert Xw-t\rVert^2$
+	- snažíme se ho minimalizovat → hledáme hodnoty, kde je derivace chybové funkce podle každé z vah nulová
+		- $\frac{\partial}{\partial w_j}\frac12\sum_{i}(x_i^Tw-t_i)^2=\sum_i x_{ij}(x_i^Tw-t_i)$
+		- chceme, aby $\forall j:\sum_i x_{ij}(x_i^Tw-t_i)=0$
+			- $X^T(Xw-t)=0$
+			- $X^TXw=X^Tt$
+	- je-li $X^TX$ invertibilní, pak lze určit explicitní řešení jako $w=(X^TX)^{-1}X^Tt$
 - trénování pomocí stochastic gradient descent
+	- gradient descent
+		- snažíme se minimalizovat hodnotu chybové funkce $E(w)$ pro dané váhy $w$ volbou lepších vah
+			- spočítáme $\nabla_wE(w)$ → tak zjistíme, jak váhy upravit
+			- nastavíme $w\leftarrow w-\alpha\nabla_wE(w)$
+				- $\alpha$ … learning rate (hyperparametr), „délka kroku“
+			- tomu se říká gradient descent
+		- standard gradient descent – používáme všechna trénovací data k výpočtu $\nabla_wE(w)$
+		- stochastic (online) gradient descent – používáme jeden náhodný řádek
+		- minibatch stochastic gradient descent – používáme $B$ náhodných nezávislých řádků
+	- algoritmus pro trénink modelu lineární regrese (minibatch SGD)
+		- náhodně inicializujeme $w$ (nebo nastavíme na nulu)
+		- opakujeme, dokud to nezkonverguje nebo nám nedojde trpělivost
+			- samplujeme minibatch řádků s indexy $\mathbb B$
+				- buď uniformně náhodně, nebo budeme chtít postupně zpracovat všechna trénovací data (to se obvykle dělá, jednomu takovému průchodu se říká epocha), tedy je nasekáme na náhodné minibatche a procházíme postupně
+			- $w\leftarrow w-\alpha\frac1{|\mathbb B|}\sum_{i\in \mathbb B}((x_i^Tw-t_i)x_i)-\alpha\lambda w$
+				- jako $E$ se používá polovina MSE (s $L^2$ regularizací): $E(w)=\frac1{|\mathbb B|}\sum_{i\in\mathbb B}\frac12 (x_i^Tw-t_i)^2+\frac{\lambda}2 \lVert w\rVert^2$ (stačí to zderivovat)
 
 ## Logistická regrese
 
