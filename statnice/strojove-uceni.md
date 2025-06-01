@@ -248,15 +248,24 @@
 - studentův t-test (jednovýběrový a dvouvýběrový)
 	- jednovýběrový t-test
 		- způsob, jak získat intervalový odhad pro $\theta$, neznáme-li rozptyl $\sigma^2$
-		- teorie: $T=\frac{\overline{X_n}-\theta_0}{\bar\sigma/\sqrt n}\sim N(0,1)$, pokud $H_0$
+		- uvažujeme statistiku $T=\frac{\overline{X_n}-\theta_0}{\bar\sigma/\sqrt n}$, která má t-rozdělení s $n-1$ stupni volnosti, pokud $H_0$ platí
 		- najdeme bodový odhad $\hat\theta$ pro $\theta$
 			- třeba pokud nás zajímá $\mu$, tak prostě použijeme výběrový průměr
 		- máme $n$ hodnot
 		- $\delta=\frac{\bar\sigma}{\sqrt n}\cdot \Psi^{-1}_{n-1}(1-\alpha/2)$
+			- kde $\Psi^{-1}_{n-1}$ je kvantilová funkce studentova t-rozdělení
 		- vrátíme $[\hat\theta-\delta,\hat\theta+\delta]$
 			- v tomto intervalu bude pravděpodobně reálná hodnota $\theta$ pro populaci, z níž jsme data vybrali
+		- poznámka: proč uvažujeme $n-1$ stupňů volnosti, když máme $n$ hodnot?
+			- z $n-1$ hodnot můžu $n$-tou hodnotu dopočítat
 	- dvouvýběrový t-test
-		- TODO
+		- můžeme testovat třeba to, jestli se rovnají střední hodnoty parametru $\theta$ u dvou různých populací (samplujeme nezávisle, vzorků může být různý počet)
+		- např. $H_0$ … $\mu_X=\mu_Y$
+		- opět uvažujeme testovou statistiku $T$ s t-rozdělením (komplikovanější vzorec)
+	- bonus: párový test
+		- data jsou ve dvojicích, dvojice dat spolu nějak souvisí
+		- např. $H_0$ … $\mu_X=\mu_Y$
+		- uvažuju $R_i=Y_i-X_i$ (rozdíl dvojice), použiju jednovýběrový test
 - chí-kvadrát test (test dobré shody)
 	- Pearsonův chí-kvadrát test dobré shody
 	- $O_i$ … reálný výsledek
@@ -265,8 +274,6 @@
 	- typická úloha: je kostka spravedlivá?
 		- použijeme $\chi^2$ distribuci pro 5 stupňů volnosti
 			- pokud $\chi^2$ pro naši konkrétní kostku náleží kritickému oboru $W$, prohlásíme, že kostka není spravedlivá
-		- proč uvažujeme $n-1$ stupňů volnosti, když máme $n$ hodnot?
-			- z $n-1$ hodnot můžu $n$-tou hodnotu dopočítat
 
 ## Učení bez učitele
 
