@@ -74,7 +74,7 @@
 			- preferujeme menší změny modelu
 			- omezujeme efektivní kapacitu modelu
 			- čím je model složitější, tím větší má váhy
-		- ke ztrátové (loss) funkci přičteme normu vah vynásobenou parametrem $\lambda$
+		- ke ztrátové funkci (loss ~~:.|:;~~) přičteme normu vah vynásobenou parametrem $\lambda$
 			- L1 regularizace … $\lambda(|w_1|+|w_2|+\dots+|w_n|)$
 			- L2 regularizace … $\lambda(w_1^2+w_2^2+\dots+w_n^2)$
 				- nebo také $\lambda\lVert w\rVert^2$, případně $\frac\lambda2\lVert w\rVert^2$, aby nám vyšla hezká derivace
@@ -138,7 +138,7 @@
 		- $\bar y$ … „lineární složka“ logistické regrese
 	- velikost vektoru vah $w$ odpovídá počtu features
 		- nesmíme zapomenout také na bias, ten opět může být reprezentován jako další váha
-	- při trénování se jako ztrátová funkce (loss) používá negative log likelihood (NLL)
+	- při trénování se jako ztrátová funkce používá negative log likelihood (NLL)
 		- pravděpodobnost targetu $t$ pro položku $x$ lze vyjádřit jako $p(t\mid x;w)=\sigma(x^Tw)^{t}(1-\sigma(x^Tw))^{1-{t}}$
 	- algoritmus trénování pomocí minibatch SGD
 		- klasifikujeme do tříd $\set{0,1}$, na vstupu máme dataset $X$ a learning rate $\alpha\in\mathbb R^+$
@@ -173,27 +173,113 @@
 ## Rozhodovací stromy
 
 - algoritmus učení a kritéria větvení
+	- v každém vnitřním vrcholu je uložena feature, podle které dělíme, a konkrétní hodnota, která určuje rozhraní
+	- každému vrcholu náleží podmnožina trénovacích dat
+		- predikce listu odpovídá tomu, jaká data v něm jsou (při regresi průměrujeme, při klasifikaci volíme největší třídu = většinové hlasování / majority vote)
+	- možná kritéria větvení ve vrcholu $\mathcal T$
+		- squared error criterion (používá se při regresi)
+			- squared error criterion říká, jak homogenní je podmnožina trénovacích dat, která náleží vrcholu $\mathcal T$
+			- $c_\text{SE}(\mathcal T)=\sum_{i\in I_\mathcal T}(t_i-\hat t_{\mathcal T})^2$
+			- $I_\mathcal T$ jsou indexy řádků trénovacích dat, které náleží danému vrcholu
+			- $\hat t_\mathcal T$ je průměr targetů v daném vrcholu
+		- Gini index / Gini impurity (používá se při klasifikaci)
+			- $c_\text{Gini}(\mathcal T)=|I_\mathcal T|\sum_kp_\mathcal T(k)(1-p_\mathcal T(k))$
+			- jak často by byl náhodně vybraný prvek špatně klasifikován, kdyby byl klasifikován náhodně podle rozdělení $p_\mathcal T$
+				- $p_\mathcal T(k)$ … pravděpodobnost, že vybereme prvek ze třídy $k$
+				- $(1-p_\mathcal T(k))$ … pravděpodobnost, že mu přiřadíme jinou třídu než $k$
+			- v binární klasifikaci Gini odpovídá squared error ztrátové funkci (skoro MSE)
+		- entropy criterion (používá se při klasifikaci)
+			- $c_\text{entropy}(\mathcal T)=|I_\mathcal T|\cdot H(p_\mathcal T)=-|I_\mathcal T|\sum_k p_\mathcal T(k)\log p_\mathcal T(k)$
+			- ze součtu vynecháme třídy s nulovou pravděpodobností, aby nám nerozbily logaritmus
+			- entropy criterion lze odvodit ze ztrátové funkce negative log likelihood (NLL)
+	- algoritmus CART (Classification and Regression Trees)
+		- trénovací data jsou uložena v listech 
+		- začneme s jedním listem
+		- list můžeme rozdělit (stane se z něj vnitřní vrchol a pod něj připojíme dva nové listy)
+		- list dělíme tak, aby rozdíl $c_{\mathcal T_L}+c_{\mathcal T_R}-c_{\mathcal T}$ byl co nejmenší
+			- $c_\mathcal T$ … criterion současného vrcholu
+			- $c_{\mathcal T_L}$ … criterion nového levého syna
+			- $c_{\mathcal T_R}$ … criterion nového pravého syna
+		- někdy stanovujeme omezení: maximální hloubku stromu, minimální počet dat v děleném listu (abychom nedělili zbytečně listy, co mají málo dat), maximální počet listů
+			- obvykle se listy dělí prohledáváním do hloubky
+			- pokud je stanoven maximální počet listů, je vhodnější je dělit ty s nejmenším rozdílem $c_{\mathcal T_L}+c_{\mathcal T_R}-c_{\mathcal T}$
+	- dosud nás vždycky zajímaly parametry, které minimalizují ztrátovou funkci
+	- tím, že minimalizujeme dělicí kritérium, minimalizujeme minimální dosažitelnou hodnotu ztrátové funkce pro daný strom
 - prořezávání
+	- prořezávání (pruning) lze použít ke zjednodušení rozhodovacího stromu, tím je možné omezit overfitting
+	- prořezávat lze shora dolů nebo zespoda nahoru (bottom-up pruning × top-down pruning)
+	- příklad: reduced error pruning
+		- bottom-up přístup
+		- na testovacích datech ověřujeme přesnost (accuracy)
+		- postupně zkoušíme rušit větvení ve vnitřních vrcholech – pokud tím nedojde ke snížení přesnosti, tak změnu provedeme
+			- tedy se z vnitřního vrcholu stane list, který predikuje třídu s největším počtem položek
 
 ## Metoda podpůrných vektorů
 
 - klasifikátor pro lineárně separabilní třídy
+	- TODO
 - klasifikátor pro lineárně neseparabilní třídy
+	- TODO
 - jádrové funkce
+	- TODO
 - klasifikace do více tříd
+	- TODO
 
 ## Kombinace více modelů
 
 - bagging a boosting
+	- jedná se o dva různé přístupy k trénování více modelů
+	- bagging
+		- modely se trénují nezávisle
+		- pro každý model náhodně vybereme vzorek trénovacích dat, na nichž se učí
+	- boosting
+		- modely se trénují sekvenčně
+		- snažíme se postupně opravovat chyby předchozích modelů
 - metoda náhodných lesů
+	- trénování
+		- pro každý strom náhodně (s opakováním) vybereme sample trénovacích dat (= bagging)
+		- pro každý vrchol náhodně vybereme podmnožinu features, které při dělení bereme v úvahu
+	- predikce
+		- u regrese průměrujeme hodnoty jednotlivých stromů
+		- u klasifikace hlasujeme
 
 ## Statistické testy
 
 - studentův t-test (jednovýběrový a dvouvýběrový)
+	- TODO
 - chí-kvadrát test (test dobré shody)
+	- TODO
 
 ## Učení bez učitele
 
 - shlukování (algoritmus k-means)
+	- algoritmus
+		- na vstupu máme body $x_1,\dots,x_N$, počet clusterů $K$
+		- inicializujeme středy clusterů $\mu_1,\dots,\mu_K$
+			- buď náhodně (ze vstupních bodů)
+			- nebo pomocí `kmeans++`
+				- první střed se vybere náhodně (ze vstupních bodů)
+				- každý další střed vybereme z nepoužitých bodů tak, že pravděpodobnost výběru každého bodu úměrně roste s druhou mocninou vzdálenosti jeho nejbližšího středu (clusteru)
+		- opakujeme, dokud to nezkonverguje nebo nám nedojde trpělivost
+			- body přiřadíme clusterům (každý bod přiřadíme tomu clusteru, k jehož středu má nejblíž)
+			- aktualizujeme středy clusterů (vždy zprůměrujeme body, které jsme danému clusteru přiřadili)
+	- použití
+		- $K$-means se používá ke clusteringu, tedy k dělení dat do skupin, clusterů
+		- je to technika učení bez učitele (unsupervised), neznáme targety
+		- konkrétní příklady: seskupení pixelů podobné barvy, určení skupin zákazníků
+	- ztrátová funkce, kterou algoritmus optimalizuje
+		- $J=\sum_{i=1}^N\sum_{k=1}^Kz_{i,k}\|x_i-\mu_k\|^2$
+		- kde $z_{i,k}$ je indikátor přiřazení bodu $x_i$ do clusteru $k$
+	- konvergence
+		- aktualizace přiřazení bodů ke clusterům nezvyšuje loss
+		- aktualizace středů clusterů nezvyšuje loss
+		- takže $K$-means konverguje k lokálnímu optimu
 - hierarchické shlukování
+	- dva přístupy: postupné spojování menších shluků (aglomerativní shlukování) nebo naopak dělení velkých shluků na menší (divisivní shlukování) podle zadaných pravidel
+	- algoritmus spojování menších clusterů/shluků
+		- na začátku je každý cluster singleton (patří tam jeden bod)
+		- slučujeme nejpodobnější clustery, dokud nezískáme cílový počet clusterů
+	- dají se používat různé metriky podobnosti shluků (např. vzdálenost mezi centroidy shluků nebo přímo mezi jejich body, průměry vzdáleností, …)
+	- většinou se jedná o hladové algoritmy → nelze zaručit, že je řešení optimální
 - redukce dimenzionality (analýza hlavních komponent)
+	- TODO
