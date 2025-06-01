@@ -385,8 +385,9 @@
 	- $G=2\sum_i O_i \ln\frac{O_i}{E_i}$
 	- $\chi^2$ a $G$ se přibližně rovnají (díky aproximaci pomocí Taylorova polynomu)
 	- jak zjistit, jestli je kostka spravedlivá?
-		- vygenerujeme hodně multinomických rozdělení – díky nim najdeme kritický obor $W$ (pomocí grafu $\chi^2$)
-		- pokud $\chi^2$ pro naši konkrétní kostku náleží $W$, prohlásíme, že kostka není spravedlivá
+		- spočítáme $\chi^2$ na základě měření
+		- najdeme v tabulce $p$-hodnotu pro konkrétní hodnotu $\chi^2$ s 5 stupni volnosti
+		- hypotézu „kostka je spravedlivá“ zamítneme pro dostatečně nízkou $p$-hodnotu
 - Jednovýběrový vs. dvouvýběrový test vs. párový test
 	- jednovýběrový test … klasický intervalový odhad
 		- např. $H_0$ … $\mu=5$

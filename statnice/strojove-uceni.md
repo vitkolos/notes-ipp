@@ -246,9 +246,27 @@
 ## Statistické testy
 
 - studentův t-test (jednovýběrový a dvouvýběrový)
-	- TODO
+	- jednovýběrový t-test
+		- způsob, jak získat intervalový odhad pro $\theta$, neznáme-li rozptyl $\sigma^2$
+		- teorie: $T=\frac{\overline{X_n}-\theta_0}{\bar\sigma/\sqrt n}\sim N(0,1)$, pokud $H_0$
+		- najdeme bodový odhad $\hat\theta$ pro $\theta$
+			- třeba pokud nás zajímá $\mu$, tak prostě použijeme výběrový průměr
+		- máme $n$ hodnot
+		- $\delta=\frac{\bar\sigma}{\sqrt n}\cdot \Psi^{-1}_{n-1}(1-\alpha/2)$
+		- vrátíme $[\hat\theta-\delta,\hat\theta+\delta]$
+			- v tomto intervalu bude pravděpodobně reálná hodnota $\theta$ pro populaci, z níž jsme data vybrali
+	- dvouvýběrový t-test
+		- TODO
 - chí-kvadrát test (test dobré shody)
-	- TODO
+	- Pearsonův chí-kvadrát test dobré shody
+	- $O_i$ … reálný výsledek
+	- $E_i$ … očekávaný výsledek
+	- $\chi^2=\sum_i\frac{(E_i-O_i)^2}{E_i}$
+	- typická úloha: je kostka spravedlivá?
+		- použijeme $\chi^2$ distribuci pro 5 stupňů volnosti
+			- pokud $\chi^2$ pro naši konkrétní kostku náleží kritickému oboru $W$, prohlásíme, že kostka není spravedlivá
+		- proč uvažujeme $n-1$ stupňů volnosti, když máme $n$ hodnot?
+			- z $n-1$ hodnot můžu $n$-tou hodnotu dopočítat
 
 ## Učení bez učitele
 
@@ -282,4 +300,39 @@
 	- dají se používat různé metriky podobnosti shluků (např. vzdálenost mezi centroidy shluků nebo přímo mezi jejich body, průměry vzdáleností, …)
 	- většinou se jedná o hladové algoritmy → nelze zaručit, že je řešení optimální
 - redukce dimenzionality (analýza hlavních komponent)
-	- TODO
+	- singulární rozklad (SVD, singular value decomposition)
+		- mějme matici $X\in\mathbb R^{m\times n}$ s hodností $r$
+		- $X=U\Sigma V^T$
+			- $U\in\mathbb R^{m\times m}$ ortonormální
+			- $\Sigma\in\mathbb R^{m\times n}$ diagonální matice s nezápornými hodnotami (tzv. singulárními hodnotami) zvolenými tak, aby byly uspořádány sestupně
+			- $V\in\mathbb R^{n\times n}$ ortonormální
+		- možný pohled na dekompozici
+			- $X=\sigma_1u_1v_1^T+\sigma_2u_2v_2^T+\dots+\sigma_ru_rv_r^T$
+			- $\sigma_i$ … $i$-té singulární číslo
+			- $u_i$ … $i$-tý sloupec matice $U$
+			- $v_i^T$ … $i$-tý řádek matice $V^T$
+		- redukovaná verze SVD
+			- $\sigma$ označme vektor singulárních hodnot
+			- pro matici $X$ s hodností $r$ bude v tom vektoru nejvýše $r$ nenulových hodnot
+			- tedy matici $\Sigma$ můžeme redukovat na rozměry $r\times r$, podobně $U$ můžeme redukovat na $m\times r$ a $V^T$ na $r\times n$, touto kompresí nepřijdeme o žádné informace
+		- dokonce můžeme $\Sigma$ zmenšit ještě víc
+			- zvolíme $k\lt r$
+			- necháme jenom $k$ největších singulárních hodnot, všechny ostatní zahodíme
+			- tím už se nějaké informace ztratí
+			- budeme mít aproximaci původní matice $X$, ta aproximace bude mít rank $k$
+	- algoritmus určení PCA (principal component analysis) $M$-té dimenze na základě datové matice $X$
+		- spočteme SVD matice $(X-\bar x)$
+			- kde $\bar x$ je průměr řádků matice (vektor průměrných hodnot jednotlivých features)
+			- k určení SVD (respektive nalezení $V$) lze použít algoritmus power iteration
+				- do proměnné $S$ uložíme kovarianční matici $\text{cov}(X)=\frac 1N(X-\bar x)^T(X-\bar x)$
+				- pro každou komponentu hledáme vektor $v_i$ (sloupec matice $V$) tak, že začneme s náhodným vektorem a poté ho zleva násobíme maticí $S$ a normalizujeme (dělíme vlastní normou), dokud to nezkonverguje
+				- od matice $S$ na konci každého kroku odečteme $\lambda_iv_iv_i^T$, kde $\lambda_i$ je norma vektoru $v_i$ před poslední normalizací
+		- necháme prvních $M$ řádků $V^T$, ostatní zahodíme (takže $V$ bude mít $M$ sloupců)
+		- pokud chceme získat hodnoty nových $M$ komponent, tak stačí vynásobit $XV$, tak dostaneme matici $N\times M$
+		- funguje to díky tomu, že pomocí SVD matice $(X-\bar x)$ získáváme vlastní vektory kovarianční matice $\text{cov}(X)=\frac 1N(X-\bar x)^T(X-\bar x)$
+	- aplikace PCA
+		- aproximace matic
+		- snížení šumu v datech
+		- redukce dimenzí dat, extrakce features
+		- vizualizace dat
+		- praktické použití: doporučovací systémy
