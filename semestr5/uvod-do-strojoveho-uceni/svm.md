@@ -1,0 +1,75 @@
+## Kernelové metody
+
+- chtěli bychom mít model s polynomiálními features 0. až 3. řádu → měl by $O(D^3)$ vah
+	- pro jednoduchost uvažujeme situaci, kdy $x_1x_2$ a $x_2x_1$ jsou dvě různé features
+- váhy jsou ale lineárními kombinacemi trénovacích dat
+	- nebudeme si pamatovat váhy, nýbrž koeficienty lineární kombinace
+	- pro každý řádek dat $x_i$ vytrénujeme koeficient $\beta_i$
+	- těch je $O(N)$, což může být méně než $O(D^3)$
+	- tomu se říká duální formulace (místo vah máme koeficienty)
+	- v duální formulaci se s biasem obvykle zachází samostatně
+- při trénování spolu musíme často násobit $\varphi(x_i)^T\varphi(x_j)$ pro dvojice řádků trénovacích dat, takže si tyto hodnoty předpočítáme do matice $K$
+	- $\varphi$ je zobrazení, které řádku dat přiřazuje polynomiální features
+- v rámci trénování se těchto výpočtů provede $O(N^2)$ – každý s každým, ukládáme do $K$
+- při predikci musíme predikovaný řádek $z$ pronásobit s $N$ řádky trénovacích dat (jeden z nich označíme jako $x$)
+	- kdybychom vektory $\varphi(x)^T\varphi(z)$ násobili po složkách, tak to trvá dlouho – těch složek je $O(D^3)$
+	- ale lze si všimnout toho, že $\varphi(x)^T\varphi(z)=1+x^Tz+(x^Tz)^2+(x^Tz)^3$
+	- takže ten skalární součin spočítáme v $O(D)$
+	- ani nemusíme vyrobit ty polynomiální features
+- součinu těch features se říká kernel – je to funkce, které dám dva vektory a ona mi vyrobí součin features těch vektorů: $K(x,z)=\varphi(x)^T\varphi(z)$
+	- už jsme si ukázali kernel pro kubické features
+- kernely
+	- polynomiální kernel stupně $d$ (homogenní polynomiální kernel)
+		- vyrábí kombinace $d$ vstupních features
+		- $K(x,z)=(\gamma x^Tz)^d$
+		- $\gamma$ je hyperparametr, který škáluje features
+	- polynomiální kernel stupně nejvýše $d$ (nehomogenní polynomiální kernel)
+		- $K(x,z)=(\gamma x^Tz+1)^d$
+	- Gaussian Radial basis function (RBF) kernel
+		- obsahuje polynomiální features všech řádů
+		- $K(x,z)=e^{-\gamma\|x-z\|^2}$
+		- je to funkce vzdálenosti
+			- pro stejné vektory vrací jedničku, pro hodně vzdálené vektory vrací nulu, pro ostatní něco mezi tím
+			- dá se to interpretovat jako rozšířenou verzi algoritmu $k$ nejbližších sousedů ($k$-NN)
+			- $\gamma$ ovlivňuje, co už je „moc daleko“
+
+## SVM
+
+- jdeme dělat binární klasifikaci
+- nelíbilo se nám, když perceptron našel špatnou nadrovinu (blízko k bodům)
+- jdeme hledat takovou nadrovinu, aby trénovací data byla co nejdál (maximum margin)
+- targety nechť jsou $\in\set{-1,1}$ jako u perceptronu
+- chceme maximalizovat šířku marginu (= minimalizovat velikost vah) za podmínky, že každý prvek je na správné straně
+	- abychom mohli jednoduše minimalizovat velikost vah, použili jsme trik, že pro body nejbližší k decision boundary bude platit $t_iy(x_i)=1$ (škálování je totiž na nás)
+- použijeme lagrangián
+- díky KKT podmínkám víme, že nás při maximalizaci lagrangiánu zajímají jenom některá trénovací data – ta, která leží na okraji (support vektory)
+	- je tam podmínka $a_i(t_iy(x_i)-1)=0$
+	- z toho vyplývá, že pro každé $x_i$ platí $t_iy(x_i)=1$ (bod je na marginu) nebo $a_i=0$ (bod se nepoužívá k predikci)
+- hard-margin SVMs se používá pro lineárně separabilní data
+- pro lineárně neseparabilní data potřebujeme soft-margin SVM
+	- dovolíme některým bodům, aby porušily pravidlo (aby byly uvnitř marginu nebo na opačné straně decision boundary)
+	- pořídíme si slack variables $\xi_i\geq 0$
+		- pro body, které porušují $t_iy(x_i)\geq1$ bude platit $\xi_i=|t_i-y(x_i)|$
+		- jinak $\xi_i=0$
+	- takže podmínku $t_iy(x_i)\geq1$ nahradíme $t_iy(x_i)\geq1-\xi_i$
+	- do lagrangiánu musíme přidat další multiplikátory, které zajistí nezápornost $\xi_i$
+	- lagrangián bude stejný jako minule, akorát $a_i$ budou omezeny shora nějakým $C$
+	- support vektory teďka nebudou jenom body na okrajích marginu, ale i všechny, které mají kladné $\xi_i$ (jsou divné)
+	- pozorování: $\xi_i=\max(0,1-t_iy(x_i))$
+		- téhle funkci se říká hinge loss
+	- soft-margin SVM lze vlastně formulovat jako $\text{argmin}_{w,b}\,C\sum_i\mathcal L_\mathrm{hinge}(t_i,y(x_i))+\frac12\|w\|^2$
+		- to nám hodně připomíná klasický vzorec pro logistickou regresi apod.
+		- akorát místo regularizační konstanty $\lambda$ tady máme $C$, které hraje opačnou roli (čím větší $C$, tím slabší regularizace)
+- k trénování se používá sequential minimal optimization
+	- bereme řádky po jednom, k tomu $a_i$, náhodně $a_j$ a taky bias, postupně zlepšujeme lagrangián
+- klasifikace do více tříd
+	- kombinujeme několik binárních klasifikátorů
+	- one-versus-rest (ovr) schéma
+		- natrénuju $K$ nezávislých binárních klasifikátorů (patří prvek konkrétní třídě? ano/ne)
+		- při predikci vyberu třídu, které její klasifikátor přisuzuje největší pravděpodobnost
+		- je potřeba klasifikátory kalibrovat, aby se ty pravděpodobnosti daly porovnávat!
+		- takhle se to v SVM nedělá
+	- one-versus-one schéma
+		- klasifikátor na každou dvojici tříd, které existují
+		- většinové hlasování (každý klasifikátor hlasuje pro jednu třídu)
+		- klasifikátorů je víc, ale trénujeme je na méně datech
