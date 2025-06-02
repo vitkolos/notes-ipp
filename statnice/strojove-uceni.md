@@ -217,13 +217,83 @@
 ## Metoda podpůrných vektorů
 
 - klasifikátor pro lineárně separabilní třídy
-	- TODO
+	- hard-margin SVM (support-vector machine)
+	- je to kernelová (jádrová) metoda strojového učení
+		- model má k dispozici spoustu polynomiálních features, aniž bychom je museli explicitně počítat
+		- používáme jádrovou funkci $K$
+	- model je neparametrický – využívá se duální formulace
+		- nemáme váhy, ale koeficienty u trénovacích dat
+		- duální formulace vychází z pozorování, že klasické váhy jsou lineárními kombinacemi trénovacích dat
+	- princip je podobný jako u perceptronu
+		- jedná se o binární klasifikaci do tříd $\set{-1,1}$
+		- tentokrát ale chceme zajistit, aby byla dělicí nadrovina (decision boundary) co nejlepší – aby byl margin (mezera mezi nadrovinou a body) co největší
+	- jak se odvozuje
+		- uvažujeme váhy $w$ a bias $b$, dále mapování $\varphi$ do prostoru features, predikci označíme $y(x)=\varphi(x)^Tw+b$
+		- pro všechny body chceme maximalizovat vzdálenost od decision boundary
+			- váhy i bias můžeme libovolně škálovat, proto určíme, že pro body nejbližší k decision boundary bude platit $t_iy(x_i)=1$
+			- díky tomu nám stačí „minimalizovat váhy“ takto: $\mathrm{argmin}_{w,b}\,\frac12\|w\|^2$
+				- za předpokladu, že $t_iy(x_i)\geq 1$
+		- tuhle minimalizaci s omezující podmínkou provádíme pomocí lagrangiánu a KKT podmínek
+			- místo multiplikátorů $\lambda_i$ se tradičně používají $a_i$
+		- díky KKT podmínkám víme, že nás při maximalizaci lagrangiánu zajímají jenom některá trénovací data – ta, která leží na okraji (support vektory)
+			- je tam podmínka $a_i(t_iy(x_i)-1)=0$
+			- z toho vyplývá, že pro každé $x_i$ platí $t_iy(x_i)=1$ (bod je na marginu) nebo $a_i=0$ (bod se nepoužívá k predikci)
+	- predikce … $y(x)=\sum_i a_it_iK(x,x_i)+b$
 - klasifikátor pro lineárně neseparabilní třídy
-	- TODO
+	- soft-margin SVM
+	- v mnohém se podobá hard-margin SVM
+	- dovolíme některým bodům, aby porušily pravidlo (aby byly uvnitř marginu nebo na opačné straně decision boundary)
+	- pořídíme si slack variables $\xi_i\geq 0$
+		- pro body, které porušují $t_iy(x_i)\geq1$ bude platit $\xi_i=|t_i-y(x_i)|$
+		- jinak $\xi_i=0$
+	- takže podmínku $t_iy(x_i)\geq1$ nahradíme $t_iy(x_i)\geq1-\xi_i$
+	- úpravy lagrangiánu
+		- musíme tam přidat další multiplikátory, které zajistí nezápornost $\xi_i$
+		- výsledný lagrangián bude stejný jako minule, akorát $a_i$ (odpovídají lambdám) budou navíc omezeny shora nějakým $C$
+	- support vektory teďka nebudou jenom body na okrajích marginu, ale i všechny, které mají kladné $\xi_i$ (jsou divné)
+	- pozorování: $\xi_i=\max(0,1-t_iy(x_i))$
+		- téhle funkci se říká hinge loss
+	- soft-margin SVM lze vlastně formulovat jako $\text{argmin}_{w,b}\,C\sum_i\mathcal L_\mathrm{hinge}(t_i,y(x_i))+\frac12\|w\|^2$
+		- to nám hodně připomíná klasický vzorec pro logistickou regresi apod.
+		- akorát místo regularizační konstanty $\lambda$ tady máme $C$, které hraje opačnou roli (čím větší $C$, tím slabší regularizace)
+	- k trénování se používá sequential minimal optimization
+		- bereme řádky po jednom, k tomu $a_i$, náhodně $a_j$ a taky bias, postupně zlepšujeme lagrangián
 - jádrové funkce
-	- TODO
+	- idea
+		- uvažujeme duální formulaci modelu (místo vah máme koeficienty, kterými přispívají řádky trénovacích dat)
+		- máme polynomiální features (pomocí zobrazení $\varphi$)
+		- při predikci bychom museli $N$-krát počítat $\varphi(x_i)^T\varphi(z)$
+		- když si ale například představíme features 0. až 3. řádu, tak si můžeme všimnout toho, že $\varphi(x)^T\varphi(z)=1+x^Tz+(x^Tz)^2+(x^Tz)^3$
+	- zobecnění
+		- budeme uvažovat kernelové funkce (kernely), které mají všechny následující vzorec (pro různé $\varphi$): $K(x,z)=\varphi(x)^T\varphi(z)$
+		- kernel je tedy funkce, která dostane dva vektory a ona mi vrátí součin features těch vektorů
+		- výše jsme si jeden takový kernel ukázali
+	- polynomiální kernel stupně $d$ (homogenní polynomiální kernel)
+		- vyrábí kombinace $d$ vstupních features
+		- $K(x,z)=(\gamma x^Tz)^d$
+		- $\gamma$ je hyperparametr, který škáluje features
+	- polynomiální kernel stupně nejvýše $d$ (nehomogenní polynomiální kernel)
+		- $K(x,z)=(\gamma x^Tz+1)^d$
+	- Gaussian Radial basis function (RBF) kernel
+		- obsahuje polynomiální features všech řádů
+		- $K(x,z)=e^{-\gamma\|x-z\|^2}$
+		- je to funkce vzdálenosti
+			- pro stejné vektory vrací jedničku, pro hodně vzdálené vektory vrací nulu, pro ostatní něco mezi tím
+			- dá se to interpretovat jako rozšířenou verzi algoritmu $k$ nejbližších sousedů ($k$-NN)
+			- $\gamma$ ovlivňuje, co už je „moc daleko“
+		- polynomiální features vysokých řádů mají nízké váhy
+	- kernely se typicky používají tam, kde potřebujeme lineárně separabilní data (například v SVM) – transformují nám původní data do více dimenzí, tam už je pak obvykle můžeme rozumně separovat
 - klasifikace do více tříd
-	- TODO
+	- kombinujeme několik binárních klasifikátorů
+	- první možný (nepoužívaný!) přístup: one-versus-rest (ovr) schéma
+		- natrénuju $K$ nezávislých binárních klasifikátorů (patří prvek konkrétní třídě? ano/ne)
+		- při predikci vyberu třídu, které její klasifikátor přisuzuje největší pravděpodobnost
+		- je potřeba klasifikátory kalibrovat, aby se ty pravděpodobnosti daly porovnávat!
+		- takhle se to u SVM nedělá
+	- alternativní přístup: one-versus-one schéma
+		- klasifikátor na každou dvojici tříd, které existují
+		- většinové hlasování (každý klasifikátor hlasuje pro jednu třídu)
+		- klasifikátorů je víc, ale trénujeme je na méně datech
 
 ## Kombinace více modelů
 
