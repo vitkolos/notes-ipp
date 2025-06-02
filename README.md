@@ -1,5 +1,7 @@
 # Bc. Informatika: poznámky
 
+Bachelor of Computer science, [scroll down for notes in English](#20242025)
+
 - zpracoval [Vít Kološ](https://www.vitkolos.cz/)
 - [https://www.vitkolos.cz/node/**view**/notes-ipp/main/](https://www.vitkolos.cz/node/view/notes-ipp/main/)
 - podporované režimy: view, cards, source, [anki](https://ankiweb.net/shared/info/1087328706), quizlet, cards-json
@@ -38,6 +40,13 @@
 - [Úvod do počítačové lingvistiky (zkouška)](semestr5/uvod-do-pocitacove-lingvistiky/zkouska.md)
 - [Natural Language Processing (exam)](semestr6/natural-language-processing/exam.md)
 - [Dialogue Systems (exam)](semestr6/dialogue-systems/exam.md)
+
+### Státnice
+
+- Společná matematika
+- Společná informatika
+- Základy umělé inteligence
+- [Strojové učení](statnice/strojove-uceni.md)
 
 ## Nepřehledně zpracované předměty
 
