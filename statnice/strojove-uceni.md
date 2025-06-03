@@ -319,7 +319,7 @@
 	- jedná se o dva různé přístupy k trénování více modelů
 	- bagging
 		- modely se trénují nezávisle
-		- pro každý model náhodně vybereme vzorek trénovacích dat, na nichž se učí (typicky samplujeme s opakováním)
+		- pro každý model náhodně vybereme vzorek trénovacích dat, na nichž se učí (typicky samplujeme s opakováním = bootstrapping)
 	- boosting
 		- modely se trénují sekvenčně
 		- snažíme se postupně opravovat chyby předchozích modelů
@@ -408,6 +408,13 @@
 		- na začátku je každý cluster singleton (patří tam jeden bod)
 		- slučujeme nejpodobnější clustery, dokud nezískáme cílový počet clusterů
 	- dají se používat různé metriky podobnosti shluků (např. vzdálenost mezi centroidy shluků nebo přímo mezi jejich body, průměry vzdáleností, …)
+	- příklady algoritmů divisivního shlukování
+		- DIANA (divisive analysis)
+			- na začátku jsou všechny body v jednom clusteru
+			- v něm najdeme bod, který se nejvíc liší od všech ostatních a oddělíme ho do samostatného clusteru
+			- do téhož (nového) clusteru po jednom přidáváme i další body z původního clusteru, pokud se více hodí do nového clusteru (jsou mu blíže než původnímu)
+		- principal directions divisive partitioning (PDDP)
+			- používá princip PCA – dělí clustery pomocí projekce na hlavní komponenty
 	- většinou se jedná o hladové algoritmy → nelze zaručit, že je řešení optimální
 - redukce dimenzionality (analýza hlavních komponent)
 	- singulární rozklad (SVD, singular value decomposition)
