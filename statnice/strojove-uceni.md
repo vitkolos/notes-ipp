@@ -39,6 +39,17 @@
 			- $F_\beta=\frac{(\beta^2+1)PR}{\beta^2P+R}=\frac{tp+\beta^2\cdot tp}{tp+fp+\beta^2(tp+fn)}$
 			- $F_1=\frac{2PR}{P+R}=\frac{tp+tp}{tp+fp+tp+fn}$
 			- je užitečné mít jednu hodnotu místo dvou ($P,R$)
+		- ROC (receiver operating characteristic) křivka
+			- zachycuje, jak se mění vlastnosti binárního klasifikátoru, když posouváme pár (threshold, tzn. hodnotu, od níž výsledek prohlásíme za pozitivní – typicky uvažujeme 0.5)
+			- na ose $x$ je false positive rate, $\mathrm{FPR}=\frac{fp}{fp+tn}$ (v čitateli jsou všechny negativní instance)
+			- na ose $y$ je true positive rate (recall), $\mathrm{TPR}=\frac{tp}{tp+fn}$
+			- každý bod na křivce odpovídá jinému thresholdu
+			- pro náhodný „klasifikátor“ bude ROC křivka diagonála
+			- pro dokonalý klasifikátor bude ROC křivka jeden bod vlevo nahoře
+				- FPR = 0, TPR = 1
+		- AUC (area under curve)
+			- plocha pod ROC křivkou
+			- pro náhodný „klasifikátor“ je AUC = 0.5, pro dokonalý klasifikátor to bude AUC = 1
 - ohodnocení modelu (testovací data, křížová validace, maximální věrohodnost)
 	- testovací data slouží k ověření toho, jak dobře náš model generalizuje
 		- snažíme se zjistit, jak dobré výsledky model vrací pro data, která dosud neviděl
@@ -63,7 +74,7 @@
 			- místo toho zafixujeme trénovací data a budeme měnit váhy → dostaneme $L(w)=p_\text{model}(X;w)=\prod_i p_\text{model}(x_i;w)$
 			- $w_\text{MLE}=\text{arg max}_w\,p_\text{model}(X;w)$
 				- MLE … maximum likelihood estimation
-	- bonus (z jarních státnic)
+	- bonus (z jarních státnic) – možná spíš patří do základů umělé inteligence?
 		- *maximálně věrohodná hypotéza*
 			- z množiny hypotéz je to ta, která přiřazuje naměřeným datům největší pravděpodobnost
 			- $\mathrm{argmax}_h\,p(\mathrm{data}\mid h)$ nebo také $\mathrm{argmax}_h\,p_h(\mathrm{data})$
