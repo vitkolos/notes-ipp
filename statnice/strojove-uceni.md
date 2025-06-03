@@ -20,6 +20,12 @@
 			- počet správně klasifikovaných ÷ celkový počet
 			- $\frac{tp+tn}{tp+tn+fp+fn}$ (u binární klasifikace)
 			- nevhodná metrika, pokud jsou třídy nevyvážené (např. testujeme vzácné onemocnění)
+		- confusion matrix
+			- řádky jsou označeny pravdivými hodnotami, sloupce predikovanými hodnotami (nebo naopak – je to potřeba uvést)
+			- v každé buňce je počet testovacích dat s konkrétní kombinací targetu a predikce
+			- na diagonále jsou tedy počty správně klasifikovaných testovacích dat
+			- při binární klasifikaci buňky vlastně obsahují počty TP, FN, FP, TN
+			- [![confusion matrix](https://cdn.prod.website-files.com/660ef16a9e0687d9cc27474a/662c42677529a0f4e97e4f9c_644aec2628bc14d83ca873a2_class_guide_cm10.png)](https://www.evidentlyai.com/classification-metrics/confusion-matrix#how-to-read-a-confusion-matrix)
 	- binární klasifikace (navíc)
 		- základní dělení výsledků klasifikace
 			- predikce je pozitivní, realita (target) rovněž → true positive (TP)
@@ -57,6 +63,14 @@
 			- místo toho zafixujeme trénovací data a budeme měnit váhy → dostaneme $L(w)=p_\text{model}(X;w)=\prod_i p_\text{model}(x_i;w)$
 			- $w_\text{MLE}=\text{arg max}_w\,p_\text{model}(X;w)$
 				- MLE … maximum likelihood estimation
+	- bonus (z jarních státnic)
+		- *maximálně věrohodná hypotéza*
+			- z množiny hypotéz je to ta, která přiřazuje naměřeným datům největší pravděpodobnost
+			- $\mathrm{argmax}_h\,p(\mathrm{data}\mid h)$ nebo také $\mathrm{argmax}_h\,p_h(\mathrm{data})$
+			- z $p(\mathrm{data}\mid h)$ můžeme získat $p(h\mid\mathrm{data})=\frac{p(\mathrm{data}\mid h)p(h)}{\sum_{h'} p(\mathrm{data}\mid h')p(h')}$
+				- pokud mají všechny hypotézy stejné apriorní pravděpodobnosti, stačí vzít $p(\mathrm{data}\mid h)$ a normalizovat je, jelikož $\frac{p(h)}{\sum_{h'} p(\mathrm{data}\mid h')p(h')}$ bude konstantní
+		- *bayesovsky optimální predikce* pravděpodobnosti pro vstupní data a konkrétní predikci $z$
+			- $p(z\mid\mathrm{data})=\sum_h p(z\mid h)\cdot p(h\mid\mathrm{data})$
 - přeučení a regularizace (generalizační chyba, včasné zastavení trénování, L2 a L1 regularizace)
 	- underfitting – model je příliš slabý (příliš jednoduchý), plně jsme nevyužili jeho potenciál
 	- overfitting (přeučení) – model špatně generalizuje, příliš se přizpůsobil trénovacím datům
@@ -75,9 +89,13 @@
 			- omezujeme efektivní kapacitu modelu
 			- čím je model složitější, tím větší má váhy
 		- ke ztrátové funkci (loss ~~:.|:;~~) přičteme normu vah vynásobenou parametrem $\lambda$
-			- L1 regularizace … $\lambda(|w_1|+|w_2|+\dots+|w_n|)$
-			- L2 regularizace … $\lambda(w_1^2+w_2^2+\dots+w_n^2)$
+			- $L^1$ regularizace … $\lambda(|w_1|+|w_2|+\dots+|w_n|)$
+			- $L^2$ regularizace … $\lambda(w_1^2+w_2^2+\dots+w_n^2)$
 				- nebo také $\lambda\lVert w\rVert^2$, případně $\frac\lambda2\lVert w\rVert^2$, aby nám vyšla hezká derivace
+	- jak bojovat s overfittingem
+		- $L^2$ regularizací
+		- early stoppingem (s trénováním přestaneme, když začne validační chyba růst)
+		- vhodným nastavením learning ratu $\alpha$ (případně volbou rozumného learning rate schedule)
 - prokletí dimenzionality
 	- s rostoucím počtem dimenzí (features) potřebujeme čím dál víc (exponenciálně) trénovacích dat, aby model rozumně generalizoval
 	- chceme mít v trénovacích datech několik vzorků pro každou kombinaci features → s každou další dimenzí potřebujeme násobně víc vzorků
@@ -301,10 +319,14 @@
 	- jedná se o dva různé přístupy k trénování více modelů
 	- bagging
 		- modely se trénují nezávisle
-		- pro každý model náhodně vybereme vzorek trénovacích dat, na nichž se učí
+		- pro každý model náhodně vybereme vzorek trénovacích dat, na nichž se učí (typicky samplujeme s opakováním)
 	- boosting
 		- modely se trénují sekvenčně
 		- snažíme se postupně opravovat chyby předchozích modelů
+		- princip algoritmu AdaBoost
+			- postupně trénujeme slabé klasifikátory (např. mělké rozhodovací stromy/pařezy) na vážených trénovacích datech
+			- v každé iteraci upravujeme váhy trénovacích dat, aby špatně klasifikovaná data měla větší váhy
+			- rovněž přiřazujeme váhy klasifikátorům podle jejich přesnosti (accuracy)
 - metoda náhodných lesů
 	- trénování
 		- pro každý strom náhodně (s opakováním) vybereme sample trénovacích dat (= bagging)
@@ -312,6 +334,9 @@
 	- predikce
 		- u regrese průměrujeme hodnoty jednotlivých stromů
 		- u klasifikace hlasujeme
+	- les vs. strom
+		- strom se dá rychle natrénovat, jeho predikci lze snadno interpretovat (jako sérii rozhodnutí)
+		- les je obvykle přesnější a lépe generalizuje
 
 ## Statistické testy
 
@@ -319,13 +344,18 @@
 	- jednovýběrový t-test
 		- způsob, jak získat intervalový odhad pro $\theta$, neznáme-li rozptyl $\sigma^2$
 		- uvažujeme statistiku $T=\frac{\overline{X_n}-\theta_0}{\bar\sigma/\sqrt n}$, která má t-rozdělení s $n-1$ stupni volnosti, pokud $H_0$ platí
-		- najdeme bodový odhad $\hat\theta$ pro $\theta$
-			- třeba pokud nás zajímá $\mu$, tak prostě použijeme výběrový průměr
-		- máme $n$ hodnot
-		- $\delta=\frac{\bar\sigma}{\sqrt n}\cdot \Psi^{-1}_{n-1}(1-\alpha/2)$
-			- kde $\Psi^{-1}_{n-1}$ je kvantilová funkce studentova t-rozdělení
-		- vrátíme $[\hat\theta-\delta,\hat\theta+\delta]$
-			- v tomto intervalu bude pravděpodobně reálná hodnota $\theta$ pro populaci, z níž jsme data vybrali
+		- intervalový odhad
+			- najdeme bodový odhad $\hat\theta$ pro $\theta$
+				- třeba pokud nás zajímá $\mu$, tak prostě použijeme výběrový průměr
+			- máme $n$ hodnot
+			- $\delta=\frac{\bar\sigma}{\sqrt n}\cdot \Psi^{-1}_{n-1}(1-\alpha/2)$
+				- kde $\Psi^{-1}_{n-1}$ je kvantilová funkce studentova t-rozdělení
+			- vrátíme $[\hat\theta-\delta,\hat\theta+\delta]$
+				- v tomto intervalu bude pravděpodobně reálná hodnota $\theta$ pro populaci, z níž jsme data vybrali
+		- testování hypotézy
+			- např. pokud ověřujeme, že se střední hodnota rovná nějaké konstantě, tak konstantu i výběrový průměr dosadíme do vzorce pro $T$
+			- $H_0$ … $T$ má t-rozdělení s $n-1$ stupni volnosti
+			- $H_0$ zamítáme, když je spočítaná hodnota statistiky větší než kritická hodnota
 		- poznámka: proč uvažujeme $n-1$ stupňů volnosti, když máme $n$ hodnot?
 			- z $n-1$ hodnot můžu $n$-tou hodnotu dopočítat
 	- dvouvýběrový t-test
@@ -338,12 +368,15 @@
 		- uvažuju $R_i=Y_i-X_i$ (rozdíl dvojice), použiju jednovýběrový test
 - chí-kvadrát test (test dobré shody)
 	- Pearsonův chí-kvadrát test dobré shody
-	- $O_i$ … reálný výsledek
-	- $E_i$ … očekávaný výsledek
-	- $\chi^2=\sum_i\frac{(E_i-O_i)^2}{E_i}$
+	- $O_i$ … pozorovaná četnost kategorie $i$
+	- $E_i$ … očekávaná četnost kategorie $i$
+	- testová statistika: $\sum_i\frac{(E_i-O_i)^2}{E_i}$
 	- typická úloha: je kostka spravedlivá?
 		- použijeme $\chi^2$ distribuci pro 5 stupňů volnosti
 			- pokud $\chi^2$ pro naši konkrétní kostku náleží kritickému oboru $W$, prohlásíme, že kostka není spravedlivá
+	- $H_0$ … pozorované četnosti jednotlivých kategorií odpovídají jejich očekávaným četnostem
+	- pokud $H_0$ platí, má testová statistika rozdělení $\chi^2$ rozdělení s $n-1$ stupni volnosti, přičemž $n$ je počet kategorií
+	- $H_0$ zamítáme, když je spočítaná hodnota statistiky větší než kritická hodnota
 
 ## Učení bez učitele
 
@@ -413,3 +446,6 @@
 		- redukce dimenzí dat, extrakce features
 		- vizualizace dat
 		- praktické použití: doporučovací systémy
+	- příklad použití PCA
+		- [![příklad](https://towardsdatascience.com/wp-content/uploads/2020/05/1ba0XpZtJrgh7UpzWcIgZ1Q-2048x1372.jpeg)](https://towardsdatascience.com/pca-clearly-explained-how-when-why-to-use-it-and-feature-importance-a-guide-in-python-7c274582c37e/)
+		- PCA postupně hledá osy s největším rozptylem
