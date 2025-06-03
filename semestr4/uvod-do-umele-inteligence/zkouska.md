@@ -203,7 +203,7 @@
 			- heuristika je monotónní, když $h(n)\leq c(n,a,n')+h(n')$
 		- tvrzení: monotónní heuristika je přípustná
 		- důkaz
-			- vezmu nejkratší cestu do cíle … $n_1,n_2,\dots,n_k$
+			- vezmu nejkratší cestu do cíle: $n_1,n_2,\dots,n_k$
 			- z monotonie pro $i\in[k-1]$ vyjádřím $h(n_i)-h(n_{i+1})\leq c(n_i,a_i,n_{i+1})$
 			- sečtu to, čímž dostanu $h(n_1)\leq\sum_{i\in[k-1]} c(n_i,a_i,n_{i+1})$
 				- jelikož $h(n_k)=0$
