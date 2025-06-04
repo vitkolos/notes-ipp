@@ -38,11 +38,11 @@
 			- goal test (funkce, která odpoví true/false podle toho, zda je daný stav cílový)
 - stromové vs. grafové prohledávání
 	- udržujeme si hranici (frontier) prozkoumané oblasti
-	- graph-search si navíc ukládá „uzavřenost“ vrcholu (jestli už jsme vrchol viděli)
+	- graph search si navíc ukládá „uzavřenost“ vrcholu (jestli už jsme vrchol viděli)
 		- takže nenastávají problémy s cykly
 		- kvůli tomu, že stavový prostor může být nekonečný, neinicializujeme všechny vrcholy, ale místo toho použijeme hešovací tabulku
-	- i tree-search lze použít k prohledávání grafů s cykly, ale může se chovat divně
-	- u prohledávání DAGů tree-search nezaručuje, že se prohledané stavy nebudou opakovat (opakovat se můžou, pokud do stejného vrcholu vedou dvě orientované cesty)
+	- i tree search lze použít k prohledávání grafů s cykly, ale může se chovat divně
+	- u prohledávání DAGů tree search nezaručuje, že se prohledané stavy nebudou opakovat (opakovat se můžou, pokud do stejného vrcholu vedou dvě orientované cesty)
 - neinformované prohledávání (DFS, BFS, uniform-cost search)
 	- BFS (fronta)
 		- nejmělčí neexpandovaný vrchol je zvolen k expanzi
@@ -52,9 +52,9 @@
 		- problém je s prostorovou složitostí
 	- DFS (zásobník)
 		- nejhlubší neexpandovaný vrchol je zvolen k expanzi
-		- úplný pro graph-search
+		- úplný pro graph search
 			- úplný = nalezne řešení vždy, když existuje (a v opačném případě hlásí, že řešení neexistuje)
-		- neúplný pro tree-search (pokud algoritmus pustíme na grafu, který není strom)
+		- neúplný pro tree search (pokud algoritmus pustíme na grafu, který není strom)
 		- suboptimální – nesměřuje k cíli
 		- časová složitost $O(b^m)$, kde $m$ je maximální hloubka libovolného vrcholu
 		- prostorová složitost $O(bm)$
@@ -98,15 +98,114 @@
 ## Splňování omezujících podmínek
 
 - problém splňování podmínek
+	- = constraint satisfaction problem (CSP)
+	- konečná množina proměnných
+	- domény – konečné množiny možných hodnot pro každou proměnnou
+	- konečná množina podmínek (constraints)
+		- constraint je relace na podmnožině proměnných
+		- constraint arity = počet proměnných, které podmínka omezuje
+	- chceme přípustné řešení (feasible solution)
+		- úplné konzistentní přiřazení hodnot proměnným
+		- konzistentní … všechny podmínky jsou splněny
+	- CSP můžeme řešit tree-search backtrackingem
+		- úpravou proměnných v určitém pořadí můžeme získat větší efektivitu
+		- můžeme pročistit hodnoty, které zjevně nesplňují podmínky
+			- příklad
+				- $a\in\set{3,4,5,6,7}$
+				- $b\in\set{1,2,3,4,5}$
+				- constraint: $a\lt b$
+				- ale např. $a=6$ vůbec nedává smysl
+				- odstraněním nekonzistentních hodnot dostaneme $a\in \set{3,4}$, $b\in\set{4,5}$
+			- můžeme použít metodu hranové konzistence
 - hranová konzistence (algoritmus AC-3)
+	- = arc consistency (arc … orientovaná hrana)
+	- uvažujme binární podmínky
+		- libovolnou n-ární podmínku lze převést na balík binárních podmínek
+	- každá binární podmínka odpovídá dvojici orientovaných hran v síti podmínek (vrcholy odpovídají proměnným)
+		- pokud je mezi dvěma proměnnými více podmínek, můžeme je sloučit do jedné (abychom neměli multigraf)
+	- orientovaná hrana $(V_i,V_j)$ je hranově konzistentní $\equiv$ pro každé $x\in D_i$ existuje $y\in D_j$ takové, že přiřazení $V_i=x$ a $V_j=y$ splní všechny binární podmínky pro $V_i,V_j$
+		- může platit, že $(V_i,V_j)$ je hranově konzistentní, ale $(V_j,V_i)$ není
+	- CSP je hranově konzistentní $\equiv$ každá hrana je hranově konzistentní (v obou směrech)
+	- algoritmus AC-3
+		- začínám se všemi hranami (podmínkami) ve frontě
+		- postupně beru hrany z fronty a pro každou odstraním nekonzistentní prvky z domény
+		- pokud jsem odstranil nějaké prvky z domény, musím zopakovat kontrolu pro hrany směřující do dané proměnné (kromě hrany opačné k té aktuálně zpracované)
+		- složitost $O(cd^3)$, kde $c$ je počet podmínek, $d$ je velikost domény
+			- $O(d^2)$ … kontrola konzistence
+			- každá podmínka se ve frontě může objevit nejvýše $d$-krát, protože se z dané domény dá odstranit nejvýše $d$ prvků
+		- optimální algoritmus má složitost $O(cd^2)$
+	- hranová konzistence je typ lokální konzistence, negarantuje globální konzistenci
+	- arc consistency (AC) vs. forward checking (FC)
+		- FC je jednodušší (a rychlejší) než AC, slouží ke stejnému účelu – zrychlení prohledávání
+		- FC na základě přiřazení do proměnné (v daném kroku prohledávání) pročistí domény dosud nepřiřazených proměnných
+		- AC k tomu navíc zajišťuje vzájemnou kompatibilitu domén nepřiřazených proměnných
 - algoritmus hledání řešení (MAC)
+	- chceme zkombinovat AC a backtracking
+	- problém uděláme hranově konzistentní
+	- po každém přiřazení obnovíme hranovou konzistenci
+	- této technice se říká *look ahead* nebo *constraint propagation* nebo *udržování hranové konzistence* (MAC, maintaining arc consistency)
+	- kontroly FC/AC jsou v polynomiálním čase, kdežto strom stavů se větví exponenciálně
 
 ## Logické uvažování
 
 - základy výrokové logiky (konjunktivní a disjunktivní normální forma)
+	- viz [Společná matematika](spolecna-matematika.md)
+	- výrokovou logiku lze použít k logickému odvozování znalostí na základě znalostní báze
 - algoritmus DPLL
+	- literál $\ell$ má čistý výskyt ve $\varphi$, pokud se $\ell$ vyskytuje ve $\varphi$ a opačný literál $\overline\ell$ se ve $\varphi$ nevyskytuje
+		- takový literál můžu nastavit na 1
+		- to neovlivní splnitelnost výroku, ale zmenší to množinu modelů, které jsem schopen nalézt
+	- algoritmus
+		- dokud $\varphi$ obsahuje jednotkovou klauzuli $\ell$, ohodnoť $\ell=1$ a proveď jednotkovou propagaci
+			- každou klauzuli obsahující $\ell$ odstraníme (protože je takto splněna)
+			- $\overline\ell$ odstraníme ze všech klauzulí, které ho obsahují (protože $\overline\ell$ nemůže zajistit splnění dané klauzule)
+		- dokud existuje literál $\ell$, který má ve $\varphi$ čistý výskyt, ohodnoť $\ell=1$ a odstraň klauzule obsahující $\ell$
+		- pokud $\varphi$ neobsahuje žádnou klauzuli, je splnitelný
+		- pokud $\varphi$ obsahuje prázdnou klauzuli, není splnitelný
+		- jinak zvol dosud neohodnocenou výrokovou proměnnou $p$ a zavolej algoritmus rekurzivně na $\varphi\land p$ a na $\varphi\land\neg p$
+	- algoritmus běží v exponenciálním čase
+	- praktické poznámky
+		- čistý výskyt se zas tak moc nepoužívá
+		- jednotková propagace
+			- hledám klauzule o jedné proměnné
+			- je v zásadě ekvivalentní hranové konzistenci
+		- ke zkoušení hodnot proměnných se používá tree search
 - dopředné a zpětné řetězení (Hornovské klauzule)
+	- mám dotaz $\alpha$, ten vyjádřím jako výrokovou formuli
+		- znalostní bázi $KB$ vyjádřím jako teorii
+		- zajímá mě, zda $KB\models\alpha$ (to platí, právě když $KB\land\neg\alpha$ je nesplnitelné)
+	- řetězení můžeme použít, pokud znalostní báze obsahuje pouze Hornovy klauzule
+		- Hornova klauzule = disjunkce literálů, z nichž nejvýše jeden je pozitivní
+		- Hornovu klauzuli $\neg p\lor\neg q\lor\neg r\lor s$ lze zapsat jako implikaci $p\land q\land r\implies s$
+	- forward chaining … data-driven reasoning
+		- $p\land q\land r\implies s$
+		- pokud vím, že platí $p$, pak převedu na $q\land r\implies s$
+		- jakmile se počet předpokladů sníží na 0, vím, že $s$ platí
+		- je to v podstatě speciální případ použití rezolučního pravidla
+			- rezolvuju to, co vím, s libovolnou klauzulí
+		- algoritmus
+			- každá proměnná má počítadlo proměnných, které na ni ukazují
+			- postupně beru pravdivé proměnné, snižuju počítadla u proměnných, na které ukazují
+			- jakmile u proměnné klesne počítadlo na nulu, zařadím mezi pravdivé proměnné
+	- backward chaining … goal-driven reasoning
+		- něco mě zajímá – pokouším se to odvodit
+			- najdu klauzule, kde je nějaký literál z $\alpha$ na pravé straně implikace
+			- tak dostanu další literály, které musím dokázat
+			- postupuju tak dlouho, dokud se nedostanu k faktům (literálům, o nichž vím, že platí)
+		- tohle se používá v Prologu
+		- opět vlastně používám rezoluční pravidlo
+			- to, co chci zjistit, rezolvuju s libovolnou klauzulí
+	- forward chaining prochází spoustu klauzulí, které nás nezajímají – backward chaining může mít výrazně menší složitost
 - rezoluce
+	- mám dotaz $\alpha$, ten vyjádřím jako výrokovou formuli
+		- znalostní bázi $KB$ vyjádřím jako teorii
+		- zajímá mě, zda $KB\models\alpha$ (to platí, právě když $KB\land\neg\alpha$ je nesplnitelné)
+	- $KB\land\neg\alpha$ převedeme do CNF → dostaneme množinu klauzulí (formuli $S$)
+	- použijeme rezoluci (zkonstruujeme rezoluční zamítnutí formule $S$)
+		- použitím rezolučního pravidla z klauzulí $\varphi\lor p$ a $\psi\lor\neg p$ dostaneme $\varphi\lor\psi$
+		- zkoušíme spolu rezolvovat postupně všechny dvojice klauzulí
+		- pokud v průběhu dostaneme prázdnou klauzuli, máme rezoluční důkaz $\alpha$ z $KB$
+		- pokud se dostaneme do stavu, kdy nelze použít rezoluční pravidlo na žádnou dvojici klauzulí, tak víme, že neplatí $KB\models\alpha$
 
 ## Pravděpodobnostní uvažování
 

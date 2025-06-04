@@ -110,6 +110,17 @@
 - prokletí dimenzionality
 	- s rostoucím počtem dimenzí (features) potřebujeme čím dál víc (exponenciálně) trénovacích dat, aby model rozumně generalizoval
 	- chceme mít v trénovacích datech několik vzorků pro každou kombinaci features → s každou další dimenzí potřebujeme násobně víc vzorků
+	- k redukci počtu dimenzí se obvykle používají následující přístupy
+		- filter
+			- nezávislý na modelu, features vybírá na základě jejich vlastností
+			- k hodnocení relevance features se používají statistické metody
+				- konzistence – nemůžeme odstranit features, pokud bychom tak ztratili možnost odlišit prvky s různými targety (třídami)
+				- korelace – dobré features korelují s třídami a nekorelují s jinými features
+				- vzdálenost mezi třídami
+				- metriky z teorie informace – např. vzájemná informace
+		- wrapper
+			- závislý na modelu, features vybírá tak, aby optimalizoval jeho výsledky
+			- model se natrénuje, pak se vyhodnotí pomocí standardních technik (accuracy, F-measure apod.)
 
 ## Učení založené na příkladech
 
@@ -372,7 +383,9 @@
 	- dvouvýběrový t-test
 		- můžeme testovat třeba to, jestli se rovnají střední hodnoty parametru $\theta$ u dvou různých populací (samplujeme nezávisle, vzorků může být různý počet)
 		- např. $H_0$ … $\mu_X=\mu_Y$
-		- opět uvažujeme testovou statistiku $T$ s t-rozdělením (komplikovanější vzorec)
+		- opět uvažujeme testovou statistiku $T$ s t-rozdělením
+			- $T=\frac{\overline{X_n}-\overline{Y_m}}{\mathrm{SE}}$
+			- přičemž $\mathrm{SE}$ je směrodatná chyba (vzorec je komplikovaný)
 	- bonus: párový test
 		- data jsou ve dvojicích, dvojice dat spolu nějak souvisí
 		- např. $H_0$ … $\mu_X=\mu_Y$
