@@ -397,9 +397,49 @@
 ## Markovské rozhodovací procesy (MDP)
 
 - formulace problému (výpočet užitku, strategie)
+	- řešíme sekvenční rozhodovací problém
+	- pro plně pozorovatelné stochastické (nedeterministické) prostředí
+	- máme Markovův přechodový model a reward
+		- přechodový model $P(s'\mid s,a)$ … pravděpodobnost dosažení stavu $s'$, když ve stavu $s$ použiju akci $a\in A(s)$
+		- odměna (reward) $R(s)$ … získá ji agent ve stavu $s$, je krátkodobá
+		- utility function $U([s_0,s_1,s_2,\dots])=R(s_0)+\gamma R(s_1)+\gamma^2 R(s_2)+\dots$
+			- kde $\gamma$ je *discount factor*, číslo mezi 0 a 1
+			- utility je „dlouhodobá lokální odměna“
+			- hodnota utility funkce je konečná i pro nekonečnou posloupnost stavů, protože zjevně $U([s_0,\dots])\leq \frac{R_\text{max}}{1-\gamma}$
+	- řešením MDP je policy (strategie) – funkce doporučující akci pro každý stav
+		- tzn. strategie je zobrazení $\pi:S\to A$
+		- potřebujeme zobrazení, protože kdyby řešením byla fixní sekvence akcí, tak by to nefungovalo pro stochastická prostředí (mohlo by se stát, že skončíme v jiném stavu, než jsme mysleli)
+		- optimální strategie $\equiv$ strategie, která vrací největší očekávanou utilitu
+		- optimální strategie nezávisí na počátečním stavu – je jedno, kde jsme začali, pro nalezení nejvhodnější další akce by měl být důležitý jen aktuální stav
 - Bellmanova rovnice
+	- opravdový užitek stavu je reward (odměna) stavu ve spojení s očekávaným užitkem následného stavu → to vede na Bellmanovu rovnici
+	- vezmu reward a discountovaný užitek okolí
+	- akorát nevím, kterou akci provedu, tak vezmu všechny a maximum přes ně (násobím jejich užitek pravděpodobností)
+	- $U(s)=R(s)+\gamma\max_a\sum_{s'}P(s'\mid s,a)\cdot U(s')$
 - iterace hodnot, iterace strategií
+	- soustava Bellmanových rovnic není lineární – obsahuje maximum
+		- můžu je řešit aproximací
+		- použiju iterativní přístup
+			- nastavím nějak užitky – třeba jim nastavím nuly
+			- provedu update – aplikuju Bellmanovu rovnici
+			- iteruju, dokud to nezkonverguje
+		- → **value iteration**
+	- strategie se ustálí dřív než užitky
+		- policy loss … vzdálenost mezi optimálním užitkem a užitkem strategie
+		- můžeme iterativně zlepšovat policy, dokud to jde
+		- → **policy iteration**
+		- z rovnic nám zmizí maximum → máme lineární rovnice
+			- policy evaluation = nalezení řešení těchto rovnic (tak najdeme utilities stavů)
+			- gaussovka je $O(n^3)$
+		- algoritmus doběhne, protože policies je jenom konečně mnoho a vždycky hledáme tu lepší
 - POMDP (základní definice)
+	- máme přechodový model $P(s'\mid s,a)$, akce $A(s)$ i odměny $R(s)$
+	- navíc nám přibude sensor model $P(s\mid e)$
+	- místo reálných stavů můžeme používat ty domnělé (belief states)
+	- modely přechodů a senzorů jsou reprezentovány dynamickou bayesovskou sítí
+	- přidáme rozhodování a užitky, čímž dostaneme dynamickou rozhodovací síť
+	- generujeme si stromeček, kde se střídají vrstvy akcí a belief states
+	- používá se algoritmus podobný algoritmu *expected minimax*
 
 ## Hry a teorie her
 
