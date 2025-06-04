@@ -535,7 +535,7 @@
 	- příklad – počítáme pravděpodobnost Burglary, když JohnCalls a MaryCalls
 		- $P(b\mid j,m)=\alpha\sum_e\sum_a P(b)P(e)P(a|b,e)P(j|a)P(m|a)$
 		- $=\alpha P(b)\sum_e P(e)\sum_aP(a|b,e) P(j|a) P(m|a)$
-	- když nemůžeme určit konkrétní hodnotu pravěpodobnosti přímo, tak výpočet rozvětvíme
+	- když nemůžeme určit konkrétní hodnotu pravděpodobnosti přímo, tak výpočet rozvětvíme
 	- některé větve se objeví vícekrát – hodí se nám dynamické programování
 	- používáme *faktory* (tabulky odpovídající CPD tabulkám)
 	- tabulky s faktory mezi sebou můžeme násobit – tak dostaneme novou tabulku se sjednocením proměnných

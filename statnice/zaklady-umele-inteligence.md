@@ -234,22 +234,165 @@
 		- $P(x_1,\dots,x_n)=\prod_iP(x_i\mid x_{i-1},\dots,x_1)$
 		- využívá product rule (lze odvodit z definice podmíněné pravděpodobnosti)
 - Bayesovské sítě: konstrukce a vztah k úplné sdružené distribuci
-	- TODO
+	- bayesovská síť je DAG, kde vrcholy odpovídají náhodným proměnným
+		- šipky popisují závislost
+		- u každého vrcholu jsou CPD tabulky, které popisujou jeho závislost na rodičích
+			- CPD = conditional probability distribution
+			- pro každou kombinaci hodnot rodičů jsou v CPD tabulce pravděpodobnosti hodnot dané náhodné proměnné
+	- [![bayesovská síť](prilohy/bayesovska-sit.png)](prilohy/bayesovska-sit.png)
+		- autorem obrázku je [Roman Barták](https://ktiml.mff.cuni.cz/~bartak/ui_intro/)
+		- proměnné jsou binární, proto má tabulka vždy jen jeden sloupec (druhý sloupec by mohl obsahovat pravděpodobnost, že jev nenastane – lze ho dopočítat z prvního řádku)
+	- konstrukce bayesovské sítě
+		- nějak si uspořádáme proměnné
+			- lepší je řadit je od příčin k důsledkům – budeme mít menší síť a CPD tabulky se nám budou vyplňovat snáze
+		- jdeme odshora dolů, přidáváme správné hrany
+		- příklad: MaryCalls, JohnCalls, Alarm, Burglary, Earthquake (záměrně jdeme od důsledků k příčinám, byť to není praktické)
+			- z MaryCalls povede hrana do JohnCalls, protože nejsou nezávislé (když volá Mary, tak je větší šance, že volá i John)
+			- z obou povede hrana do Alarmu
+			- z Alarmu vedou hrany do Burglary a Earthquake (ale hrany z JohnCalls a MarryCalls tam nepovedou – na těch hranách nezáleží, jsou nezávislé)
+			- z Burglary povede hrana do Earthquake, protože pokud zní alarm a k vloupání nedošlo, tak pravděpodobně došlo k zemětřesení
+			- akorát se nám v tomto pořadí budou špatně určovat CPD
+	- bayesovská síť zachycuje úplnou sdruženou (joint) distribuci
+		- dokážeme určit pravděpodobnost libovolné kombinace hodnot náhodných proměnných
+		- pronásobíme mezi sebou hodnoty z tabulek
 - Bayesovské sítě: exaktní odvozování (enumerace, eliminace proměnných)
-	- TODO
+	- z bayesovských sítí můžeme provádět inferenci – odvozovat pravděpodobnost proměnných pomocí pravděpodobností *skrytých* proměnných
+	- $P(X\mid e)=\alpha P(X,e)=\alpha\sum_y P(X,e,y)$
+		- kde pravděpodobnost $X$ odvozujeme, $e$ jsou pozorované proměnné (evidence) a $y$ jsou hodnoty další skryté proměnné $Y$
+	- přičemž $P(X,e,y)$ lze určit pomocí CPD tabulek
+		- když nemůžeme určit konkrétní hodnotu pravděpodobnosti přímo, tak výpočet rozvětvíme
+		- některé větve se objeví vícekrát – hodí se nám dynamické programování
+	- používáme *faktory* (tabulky odpovídající CPD tabulkám)
+		- tabulky s faktory mezi sebou můžeme násobit
+		- eliminace
+			- mějme faktor s pravděpodobnostmi $P(A,B,C)$ pro všechny možné kombinace hodnot proměnných
+			- můžeme ho rozdělit na dvě půlky (v jedné bude všude platit $A$, v druhé $\neg A$)
+			- tyhle dvě půlky můžeme sečíst (vždy odpovídající řádky)
+			- tak eliminujeme proměnnou $A$, dostaneme faktor s pravděpodobnostmi $P(B,C)$
 - Bayesovské sítě: aproximační odvozování (Monte Carlo, zamítání, vážení věrohodností)
-	- TODO
+	- odhadujeme hodnoty, které je těžké přímo spočítat
+		- třeba když je síť moc velká a hustě propojená
+		- zajímá nás $P(X\mid e)$
+	- generujeme hodně vzorků, použijeme statistiku
+	- pravděpodobnostní rozdělení náhodných veličin známe (postupujeme topologicky bayesovskou sítí a generujeme hodnoty)
+	- jak generovat vzorky?
+		- rejection sampling = zahodíme vzorky, kde neplatí $e$
+			- odhadneme $P(X\mid e)\approx\frac{N(X,e)}{N(e)}$
+				- $N(X,e)$ … počet vzorků, kde platí $X,e$
+			- riziko, že zahodíme příliš mnoho vzorků
+		- likelihood weighting
+			- zafixujeme (ignorujeme) $e$, generujeme jen zbylé proměnné
+			- počtům $N$ přidělíme váhy podle pravděpodobnosti $e$ (např. místo toho, abychom zahodili cca 90 % vzorků, přiřadíme těm počtům váhu 0.1)
+			- problém nastává, když jsou váhy příliš malé
 
 ## Reprezentace znalostí
 
 - situační kalkulus, problém rámce
+	- problém rámce
+		- návrh: stav světa/agenta budeme popisovat pomocí časově anotovaných výrokových proměnných
+		- musíme definovat spoustu axiomů, které zajistí, že se hodnoty proměnných mezi časovými kroky nemění náhodně
+		- tak bychom snadno zahltili odvození pomocí výrokové logiky, protože bychom měli hodně akcí a stavů
+	- jak předejít opakování axiomů pro různé časy a podobné akce?
+		- použijeme predikátovou logiku prvního řádu (*situation calculus*)
+		- náš modelovaný svět se vyvíjí – postupně nastávají různé *situace*
+			- úvodní situace … $s_0$
+			- situace po aplikace akce $a$ na situaci $s$ … $\text{Results}(s,a)$
+		- stavy jsou definovány jako relace mezi objekty
+			- pokud se relace mění, musíme přidat další argument označující situaci, v níž relace platí: $\mathrm{at}(\mathrm{robot}, \mathrm{location}, s)$
+			- pro stálé relace takový argument není potřeba: $\mathrm{connected}(l, l')$
+		- podmínky (předpoklady) akcí jsou definovány possibility axiomem
+			- obecný tvar: $\varphi(s)\implies \text{Poss}(a,s)$
+				- kde $\varphi$ je formule popisující předpoklady akce $a$
+			- např. $\mathrm{at}(a, l, s) \land \mathrm{connected}(l, l') \implies \mathrm{Poss}(\mathrm{go}(a, l, l'), s)$
+		- vlastnosti dalšího stavu jsou popsány pomocí successor-state axiomů
+			- např. $\mathrm{Poss}(a, s) \implies$ $(\mathrm{at}(a,y,\mathrm{Results}(s, a)) \iff a=\mathrm{go}(a,x,y) \lor (\mathrm{at}(a,y,s) \land a\neq \mathrm{go}(a,y,z))$
+		- plánování se provádí tak, že se zeptáme, zda existuje situace, kde je cílová podmínka pravdivá
 - Markovské modely – filtrace, predikce, vyhlazování, nejpravděpodobnější průchod
+	- každý stav světa je popsán množinou náhodných proměnných
+		- skryté náhodné proměnné $X_t$ – popisují reálný stav
+		- pozorovatelné náhodné proměnné $E_t$ – popisují, co pozorujeme
+		- uvažujeme diskrétní čas, takže $t$ označuje konkrétní okamžik
+		- množinu proměnných od $X_a$ do $X_b$ budeme značit jako $X_{a:b}$
+	- formální model
+		- transition model
+			- určuje pravděpodobnostní rozložení proměnných posledního stavu, když známe jejich předchozí hodnoty … $P(X_t\mid X_{0:t-1})$
+			- zjednodušující předpoklady
+				- další stav závisí jen na předchozím stavu … *Markov assumption*
+				- všechny přechodové tabulky $P(X_t\mid X_{t-1})$ jsou identické přes všechna $t$ … *stationary process*
+		- sensor (observation) model
+			- popisuje, jak pozorované proměnné závisí na ostatních proměnných … $P(E_t\mid X_{0:t},E_{1:t-1})$
+			- zjednodušující předpoklad: pozorování záleží jen na aktuálním stavu … *sensor Markov assumption*
+	- základní inferenční úlohy
+		- filtrování – znám minulá pozorování, zajímá mě přítomný stav
+			- $P(X_{t+1}\mid e_{1:t+1})=P(X_{t+1}\mid e_{1:t},e_{t+1})$
+				- použijeme Bayesovo pravidlo
+			- $=\alpha\cdot P(e_{t+1}\mid X_{t+1},e_{1:t})\cdot P(X_{t+1}\mid e_{1:t})$
+				- použijeme *sensor Markov assumption*
+			- $=\alpha\cdot P(e_{t+1}\mid X_{t+1})\cdot P(X_{t+1}\mid e_{1:t})$
+			- $=\alpha\cdot P(e_{t+1}\mid X_{t+1})\cdot \sum_{x_t}P(X_{t+1}\mid x_t,e_{1:t})\cdot P(x_t\mid e_{1:t})$
+			- $=\alpha\cdot P(e_{t+1}\mid X_{t+1})\cdot \sum_{x_t}P(X_{t+1}\mid x_t)\cdot P(x_t\mid e_{1:t})$
+			- užitečný filtrovací algoritmus si musí udržovat odhad současného stavu, jelikož je vzorec rekurzivní
+			- používá se *forward* algoritmus
+		- předpověď (prediction) – znám minulá pozorování, zajímají mě budoucí stavy
+			- vlastně jako filtering, akorát nepřidávám další pozorování (měření)
+			- $P(X_{t+k+1}\mid e_{1:t})=\sum_{x_{t+k}} P(X_{t+k+1}\mid x_{t+k})\cdot P(x_{t+k}\mid e_{1:t})$
+			- po určitém čase (*mixing time*) distribuce předpovědí konverguje ke stacionárnímu rozdělení daného markovského procesu a zůstane konstantní
+		- vyhlazování (smoothing) – znám minulá pozorování, zajímají mě minulé stavy
+			- $P(X_k\mid e_{1:t})=P(X_k\mid e_{1:k},e_{k+1:t})$
+				- použijeme Bayesovo pravidlo
+			- $=\alpha\cdot P(X_k\mid e_{1:k})\cdot P(e_{k+1:t}\mid X_k,e_{1:k})$
+				- použijeme *sensor Markov assumption*
+			- $=\alpha\cdot P(X_k\mid e_{1:k})\cdot P(e_{k+1:t}\mid X_k)$
+			- přitom levý člen známe z filteringu (je to „dopředný směr“), pravý je „zpětný směr“ z naměřených hodnot *v budoucnosti* (relativně vůči danému okamžiku)
+			- používá se *forward-backward* algoritmus
+		- nejpravděpodobnější vysvětlení (most likely explanation) – znám minulá pozorování, zajímá mě nejpravděpodobnější posloupnost minulých stavů
+			- hledáme posloupnost $X_{1:t}$ takovou, že má největší $P(X_{1:t+1}\mid e_{1:t+1})$
+			- opět existuje rekurzivní vzorec – podíváme se na pravděpodobnosti předchozích stavů a na nejpravděpodobnější „cesty“ do těchto stavů
+			- používá se *Viterbiho* algoritmus
 - skryté Markovské modely (HMM) vs. dynamické Bayesovské sítě
+	- skryté Markovovy modely
+		- předpokládejme, že stav procesu je popsán jedinou diskrétní náhodnou proměnnou $X_t$ (a máme jednu proměnnou $E_t$ odpovídající pozorování)
+		- pak můžeme všechny základní algoritmy (filtering, prediction, smoothing, …) implementovat maticově
+	- dynamická bayesovská síť
+		- reprezentuje časový pravděpodobnostní model
+		- zachycuje vztah mezi minulým a současným časovým okamžikem (minulou a současnou vrstvou)
+		- každá stavová proměnná má rodiče ve stejné vrstvě nebo v předchozí (podle Markovova předpokladu)
+	- dynamická bayesovská síť (DBN) vs. skrytý Markovův model (HMM)
+		- skrytý Markovův model je speciální případ dynamické bayesovské sítě
+		- dynamická bayesovská síť může být kódovaná jako skrytý Markovův model
+			- jedna náhodná proměnná ve skrytém Markovově modelu je n-tice hodnot stavových proměnných v dynamické bayesovské síti
+		- vztah mezi DBN a HMM je podobný jako vztah mezi běžnými bayesovskými sítěmi a tabulkou s *full joint probability distribution*
+			- DBN je úspornější
 
 ## Automatické plánování
 
 - formulace plánovacího problému (definice operátoru)
+	- stav světa je reprezentován jako množina proměnných
+		- stav je popsán atomy, které platí (ostatní neplatí, používáme předpoklad uzavřeného světa)
+		- pravdivnostní hodnota některých atomů se mění … fluents
+		- u jiných atomů je pravdivostní hodnota stálá … rigid atoms
+	- schémata akcí (operátory) popisují možnosti agenta
+		- schéma akce (operátor) popisuje akci, aniž by specifikovalo objekty, na které se akce vztahuje
+		- operátor je trojice (název, předpoklady, důsledky)
+			- název – obsahuje rovněž parametry operátoru (proměnné, které se objevují v předpokladech a důsledcích)
+			- předpoklady – musí platit v daném stavu, aby se operátor dal použít
+			- důsledky – literály (fluenty!), které budou platit, jakmile se operátor provede
+		- akce je plně zinstanciovaný operátor (za proměnné jsme dosadili konstanty)
+		- akce je relevantní pro cíl $g\equiv$ přispívá cíli $g$ a její důsledky (efekty) nejsou v konfliktu s $g$
+		- dále definujeme výsledek aplikace akce na stav a regresní množinu pro cíl a akci
+	- terminologie
+		- popisu operátorů se obvykle říká doménový model
+		- plánovací problém je trojice $(O,s_0,g)$, kde $O$ je doménový model, $s_0$ je výchozí stav a $g$ je cílová podmínka
+		- plán je posloupnost akcí
+	- plánování je realizováno prohledáváním stavového prostoru
+		- ten je mnohdy dost velký
 - dopředné a zpětné plánování
+	- forward (progression) planning
+		- postupujeme od výchozího k cílovému stavu
+		- prohledávací algoritmus potřebuje dobrou heuristiku
+	- backward (regression) planning
+		- prozkoumávají se jen relevantní akce → menší větvení než u forward planningu
+		- používá množiny stavů spíše než individuální stavy → je těžké najít dobrou heuristiku
 
 ## Markovské rozhodovací procesy (MDP)
 
