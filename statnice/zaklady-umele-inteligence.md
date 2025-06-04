@@ -210,10 +210,35 @@
 ## Pravděpodobnostní uvažování
 
 - základy teorie pravděpodobnosti (úplná sdružená distribuce, nezávislost, Bayesovo pravidlo)
+	- viz [Společná matematika](spolecna-matematika.md)
+	- pravděpodobnostní uvažování umožňuje agentovi zacházet s nejistotou
+	- zdroji nejistoty jsou částečná pozorovatelnost (nelze snadno zjistit současný stav) a nedeterminismus (není jisté, jak akce dopadne)
+	- agent si pamatuje belief state – pravděpodobnostní distribuce přes všechny možné stavy světa, v nichž se agent může nacházet
 - pravděpodobnostní uvažování (vysčítání, normalizace)
+	- někdy si můžeme udělat tabulku všech možností a určit jejich pravděpodobnosti (full joint probability distribution)
+		- odpověď lze vyjádřit z ní (této metodě se říká enumeration, výčet) – ale u velkých tabulek je někdy potřeba posčítat příliš mnoho hodnot
+	- $P(Y)=\sum_z P(Y\mid z)\cdot P(z)$
+	- $P(Y\mid e)=\frac{P(Y\land e)}{P(e)}$
+		- typicky nemusíme znát $P(e)$, stačí použít $\alpha P(Y\land e)$, kde $\alpha$ je normalizační konstanta
+	- velkou tabulku můžeme někdy reprezentovat menším způsobem – pokud jsou proměnné podmíněně nezávislé
+	- Bayesovo pravidlo … $P(Y\mid X)=\frac{P(X\mid Y)P(Y)}{P(X)}=\alpha P(X\mid Y) P(Y)$
+		- lze odvodit z definice podmíněné pravděpodobnosti
+		- pomůže nám při přechodu z příčinného k diagnostickému směru
+			- $P(\mathrm{effect} \mid \mathrm{cause})$ … casual direction (příčinný směr), obvykle známý
+			- $P(\mathrm{cause} \mid \mathrm{effect})$ … diagnostic direction (diagnostický směr), obvykle chceme zjistit
+			- známe důsledky; chceme zjistit, jaké příčiny k nim mohly vést
+	- naivní bayesovský model
+		- $P(\text{Cause}, \text{Effect}_1, \dots, \text{Effect}_n) = P(\text{Cause})\prod_iP(\text{Effect}_i\mid\text{Cause})$
+		- předpokládáme nezávislost důsledků
+	- chain rule
+		- $P(x_1,\dots,x_n)=\prod_iP(x_i\mid x_{i-1},\dots,x_1)$
+		- využívá product rule (lze odvodit z definice podmíněné pravděpodobnosti)
 - Bayesovské sítě: konstrukce a vztah k úplné sdružené distribuci
+	- TODO
 - Bayesovské sítě: exaktní odvozování (enumerace, eliminace proměnných)
+	- TODO
 - Bayesovské sítě: aproximační odvozování (Monte Carlo, zamítání, vážení věrohodností)
+	- TODO
 
 ## Reprezentace znalostí
 
