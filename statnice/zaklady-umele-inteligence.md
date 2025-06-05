@@ -444,6 +444,14 @@
 ## Hry a teorie her
 
 - algoritmy Minimax a alfa-beta prořezávání
+	- algoritmus minimax umožňuje u hry dvou hráčů s nulovým součtem a s úplnou informací určit optimální strategie obou hráčů
+		- procházíme strom hry
+		- v listech nebo v určité hloubce získáme ohodnocení vrcholů
+		- následně vždy v rodiči zvolíme minimum nebo maximum ze synů (v závislosti na tom, který hráč je zrovna na tahu – volba minima a maxima se střídají stejně jako tahy hráčů)
+		- takto pro každý vrchol určíme, jaký tah je v dané situaci optimální
+			- za předpokladu, že protihráč hraje optimálně – což je nejhorší možný scénář
+	- alfa-beta prořezávání
+		- TODO
 - základy teorie her (vězňovo dilema, Nashovo ekvilibrium)
 - mechanism design (typy aukcí)
 
