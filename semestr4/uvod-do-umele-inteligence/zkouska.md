@@ -977,7 +977,7 @@
 	- maximum-likelihood parameter learning
 		- hledáme hypotézu, která nejlépe vysvětluje příklady
 		- nejprve vyjádříme pravděpodobnost dat za podmínky dané hypotézy
-		- pak derivujeme logaritmus téhle pravděpodobnosti postupně podle každého hladeného parametru
+		- pak derivujeme logaritmus téhle pravděpodobnosti postupně podle každého hledaného parametru
 		- určíme hodnoty parametrů tak, aby byly derivace nulové
 	- co když mám skryté proměnné (nejsou v datech)?
 		- můžu udělat bayesovskou síť bez skrytých proměnných, to ale může vést k výraznému zvýšení počtu parametrů
