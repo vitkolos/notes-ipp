@@ -102,7 +102,7 @@
 	- konečná množina proměnných
 	- domény – konečné množiny možných hodnot pro každou proměnnou
 	- konečná množina podmínek (constraints)
-		- constraint je relace na podmnožině proměnných
+		- constraint je relace na podmnožině proměnných (je to podmnožina kartézského součinu domén)
 		- constraint arity = počet proměnných, které podmínka omezuje
 	- chceme přípustné řešení (feasible solution)
 		- úplné konzistentní přiřazení hodnot proměnným
@@ -448,6 +448,7 @@
 	- algoritmus minimax umožňuje u hry dvou hráčů s nulovým součtem a s úplnou informací určit optimální strategie obou hráčů
 		- procházíme strom hry
 		- v listech nebo v určité hloubce získáme ohodnocení vrcholů
+			- omezení hloubky je důležité zvláště u her, jejichž stromy se hodně větví – je potřeba zvolit vhodný přístup k ohodnocení konkrétní herní situace
 		- následně vždy v rodiči zvolíme minimum nebo maximum ze synů (v závislosti na tom, který hráč je zrovna na tahu – volba minima a maxima se střídají stejně jako tahy hráčů)
 		- takto pro každý vrchol určíme, jaký tah je v dané situaci optimální
 			- za předpokladu, že protihráč hraje optimálně – což je nejhorší možný scénář
@@ -515,6 +516,7 @@
 		- každý vnitřní vrchol odpovídá testu jednoho atributu
 		- dá se zjistit odůvodnění konkrétního rozhodnutí
 		- strom se dá postavit hladovou metodou rozděl a panuj
+			- k dělení se používá entropie
 		- každý list určuje hodnotu, kterou klasifikační funkce vrátí
 - regrese, SVM (základní principy)
 	- při regresi přiřazujeme položce $x$ vhodnou funkční hodnotu $y$
