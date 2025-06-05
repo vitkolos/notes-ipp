@@ -404,15 +404,16 @@
 		- odměna (reward) $R(s)$ … získá ji agent ve stavu $s$, je krátkodobá
 		- utility function $U([s_0,s_1,s_2,\dots])=R(s_0)+\gamma R(s_1)+\gamma^2 R(s_2)+\dots$
 			- kde $\gamma$ je *discount factor*, číslo mezi 0 a 1
+				- jak moc si ceníme budoucích odměn
 			- utility je „dlouhodobá lokální odměna“
 			- hodnota utility funkce je konečná i pro nekonečnou posloupnost stavů, protože zjevně $U([s_0,\dots])\leq \frac{R_\text{max}}{1-\gamma}$
 	- řešením MDP je policy (strategie) – funkce doporučující akci pro každý stav
 		- tzn. strategie je zobrazení $\pi:S\to A$
 		- potřebujeme zobrazení, protože kdyby řešením byla fixní sekvence akcí, tak by to nefungovalo pro stochastická prostředí (mohlo by se stát, že skončíme v jiném stavu, než jsme mysleli)
-		- optimální strategie $\equiv$ strategie, která vrací největší očekávanou utilitu
+		- optimální strategie $\equiv$ strategie, která vrací největší střední hodnotu užitku (utility)
 		- optimální strategie nezávisí na počátečním stavu – je jedno, kde jsme začali, pro nalezení nejvhodnější další akce by měl být důležitý jen aktuální stav
 - Bellmanova rovnice
-	- opravdový užitek stavu je reward (odměna) stavu ve spojení s očekávaným užitkem následného stavu → to vede na Bellmanovu rovnici
+	- opravdový užitek stavu je reward (odměna) stavu ve spojení se střední hodnotou užitku následného stavu → to vede na Bellmanovu rovnici
 	- vezmu reward a discountovaný užitek okolí
 	- akorát nevím, kterou akci provedu, tak vezmu všechny a maximum přes ně (násobím jejich užitek pravděpodobností)
 	- $U(s)=R(s)+\gamma\max_a\sum_{s'}P(s'\mid s,a)\cdot U(s')$
@@ -539,11 +540,78 @@
 			- $p(z\mid\mathrm{data})=\sum_h p(z\mid h)\cdot p(h\mid\mathrm{data})$
 	- algoritmus expectation-maximization (EM)
 		- používá se k maximum-likelihood odhadu, pokud se nedá jednoduše spočítat
-		- předstíráme, že známe parametry modelu
-		- dopočteme střední hodnoty skrytých proměnných (E-step, expectation)
-		- upravíme parametry, abychom maximalizovali likelihood modelu (M-step, maximization)
-		- iterujeme (dokud to nezačne konvergovat)
+		- předstíráme, že známe parametry modelu (na začátku je určíme náhodně)
+		- iterujeme dva kroky (dokud to nezkonverguje)
+			- dopočteme střední hodnoty skrytých proměnných (E-step, expectation)
+			- upravíme parametry, abychom maximalizovali likelihood modelu (M-step, maximization)
+		- příklad
+			- chceme odhadnout průměrnou výšku mužů a žen
+			- máme data o naměřených výškách, ale chybí nám údaje o pohlaví (zda je to výška muže nebo ženy)
+				- třídy označíme jako 0 (muži), 1 (ženy)
+			- začneme tak, že oba parametry (průměrná výška mužů $\mu_0$, průměrná výška žen $\mu_1$) inicializujeme náhodně
+			- v E-kroku spočítáme střední hodnoty skrytých proměnných
+				- pohlaví je skrytá proměnná (pro každou naměřenou výšku)
+				- střední hodnota bude odpovídat pravděpodobnosti, že konkrétní výška patří ženě
+			- v M-kroku upravíme hodnoty $\mu_0,\mu_1$, abychom maximalizovali likelihood modelu
+				- tedy spočítáme vážený průměr výšek
+				- váhy odpovídají pravděpodobnosti, že výška patří muži (u $\mu_0$) / ženě (u $\mu_1$)
+			- poznámka: může se jednoduše stát, že nám parametry $\mu_0,\mu_1$ vyjdou naopak (EM je metoda učení bez učitele, hledá vzory v datech, nezajišťuje jejich intepretaci)
 - pasivní zpětnovazební učení (definice, metody ADP a TD)
-	- TODO
+	- uvažujeme agenta, který se účastní MDP (markovského rozhodovacího procesu)
+	- pasivní učení – známe strategii $\pi$ (je pevně daná) a učíme se, jak je dobrá (učíme se utility funkci)
+	- agent nezná přechodový model ani reward function
+	- přímý odhad utility
+		- máme trace (běh) mezi stavy, z toho počítáme utility function
+		- odhadujeme užitky jednotlivých stavů
+			- užitek stavu = *reward-to-go* (tedy odměna tohoto a všech budoucích stavů)
+			- odměny z budoucích stavů bychom mohli zohleďnovat s discount factorem $\gamma$ (viz výše)
+		- užitky pro jednotlivé stavy prostě průměrujeme
+		- v podstatě učení s učitelem – na vstupu je stav, na výstupu užitek stavu (neboli *reward-to-go*)
+		- nevýhoda
+			- utilities nejsou nezávislé, ale řídí se Bellmanovými rovnicemi
+			- hledáme v prostoru hypotéz, který je výrazně větší, než by musel být (obsahuje spoustu funkcí, co porušují Bellmanovy rovnice) → algoritmus konverguje pomalu
+	- adaptivní dynamické programování (ADP)
+		- agent se učí přechodový model a odměny
+		- utilitu počítá z Bellmanových rovnic třeba pomocí value iteration
+			- využíváme toho, že užitky nejsou nezávislé
+		- ADP zajišťuje, že jsou odhady užitků konzistentní
+	- temporal-difference (TD) learning
+		- upravuje stav, aby odpovídal aktuálně pozorovanému následníkovi
+		- když dojde k přechodu ze stavu $s$ do stavu $s'$, tak na $U^\pi(s)$ použijeme update: $U^\pi(s)\leftarrow U^\pi(s)+\alpha\cdot (R(s)+\gamma\cdot U^\pi(s')-U^\pi(s))$
+			- $\alpha$ je learning rate
+		- vlastnosti
+			- nepotřebuju přechodový model (je to model-free metoda)
+			- konverguje to pomaleji než ADP
 - aktivní zpětnovazební učení (definice, explorace vs. exploitace, Q-učení, SARSA)
-	- TODO
+	- uvažujeme agenta, který se účastní MDP (markovského rozhodovacího procesu)
+	- aktivní učení – agent se učí strategii (policy; jak se rozhodovat) a taky utility funkci
+	- mohli bychom použít ADP, tím vznikne hladový agent, který opakuje zažité vzory (nezkouší nové věci)
+	- jak může volba optimální akce vést k suboptimálním výsledkům?
+		- naučený model není stejný jako reálné prostředí
+		- akce nejsou pouze zdrojem odměn, ale také přispívají k učení – ovlivňují vstupy
+		- zlepšováním modelu se postupně zvětšují odměny, které agent získává
+	- je potřeba najít optimum mezi exploration a exploitation
+		- pure exploration – agent nepoužívá naučené znalosti
+		- pure exploitation – riskujeme, že bude agent pořád dokola opakovat zažité vzory
+		- základní myšlenka: na začátku preferujeme exploration, později lépe rozumíme světu, takže nepotřebujeme tolik prozkoumávat
+	- exploration policies
+		- agent si zvolí náhodnou akci s pravděpodobností $\frac1t$ (kde $t$ je čas), jinak se řídí hladovou strategií
+			- nakonec to konverguje k optimální strategii, ale může to být extrémně pomalé
+		- rozumnější přístup je přiřadit váhu akcím, které agent ještě nevyzkoušel
+		- existuje alternativní TD metoda, říká se jí Q-learning
+			- $Q(s,a)$ označuje hodnotu toho, že provedeme akci $a$ ve stavu $s$
+			- q-hodnoty jsou s utilitou ve vztahu $U(s)=\max_a Q(s,a)$
+			- můžeme napsat omezující podmínku $Q(s,a)=R(s)+\gamma\sum_{s'} P(s'\mid s,a)\cdot \max_{a'}Q(s',a')$
+				- tohle vyžaduje, aby se model naučil i $P(s'\mid s,a)$
+			- tenhle přístup nevyžaduje model přechodů – je to bezmodelová (model-free) metoda, potřebuje akorát q-hodnoty
+			- $Q(s,a)\leftarrow Q(s,a)+\alpha\cdot (R(s)+\gamma\cdot\max_{a'}Q(s',a')-Q(s,a))$
+				- počítá se, když je akce $a$ vykonána ve stavu $s$ a vede do stavu $s'$
+		- state-action-reward-state-action (SARSA)
+			- je to varianta Q-učení
+			- $Q(s,a)\leftarrow Q(s,a)+\alpha\cdot (R(s)+\gamma\cdot Q(s',a')-Q(s,a))$
+				- pravidlo se aplikuje na konci pětice $s,a,r,s',a'$, tedy po aplikaci akce $a'$
+		- pro hladového agenta (který volí podle největšího $Q$) jsou algoritmy SARSA a základní Q-learning stejné
+			- rozdíl je vidět až u agenta, který není úplně hladový, ale provádí i průzkum (exploration)
+		- u SARSA se bere v úvahu reálně zvolená akce
+			- SARSA je on-policy – jeho strategie se upravuje přímo za běhu algoritmu
+			- Q-learning je off-policy – algoritmus se učí optimální strategii, ale během učení se může používat úplně jiná strategie
