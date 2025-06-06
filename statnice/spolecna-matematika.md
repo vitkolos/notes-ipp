@@ -61,12 +61,47 @@
 			- naopak pokud jsou limity zprava a zleva různé, limita neexistuje
 		- podobně jako u posloupnosti – pokud limita funkce existuje, je jednoznačně určena
 		- limitu funkce lze rovněž definovat pomocí posloupnosti
+	- aritmetika limit
+		- nechť $a,A,B\in\mathbb R^*$, nechť $f,g$ jsou funkce definované na nějakém prstencovém okolí $P(a,\delta)$ bodu $a$, nechť platí $\lim_{x\to a}f(x)=A$ a $\lim_{x\to a}g(x)=B$
+		- pak platí $\lim_{x\to a}f(x)+g(x)=A+B$, je-li tento součet definován
+		- $\lim_{x\to a}f(x)g(x)=AB$, je-li tento součin definován
+		- pokud je $g(x)$ nenulová na nějakém prstencovém okolí bodu $a$, pak $\lim_{x\to a}f(x)/g(x)=A/B$, je-li tento podíl definován
 - Limita funkce v bodě: vztah s uspořádáním
+	- nechť $c\in\mathbb R^*$ a funkce $f,g,h$ jsou definované na prstencovém okolí bodu $c$
+	- mají-li $f,g$ v bodě $c$ limitu a $\lim_{x\to c}f(x)\gt\lim_{x\to c}g(x)$, pak existuje $\delta\gt 0$ takové, že $f(x)\gt g(x)$ pro každé $x\in P(c,\delta)$
+	- existuje-li $\delta\gt 0$ takové, že $f(x)\geq g(x)$ pro každé $x\in P(c,\delta)$, a mají-li funkce $f,g$ limitu v bodě $c$, potom $\lim_{x\to c}f(x)\geq g(x)$
+	- existuje-li $\delta\gt 0$ takové, že $f(x)\leq h(x)\leq g(x)$ pro každé $x\in P(c,\delta)$ a $\lim_{x\to c}f(x)=\lim_{x\to c}g(x)=A\in\mathbb R^*$ potom i $\lim_{x\to c}h(x)=A$
+		- v podstatě dva policajti
 - Limita funkce v bodě: limita složené funkce
+	- nechť $A,B,C\in\mathbb R^*$, nechť $g(x)$ je funkce splňující $\lim_{x\to A}g(x)=B$ a nechť $f(x)$ je funkce splňující $\lim_{x\to B}f(x)=C$
+	- navíc nechť je splněna aspoň jedna z následujících podmínek
+		- $f(x)$ je spojitá v $B$
+		- na nějakém prstencovém okolí bodu $A$ funkce $g(x)$ nenabývá hodnotu $B$
+	- potom $\lim_{x\to A}f(g(x))=C$
+- Spojitost a spojitost na intervalu
+	- řekneme, že funkce $f$ je v bodě $a\in\mathbb R$ spojitá, pokud $\lim_{x\to a}f(x)=f(a)$
+		- spojitost zprava/zleva definujeme pomocí jednostranných limit
+	- funkce je spojitá na intervalu, pokud je spojitá v každém vnitřním bodu a pokud je (odpovídajícím způsobem) jednostranně spojitá v každém krajním bodu
 - Funkce spojité na intervalu: nabývání mezihodnot
+	- nechť $a\lt b$ jsou reálná čísla
+	- nechť $f:[a,b]\to\mathbb R$ je na intervalu $[a,b]$ spojitá
+	- označme $m=\min\set{f(a),f(b)}$ a $M=\max\set{f(a),f(b)}$
+	- pak každé reálné číslo z intervalu $[m,M]$ je hodnotou funkce $f$ (pro každé $y\in[m,M]$ existuje $x\in[a,b]$ takové, že $f(x)=y$)
 - Funkce spojité na intervalu: nabývání maxima
+	- nechť $a\leq b$ jsou reálná čísla
+	- nechť $f:[a,b]\to\mathbb R$ je spojitá funkce
+	- potom $f$ nabývá na intervalu $[a,b]$ svého maxima (i minima)
 - Derivace – definice a základní pravidla pro výpočet
-- L’Hospitalovo pravidlo
+	- nechť $f:M\to\mathbb R$, $b\in M$ a $U(b,\delta)\subseteq M$ pro nějaké $\delta\gt 0$
+	- derivace funkce $f$ v bodě $b$ je limita $$f'(b):=\lim_{h\to 0}\frac{f(b+h)-f(b)}{h}=\lim_{x\to b}\frac{f(x)-f(b)}{x-b}$$
+	- také můžeme mít derivaci zprava/zleva, pak je limita jednostranná
+	- derivace buď existuje vlastní, nebo existuje nevlastní, nebo neexistuje
+	- pokud má $f$ v $b$ vlastní derivaci, říkáme, že $f$ je v $b$ diferencovatelná
+	- pro pravidla derivací viz libovolnou vhodnou tabulku, některá složitější jsou [v přípravě na zápočtový test](../semestr2/matematicka-analyza1/zapoctovy-test.md)
+- L'Hospitalovo pravidlo
+	- nechť $a\in\mathbb R^*$, nechť funkce $f,g:P(a,\delta)\to\mathbb R$ mají na $P(a,\delta)$ vlastní derivaci a nechť $g'(x)\neq 0$ na $P(a,\delta)$
+	- pokud $\lim_{x\to a}f(x)=\lim_{x\to a}g(x)=0$ a $\lim_{x\to a}f'(x)/g'(x)=A\in\mathbb R^*$, pak i $\lim_{x\to a}f(x)/g(x)=A$
+	- pokud $\lim_{x\to a} |g(x)|=+\infty$ a $\lim_{x\to a}f'(x)/g'(x)=A\in\mathbb R^*$, pak i $\lim_{x\to a}f(x)/g(x)=A$
 - Vyšetření průběhu funkcí: extrémy, monotonie a konvexita/konkavita
 - Taylorův polynom (limitní forma)
 - Primitivní funkce: definice a metody výpočtu (substituce, per-partes)
