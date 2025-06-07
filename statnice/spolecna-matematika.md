@@ -376,7 +376,7 @@
 				- $\langle u|v\rangle=\|u\|\cdot\|v\|\cos\varphi$
 				- to vyplývá z kosinové věty, kde $a=\|u\|,\,b=\|v\|,\,c=\|u-v\|$
 	- kolmé vektory
-		- vektory $u,v$ z prostoru se skalárním součinem jsou kolmé, pokud $\langle u|v\rangle=0$
+		- vektory $u,v$ z prostoru se skalárním součinem jsou kolmé (ortogonální), pokud $\langle u|v\rangle=0$
 		- kolmé vektory značíme $u\perp v$
 - Pythagorova věta, Cauchyho-Schwarzova nerovnost, trojúhelníková nerovnost
 	- Pythagoras: $\|a\|^2+\|b\|^2=\|c\|^2$
