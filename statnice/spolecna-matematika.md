@@ -176,7 +176,7 @@
 	- grupa $(H,\bullet)$ je podgrupou grupy $(G,\circ)$, pokud $H\subseteq G$ a $\forall a,b\in H:a\bullet b=a\circ b$
 		- píšeme $(H,\bullet)\leq (G,\circ)$
 	- permutace na množině $\lbrace1,2,\dots,n\rbrace$ je bijektivní zobrazení $p:\lbrace1,2,\dots,n\rbrace\rightarrow \lbrace1,2,\dots,n\rbrace$
-		- skládání permutací … $(q\circ p)(i)=p(q(i))$
+		- skládání permutací … $(q\circ p)(i)=q(p(i))$
 		- permutační matice
 			- $(P)_{i,j} = \begin{cases} 1 &\text{pokud } p(i)=j \\ 0 &\text{jinak}\end{cases}$
 		- cyklus … např. $(1,2,3,4)$
@@ -198,15 +198,163 @@
 	- ale existují i konečná tělesa s neprvočíselným řádem (počtem prvků) – např. Galois field $GF(4)$
 		- řád musí být kladná celá mocnina prvočísla
 - Soustavy lineárních rovnic – maticový zápis, elementární řádkové úpravy, odstupňovaný tvar matice
+	- maticový zápis soustavy rovnic
+		- soustava $m$ lineárních rovnic o $n$ neznámých … $Ax = b$
+		- rozšířená matice soustavy … $(A|b) \in \mathbb{R}^{m×(n+1)}$
+		- matice soustavy … $A \in \mathbb{R}^{m×n}$
+		- vektor pravých stran … $b \in \mathbb{R}^m$
+		- vektor neznámých … $x = (x_1,\dots,x_n)^T$
+		- vektor $x \in \mathbb{R}^n$ je řešení soustavy $Ax = b$, pokud splňuje všechny její rovnice
+		- soustavy $Ax = 0$ se nazývají homogenní a vždy umožňují $x = 0$
+	- elementární řádkové operace
+		- definujeme základní dvě elementární řádkové úpravy
+			- vynásobení $i$-tého řádku nenulovým $t \in \mathbb R \setminus \lbrace0\rbrace$
+			- přičtení $j$-tého řádku k $i$-tému řádku
+		- z těch lze odvodit další dvě úpravy
+			- přičtení $t$-násobku $j$-tého řádku k $i$-tému řádku ($t$ může být i nulové)
+			- záměna dvou řádků
+		- provedení jedné elementární úpravy značíme $A\sim A'$
+		- provedení posloupnosti úprav značíme $A\sim\sim A'$
+		- elementárními úpravami soustavy $(A|b)$ se nemění množina řešení
+	- odstupňovaný tvar matice
+		- matice je v řádkově odstupňovaném tvaru (REF = row echelon form), pokud jsou nenulové řádky (ostře) seřazeny podle počtu počátečních nul a nulové řádky jsou pod nenulovými
+			- k formální definici bychom zavedli notaci $j(i)$ pro pozici prvního nenulového prvku v $i$-tém řádku
+		- první nenulový prvek nenulového řádku se nazývá pivot, pod pivotem jsou v REF všechny prvky nulové
+		- pro soustavu $A'x = b'$ s $A'$ v REF jsou proměnné odpovídající sloupcům s pivoty bázické, ostatní jsou volné
+	- redukovaný odstupňovaný tvar (RREF)
+		- pivoty jsou jednotkové
+		- nad i pod pivoty jsou nuly
 - Gaussova a Gaussova-Jordanova eliminace, popis množiny řešení
+	- Gaussova eliminace = převod do odstupňovaného tvaru pomocí elementárních úprav, to se dá popsat algoritmicky:
+		- seřadíme řádky podle počtu počátečních nul
+		- najdeme první dva řádky, co mají stejně počátečních nul
+		- od toho druhého (a všech dalších, co mají stejně nul) odečteme vhodný násobek toho prvního, abychom mu první nenulu vynulovali
+		- tohle opakujeme, dokud se nedostaneme do REF
+	- Gaussova-Jordanova eliminace = převod do RREF
+		- z pivotů se jedničky dělají snadno – stačí řádek vydělit pivotem
+		- nad pivoty se jedničky také dostávají snadno – stačí od řádku odečíst vhodný násobek řádku s pivotem v daném sloupci (dává smysl postupovat odspodu)
+	- množina řešení
+		- pokud je pivot v posledním sloupci rozšířené matice soustavy, soustava rovnic nemá řešení
+		- existuje bijekce $\bar x \mapsto \bar x + x^0$ mezi množinami $\lbrace \bar x: A\bar x=0\rbrace$ a $\lbrace x: Ax=b\rbrace$
+			- pokud $x^0$ splňuje $Ax^0=b$
+		- množinu řešení soustavy $Ax=b$ popíšeme jako $x=y+p_1\overline x_1+p_2\overline x_2+\dots+p_{n-r}\overline x_{n-r}$
+		- $y$ … libovolné řešení soustavy $Ax=b$
+			- u homogenní soustavy to typicky bude nulový vektor
+			- je to člen, který odpovídá tomu $x^0$ výše
+		- $p_i\overline x_i$
+			- takový člen tam bude za každou volnou proměnnou (bude jich $n-r$, tedy počet řádků – hodnost matice)
+			- $p_i$ je libovolný reálný parametr
+			- tyhle členy můžeme získat tak, že řešíme soustavu $A\overline x=0$ a řešení vyjádříme pomocí parametrů (a pak je vytkneme)
+			- nebo je lze vyčíst z RREF matice
+			- ve vektoru $\overline x_i$ bude typicky jednička na místě odpovídající volné proměnné a nuly u všech ostatních volných proměnných (protože je to vlastně složka, která se stará o konkrétní volnou proměnnou)
 - Operace s maticemi a základní typy matic, hodnost matice
+	- hodnost matice
+		- hodnost matice A, značená jako rank(A), je počet pivotů v libovolné A' v REF takové, že $A\sim\sim A'$
+	- jednotková matice
+		- pro $n \in \mathbb{N}$ je jednotková matice $I_n \in \mathbb{R}^{n×n}$ definovaná tak, že $(I_n)_{i,j} = 1 \iff i=j$, ostatní prvky jsou nulové 
+	- transponovaná matice
+		- transponovaná matice k matici $A \in \mathbb{R}^{m×n}$ je matice $A^T \in \mathbb R^{n×m}$ splňující $(A^T)_{i,j}=a_{j,i}$
+	- symetrická matice
+		- čtvercová matice A je symetrická, pokud $A^T =A$, tedy $a_{i,j}=a_{j,i}$
+	- maticový součin
+		- pro $A \in \mathbb R^{m\times n},B\in \mathbb R^{n\times p}$ je součin $(AB) \in \mathbb R^{m×p}$ definován $(AB)_{i,j}=\sum^{n}_{k=1}a_{i,k}b_{k,j}$
 - Regulární a inverzní matice
+	- inverzní matice
+		- pokud pro čtvercovou matici $A \in \mathbb R^{n\times n}$ existuje $B \in \mathbb R^{n\times n}$ taková, že $AB=I_n$, pak se $B$ nazývá inverzní matice a značí se $A^{-1}$
+		- výpočet: $(A|I_n)\sim\sim (I_n|A^{-1})$
+	- regulární/singulární matice
+		- pokud má matice $A$ inverzi, pak se nazývá regulární, jinak je singulární
+	- věta: pro čtvercovou matici $A \in \mathbb R^{n\times n}$ jsou následující podmínky ekvivalentní
+		1. matice A je regulární, tedy k ní existuje inverzní matice … $\exists B: AB=I_n$
+		2. $\text{rank}(A) = n$
+		3. $A\sim\sim I_n$
+		4. systém $Ax = 0$ má pouze triviální řešení $x = 0$
+	- inverzní matici k matici $A$ lze najít pomocí Gaussovy-Jordanovy eliminace $(A|I_n)\sim\sim(I_n|A^{-1})$
+		- pokud tento proces selže, tak je $A$ singulární
 - Vektorový prostor, lineární kombinace, lineární závislost a nezávislost, lineární obal, systém generátorů
+	- vektorový prostor
+		- vektorový prostor $(V,+,\cdot)$ nad tělesem $(\mathbb K, +,\cdot)$ je množina spolu s binární operací $+$ na $V$ a binární operací skalárního násobku $\cdot: \mathbb K \times V \rightarrow V$
+		- $(V,+)$ je abelovská grupa
+		- $\forall \alpha,\beta \in \mathbb K, \forall u,v \in V$
+			- asociativita … $(\alpha \cdot \beta) \cdot u = \alpha \cdot (\beta \cdot u)$
+			- neutrální prvek (skalár) vůči násobení skalárem … $1 \cdot u = u$
+			- distributivita … $(\alpha + \beta) \cdot u = (\alpha \cdot u) + (\beta \cdot u)$
+			- distributivita … $\alpha \cdot (u+v)=(\alpha \cdot u)+(\alpha \cdot v)$
+		- prvky $\mathbb K$ se nazývají skaláry, prvky $V$ vektory
+		- rozlišujeme nulový skalár $0$ a nulový vektor $o$
+	- podprostor vektorového prostoru
+		- nechť $V$ je vektorový prostor na $\mathbb K$, potom podprostor $U$ je neprázdná podmnožina $V$ splňující uzavřenost na součet vektorů a uzavřenost na násobení skalárem (z $\mathbb K$) – z toho nutně vyplývá $o \in U$
+	- lineární kombinace
+		- lineární kombinace vektorů $v_1,\dots,v_k \in V$ nad $\mathbb K$ je libovolný vektor $u = \alpha_1v_1+\dots+\alpha_kv_k$, kde $\alpha_1,\dots,\alpha_k \in \mathbb K$
+	- lineárně nezávislé vektory
+		- množina vektorů $X$ je lineárně nezávislá, pokud nulový vektor nelze získat netriviální lineární kombinací vektorů z $X$; v ostatních případech je množina $X$ lineárně závislá
+		- vektory $v_1,\dots,v_n$ jsou lineárně nezávislé $\equiv$ $\sum_{i=1}^n \alpha_iv_i=o \iff \alpha_1=\dots=\alpha_n=0$
+	- lineární obal (podprostor generovaný množinou)
+		- lineární obal $\mathcal L(X)$ podmnožiny $X$ vektorového prostoru $V$ je průnik všech podprostorů $U$ z $V$, které obsahují $X$
+		- alternativní značení: $\mathrm{span}(X)$
+		- pro $X \subseteq V$ platí $\text{span}(X)=\bigcap U:U\Subset V, X\subseteq U$
+		- jde o podprostor generovaný $X$, vektory v množině $X$ se označují jako generátory podprostoru
+	- věta: průnik podprostorů je taky podprostor
+	- věta: $\mathcal L(X)$ je množina všech lineárních kombinací vektorů z $X$
 - Steinitzova věta o výměně, báze, dimenze, souřadnice
+	- lemma o výměně
+		- buď $y_1,\dots,y_n$ systém generátorů vektorového prostoru $V$
+		- nechť vektor $x \in V$ má vyjádření $x = \sum_{i=1}^n\alpha_iy_i$
+		- pak pro libovolné $k$ takové, že $\alpha_k \neq 0$, je $y_1,\dots,y_{k-1},x,y_{k+1},\dots,y_n$ systém generátorů prostoru $V$
+	- Steinitzova věta o výměně
+		- buď $V$ vektorový prostor
+		- buď $x_1,\dots,x_m$ lineárně nezávislý systém ve $V$
+		- nechť $y_1,\dots,y_n$ je systém generátorů $V$
+		- pak platí $m\leq n$ a existují navzájem různé indexy $k_1,\dots,k_{n-m}$ takové, že $x_1,\dots,x_m,y_{k_1},\dots,y_{k_{n-m}}$ tvoří systém generátorů $V$
+	- báze vektorového prostoru
+		- báze vektorového prostoru $V$ je lineárně nezávislá množina $X$, která generuje $V$ (tedy $\text{span}(X)=V$)
+	- dimenze vektorového prostoru
+		- dimenze konečně generovaného vektorového prostoru $V$ je mohutnost (kardinalita / počet prvků) kterékoli z jeho bází; značí se $\mathrm{dim}(V)$
+	- vektor souřadnic
+		- nechť $X=(v_1,\dots,v_n)$ je uspořádaná báze vektorového prostoru $V$ nad $\mathbb K$, potom vektor souřadnic $u \in V$ vzhledem k bázi $X$ je $[u]_x=(\alpha_1,\dots,\alpha_n)^T \in \mathbb K^n$, kde $u=\sum_{i=1}^n\alpha_iv_i$
 - Vektorové podprostory, zejména maticové (řádkový, sloupcový, jádro) a jejich dimenze
+	- řádkový a sloupcový prostor matice $A \in \mathbb K^{m\times n}$
+		- sloupcový prostor $\mathcal S(A) \subseteq \mathbb K^m$ je lineární obal sloupců $A$
+		- řádkový prostor $\mathcal R(A) \subseteq \mathbb K^n$ je lineární obal řádků $A$
+		- $\mathcal S(A)=\lbrace u \in \mathbb K^m:u=Ax,\,x\in \mathbb K^n \rbrace$
+		- $\mathcal R(A)=\lbrace v \in \mathbb K^n:v=A^Ty,\,y\in \mathbb K^m \rbrace$
+	- jádro matice $A \in \mathbb K^{m\times n}$
+		- $\text{ker}(A) = \lbrace x \in \mathbb K^n: Ax=0\rbrace$
+	- věta: $\forall A \in \mathbb K^{m\times n}:\text{dim}(\text{ker}(A))+\text{rank}(A)=n$
+	- pozorování: dimenze řádkového a sloupcového prostoru se shodují (a rovnají se hodnosti)
 - Lineární zobrazení – definice, maticová reprezentace lineárního zobrazení, matice složeného zobrazení
+	- lineární zobrazení
+		- nechť $U$ a $V$ jsou vektorové prostory nad stejným tělesem $\mathbb K$
+		- zobrazení $f:U\rightarrow V$ nazveme lineární, pokud splňuje $\forall u,v \in U, \forall \alpha \in \mathbb K:$
+			- $f(u+v)=f(u)+f(v)$
+			- $f(\alpha\cdot u)=\alpha \cdot f(u)$
+				- z toho vyplývá, že pro lineární zobrazení obecně platí $f(o) = o$
+		- věta: lineární zobrazení je jednoznačně definováno tím, kam zobrazí vektory báze (proto můžeme definovat matici lineárního zobrazení)
+	- matice lineárního zobrazení
+		- nechť $U$ a $V$ jsou vektorové prostory nad stejným tělesem $\mathbb K$ s bázemi $X=(u_1,\dots,u_n)$ a $Y=(v_1,\dots,v_m)$
+		- matice lineárního zobrazení $f:U\rightarrow V$ vzhledem k bázím $X$ a $Y$ je $[f]_{X,Y} \in \mathbb K^{m\times n}$, jejíž sloupce jsou vektory souřadnic obrazů vektorů báze $X$ vzhledem k bázi $Y$, tedy $[f(u_1)]_Y,\dots,[f(u_n)]_Y$
+		- pro $w \in U$ tedy platí, že $[f(w)]_Y=[f]_{X,Y}[w]_X$
+	- matice složeného zobrazení
+		- mějme vektorové prostory $U,V,W$ s konečnými uspořádanými bázemi $B,C,D$
+		- pro matice lineárních zobrazení $f:U\to V$ a $g:V\to W$ platí vztah $[g\circ f]_{B,D}=[g]_{C,D}[f]_{B,C}$
+		- je to hezčí, když použijeme Hladíkovo značení: ${}_D[g\circ f]_B={}_D[g]_C\cdot{}_C[f]_B$
+	- matice přechodu
+		- nechť $X$ a $Y$ jsou dvě konečné báze vektorového prostoru $U$
+		- matice přechodu od $X$ k $Y$ je $[id]_{X,Y}$
+		- pro $u \in U$ tedy platí, že $[u]_Y=[id(u)]_Y=[id]_{X,Y}[u]_X$
+		- matice přechodu je regulární, platí $[id]_{Y,X}=([id]_{X,Y})^{-1}$
+		- výpočet: $[id]_{X,Y}=Y^{-1}X$ nebo také $(Y|X)\sim\sim(I_n|[id]_{X,Y})$
 - Obraz a jádro lineárních zobrazení
+	- nechť $U$ a $V$ jsou vektorové prostory nad stejným tělesem $\mathbb K$
+	- jádro lineárního zobrazení
+		- $\text{ker}(f)=\lbrace w \in U:f(w)=o\rbrace$
+		- vektory v prostoru $U$, které se zobrazí na nulový vektor v prostoru $V$
+	- obraz $f(U)$ podprostoru $U$ je podprostorem $V$
 - Isomorfismus prostorů
+	- vektorové prostory jsou isomorfní, pokud mezi nimi existuje isomorfismus, tedy bijektivní (vzájemně jednoznačné) lineární zobrazení
+	- pro isomorfismus $f$ platí, že existuje $f^{-1}$ a je také isomorfismem
+	- isomorfní prostory mají shodné dimenze
+	- věta: $f$ je isomorfismus, právě když $[f]_{X,Y}$ je regulární
 - Skalární součin, norma indukovaná skalárním součinem
 - Pythagorova věta, Cauchyho-Schwarzova nerovnost, trojúhelníková nerovnost
 - Ortonormální systémy vektorů, Fourierovy koeficienty, Gramova-Schmidtova ortogonalizace

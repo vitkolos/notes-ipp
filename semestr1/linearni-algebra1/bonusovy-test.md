@@ -220,7 +220,7 @@
 			- $p$ jsou libovolné reálné parametry
 			- $\bar x$ jsou vhodná řešení soustavy $A\bar x=0$
 			- $x^0$ je libovolné řešení soustavy $Ax=b$
-		- Soustava $A\bar x=0$ má pouze triviální řešení $\bar x=o\iff \text{rank}(A)=n$.
+		- Soustava $A\bar x=0$ má pouze triviální řešení $\bar x=o$, právě když $\text{rank}(A)=n$.
 	- důkaz
 		- pro $A\bar x=0$
 			- přejmenujeme volné proměnné na $p_1,\dots\,p_{n-r}$
@@ -379,7 +379,7 @@
 	- důkaz
 		- nechť $d=n-rank(A)$ je počet volných proměnných a $x_1,\dots,x_d$ jsou řešení soustavy $Ax=0$ daná zpětnou substitucí
 		- tato řešení jsou lineárně nezávislá, protože pro každé $i$ platí, že $x_i$ je mezi $x_1,\dots,x_d$ jediné, které má složku odpovídající i-té volné proměnné nenulovou
-		- vektory $x_1,\dots,x_d$ tudíž tvoří bázi $\text{ker}(A)$, a proto $\text{dim}(\text{ker}(A))=d=n-rank(A)$
+		- vektory $x_1,\dots,x_d$ tudíž tvoří bázi $\text{ker}(A)$, a proto $\text{dim}(\text{ker}(A))=d=n-\mathrm{rank}(A)$
 - věta o řešení rovnice s lineárním zobrazením
 	- věta: Nechť $f:U\to V$ je lineární zobrazení. Pro libovolné $v \in V$ rovnice $f(u)=v$ buď nemá žádné řešení, nebo řešení tvoří afinní podprostor $u_0+\text{ker}(f)$, kde $u_0$ je libovolné řešení $f(u)=v$.
 	- poznámka: tato věta přímo souvisí s větou o vztahu $Ax=b$ a $Ax=0$
