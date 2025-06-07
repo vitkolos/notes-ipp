@@ -103,8 +103,34 @@
 	- pokud $\lim_{x\to a}f(x)=\lim_{x\to a}g(x)=0$ a $\lim_{x\to a}f'(x)/g'(x)=A\in\mathbb R^*$, pak i $\lim_{x\to a}f(x)/g(x)=A$
 	- pokud $\lim_{x\to a} |g(x)|=+\infty$ a $\lim_{x\to a}f'(x)/g'(x)=A\in\mathbb R^*$, pak i $\lim_{x\to a}f(x)/g(x)=A$
 - Vyšetření průběhu funkcí: extrémy, monotonie a konvexita/konkavita
+	- extrémy
+		- pokud má funkce $f$ v bodě $a$ nenulovou derivaci $f'(a)\neq 0$, pak $f$ v $a$ nenabývá lokální extrém
+		- tedy pokud má $f$ lokální extrém bodě $a$, tak buď $f'(a)=0$, nebo $f'(a)$ neexistuje
+		- pozor, funkce může mít globální extrém v krajním bodě uzavřeného intervalu
+	- monotonie
+		- uvažujeme interval s kladnou délkou a spojitou funkci $f$ s derivací v každém vnitřním bodě intervalu
+		- pokud na vnitřku intervalu platí $f'\gt 0$, je $f$ na daném intervalu rostoucí
+		- pokud $f'\geq 0$, pak je neklesající
+		- pokud $f'\lt 0$, pak je klesající
+		- pokud $f'\leq 0$, pak je nerostoucí
+		- pokud $f'=0$, pak je konstantní
+	- konvexita/konkavita
+		- zjednodušená definice: funkce $f$ je na intervalu $(a,b)$ konvexní, pokud graf funkce na intervalu $(a,b)$ leží pod úsečkou spojující body $(a,f(a))$ a $(b,f(b))$
+			- respektive pokud leží pod nebo na úsečce, tak je konvexní, pokud leží ostře pod úsečkou, tak je ryze konvexní
+			- podobně konkávnost
+		- pokud je druhá derivace funkce kladná, je ryze konvexní (pokud je nezáporná, je konvexní)
+		- pokud je druhá derivace funkce záporná, je ryze konkávní (pokud je nekladná, je konkávní)
 - Taylorův polynom (limitní forma)
+	- Taylorův polynom řádu $n$ funkce $f$ v bodě $a$: $$T_n^{f,a}(x)=\sum_{i=0}^n\frac{f^{(i)}(a)}{i!}(x-a)^i$$
+		- poznámka: nultý člen součtu bude vždy $f(a)$
+	- má-li funkce $f$ v bodě $a\in\mathbb R$ derivace všech řádů, rozumíme pro $x\in\mathbb R$ její taylorovou řadou se středem v $a$ řadu $$T^{f,a}(x)=\sum_{n=0}^\infty \frac{f^{(n)}(a)}{n!}(x-a)^n$$
+		- součet Taylorovy řady je $f(x)$
 - Primitivní funkce: definice a metody výpočtu (substituce, per-partes)
+	- nechť $-\infty\leq a\lt b\leq +\infty$ a $f:(a,b)\to\mathbb R$ je daná funkce
+	- pokud má funkce $F:(a,b)\to\mathbb R$ na $(a,b)$ derivaci a ta se rovná $f(x)$, řekneme, že $F$ je na intervalu $(a,b)$ primitivní funkcí k funkci $f$
+	- primitivní funkce je jednoznačná až na konstantu
+	- substituci a per-partes je nutné nastudovat
+	- vzorec pro per-partes: $\int u'v=uv-\int uv'$
 - Riemannův integrál: definice, souvislost s primitivní funkcí (Newtonovým integrálem)
 - Aplikace integrálů: odhady součtu řad (konečných i nekonečných)
 - Aplikace integrálů: obsahy rovinných útvarů
