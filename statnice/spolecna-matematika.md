@@ -356,18 +356,152 @@
 	- isomorfní prostory mají shodné dimenze
 	- věta: $f$ je isomorfismus, právě když $[f]_{X,Y}$ je regulární
 - Skalární součin, norma indukovaná skalárním součinem
+	- skalární součin pro vektorové prostory nad komplexními čísly
+		- skalární součin na vektorovém prostoru $V$ nad $\mathbb C$ je zobrazení, které přiřadí každé dvojici vektorů $u,v\in V$ skalár $\langle u|v\rangle\in\mathbb C$ tak, že jsou splněny následující axiomy:
+			- $\forall u\in V:\langle u|u\rangle\in\mathbb R^+_0$ (reálné číslo $\geq 0$)
+			- $\forall u\in V:\langle u|u\rangle=0\iff u=0$
+			- $\forall u,v\in V: \langle v|u\rangle=\overline{\langle u|v\rangle}$ (komplexně sdružené)
+			- $\forall u,v,w \in V: \langle u+v|w\rangle=\langle u|w\rangle+\langle v|w\rangle$
+			- $\forall u,v\in V,\,\forall \alpha\in\mathbb C: \langle \alpha u|v\rangle=\alpha\langle u|v\rangle$
+		- formálně je každý skalární součin zobrazení $V\times V\to\mathbb C$
+		- skalární součin na $V$ nad $\mathbb R$ je zobrazení $V\times V\to\mathbb R$, přičemž $\langle v|u\rangle = \langle u|v\rangle$ (ve třetím axiomu), $\alpha\in\mathbb R$ (v posledním axiomu)
+		- standardní skalární součin na $\mathbb R^n$: $\langle u|v\rangle=v^Tu$
+		- standardní skalární součin na $\mathbb C^n$: $\langle u|v\rangle=v^Hu$
+	- norma spojená se skalárním součinem
+		- je-li $V$ prostor se skalárním součinem, pak norma odvozená ze skalárního součinu je zobrazení $V\to R^+_0$ přiřazující vektoru $u$ jeho normu $\|u\|=\sqrt{\langle u|u\rangle}$
+		- geometrická interpretace v euklidovském prostoru $\mathbb R^n$
+			- $\|u\|$ … délka (velikost) $u$
+			- $\|u-v\|$ … vzdálenost bodů $u,v$
+			- $\langle u|v\rangle$ souvisí s „úhlem“ $\varphi$ mezi $u,v$ a délkami $u,v$
+				- $\langle u|v\rangle=\|u\|\cdot\|v\|\cos\varphi$
+				- to vyplývá z kosinové věty, kde $a=\|u\|,\,b=\|v\|,\,c=\|u-v\|$
+	- kolmé vektory
+		- vektory $u,v$ z prostoru se skalárním součinem jsou kolmé, pokud $\langle u|v\rangle=0$
+		- kolmé vektory značíme $u\perp v$
 - Pythagorova věta, Cauchyho-Schwarzova nerovnost, trojúhelníková nerovnost
+	- Pythagoras: $\|a\|^2+\|b\|^2=\|c\|^2$
+		- pokud $a,b$ jsou na sebe kolmé a $c=b-a$
+		- ovšem taky platí $\|a+b\|^2=\|a\|^2+\|b\|^2$, rovněž pro kolmé $a,b$
+	- Cauchy-Schwarz: $|\langle u|v\rangle|\leq\sqrt{\langle u|u\rangle\langle v|v\rangle}$
+	- trojúhelníková nerovnost: $\|u+v\|\leq\|u\|+\|v\|$
 - Ortonormální systémy vektorů, Fourierovy koeficienty, Gramova-Schmidtova ortogonalizace
+	- ortonormální báze
+		- bázi $Z=\lbrace v_1,\dots,v_n \rbrace$ prostoru $V$ se skalárním součinem nazveme ortonormální, pokud platí $v_i\perp v_j$ pro každé $i\neq j$ a také $||v_i||=1$ pro každé $v_i\in Z$
+		- pozorování: matice, jejichž sloupce tvoří vektory ortonormální báze $\mathbb C^n$ vzhledem ke std. skal. součinu, splňují $A^HA=I_n\implies$ jsou unitární
+	- Fourierovy koeficienty
+		- nechť $Z=\lbrace v_1,\dots,v_n\rbrace$ je ortonormální báze prostoru $V$
+		- tvrzení: pro každé $u\in V$ platí $u=\langle u|v_1\rangle v_1+\dots+\langle u|v_n\rangle v_n$
+		- $\langle u|v_i\rangle$ … Fourierovy koeficienty
+	- algoritmus GS ortogonalizace
+		- převede libovolnou bázi $(u_1,\dots,u_n)$ prostoru $V$ se skalárním součinem na ortonormální bázi $(v_1,\dots,v_n)$
+		- for $i=1,\dots,n$ do
+			- $w_i\leftarrow u_i-\sum^{i-1}_{j=1}\langle u_i|v_j\rangle v_j$
+			- $v_i\leftarrow \frac1{||w_i||}w_i$
+		- end
 - Ortogonální doplněk, ortogonální projekce, projekce jako lineární zobrazení
+	- ortogonální doplněk
+		- ortogonální doplněk podmnožiny $V$ prostoru se skalárním součinem $W$ je $V^\perp=\lbrace u\in W\mid\forall v\in V: u\perp v\rbrace$
+	- ortogonální projekce
+		- nechť $W$ je prostor se skalárním součinem a $V$ je jeho podprostor s ortonormální bází $Z=(v_1,\dots,v_n)$
+		- zobrazení $p_Z:W\to V$ definované $p_Z(u)=\sum^n_{i=1}\langle u|v_i \rangle v_i$ je ortogonální (kolmá) projekce $W$ na $V$
+	- pozorování: ortogonální projekce je lineární zobrazení
 - Ortogonální matice a jejich vlastnosti
+	- matice $Q\in\mathbb R^{n\times n}$ je ortogonální, pokud $Q^TQ=I_n$
+	- věta: $Q$ je ortogonální, právě když sloupce tvoří ortogonální bázi $\mathbb R^n$
+	- tvrzení: je-li $Q$ ortogonální, pak…
+		- $Q^T$ je rovněž ortogonální
+		- $Q^{-1}$ existuje a je ortogonální
+	- součin ortogonálních matic je ortogonální matice
+	- další vlastnosti
+		- $\braket{Qx|Qy}=\braket{x|y}$
+		- $\|Qx\|=\|x\|$
+		- zobrazení $x\mapsto Qx$ zachovává úhly a délky
+		- platí to i naopak – matice zobrazení zachovávajícího skalární součin je ortogonální
+		- $\forall i,j:|Q_{ij}|\leq 1$
+		- $\begin{pmatrix}1 & o^T \\ o & Q\end{pmatrix}$ je ortogonální matice
 - Definice a základní vlastnosti determinantu (multiplikativnost, determinant transponované matice, vztah s regularitou a vlastními čísly)
+	- determinant matice $A\in\mathbb K^{n\times n}$ je dán výrazem $$\text{det }A=\sum_{p\in S_n}\text{sgn}(p)\prod_{i=1}^na_{i,p(i)}$$
+	- věta: $\forall A,B\in\mathbb K^{n\times n}:\text{det}(AB)=\text{det }A\cdot\text{det }B$
+	- transpozice nemění determinant, $\mathrm{det}\,A=\mathrm{det}\,A^T$
+	- matice je regulární, právě když má nenulový determinant
+	- výpočet determinantu je nutné nastudovat
+	- $\mathrm{det}(A)=\lambda_1\cdot\lambda_2\cdot\ldots\cdot\lambda_n$
+	- $\lambda$ je vlastním číslem $A$, právě když $\mathrm{det}(A-\lambda I_n)=0$
+		- tedy právě když je kořenem charakteristického polynomu $p_A(t)=\mathrm{det}(A-tI_n)$
 - Laplaceův rozvoj determinantu
+	- notace: $A^{ij}$ je podmatice získaná z $A$ odstraněním $i$-tého řádku a $j$-tého sloupce
+	- věta: pro libovolné $A\in\mathbb K^{n\times n}$ a jakékoli $i\in \lbrace 1,\dots,n\rbrace$ platí $$\text{det }A=\sum^n_{j=1}a_{ij}(-1)^{i+j}\text{ det }A^{ij}$$
 - Geometrická interpretace determinantu
+	- objem rovnoběžnostěnu určeného $k$ vektory je roven absolutní hodnotě determinantu matice, jejíž sloupce tyto vektory tvoří
+	- po provedení lineárního zobrazení se objemy těles změní úměrně absolutní hodnotě determinantu matice zobrazení
 - Definice, geometrický význam a základní vlastnosti vlastních čísel, charakteristický polynom, násobnost vlastních čísel
+	- definice
+		- mějme matici $A\in\mathbb C^{n\times n}$
+		- vlastní číslo matice $A$ je jakékoliv $\lambda\in\mathbb C$, pro které existuje vektor $x\in\mathbb C^n\setminus \lbrace o\rbrace$ takový, že $Ax=\lambda x$
+		- $x$ je pak vlastní vektor příslušný vlastnímu číslu $\lambda$
+	- geometrie
+		- vlastní vektor reprezentuje invariantní směr při zobrazení $x\mapsto Ax$, tedy směr, který se zobrazí opět na ten samý směr
+		- vlastní číslo odpovídá škálování v tomto invariantním směru
+	- základní vlastnosti
+		- determinant matice je roven součinu vlastních čísel
+		- stopa matice (součet diagonály) je roven součtu vlastních čísel
+		- matice je regulární, právě když nula není její vlastní číslo
+		- $A^T$ má stejná vlastní čísla jako $A$, ale vlastní vektory obecně jiné
+		- uvažujeme matici $A\in\mathbb C^{n\times n}$ s vlastními čísly $\lambda_1,\dots,\lambda_n$ a jim odpovídajícími vlastními vektory $x_1,\dots,x_n$
+			- je-li $A$ regulární, pak $A^{-1}$ má vlastní čísla $\lambda_1^{-1},\dots,\lambda_n^{-1}$ a vlastní vektory $x_1,\dots,x_n$
+			- $A^2$ má vlastní čísla $\lambda_1^{2},\dots,\lambda_n^{2}$ a vlastní vektory $x_1,\dots,x_n$
+			- podobně pro $\alpha A$ a taky pro $A+\alpha I_n$
+	- charakteristický polynom … $p_A(t)=\mathrm{det}(A-tI_n)$
+		- vlastní čísla matice $A$ jsou právě kořeny jejího charakteristického polynomu a je jich $n$ včetně násobností
+	- algebraická násobnost $\lambda$ je rovna násobnosti $\lambda$ jakožto kořene $p_A$
+	- geometrická násobnost $\lambda$ je rovna $n-\mathrm{rank}(A-\lambda I_n)$, tj. počtu lineárně nezávislých vlastních vektorů, které odpovídají $\lambda$
+	- algebraická násobnost $\geq$ geometrická násobnost
+		- obvykle se násobností myslí ta algebraická
 - Podobnost a diagonalizovatelnost matic, spektrální rozklad
+	- matice $A,B\in\mathbb C^{n\times n}$ jsou podobné, pokud existuje regulární $S\in\mathbb C^{n\times n}$ tak, že $A=SBS^{-1}$
+	- věta: podobné matice mají stejná vlastní čísla
+		- počet vlastní vektorů pro konkrétní vlastní číslo je stejný u obou matic
+	- matice $A\in\mathbb C^{n\times n}$ je diagonalizovatelná, je-li podobná nějaké diagonální matici
+	- diagonalizovatelná matice $A$ jde tedy vyjádřit ve tvaru $A=S\Lambda S^{-1}$, kde $S$ je regulární a $\Lambda$ diagonální
+		- tomuto se říká spektrální rozklad
+		- sloupce matice $S$ odpovídají vlastním vektorům (v pořadí, v němž jsou vlastní čísla na diagonále $\Lambda$)
+	- věta: matice $A\in\mathbb C^{n\times n}$ je diagonalizovatelná, právě když má $n$ lineárně nezávislých vlastních vektorů
+	- věta: pokud má matice $n$ navzájem různých vlastních čísel, pak je diagonalizovatelná
+	- $A^2=S\Lambda^2 S^{-1}$
 - Symetrické matice, jejich vlastní čísla a spektrální rozklad
+	- matice je symetrická, pokud $A=A^T$
+	- vlastní čísla reálných symetrických matic jsou reálná
+	- věta: pro každou symetrickou matici $A\in\mathbb R^{n\times n}$ existuje ortogonální $Q\in\mathbb R^{n\times n}$ a diagonální $\Lambda\in\mathbb R^{n\times n}$ takové, že $A=Q\Lambda Q^T$
 - Positivně semidefinitní a positivně definitní matice – charakterizace a vlastnosti, vztah se skalárním součinem, vlastními čísly
+	- definice
+		- buď $A\in\mathbb R^{n\times n}$ symetrická
+		- pak $A$ je positivně semidefinitní, pokud $x^TAx\geq 0$ pro všechna $x\in\mathbb R^n$
+		- $A$ je positivně definitní, pokud $x^TAx\gt 0$ pro všechna $x\neq o$
+	- poznámka: nesymetrické matice můžeme symetrizovat úpravou $\frac12(A+A^T)$
+	- následující tří vlastnosti jsou ekvivalentní
+		- $A$ je positivně semidefinitní (nebo definitní)
+		- vlastní čísla $A$ jsou nezáporná
+			- pro definitní musí být kladná
+		- existuje matice $U\in\mathbb R^{m\times n}$ taková, že $A=U^TU$
+			- pro definitní musí mít matice $U$ hodnost $n$
+	- vlastnosti
+		- jsou-li $A,B$ positivně definitní, pak i $A+B$ je p. d.
+		- je-li $A$ positivně definitní a $\alpha\gt 0$, pak i $\alpha A$ je p. d.
+		- je-li $A$ positivně definitní, pak je regulární a $A^{-1}$ je p. d.
+	- operace $\braket{x|y}$ je skalárním součinem v $\mathbb R^n$, právě když má tvar $\braket{x|y}=x^TAy$ pro nějakou positivně definitní matici $A\in\mathbb R^{n\times n}$
+	- testování p. d. pomocí Gaussovy eliminace
+		- používáme pouze úpravu přičtení násobku řádku s pivotem k jinému řádku pod ním
+		- pokud nám vyjde odstupňovaný tvar s kladnou diagonálou, byla původní matice positivně definitní
 - Choleského rozklad (znění věty a praktické použití)
+	- pro každou positivně definitní matici $A\in\mathbb R^{n\times n}$ existuje jediná dolní trojúhelníková matice $L\in\mathbb R^{n\times n}$ s kladnou diagonálou taková, že $A=LL^T$
+	- algoritmus vypadá složitě, ale dá se to vymyslet intuitivně (je vhodné začít tím, že první prvek matice $A$ je druhou mocninou čísla, které je v obou trojúhelníkových maticích vlevo nahoře)
+	- praktické použití
+		- řešíme soustavu $Ax=b$
+		- máme Choleského rozklad $A=LL^T$
+		- snadno najdeme řešení soustavy $Ly=b$ (díky nulám v trojúhelníkové matici stačí substituovat)
+		- pak najdeme řešení soustavy $L^Tx=y$
+		- proč to funguje?
+			- $L(\underbrace{L^Tx}_{=y})=b$
 
 ## 3. Diskrétní matematika
 
