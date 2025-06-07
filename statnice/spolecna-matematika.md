@@ -82,6 +82,7 @@
 	- řekneme, že funkce $f$ je v bodě $a\in\mathbb R$ spojitá, pokud $\lim_{x\to a}f(x)=f(a)$
 		- spojitost zprava/zleva definujeme pomocí jednostranných limit
 	- funkce je spojitá na intervalu, pokud je spojitá v každém vnitřním bodu a pokud je (odpovídajícím způsobem) jednostranně spojitá v každém krajním bodu
+	- funkce může být v daném bodě buď spojitá, nebo nespojitá, nebo nedefinovaná
 - Funkce spojité na intervalu: nabývání mezihodnot
 	- nechť $a\lt b$ jsou reálná čísla
 	- nechť $f:[a,b]\to\mathbb R$ je na intervalu $[a,b]$ spojitá
@@ -129,51 +130,96 @@
 	- nechť $-\infty\leq a\lt b\leq +\infty$ a $f:(a,b)\to\mathbb R$ je daná funkce
 	- pokud má funkce $F:(a,b)\to\mathbb R$ na $(a,b)$ derivaci a ta se rovná $f(x)$, řekneme, že $F$ je na intervalu $(a,b)$ primitivní funkcí k funkci $f$
 	- primitivní funkce je jednoznačná až na konstantu
-	- substituci a per-partes je nutné nastudovat
+	- Newtonův integrál funkce $f$ na intervalu $(a,b)$ definujeme jako $$(N)\int_a^bf(x)\,dx:=[F]_a^b=F(b^-)-F(a^+)=\lim_{x\to b^-}F(x)-\lim_{x\to a^+}F(x)$$
+		- poznámka: konstanta $c$ se odečte
+	- substituci a per-partes je nutné nastudovat (i pro určitý integrál)
 	- vzorec pro per-partes: $\int u'v=uv-\int uv'$
 - Riemannův integrál: definice, souvislost s primitivní funkcí (Newtonovým integrálem)
+	- uvažujeme dělení $D=(a_0,a_1,\dots,a_k)$ intervalu $[a,b]$
+		- tzn. $a=a_0\lt a_1\lt a_2\lt \dots\lt a_k=b$
+	- definujeme dolní Riemannovu sumu $s(f,D)=\sum_{i=0}^{k-1} |I_i|m_i$
+		- $I_i=[a_i,a_{i+1}]$
+		- $m_i$ je supremum funkce $f$ v intervalu $I_i$
+	- také definujeme horní Riemannovu sumu $S(f,D)=\sum_{i=0}^{k-1}|I_i|M_i$
+		- $M_i$ … infimum
+	- dolní Riemannův integrál na intervalu $[a,b]$ definujeme jako supremum z $s(f,D)$ pro všechna dělení $D$ intervalu $[a,b]$
+		- značí se $\underline{\int_a^b f}$
+	- horní Riemannův integrál je infimum z $S(f,D)$
+		- $\overline{\int_a^bf}$
+	- funkce má Riemannův integrál, pokud se horní a dolní R. integrály rovnají (pak tuhle společnou hodnotu nazveme Riemannovým integrálem)
+		- $\int_a^b f$
+	- 2. základní věta analýzy: pokud Riemannův a Newtonův integrál existují, pak jsou si rovny
 - Aplikace integrálů: odhady součtu řad (konečných i nekonečných)
+	- pro přirozené $n$ a neklesající funkci $f$ na intervalu $[1,n]$ platí $$\sum_{k=1}^{n-1}f(k)\leq\int_1^n f\leq\sum_{k=2}^n f(k)$$
+	- integrální kritérium konvergence
+		- uvažujme nerostoucí nezápornou funkci $f$
+		- řada $\sum_{k=1}^\infty f(k)$ konverguje $\iff\lim_{b\to+\infty}\int_1^b f\lt +\infty$
+	- přesný postup pro odhad součtu řady je potřeba nacvičit
 - Aplikace integrálů: obsahy rovinných útvarů
+	- plocha rovinného útvaru $U(a,b,f)$ pod grafem funkce $f$ … $\int_a^b f$
 - Aplikace integrálů: objemy a povrchy rotačních útvarů v prostoru
+	- $V$ … rotační těleso vzniklé rotací rovinného útvaru $U(a,b,f)$ pod grafem funkce $f$ kolem osy $x$
+	- $\mathrm{objem}(V)=\pi\int_a^b f(t)^2\,dt$
+	- $\mathrm{povrch}(V)=2\pi\int_a^b f(t)\sqrt{1+(f'(t))^2}\,dt$
 - Aplikace integrálů: délka křivky
+	- uvažujeme křivku z bodu $a$ do bodu $b$ popsanou funkcí $f$
+	- $\int_a^b\sqrt{1+(f'(t))^2}\,dt$
 
 ## 2. Algebra a lineární algebra
 
-- Algebraické struktury
-	- grupy a podgrupy, permutace
-	- tělesa a speciálně konečná tělesa
-- Soustavy lineárních rovnic
-	- maticový zápis, elementární řádkové úpravy, odstupňovaný tvar matice
-	- Gaussova a Gaussova-Jordanova eliminace, popis množiny řešení
-- Matice
-	- operace s maticemi a základní typy matic, hodnost matice
-	- regulární a inverzní matice
-- Vektorové prostory
-	- vektorový prostor, lineární kombinace, lineární závislost a nezávislost, lineární obal, systém generátorů
-	- Steinitzova věta o výměně, báze, dimenze, souřadnice
-	- vektorové podprostory, zejména maticové (řádkový, sloupcový, jádro) a jejich dimenze
-- Lineární zobrazení
-	- definice, maticová reprezentace lineárního zobrazení, matice složeného zobrazení
-	- obraz a jádro lineárních zobrazení
-	- isomorfismus prostorů
-- Skalární součin
-	- skalární součin, norma indukovaná skalárním součinem
-	- Pythagorova věta, Cauchyho-Schwarzova nerovnost, trojúhelníková nerovnost
-	- ortonormální systémy vektorů, Fourierovy koeficienty, Gramova-Schmidtova ortogonalizace
-	- ortogonální doplněk, ortogonální projekce, projekce jako lineární zobrazení
-	- ortogonální matice a jejich vlastnosti
-- Determinanty
-	- definice a základní vlastnosti determinantu (multiplikativnost, determinant transponované matice, vztah s
-	regularitou a vlastními čísly)
-	- Laplaceův rozvoj determinantu
-	- geometrická interpretace determinantu
-- Vlastní čísla a vlastní vektory
-	- definice, geometrický význam a základní vlastnosti vlastních čísel, charakteristický polynom, násobnost vlastních čísel
-	- podobnost a diagonalizovatelnost matic, spektrální rozklad
-	- symetrické matice, jejich vlastní čísla a spektrální rozklad
-- Positivně semidefinitní a positivně definitní matice
-	- charakterizace a vlastnosti, vztah se skalárním součinem, vlastními čísly
-	- Choleského rozklad (znění věty a praktické použití)
+- Grupy a podgrupy, permutace
+	- binární operace na množině $X$ je zobrazení $X \times X \to X$
+	- neutrální prvek: $(\exists e \in G)(\forall a \in G): a\circ e = e\circ a = a$
+	- inverzní prvek: $(\forall a \in G)(\exists b \in G): a\circ b = b\circ a = e$
+	- grupa $(G,\circ)$ je množina $G$ spolu s binární operací $\circ$ na $G$ splňující asociativitu operace $\circ$, existenci neutrálního prvku a existenci inverzních prvků
+	- pokud je navíc operace $\circ$ komutativní, pak se jedná o abelovskou grupu
+	- grupa $(H,\bullet)$ je podgrupou grupy $(G,\circ)$, pokud $H\subseteq G$ a $\forall a,b\in H:a\bullet b=a\circ b$
+		- píšeme $(H,\bullet)\leq (G,\circ)$
+	- permutace na množině $\lbrace1,2,\dots,n\rbrace$ je bijektivní zobrazení $p:\lbrace1,2,\dots,n\rbrace\rightarrow \lbrace1,2,\dots,n\rbrace$
+		- skládání permutací … $(q\circ p)(i)=p(q(i))$
+		- permutační matice
+			- $(P)_{i,j} = \begin{cases} 1 &\text{pokud } p(i)=j \\ 0 &\text{jinak}\end{cases}$
+		- cyklus … např. $(1,2,3,4)$
+			- odpovídá zobrazení, které mapuje 1→2, 2→3, 3→4, 4→1
+		- transpozice … permutace, která má pouze jeden netriviální cyklus o délce 2, tedy např. $(1,3)$
+		- jakoukoliv permutaci lze rozložit na transpozice
+			- cyklus $(1,2,3,4)$ lze rozložit na $(1,4)\circ(1,3)\circ(1,2)$ nebo na $(1,2)\circ(2,3)\circ(3,4)$
+		- znaménko permutace $p$ je $\text{sgn}(p)=(-1)^{\text{počet inverzí v}\ p}$
+			- inverze v $p$ je dvojice prvků $(i,j):i \lt j \land p(i) \gt p(j)$
+			- nebo také $\text{sgn}(p)=(-1)^{\text{počet transpozic v}\ p}$
+- Tělesa a speciálně konečná tělesa
+	- těleso je množina $\mathbb K$ spolu se dvěma komutativními binárními operacemi $+$ a $\cdot$, kde $(\mathbb K, +)$ a $(\mathbb K \setminus \lbrace0\rbrace, \cdot)$ jsou abelovské grupy a navíc platí distributivita $\forall a,b,c \in \mathbb K : a\cdot (b+c)=(a\cdot b)+(a\cdot c)$
+	- charakteristika tělesa
+		- v tělese $\mathbb K$, pokud $\exists n \in \mathbb N: \underbrace{1+1+\dots+1}_{n}=0$, pak nejmenší takové $n$ je charakteristika tělesa $\mathbb K$
+		- jinak má těleso $\mathbb K$ charakteristiku 0
+		- značí se $\text{char}(\mathbb K)$
+		- lze dokázat, že u konečných těles musí být prvočíselná
+	- $\mathbb Z_p$ je těleso, právě když je $p$ prvočíslo
+	- ale existují i konečná tělesa s neprvočíselným řádem (počtem prvků) – např. Galois field $GF(4)$
+		- řád musí být kladná celá mocnina prvočísla
+- Soustavy lineárních rovnic – maticový zápis, elementární řádkové úpravy, odstupňovaný tvar matice
+- Gaussova a Gaussova-Jordanova eliminace, popis množiny řešení
+- Operace s maticemi a základní typy matic, hodnost matice
+- Regulární a inverzní matice
+- Vektorový prostor, lineární kombinace, lineární závislost a nezávislost, lineární obal, systém generátorů
+- Steinitzova věta o výměně, báze, dimenze, souřadnice
+- Vektorové podprostory, zejména maticové (řádkový, sloupcový, jádro) a jejich dimenze
+- Lineární zobrazení – definice, maticová reprezentace lineárního zobrazení, matice složeného zobrazení
+- Obraz a jádro lineárních zobrazení
+- Isomorfismus prostorů
+- Skalární součin, norma indukovaná skalárním součinem
+- Pythagorova věta, Cauchyho-Schwarzova nerovnost, trojúhelníková nerovnost
+- Ortonormální systémy vektorů, Fourierovy koeficienty, Gramova-Schmidtova ortogonalizace
+- Ortogonální doplněk, ortogonální projekce, projekce jako lineární zobrazení
+- Ortogonální matice a jejich vlastnosti
+- Definice a základní vlastnosti determinantu (multiplikativnost, determinant transponované matice, vztah s regularitou a vlastními čísly)
+- Laplaceův rozvoj determinantu
+- Geometrická interpretace determinantu
+- Definice, geometrický význam a základní vlastnosti vlastních čísel, charakteristický polynom, násobnost vlastních čísel
+- Podobnost a diagonalizovatelnost matic, spektrální rozklad
+- Symetrické matice, jejich vlastní čísla a spektrální rozklad
+- Positivně semidefinitní a positivně definitní matice – charakterizace a vlastnosti, vztah se skalárním součinem, vlastními čísly
+- Choleského rozklad (znění věty a praktické použití)
 
 ## 3. Diskrétní matematika
 
