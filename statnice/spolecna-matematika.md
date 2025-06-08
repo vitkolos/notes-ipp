@@ -913,11 +913,44 @@
 	- silná souvislost $\implies$ slabá souvislost
 	- věta: pro orientovaný graf $G$ platí: $G$ je vyvážený a slabě souvislý $\iff$ $G$ je eulerovský $\iff$ $G$ je vyvážený a silně souvislý
 - Toky v sítích: definice sítě a toku v ní
-	- TODO
+	- tokovou síť tvoří
+		- $V$ … množina vrcholů
+		- $E$ … množina orientovaných hran, $E\subseteq V\times V$
+		- $z\in V$ … zdroj
+		- $s\in V\setminus\set{z}$ … spotřebič / stok
+		- $c:E\to [0,+\infty)$ … $c(e)$ je kapacita hrany $e$
+	- definice umožňuje mít hrany oběma směry, připouští také smyčky, ty však z hlediska toků v sítích nejsou nijak užitečné
+	- poznámka: ze stoku může vycházet orientovaná hrana, podobně do zdroje může vést hrana
+	- tok v síti $(V,E,z,s,c)$ je funkce $f:E\to[0,+\infty)$ splňující
+		- $\forall e\in E:0\leq f(e)\leq c(e)$
+		- $\forall x\in V\setminus \set{z,s}:$ součet toků do vrcholu $x$ se rovná součtu toků z vrcholu (formálně pomocí sum) … Kirchhoffův zákon
 - Existence maximálního toku (bez důkazu)
-	- TODO
+	- velikost toku $f$ v síti $(V,E,z,s,c)$ je $w(f)\coloneqq f[\text{Out}(z)]-f[\text{In}(z)]$
+	- kde $\mathrm{Out}(z)$ a $\mathrm{In}(z)$ jsou množiny hran do, respektive ze zdroje a $f[A]\coloneqq\sum_{e\in A}f(e)$ pro $A\subseteq E$
+	- maximální tok je tok, který má největší velikost
+	- fakt: v každé tokové síti existuje maximální tok
+	- poznámka: obecně na přednášce uvažujeme konečné tokové sítě, grafy apod.
+	- idea důkazu
+		- mějme síť, očíslujme hrany (od $1$ do $m$)
+		- tok $f$ reprezentujme jako uspořádanou $m$-tici hodnot
+		- množina všech toků je uzavřená a omezená podmnožina $\mathbb R^m$, je tedy kompaktní
+		- funkce, která toku $f$ přiřadí $w(f)$, je spojitá
+		- víme z analýzy, že spojitá funkce na kompaktní množině nabývá maxima
+	- řez v síti $(V,E,z,s,c)$ je množina hran $R\subseteq E$ taková, že každá orientovaná cesta ze $z$ do $s$ obsahuje aspoň jednu hranu $R$
+	- Minimaxová věta o toku a řezu: nechť $f_\text{max}$ je maximální tok a $R_\text{min}$ je minimální řez v $(V,E,z,s,c)$, potom $w(f_\text{max})=c(R_\text{min})$
 - Princip hledání maximálního toku v síti s celočíselnými kapacitami (například pomocí Ford-Fulkersonova algoritmu)
-	- TODO
+	- rezerva hrany $uv$
+		- $r(uv)\coloneqq c(uv)-f(uv)+f(vu)$
+	- hrana je nasycená $\equiv$ má nulovou rezervu
+	- hrana je nenasycená $\equiv$ má kladnou rezervu
+	- cesta je nenasycená $\equiv$ žádná její hrana není nasycená / všechny mají kladné rezervy
+	- algoritmus
+		- iterujeme, dokud existuje nenasycená cesta ze zdroje do stoku
+		- spočítáme rezervu celé cesty (minimum přes rezervy hran cesty)
+		- pro každou hranu upravíme tok – v protisměru odečteme co nejvíc, zbytek přičteme po směru
+	- pro celočíselné kapacity vrátí celočíselný tok
+	- racionální kapacity převedeme na celočíselné
+	- pro iracionální kapacity se může rozbít
 
 ## 5. Pravděpodobnost a statistika
 
