@@ -785,6 +785,17 @@
 		- $d_G(u,v) = 0 \iff u=v$
 		- platí trojúhelníková nerovnost $d_G(u,w) \leq d_G(u,w) + d_G(w,v)$
 		- $d_G(v,u)=d_G(u,v)$
+	- grafové operace: přidání/odebrání vrcholu/hrany, dělení hrany, kontrakce hrany
+	- sled v grafu (walk) – můžou se opakovat vrcholy i hrany
+		- $(v_0,e_1,v_1,e_2,\dots,e_n,v_n)$
+		- $\forall i: e_i=\lbrace v_{i-1},v_i\rbrace$
+	- tah v grafu – můžou se opakovat vrcholy, hrany ne
+		- tah může být uzavřený (končí, kde začal), nebo otevřený
+	- eulerovský tah
+		- eulerovský tah obsahuje všechny hrany a vrcholy grafu
+			- někdy se eulerovský tah definuje bez nutnosti obsahovat všechny vrcholy
+		- graf je eulerovský $\equiv$ existuje v něm uzavřený eulerovský tah
+	- věta: graf $G$ je eulerovský $\iff G$ je souvislý a každý jeho vrchol má sudý stupeň
 - Stromy – definice a základní vlastnosti (existence listů, počet hran stromu)
 	- strom je souvislý graf bez kružnic (= acyklický)
 	- les je acyklický graf
@@ -848,12 +859,65 @@
 			- $\sum \text{deg}(\xi)=2e\leq 6v-12$
 			- průměrný stupeň $\leq {6v-12\over v}\lt 6$
 - Barevnost grafů – definice dobrého obarvení, vztah barevnosti a klikovosti grafu
+	- obarvení grafu $G$ $k$ barvami ($k$-obarvení) je $c:V(G)\to[k]$ t. ž. kdykoli $\lbrace x,y\rbrace\in E(G)$, pak $c(x)\neq c(y)$
+	- barevnost $\chi(G)$ grafu $G:=\text{min }k:\exists$ k-obarvení grafu $G$
+	- pozorování: kdykoli $H\subseteq G$, pak $\chi(H)\leq \chi(G)$
+	- barevnost některých grafů
+		- úplné grafy … $\chi(K_n)=n$
+		- cesty … $\chi(P_n)=2$ pro $n\geq 1$
+		- sudé kružnice … $\chi(C_{2k})=2$
+		- liché kružnice … $\chi(C_{2k+1})=3$
+		- stromy jsou 2-obarvitelné
+		- pro rovinné grafy existuje věta o čtyřech barvách
+	- věta: $\chi(G)\leq 2\iff G$ je bipartitní $\iff G$ neobsahuje lichou kružnici
+	- definice: klikovost grafu $\kappa(G)$ je maximální $k$ takové, že v grafu jako podgraf existuje úplný graf $K_k$
+		- $\chi(G)\geq\kappa(G)$
+	- klika v grafu je množina vrcholů taková, že každé dva jsou spojené hranou
+	- nezávislá množina v grafu je množina vrcholů taková, že žádné dva vrcholy nejsou spojené hranou
 - Hranová a vrcholová souvislost grafů
+	- $F\subseteq E$ je hranový řez v $G$, pokud $G-F$ je nesouvislý
+		- kde $G-F\coloneqq(V,E\setminus F)$
+	- graf je hranově $k$-souvislý, pokud neobsahuje žádný hranový řez velikosti menší než $k$
+	- stupeň hranové souvislosti (nebo jen hranová souvislost) grafu $G$, značený $k_e(G)$, je největší $k$ takové, že $G$ je hranově $k$-souvislý
+		- pozorování: $k_e(G)=$ velikost nejmenšího hranového řezu v $G$
+	- $A\subseteq V$ je vrcholový řez, pokud $G-A$ je nesouvislý
+		- kde $G-A=(V\setminus A,E\cap {V\setminus A\choose 2})$
+	- graf je vrcholově $k$-souvislý, pokud má aspoň $k+1$ vrcholů a neobsahuje žádný vrcholový řez velikosti menší než $k$
+	- vrcholová souvislost grafu $G$, značená $k_v(G)$, je největší $k$ takové, že $G$ je vrcholově $k$-souvislý
+		- pozorování: $k_v(K_n)=n-1$
+		- pozorování: $G$ není úplný … $k_v(G)=$ velikost nejmenšího vrcholového řezu
 - Hranová a vrcholová verze Mengerovy věty
+	- Mengerova věta, hranová $xy$-verze
+		- pro dva různé vrcholy $x,y$ grafu $G$ platí, že $G$ obsahuje $k$ hranově disjunktních cest z $x$ do $y$ $\iff G$ neobsahuje hranový $xy$-řez velikosti menší než $k$ 
+	- Mengerova věta, globální hranová verze
+		- graf $G$ je hranově $k$-souvislý $\iff$ mezi každými dvěma různými vrcholy existuje $k$ hranově disjunktních cest
+	- definice: dvě cesty v $G$ z $x$ do $y$ jsou navzájem vnitřně vrcholově disjunktní (VVD), pokud nemají žádný společný vrchol kromě $x,y$
+	- Mengerova věta, vrcholová $xy$-verze
+		- nechť $G=(V,E)$ je graf
+		- nechť $x,y$ jsou různé **nesousední** vrcholy
+		- nechť $k\in\mathbb N$
+		- potom $G$ obsahuje $k$ navzájem VVD cest z $x$ do $y\iff G$ neobsahuje vrcholový $xy$-řez velikosti $\lt k$
+	- Mengerova věta, globální vrcholová verze
+		- $G$ je vrcholově $k$-souvislý $\iff$ mezi každými dvěma různými vrcholy $x,y$ existuje $k$ navzájem VVD cest
 - Orientované grafy, silná a slabá souvislost
+	- orientovaný graf … $(V,E): E \subseteq V^2 \setminus \{(x,x)\mid x\in V\}$
+		- nepovolíme smyčky (v podstatě zakážeme diagonálu na relaci)
+	- podkladový graf je neorientovaný graf založený na tom původním orientovaném
+		- pro orientovaný $G=(V,E)$ existuje podkladový $G^0=(V,E^0)$, kde $\lbrace u,v\rbrace \in E^0\equiv (u,v)\in E\lor (v,u)\in E$
+	- vstupní a výstupní stupeň $\text{deg}^\text{in},\text{deg}^\text{out}$ (hrany vedoucí do vrcholu / z vrcholu)
+	- vrchol je vyvážený $\equiv \text{deg}^\text{in}(v)=\text{deg}^\text{out}(v)$
+	- graf je vyvážený $\equiv$ všechny vrcholy jsou vyvážené
+	- součet vstupních stupňů = součet výstupních stupňů = počet hran
+	- orientovaný graf je slabě souvislý $\equiv$ jeho podkladový graf je souvislý
+	- o. graf je silně souvislý $\equiv$ existuje orientovaná cesta mezi každými dvěma vrcholy
+	- silná souvislost $\implies$ slabá souvislost
+	- věta: pro orientovaný graf $G$ platí: $G$ je vyvážený a slabě souvislý $\iff$ $G$ je eulerovský $\iff$ $G$ je vyvážený a silně souvislý
 - Toky v sítích: definice sítě a toku v ní
+	- TODO
 - Existence maximálního toku (bez důkazu)
-- Princip hledání maximálního toku v síti s celočíselnými kapacitami (například pomocí Ford-Fulkersonova algoritmu)
+	- TODO
+- Princip hledání maximálního toku v síti s celočíselnými kapacitami (například pomocí Ford-Fulkersonova algoritmu)
+	- TODO
 
 ## 5. Pravděpodobnost a statistika
 
