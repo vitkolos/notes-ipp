@@ -505,8 +505,392 @@
 
 ## 3. Diskrétní matematika
 
+- Relace, vlastnosti binárních relací (reflexivita, symetrie, antisymetrie, tranzitivita)
+	- (binární) relace mezi množinami $X,Y$ je podmnožina $X\times Y$
+	- relace na množině $X$ je podmnožina $X^2$
+	- značení – pro relaci $R$ mezi $X,Y:xRy \equiv (x,y)\in R$
+	- příklady relací
+		- prázdná $\emptyset$
+		- univerzální $X\times Y$
+		- diagonální $\Delta_X := \lbrace (x,x)\mid x\in X\rbrace$, např. rovnost $x=y$
+	- operace s relacemi
+		- inverze
+			- k relaci $R$ mezi $X,Y$ lze definovat inverzní relaci $R^{-1}$ mezi $Y,X$, přičemž $R^{-1} := \lbrace(y,x)\mid (x,y)\in R\rbrace$
+		- skládání
+			- pro relaci $R$ mezi $X,Y$ a relaci $S$ mezi $Y,Z$ lze definovat složenou relaci $T=R\circ S$ mezi $X,Z$
+			- $xTz \equiv \exists y \in Y: xRy \land ySz$
+			- $R\circ \Delta_Y =R,\quad \Delta_X\circ R = R$
+			- značení skládání funkcí: $(f\circ g)(x)=g(f(x))$
+	- relace $R$ na $X$ je…
+		- reflexivní $\equiv \forall x \in X: xRx$
+			- $\Delta_X \subseteq R$
+		- symetrická $\equiv \forall x,y \in X: xRy \implies yRx$
+			- $R=R^{-1}$
+		- antisymetrická $\equiv \forall x,y \in X: xRy \land yRx \implies x=y$
+			- $R\cap R^{-1}\subseteq \Delta_X$
+		- tranzitivní $\equiv \forall x,y,z \in X: xRy \land yRz \implies xRz$
+			- $R\circ R \subseteq R$
+- Ekvivalence a rozkladové třídy
+	- relace $R$ na $X$ je ekvivalence $\equiv R$ je reflexivní & symetrická & tranzitivní
+		- např. rovnost čísel, rovnost mod $K$, geometrická podobnost
+	- ekvivalenční třída prvku $x \in X:R[x]=\lbrace y \in X \mid xRy\rbrace$
+	- množinový systém $\mathcal S\subseteq 2^X$ je rozklad množiny $X \equiv$
+		- $\forall A \in \mathcal S: A \neq \emptyset$
+		- $\forall A,B\in \mathcal S: A\neq B \implies A \cap B = \emptyset$
+		- $\bigcup_{A\in \mathcal S}A=X$
+	- věta (vztah mezi ekvivalencemi a rozklady)
+		- (1) $\forall x \in X: R[x]\neq \emptyset$
+		- (2) $\forall x,y \in X:$ buď $R[x]=R[y]$, nebo $R[x] \cap R[y]=\emptyset$
+		- (3) $\lbrace R[x] \mid x \in X\rbrace$ (množina všech ekvivalenčních tříd) určuje ekvivalenci R jednoznačně
+- Částečná uspořádání – základní pojmy (minimální a maximální prvky, nejmenší a největší prvky, řetězec, antiřetězec)
+	- relace $R$ na množině $X$ je (částečné) uspořádání $\equiv R$ je reflexivní & antisymetrická & tranzitivní
+	- (částečně) uspořádaná množina $(X,R)$
+		- zkráceně ČUM
+		- $R$ je (částečné) uspořádání na $X$
+	- prvky $x,y \in X$ jsou porovnatelné $\equiv xRy \lor yRx$
+	- uspořádání je lineární $\equiv \forall x,y\in X$ porovnatelné
+		- (všechny prvky množiny jsou navzájem porovnatelné)
+	- částečné uspořádání (nebo pouze uspořádání) je obecný pojem, některá taková uspořádání jsou navíc lineární
+	- ostré uspořádání – každému uspořádání $\leq$ na X přiřadíme relaci $<$ na X: $a < b \equiv a \leq b \land a \neq b$ 
+		- pozor – ostré uspořádání není speciálním případem uspořádání (protože není reflexivní)
+		- vlastnosti ostrého uspořádání – ireflexivní, antisymetrické, tranzitivní
+	- Hasseův diagram graficky zachycuje vztahy mezi prvky ČUM (porovnatelné prvky jsou spojeny, větší prvky jsou výše)
+	- prvek $x\in X$ je nejmenší $\equiv \forall y \in X: x\leq y$
+	- prvek $x\in X$ je minimální $\equiv \nexists y \in X: y\lt x$
+	- $x$ je nejmenší $\implies$ $x$ je minimální
+	- v Hassově diagramu
+		- z minimálního prvku dolů nevede žádná spojnice
+		- nejmenší prvek je nejníž v diagramu, existuje do něj cesta z libovolného jiného prvku
+	- věta: konečná neprázdná uspořádaná množina má minimální a maximální prvek
+	- pro $(X,\leq)$ ČUM:
+		- $A\subseteq X$ je řetězec $\equiv \forall a,b \in A: a,b$ jsou porovnatelné
+		- $A \subseteq X$ je antiřetězec (nezávislá množina) $\equiv \nexists a,b$ různé & porovnatelné
+- Výška a šířka částečně uspořádané množiny a věta o jejich vztahu (o dlouhém a širokém)
+	- $\omega(X,\leq)$ je délka nejdelšího řetězce = maximum z délek řetězců (výška uspořádání)
+	- $\alpha(X,\leq)$ je délka nejdelšího antiřetězce (šířka uspořádání)
+	- věta: pro každou konečnou ČUM $(X,\leq)$ platí $\alpha(X,\leq)\cdot \omega(X,\leq)\geq |X|$
+	- důsledek: $\text{max}(\alpha,\omega)\geq\sqrt{|X|}$
+- Funkce, typy funkcí (prostá, na, bijekce)
+	- funkce z množiny $X$ do množiny $Y$ je relace $A$ mezi $X$ a $Y$ t. ž. $(\forall x\in X)(\exists! y\in Y):xAy$
+	- funkce $f:X\to Y$ je…
+		- prostá (injektivní) $\equiv \nexists x,x' \in X: x \neq x' \land f(x)=f(x')$
+		- na $Y$ (surjektivní) $\equiv (\forall y \in Y)(\exists x \in X): f(x)=y$
+		- vzájemně jednoznačná (bijektivní) $\equiv (\forall y \in Y)(\exists! x \in X):f(x)=y$
+			- taková funkce je tedy prostá i „na“
+			- k takové funkci existuje inverzní funkce $f^{-1}$ z $Y$ do $X$
+- Počty různých typů funkcí mezi dvěma konečnými množinami
+	- věta: počet $f:N\to M=m^n$
+		- pro $|N|=n, |M|=m;\quad m,n\gt 0$
+	- definice: klesající mocnina
+		- $m^{\underline n}=\underbrace{m\cdot (m-1)\cdot (m-2)\cdot\ldots\cdot(m-n+1)}_n$
+		- tedy $m^{\underline n}=\frac{m!}{(m-n)!}$
+	- věta: počet prostých $f:N\to M=m^{\underline{n}}$
+	- počet surjektivních zobrazení lze určit pomocí principu inkluze a exkluze
+	- bijekcí je $n!$
+	- počet uspořádaných $k$-tic $|X^k|=|X|^k$, lze jej totiž vyjádřit jako počet funkcí $f:[k]\to X$
+- Permutace a jejich základní vlastnosti (počet a pevný bod)
+	- definice: $[n]=\lbrace1,2,\dots,n\rbrace$
+	- věta: na množině $[n]$ existuje $n!$ permutací (podobně na každé n-prvkové množině)
+	- pevný bod permutace je prvek, který se zobrazí sám na sebe
+- Kombinační čísla a vztahy mezi nimi, binomická věta a její aplikace
+	- kombinační číslo (binomický koeficient) ${n\choose k}:={n^{\underline k} \over k!}={n!\over k!(n-k)!}$
+	- Pascalův trojúhelník – n roste shora dolů, k zleva doprava
+	- $X\choose k$ … množina všech k-prvkových podmnožin množiny $X$
+	- ${n\choose k} = {n\choose n-k}$ … každé k-prvkové podmnožině přiřadíme její doplněk
+		- Pascalův trojúhelník je symetrický
+	- ${n-1\choose k-1}+{n-1\choose k}={n\choose k}$
+		- zvolíme jeden prvek $a$ a rozdělíme všechny k-prvkové podmnožiny podle toho, zda obsahují $a$, nebo ne
+		- buňka v Pascalově trojúhelníku je součtem dvou buněk nad ní (pokud není na kraji)
+	- Binomická věta: $(x+y)^n=\sum_{i=0}^n{n\choose i}x^{n-i}y^i$
+	- aplikace
+		- řádek Pascalova trojúhelníku se sečte na $2^n=(1+1)^n=\sum_{k=0}^n\binom{n}{k}$
+		- důkaz $(x^n)'=nx^{n-1}$
+			- použijeme $f(x+h)=(x+h)^n=x^n+nx^{n-1}h+\binom n2 x^{n-2}h^2+\dots+h^n$
+			- dosadíme do $\lim_{h\to 0}\frac{f(x+h)-f(x)}{h}$
+		- $e=\lim\,(1+\frac1n)^n$
+- Princip inkluze a exkluze: obecná formulace (a důkaz)
+	- konkrétní ukázky principu inkluze a exkluze (PIE)
+		- $|A\cup B|=|A|+|B|-|A\cap B|$
+		- $|A\cup B\cup C|=|A|+|B|+|C|-|A\cap B|-|A\cap C|-|B\cap C|+|A\cap B\cap C|$
+	- věta: pro konečné množiny $A_1,\dots,A_n$ platí $$|\bigcup_{i=1}^nA_i|=\sum_{k=1}^n(-1)^{k+1}\sum_{I\in{[n]\choose k}}|\bigcap_{i\in I}A_i|$$
+	- důkaz
+		- pro prvek $x$ ve sjednocení spočítáme příspěvky k levé (vždy 1) a pravé straně
+		- nechť $x$ patří do právě $t$ množin
+		- průniky $k$-tic
+			- $k \gt t$ … přispěje $0$
+			- $k\leq t$ … přispěje $(-1)^{k+1}{t\choose k}$
+				- vybíráme $k$-tice množin z $t$-množin, do kterých prvek patří
+				- minus jednička vychází ze vzorce
+			- chceme $\sum_{k=1}^t(-1)^{k+1}{t\choose k}=1$
+			- lze upravit na $\sum_{k=1}^t(-1)^{k}{t\choose k}=-1$
+			- z binomické věty $0=(1-1)^t=\sum_{k=0}^t{t\choose k}(-1)^{k}$
+			- tedy bez prvního členu se součet rovná $-1\quad \square$
+- Princip inkluze a exkluze: použití (problém šatnářky, Eulerova funkce pro počet dělitelů, počet surjekcí)
+	- problém šatnářky
+		- Šatnářka $n$ pánům vydá náhodně $n$ klobouků (které si předtím odložili v šatně). Jaká je pravděpodobnost, že žádný pán nedostane od šatnářky zpět svůj klobouk?
+		- jaká je pravděpodobnost, že náhodně zvolená permutace nebude mít žádný pevný bod
+			- každá z $n!$ permutací je stejně pravděpodobná
+			- $š(n)$ … počet permutací bez pevného bodu
+			- pravděpodobnost je rovna $š(n)/n!$
+		- $S_n$ … množina všech permutací
+		- $A_i=\lbrace \pi \in S_n \mid \pi(i)=i\rbrace$
+			- množina permutací s pevným bodem v $i$-tém prvku (jedna permutace může patřit do více takových množin)
+		- $A=\bigcup_{i=1}^n A_i$ … (množina všech „špatných“ permutací)
+		- musíme vyjádřit velikosti průniků
+			- permutací s (konkrétními) $k$ pevnými body je $(n-k)!$, protože permutuji všechny prvky kromě těch pevných
+		- dosazením do principu inkluze a exkluze vyjde $|A|=\sum_{k=1}^n(-1)^{k+1}{n\choose k}(n-k)!$
+			- $n\choose k$ vyplývá z počtu prvků druhé sumy
+			- ${n\choose k}(n-k)!={n!\over k!}$
+		- $|A|=\sum_{k=1}^n(-1)^{k+1}\frac{n!}{k!}=n!\cdot\sum_{k=1}^n{(-1)^{k+1}\over k!}$
+		- $|A|=n!({1\over 1!}-{1\over 2!}+{1\over 3!}-\dots+{(-1)^{n+1}\over n!})$
+		- $š(n)=n!-|A|=n!\cdot(1-{1\over 1!}+{1\over 2!}-{1\over 3!}+\dots+{(-1)^n\over n!})$
+			- závorka konverguje k $e^{-1}$
+			- závorka odpovídá pravděpodobnosti v problému šatnářky
+		- $š(n)=n!\cdot\sum_{k=0}^n\frac{(-1)^k}{k!}$
+		- pravděpodobnost … $\sum_{k=0}^n\frac{(-1)^k}{k!}\approx e^{-1}$
+	- Eulerova funkce $\varphi(n)$
+		- je to počet čísel z $[n]$ nesoudělných s $n$
+			- pro prvočíslo $p$ platí $\varphi(n)=p-1$, protože je soudělné samo se sebou a protože podle definice nesoudělnosti (NSD = 1) není soudělné s jedničkou
+		- tvrzení: nechť $n=p_1^{e_1}\cdot p_2^{e_2}\cdot\ldots\cdot p_k^{e_k}$ je prvočíselný rozklad, pak $\varphi(n)=n(1-\frac{1}{p_1})(1-\frac1{p_2})\dots(1-\frac1{p_k})$
+		- důkaz
+			- jako $A_i$ označím množinu čísel z $[n]$ soudělných $i$-tým prvočíslem $p_i$
+			- zjevně $\varphi(n)=n-|\bigcup_{i=1}^k A_i|$
+			- $|A_i|=\frac n{p_i}$
+			- pro různé $i,j\in[k]$ platí $|A_i\cap A_j|=\frac n{p_ip_j}$
+			- to se dá zobecnit na průnik více množin
+			- dle PIE $|\bigcup_{i=1}^kA_i|=\sum_{I\in 2^{[n]}\setminus\set\emptyset}(-1)^{|I|+1}\frac{n}{\prod_{i\in I} p_i}$
+			- $=n(\frac1{p_1}+\dots+\frac1{p_k}-\frac1{p_1p_2}-\dots+\frac1{p_1p_2p_3}+\dots+(-1)^{k+1}\frac1{p_1\dots p_k})$
+			- proto $\varphi(n)=n(1-\frac1{p_1}-\dots-\frac1{p_k}+\frac{1}{p_1p_2}+\dots+(-1)^k\frac1{p_1\dots p_k})$
+			- tedy $\varphi(n)=n(1-\frac{1}{p_1})(1-\frac1{p_2})\dots(1-\frac1{p_k})\quad\square$
+				- z každé závorky vždy vybíráme levý nebo pravý člen
+	- počet surjekcí
+		- věta
+			- nechť $X,Y$ jsou konečné množiny, $|X|=n$, $|Y|=m$, $n\geq m\gt 0$
+			- potom počet zobrazení $f$ množiny $X$ na množinu $Y$ je $\sum_{k=0}^m(-1)^k\binom mk(m-k)^n$
+		- důkaz
+			- počet všech funkcí z $X$ do $Y$ je $m^n$
+			- definujeme $F_i$ jako množinu zobrazení, že $i$-tý prvek z množiny $Y$ není pokrytý (neexistuje $x\in X$, aby $f(x)=y_i$, kde $y_i$ je $i$-tý prvek z $Y$)
+			- takže počet surjekcí bude $m^n-|\bigcup_{i=1}^m F_i|$
+			- použijeme PIE: $|\bigcup_{i=1}^mF_i|=\sum_{k=1}^m(-1)^{k+1}\sum_{I\in{[m]\choose k}}|\bigcap_{i\in I}F_i|$
+			- $=\sum_{k=1}^m(-1)^{k+1}\binom mk(m-k)^n$
+				- $(m-k)^n$ dostaneme tak, že uvažujeme funkce z $n$-prvkové množiny do množiny s $m-k$ prvky (na vybraných $k$ bodů naše funkce nesmí směřovat)
+			- počet surjekcí $m^n-|\bigcup_{i=1}^m F_i|=m^n-\sum_{k=1}^m(-1)^{k+1}\binom mk(m-k)^n$ pak ještě upravíme do finálního tvaru $\quad\square$
+- Hallova věta o systému různých reprezentantů a její vztah k párování v bipartitním grafu, princip důkazu a algoritmické aspekty (polynomiální algoritmus pro nalezení SRR)
+	- systém různých reprezentantů v hypergrafu
+		- systém různých reprezentantů (SRR) v hypergrafu $H=(V,E)$ je funkce $r:E\to V$ taková, že
+			- $\forall e\in E: r(e)\in e$
+			- $\forall e,f\in E:e\neq f\implies r(e)\neq r(f)$ … tj. $r$ je prostá
+		- $r(e)$ … „reprezentant hyperhrany $e$“
+		- analogie s předsedy spolků
+	- pozorování: v bipartitním grafu s partitami $A,B$ má každé párování velikost nejvýše $|A|$ (i nejvýše $|B|$)
+	- definice: pro graf $G=(V,E)$ a množinu $X\subseteq V$ označím $N(X):=\set{y\in V\setminus X: (\exists x\in X)\set{x,y}\in E}$
+	- Hallova věta, bipartitní grafová verze
+		- nechť $G$ je bipartitní graf s partitami $A,B$, potom $G$ má párování velikosti $|A|$ $\iff\underbrace{\forall X\subseteq A:|N(X)|\geq |X|}_{\text{„Hallova podmínka“}}$
+	- důkaz
+		- $\implies$
+			- pokud existuje párování velikosti $|A|$, tak pro každou $X\subseteq A$ existuje $|X|$ vrcholů spárovaných s $X$, ty patří do $N(X)$, tedy $|N(X)|\geq |X|$
+		- $\impliedby$
+			- nechť $M$ je největší párování v $G$
+			- pro spor nechť $|M|\lt|A|$
+			- dle Kőnigovy–Egerváryho věty existuje pokrytí $C$, kde $|C|=|M|\lt |A|$
+			- $C_A:= C\cap A$
+			- $C_B:=C\cap B$
+			- $X:=A\setminus C_A$
+			- zjistím, že $N(X)\subseteq C_B$
+				- protože nepokryté hrany musí pokrývat vrcholy v $N(X)$
+			- navíc $|X|=|A|-|C_A|\gt |C_B|\geq |N(X)|$
+				- jelikož $|C|\lt|A|\implies |A|\gt|C_A|+|C_B|$
+			- to je spor s Hallovou podmínkou
+		- idea $\impliedby$
+			- uvažujeme ostře menší párování, tedy podle Kőnigovy–Egerváryho věty musí existovat i menší pokrytí
+				- věta říká, že velikost maximální párování se rovná velikosti minimálního pokrytí (jako u toku a řezu)
+			- prohlásíme, že vrcholy v $X$ nejsou v pokrytí, tak ty hrany mezi nimi a $N(X)$ musí pokrývat vrcholy v $N(X)$, ale těch by pak bylo málo (méně než požaduje Hallova podmínka)
+			- takže jsme dokázali obměnu implikace
+	- pozorování: jakmile uvnitř hypergrafu je množina čtyř hyperhran, které ve svém sjednocení mají tři vrcholy, tak nemůžu najít systém různých reprezentantů
+		- platí to obecně pro množinu $k$ hyperhran – když budou mít ve sjednocení méně než $k$ vrcholů, tak nenajdu SRR
+		- implikace platí i obráceně, lze vyslovit jako větu
+	- Hallova věta, hypergrafová verze
+		- hypergraf $H=(V,E)$ má SRR, právě když $\forall F\subseteq E:\left|\bigcup_{e\in F} e\right|\geq |F|$
+	- důkaz
+		- nechť $H=(V,E)$ je hypergraf, nechť $I_H$ je jeho graf incidence
+		- $H$ má SRR $\iff$ $I_H$ má párování velikosti $|E|$
+		- Hallova podmínka pro $H$: $\forall F\subseteq E: \left|\bigcup_{e\in F}e\right|\geq |F|\iff$ bipartitní Hallova podmínka pro $I_H$ a partitu $E$
+	- algoritmické aspekty
+		- maximální párování lze najít v polynomiálním čase
+		- proto i SRR lze najít v polynomiálním čase
+
 ## 4. Teorie grafů
+
+- Základní pojmy teorie grafů – graf, vrcholy a hrany, izomorfismus grafů, podgraf, okolí vrcholu a stupeň vrcholu, doplněk grafu, bipartitní graf
+	- graf je $(V, E)$, kde $V$ je konečná neprázdná množina vrcholů a $E \subseteq {V \choose 2}$ je množina hran
+		- lze značit jako $G=(V,E)$, potom $V(G)$ je množina vrcholů a $E(G)$ je množina hran
+	- izomorfismus
+		- grafy jsou izomorfní $\equiv$ existuje bijekce, která zachovává vlastnost být spojen hranou
+		- v podstatě stačí přejmenovat vrcholy a dostaneme dva stejné grafy
+		- značení $\cong$
+		- $\cong$ je ekvivalence na libovolné množině grafů
+			- neexistuje množina všech grafů (protože neexistuje množina všech množin)
+	- podgraf
+		- graf $G'=(V',E')$ je podgrafem grafu $G=(V,E)$ (značíme $G'\subseteq G$), když $V'\subseteq V \land E'\subseteq E$
+		- graf $G'=(V',E')$ je indukovaným podgrafem grafu $G=(V,E)$, když $V'\subseteq V \land E'= E\cap {V'\choose 2}$
+			- „podgraf indukovaný množinou vrcholů“
+			- $G[A] := (A, E(G) \cap {A \choose 2})$, kde $A\subseteq V(G)$
+	- okolí vrcholu
+		- okolí vrcholu $v$ jsou ty vrcholy, které s vrcholem $v$ sousedí (sdílejí hranu)
+		- $N_G(v)=\set{u\in V(G):\exists uv\in E(G)}$
+	- stupeň vrcholu
+		- stupeň vrcholu – počet hran, kterých se účastní daný vrchol
+		- graf je k-regulární, pokud je stupeň všech vrcholů grafu roven k
+		- skóre grafu = posloupnost stupňů vrcholů (až na pořadí) → jakmile dvěma grafům vyjde jiné skóre, nemohou být izomorfní
+	- doplněk grafu
+		- doplněk/komplement grafu $G$ je graf $G_0$, který má stejné vrcholy jako $G$, ale má právě ty hrany, které v grafu $G$ chybí
+	- bipartitní graf
+		- graf (V, E) je bipartitní $\equiv \exists L,P\subseteq V$ t. ž.:
+			- $L \cup P = V$
+			- $L \cap P = \emptyset$
+			- $\forall e \in E: |e \cap L| = 1\quad (\land\ |e \cap P| = 1)$
+				- nebo $E(G)\subseteq\lbrace\lbrace x,y\rbrace\mid x\in L,y\in P\rbrace$
+		- partity grafu – jednotlivé „strany“
+- Základní příklady grafů – úplný graf a úplný bipartitní graf, cesty a kružnice
+	- úplný graf $K_n$
+		- $V(K_n):=[n]$
+		- $E(K_n):={V(K_n)\choose 2}$
+	- úplný bipartitní $K_{m,n}$
+		- každý prvek nalevo je spojený s každým napravo
+		- prvky na jedné straně mezi sebou nejsou spojeny
+	- prázdný graf $E_n$
+		- $V(E_n):=[n]$
+		- $E(E_n) =\emptyset$
+	- cesta $P_n$
+		- $V(P_n):=\{0,\dots, n\}$
+		- $E(P_n):=\{\{i,i+1\}\mid 0\leq i \lt n\}$
+		- délka cesty se měří v počtu hran
+	- kružnice/cyklus $C_n$
+		- $n\geq 3$
+		- $V(C_n):=\{0,\dots, n–1\}$
+		- $E(C_n):=\{\{i,(i+1)\bmod n\}\mid 0\leq i \lt n\}$
+- Souvislost grafů, komponenty souvislosti, vzdálenost v grafu
+	- graf $G$ je souvislý $\equiv\forall u,v\in V(G):$ existuje cesta v $G$ s krajními vrcholy $u,v$
+	- dosažitelnost v $G$ je relace $\sim$ na $V(G)$ t. ž. $u\sim v\equiv$ existuje cesta v $G$ s krajními vrcholy $u,v$
+		- relace $\sim$ je ekvivalence
+		- tranzitivita se dokazuje pomocí dvou posloupností vrcholů $x \sim y$ a $y\sim z$ a následně zvolení nejzazšího vrcholu z posloupnosti $y\sim z$, který je obsažen v posloupnosti $x\sim y$ a v tomto vrcholu se posloupnosti slepí (přičemž části za ním v první posloupnosti a před ním v druhé posloupnosti se ustřihnou)
+	- komponenty souvislosti jsou podgrafy indukované třídami ekvivalence $\sim$
+		- komponenty jsou souvislé
+		- graf je souvislý $\iff$ má 1 komponentu
+	- vzdálenost (grafová metrika) v souvislém grafu $G$
+		- $d_G:V^2\to\mathbb R$
+		- $d_G(u,v):=$ min. z délek (počtu hran) všech cest mezi $u,v$
+	- vlastnosti metriky (funkce je metrika = chová se jako vzdálenost)
+		- $d_G(u,v)\geq 0$
+		- $d_G(u,v) = 0 \iff u=v$
+		- platí trojúhelníková nerovnost $d_G(u,w) \leq d_G(u,w) + d_G(w,v)$
+		- $d_G(v,u)=d_G(u,v)$
+- Stromy – definice a základní vlastnosti (existence listů, počet hran stromu)
+	- strom je souvislý graf bez kružnic (= acyklický)
+	- les je acyklický graf
+	- list je vrchol stupně 1
+		- strom o jednom vrcholu („pařez“) nemá žádný list
+	- lemma: každý strom s aspoň 2 vrcholy má aspoň 1 list (respektive aspoň dva listy)
+	- lemma: je-li $v$ list grafu $G$, pak $G$ je strom, právě když $G-v$ je strom
+	- strom $G$ má $|V(G)|-1$ hran (Eulerova formule)
+- Ekvivalentní charakteristiky stromů
+	1. G je souvislý a acyklický (strom)
+	2. mezi vrcholy $u, v$ existuje právě jedna cesta (jednoznačně souvislý)
+	3. G je souvislý a po smazání libovolné jedné hrany už nebude souvislý (minimální souvislý)
+	4. G je acyklický a po přidání libovolné jedné hrany vznikne cyklus (maximální acyklický)
+	5. G je souvislý a platí pro něj Eulerova formule $|E(G)|=|V(G)|-1$
+- Rovinné grafy – definice a základní pojmy (rovinný graf a rovinné nakreslení grafu, stěny)
+	- rovinné nakreslení grafu = nakreslení grafu, aby se hrany nekřížily
+		- vrcholy = body v rovině (navzájem různé)
+		- hrany = křivky, které se neprotínají a jejich společnými body jsou jejich společné vrcholy
+	- stěny nakreslení
+		- části, na které nakreslení grafu rozděluje rovinu
+		- stěnou je i vnější stěna (zbytek roviny)
+		- hranice stěny – skládá se z hran
+		- hranice stěny je nakreslení uzavřeného sledu
+	- graf je rovinný, pokud má alespoň jedno rovinné nakreslení
+	- topologický graf je uspořádaná dvojice (graf, nakreslení)
+	- $K_5$ a $K_{3,3}$ nejsou rovinné
+		- graf je rovinný, právě když žádný jeho podgraf není izomorfní s nějakým dělením grafu $K_5$ nebo $K_{3,3}$ (tzn. podgraf může mít podrozdělené hrany – „$K_5$“ s libovolně podrozdělenými hranami pořád nebude rovinná)
+- Eulerova formule a maximální počet hran rovinného grafu (důkaz a použití)
+	- věta
+		- nechť $G$ je souvislý graf nakreslený do roviny, $v:=|V(G)|, e:=|E(G)|, f:=$ počet stěn nakreslení
+		- potom $v+f=e+2$ (Eulerova formule)
+	- důkaz: indukcí podle $e$
+		- $e=v-1$ (G je strom)
+			- $f=1$
+			- $v+1=v-1+2\quad\checkmark$
+		- $e-1\to e$
+			- mějme graf $G$ s $e$ hranami
+			- zvolím si libovolnou hranu $x$ na kružnici
+			- $G':=G-x$
+			- $v'=v,\quad e'=e-1,\quad f'=f-1$
+			- z IP: $v'+f'=e'+2$
+			- po dosazení: $v+f-1=e-1+2$
+			- k oběma stranám přičteme jedničku
+			- $v+f=e+2\quad\square$
+	- věta: maximální rovinný graf je triangulace
+		- dokud hranice stěny není trojúhelník, je tam nějaká dvojice nespojených vrcholů
+	- počet hran maximálního rovinného grafu
+		- každá stěna přispěje třemi hranami
+		- každá hrana patří ke dvěma stěnám
+		- počítáme „strany hran“: $3f=2e$
+		- $f={2\over 3}e$
+		- $v+{2\over 3}e=e+2$
+		- $e=3v-6$
+	- věta: v každém rovinném grafu s aspoň 3 vrcholy je $|E|\leq 3|V|-6$
+	- důkaz
+		- doplníme do $G$ hrany, až získáme maximální rovinný $G'$
+		- $e'=3v-6$ (vrcholy nepřidáváme)
+		- $e\leq e'=3v-6$
+	- důsledek
+		- průměrný stupeň vrcholu v rovinném grafu je menší než 6
+			- $\sum \text{deg}(\xi)=2e\leq 6v-12$
+			- průměrný stupeň $\leq {6v-12\over v}\lt 6$
+- Barevnost grafů – definice dobrého obarvení, vztah barevnosti a klikovosti grafu
+- Hranová a vrcholová souvislost grafů
+- Hranová a vrcholová verze Mengerovy věty
+- Orientované grafy, silná a slabá souvislost
+- Toky v sítích: definice sítě a toku v ní
+- Existence maximálního toku (bez důkazu)
+- Princip hledání maximálního toku v síti s celočíselnými kapacitami (například pomocí Ford-Fulkersonova algoritmu)
 
 ## 5. Pravděpodobnost a statistika
 
+- Pravděpodobnostní prostor, náhodné jevy, pravděpodobnost (definice, příklady)
+- Základní pravidla pro počítání s pravděpodobností
+- Nezávislost náhodných jevů, podmíněná pravděpodobnost
+- Bayesův vzorec
+- Náhodné veličiny a jejich rozdělení
+	- diskrétní i spojitý případ
+	- popis pomocí distribuční funkce a pomocí pravděpodobnostní funkce/hustoty
+	- střední hodnota
+	- linearita střední hodnoty
+	- střední hodnota součinu nezávislých veličin
+- Markovova nerovnost
+	- rozptyl
+	- definice
+	- vzorec pro rozptyl součtu (závislých či nezávislých veličin)
+	- práce s konkrétními rozděleními: geometrické, binomické, Poissonovo, normální, exponenciální
+- Limitní věty: zákon velkých čísel
+- Limitní věty: centrální limitní věta
+- Bodové odhady – alespoň jedna metoda pro jejich tvorbu, vlastnosti
+- Intervalové odhady: metoda založená na aproximaci normálním rozdělením
+- Testování hypotéz – základní přístup, chyby 1. a 2. druhu, hladina významnosti
+
 ## 6. Logika
+
+- Znalost a práce se základními pojmy syntaxe výrokové a predikátové logiky (jazyk, otevřená a uzavřená formule, instance formule, apod.)
+- Normální tvary výrokových formulí
+- Prenexní tvary formulí predikátové logiky
+- Znalost základních normálních tvarů (CNF, DNF, PNF)
+- Převody na normální tvary
+- Použití normálních tvarů pro algoritmy (SAT, rezoluce)
+- Pojem modelu teorie
+- Pravdivost, lživost, nezávislost formule vzhledem k teorii
+- Splnitelnost, tautologie, důsledek
+- Analýza výrokových teorií nad konečně mnoha prvovýroky
+- Extenze teorií – schopnost porovnat sílu teorií, konzervativnost, skolemizace
+- Dokazatelnost – pojem formálního důkazu, zamítnutí; schopnost práce v některém z formálních dokazovacích systémů (např. tablo)
+- Věty o kompaktnosti a úplnosti výrokové a predikátové logiky – znění a porozumění významu; použití na příkladech, důsledky
+- Rozhodnutelnost – pojem kompletnosti a její kritéria, význam pro rozhodnutelnost; příklady rozhodnutelných a nerozhodnutelných teorií
