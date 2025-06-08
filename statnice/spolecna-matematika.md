@@ -676,6 +676,9 @@
 				- $(m-k)^n$ dostaneme tak, že uvažujeme funkce z $n$-prvkové množiny do množiny s $m-k$ prvky (na vybraných $k$ bodů naše funkce nesmí směřovat)
 			- počet surjekcí $m^n-|\bigcup_{i=1}^m F_i|=m^n-\sum_{k=1}^m(-1)^{k+1}\binom mk(m-k)^n$ pak ještě upravíme do finálního tvaru $\quad\square$
 - Hallova věta o systému různých reprezentantů a její vztah k párování v bipartitním grafu, princip důkazu a algoritmické aspekty (polynomiální algoritmus pro nalezení SRR)
+	- párování je taková množina hran, kde žádné dvě hrany nemají společný vrchol
+		- maximální párování je takové párování, které má nejvíce hran
+		- perfektní párování je takové párování, které pokrývá všechny vrcholy grafu
 	- systém různých reprezentantů v hypergrafu
 		- systém různých reprezentantů (SRR) v hypergrafu $H=(V,E)$ je funkce $r:E\to V$ taková, že
 			- $\forall e\in E: r(e)\in e$
@@ -858,6 +861,14 @@
 		- průměrný stupeň vrcholu v rovinném grafu je menší než 6
 			- $\sum \text{deg}(\xi)=2e\leq 6v-12$
 			- průměrný stupeň $\leq {6v-12\over v}\lt 6$
+	- počet hran a vrchol nízkého stupně v rovinných grafech bez trojúhelníků
+		- maximální rovinné grafy bez trojúhelníků mají stěny čtvercové, pětiúhelníkové, nebo to může být strom ve tvaru hvězdy
+		- pro čtvercově stěny platí $4f=2e$, pro pětiúhelníkové $5f=2e$
+		- obecně $4f\leq 2e\to f\leq \frac 12 e$
+		- $v+\frac 12e\geq e+2$
+		- $e\leq 2v-4$
+		- průměrný stupeň $\leq {4v-8\over v} \lt$ 4
+		- existuje vrchol stupně max. 3
 - Barevnost grafů – definice dobrého obarvení, vztah barevnosti a klikovosti grafu
 	- obarvení grafu $G$ $k$ barvami ($k$-obarvení) je $c:V(G)\to[k]$ t. ž. kdykoli $\lbrace x,y\rbrace\in E(G)$, pak $c(x)\neq c(y)$
 	- barevnost $\chi(G)$ grafu $G:=\text{min }k:\exists$ k-obarvení grafu $G$
@@ -868,7 +879,7 @@
 		- sudé kružnice … $\chi(C_{2k})=2$
 		- liché kružnice … $\chi(C_{2k+1})=3$
 		- stromy jsou 2-obarvitelné
-		- pro rovinné grafy existuje věta o čtyřech barvách
+		- pro rovinné grafy existuje věta o čtyřech barvách (je to těsný horní odhad – existují rovinné grafy, které nelze obarvit třemi barvami, např. $K_4$)
 	- věta: $\chi(G)\leq 2\iff G$ je bipartitní $\iff G$ neobsahuje lichou kružnici
 	- definice: klikovost grafu $\kappa(G)$ je maximální $k$ takové, že v grafu jako podgraf existuje úplný graf $K_k$
 		- $\chi(G)\geq\kappa(G)$
