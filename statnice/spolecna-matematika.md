@@ -966,25 +966,206 @@
 ## 5. Pravděpodobnost a statistika
 
 - Pravděpodobnostní prostor, náhodné jevy, pravděpodobnost (definice, příklady)
+	- $\Omega$ … množina elementárních jevů
+	- $\mathcal F\subseteq\mathcal P(\Omega)$ je prostor jevů, pokud…
+		- $\emptyset,\Omega\in\mathcal F$
+		- $A\in\mathcal F\implies A^c=\Omega\setminus A\in\mathcal F$
+		- $A_1,A_2,\ldots\in\mathcal F\implies\bigcup A_i\in \mathcal F$
+	- $P:\mathcal F\to[0,1]$ je pravděpodobnost, pokud…
+		- $P(\Omega)=1$
+		- $P(\bigcup A_i)=\sum P(A_i)$ pro $A_1,A_2,\ldots\in \mathcal F$ po dvou disjunktní
+	- příklady pravděpodobnostních prostorů
+		- klasický – tedy konečný s uniformní pravděpodobností, např. $\Omega=[6]$ (hod kostkou)
+			- příklad elementárního jevu … padla šestka
+			- příklad jevu … padlo sudé číslo
+		- diskrétní – dovolíme cinknutou kostku (nevyžadujeme uniformní pravděpodobnost)
+		- geometrický – např. „náhodně“ střílíme na terč, takže šance, že zasáhneme konkrétní oblast, je úměrná obsahu oblasti (ale může být i ve více než dvou dimenzích)
+		- spojitý – schopný střelec se trefuje spíše do středu terče (opět dovolíme i jiné než uniformní rozdělení)
 - Základní pravidla pro počítání s pravděpodobností
+	- $P(A)+P(A^c)=1$
+	- $A\subseteq B\implies P(B\setminus A)=P(B)-P(A)\implies P(A)\leq P(B)$
+	- $P(A\cup B)=P(A)+P(B)-P(A\cap B)$
+	- $P(A_1\cup A_2\cup\dots)\leq\sum_i P(A_i)$ … subaditivita, Booleova nerovnost
 - Nezávislost náhodných jevů, podmíněná pravděpodobnost
+	- jevy $A,B\in\mathcal F$ jsou nezávislé, pokud $P(A\cap B)=P(A)\cdot P(B)$
+	- můžeme uvažovat i větší množiny jevů
+		- jevy v množině jsou (vzájemně) nezávislé, pokud pro každou konečnou podmnožinu platí, že $P(\bigcap)=\prod P$
+		- pokud podmínka platí jen pro dvouprvkové podmnožiny, jsou jevy *po dvou nezávislé*
+	- pokud $A,B\in\mathcal F$ a $P(B)\gt 0$, definujeme podmíněnou pravděpodobnost $A$ při $B$ jako $P(A\mid B)=\frac{P(A\cap B)}{P(B)}$
+	- zjevně $P(A\cap B)=P(A)\cdot P(B\mid A)$
+	- $P(A_1\cap A_2\cap \dots\cap A_n)=P(A_1)P(A_2\mid A_1)P(A_3\mid A_1\cap A_2)\dots P(A_n\mid A_1\cap\dots\cap A_{n-1})$
+		- lze ukázat indukcí (nebo neformálně rozepsáním členů vpravo a vykrácením)
+	- věta o úplné pravděpodobnosti
+		- mějme $B_1,B_2,\dots$ rozklad $\Omega$
+		- $P(A)=\sum_iP(B_i)\cdot P(A\mid B_i)$
+			- sčítance s $P(B_i)=0$ považujeme za nulové
 - Bayesův vzorec
+	- mějme $B_1,B_2,\dots$ rozklad $\Omega$
+	- $P(B_j\mid A)=\frac{P(B_j)\cdot P(A\mid B_j)}{\sum_i P(B_i)\cdot P(A\mid B_i)}$
 - Náhodné veličiny a jejich rozdělení
-	- diskrétní i spojitý případ
-	- popis pomocí distribuční funkce a pomocí pravděpodobnostní funkce/hustoty
-	- střední hodnota
-	- linearita střední hodnoty
-	- střední hodnota součinu nezávislých veličin
-- Markovova nerovnost
-	- rozptyl
-	- definice
-	- vzorec pro rozptyl součtu (závislých či nezávislých veličin)
-	- práce s konkrétními rozděleními: geometrické, binomické, Poissonovo, normální, exponenciální
+	- náhodná veličina je funkce, která přiřazuje každému elementárnímu náhodnému jevu nějakou (obvykle číselnou) hodnotu
+	- pro diskrétní náhodnou veličinu $X$ definujeme pravděpodobnostní funkci $p_X(x)=P(\set{X=x})$
+	- spojité náhodné veličiny obvykle popisujeme pomocí distribuční funkce a hustoty
+		- distribuční funkce náhodné veličiny $X$ je funkce $F_X:\mathbb R\to [0,1]$ definovaná předpisem $F_X(x):=P(X\leq x)$
+		- zjevně $P(a\lt X\leq b)=F_X(b)-F_X(a)$
+		- vlastnosti
+			- $F_X$ je neklesající
+			- $\lim_{x\to+\infty} F_X(x)=1$
+			- $\lim_{x\to-\infty} F_X(x)=0$
+			- $F_X$ je zprava spojitá
+		- náhodná veličina $X$ se nazývá spojitá, pokud existuje nezáporná reálná funkce $f_X$ tak, že $F_X(x)=P(X\leq x)=\int_{-\infty}^x f_X(t)\text dt$
+		- hustota $f_X$ … „limita histogramů“
+		- zjevně $\int_{-\infty}^\infty f=1$
+- Střední hodnota – linearita střední hodnoty, střední hodnota součinu nezávislých veličin, Markovova nerovnost
+	- $\mathbb E(X)=\sum_{x\in\text{Im}(X)}x\cdot P(X=x)$
+		- nebo $\mathbb E(X)=\int_{-\infty}^{\infty} x f_X(x)\text dx$
+	- pozorování: $\mathbb E(X)=\sum_{\omega\in\Omega}X(\omega)\cdot P(\set{\omega})$
+	- pravidlo naivního statistika
+		- $\mathbb E(g(X))=\sum_{x\in\text{Im}(X)}g(x)P(X=x)$
+		- nebo $\mathbb E(g(X))=\int_{-\infty}^\infty g(x)f_X(x)\text dx$
+	- linearita $\mathbb E(aX+b)=a\mathbb E(X)+b$ plyne z PNS pro funkci $ax+b$
+	- podmíněná střední hodnota $\mathbb E(X\mid B)=\sum_{x\in\text{Im}(X)}x\cdot P(X=x\mid B)$
+	- věta o celkové střední hodnotě: $\mathbb E(X)=\sum_i P(B_i)\cdot \mathbb E(X\mid B_i)$
+	- $\mathbb E(g(X,Y))=\sum_x\sum_y g(x,y) P(X=x\land Y=y)$
+	- $\mathbb E(aX+bY)=a\mathbb E(X)+b\mathbb E(Y)$
+	- pro nezávislé $X,Y$ platí $\mathbb E(XY)=\mathbb E(X)\mathbb E(Y)$
+	- Markovova nerovnost
+		- pro $X\geq 0$ a $a\gt0$ platí $P(X\geq a)\leq\frac{\mathbb E(X)}a$
+- Rozptyl – definice, vzorec pro rozptyl součtu (závislých či nezávislých veličin)
+	- rozptyl … $\text{var}(X)=\mathbb E((X-\mathbb EX)^2)$
+	- směrodatná odchylka … $\sigma_X=\sqrt{\text{var}(X)}$
+	- věta: $\text{var}(X)=\mathbb E(X^2)-\mathbb E(X)^2$
+	- počítání s rozptylem
+		- $\mathrm{var}(aX+b)=a^2\mathrm{var}(X)$
+	- rozptyl součtu nezávislých veličin je součet rozptylů
+		- $\mathrm{var}(X+Y)=\mathrm{var}(X)+\mathrm{var}(Y)$
+	- kovariance a její vlastnosti
+		- definice: $\text{cov}(X,Y)=\mathbb E((X-\mathbb EX)(Y-\mathbb EY))$
+		- věta: $\text{cov}(X,Y)=\mathbb E(XY)-\mathbb E(X)\mathbb E(Y)$
+		- pro nezávislé $X,Y$ platí $\text{cov}(X,Y)=0$
+		- zjevně $\text{cov}(X,X)=\text{var}(X)$
+		- $\text{cov}(aX+bY,Z)=a\text{cov}(X,Z)+b\text{cov}(Y,Z)$
+		- korelace
+			- $\rho(X,Y)=\frac{\text{cov}(X,Y)}{\sigma_X\cdot\sigma_Y}$
+	- rozptyl součtu náhodných veličin (závislých i nezávislých)
+		- nechť $X=\sum_{i=1}^n X_i$
+		- pak $\text{var}(X)=\sum_{i=1}^n\sum_{j=1}^n\text{cov}(X_i,X_j)$
+- Práce s konkrétními rozděleními: geometrické, binomické, Poissonovo, normální, exponenciální
+	- Bernoulliho/alternativní rozdělení $\text{Ber}(p)$
+		- počet úspěchů při jednom pokusu (kde $p$ je pravděpodobnost úspěchu)
+		- $p_X(1)=p$
+		- $p_X(0)=1-p$
+		- jinak $p_X(x)=0$
+		- $\mathbb E(X)=p$
+		- $\text{var}(X)=p(1-p)$
+	- geometrické rozdělení $\text{Geom}(p)$
+		- při kolikátém pokusu poprvé uspějeme
+		- $p_X(k)=(1-p)^{k-1}\cdot p$
+		- $\mathbb E(X)=1/p$
+		- $\text{var}(X)=\frac{1-p}{p^2}$
+	- binomické rozdělení $\text{Bin}(n,p)$
+		- počet úspěchů při $n$ nezávislých pokusech
+		- $p_X(k)={n\choose k}p^k(1-p)^{n-k}$
+		- $\mathbb E(X)=np$
+		- $\text{var}(X)=np(1-p)$
+	- Poissonovo rozdělení $\text{Pois}(\lambda)$
+		- počet doručených zpráv za časový úsek, $\lambda$ je průměrná hodnota
+		- $p_X(k)=\frac{\lambda^k}{k!}e^{-\lambda}$
+		- $\text{Pois}(\lambda)$ je limitou $\text{Bin}(n,\lambda/n)$ pro $n\to\infty$
+		- $\mathbb E(X)=\lambda$
+		- $\text{var}(X)=\lambda$
+	- uniformní $U(a,b)$
+		- $f_X(x)=\frac 1{b-a}$
+		- $F_X(x)=\frac{x-a}{b-a}$
+		- $\mathbb E(X)=\frac{a+b}2$
+		- $\text{var}(X)=\frac{(b-a)^2}{12}$
+	- exponenciální $\text{Exp}(\lambda)$
+		- $f_X(x)=\lambda e^{-\lambda x}$ pro $x\geq 0$
+		- $F_X(x)=1-e^{-\lambda x}$ pro $x\geq 0$
+		- $\mathbb E(X)=1/\lambda$
+		- $\text{var}(X)=1/\lambda^2$
+	- standardní normální rozdělení
+		- $N(0,1)$
+		- $f_X(x)=\varphi(x)=\frac1{\sqrt{2\pi}} e^{-x^2/2}$
+	- obecné normální rozdělení
+		- $N(\mu,\sigma^2)$
+		- $f_X(x)=\frac 1{\sigma\sqrt{2\pi}}e^{-\frac12(\frac{x-\mu}{\sigma})^2}$
+		- máme-li $X\sim N(\mu,\sigma^2)$, pak pro $Z=\frac{X-\mu}\sigma$ platí $Z\sim N(0,1)$
+		- pro normální nezávislé náhodné veličiny $X_i\sim N(\mu_i,\sigma_i^2)$ (nechť je jich konečně) je i součet normální náhodná veličina $\sum X_i\sim N(\sum\mu_i,\sum\sigma_i^2)$
+		- pravidlo $3\sigma$
+			- $P(\mu-\sigma\lt X\lt\mu+\sigma)\doteq 0.68$
+			- $P(\mu-2\sigma\lt X\lt\mu+2\sigma)\doteq 0.95$
+			- $P(\mu-3\sigma\lt X\lt\mu+3\sigma)\doteq 0.997$
 - Limitní věty: zákon velkých čísel
+	- mějme $X_1,X_2,\dots$ stejně rozdělené nezávislé náhodné veličiny
+	- $\bar X_n=(X_1+\dots+X_n)/n$ … výběrový průměr
+	- silný zákon velkých čísel
+		- $\lim_{n\to\infty}\bar X_n=\mu$ skoro jistě (s pravděpodobností 1)
+		- použití: Monte Carlo integrování kruhu
+	- slabý zákon velkých čísel (zlepšení přesnosti opakovaným měřením)
+		- $\forall\varepsilon\gt 0:\lim_{n\to\infty} P(|\bar X_n-\mu|\gt\varepsilon)=0$
+		- říkáme, že $\bar X_n$ konverguje k $\mu$ v pravděpodobnosti, píšeme $\bar X_n\xrightarrow P\mu$
 - Limitní věty: centrální limitní věta
+	- nechť $X_1,X_2,\dots$ jsou stejně rozdělené se střední hodnotou $\mu$ a rozptylem $\sigma^2$
+	- označme $Y_n=\frac{(X_1+\dots+X_n)-n\mu}{\sigma\sqrt{n}}$
+	- pak $Y_n\xrightarrow d N(0,1)$
+		- $Y_n$ konverguje v distribuci k $N(0,1)$
+		- tzn. $\lim_{n\to\infty} F_{Y_n}(x)=\Phi(x)$
+	- CLV se hodí k aproximaci distribuce součtu nebo průměru velkého počtu náhodných veličin normálním rozdělením
+		- takže můžeme provádět bodové a intervalové odhady i tam, kde data nejsou normálně rozdělená, ale známe rozptyl
 - Bodové odhady – alespoň jedna metoda pro jejich tvorbu, vlastnosti
+	- pro náhodný výběr $X_1,\dots,X_n\sim F_\theta$ a libovolnou funkci $g$ nazveme bodový odhad $\hat\theta_n$…
+		- nevychýlený/nestranný, pokud $\mathbb E(\hat\theta_n)=g(\theta)$
+		- asymptoticky nevychýlený, pokud $\lim_{n\to\infty}\mathbb E(\hat\theta_n)=g(\theta)$
+		- konzistentní, pokud $\hat\theta_n\xrightarrow P g(\theta)$
+	- dále definujeme
+		- vychýlení … $\text{bias}(\hat\theta_n)=\mathbb E(\hat\theta_n)-\theta$
+		- střední kvadratickou chybu … $\text{MSE}(\hat\theta_n)=\mathbb E((\hat\theta_n-\theta)^2)$
+	- věta: $\text{MSE}(\hat\theta_n)=\text{bias}(\hat\theta_n)^2+\text{var}(\hat\theta_n)$
+	- metoda momentů
+		- $r$-tý moment $X$ … $\mathbb EX^r=m_r(\theta)$
+		- $r$-tý výběrový moment … $\frac1n\sum_{i=1}^n X_i^r=\widehat{m_r}$
+			- konzistentní nevychýlený odhad pro $r$-tý moment
+		- nalezneme $\theta$ takové, že $m_r(\theta)=\widehat{m_r}$
+		- typicky stačí použít první moment, dostaneme nějakou rovnici
+		- $m_1=\mu$
+		- $m_2=\mathbb E(X^2)=\text{var}(X)+(\mathbb EX)^2=\sigma^2+\mu^2$
+	- metoda maximální věrohodnosti
+		- $\hat\theta_{ML}=\text{argmax}_\theta\;p(x;\theta)$
+			- $\text{argmax}_\theta\;f(x;\theta)$
+			- abych se nemusel rozhodovat mezi $p$ a $f$, budu používat $L$
+		- výpočetně jednodušší bude používat logaritmus $L$, který označíme $\ell$
+		- příklad
+			- ve vzorku $k$ leváků z $n$ lidí, hledáme pravděpodobnost $\theta$, že je někdo levák
+			- $L(x;\theta)=\theta^k(1-\theta)^{n-k}$
+			- $\ell(x;\theta)=k\log\theta+(n-k)\log(1-\theta)$
+			- $\ell'(x;\theta)=\frac k\theta-\frac{n-k}{1-\theta}$
+				- hledáme maximum, položíme derivaci rovnou nule (a zkontrolujeme krajní hodnoty)
+		- podobně pro spojitý případ – „maximalizujeme“ rovnici pro pravděpodobnost konkrétního výběru
 - Intervalové odhady: metoda založená na aproximaci normálním rozdělením
+	- statistiky $D\leq H$ určují konfidenční interval o spolehlivosti $1-\alpha$, pokud $P(D\leq\theta\leq H)=1-\alpha$
+		- zkráceně $(1-\alpha)$-CI
+	- interval budeme uvažovat ve tvaru $[x-\delta,x+\delta]$
+	- postup
+		- máme nestranný bodový odhad $\hat\theta$ pro parametr $\theta$
+		- $\hat\theta$ má normální rozdělení
+		- $\hat\theta\pm z_{\alpha/2}\cdot\text{se}$ je $(1-\alpha)$-CI
+			- $z_{\alpha/2}:=\Phi^{-1}(1-\alpha/2)$
+			- $\text{se}:=\sigma(\hat\theta)$
 - Testování hypotéz – základní přístup, chyby 1. a 2. druhu, hladina významnosti
+	- nulová hypotéza … defaultní, konzervativní model
+	- alternativní hypotéza … alternativní model, „zajímavost“
+	- nulovou hypotézu buď zamítneme, nebo nezamítneme
+	- chyba 1. druhu – chybné zamítnutí, „trapas“
+	- chyba 2. druhu – chybné přijetí, „promarněná příležitost“
+	- hladina významnosti $\alpha$ … pravděpodobnost chyby 1. druhu
+		- typicky se volí $\alpha=0.05$
+	- $\beta$ … pravděpodobnost chyby 2. druhu
+	- kritický obor … je to množina, kterou určíme před provedením testu; pokud se výsledek našeho testu bude nacházet v kritickém oboru, zamítneme nulovou hypotézu
+		- tedy $\alpha=P(h(X)\in W; H_0)$
+	- síla testu … $1-\beta$
+		- chceme co největší
+	- $p$-hodnota … nejmenší $\alpha$ taková, že na hladině $\alpha$ zamítáme $H_0$
 
 ## 6. Logika
 

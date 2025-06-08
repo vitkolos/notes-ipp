@@ -129,7 +129,7 @@
 		- vyplývá ze vzorce pro pravděpodobnostní funkci funkce dvou náhodných veličin
 	- $\mathbb E(aX+bY)=a\mathbb E(X)+b\mathbb E(Y)$
 		- vyplývá z PNS
-	- $\mathbb E(XY)=\mathbb E(X)\mathbb E(Y)$
+	- pro nezávislé $X,Y$ platí $\mathbb E(XY)=\mathbb E(X)\mathbb E(Y)$
 		- vyplývá z PNS
 - Konvoluční vzorec
 	- pravděpodobnostní funkce součtu $Z=X+Y$
@@ -256,7 +256,7 @@
 	- věta
 		- nechť $X_1,X_2,\dots$ jsou stejně rozdělené nezávislé náhodné veličiny
 		- $\bar X_n=(X_1+\dots+X_n)/n$ … výběrový průměr
-		- $\forall\epsilon\gt 0:\lim_{n\to\infty} P(|\bar X_n-\mu|\gt\varepsilon)=0$
+		- $\forall\varepsilon\gt 0:\lim_{n\to\infty} P(|\bar X_n-\mu|\gt\varepsilon)=0$
 		- říkáme, že $\bar X_n$ konverguje k $\mu$ v pravděpodobnosti, píšeme $\bar X_n\xrightarrow P\mu$
 	- důkaz
 		- $\mathbb E\bar X_n=\mathbb E\frac{X_1+X_2+\dots+X_n}{n}=\frac{\mu n}n=\mu$
