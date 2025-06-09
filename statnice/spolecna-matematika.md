@@ -1341,6 +1341,48 @@
 		- položka je redukovaná na dané větvi, pokud obsahuje pouze výrokovou proměnnou nebo se na dané větvi vyskytuje jako kořen atomického tabla (tedy došlo k jejímu rozvoji na dané větvi)
 		- v predikátové logice navíc řešíme kvantifikátory – položky typu *svědek* a *všichni*
 - Věty o kompaktnosti a úplnosti výrokové a predikátové logiky – znění a porozumění významu; použití na příkladech, důsledky
-	- TODO
+	- věta o kompaktnosti: teorie má model, právě když každá její konečná část má model
+	- aplikace
+		- popíšeme požadovanou vlastnost nekonečného objektu pomocí (nekonečné) výrokové teorie
+		- z konečné části teorie sestrojíme konečný podobjekt mající danou vlastnost
+	- příklady
+		- spočetně nekonečný graf je bipartitní $\iff$ každý jeho konečný podgraf je bipartitní
+			- $T=\set{p_u\to\neg p_v\mid\set{u,v}\in E(G)}$
+		- nestandardní model přirozených čísel
+			- vezmeme standardní model přirozených čísel (jeho teorii)
+			- přidáme nový konstantní symbol
+			- přidáme k teorii výrok, že je ta konstanta ostře větší než každý $n$-tý numerál
+			- každá konečná část této nové teorie má model, takže i celá ta nová teorie má 
+	- První věta o neúplnosti: Pro každou bezespornou rekurzivně axiomatizovanou extenzi $T$ Robinsonovy aritmetiky existuje sentence, která je pravdivá v $\underline{\mathbb N}$, ale není dokazatelná v $T$.
+	- důsledek 1.1: je-li $T$ rekurzivně axiomatizovaná extenze Robinsonovy aritmetiky a je-li navíc $\underline{\mathbb N}$ modelem teorie $T$, potom $T$ není kompletní
+		- pro sentenci, která není dokazatelná v $T$, nemůže být dokazatelná ani její negace (byl by to spor s její pravdivostí v $\underline{\mathbb N}$)
+	- důsledek 1.2: teorie $\text{Th}(\underline{\mathbb N})$ není rekurzivně axiomatizovatelná
+		- kdyby byla, nemohla by být kompletní – ale ona kompletní je
+		- značení: $\text{Th}(\underline{\mathbb N})$ … množina všech sentencí pravdivých v $\underline{\mathbb N}$ (tzv. teorie struktury $\underline{\mathbb N}$)
+	- věta (Rosserův trik): v každé bezesporné rekurzivně axiomatizované extenzi Robinsonovy aritmetiky existuje nezávislá sentence – tedy taková není kompletní
+		- v podstatě plyne z důsledku 1.1, jen se zbavuje $\underline{\mathbb N}$ 
+	- Druhá věta o neúplnosti: Pro každou bezespornou rekurzivně axiomatizovanou extenzi $T$ Peanovy aritmetiky platí, že $\mathit{Con_T}$ není dokazatelná v $T$.
+	- $\mathit{Con_T}$ … sentence vyjadřující bezespornost (konzistence) teorie $T$
+		- $\mathit{Con_T}=\neg(\exists y)\mathit{Prf_{T}}(\underline{0=S(0)},y)$
+		- $\mathit{Prf_{T}}(x,y)$ … $y$ je důkaz $x$ v $T$
+	- důsledek 2.1: existuje model Peanovy aritmetiky (PA), ve kterém platí sentence $(\exists y)\mathit{Prf_{PA}}(\underline{0=S(0)},y)$
+	- důsledek 2.2: existuje bezesporná rekurzivně axiomatizovaná extenze $T$ Peanovy aritmetiky, která dokazuje svou spornost, tj. taková, že $T\vdash\neg \mathit{Con_T}$
+	- důsledek 2.3: je-li teorie množin ZFC bezesporná, nemůže být sentence $\mathit{Con_{ZFC}}$ v teorii ZFC dokazatelná
 - Rozhodnutelnost – pojem kompletnosti a její kritéria, význam pro rozhodnutelnost; příklady rozhodnutelných a nerozhodnutelných teorií
-	- TODO
+	- teorie je sporná, jestliže… (ekvivalentně)
+		- v ní platí spor
+		- nemá žádný model
+		- v ní platí všechny výroky
+	- teorie je bezesporná (splnitelná), pokud není sporná, tj. má nějaký model
+	- teorie je kompletní jestliže není sporná a každý výrok (respektive sentence) je v ní pravdivý nebo lživý (tj. nemá žádné nezávislé výroky), ekvivalentně, pokud má právě jeden model (až na elementární ekvivalenci v predikátové logice)
+		- struktury $\mathcal{A,B}$ (v témž jazyce) jsou elementárně ekvivalentní, pokud v nich platí tytéž sentence (značíme $\mathcal A\equiv \mathcal B$)
+		- zjevně $\mathcal A\equiv \mathcal B\iff\text{Th}(\mathcal A)=\text{Th}(\mathcal B)$
+	- o teorii $T$ říkáme, že je…
+		- rozhodnutelná, pokud existuje algoritmus, který pro každou vstupní formuli $\varphi$ doběhne a odpoví, zda $T\models\varphi$
+		- částečně rozhodnutelná, pokud existuje algoritmus, který pro každou vstupní formuli $\varphi$…
+			- pokud $T\vDash\varphi$, doběhne a odpoví „ano“
+			- pokud $T\nvDash\varphi$, buď nedoběhne, nebo doběhne a odpoví „ne“
+	- teorie $T$ je rekurzivně axiomatizovaná, pokud existuje algoritmus, který pro každou vstupní formuli $\varphi$ doběhne a odpoví, zda $\varphi\in T$
+	- tvrzení: je-li $T$ rekurzivně axiomatizovaná, potom je částečně rozhodnutelná, je-li navíc kompletní, je rozhodnutelná
+	- tvrzení: je-li $\mathcal A$ konečná struktura v konečném jazyce s rovností, potom je teorie $\text{Th}(\mathcal A)$ rekurzivně axiomatizovatelná
+	- TODO (kompletnost, příklady)
