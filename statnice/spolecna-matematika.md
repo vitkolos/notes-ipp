@@ -1170,33 +1170,37 @@
 ## 6. Logika
 
 - Znalost a práce se základními pojmy syntaxe výrokové a predikátové logiky (jazyk, otevřená a uzavřená formule, instance formule, apod.)
-	- signatura je dvojice $\braket{\mathcal {R,F}}$, kde $\mathcal{R,F}$ jsou disjunktní množiny symbolů (relační a funkční, ty zahrnují konstantní) spolu s danými aritami a neobsahují symbol $=$
-	- do jazyka patří…
-		- spočetně mnoho proměnných
-		- relační, funkční a konstantní symboly ze signatury a symbol $=$, jde-li o jazyk s rovností
-		- univerzální a existenční kvantifikátory pro každou proměnnou
-		- symboly pro logické spojky a závorky
-	- struktura v signatuře $\braket{\mathcal{R,F}}$ je trojice $\mathcal A=\braket{A,\mathcal{R^A,F^A}}$, kde…
-		- $A$ je neprázdná množina, říkáme jí doména (také universum)
-		- $\mathcal {R^A}$ je množina interpretací jednotlivých relačních symbolů (kde interpretace $n$-árního relačního symbolu je množina uspořádaných $n$-tic prvků z $A$)
-		- $\mathcal {F^A}$ je množina interpretací jednotlivých funkčních symbolů (kde intepretace $n$-árního funkčního symbolu odpovídá funkci přiřazující $n$-tici prvků z $A$ jeden prvek z $A$)
-			- speciálně pro konstantní symbol $c\in\mathcal F$ je $c^\mathcal A\in A$
-	- termy jazyka $L$ jsou konečné nápisy definované induktivně
-		- proměnná je term
-		- konstantní symbol je term
-		- pro $n$-ární funkční symbol $f$ a termy $t_1,\dots,t_n$ je nápis $f(t_1,\dots,t_n)$ také term
-	- atomická formule jazyka $L$ je nápis $R(t_1,\dots,t_n)$, kde $R$ je $n$-ární relační symbol z $L$ (v jazyce s rovností to může být i rovnost) a $t_i$ je $L$-term
-	- formule jazyka $L$ jsou konečné nápisy definované induktivně
-		- atomická formule je formule
-		- negace formule je formule
-		- spojením dvou formulí binární logickou spojkou dostaneme formuli
-		- přidáním kvantifikátoru před formuli dostaneme formuli
-	- výskyt proměnné je vázaný, pokud jí odpovídá nějaký kvantifikátor, jinak je výskyt volný
-	- proměnná je volná, pokud má volný výskyt, je vázaná, pokud má vázaný výskyt
-	- formule je otevřená, neobsahuje-li žádný kvantifikátor
-	- formule je uzavřená (= sentence), pokud nemá žádnou volnou proměnnou
-	- term $t$ je substituovatelný za proměnnou $x$ ve formuli $\varphi$, pokud po simultánním nahrazení všech volných výskytů $x$ ve $\varphi$ za $t$ nevznikne ve $\varphi$ žádný vázaný výskyt proměnné z $t$
-		- v tom případě říkáme vzniklé formuli instance $\varphi$ vzniklá substitucí $t$ za $x$ a označujeme ji $\varphi(x/t)$
+	- výroková logika
+		- jazyk je určený neprázdnou množinou výrokových proměnných $\mathbb P$ (také jim říkáme prvovýroky nebo atomické výroky)
+		- množina $\mathbb P$ může být konečná nebo i nekonečná (ale obvykle bude spočetná) a bude mít dané uspořádání
+	- predikátová logika
+		- signatura je dvojice $\braket{\mathcal {R,F}}$, kde $\mathcal{R,F}$ jsou disjunktní množiny symbolů (relační a funkční, ty zahrnují konstantní) spolu s danými aritami a neobsahují symbol $=$
+		- do jazyka patří…
+			- spočetně mnoho proměnných
+			- relační, funkční a konstantní symboly ze signatury a symbol $=$, jde-li o jazyk s rovností
+			- univerzální a existenční kvantifikátory pro každou proměnnou
+			- symboly pro logické spojky a závorky
+		- struktura v signatuře $\braket{\mathcal{R,F}}$ je trojice $\mathcal A=\braket{A,\mathcal{R^A,F^A}}$, kde…
+			- $A$ je neprázdná množina, říkáme jí doména (také universum)
+			- $\mathcal {R^A}$ je množina interpretací jednotlivých relačních symbolů (kde interpretace $n$-árního relačního symbolu je množina uspořádaných $n$-tic prvků z $A$)
+			- $\mathcal {F^A}$ je množina interpretací jednotlivých funkčních symbolů (kde intepretace $n$-árního funkčního symbolu odpovídá funkci přiřazující $n$-tici prvků z $A$ jeden prvek z $A$)
+				- speciálně pro konstantní symbol $c\in\mathcal F$ je $c^\mathcal A\in A$
+		- termy jazyka $L$ jsou konečné nápisy definované induktivně
+			- proměnná je term
+			- konstantní symbol je term
+			- pro $n$-ární funkční symbol $f$ a termy $t_1,\dots,t_n$ je nápis $f(t_1,\dots,t_n)$ také term
+		- atomická formule jazyka $L$ je nápis $R(t_1,\dots,t_n)$, kde $R$ je $n$-ární relační symbol z $L$ (v jazyce s rovností to může být i rovnost) a $t_i$ je $L$-term
+		- formule jazyka $L$ jsou konečné nápisy definované induktivně
+			- atomická formule je formule
+			- negace formule je formule
+			- spojením dvou formulí binární logickou spojkou dostaneme formuli
+			- přidáním kvantifikátoru před formuli dostaneme formuli
+		- výskyt proměnné je vázaný, pokud jí odpovídá nějaký kvantifikátor, jinak je výskyt volný
+		- proměnná je volná, pokud má volný výskyt, je vázaná, pokud má vázaný výskyt
+		- formule je otevřená, neobsahuje-li žádný kvantifikátor
+		- formule je uzavřená (= sentence), pokud nemá žádnou volnou proměnnou
+		- term $t$ je substituovatelný za proměnnou $x$ ve formuli $\varphi$, pokud po simultánním nahrazení všech volných výskytů $x$ ve $\varphi$ za $t$ nevznikne ve $\varphi$ žádný vázaný výskyt proměnné z $t$
+			- v tom případě říkáme vzniklé formuli instance $\varphi$ vzniklá substitucí $t$ za $x$ a označujeme ji $\varphi(x/t)$
 - Prenexní tvary formulí predikátové logiky
 	- PNF = kvantifikátory jsou před formulí, formule se dělí na kvantifikátorový prefix a otevřené jádro
 	- převod na PNF – postupně kvantifikátory vytahuju (podle pravidel), v případě potřeby přejmenuju proměnnou, tím vznikne varianta (pokud je v druhé části formule volná proměnná se stejným názvem)
@@ -1265,10 +1269,78 @@
 		- model $v$ je modelem teorie $T$, pokud každý axiom z $T$ v modelu $v$ platí, píšeme $v\models T$
 	- v predikátové logice: model jazyka $L$ nebo také $L$-struktura je libovolná struktura v signatuře jazyka $L$
 		- model teorie $T$ je $L$-struktura, ve které platí všechny axiomy teorie $T$
-- Pravdivost, lživost, nezávislost formule vzhledem k teorii
-- Splnitelnost, tautologie, důsledek
+- Pravdivost, lživost, nezávislost formule vzhledem k teorii, splnitelnost, tautologie, důsledek
+	- pravdivý výrok platí v každém modelu (jazyka/teorie)
+		- je pravdivý v logice = platí v logice = je tautologie
+		- je pravdivý v $T$ = platí v $T$ = je důsledek $T$
+	- lživý (sporný) výrok neplatí v žádném modelu
+	- nezávislý výrok platí v nějakém modelu a neplatí v jiném modelu
+	- splnitelný výrok platí v nějakém modelu (tedy není lživý, je pravdivý nebo nezávislý)
 - Analýza výrokových teorií nad konečně mnoha prvovýroky
+	- nechť $T$ je bezesporná teorie nad $\mathbb P$
+		- $|\mathbb P|=n\in\mathbb N^+$ … počet proměnných v jazyce
+		- $m=|M_{\mathbb P}(T)|$ … velikost množiny modelů teorie $T$
+	- neekvivalentních výroků nad $\mathbb P$ je $2^{2^n}$
+		- každý výrok odpovídá jedné podmnožině množiny modelů (všech modelů je $2^n$)
+	- neekvivalentních výroků nad $\mathbb P$ pravdivých/lživých v $T$ je $2^{2^n-m}$
+	- neekv. výroků nad $\mathbb P$ nezávislých v $T$ je $2^{2^n}-2\cdot 2^{2^n-m}$
+		- vezmeme všechny a odečteme pravdivé a lživé
+	- neekv. jednoduchých extenzí teorie $T$ je $2^m$, z toho sporná je jedna
+		- podle toho, které modely ubereme
+	- neekv. kompletních jednoduchých extenzí teorie $T$ je $m$
+		- každá odpovídá jednomu modelu
+	- $T$-neekvivalentních výroků nad $\mathbb P$ je $2^m$
+	- $T$-neekv. výroků nad $\mathbb P$ pravdivých/lživých (v $T$) je $1$
+	- $T$-neekv. výroků nad $\mathbb P$ nezávislých (v $T$) je $2^m-2$
 - Extenze teorií – schopnost porovnat sílu teorií, konzervativnost, skolemizace
+	- extenze teorie $T$ je libovolná teorie $T'$ v jazyce $\mathbb P'\supseteq\mathbb P$ splňující $\text{Csq}_{\mathbb P}(T)\subseteq\text{Csq}_{\mathbb P'}(T')$
+		- kde $\text{Csq}_\mathbb P(T)$ je množina všech důsledků teorie (výroků/sentencí pravdivých v teorii $T$ v jazyce $\mathbb P$)
+	- extenze je jednoduchá, pokud $\mathbb P'=\mathbb P$
+	- extenze je konzervativní, pokud $\text{Csq}_{\mathbb P}(T)=\text{Csq}_{\mathbb P}(T')=\text{Csq}_{\mathbb P'}(T')\cap\text{VF}_\mathbb P$
+	- sémantický význam (v řeči modelů)
+		- mějme teorii $T$ v jazyce $\mathbb P$ a teorii $T'$ v jazyce $\mathbb P'$, kde $\mathbb P\subseteq\mathbb P'$
+		- $T'$ je jednoduchou extenzí $T$, právě když $\mathbb P'=\mathbb P$ a $M_\mathbb P(T')\subseteq M_\mathbb P(T)$
+		- $T'$ je extenzí $T$, právě když $M_{\mathbb P'}(T')\subseteq M_{\mathbb P'}(T)$
+		- $T'$ je konzervativní extenzí $T$, pokud je extenzí a navíc platí, že každý model $T$ lze nějak expandovat na model $T'$
+		- $T'$ je extenzí $T$ a zároveň $T$ je extenzí $T'$, právě když $T'\sim T$ (jazyky a množiny modelů se rovnají)
+		- kompletní jednoduché extenze $T$ jednoznačně až na ekvivalenci odpovídají modelům $T$
+	- $T'$ je extenzí $T$ o definice, pokud vznikla z $T$ postupnou extenzí o definice relačních a funkčních (případně konstantních) symbolů
+	- je-li $T'$ extenze teorie $T$ o definice, potom platí:
+		- každý model teorie $T$ lze jednoznačně expandovat na model $T'$
+		- $T'$ je konzervativní extenze $T$
+		- pro každou $L'$-formuli $\varphi'$ existuje $L$-formule $\varphi$ taková, že $T'\models\varphi'\leftrightarrow\varphi$
+	- Skolemova varianta sentence vzniká z původní PNF sentence skolemizací
+		- skolemizace spočívá v tom, že tyto kroky iterujeme přes všechny existenční kvantifikátory $(\exists y_i)$
+			- odstraníme z prefixu existenční kvantifikátor $(\exists y_i$)
+			- za proměnnou $y_i$ substituujeme term $f_i(x_1,\dots,x_{n_i})$, kde $x_1,\dots,x_{n_i}$ jsou proměnné, jejichž univerzální kvantifikátory předcházejí $(\exists y_i)$
+		- začínáme s $L$-sentencí v PNF, jejíž všechny vázané proměnné jsou různé
+		- dostaneme $L'$-sentenci v PNF, kde $L'$ je rozšíření $L$ o nové $n_i$-ární funkční symboly
 - Dokazatelnost – pojem formálního důkazu, zamítnutí; schopnost práce v některém z formálních dokazovacích systémů (např. tablo)
+	- důkaz, zamítnutí
+		- důkaz faktu, že v teorii $T$ platí výrok $\varphi$ je konečný syntaktický objekt vycházející z axiomů $T$ a výroku $\varphi$
+		- důkaz konstruujeme syntakticky, aniž bychom se museli zabývat modely
+		- po dokazovacím systému požadujeme dvě vlastnosti: korektnost (je-li výrok dokazatelný z $T$, je pravdivý v $T$) a úplnost (je-li výrok pravdivý v $T$, je dokazatelný z $T$)
+		- důkaz říká, že $\varphi$ platí, zamítnutí říká, že $\varphi$ neplatí
+			- rezoluční důkaz $\varphi$ v teorii $S$ má v kořeni $\varphi$, rezoluční zamítnutí teorie $S$ má v kořeni $\square$
+	- tablo důkaz
+		- konečné tablo z teorie $T$ je uspořádaný, položkami označkovaný strom zkonstruovaný aplikací konečně mnoha následujících pravidel:
+			- jednoprvkový strom označkovaný libovolnou položkou je tablo z teorie $T$
+			- pro libovolnou položku $P$ na libovolné větvi $V$ můžeme na konec větve $V$ připojit atomické tablo pro položku $P$
+			- na konec libovolné větve můžeme připojit položku $\text T\alpha$ pro libovolný axiom teorie $\alpha\in T$
+		- tablo je konečné nebo nekonečné, každopádně vzniklo ve spočetně mnoha krocích
+		- tablo pro položku $P$ je tablo s položkou $P$ v kořeni
+		- tablo důkaz výroku $\varphi$ z teorie $T$ je sporné tablo z teorie $T$ s  položkou $\text F\varphi$ v kořeni
+			- pokud existuje, je $\varphi$ tablo dokazatelný z $T$, píšeme $T\vdash\varphi$
+			- podobně definujeme tablo zamítnutí s $\text T\varphi$ v kořeni, tablo zamítnutelnost se značí $T\vdash \neg\varphi$
+		- tablo je sporné, pokud je každá jeho větev sporná
+		- větev je sporná, pokud obsahuje položky $\text T\psi$ a $\text F\psi$ pro nějaký výrok $\psi$, jinak je bezesporná
+		- tablo je dokončené, pokud je každá jeho větev dokončená
+		- větev je dokončená…
+			- pokud je sporná
+			- nebo pokud je každá její položka na této větvi redukovaná a pokud větev zároveň obsahuje položku s T pro každý axiom teorie
+		- položka je redukovaná na dané větvi, pokud obsahuje pouze výrokovou proměnnou nebo se na dané větvi vyskytuje jako kořen atomického tabla (tedy došlo k jejímu rozvoji na dané větvi)
+		- v predikátové logice navíc řešíme kvantifikátory – položky typu *svědek* a *všichni*
 - Věty o kompaktnosti a úplnosti výrokové a predikátové logiky – znění a porozumění významu; použití na příkladech, důsledky
+	- TODO
 - Rozhodnutelnost – pojem kompletnosti a její kritéria, význam pro rozhodnutelnost; příklady rozhodnutelných a nerozhodnutelných teorií
+	- TODO
