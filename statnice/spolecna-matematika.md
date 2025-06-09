@@ -1354,6 +1354,13 @@
 			- přidáme k teorii výrok, že je ta konstanta ostře větší než každý $n$-tý numerál
 			- každá konečná část této nové teorie má model, takže i celá ta nová teorie má 
 	- První věta o neúplnosti: Pro každou bezespornou rekurzivně axiomatizovanou extenzi $T$ Robinsonovy aritmetiky existuje sentence, která je pravdivá v $\underline{\mathbb N}$, ale není dokazatelná v $T$.
+		- Robinsonova aritmetika je teorie jazyka aritmetiky $L=\braket{S,+,\cdot,0,\leq}$ s rovností
+			- má osm (tradičně spíše sedm) axiomů, některé z nich:
+				- $S(x)\neq 0$
+				- $S(x)=S(y)\to x=y$
+				- $x+0=x$
+				- $x+S(y)=S(x+y)$
+		- $\underline{\mathbb N}=\braket{\mathbb N,S,+,\cdot,0,\leq}$ … standardní model přirozených čísel
 	- důsledek 1.1: je-li $T$ rekurzivně axiomatizovaná extenze Robinsonovy aritmetiky a je-li navíc $\underline{\mathbb N}$ modelem teorie $T$, potom $T$ není kompletní
 		- pro sentenci, která není dokazatelná v $T$, nemůže být dokazatelná ani její negace (byl by to spor s její pravdivostí v $\underline{\mathbb N}$)
 	- důsledek 1.2: teorie $\text{Th}(\underline{\mathbb N})$ není rekurzivně axiomatizovatelná
@@ -1382,7 +1389,27 @@
 		- částečně rozhodnutelná, pokud existuje algoritmus, který pro každou vstupní formuli $\varphi$…
 			- pokud $T\vDash\varphi$, doběhne a odpoví „ano“
 			- pokud $T\nvDash\varphi$, buď nedoběhne, nebo doběhne a odpoví „ne“
-	- teorie $T$ je rekurzivně axiomatizovaná, pokud existuje algoritmus, který pro každou vstupní formuli $\varphi$ doběhne a odpoví, zda $\varphi\in T$
+	- „rekurzivní“ pojmy
+		- teorie $T$ je rekurzivně axiomatizovaná, pokud existuje algoritmus, který pro každou vstupní formuli $\varphi$ doběhne a odpoví, zda $\varphi\in T$
+		- třída $L$-struktur $K\subseteq M_L$ je rekurzivně axiomatizovatelná, pokud existuje rekurzivně axiomatizovaná $L$-teorie $T$ taková, že $K=M_L(T)$
+		- teorie $T'$ je rekurzivně axiomatizovatelná, pokud je rekurzivně axiomatizovatelná třída jejích modelů, neboli pokud je $T'$ ekvivalentní nějaké rekurzivně axiomatizované teorii
+		- řekneme, že teorie $T$ má rekurzivně spočetnou kompletaci, pokud (nějaká) množina (až na ekvivalenci) všech jednoduchých kompletních extenzí teorie $T$ je rekurzivně spočetná, tj. existuje algoritmus, který pro danou vstupní dvojici přirozených čísel $(i,j)$ vypíše na výstup $i$-tý axiom $j$-té extenze (v nějakém pevně daném uspořádání), nebo odpoví, že takový axiom už neexistuje
 	- tvrzení: je-li $T$ rekurzivně axiomatizovaná, potom je částečně rozhodnutelná, je-li navíc kompletní, je rozhodnutelná
 	- tvrzení: je-li $\mathcal A$ konečná struktura v konečném jazyce s rovností, potom je teorie $\text{Th}(\mathcal A)$ rekurzivně axiomatizovatelná
-	- TODO (kompletnost, příklady)
+	- tvrzení: pokud je teorie $T$ rekurzivně axiomatizovaná a má rekurzivně spočetnou kompletaci, potom je $T$ rozhodnutelná
+	- nerozhodnutelnost
+		- mějme formuli $\varphi$ ve tvaru $(\exists x_1)\dots(\exists x_n) \;p(x_1,\dots,x_n)=q(x_1,\dots,x_n)$
+			- kde $p$ a $q$ jsou polynomy s přirozenými koeficienty
+			- věta: neexistuje algoritmus, který by pro danou dvojici polynomů s přirozenými koeficienty rozhodl, zda mají přirozené řešení, tj. zda platí $\underline{\mathbb N}\vDash\varphi$
+		- věta: neexistuje algoritmus, který by pro danou vstupní formuli $\varphi$ rozhodl, zda je logicky platná (tedy zda je tautologie)
+	- příklady rozhodnutelných teorií
+		- teorie čisté rovnosti (bez axiomů, v jazyce $L=\braket{}$ s rovností)
+		- teorie unárního predikátu (bez axiomů, v jazyce $L=\braket{U}$ s rovností, kde $U$ je unární relační symbol)
+		- teorie hustých lineárních uspořádání DeLO\*
+		- teorie komutativních grup
+		- teorie Booleových algeber
+		- teorie následníka s nulou
+		- Presburgerova aritmetika
+	- příklady nerozhodnutelných teorií
+		- Robinsonova aritmetika (a také Peanova aritmetika a ZFC, což jsou její extenze)
+		- teorie (obecných) grup
