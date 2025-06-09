@@ -1170,12 +1170,101 @@
 ## 6. Logika
 
 - Znalost a práce se základními pojmy syntaxe výrokové a predikátové logiky (jazyk, otevřená a uzavřená formule, instance formule, apod.)
-- Normální tvary výrokových formulí
+	- signatura je dvojice $\braket{\mathcal {R,F}}$, kde $\mathcal{R,F}$ jsou disjunktní množiny symbolů (relační a funkční, ty zahrnují konstantní) spolu s danými aritami a neobsahují symbol $=$
+	- do jazyka patří…
+		- spočetně mnoho proměnných
+		- relační, funkční a konstantní symboly ze signatury a symbol $=$, jde-li o jazyk s rovností
+		- univerzální a existenční kvantifikátory pro každou proměnnou
+		- symboly pro logické spojky a závorky
+	- struktura v signatuře $\braket{\mathcal{R,F}}$ je trojice $\mathcal A=\braket{A,\mathcal{R^A,F^A}}$, kde…
+		- $A$ je neprázdná množina, říkáme jí doména (také universum)
+		- $\mathcal {R^A}$ je množina interpretací jednotlivých relačních symbolů (kde interpretace $n$-árního relačního symbolu je množina uspořádaných $n$-tic prvků z $A$)
+		- $\mathcal {F^A}$ je množina interpretací jednotlivých funkčních symbolů (kde intepretace $n$-árního funkčního symbolu odpovídá funkci přiřazující $n$-tici prvků z $A$ jeden prvek z $A$)
+			- speciálně pro konstantní symbol $c\in\mathcal F$ je $c^\mathcal A\in A$
+	- termy jazyka $L$ jsou konečné nápisy definované induktivně
+		- proměnná je term
+		- konstantní symbol je term
+		- pro $n$-ární funkční symbol $f$ a termy $t_1,\dots,t_n$ je nápis $f(t_1,\dots,t_n)$ také term
+	- atomická formule jazyka $L$ je nápis $R(t_1,\dots,t_n)$, kde $R$ je $n$-ární relační symbol z $L$ (v jazyce s rovností to může být i rovnost) a $t_i$ je $L$-term
+	- formule jazyka $L$ jsou konečné nápisy definované induktivně
+		- atomická formule je formule
+		- negace formule je formule
+		- spojením dvou formulí binární logickou spojkou dostaneme formuli
+		- přidáním kvantifikátoru před formuli dostaneme formuli
+	- výskyt proměnné je vázaný, pokud jí odpovídá nějaký kvantifikátor, jinak je výskyt volný
+	- proměnná je volná, pokud má volný výskyt, je vázaná, pokud má vázaný výskyt
+	- formule je otevřená, neobsahuje-li žádný kvantifikátor
+	- formule je uzavřená (= sentence), pokud nemá žádnou volnou proměnnou
+	- term $t$ je substituovatelný za proměnnou $x$ ve formuli $\varphi$, pokud po simultánním nahrazení všech volných výskytů $x$ ve $\varphi$ za $t$ nevznikne ve $\varphi$ žádný vázaný výskyt proměnné z $t$
+		- v tom případě říkáme vzniklé formuli instance $\varphi$ vzniklá substitucí $t$ za $x$ a označujeme ji $\varphi(x/t)$
 - Prenexní tvary formulí predikátové logiky
+	- PNF = kvantifikátory jsou před formulí, formule se dělí na kvantifikátorový prefix a otevřené jádro
+	- převod na PNF – postupně kvantifikátory vytahuju (podle pravidel), v případě potřeby přejmenuju proměnnou, tím vznikne varianta (pokud je v druhé části formule volná proměnná se stejným názvem)
+	- pravidlo převodu: pokud vytahujeme kvantifikátor z negace, musíme ho „přepnout“ (pozor: u implikace je levá strana jakoby negovaná)
 - Znalost základních normálních tvarů (CNF, DNF, PNF)
+	- PNF = kvantifikátory jsou před formulí, formule se dělí na kvantifikátorový prefix a otevřené jádro
+	- tvary výroků
+		- literál je prvovýrok nebo negace prvovýroku
+			- pro literál $\ell$ označuje $\overline\ell$ literál k němu opačný (tedy jeho negaci)
+		- klauzule je disjunkce literálů
+			- jednotková klauzule je samotný literál
+			- prázdná klauzule je $\bot$
+		- výrok je v konjunktivní normální formě (CNF), pokud je konjunkcí klauzulí
+			- prázdný výrok v CNF je $\top$
+		- elementární konjunkce je konjunkce literálů
+			- jednotková elementární konjunkce je samotný literál
+			- prázdná elementární konjunkce je $\top$
+		- výrok je v disjunktivní normální formě (DNF), pokud je disjunkcí elementárních konjunkcí
+			- prázdný výrok v DNF je $\bot$
+		- výrok je hornovský (v Hornově tvaru), pokud je konjunkcí hornovských klauzulí, tj. klauzulí obsahujících nejvýše jeden pozitivní literál
+	- množinová reprezentace
+		- klauzule je konečná množina literálů
+			- prázdnou klauzuli označíme $\square$, není nikdy splněna
+		- CNF formule je (konečná nebo nekonečná) množina klauzulí
+			- prázdná formule $\emptyset$ je vždy splněna
 - Převody na normální tvary
+	- sémantický převod
+		- najdeme modely výroku
+		- pro DNF budeme uvažovat disjunkci elementárních konjunkcí, přičemž každá elementární konjunkce popíše jeden model
+		- pro CNF musíme najít nemodely formule, každá klauzule zakáže jeden nemodel
+			- pokud je první nemodel $(0,0,0)$, pak první klauzule bude $(p\lor q\lor r)$
+	- syntaktický převod
+		- přepíšeme implikaci a ekvivalenci pomocí konjunkce, disjunkce a negace
+		- přesuneme negace dovnitř (k literálům)
+		- použijeme distributivitu konjunkce a disjunkce, abychom jednu přesunuli dovnitř (podle toho, jestli chceme CNF nebo DNF)
 - Použití normálních tvarů pro algoritmy (SAT, rezoluce)
+	- problém Horn-SAT
+		- výrok je hornovský, pokud je konjunkcí hornovských klauzulí, tj. klauzulí obsahujících nejvýše jeden pozitivní literál
+		- algoritmus
+			- pokud $\varphi$ obsahuje dvojici opačných jednotkových klauzulí, není splnitelný
+			- pokud $\varphi$ neobsahuje žádnou jednotkovou klauzuli, je splnitelný, ohodnotíme všechny zbývající proměnné nulou
+			- pokud $\varphi$ obsahuje jednotkovou klauzuli $\ell$, ohodnotíme literál $\ell$ hodnotou 1, provedeme jednotkovou propagaci a postup opakujeme
+		- jednotková propagace pro $\ell=1$
+			- každou klauzuli obsahující $\ell$ odstraníme (protože je takto splněna)
+			- $\overline\ell$ odstraníme ze všech klauzulí, které ho obsahují (protože $\overline\ell$ nemůže zajistit splnění dané klauzule)
+		- Horn-SAT lze řešit v lineárním čase
+	- algoritmus DPLL pro řešení SAT
+		- literál $\ell$ má čistý výskyt ve $\varphi$, pokud se $\ell$ vyskytuje ve $\varphi$ a opačný literál $\overline\ell$ se ve $\varphi$ nevyskytuje
+			- takový literál můžu nastavit na 1
+			- to neovlivní splnitelnost výroku, ale zmenší to množinu modelů, které jsem schopen nalézt
+		- algoritmus
+			- dokud $\varphi$ obsahuje jednotkovou klauzuli $\ell$, ohodnoť $\ell=1$ a proveď jednotkovou propagaci
+			- dokud existuje literál $\ell$, který má ve $\varphi$ čistý výskyt, ohodnoť $\ell=1$ a odstraň klauzule obsahující $\ell$
+			- pokud $\varphi$ neobsahuje žádnou klauzuli, je splnitelný
+			- pokud $\varphi$ obsahuje prázdnou klauzuli, není splnitelný
+			- jinak zvol dosud neohodnocenou výrokovou proměnnou $p$ a zavolej algoritmus rekurzivně na $\varphi\land p$ a na $\varphi\land\neg p$
+		- algoritmus běží v exponenciálním čase
+	- rezoluce
+		- použitím rezolučního pravidla z klauzulí $\varphi\lor p$ a $\psi\lor\neg p$ dostaneme $\varphi\lor\psi$
+		- takhle spolu můžeme postupně rezolvovat různé klauzule z teorie
+		- pokud nám vyjde prázdná klauzule, je teorie sporná
+		- k dokázání výroku $\varphi$ v teorii $T$ hledáme rezoluční zamítnutí $T\cup\neg\varphi$
+			- nebo přímo rezoluční důkaz výroku $\varphi$ (tzn. na konci rezoluce nám vyjde $\varphi$)
 - Pojem modelu teorie
+	- model (jazyka) ve výrokové logice je pravdivostní ohodnocení proměnných
+		- model $v$ je modelem teorie $T$, pokud každý axiom z $T$ v modelu $v$ platí, píšeme $v\models T$
+	- v predikátové logice: model jazyka $L$ nebo také $L$-struktura je libovolná struktura v signatuře jazyka $L$
+		- model teorie $T$ je $L$-struktura, ve které platí všechny axiomy teorie $T$
 - Pravdivost, lživost, nezávislost formule vzhledem k teorii
 - Splnitelnost, tautologie, důsledek
 - Analýza výrokových teorií nad konečně mnoha prvovýroky
