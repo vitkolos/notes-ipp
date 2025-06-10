@@ -258,40 +258,171 @@
 			- jezdíme tam a zpátky po pásce, přičemž $0$ přepíšeme na $X$, znak $1$ přepíšeme na $Y$
 			- přijmeme, pokud nám jedničky a nuly dojdou ve stejnou chvíli (páska je popsaná samými $X$ a $Y$)
 	- není rekurzivně spočetný (nebo případně jenom rekurzivní): dokážeme pomocí $L_d$
-	- uzavřenost jazyků
-		- regulární jazyky jsou uzavřené na množinové i řetězcové operace, na homomorfismus a inverzní homomorfismus
-		- TODO
+	- uzavřenost operací
+		- regulární jazyky jsou uzavřené na množinové (sjednocení, průnik, rozdíl, doplněk) i řetězcové operace ($L{.}M,L^*,L^+,L^R,M\setminus L,L/M$), na homomorfismus a inverzní homomorfismus
+			- množinové operace se dokazujou pomocí součinového automatu
+		- bezkontextové jazyky jsou uzavřené na sjednocení, konkatenaci, iteraci, reverzi, naopak neuzavřené na průnik (ale jsou uzavřené na průnik s regulárním jazykem)
+		- uzavřenost můžeme použít k důkaz regularity nebo bezkontextovosti
+		- ale můžeme ji použít i k důkazu neregularity jazyka $L$ – kdybychom aplikací uzavřených operací na jazyk $L$ a regulární jazyky dostali jazyk $L'$, který zjevně není regulární (např. $0^i1^i$)
 
 ## 2. Algoritmy a datové struktury
 
-- Časová složitost algoritmů
-	- časová a prostorová složitost algoritmu
-	- měření velikosti dat
-	- složitost v nejlepším, nejhorším a průměrném případě
-	- asymptotická notace
-- Třídy složitosti
-	- třídy P a NP
-	- převoditelnost problémů, NP-těžkost a NP-úplnost
-	- příklady NP-úplných problémů a převodů mezi nimi
-- Metoda rozděl a panuj
-	- princip rekurzivního dělení problému na podproblémy
-	- výpočet složitosti pomocí rekurentních rovnic
-	- Master theorem (kuchařková věta) (bez důkazu)
-	- aplikace: Mergesort, násobení dlouhých čísel
-- Binární vyhledávací stromy
-	- definice vyhledávacího stromu
-	- operace s nevyvažovanými stromy
-	- AVL stromy (definice)
-- Třídění
-	- primitivní třídicí algoritmy (Bubblesort, Insertsort)
-	- Quicksort
-	- dolní odhad složitosti porovnávacích třídicích algoritmů
-- Grafové algoritmy
-	- prohledávání do šířky a do hloubky
-	- topologické třídění orientovaných grafů
-	- nejkratší cesty v ohodnocených grafech (Dijkstrův a Bellmanův-Fordův algoritmus)
-	- minimální kostra grafu (Jarníkův a Borůvkův algoritmus)
-	- toky v sítích (Ford-Fulkerson algoritmus)
+- Časová a prostorová složitost algoritmu
+	- pro různé úlohy používáme různé parametrizace vstupu (tedy velikost vstupu může být trochu něco jiného – někdy počet čísel, někdy jejich hodnota…)
+	- doba běhu pro vstup x
+		- $t(x):=$ součet cen provedených instrukcí (může být $\infty$)
+	- časová složitost výpočtu
+		- $T(n):= \text{max}\lbrace t(x)\mid x \text{ vstup velikosti }n\rbrace$
+	- prostor běhu pro vstup x
+		- $s(x):=$ max. adresa – min. adresa + 1
+		- máme na mysli maximální a minimální adresy navštívené během výpočtu
+	- prostorová složitost výpočtu
+		- $S(n):= \text{max}\lbrace s(x)\mid x \text{ vstup velikosti }n\rbrace$
+	- takhle jsme definovali složitosti v nejhorším případě, někdy se může hodit i průměrný případ
+- Měření velikosti dat
+	- spotřebovanou paměť definujeme jako rozdíl mezi nejvyšším a nejnižším použitým indexem paměti
+	- paměťová složitost pak odpovídá maximu ze spotřeby paměti přes všechny vstupy dané velikosti
+	- do časové složitosti nepočítáme načtení vstupu
+	- podobně do prostorové složitosti nepočítáme vstup, do nějž se nezapisuje, ani výstup, pokud se jenom zapíše a pak už se nečte (takhle se někdy definuje pracovní prostor výpočtu)
+	- je potřeba omezit kapacitu paměťové buňky
+		- jednotková cena instrukce – omezíme šířku slova na W bitů
+		- logaritmická cena instrukce – cena odpovídá počtu bitů operandů včetně adres (je přesný, ale nepohodlný na přemýšlení o algoritmech)
+		- relativní logaritmická cena instrukce – u polynomiálně velkých čísel je cena jednotková, u obrovských čísel se cena zvyšuje (tohle budeme reálně používat – i když se k tomu budeme obvykle chovat jako k jednotkové ceně instrukce)
+- Složitost v nejlepším, nejhorším a průměrném případě
+	- nejčastěji se používá složitost v nejhorším případě
+		- složitost pro nejhorší možný vstup
+	- složitost v průměrném případě dobře charakterizuje kvalitu algoritmu, ale je obtížné ji odvodit
+		- průměrujeme přes všechny možné vstupy
+- Asymptotická notace
+	- $f\in O(g)\equiv\exists c\,\forall^*n\;f(n)\leq c\cdot g(n)$
+		- $f,g:\mathbb N\to\mathbb R$
+		- $\forall^*n$ … pro všechna $n$ až na konečně mnoho výjimek (existuje $n_0$ takové, že pro všechna větší $n$ už to platí)
+	- $f\in \Omega(g)\equiv\exists c\,\forall^*n\;f(n)\geq c\cdot g(n)$
+	- $\Theta(g):= O(g)\cap \Omega(g)$
+- Třídy P a NP
+	- problém $L\in \text P\equiv\exists A$ algoritmus $\exists p$ polynom takový, že $\forall x$ vstup platí, že $A(x)$ doběhne do $p(|x|)$ kroků $\land\;A(x)=L(x)$
+	- problém $L\in \text{NP}\equiv\exists V\in P$ (verifikátor) $\exists g$ polynom (omezení délky certifikátů) $\forall x:L(x)=1\iff$ $\exists y$ certifikát $|y|\leq g(|x|)$ (krátký) $\land\;V(x,y)=1$ (schválený)
+	- $\text P\subseteq\text{NP}$ (rovnost se neví)
+- Převoditelnost problémů, NP-těžkost a NP-úplnost
+	- rozhodovací problém $\equiv$ funkce $f:\set{0,1}^*\to\set{0,1}$
+	- převod
+		- mějme rozhodovací problémy $A,B$
+		- problém $A$ je převoditelný na problém $B$ právě tehdy, když existuje funkce $f:\set{0,1}^*\to\set{0,1}^*$ taková, že $\forall\alpha\in\set{0,1}^*:A(\alpha)=B(f(\alpha))$ a $f$ lze spočítat v čase polynomiálním vzhledem k $|\alpha|$
+		- značíme $A\to B$ nebo $A\leq_P B$
+		- funkci $f$ říkáme převod (případně redukce)
+	- vlastnosti převoditelnosti
+		- je reflexivní $(A\to A)$ … $f$ je identita
+		- je tranzitivní $(A\to B\land B\to C\implies A\to C)$ … když $f$ převádí $A$ na $B$ a $g$ převádí $B$ na $C$, tak $f\circ g$ převádí $A$ na $C$ (přičemž složení polynomiálně vyčíslitelných funkcí je polynomiálně vyčíslitelná funkce)
+		- není antisymetrická – např. problémy „vstup má sudou délku“ a „vstup má lichou délku“ lze mezi sebou převádět oběma směry
+		- existují navzájem nepřevoditelné problémy – např. mezi problémy „na každý vstup odpověz 0“ a „na každý vstup odpověz 1“ nemůže existovat převod
+		- převoditelnost je částečné kvaziuspořádání na množině všech problémů
+	- definice: NP-těžké a NP-úplné problémy
+		- $L$ je NP-těžký $\equiv\forall K\in\text{NP}:K\to L$
+		- $L$ je NP-úplný $\equiv L$ je NP-těžký $\land\;L\in\text{NP}$
+	- věta: pokud $A\to B$ a $B\in \text P$, pak $A\in \text P$
+	- věta: pokud $A→B$, $B\in \text{NP}$ a $A$ je NP-úplný, pak $B$ je NP-úplný
+- Příklady NP-úplných problémů a převodů mezi nimi
+	- logické: (CNF) SAT, 3-SAT, 3,3-SAT, obvodový SAT
+	- grafové: nezávislá množina, klika, $k$-obarvitelnost (pro $k\geq 3$), hamiltonovská cesta/kružnice, 3D-párování
+	- číselné: součet podmnožiny, batoh, 2 loupežníci, nulajedničkové řešení soustavy lineárních rovnic (v $\mathbb Z$)
+	- popisy problémů
+		- klika: existuje úplný podgraf grafu $G$ na alespoň $k$ vrcholech?
+		- nezávislá množina: existuje nezávislá množina vrcholů grafu $G$ velikosti aspoň $k$?
+			- množina vrcholů grafu je nezávislá $\equiv$ žádné dva vrcholy ležící v této množině nejsou spojeny hranou
+		- SAT: existuje dosazení 0 a 1 za proměnné tak, aby $\psi(\dots)=1$?
+			- kde $\psi$ je v CNF
+		- 3-SAT: jako SAT, akorát každá klauzule formule $\psi$ obsahuje nejvýše tři literály
+		- 3,3-SAT: jako 3-SAT, akorát se každá proměnná vyskytuje v maximálně třech literálech
+		- 3D-párování
+			- vstup: tři množiny $A,B,C$ a množina kompatibilních trojic $T\subseteq A\times B\times C$
+			- výstup: existuje perfektní podmnožina trojic? tzn. existuje taková podmnožina, v níž se každý prvek množin $A,B,C$ účastní právě jedné trojice
+	- převod klika ↔ nezávislá množina
+		- pokud v grafu prohodíme hrany a nehrany, stane se z každé kliky nezávislá množina a naopak
+		- převodní funkce zneguje hrany
+	- při převodu problémů typu SAT vyrábíme ekvisplnitelnou formuli
+	- SAT → 3-SAT
+		- $(\alpha\lor\beta)\to(\alpha\lor\zeta)\land(\beta\lor\neg\zeta)$
+		- převod funguje i naopak (viz rezoluce)
+		- jak rozštípnout dlouhou klauzuli délky $\ell$?
+			- $\alpha$ nechť má délku 2
+			- $\beta$ nechť má délku $\ell-2$
+			- po přidání $\zeta$ dostanu konjunkci klauzulí délky 3 a $\ell-1$
+			- klauzuli délky $\ell-1$ štípu dál (pokud je moc dlouhá)
+		- počet štípnutí je shora omezen délkou formule
+		- v polynomiálním čase postupně rozštípeme všechny dlouhé klauzule při zachování splnitelnosti
+	- 3-SAT → 3,3-SAT
+		- nechť $x$ je proměnná s $k\gt 3$ výskyty
+		- pro každý výskyt si pořídíme nové proměnné $x_1,\dots,x_k$
+		- ekvivalenci všech $x_i$ zajistíme řetězcem implikací
+			- $x_1\implies x_2$
+			- $x_2\implies x_3$
+			- $\quad\vdots$
+			- $x_k\implies x_1$
+		- každá proměnná $x_i$ se tudíž vyskytne třikrát
+	- 3,3-SAT* … navíc každý literál max. 2×
+		- použijeme předchozí algoritmus pro všechny proměnné s $k \geq 3$ výskyty
+	- 3-SAT → nezávislá množina
+		- pro každou z $k$ klauzulí formule vytvoříme trojúhelník a jeho vrcholům přiřadíme literály klauzule
+			- pokud klauzule obsahuje méně než tři literály, tak přebývající vrcholy smažeme
+		- spojíme hranami všechny dvojice konfliktních literálů
+		- v takovém grafu existuje nezávislá množina velikosti alespoň $k$ právě tehdy, když je formule splnitelná
+			- máme-li splňující ohodnocení, můžeme z každé klauzule vybrat jeden pravdivý literál – ty umístíme do nezávislé množiny
+			- máme-li nezávislou množinu velikosti $k$, vybereme literály odpovídající těmto vrcholům a podle nich nastavíme odpovídající proměnné
+				- v nezávislé množině velikosti $k$ nemůžou být dva vrcholy ze stejného trojúhelníku – tedy z každého trojúhelníku (klauzule) bude v množině právě jeden vrchol
+				- v nezávislé množině nemohou být dva vrcholy s opačnými literály, protože takové vrcholy jsou spojeny hranou
+	- nezávislá množina → 3-SAT
+		- každému vrcholu odpovídá jedna proměnná (pokud je proměnná ohodnocena jedničkou, vrchol náleží do nezávislé množiny)
+		- pro každou hranu přidáme klauzuli $(\neg x_i\lor\neg x_j)$, která zajistí, že obě proměnné nebudou splněny zároveň
+		- chceme nezávislou množinu velikosti $k$, takže musíme vrcholy v množině spočítat
+			- pořídíme si tabulku (pomocí jiných proměnných $y_{ij}$)
+			- vynutíme, aby v každém sloupci byla maximálně jedna jednička a v každém řádku právě jedna jednička
+		- propojíme proměnné $x_j$ a $y_{ij}$ pomocí implikace $x_{ij}\to x_j$
+- Metoda rozděl a panuj: princip rekurzivního dělení problému na podproblémy
+	- TODO
+- Metoda rozděl a panuj: výpočet složitosti pomocí rekurentních rovnic
+	- TODO
+- Master theorem (kuchařková věta) – bez důkazu
+	- uvažujeme rekurzivní algoritmus, který vstup rozloží na $a$ podproblémů velikosti $n/b$ a z jejich výsledků složí celkovou odpověď v čase $\Theta(n^c)$
+	- věta: rekurentní rovnice $T(n)=a\cdot T(n/b)+\Theta(n^c),\;T(1)=1$ má pro konstanty $a\in\set{1,2,\dots},\,b\in(1,\infty),\,c\in[0,\infty)$ řešení…
+		- $T(n)=\Theta(n^c\log n)$, pokud $a/b^c=1$
+		- $T(n)=\Theta(n^c)$, pokud $a/b^c\lt 1$
+		- $T(n)=\Theta(n^{\log_b a})$, pokud $a/b^c\gt 1$
+- Metoda rozděl a panuj: aplikace (Mergesort, násobení dlouhých čísel)
+	- Mergesort
+		- na vstupu posloupnost
+		- pokud je délka posloupnosti menší rovna jedné, mergesort vrátí vstup
+		- jinak vrátí merge(mergesort(první polovina vstupu), mergesort(druhá polovina vstupu)), kde merge slévá dvě poloviční setříděné posloupnosti v lineárním čase
+		- čas $\Theta(n\log n)$
+			- v každém z $\log n$ pater (lineárně) sléváme kousky posloupnosti
+			- v každém patře se kousky sečtou na $n$
+	- násobení $n$-ciferných čísel v čase $O(n^{\log_23})$
+		- Karacubovo násobení
+		- násobíme dvě $n$-ciferná čísla $x,y$ v soustavě o základu $z$
+		- cifry obou čísel rozdělíme na dvě poloviny
+			- $x=a\cdot z^{n/2}+b$
+			- $y=c\cdot z^{n/2}+d$
+		- pak $x\cdot y=(a\cdot z^{n/2}+b)(c\cdot z^{n/2}+d)=ac\cdot z^{n}+(ad+bc)\cdot z^{n/2}+bd$
+		- $(ad+bc)$ lze vyjádřit jako $(a+b)(c+d)-ac-bd$
+		- takže stačí 3 násobení
+		- $T(n)=3\cdot T(n/2)+cn$
+		- časová složitost podproblému na vrstvě a počet podproblémů
+			- 1\. vrstva $\quad n\quad1$
+			- 2\. vrstva $\quad\frac n2\quad3$
+			- $i$-tá vrstva $\quad \frac {n}{2^i}\quad 3^i$
+			- poslední vrstva $\quad 1\quad 3^{\log_2 n}$
+		- $T(n)=\sum_{i=0}^{\log_2 n}n\cdot(3/2)^i\in\Theta(n\cdot (3/2)^{\log_2n})$, což lze převést na $\Theta(n^{\log_23})$
+		- podle Master theorem $a=3,\,b=2,\,c=1$
+- Definice (binárního) vyhledávacího stromu
+- Operace s nevyvažovanými binárními vyhledávacími stromy
+- AVL stromy (definice)
+- Primitivní třídicí algoritmy (Bubblesort, Insertsort)
+- Quicksort
+- Dolní odhad složitosti porovnávacích třídicích algoritmů
+- Prohledávání grafu do šířky a do hloubky
+- Topologické třídění orientovaných grafů
+- Nejkratší cesty v ohodnocených grafech (Dijkstrův a Bellmanův-Fordův algoritmus)
+- Minimální kostra grafu (Jarníkův a Borůvkův algoritmus)
+- Toky v sítích (Ford-Fulkerson algoritmus)
 
 ## 3. Programovací jazyky
 
