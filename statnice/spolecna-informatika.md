@@ -3,18 +3,264 @@
 ## 1. Automaty a jazyky
 
 - Regulární jazyky
-	- regulární gramatiky
-	- deterministický a nedeterministický konečný automat
+	- deterministický konečný automat (DFA) je pětice $A=(Q,\Sigma,\delta,q_0,F)$
+		- $Q$ … konečná množina stavů
+		- $\Sigma$ … konečná neprázdná množina vstupních symbolů (abeceda)
+		- $\delta:Q\times\Sigma\to Q$ … přechodová funkce
+		- $q_0\in Q$ … počáteční stav
+		- $F\subseteq Q$ … množina koncových (přijímajících) stavů
+	- jazykem rozpoznávaným (přijímaným) deterministickým konečným automatem $A=(Q,\Sigma,\delta,q_0,F)$ nazveme jazyk $L(A)=\set{w\mid w\in\Sigma^*\land\delta^*(q_0,w)\in F}$
+	- slovo je přijímáno automatem $A\equiv w\in L(A)$
+	- jazyk $L$ je rozpoznatelný konečným automatem $\equiv$ existuje konečný automat $A$ takový, že $L=L(A)$
+	- třídu jazyků rozpoznatelných konečnými automaty označíme $\mathcal F$, nazveme regulární jazyky
+	- iterační (pumping) lemma
+		- nechť $L$ je regulární jazyk
+		- $(\exists n\in\mathbb N)(\forall w\in L):|w|\geq n\implies w=xyz$
+			- $y\neq\epsilon$
+			- $|xy|\leq n$
+			- $\forall k\geq 0:xy^kz\in L$
+	- věta: neregularita $L_{01}=\set{0^i1^i\mid i\geq 0}$
+		- předpokládejme regularitu $L_{01}$
+		- vezměme $n$ z pumping lemmatu
+		- zvolme $w=0^n1^n$
+		- rozdělme $w=xyz$ dle pumping lemmatu
+			- $|xy|\leq n$ je na začátku $w$, takže obsahuje jen nuly
+			- $y\neq\epsilon$
+		- z pumping lemmatu $xz\in L_{01}$, což je spor, protože $xz$ obsahuje méně nul než jedniček
+	- kongruence
+		- mějme konečnou abecedu $\Sigma$ a relaci ekvivalence $\sim$ na $\Sigma^*$
+		- $\sim$ je pravá kongruence $\equiv(\forall u,v,w\in\Sigma^*):u\sim v\implies uw\sim vw$
+		- $\sim$ je konečného indexu $\equiv$ rozklad $\Sigma^*/\sim$ má konečný počet tříd
+		- třídu kongruence $\sim$ obsahující slovo $u$ značíme $[u]_\sim$ nebo $[u]$
+		- příklady
+			- relace „končí stejným písmenem“ je pravá kongruence
+			- relace „mají stejný počet znaků“ není konečného indexu
+	- Myhill-Nerodova věta
+		- nechť $L$ je jazyk nad konečnou abecedou $\Sigma$
+		- potom následující trzení jsou ekvivalentní:
+			- $L$ je rozpoznatelný konečným automatem
+			- existuje pravá kongruence $\sim$ konečného indexu nad $\Sigma^*$ tak, že $L$ je sjednocením jistých tříd rozkladu $\Sigma^*/\sim$
+		- použití k důkazu neregularity
+			- ukážeme pro pumpovatelný jazyk slov ve tvaru $a^+b^ic^i$ nebo $b^ic^j$
+			- pro regulární $L$ musí existovat pravá kongruence konečného indexu $m$
+			- mějme množinu řetězců $S=\set{ab,abb,abbb,\dots,ab^{m+1}}$
+			- $|S|=m+1$, tedy nutně existují dvě slova $i\neq j$, která padnou do stejné třídy
+				- $ab^i\sim ab^j$
+				- tedy $ab^ic^i\sim ab^jc^i$
+				- ale $ab^ic^i\in L$ a $ab^jc^i\notin L$, což je spor, takže jazyk není regulární
+	- věta: jazyk $L$ je rozpoznatelný $\epsilon$NFA, právě když je $L$ regulární
+		- pro libovolný $\epsilon$NFA $N$ zkonstruujeme DFA $D$ přijímající stejný jazyk jako $N$
+		- nové stavy jsou $\epsilon$-uzavřené podmnožiny $Q_N$
+- Deterministický a nedeterministický konečný automat
+	- deterministický konečný automat (DFA) je pětice $A=(Q,\Sigma,\delta,q_0,F)$
+		- $Q$ … konečná množina stavů
+		- $\Sigma$ … konečná neprázdná množina vstupních symbolů (abeceda)
+		- $\delta:Q\times\Sigma\to Q$ … přechodová funkce
+		- $q_0\in Q$ … počáteční stav
+		- $F\subseteq Q$ … množina koncových (přijímajících) stavů
+	- nedeterministický konečný automat s $\epsilon$ přechody je pětice $A=(Q,\Sigma,\delta,q_0,F)$
+		- $Q$ … konečná množina stavů
+		- $\Sigma$ … konečná množina vstupních symbolů (abeceda)
+		- $\delta:Q\times(\Sigma\cup\set{\epsilon})\to \mathcal P(Q)$ … přechodová funkce vracející podmnožinu $Q$
+		- $q_0\in Q$ … počáteční stav
+			- alternativa: množina počátečních stavů $S_0\subseteq Q$
+		- $F\subseteq Q$ … množina koncových (přijímajících) stavů
+	- $\epsilon$-uzávěr … všechny stavy, kam se z daného stavu dostaneme prázdným slovem
+- Regulární výrazy
 	- regulární výrazy
-- Bezkontextové jazyky
-	- bezkontextové gramatiky, jazyk generovaný gramatikou
-	- zásobníkový automat, třída jazyků přijímaných zásobníkovými automaty
-- Rekurzivně spočetné jazyky
-	- gramatika typu 0
-	- Turingův stroj
-	- algoritmicky nerozhodnutelné problémy
+		- $\text{RegE}(\Sigma)$ … množina všech regulárních výrazů nad konečnou neprázdnou abecedou
+		- $L(\alpha)$ … hodnota regulárního výrazu $\alpha$
+		- regulární výraz a jeho hodnota jsou definovány induktivně
+			- základ
+				- $\epsilon$ … prázdný řetězec, $L(\epsilon)=\set{\epsilon}$
+				- $\emptyset$ … prázdný výraz, $L(\emptyset)=\emptyset$
+				- $a$ … znak $a\in\Sigma$, $L(a)=\set{a}$
+			- indukce
+				- $\alpha+\beta$ … jako OR, $L(\alpha+\beta)=L(\alpha)\cup L(\beta)$
+				- $\alpha\beta$ … $L(\alpha\beta)=L(\alpha)L(\beta)$
+				- $\alpha^*$ … $L(\alpha^*)=L(\alpha)^*$
+				- $(\alpha)$ … závorky nemění hodnotu, $L((\alpha))=L(\alpha)$
+		- nejvyšší prioritu má iterace $^*$, pak zřetězení, pak sjednocení $+$
+		- třída $\text{RegE}(\Sigma)$ je nejmenší třída uzavřená na uvedené operace
+	- Kleeneho věta
+		- každý jazyk reprezentovaný konečným automatem lze zapsat jako regulární výraz
+		- každý jazyk popsaný regulárním výrazem lze zapsat jako $\epsilon$NFA
+- Gramatika, jazyk generovaný gramatikou
+	- formální (generativní) gramatika je čtveřice $G=(V,T,P,S)$
+		- $V$ … konečná množina neterminálů (variables)
+		- $T$ … neprázdná konečná množina terminálních symbolů (terminálů)
+		- $S\in V$ … počáteční symbol
+		- $P$ … konečná množina pravidel (produkcí) reprezentující rekurzivní definici jazyka
+			- každé pravidlo má tvar $\beta A\gamma\to\omega$
+				- $A\in V$
+				- $\beta,\gamma,\omega\in (V\cup T)^*$
+			- tj. levá strana obsahuje aspoň jeden neterminální symbol
+	- jazyk $L(G)$ generovaný gramatikou $G=(V,T,P,S)$ je množina terminálních řetězců, pro které existuje derivace ze startovního symbolu $L(G)=\set{w\in T^*: S\Rightarrow_G^* w}$
+	- jazyk neterminálu $A\in V$ definujeme $L(A)=\set{w\in T^*: A\Rightarrow_G^* w}$
+- Zásobníkový automat, třída jazyků přijímaných zásobníkovými automaty
+	- zásobníkový automat (PDA) je sedmice $P=(Q,\Sigma,\Gamma,\delta,q_0,Z_0,F)$
+		- $Q$ … konečná množina stavů
+		- $\Sigma$ … neprázdná konečná množina vstupních symbolů
+		- $\Gamma$ … neprázdná konečná zásobníková abeceda
+		- $\delta$ … přechodová funkce
+			- $\delta:Q\times(\Sigma\cup\set{\epsilon})\times\Gamma\to \mathcal P_{FIN}(Q\times\Gamma^*)$
+				- kde $\mathcal P_{FIN}(A)$ je množina všech konečných podmnožin množiny $A$
+			- tedy $\delta(p,a,X)\ni(q,\gamma)$
+				- $q$ je nový stav
+				- $\gamma$ je řetězec zásobníkových symbolů, který nahradí $X$ na vrcholu zásobníku
+		- $q_0\in Q$ … počáteční stav
+		- $Z_0\in\Gamma$ … počáteční zásobníkový symbol
+		- $F$ … množina přijímajících (koncových) stavů (může být nedefinovaná)
+		- jak PDA funguje
+			- je nedeterministický
+			- v jednom časovém kroku
+				- na vstupu přečte žádný nebo jeden symbol
+				- přejde do nového stavu
+				- nahradí symbol na vrchu zásobníku libovolným řetězcem (nejlevější znak bude na vrchu)
+		- přechodový diagram
+			- jako pro konečný automat
+			- hrany popisujeme ve tvaru: *vstupní znak*, *zásobníkový znak* → *push řetězec*
+	- jazyk přijímaný koncovým stavem je $L(P_{da})=\set{w\in\Sigma^*:(\exists q\in F)(\exists\alpha\in\Gamma^*)((q_0,w,Z_0)\vdash^*_{P_{da}}(q,\epsilon,\alpha))}$
+	- jazyk přijímaný prázdným zásobníkem je $N(P_{da})=\set{w\in\Sigma^*:(\exists q\in Q)((q_0,w,Z_0)\vdash^*_{P_{da}}(q,\epsilon,\epsilon))}$
+		- množina $F$ je nerelevantní, takže ji lze vynechat – pak je PDA šestice
+	- věta: následující tvrzení jsou ekvivalentní
+		- jazyk $L$ je bezkontextový, tj. generovaný bezkontextovou gramatikou
+		- jazyk $L$ je přijímaný nějakým zásobníkovým automatem koncovým stavem
+		- jazyk $L$ je přijímaný nějakým zásobníkovým automatem prázdným zásobníkem
+- Pumping lemma pro bezkontextové jazyky
+	- lemma o vkládání (pumping) pro bezkontextové jazyky
+		- nechť $L$ je bezkontextový jazyk
+		- $(\exists n)(\forall w\in L):|w|\geq n\implies w=u_1u_2u_3u_4u_5$
+			- $u_2u_4\neq\epsilon$
+			- $|u_2u_3u_4|\leq n$
+			- $\forall k\geq 0:u_1u_2^ku_3u_4^ku_5\in L$
+		- poznámka: v prezentaci je ostrá nerovnost $|w|\gt n$, v jiných zdrojích neostrá
+	- idea důkazu
+		- vezmeme derivační strom pro $w$
+		- nejdeme nejdelší cestu, na ní dva stejné neterminály
+		- tyto neterminály určí dva postromy, které definují rozklad slova
+		- větší podstrom můžeme posunout ($k\gt 1$) nebo nahradit menším podstromem ($k=0$)
+	- příklad: $L_{012}=\set{0^i1^i2^i\mid i\geq 1}$ není bezkontextový
+		- důkaz sporem – předpokládejme bezkontextovost
+		- vezmeme $n$ z pumping lemmatu
+		- zvolíme $w=0^n1^n2^n$
+		- délka pumpovacího slova $u_2u_3u_4$ musí být nejvýše $n$, tedy vždy můžeme pumpovat maximálně dva různé symboly
+		- $u_2u_4\neq\epsilon\implies$ iterací se slovo změní
+		- tím se poruší rovnost symbolů
+		- tedy ať už zvolíme libovolné dělení $u_1u_2u_3u_4u_5$, nové slovo nebude patřit do $L_{012}$, což je spor
+- Chomského normální tvar
+	- o bezkontextové gramatice $G=(V,T,P,S)$ bez zbytečných symbolů, kde jsou všechna pravidla ve tvaru $A\to BC$ nebo $A\to a$, kde $A,B,C\in V,\, a\in T$, říkáme, že je v Chomského normálním tvaru (ChNF)
+	- algoritmus převodu
+		- eliminujeme $\epsilon$-pravidla
+			- označíme nulovatelné symboly
+			- přidáme verzi pravidel bez nulovatelných symbolů
+			- odstraníme $\epsilon$-pravidla
+		- eliminujeme jednotková pravidla (tím nepřidáme $\epsilon$-pravidla)
+			- najdeme jednotkové páry
+			- přidáme odpovídající pravidla
+			- odstraníme jednotková pravidla
+		- eliminujeme zbytečné symboly (tím nepřidáme žádná pravidla)
+			- nejdříve eliminujeme negenerující, pak nedosažitelné
+		- pravé strany délky aspoň 2 předěláme na samé neterminály
+		- pravé strany s aspoň třemi neterminály rozdělíme na více pravidel
+- Turingův stroj
+	- turingův stroj (TM) je sedmice $M=(Q,\Sigma,\Gamma,\delta,q_0,B,F)$
+		- $Q$ … konečná množina stavů
+		- $\Sigma$ … konečná neprázdná množina vstupních symbolů
+		- $\Gamma$ … konečná množina všech symbolů pro pásku
+			- vždy $\Gamma\supseteq\Sigma,\,Q\cap\Gamma=\emptyset$
+		- $\delta$ … (částečná) přechodová funkce
+			- zobrazení $(Q-F)\times\Gamma\to Q\times\Gamma\times\set{L,R}$
+			- $\delta(q,X)=(p,Y,D)$
+				- $q\in (Q-F)$ … aktuální stav
+				- $X\in \Gamma$ … aktuální symbol na pásce
+				- $p\in Q$ … nový stav
+				- $Y\in\Gamma$ … symbol pro zapsání do aktuální buňky, přepíše aktuální obsah
+				- $D\in\set{L,R}$ … směr pohybu hlavy (doleva, doprava)
+		- $q_0\in Q$ … počáteční stav
+		- $B\in\Gamma\setminus\Sigma$ … blank = symbol pro prázdné buňky, na začátku všude kromě konečného počtu buněk se vstupem
+		- $F\subseteq Q$ … množina koncových neboli přijímajících stavů
+		- poznámka: někdy se nerozlišuje $\Gamma$ a $\Sigma$ a neuvádí se $B$, pak je TM pětice
+	- turingův stroj $M=(Q,\Sigma,\Gamma,\delta,q_0,B,F)$ přijímá jazyk $L(M)=\set{w\in\Sigma^*:(\exists p\in F)(\exists \alpha,\beta\in\Gamma^*)(q_0w\vdash_M^*\alpha p\beta)}$
+		- tj. množinu slov, po jejichž přečtení se dostane do koncového stavu
+		- pásku nemusí uklízet (v naší definici)
+	- jazyk nazveme rekurzivně spočetným, pokud je přijímán nějakým Turingovým strojem
+	- říkáme, že TM $M$ rozhoduje jazyk $L$, pokud $L=L(M)$ a pro každé $w\in\Sigma^*$ stroj nad $w$ zastaví
+		- jazyky rozhodnutelné TM nazýváme rekurzivní jazyky
+		- rekurzivní jazyky jsou podmnožinou rekurzivně spočetných jazyků
+- Algoritmicky nerozhodnutelné problémy
+	- rozhodnutelný problém
+		- problém … množina otázek (nebo spíše vstupů) kódovatelná řetězci nad abecedou $\Sigma$ s odpověďmi $\in\set{\text{ano},\text{ne}}$
+			- pokud problém definuji jako množinu, jde o otázku, zda vstup kóduje prvek dané množiny (např. polynom s celočíselným kořenem)
+		- problém je (algoritmicky) rozhodnutelný, pokud existuje TM takový, že pro každý vstup $w\in P$ TM zastaví a navíc přijme, právě když $P(w)=\text{ano}$ (tj. pro $P(w)=\text{ne}$ zastaví v nepřijímajícím stavu)
+		- nerozhodnutelný problém … není rozhodnutelný
+		- existuje analogie mezi rozhodnutelným problémem a rekurzivním jazykem
+	- redukce problému
+		- definice: redukcí problému $P_1$ na $P_2$ nazýváme algoritmus $R$, který pro každou instanci $w\in P_1$ zastaví a vydá $R(w)\in P_2$, přičemž…
+			- $P_1(w)=\text{ano}\iff P_2(R(w))=\text{ano}$
+			- tedy i $P_1(w)=\text{ne}\iff P_2(R(w))=\text{ne}$
+		- věta: existuje-li redukce problému $P_1$ na $P_2$, pak…
+			- pokud $P_1$ je nerozhodnutelný, pak je nerozhodnutelný i $P_2$
+			- pokud $P_1$ není rekurzivně spočetný, pak není rekurzivně spočetný ani $P_2$
+	- problém zastavení není rozhodnutelný
+		- definice: instancí problému zastavení je dvojice řetězců $M,w\in\set{0,1}^*$
+		- definice: problém zastavení je najít algoritmus $\text{Halt}(M,w)$, který vydá 1, právě když stroj $M$ zastaví na vstupu $w$, jinak vydá 0
+		- věta: problém zastavení není rozhodnutelný
+		- idea důkazu: redukujeme $L_d$ na $\text{Halt}$
+	- diagonální jazyk
+		- diagonální jazyk $L_d$ je definovaný jako jazyk slov $w\in\set{0,1}^*$ takových, že TM reprezentovaný jako $w$ nepřijímá slovo $w$
+		- věta: $L_d$ není rekurzivně spočetný jazyk, tj. neexistuje TM přijímající $L_d$
+		- idea důkazu
+			- kdyby existoval TM přijímající $L_d$, spuštění takového stroje na vlastním kódu by vedlo k paradoxu
+	- univerzální jazyk $L_u$ definujeme jako množinu binárních řetězců, které kódují pár $(M,w)$, kde $M$ je TM a $w\in L(M)$
+	- TM přijímající $L_u$ se nazývá *univerzální Turingův stroj*
+		- existuje
+	- problém univerzálního jazyka není rozhodnutelný
+		- věta: $L_u$ je rekurzivně spočetný, ale není rekurzivní
+		- mohli bychom zkonstruovat TM přijímající $L_d$
+	- problém prázdnosti jazyka daného TM není rozhodnutelný
 - Chomského hierarchie
-	- schopnost zařazení konkrétního jazyka do Chomského hierarchie (zpravidla sestrojení odpovídajícího automatu či gramatiky)
+	- gramatiky typu 0 (rekurzivně spočetné jazyky $\mathcal L_0$)
+		- pravidla v obecné formě $\alpha\to\omega$
+			- $\alpha,\omega\in(V\cup T)^*$
+			- $\alpha$ obsahuje neterminál
+		- rekurzivně spočetný jazyk je rozpoznatelný (nějakým) Turingovým strojem
+	- gramatiky typu 1 (kontextové gramatiky, jazyky $\mathcal L_1$)
+		- pouze pravidla ve tvaru $\gamma A\beta\to\gamma\omega\beta$
+			- $A\in V$
+			- $\gamma,\beta\in(V\cup T)^*$
+			- $\omega\in (V\cup T)^+$
+			- jedinou výjimkou je pravidlo $S\to\epsilon$, pak se ale $S$ nevyskytuje na pravé straně žádného pravidla
+		- kontextový jazyk je rozpoznatelný lineárně omezeným automatem (LBA, lineárně omezený Turingův stroj)
+	- gramatiky typu 2 (bezkontextové gramatiky, jazyky $\mathcal L_2$)
+		- pouze pravidla ve tvaru $A\to\omega$
+			- $A\in V$
+			- $\omega\in(V\cup T)^*$
+		- bezkontextový jazyk je rozpoznatelný nedeterministickým zásobníkovým automatem
+	- gramatiky typu 3 (regulární gramatiky / pravé lineární gramatiky, regulární jazyky $\mathcal L_3$)
+		- pouze pravidla ve tvaru $A\to\omega B$ nebo $A\to\omega$
+			- $A,B\in V$
+			- $\omega\in T^*$
+		- idea
+			- každý neterminál odpovídá stavu konečného automatu
+			- pravidla odpovídají přechodové funkci
+		- regulární jazyk je rozpoznatelná konečným automatem
+- Schopnost zařazení konkrétního jazyka do Chomského hierarchie (zpravidla sestrojení odpovídajícího automatu či gramatiky)
+	- obvykle chceme jazyk zařadit co nejpřesněji – např. říct, že není regulární (dokázat pomocí iteračního lemmatu) a že je bezkontextový (sestavit CFG)
+	- je regulární: sestrojíme konečný automat
+	- není regulární: použijeme iterační lemma nebo Myhill-Nerodovu větu
+	- je bezkontextový: sestrojíme bezkontextovou gramatiku
+	- není bezkontextový: použijeme lemma o vkládání
+	- kontextovostí se obvykle nezabýváme
+		- lemma: jazyk $L=\set{a^ib^jc^k\mid1\leq i\leq j\leq k}$ je kontextový jazyk, není bezkontextový
+	- je rekurzivně spočetný: popíšeme algoritmus
+		- algoritmus pro $0^n1^n$
+			- jezdíme tam a zpátky po pásce, přičemž $0$ přepíšeme na $X$, znak $1$ přepíšeme na $Y$
+			- přijmeme, pokud nám jedničky a nuly dojdou ve stejnou chvíli (páska je popsaná samými $X$ a $Y$)
+	- není rekurzivně spočetný (nebo případně jenom rekurzivní): dokážeme pomocí $L_d$
+	- uzavřenost jazyků
+		- regulární jazyky jsou uzavřené na množinové i řetězcové operace, na homomorfismus a inverzní homomorfismus
+		- TODO
 
 ## 2. Algoritmy a datové struktury
 

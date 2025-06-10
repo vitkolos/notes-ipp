@@ -34,7 +34,7 @@
 - Definice: Jazyky rozpoznatelné konečnými automaty, regulární jazyky
 	- jazykem rozpoznávaným (přijímaným) deterministickým konečným automatem $A=(Q,\Sigma,\delta,q_0,F)$ nazveme jazyk $L(A)=\set{w\mid w\in\Sigma^*\land\delta^*(q_0,w)\in F}$
 	- slovo je přijímáno automatem $A\equiv w\in L(A)$
-	- jazyk $L$ je rozpoznatelný konečným atuomatem $\equiv$ existuje konečný automat $A$ takový, že $L=L(A)$
+	- jazyk $L$ je rozpoznatelný konečným automatem $\equiv$ existuje konečný automat $A$ takový, že $L=L(A)$
 	- třídu jazyků rozpoznatelných konečnými automaty označíme $\mathcal F$, nazveme regulární jazyky
 - Věta: Iterační (pumping) lemma pro regulární jazyky
 	- věta
@@ -61,8 +61,8 @@
 			- tj. $w=xyz$, $y\neq\epsilon$, $|xy|\leq n$
 - Věta: Neregularita $L_{01}=\set{0^n1^n\mid n\geq 0}$
 	- předpokládejme regularitu $L_{01}$
-	- vezměme $m$ z pumping lemmatu
-	- zvolme $w=0^m1^m$
+	- vezměme $n$ z pumping lemmatu
+	- zvolme $w=0^n1^n$
 	- rozdělme $w=xyz$ dle pumping lemmatu
 		- $|xy|\leq n$ je na začátku $w$, takže obsahuje jen nuly
 		- $y\neq\epsilon$
@@ -872,7 +872,7 @@
 		- $cC\to cc$ … pokračování přepisu $C$ na $c$
 	- je důležité, že tam chybí $cB\to cb$
 - Definice: Lineárně omezený automat (LBA)
-	- lineárně omezený automat je nedeterministicý TM, kde na pásce je označen levý a pravý konec $\underline l,\underline r$
+	- lineárně omezený automat je nedeterministický TM, kde na pásce je označen levý a pravý konec $\underline l,\underline r$
 	- tyto symboly nelze při výpočtu přepsat a nesmí se jít nalevo od $\underline l$ ani napravo od $\underline r$
 	- slovo $w$ je přijímáno LBA, pokud existuje přijímající výpočet $q_0\underline l w\underline r\vdash^*\underline l\alpha p\beta\underline r$, kde $p\in F$
 - Věta: Každý kontextový jazyk lze přijímat pomocí LBA
