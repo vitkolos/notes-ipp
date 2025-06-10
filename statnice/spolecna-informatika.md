@@ -378,9 +378,13 @@
 			- vynutíme, aby v každém sloupci byla maximálně jedna jednička a v každém řádku právě jedna jednička
 		- propojíme proměnné $x_j$ a $y_{ij}$ pomocí implikace $x_{ij}\to x_j$
 - Metoda rozděl a panuj: princip rekurzivního dělení problému na podproblémy
-	- TODO
+	- problém rekurzivně dělíme na menší a menší podproblémy, dokud nedojdeme k problému konstantní velikosti, který umíme vyřešit triviálně
+	- problémy v jedné úrovni dělení na sobě musí být nezávislé
 - Metoda rozděl a panuj: výpočet složitosti pomocí rekurentních rovnic
-	- TODO
+	- vyjádříme složitost algoritmu (tedy $T(n)$) pomocí složitosti podproblému, tím dostaneme rekurzivní rovnici
+	- do rovnice můžeme postupně dosazovat a vypozorovat nějaký obecný vzorec – chceme dojít až k $T(1)$
+	- nebo můžeme rovnou použít Master theorem
+	- případně ze složitosti $i$-té úrovně můžeme odvodit složitost celého algoritmu (součtem přes všechny úrovně)
 - Master theorem (kuchařková věta) – bez důkazu
 	- uvažujeme rekurzivní algoritmus, který vstup rozloží na $a$ podproblémů velikosti $n/b$ a z jejich výsledků složí celkovou odpověď v čase $\Theta(n^c)$
 	- věta: rekurentní rovnice $T(n)=a\cdot T(n/b)+\Theta(n^c),\;T(1)=1$ má pro konstanty $a\in\set{1,2,\dots},\,b\in(1,\infty),\,c\in[0,\infty)$ řešení…
