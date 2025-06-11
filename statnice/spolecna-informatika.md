@@ -474,7 +474,7 @@
 	- AVL strom = hloubkově vyvážený strom
 	- pro každý jeho vrchol platí $|h(L(v))-h(R(v))|\leq1$
 	- tedy hloubka levého a pravého podstromu se liší nejvýše o jedna
-	- věta: AVL strom na $n$ vrcholech má hloubku $\Theta(\log n)$.
+	- věta: AVL strom na $n$ vrcholech má hloubku $\Theta(\log n)$
 - Primitivní třídicí algoritmy (Bubblesort, Insertsort)
 	- BubbleSort = výměna dvou prvků
 		- procházíme pole zleva doprava
@@ -618,4 +618,66 @@
 
 ## 3. Programovací jazyky
 
+- Abstrakce, zapouzdření, polymorfismus – související konstrukty programovacích jazyků (třídy, rozhraní, metody, datové položky, dědičnost, viditelnost)
+- (Dynamický) polymorfismus, statické a dynamické typování
+- Jednoduchá dědičnost, virtuální a nevirtuální metody v C++ a C#
+- Vícenásobná dědičnost a její problémy (vícenásobná a virtuální dědičnost v C++, interfaces v C#)
+- Číselné a výčtové typy
+- Ukazatele a reference v C++
+- Hodnotové a referenční typy v C#
+- Reference, imutabilní typy a boxing v C#
+- Šablony (templates) a statický polymorfismus v C++
+- Generické typy v C# (bez omezení typových parametrů)
+- Typy reprezentující funkce v C++, C#
+- Lambda funkce a funkcionální rozhraní
+- Správa životního cyklu zdrojů v případě výskytu chyb – RAII v C++, using v C#, obsluha a propagace výjimek
+- Alokace (alokace statická, na zásobníku, na haldě)
+- Inicializace (konstruktory, volání zděděných konstruktorů)
+- Destrukce (destruktory, finalizátory)
+- Explicitní uvolňování objektů, reference counting, garbage collector
+- Reprezentace vláken v programovacích jazycích
+- Specifikace funkce vykonávané vláknem a základní operace na vlákny
+- Časově závislé chyby (race condition) a mechanismy pro synchronizaci vláken
+- Základní objektové koncepty v konkrétním jazyce
+- Implementace a interní reprezentace primitivních typů
+- Implementace a interní reprezentace složených typů a objektů
+- Implementace dynamického polymorfismu (tabulka virtuálních metod)
+- Nativní a interpretovaný běh, reprezentace programu, bytecode, interpret jazyka
+- Just-in-time (JIT) a ahead-of-time (AOT) překlad
+- Proces sestavení programu, oddělený překlad, linkování
+- Staticky a dynamicky linkované knihovny
+- Běhové prostředí procesu a vazba na operační systém
+
 ## 4. Architektura počítačů a operačních systémů
+
+- Základní architektura počítače, reprezentace čísel, dat a programů
+	- reprezentace a přístup k datům v paměti, adresa, adresový prostor
+	- ukládání jednoduchých a složených datových typů
+	- základní aritmetické a logické operace
+- Instrukční sada, vazba na prvky vyšších programovacích jazyků
+	- Implementovat běžné programové konstrukce vyšších jazyků (přiřazení, podmínka, cyklus, volání funkce) pomocí instrukcí procesoru
+	- Zapsat běžnou konstrukci vyššího jazyka (přiřazení, podmínka, cyklus, volání funkce), která odpovídá zadané sekvenci (vysvětlených) instrukcí procesoru
+- Podpora pro běh operačního systému
+	- privilegovaný a neprivilegovaný režim procesoru
+	- jádro operačního systému
+- Rozhraní periferních zařízení a jejich obsluha
+	- Popsat roli řadiče zařízení při programem řízené obsluze zařízení (PIO), pro zadané adresy a funkce vstupních a výstupních portů implementovat programem řízenou obsluhu zadaného zařízení (myš, disk)
+	- Popsat roli přerušení při programem řízené obsluze zařízení (PIO), na úrovni vykonávání instrukcí popsat reakci procesoru (hardware) a operačního systému (software) na žádost o přerušení
+- Základní abstrakce, rozhraní a mechanismy OS pro běh programů, sdílení prostředků a vstup/výstup
+	- neprivilegované (uživatelské) procesy
+	- sdílení procesoru
+		- procesy, vlákna, kontext procesu a vlákna
+		- přepínání kontextu, kooperativní a preemptivní multitasking
+		- plánování běhu procesů a vláken, stavy vlákna
+	- sdílení paměti
+		- Vysvětlit rozdíl mezi virtuální a fyzickou adresou a identifikovat, zda se v zadaném kontextu či fragmentu kódu používá virtuální nebo fyzická adresa
+		- Na zadaném příkladu identifikovat a vysvětlit význam komponent virtuální a fyzické adresy (číslo stránky, číslo rámce, offset)
+		- Pro konkrétní adresy a obsah jednoúrovňové stránkovací tabulky řešit úlohy překladu adres
+		- Vysvětlit roli virtuálních adresových prostorů v ochraně paměti procesů a vláken
+	- sdílení úložného prostoru
+		- soubory, analogie s adresovým prostorem
+		- abstrakce a rozhraní pro práci se soubory
+- Paralelismus, vlákna a rozhraní pro jejich správu, synchronizace vláken
+	- časově závislé chyby (race conditions)
+	- kritická sekce, vzájemné vyloučení
+	- základní synchronizační primitiva, jejich rozhraní a použití – zámky; aktivní a pasivní čekání

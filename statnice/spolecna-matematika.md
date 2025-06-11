@@ -424,6 +424,7 @@
 	- věta: $\forall A,B\in\mathbb K^{n\times n}:\text{det}(AB)=\text{det }A\cdot\text{det }B$
 	- transpozice nemění determinant, $\mathrm{det}\,A=\mathrm{det}\,A^T$
 	- matice je regulární, právě když má nenulový determinant
+	- pro regulární matici $A$ platí $\mathrm{det}(A^{-1})=\mathrm{det}(A)^{-1}$
 	- výpočet determinantu je nutné nastudovat
 	- $\mathrm{det}(A)=\lambda_1\cdot\lambda_2\cdot\ldots\cdot\lambda_n$
 	- $\lambda$ je vlastním číslem $A$, právě když $\mathrm{det}(A-\lambda I_n)=0$
@@ -460,7 +461,7 @@
 - Podobnost a diagonalizovatelnost matic, spektrální rozklad
 	- matice $A,B\in\mathbb C^{n\times n}$ jsou podobné, pokud existuje regulární $S\in\mathbb C^{n\times n}$ tak, že $A=SBS^{-1}$
 	- věta: podobné matice mají stejná vlastní čísla
-		- počet vlastní vektorů pro konkrétní vlastní číslo je stejný u obou matic
+		- počet vlastních vektorů pro konkrétní vlastní číslo je stejný u obou matic
 	- matice $A\in\mathbb C^{n\times n}$ je diagonalizovatelná, je-li podobná nějaké diagonální matici
 	- diagonalizovatelná matice $A$ jde tedy vyjádřit ve tvaru $A=S\Lambda S^{-1}$, kde $S$ je regulární a $\Lambda$ diagonální
 		- tomuto se říká spektrální rozklad
