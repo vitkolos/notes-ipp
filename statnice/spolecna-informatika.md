@@ -417,16 +417,158 @@
 		- $T(n)=\sum_{i=0}^{\log_2 n}n\cdot(3/2)^i\in\Theta(n\cdot (3/2)^{\log_2n})$, což lze převést na $\Theta(n^{\log_23})$
 		- podle Master theorem $a=3,\,b=2,\,c=1$
 - Definice (binárního) vyhledávacího stromu
+	- BVS je binární strom, jehož každému vrcholu $v$ přiřadíme unikátní klíč $k(v)$ z univerza. Přitom musí pro každý vrchol $v$ platit:
+		- kdykoliv $a\in L(v)$, pak $k(a)\lt k(v)$
+		- kdykoliv $b\in R(v)$, pak $k(b)\gt k(v)$
 - Operace s nevyvažovanými binárními vyhledávacími stromy
+	- Find: „binární vyhledávání“ (porovnávám s vrcholem – podle toho se zanořím do jednoho z podstromů nebo vrátím hodnotu vrcholu, případně $\emptyset$, pokud se nemám kam zanořit)
+	- Insert: vložím vrchol tam, kde bych ho našel, kdyby ve stromu byl (pokud tam je, tak nic nedělám)
+	- Delete: vrchol najdeme a smažeme; pokud má jednoho syna, tak ho připojíme pod otce smazaného vrcholu; pokud má dva syny, nejdříve nalezneme nejlevější vrchol v pravém podstromu a s tím ho prohodíme (fungovalo by to i symetricky)
 - AVL stromy (definice)
+	- AVL strom = hloubkově vyvážený strom
+	- pro každý jeho vrchol platí $|h(L(v))-h(R(v))|\leq1$
+	- tedy hloubka levého a pravého podstromu se liší nejvýše o jedna
+	- věta: AVL strom na $n$ vrcholech má hloubku $\Theta(\log n)$.
 - Primitivní třídicí algoritmy (Bubblesort, Insertsort)
+	- BubbleSort = výměna dvou prvků
+		- procházíme pole zleva doprava
+		- bereme dvojice prvků, které jsou v poli vedle sebe – pokud jsou ve špatném pořadí, tak je prohodíme
+		- pokud jsme během jednoho průchodu provedli aspoň jedno prohození, musíme pole projít znova (jinak algoritmus končí)
+	- InsertSort = zařazení prvku mezi již setříděné
+		- rozdělíme pole na setříděnou a nesetříděnou část (na začátku je nesetříděná část prázdná)
+		- postupně bereme prvky z nesetříděné části a zařazujeme je na správné místo v setříděné části (najdeme vhodné místo, setříděné prvky vpravo posuneme napravo, do vzniklého místa vložíme aktuální prvek)
 - Quicksort
+	- určíme pivota, rozdělíme na prvky menší rovny a větší rovny
+	- algoritmus $\mathrm{QuickSort}(X)$
+		- pokud $n\leq 1$: vrátíme vstup
+		- zvolíme pivota $p$
+		- rozdělíme $x_1,\dots,x_n$ podle $p$ na $L,S,P$
+		- $L\leftarrow \text{QuickSort}(L)$
+		- $P\leftarrow \text{QuickSort}(P)$
+		- vrátíme $L,S,P$
+	- věta: QuickSort s náhodnou volbou pivota má časovou složitost se střední hodnotou $\Theta(n\log n)$
+	- částečné zdůvodnění průměrné složitosti
+		- s pravděpodobností $\frac12$ bude náhodně vybraný pivot v prostředních dvou čtvrtinách setříděné posloupnosti („skoromedián“)
+		- střední hodnota počtu pokusů, než zvolíme skoromedián, je podle lemmatu o džbánu rovna $2$ (to se schová do konstanty)
+		- když jsme zvolili skoromedián, tak se problém zmenšil na $\frac34$
+	- složitost v nejhorším případě je $\Theta(n^2)$
 - Dolní odhad složitosti porovnávacích třídicích algoritmů
+	- uvažujeme strom algoritmu – jeho listy odpovídají možným výsledkům
+	- větvení v rozhodovacím stromě budou odpovídat jednotlivým porovnáním
+	- listů musí být $n!$
+	- hloubka stromu musí být aspoň $\log_2n!\geq \log_2 n^{\frac n2}=\frac n2 \log n$
+	- každý každý porovnávací třídicí algoritmus musí mít složitost $\in\Omega(n\log n)$
 - Prohledávání grafu do šířky a do hloubky
+	- prohledávání do šířky (BFS)
+		- zpracování určitého vrcholu = odeberu ho z fronty, podívám se na sousední vrcholy a pokud jsou nenavštívené, tak je označím jako otevřené a přidám je do fronty ke zpracování, zpracovávaný vrchol zavřu
+		- algoritmus začíná přidáním prvního vrcholu do fronty (to je ten vrchol, ze kterého graf prohledáváme)
+		- algoritmus končí, jakmile je fronta prázdná
+		- složitost $\Theta(n+m)$
+		- BFS najde cestu s nejmenším počtem hran (z výchozího vrcholu do libovolného vrcholu grafu) – tedy lze použít k hledání nejkratší cesty v grafech s jednotkovými hranami 
+	- prohledávání do hloubky (DFS)
+		- lze implementovat rekurzí nebo jako BFS se zásobníkem místo fronty
+		- na začátku jsou všechny vrcholy neviděné
+		- DFS(v):
+			- stav(v) ← otevřený
+			- pro vw $\in E$
+				- pokud stav(w) = neviděný
+					- DFS(w)
+			- stav(v) ← zavřený
+		- DFS spouštíme z nějaké vrcholu – navštívíme všechny vrcholy z něj dosažitelné
+		- opakované DFS – algoritmus nespouštíme pouze pro jeden určitý vrchol, ale pro všechny (neviděné) vrcholy grafu → projdeme všechny komponenty souvislosti
+			- stejného efektu lze docílit přidáním jednoho superzdroje, který bude připojen ke všem vrcholům grafu
+		- složitost $\Theta(n+m)$
 - Topologické třídění orientovaných grafů
+	- topologické uspořádání grafu $G=(V,E)$ je lineární uspořádání $\leq$ na $V$ takové, že $\forall uv\in E: u\leq v$
+		- může jich být víc
+	- konstrukce topologického uspořádání
+		- postupným odtrháváním zdrojů (vezmeme libovolný vrchol, jdeme proti šipkám do zdroje, tento zdroj umístíme do uspořádání a odtrhneme ho z grafu) – to je ale složité na efektivní implementaci
+		- opakované DFS opouští (zavírá) vrcholy v pořadí opačném topologickému uspořádání
 - Nejkratší cesty v ohodnocených grafech (Dijkstrův a Bellmanův-Fordův algoritmus)
+	- Dijkstra
+		- hledání nejkratších cest z daného vrcholu do všech vrcholů grafu
+		- je to v podstatě BFS s budíky (s prioritní frontou)
+		- funguje pro kladné reálné délky hran
+		- začínáme od nějakého vrcholu $v_0$ (otevřeme ho a jeho ohodnocení $h(v_0)$ nastavíme na nulu)
+			- ostatní vrcholy $v$ mají ohodnocení $h(v)=+\infty$
+		- dokud existují nějaké otevřené vrcholy, vybereme z nich ten, jehož $h(v)$ je nejmenší (ten zavřeme) a všechny jeho následníky otevřeme a jejich $h(w)$ snížíme na $h(v)+l(v,w)$
+		- ukládáme předchůdce vrcholů, aby se cesta dala rekonstruovat
+		- pozorování: každý vrchol zavřeme pouze jednou
+		- pokud nejmenší $h(v)$ hledáme pokaždé znova, tak to má složitost $\Theta(n^2)$
+		- cena operací
+			- ExtractMin … $T_X$
+			- Insert … $T_I$
+			- Decrease … $T_D$
+		- složitost Dijkstra je $O(n\cdot T_I+m\cdot T_D + n\cdot T_X)$
+			- vkládáme každý vrchol
+			- decrease se provádí nejvýše jednou za každou hranu
+			- extractujeme každý vrchol
+		- při použití binární haldy jsou všechny tři operace $O(\log n)$, z čehož vyplývá složitost Dijkstra $O((n+m)\log n)$
+			- lepší (asymptoticky) je zvolit $d$-regulární haldu, kde $d=m/n$
+			- ještě lepší je Fibonacciho halda
+	- Bellman-Ford
+		- relaxační algoritmus (je to třída algoritmů, liší se tím, jak vybírají otevřené vrcholy – patří tam i Dijkstra, který vybírá ty nejlevnější)
+		- vrcholy ukládá do fronty (takže jako Dijkstra, akorát nebere nejlevnější, ale nejstarší)
+		- funguje pro grafy bez záporných cyklů
+		- obecný relaxační algoritmus
+			- vstup: graf $G$, počáteční vrchol $v_0$
+			- na začátku jsou všechny vrcholy nenalezené, jejich ohodnocení je nekonečné, jejich předchůdci jsou nedefinováni
+			- stav počátečního vrcholu nastavíme na otevřený, jeho ohodnocení na nulu
+			- dokud existují otevřené vrcholy
+				- vezmu nějaký otevřený vrchol $v$ (v Bellmanově-Fordově algoritmu beru ten nejstarší ve frontě)
+				- pro všechny jeho následníky $w$ provedu relaxaci, tzn.:
+					- pokud $h(w)\gt h(v)+l(v,w)$
+						- $h(w)\leftarrow h(v)+l(v,w)$
+						- stav(w) $\leftarrow$ otevřený
+						- $P(w)\leftarrow v$
+					- stav(v) $\leftarrow$ uzavřený
+			- výstup: ohodnocení vrcholů $h$ a pole předchůdců
+		- Bellmanův-Fordův algoritmus má fáze
+			- $F_0:=$ otevření $v_0$
+			- $F_i:=$ zavírání vrcholů otevřených v $F_{i-1}$ a otevírání jejich následníků
+		- invariant: na konci fáze $F_i$ odpovídá $h(v)$ délce nejkratšího $v_0v$-sledu o nejvýše $i$ hranách
+		- z toho vyplývá složitost $\Theta(n\cdot m)$
 - Minimální kostra grafu (Jarníkův a Borůvkův algoritmus)
+	- lemma
+		- nechť $G$ je graf opatřený unikátními vahami, $R$ nějaký jeho elementární řez a $e$ nejlehčí hrana tohoto řezu
+		- pak $e$ leží v každé minimální kostře grafu $G$
+	- klasický Jarník
+		- hladový algoritmus
+		- na začátku máme strom $T$, který obsahuje vrchol $v_0$ (libovolný) a žádné hrany
+		- vezmeme nejlehčí hranu vedoucí mezi stromem $T$ a zbytkem grafu – tu přidáme do stromu
+			- opakujeme, dokud takové hrany existují
+		- složitost $O(n\cdot m)$
+	- Jarník podle Dijkstry
+		- udržuju si haldu aktivních hran – to jsou hrany v aktuálním řezu
+		- do stromu $T$ vždycky přidávám minimum z haldy
+		- když zjistím, že mám dvě aktivní hrany, které vedou do jednoho vrcholu mimo $T$, tak tu těžší zahodím
+		- s haldou složitost $O(m\log n)$
+			- protože $n\log n$ se díky souvislosti grafu vejde do $m\log n$
+	- Borůvkův algoritmus
+		- paralelní verze Jarníkova algoritmu
+		- na začátku $T$ obsahuje izolované vrcholy grafu
+		- dokud $T$ není souvislý:
+			- rozložíme $T$ na komponenty souvislosti
+			- pro každou komponentu najdeme nejlehčí hranu mezi komponentou a zbytkem vrcholů a přidáme ji do $T$
+		- složitost
+			- rozklad na komponenty v $O(n+m)$, ale taky $O(m)$ díky souvislosti
+			- nalezení nejlehčích hran v $O(m)$
+			- algoritmus se zastaví po nejvýše $\lfloor\log n\rfloor$ iteracích
+			- z toho plyne složitost $O(m\log n)$
 - Toky v sítích (Ford-Fulkerson algoritmus)
+	- cesta je nenasycená $\equiv$ žádná její hrana není nasycená / všechny mají kladné rezervy
+	- algoritmus
+		- iterujeme, dokud existuje nenasycená cesta ze zdroje do stoku
+		- spočítáme rezervu celé cesty (minimum přes rezervy hran cesty)
+		- pro každou hranu upravíme tok – v protisměru odečteme co nejvíc, zbytek přičteme po směru
+	- pro celočíselné kapacity vrátí celočíselný tok
+	- racionální kapacity převedeme na celočíselné
+	- pro iracionální kapacity se může rozbít
+	- lemma: pokud se algoritmus zastaví, vydá maximální tok
+	- věta: pro každou síť s racionálními kapacitami se Fordův-Fulkersonův algoritmus zastaví a vydá maximální tok a minimální řez
+		- vzhledem k operacím, které algoritmus provádí, nemůže z celých čísel vytvořit necelá
+	- důsledek: velikost maximálního toku je rovna kapacitě minimálního řezu
+	- důsledek: síť s celočíselnými kapacitami má aspoň jeden z maximálních toků celočíselný a Fordův-Fulkersonův algoritmus takový tok najde
 
 ## 3. Programovací jazyky
 

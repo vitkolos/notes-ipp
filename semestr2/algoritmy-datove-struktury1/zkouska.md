@@ -196,7 +196,7 @@
 	- má fáze
 		- $F_0:=$ otevření $v_0$
 		- $F_i:=$ zavírání vrcholů otevřených v $F_{i-1}$ a otevírání jejich následníků
-	- invariant: na konci fáze $F_i$ odpovídá $h(v)$ délce nekratšího $v_0v$-sledu o nejvýše $i$ hranách
+	- invariant: na konci fáze $F_i$ odpovídá $h(v)$ délce nejkratšího $v_0v$-sledu o nejvýše $i$ hranách
 	- z toho vyplývá složitost $\Theta(n\cdot m)$
 
 ## Minimální kostry
@@ -269,18 +269,18 @@
 	- uspořádaná množina má navíc Min, Max, Pred, Succ
 - Definice: Binární vyhledávací strom (BVS)
 	- BVS je binární strom, jehož každému vrcholu $v$ přiřadíme unikátní klíč $k(v)$ z univerza. Přitom musí pro každý vrchol $v$ platit:
-		- Kdykoliv $a\in L(v)$, pak $k(a)\lt k(v)$
-		- Kdykoliv $b\in R(v)$, pak $k(b)\gt k(v)$.
+		- kdykoliv $a\in L(v)$, pak $k(a)\lt k(v)$
+		- kdykoliv $b\in R(v)$, pak $k(b)\gt k(v)$
 - Algoritmus: Operace Find, Insert a Delete v BVS
 	- Find: „binární vyhledávání“ (porovnávám s vrcholem – podle toho se zanořím do jednoho z podstromů nebo vrátím hodnotu vrcholu, případně $\emptyset$, pokud se nemám kam zanořit)
 	- Insert: vložím vrchol tam, kde bych ho našel, kdyby ve stromu byl (pokud tam je, tak nic nedělám)
 	- Delete: vrchol najdeme a smažeme; pokud má jednoho syna, tak ho připojíme pod otce smazaného vrcholu; pokud má dva syny, nejdříve nalezneme nejlevější vrchol v pravém podstromu a s tím ho prohodíme (fungovalo by to i symetricky)
 - Definice: Dokonale vyvážený strom
-	- dokonale vyvážený je takový strom, pro jehož každý vrchol platí $||l(v)|-|r(v)||\leq 1$
+	- dokonale vyvážený je takový strom, pro jehož každý vrchol platí $||L(v)|-|R(v)||\leq 1$
 	- špatně se udržuje
 - Definice: AVL strom
 	- AVL strom = hloubkově vyvážený strom
-	- pro každý jeho vrchol platí $|h(l(v))-h(r(v))|\leq1$
+	- pro každý jeho vrchol platí $|h(L(v))-h(R(v))|\leq1$
 	- tedy hloubka levého a pravého podstromu se liší nejvýše o jedna
 - Věta: Odhad hloubky AVL stromu
 	- věta: AVL strom na $n$ vrcholech má hloubku $\Theta(\log n)$.
@@ -310,7 +310,7 @@
 - Algoritmus: Operace Insert a Delete v AVL stromech
 	- Df: znaménko vrcholu
 		- $\delta: V\to \lbrace-1,0,+1\rbrace$
-		- $\delta(v):=h(r(v))-h(l(v))$
+		- $\delta(v):=h(R(v))-h(L(v))$
 	- insert a delete jako u BVS, ale navíc udržujeme znaménko a rotujeme, když je třeba
 	- při insertu vkládáme list, posíláme nahoru signál o zvýšení hloubky
 	- insert – signál o zvýšení hloubky přichází do vrcholu $x$ BÚNO zleva (jinak bychom prohodili strany a znaménka)
