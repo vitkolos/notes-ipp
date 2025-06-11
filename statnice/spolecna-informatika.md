@@ -66,6 +66,19 @@
 			- alternativa: množina počátečních stavů $S_0\subseteq Q$
 		- $F\subseteq Q$ … množina koncových (přijímajících) stavů
 	- $\epsilon$-uzávěr … všechny stavy, kam se z daného stavu dostaneme prázdným slovem
+	- podmnožinová konstrukce
+		- věta: jazyk $L$ je rozpoznatelný $\epsilon$NFA, právě když je $L$ regulární
+		- pro libovolný $\epsilon$NFA $N$ zkonstruujeme DFA $D$ přijímající stejný jazyk jako $N$
+		- nové stavy jsou $\epsilon$-uzavřené podmnožiny $Q_N$
+			- $Q_D\subseteq\mathcal P(Q_N)$
+			- $\forall S\subseteq Q_N:\epsilon\text{closure}(S)\in Q_D$
+			- v $Q_D$ může být i $\emptyset$
+		- počáteční stav je $\epsilon$-uzávěr $q_0$
+			- $q_{D_0}=\epsilon\text{closure}(q_{N_0})$
+		- přijímající stavy jsou všechny množiny obsahující nějaký přijímající stav
+			- $F_D=\set{S\in Q_D: S\cap F_N\neq\emptyset}$
+		- přechodová funkce sjednotí a $\epsilon$-uzavře přechody z jednotlivých stavů
+			- pro $S\in Q_D,\,x\in\Sigma$ definujeme $\delta_D(S,x)=\epsilon\text{closure}\left(\bigcup_{p\in S}\delta_N(p,x)\right)$
 - Regulární výrazy
 	- regulární výrazy
 		- $\text{RegE}(\Sigma)$ … množina všech regulárních výrazů nad konečnou neprázdnou abecedou
@@ -123,10 +136,25 @@
 	- jazyk přijímaný koncovým stavem je $L(P_{da})=\set{w\in\Sigma^*:(\exists q\in F)(\exists\alpha\in\Gamma^*)((q_0,w,Z_0)\vdash^*_{P_{da}}(q,\epsilon,\alpha))}$
 	- jazyk přijímaný prázdným zásobníkem je $N(P_{da})=\set{w\in\Sigma^*:(\exists q\in Q)((q_0,w,Z_0)\vdash^*_{P_{da}}(q,\epsilon,\epsilon))}$
 		- množina $F$ je nerelevantní, takže ji lze vynechat – pak je PDA šestice
+	- lemma: od přijímajícího stavu k prázdnému zásobníku
+		- na dno zásobníku přidáme špunt
+		- z přijímajících stavů vedeme hranu do vypouštěcího stavu, kde zásobník vyprázdníme
+	- lemma: od prázdného zásobníku ke koncovému stavu
+		- na dno zásobníku přidáme špunt
+		- z každého stavu uděláme přechod takový, že pokud je vidět špunt, přemístíme se do koncového stavu
 	- věta: následující tvrzení jsou ekvivalentní
 		- jazyk $L$ je bezkontextový, tj. generovaný bezkontextovou gramatikou
 		- jazyk $L$ je přijímaný nějakým zásobníkovým automatem koncovým stavem
 		- jazyk $L$ je přijímaný nějakým zásobníkovým automatem prázdným zásobníkem
+	- konstrukce PDA z CFG
+		- mějme gramatiku $G=(V,T,P,S)$
+		- konstruujeme PDA $P=(\set{q},T,V\cup T,\delta,q,S)$
+			- $\forall A\in V:\delta(q,\epsilon,A)=\set{(q,\beta)\mid (A\to \beta)\in P}$
+			- $\forall a\in T:\delta(q,a,a)=\set{(q,\epsilon)}$
+			- $P$ přijímá prázdným zásobníkem
+		- idea
+			- stavy nás nezajímají – stačí nám jeden
+			- na zásobníku nedeterministicky generujeme všechny možné posloupnosti terminálů
 - Pumping lemma pro bezkontextové jazyky
 	- lemma o vkládání (pumping) pro bezkontextové jazyky
 		- nechť $L$ je bezkontextový jazyk
@@ -260,10 +288,28 @@
 	- není rekurzivně spočetný (nebo případně jenom rekurzivní): dokážeme pomocí $L_d$
 	- uzavřenost operací
 		- regulární jazyky jsou uzavřené na množinové (sjednocení, průnik, rozdíl, doplněk) i řetězcové operace ($L{.}M,L^*,L^+,L^R,M\setminus L,L/M$), na homomorfismus a inverzní homomorfismus
-			- množinové operace se dokazujou pomocí součinového automatu
+			- doplněk: obrátíme „koncovost“ stavů
+			- průnik, sjednocení, rozdíl
+				- zkonstruujeme součinový automat $(Q_1\times Q_2,\Sigma,\delta,(q_{0_1},q_{0_2}),F)$
+					- kde $\delta((p,q),x)=(\delta_1(p,x),\delta_2(q,x))$
+				- průnik … $F=F_1\times F_2$
+				- sjednocení … $F=(F_1\times Q_2)\cup(Q_1\times F_2)$
+				- rozdíl … $F=F_1\times (Q_2-F_2)$
 		- bezkontextové jazyky jsou uzavřené na sjednocení, konkatenaci, iteraci, reverzi, naopak neuzavřené na průnik (ale jsou uzavřené na průnik s regulárním jazykem)
 		- uzavřenost můžeme použít k důkaz regularity nebo bezkontextovosti
 		- ale můžeme ji použít i k důkazu neregularity jazyka $L$ – kdybychom aplikací uzavřených operací na jazyk $L$ a regulární jazyky dostali jazyk $L'$, který zjevně není regulární (např. $0^i1^i$)
+- Příklad kontextového jazyka
+	- lemma: jazyk $L=\set{a^ib^jc^k\mid1\leq i\leq j\leq k}$ je kontextový jazyk, není bezkontextový
+	- pravidla
+		- $S\to aSBC|aBC$ … generování symbolů $a$
+		- $B\to BBC$ … množení symbolů $B$
+		- $C\to CC$ … množení symbolů $C$
+		- $CB\to BC$ … uspořádání symbolů $B$ a $C$ (pravidlo není kontextové, je potřeba ho upravit nadtrháváním)
+		- $aB\to ab$ … začátek přepisu $B$ na $b$
+		- $bB\to bb$ … pokračování přepisu $B$ na $b$
+		- $bC\to bc$ … začátek přepisu $C$ na $c$
+		- $cC\to cc$ … pokračování přepisu $C$ na $c$
+	- je důležité, že tam chybí $cB\to cb$
 
 ## 2. Algoritmy a datové struktury
 
