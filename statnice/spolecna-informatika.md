@@ -913,33 +913,202 @@
 ## 4. Architektura počítačů a operačních systémů
 
 - Základní architektura počítače, reprezentace čísel, dat a programů
-	- reprezentace a přístup k datům v paměti, adresa, adresový prostor
-	- ukládání jednoduchých a složených datových typů
-	- základní aritmetické a logické operace
-- Instrukční sada, vazba na prvky vyšších programovacích jazyků
-	- Implementovat běžné programové konstrukce vyšších jazyků (přiřazení, podmínka, cyklus, volání funkce) pomocí instrukcí procesoru
-	- Zapsat běžnou konstrukci vyššího jazyka (přiřazení, podmínka, cyklus, volání funkce), která odpovídá zadané sekvenci (vysvětlených) instrukcí procesoru
-- Podpora pro běh operačního systému
-	- privilegovaný a neprivilegovaný režim procesoru
-	- jádro operačního systému
-- Rozhraní periferních zařízení a jejich obsluha
-	- Popsat roli řadiče zařízení při programem řízené obsluze zařízení (PIO), pro zadané adresy a funkce vstupních a výstupních portů implementovat programem řízenou obsluhu zadaného zařízení (myš, disk)
-	- Popsat roli přerušení při programem řízené obsluze zařízení (PIO), na úrovni vykonávání instrukcí popsat reakci procesoru (hardware) a operačního systému (software) na žádost o přerušení
-- Základní abstrakce, rozhraní a mechanismy OS pro běh programů, sdílení prostředků a vstup/výstup
-	- neprivilegované (uživatelské) procesy
-	- sdílení procesoru
-		- procesy, vlákna, kontext procesu a vlákna
-		- přepínání kontextu, kooperativní a preemptivní multitasking
-		- plánování běhu procesů a vláken, stavy vlákna
-	- sdílení paměti
-		- Vysvětlit rozdíl mezi virtuální a fyzickou adresou a identifikovat, zda se v zadaném kontextu či fragmentu kódu používá virtuální nebo fyzická adresa
-		- Na zadaném příkladu identifikovat a vysvětlit význam komponent virtuální a fyzické adresy (číslo stránky, číslo rámce, offset)
-		- Pro konkrétní adresy a obsah jednoúrovňové stránkovací tabulky řešit úlohy překladu adres
-		- Vysvětlit roli virtuálních adresových prostorů v ochraně paměti procesů a vláken
-	- sdílení úložného prostoru
-		- soubory, analogie s adresovým prostorem
-		- abstrakce a rozhraní pro práci se soubory
-- Paralelismus, vlákna a rozhraní pro jejich správu, synchronizace vláken
-	- časově závislé chyby (race conditions)
-	- kritická sekce, vzájemné vyloučení
-	- základní synchronizační primitiva, jejich rozhraní a použití – zámky; aktivní a pasivní čekání
+	- Harvardská architektura počítače
+		- CPU – procesor, vykonává příkazy
+		- kódová paměť (code memory) – uložení informací o příkazech
+		- komunikační linka – umožňuje, aby procesor četl data z paměti
+			- v základním počítači CPU nemusí zapisovat do kódové paměti, do ní se zapisuje nějak z venku
+		- datová paměť (data memory) – CPU z ní čte a zapisuje do ní data
+			- data se ukládají do proměnných
+		- k procesoru jsou dále připojena vstupně-výstupní zařízení – I/O, periferie
+	- von Neumannova architektura
+		- operační paměť, kde je obojí – v jedné části kód programu, v jiné části data programu
+		- zajistíme, aby IP (instruction pointer, jinak také PC, program counter) obsahoval adresy z určitého rozsahu a aby adresy proměnných byly zase z jiného rozsahu
+		- je to hardwarově komplikovanější na implementaci, ale přináší to spoustu výhod
+		- lze zařídit, aby IP ukazoval na začátek přeloženého programu
+		- potenciální zranitelnost, pokud útočník do dat určených ke čtení uloží spustitelné byty a zařídí jejich spuštění
+		- operační paměť bude volatile – RAM
+			- potřebujeme jiné magické zařízení, které do RAM zkopíruje počáteční program z non-volatile paměti
+- Reprezentace a přístup k datům v paměti, adresa, adresový prostor
+	- data i programy reprezentujeme binárně
+	- každému bytu v paměti přiřadíme adresu (n-bit unsigned), definujeme si paměťový adresový prostor
+	- u 256bytové paměti budeme mít 8bitový adresový prostor (0 až 255 $\dots 2^8-1$)
+	- 32bitový adresový prostor stačí pro 4 GB paměti, pro větší paměť už potřebujeme 64 bitů
+- Ukládání jednoduchých a složených datových typů
+	- jednoduché datové typy
+		- čísla se ukládají ve dvojkové soustavě
+		- znaménková čísla se ukládají ve dvojkovém doplňku
+			- kladná čísla jako unsigned
+			- záporná čísla jsou negace absolutní hodnoty plus 1
+			- rozsah –128 až 127
+			- nefunguje porovnání mezi kladnými a zápornými čísly – procesor musí podporovat znaménkové porovnání
+			- MSb určuje znaménko
+			- nejběžněji používaná implementace záporných čísel
+		- čísla s plovoucí desetinnou čárkou (floating-point) se reprezentují takto: $\text{value}=(-1)^{\text{sign}}\cdot\text{significand}\cdot 2^{\text{exponent}-\text{bias}}$
+		- číslo se naseká na byty a pak se ukládá v paměti, pořadí uložení bytů je dáno endianitou (little-endian vs. big-endian)
+		- text se ukládá pomocí kódování, základní znaky používají ASCII, dále se obvykle používá Unicode
+	- složené datové typy
+		- moderní procesory vyžadují, aby byla data v paměti zarovnaná podle jejich velikosti
+		- např. 4bajtový int musí mít adresu zarovnanou na 4 (dělitelnou čtyřmi)
+		- celá struktura (struct) je zarovnaná na největší datový typ dostupný na CPU (např. 16B)
+		- některé jazyky přehazují položky ve struktuře, aby se eliminovalo volné místo
+		- sizeof vrátí velikost včetně těch mezer 
+- Implementovat běžné programové konstrukce vyšších jazyků (přiřazení, podmínka, cyklus, volání funkce) pomocí instrukcí procesoru
+	- nacvičit
+- Zapsat běžnou konstrukci vyššího jazyka (přiřazení, podmínka, cyklus, volání funkce), která odpovídá zadané sekvenci (vysvětlených) instrukcí procesoru
+	- nacvičit
+- Podpora pro běh operačního systému – privilegovaný a neprivilegovaný režim procesoru, jádro operačního systému
+	- režimy procesoru (bývá jich několik, ale nejdůležitější jsou dva)
+	- uživatelský režim (neprivilegovaný)
+		- přístupný všem aplikacím
+		- omezený přístup ke zdrojům (systémovým registrům, instrukcím)
+	- kernel mode (privilegovaný)
+		- je používán operačním systémem nebo jeho částí
+		- má plný přístup ke zdrojům
+	- přechod mezi režimy je jasně definovaný – je pouze omezené množství způsobů, jak přepnout z uživatelského do kernel režimu (aby bylo možné vyhodnotit, zda je to záměr, nebo chyba)
+		- syscall = volání systémového API
+		- tenká vrstva nad OS zajišťuje syscally
+	- např. k vypsání textu do konzole je potřeba, abychom se přepnuli do kernel módu a zpátky (zrychluje se to použitím bufferu)
+	- jádro OS zajišťuje inicializaci hardwaru, následně řeší správu prostředků a spouštění/obsluhu programů
+	- podle velikosti jádra OS se rozlišují architektury
+		- monolitická
+			- obslužná vrstva, jejím prostřednictvím se volají interní funkce
+			- takhle funguje linuxový kernel
+			- zranitelnost – programy v jádře mohou dělat cokoliv
+			- původně byly součásti jádra pevně nastavené od instalaci
+				- problém – při připojení klávesnice chceme nainstalovat driver zařízení → dnes lze obsah jádra měnit
+		- vrstvená
+			- každá vrstva má svoje rozhraní
+			- každá vrstva může používat jenom vrstvu přímo pod ní (její rozhraní)
+		- mikrokernel
+			- většina služeb se z kernel space vystrčí do user space, jsou tam jako jednotlivé moduly, ty komunikují bez sebou a s jádrem
+			- je to rozšiřitelné, spolehlivé (jednotlivé služby lze v případě chyby restartovat) a bezpečné, ale poměrně pomalé
+			- takhle fungují Windows
+				- mají ještě hardwarovou abstrakční vrstvu, takže mikrokernel je přenositelný
+				- služby běží v kernel režimu (což je v rozporu s filozofií mikrokernel)
+- Popsat roli řadiče zařízení při programem řízené obsluze zařízení (PIO), pro zadané adresy a funkce vstupních a výstupních portů implementovat programem řízenou obsluhu zadaného zařízení (myš, disk)
+	- implementaci nacvičit
+	- řadič zařízení (controller) – HW součástka, komunikuje se zařízením nějakým protokolem
+	- ovladač zařízení (driver) – SW komponenta, součást operačního systému, realizuje komunikaci s řadičem, poskytuje operačnímu systému jednotné komunikační rozhraní
+	- operační systém pak zařízení zprostředkovává běžícímu programu/procesu (a uživateli)
+- Popsat roli přerušení při programem řízené obsluze zařízení (PIO), na úrovni vykonávání instrukcí popsat reakci procesoru (hardware) a operačního systému (software) na žádost o přerušení
+	- komunikace se zařízeními
+		- polling – CPU se aktivně ptá na změnu stavu zařízení (pomalé, dnes už se nepoužívá)
+		- přerušení – řadič vyšle signál, že je operace hotová, a přeruší chod procesoru (ale pořád musím kopírovat data, což je pomalé)
+		- DMA (Direct Memory Access) – přenos dat ze zařízení do paměti probíhá hardwarově bez účasti procesoru, až pak se provede přerušení; funkce scatter/gather umožňuje využívat nesouvislé části paměti
+	- typy přerušení
+		- externí – hardwarové pomocí IRQ pinu, lze ho zamaskovat (deaktivovat – pomocí registru)
+		- (hardwarová) výjimka – nastal problém s instrukcemi → procesor vyvolá přerušení a nechá na OS, aby situaci vyřešil
+			- výjimka typu trap se volá po instrukci, např. dělení nulou
+			- u výjimek typu fault se procesor vrátí na stav před instrukcí, nechám OS, aby problém opravil, a potom instrukci pustím znova
+		- softwarové – speciální instrukce
+	- jak funguje přerušení
+		- CPU zjistí zdroj přerušení, získá adresu handleru (kdo přerušení zpracuje – je fixní nebo se použije tabulka)
+		- proud instrukcí je přerušen, CPU začne vykonávat instrukce handleru (obvykle se přepne do privilegovaného režimu, protože handler je součástí kernelu)
+		- handler uloží stav CPU
+		- handler udělá něco užitečného
+		- handler obnoví stav CPU
+		- CPU pokračuje v původním proudu instrukcí
+- Neprivilegované (uživatelské) procesy
+	- k prostředkům přistupují skrze operační systém (ten pak využívá ovladače apod.)
+	- mají k dispozici virtuální paměť
+- Procesy, vlákna, kontext procesu a vlákna
+	- program
+		- pasivní soubor na disku
+		- loader – vezme program a načte ho do paměti
+		- někde v hlavičce programu je informace o tom, kde program (výkon instrukcí) začíná
+	- proces
+		- instance programu vytvořená operačním systémem
+		- je to datová struktura uvnitř operačního systému, v níž jsou uložené různá data, která daný program potřebuje
+		- vlastní: kód, prostor v paměti, další prostředky
+	- vlákno (thread)
+		- místo uvnitř procesu, kde se vykonávají instrukce
+		- kontext procesoru – datová struktura, ve které jsou uložené registry procesoru, pokud dané vlákno zrovna neběží
+		- vlastní: pozici v kódu (program counter / instruction pointer), svůj zásobník, stav procesoru
+	- fiber
+		- lightweight vlákno
+		- nemá celý kontext
+		- scheduling se dělá kooperativně (jednotlivé fibery se vzájemně vyměňují v běhu)
+- Přepínání kontextu, kooperativní a preemptivní multitasking
+	- scheduler – část operačního systému, používá schedulingové algoritmy k přidělení zdrojů (jader) jednotkám
+	- když se přeruší vykonávání vlákna, provede se context switch – kontext procesoru (registry včetně PC) se uloží
+	- multitasking
+		- cooperative – všechny procesy kooperují, předávají si řízení
+		- preemptive – každé vlákno dostane od scheduleru svůj time slice; jakmile čas vyprší, dojde k přerušení
+	- jinými slovy
+		- při kooperativním multitaskingu musí proces dobrovolně předat řízení (yield)
+		- při preemptivním multitaskingu plánovač proces prostě přeruší, jakmile mu dojde čas
+- Plánování běhu procesů a vláken, stavy vlákna
+	- stavy vlákna
+		- created
+		- ready
+		- running
+		- blocked
+		- terminated (zombie)
+	- scheduler – část operačního systému, používá schedulingové algoritmy k přidělení zdrojů (jader) jednotkám
+	- real-time scheduling: real-time proces má čas, kdy se má spustit, a čas, do kdy má skončit (hard deadline – nemá smysl pokračovat, soft deadline – má smysl pokračovat ve výpočtu)
+	- priorita – vázaná na proces
+		- je dvousložková – při spuštění se přiděluje statická priorita (podle uživatele), dynamická priorita se v časových intervalech pravidelně zvyšuje všem ready vláknům (po spuštění se dynamická priorita sníží na nula); celková priorita je daná součtem
+	- kooperativní algoritmy
+		- first come, first serve (FCFS)
+			- FIFO řada, procesy se vykonávají v pořadí, ve kterém přišly
+		- shortest job first
+			- musí být známý očekávaný čas běhu
+		- longest job first
+	- preemptivní algoritmy
+		- round robin
+			- jako FCFS
+			- když vlákno trvá moc dlouho, tak se zařadí na konec fronty
+		- multilevel feedback-queue
+			- každá fronta má jinak dlouhý time slice
+			- první (horní) ho má kratší, ty pod ní ho mají delší
+			- když vlákno trvá moc dlouho, tak se zařadí na konec nižší fronty
+			- když se vlákno brzo zablokuje, tak se zařadí na konec vyšší fronty
+		- completely fair scheduler (CFS)
+			- používá červeno-černý strom
+- Vysvětlit rozdíl mezi virtuální a fyzickou adresou a identifikovat, zda se v zadaném kontextu či fragmentu kódu používá virtuální nebo fyzická adresa
+	- instrukce procesoru pracují s virtuálními adresami
+	- operační paměť má fyzické adresy
+	- hardwarově je implementován převodní mechanismus
+		- musí vyhodnotit, jestli existuje převod
+		- zajistí přepočet, pokud existuje
+		- tyto kroky musí být extrémně rychlé
+	- existují dva mechanismy – segmentace (už se nepoužívá) a stránkování
+	- MMU = Memory Management Unit, provádí převod
+	- převod paměti je transparentní
+	- výhody konceptu
+		- větší adresový prostor – abych mohl spustit proces s většími požadavky na paměť
+		- bezpečnost – aby si procesy navzájem nemohly koukat do paměti, každý má vlastní mapování; to je dnes ten hlavní důvod
+- Na zadaném příkladu identifikovat a vysvětlit význam komponent virtuální a fyzické adresy (číslo stránky, číslo rámce, offset)
+	- virtuální adresový prostor (VAS) je rozdělen na stejné části (stránky, jejich velikost odpovídá mocninám dvojky)
+	- fyzický adresový prostor (PAS) je rozdělen na stejné části (rámce, framy, mají stejnou velikost jako stránky)
+	- VAS je jednorozměrný, instrukce pracují s jedním číslem
+	- page table (stránkovací tabulka)
+		- zajišťuje překlad adres
+		- je to pole stránek (indexované číslem stránky)
+		- každý záznam obsahuje číslo framu a atributy
+		- je tam jednička/nula – aby se dalo určit, jestli stránka fyzicky existuje
+		- v případě chyby – page fault
+	- virtuální adresa se navenek jeví jako jedno číslo, ale protože velikost stránky je mocnina dvojky, tak část binárního čísla odpovídá číslu stránky a část offsetu
+		- offset je u virtuální i fyzické adresy stejný, tedy se překládá jenom prefix odpovídající stránce (přeloží se na číslo rámce)
+	- když mi dojde fyzická paměť, tak nějakou stránku uložím na disk – je to obvykle méně dat, než by to bylo při výpadku segmentu (segmenty měly různé velikosti, stránky jsou všechny stejně velké)
+- Pro konkrétní adresy a obsah jednoúrovňové stránkovací tabulky řešit úlohy překladu adres
+	- ukázkový příklad:
+		- 32bitová virtuální adresa
+		- posledních 12 bitů určuje offset
+		- prvních 20 bitů určuje stránku, použiju je k indexaci do stránkovací tabulky
+		- dozvím se číslo rámce dat
+		- k číslu rámce připojím offset
+		- dostanu 32bitovou fyzickou adresu
+- Vysvětlit roli virtuálních adresových prostorů v ochraně paměti procesů a vláken
+	- proces má vlastní virtuální adresový prostor, takže se nemůže stát, že by sahal na paměť ostatních procesů
+	- ale vlákna stejného procesu virtuální adresový prostor sdílejí
+	- někdy naopak chceme, aby různé procesy mohly sdílet nějaké místo v paměti – dá se zařídit, aby konkrétní virtuální adresy různých procesů ukazovaly na stejné místo do fyzické paměti
+- Sdílení úložného prostoru – soubory, analogie s adresovým prostorem; abstrakce a rozhraní pro práci se soubory
+	- TODO
+- Časově závislé chyby (race conditions)
+	- TODO
+- Kritická sekce, vzájemné vyloučení
+	- TODO
+- Základní synchronizační primitiva, jejich rozhraní a použití – aktivní a pasivní čekání, zámky
+	- TODO

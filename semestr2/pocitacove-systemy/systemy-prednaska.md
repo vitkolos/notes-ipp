@@ -290,7 +290,7 @@
 - zařízení
 	- pojmy
 		- řadič zařízení (controller) – HW součástka, komunikuje se zařízením nějakým protokolem
-		- ovladač zařízení (driver) – SW komoponenta, součást operačního systému, realizuje komunikaci s řadičem, poskytuje operačnímu systému jednotné komunikační zařízení
+		- ovladač zařízení (driver) – SW komponenta, součást operačního systému, realizuje komunikaci s řadičem, poskytuje operačnímu systému jednotné komunikační zařízení
 		- BIOS/UEFI – inicializuje zařízení při bootu
 	- topologie zařízení
 		- sběrnice
