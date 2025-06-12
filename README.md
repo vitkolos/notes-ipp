@@ -44,7 +44,7 @@ Bachelor of Computer science, [scroll down for notes in English](#20242025)
 ### Státnice
 
 - [Společná matematika](statnice/spolecna-matematika.md)
-- Společná informatika
+- [Společná informatika](statnice/spolecna-informatika.md)
 - [Základy umělé inteligence](statnice/zaklady-umele-inteligence.md)
 - [Strojové učení](statnice/strojove-uceni.md)
 

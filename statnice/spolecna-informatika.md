@@ -1105,10 +1105,66 @@
 	- ale vlákna stejného procesu virtuální adresový prostor sdílejí
 	- někdy naopak chceme, aby různé procesy mohly sdílet nějaké místo v paměti – dá se zařídit, aby konkrétní virtuální adresy různých procesů ukazovaly na stejné místo do fyzické paměti
 - Sdílení úložného prostoru – soubory, analogie s adresovým prostorem; abstrakce a rozhraní pro práci se soubory
-	- TODO
+	- soubor
+		- jednotka organizace dat, kolekce souvisejících informací
+		- jádro OS nerozumí formátům souborů
+		- soubory se typicky neukládají v paměti, ale na perzistentním úložišti
+		- soubor je chápán jako unikátní číslo – kvůli lidem mají soubory jméno a cestu (aby v souborech nebyl chaos)
+			- analogie s adresovým prostorem – cestu souboru je nutné přeložit (jako se virtuální adresa překládá na fyzickou)
+		- některé části názvu souboru (počáteční tečka, přípona) mají speciální význam (ale přípona souboru nemusí souviset s reálným formátem souboru)
+		- operace se soubory – vyčištění cache, změna atributů, vytvoření, smazání
+		- file handle – číslo specifické pro proces, odkazuje na konkrétní soubor (stdin, stdout, stderr mají handles 0, 1, 2)
+	- buffering
+		- cachování sektorů disku (když disk čtu po bajtech, první se načítá z cache, všechny ostatní v daném sektoru už se pak načítají z cache)
+		- existuje několik úrovní cache (systémová, runtime)
+		- sekvenční vs. náhodný přístup
+	- alternativy – memory mapping, asynchronní přístup souborům
+	- adresář
+		- kolekce souborů
+		- význam – rychlejší hledání souboru, lepší navigace pro uživatele, logické seskupení souborů
+		- obvykle reprezentován jako soubor
+		- někdy v něm můžou být uloženy některé atributy jeho souborů
+		- obvykle existuje kořenový adresář
+		- operace – vytvořit, smazat, přejmenovat, najít název, vypsat soubory
+	- ukládání souborů
+		- tradiční úložiště
+			- na sekundárním nebo externím úložišti
+			- file system in RAM (pro dočasné soubory)
+		- síťové úložiště – soubory se tváří, jako by byly na disku, ale přitom jsou uloženy někde jinde na síti
+		- virtuální soubory – např. /dev/null
+	- file links
+		- links (hard links)
+			- více adresářových záznamů odkazuje na stejný fyzický soubor
+			- většina operací je transparentních
+			- šetří místo, ale může dělat problémy (smazání hardlinku nesmí smazat fyzický soubor – takže OS musí počítat odkazy na daný soubor)
+		- symlinks (soft links)
+			- symlinky jsou speciální soubory, v nichž je uložená cesta jiného souboru
+	- file system
+		- řeší překlad jmen, správu datových bloků, správu dat souborů
+		- pro file system je jednotkou jeden blok, blok je určitý počet sektorů
+		- řeší abstrakci práce se soubory a adresáři
+		- může být lokální (FAT, NTFS) nebo síťový (NFS, CIFS/SMB)
 - Časově závislé chyby (race conditions)
-	- TODO
+	- více vláken přistupuje ke sdílenému prostředku
+	- to vede k tomu, že výsledek výpočtu závisí na plánování operačního systému nebo na chování procesoru
+	- takový výsledek je k ničemu
+	- řešila by to atomizace read-modify-write operace
+	- jak to vyřešit?
+		- definuju kritickou sekci
+		- pomocí synchronizačního primitiva zajistím, že v kritické sekci je jenom jedno vlákno
 - Kritická sekce, vzájemné vyloučení
-	- TODO
+	- kritická sekce – (nejmenší) kus zdrojového kódu, kde dochází k přístupu ke sdílenému prostředku, který nesmí používat víc procesů najedou
+	- vzájemné vyloučení (mutex) – jednoduchý algoritmus (synchronizační primitivum) zajišťující, že do kritické sekce nevstoupí víc vláken/procesů najednou
+		- je to vlastně zámek (ale zámek se obvykle týká vláken, kdežto mutex se vztahuje na procesy)
+		- pokud je mutex zamčený nějakým procesem, jiný proces nemůže sdílený prostředek používat
+		- umožňuje vícenásobné zamčení tím stejným procesem (pak je nezbytný stejný počet odemčení)
 - Základní synchronizační primitiva, jejich rozhraní a použití – aktivní a pasivní čekání, zámky
-	- TODO
+	- aktivní a pasivní/blokující synchronizační primitiva
+		- aktivní vykonávají instrukce a pořád koukají do kritické sekce, jestli tam můžou
+		- pasivní/blokující jsou zablokovány, dokud není přístup povolen
+	- hardwarová podpora – atomické instrukce test-and-set (TSL), compare-and-swap (CAS)
+	- primitiva
+		- spin-lock – aktivní čekání pomocí TSL/CAS, ideální pro krátké čekání
+		- semafor – counter a fronta čekajících vláken, atomické operace UP a DOWN
+		- mutex – semafor s počítadlem rovným jedné (umožňuje vstup jednoho vlákna do kritické sekce v danou chvíli), atomické operace LOCK a UNLOCK
+		- barrier – několik vláken se v jednu chvíli setká u stejné bariéry
