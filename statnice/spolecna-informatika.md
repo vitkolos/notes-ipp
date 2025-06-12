@@ -619,18 +619,177 @@
 ## 3. Programovací jazyky
 
 - Abstrakce, zapouzdření, polymorfismus – související konstrukty programovacích jazyků (třídy, rozhraní, metody, datové položky, dědičnost, viditelnost)
+	- v C# i v C++ jsou třídy (class) i struktury (struct)
+		- deklarace musí být v C++ zakončena středníkem
+		- v C++ to neovlivňuje způsob uložení a předávání, v C# jsou struktury hodnotového typu
+	- rozhraní (interface) v C#
+		- konvence psát na začátek názvu `I`
+		- dovnitř se píšou metody / method-like věci (třeba props), nesmí tam být fields
+		- jeden řádek může být např. `public int m(int a, int b);`
+		- dříve muselo být všechno public, dneska je dobré tam to public explicitně psát (i když defaultně je pořád všechno public)
+		- názvy parametrů metod v interfacu slouží k dokumentaci
+		- nemůže existovat instance interfacu, pouze proměnná s typem interfacu (ta může být nullable)
+		- `class Kachna : IPostovniZvire {…}`
+		- `IPostovniZvire zvire1 = new Kachna();`
+		- třída může implementovat víc interfaců
+	- v C++ můžeme rozhraní definovat pomocí dědičnosti (obvykle virtuální)
+	- v C++ můžu při dědění definovat viditelnost
+	- viditelnost v C# – některá klíčová slova
+		- public – přístup není omezen
+		- private – přístup je omezen na kód v daném typu
+			- C# podporuje vnořené typy – takže kód ve vnořeném typu má taky přístup k private položkám typu, v němž je vnořen
+		- protected – přístup je omezen na daný typ a typy, které z něj dědí
+	- výchozí viditelnost – private ve třídě, public v interfacu
+	- C#: abstract method vs. interface
+		- vynucení kontraktu – interface ho vynucuje hned
+		- veřejný kontrakt – abstraktní metody můžou být protected
+		- slib rozšiřitelnosti – u virtuální metody je to opt-out (pomocí sealed), u interfaců opt-in (musím znova říct, že implementuju interface)
+		- data – u interfaců nelze (kvůli vícenásobné dědičnosti)
+		- vícenásobná dědičnost – nelze u abstraktních metod
 - (Dynamický) polymorfismus, statické a dynamické typování
-- Jednoduchá dědičnost, virtuální a nevirtuální metody v C++ a C#
+	- statické typování
+		- proměnné mají pevně dané typy známé při kompilaci
+		- je jasné, jaké metody podporují
+		- dobře se provádí statická analýza kódu, lze hlásit chybná volání metod apod.
+	- dynamické typování
+		- typy proměnných nejsou pevně definované, určují se za běhu
+		- volání chybné metody selže až za běhu
+		- tzv. duck typing
+		- v C# lze aktivovat klíčovým slovem `dynamic`
+		- za jistou formu dynamického typování lze považovat i používání obecných rozhraní nebo rodičovských typů (např. `object`)
+	- statický polymorfismus se implementuje tak, že přetížíme metodu nebo operátor nebo že zakryjeme rodičovskou metodu
+	- dynamický polymorfismus funguje pomocí virtuálních metod
+	- při volání interfacové metody je důležité, která třída ji implementuje
+		- poznámka: interfacová metoda se dá implementovat explicitně
 - Vícenásobná dědičnost a její problémy (vícenásobná a virtuální dědičnost v C++, interfaces v C#)
+	- diamantový problém – pokud mají moji rodiče společného rodiče a já volám jeho metodu, kterou oba implementují, jaká metoda se má volat?
 - Číselné a výčtové typy
+	- enum se v C# definuje třeba takto: `enum Season { Spring, Summer, Autumn, Winter }`
+		- když za Season napíšu `: ushort`, tak se místo intu použije ushort
+		- můžu nadefinovat hodnoty jednotlivých možností
+	- v C# jsou tyto číselné typy: byte, sbyte, decimal, double, float, int, uint, nint, nuint, long, ulong, short, ushort
+		- nint a nuint mají nativní velikost (64 nebo 32 bitů, podle platformy)
 - Ukazatele a reference v C++
+	- smart pointery
+	- raw pointery
+	- reference (const, rvalue)
 - Hodnotové a referenční typy v C#
+	- základní dělení všech typů
+		- pointery – jsou ošklivé, nebudeme se o nich bavit
+		- hodnotové typy – alokované na místě (s výjimkami)
+			- enums
+			- structures
+				- simple types (Int32, Int64, Double, Boolean, Char, …)
+				- nullables
+				- user defined structures (struct)
+		- referenční typy – alokované na spravované (managed) haldě
+			- classes (e.g. strings)
+			- interfaces
+			- arrays
+			- delegates
+	- halda je garbage-collectovaná (GC), funguje chytřeji než v Pythonu, není potřeba reference counter, ale používá se graf dosažitelnosti
+	- overhead u každého objektu na haldě (má typicky 16 B)
+		- syncblock – kvůli práci s více vlákny (u jednovláknových programů zbytečný), má 8 B
+		- pointer na typ (zjednodušeně řečeno)
+			- třída System.Type, má instance na GC haldě
+			- každý datový typ odpovídá jedné instanci třídy
+		- na referenčních proměnných jde volat `.GetType()`
+	- co může být v proměnné
+		- hodnota (u hodnotových typů)
+			- velikost odpovídá velikosti datového typu
+			- u struktur lze použít `new`, které nic nealokuje, ale zavolá konstruktor
+		- reference (u referenčních typů)
+			- je tam uložená adresa, takže velikost odpovídá velikosti adres
+			- adresa vede na GC haldu
+			- adresa ukazuje na celý objekt
+			- explicitní alokace pomocí `new`
+			- tu adresu nelze zjistit (zčásti proto, že GC objekty na haldě někdy přesouvá, proto se adresa může měnit)
 - Reference, imutabilní typy a boxing v C#
+	- boxing
+		- každý hodnotový typ je potomkem objectu
+		- tedy do proměnné typu object musí jít přiřadit proměnnou hodnotového typu
+		- při takovém přiřazení se provádí boxing – je to implicitní alokace na GC haldě, alokuje se tam instance hodnotového typu (bude tam standardní overhead)
+			- pozor: v Javě jsou dva různé typy, int (hodnotový) a Integer (referenční) – v C# je to ten samý typ System.Int32
+		- co můžu dělat s proměnnou typu object?
+			- můžu volat ToString()
+		- unboxing – hodnotový typ alokovaný na haldě uložený referencí se uloží jako hodnota
+		- není vhodné používat object pro slabé typování – vlastně takhle implementujeme duck typing
+		- když potřebujeme hodnotový typ předávat referencí, tak object nedává smysl, vhodnější je použít jednoduchou třídu
+	- imutabilní typy
+		- do fieldu označeného jako readonly lze zapisovat pouze v konstruktoru (a při inicializaci apod.)
+		- případně u vlastností můžeme schovat setter – pak budou taky readonly
+		- strukturu můžeme celou označit jako readonly
+	- reference
+		- hodí se pro snazší manipulaci s hodnotovými proměnnými (abychom je všude nemuseli předávat hodnotou a abychom mohli z funkce vracet víc hodnot než jednu)
+			- u referenčních typů obvykle nedává smysl používat tracking referenci
+			- výjimečným případem, kdy to smysl dává, je třeba zvětšení pole – vyrobím nové pole, položky překopíruju a do tracking reference přiřadím nové pole
+		- používají se tzv. tracking reference
+		- klíčové slovo `ref` – používá se u parametrů funkcí, uvádí se dvakrát, v hlavičce funkce i při volání
+		- když používám `ref`, tak proměnná musí být inicializovaná (aby se z ní dalo číst)
+		- proto se u výstupních parametrů funkcí používá klíčové slovo `out` – na úrovni CIL kódu je to to samé, ale nevyžaduje to, aby proměnné byly inicializované
+			- uvnitř funkce s výstupními parametry se s nimi zachází jako s neinicializovanými (dá se z nich číst až po prvním zápisu)
+			- před standardním ukončením funkce s výstupními parametry se do každého z nich musí alespoň jednou zapsat
+			- pokud funkce skončí výjimkou, tak se do výstupních parametrů zapsat nemusí, ale to není problém, protože catch blok nemůže spoléhat na inicializaci v try bloku
+			- pokud proměnnou deklaruju nad try/catch, v try bloku ji inicializuji a v catch bloku vyhodím výjimku dál (pomocí `throw;`), tak pod try/catch můžu proměnnou považovat za inicializovanou
+			- pokud napíšu `if (int.Parse(s, out int x))`, tak se proměnná deklaruje před ifem
+		- klíčové slovo `in` … proměnná uvnitř funkce funguje jako readonly (podobně celá struktura funguje jako readonly)
+			- při volání funkce se dá volat i hodnotově bez klíčového slova
+			- `in` má smysl u výkonnostních optimalizací hodnotových typů (typicky u počítačových her)
+		- místo `in` se dá použít taky `ref readonly` – je to něco velmi podobného
+		- tracking reference se dají používat i jinde (nejen jako parametry funkcí) – je lepší je moc nepoužívat
 - Šablony (templates) a statický polymorfismus v C++
+	- např. `template<typename T> const T& max(const T& a, const T& b) { return a < b ? b : a; }`
+		- templatovaná funkce
+		- v C# třeba pomocí generické metody a omezení na IComparable
 - Generické typy v C# (bez omezení typových parametrů)
+	- `class GenericList<T> { }`
+	- při vytvoření instance je potřeba uvést typový parametr (při volání generických metod to není potřeba)
 - Typy reprezentující funkce v C++, C#
+	- v C# se používají delegáti
+		- pomocí klíčového slova `delegate` definujeme nový delegátní typ: `public delegate void Callback(string message);`
+		- za předpokladu, že někde existuje `DelegateMethod` s jedním parametrem typu string, která vrací void, tak můžeme provést přiřazení `Callback handler = DelegateMethod;`
+			- kdybychom chtěli vynutit vytvoření nové instance delegáta, tak bychom použili syntaxi `Callback handler = new Callback(DelegateMethod);`
+		- pak ji můžeme použít: `handler("Hello World");`
+		- k viditelnosti: můžu mít public metodu, která vrací delegáta, který ukazuje na private statickou metodu
+		- delegáti můžou ukazovat i na instanční metody
+			- v delegátu jsou dva ukazatele – na funkci a na `this`
+				- u statických metod je tam null
+			- stále platí, že delegáti jsou immutable – to konkrétní `this` je tam navždy
+			- u struktur – do `this` se zkopíruje struktura (zaboxuje se)
+		- delegáti můžou být generičtí
+		- u delegátů se dává suffix Delegate
+		- občas mi jde čistě o parametry – je mi úplně jedno, co ten delegát dělá
+			- bylo by zbytečné pro každou takovou metodu deklarovat delegáta
+			- proto existuje spousta předdefinovaných delegátů
+				- `Action<…>(…) → void`
+				- `Func<…, TResult>(…) → TResult`
+				- `Predicate<T>(T obj) → bool`
+			- pozor na přehlednost – typicky je lepší používat silně typované delegáty
+		- `var` funguje i pro delegáty
+	- v C++ je víc způsobů, jak pracovat s funkcemi
+		- templates
+		- function pointers
+		- `std::function`
 - Lambda funkce a funkcionální rozhraní
+	- lambda funkce v C# se píšou jako `(input-parameters) => expression` nebo `(input-parameters) => { <sequence-of-statements> }`
+	- můžou být statické
+		- např. `static x => x + 1`
+	- pokud nejsou statické, můžou zachytávat proměnné z kontextu (provádí se zachycení podobné capture by reference v C++)
+	- lambda funkce jsou přiřaditelné do proměnných typu delegát
 - Správa životního cyklu zdrojů v případě výskytu chyb – RAII v C++, using v C#, obsluha a propagace výjimek
+	- RAII … Resource Acquisition is Initialization
+		- zdroje, které třída používá, by se měly pořídit v konstruktoru a uvolnit v destruktoru, aby to bylo bezpečné
+		- lock & unlock → lock_guard
+		- new & delete → smart pointers
+		- pokud chceme ohraničit část kódu, kde má být zámek zamčený (nebo soubor otevřený), tak ji uzavřeme do složených závorek
+	- v C# pomocí usingu
+		- `using (var f1 = new FileStream("...")) { ... }`
+		- je to syntaktická zkratka pro try & finally, přičemž ve finally bloku se volá Dispose na hodnotě výrazu v závorce
+	- výjimky
+		- vyhazují se pomocí `throw new Ex();`, kde `Ex` je nějaký typ výjimky (konstruktor může mít parametr – třeba nějakou zprávu)
+		- zachycují/zpracovávají se pomocí try-catch-finally bloku
+		- catch bloků může být víc pro různé typy výjimek
+		- v catch bloku můžeme tu stejnou výjimku vyhodit znova pomocí `throw;`
 - Alokace (alokace statická, na zásobníku, na haldě)
 - Inicializace (konstruktory, volání zděděných konstruktorů)
 - Destrukce (destruktory, finalizátory)
