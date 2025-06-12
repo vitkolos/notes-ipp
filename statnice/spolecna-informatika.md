@@ -689,7 +689,12 @@
 			- delegates
 	- halda je garbage-collectovaná (GC), funguje chytřeji než v Pythonu, není potřeba reference counter, ale používá se graf dosažitelnosti
 	- overhead u každého objektu na haldě (má typicky 16 B)
-		- syncblock – kvůli práci s více vlákny (u jednovláknových programů zbytečný), má 8 B
+		- syncblock – kvůli práci s více vlákny (u jednovláknových programů zbytečný), má 8 B, skládá se ze dvou částí:
+			- lock
+				- owner thread + counter (kvůli rekurzivnímu zamykání)
+				- waiting threads list – nějaký férový seznam (nebo fronta, na tom nesejde)
+			- condition variable
+				- sleeping threads list
 		- pointer na typ (zjednodušeně řečeno)
 			- třída System.Type, má instance na GC haldě
 			- každý datový typ odpovídá jedné instanci třídy
@@ -791,21 +796,119 @@
 		- catch bloků může být víc pro různé typy výjimek
 		- v catch bloku můžeme tu stejnou výjimku vyhodit znova pomocí `throw;`
 - Alokace (alokace statická, na zásobníku, na haldě)
+	- statická alokace se provádí už během kompilace, týká se proměnných, které mají být k dispozici během celého běhu programu
+	- alokace na zásobník se děje při volání funkcí – lokální proměnné se takto alokují a po doběhnutí funkce se zase smažou
+		- je to rychlejší než alokace na haldě, ale na (volacím) zásobníku je méně místa než na haldě
+		- opravdu to funguje jako zásobník (FIFO)
+		- velikost alokované paměti je známá během kompilace
+	- dynamickou alokaci na haldě použijeme v situacích, kdy nám první dva přístupy nestačí
+		- potřebujeme sdílet objekty nějak napříč / potřebujeme polymorfismus a nestačí nám reference (v C++)
+		- potřebujeme alokovat hodně paměti
+		- alokovanou paměť je nutné ručně dealokovat (smart pointers tohle řeší)
+	- v C# jsou všechny instance referenčních typů (a jejich fieldy) na haldě
 - Inicializace (konstruktory, volání zděděných konstruktorů)
+	- v C# je konstruktor označen viditelností a názvem třídy, volá se s new
+	- volání rodičovského konstruktoru zajišťuje klíčové slovo base
+		- `public B(params1) : base(params2) {`
+		- není to optional, rodičovský konstruktor se volá pokaždé (defaultně bez parametrů)
+	- konstruktor předka se vždy volá před konstruktorem potomka
+	- v C++ je syntaxe velmi podobná, akorát místo `base` píšeme přímo název rodičovské třídy
 - Destrukce (destruktory, finalizátory)
+	- v C# se finalizátory používají k explicitnímu uvolňování unmanaged zdrojů (ve specifických use-casech)
+	- v C++ se destruktory používají častěji, nejtypičtější to je, pokud potřebujeme mít pod kontrolou vytváření kopií objektu apod. (viz rule of five)
+	- rodičovské třídy v C++ by měly mít virtuální destruktor (stačí prázdný)
 - Explicitní uvolňování objektů, reference counting, garbage collector
+	- v C++ se na haldě alokuje pomocí new, pak je nutné objekt smazat pomocí delete (právě jednou)
+		- alternativou jsou smart pointers
+			- unique_ptr dealokuje, jakmile dochází se smazání pointeru (proměnná vypadne ze scopu)
+			- shared_ptr umožňuje ukazovat na jeden objekt z více míst, počítá reference – dealokuje, jakmile je referencí nula
+				- může být problém s cyklickými referencemi, proto se někdy používá weak_ptr
+		- v C se k podobnému účelu používá malloc a free
+	- v C# je halda garbage collectovaná
+		- garbage collector se pouští podle toho, zda je potřeba uvolnit paměť
+		- fungují tam tři generace (vrstvy) objektů
+		- vytváří se graf objektů, aby bylo jasné, které jsou používané a které je možné smazat
+		- po smazání se zbylé objekty na haldě přeskupují (tzv. heap compacting)
+		- GC má dva módy – workstation a server (v server módu běží GC na více vláknech)
 - Reprezentace vláken v programovacích jazycích
-- Specifikace funkce vykonávané vláknem a základní operace na vlákny
+	- v C# je ve jmenném prostoru System.Threading třída Thread, která obvykle reprezentuje jedno vlákno
+	- ale vyrobení vlákna je drahé, takže může být užitečnější použít ThreadPool
+- Specifikace funkce vykonávané vláknem a základní operace nad vlákny
+	- v C# můžeme vytvořit instanci třídy Thread
+	- instanci předáváme delegáta, ten může být bez parametrů nebo s jedním parametrem typu object
+	- vlákno spustíme pomocí volání Start()
+	- pokud v nějaký moment chceme počkat, než doběhne, můžeme použít Join()
 - Časově závislé chyby (race condition) a mechanismy pro synchronizaci vláken
-- Základní objektové koncepty v konkrétním jazyce
-- Implementace a interní reprezentace primitivních typů
-- Implementace a interní reprezentace složených typů a objektů
+	- race condition nastává, když je výsledek operace závislý na pořadí, v jakém se provedou události, jejichž pořadí nemáme pod kontrolou
+	- nejjednodušší řešení je mutual exclusion – k tomu se používá zámek
+		- `Monitor.Enter(obj)` zamkne zámek na daném objektu (nebo pasivně čeká, dokud se neodemkne)
+		- `Monitor.Exit(obj)` odemkne zámek
+		- existuje syntaktická zkratka `lock(obj) { … }`, na začátku bloku se volá Enter, na konci se volá Exit
+		- zámek si v syncblocku ukládá referenci na vlákno, které ho vlastní (jinak je tam null)
+		- pokud ho zamkneme ze stejného vlákna několikrát, musíme ho několikrát odemknout (k tomu má počítadlo)
+	- syncblock má každá referenční proměnná, takže takto můžeme zamknout libovolnou takovou proměnnou – ale obvykle je praktické zamykat přímo tu, kterou chceme používat z více vláken (za určitých okolností nicméně dává smysl zamykat něco jiného, typicky se k tomu používá speciální proměnná typu object)
+	- součástí syncblocku je taky seznam čekajících vláken určený pro tzv. condition variable
+		- vlákna čekají na to, až se s objektem něco stane
+			- třeba až se ve frontě objeví nějaké položky
+			- tuhle podmínku je vhodné někam poznamenat, třeba do komentáře, je to ta „condition variable“
+		- když vlákno vidí, že je fronta prázdná, tak se pomocí `Monitor.Wait(obj)` zařadí do seznamu
+		- jakmile se do fronty zařadí další položka, fronta může čekající vlákna notifikovat pomocí `Monitor.Pulse(obj)` nebo `Monitor.PulseAll(obj)`
+		- aby se dal použít Wait, Pulse nebo PulseAll, musí být obalený v lock bloku (pro stejný objekt) – jinak to vyhodí výjimku
+	- dalším synchronizačním primitivem je semafor, používá se k tomu, aby s objektem najednou mohlo pracovat jen omezené množství vláken
 - Implementace dynamického polymorfismu (tabulka virtuálních metod)
-- Nativní a interpretovaný běh, reprezentace programu, bytecode, interpret jazyka
-- Just-in-time (JIT) a ahead-of-time (AOT) překlad
-- Proces sestavení programu, oddělený překlad, linkování
-- Staticky a dynamicky linkované knihovny
+	- každý typ s virtuálními metodami má tabulku virtuálních metod (VMT), ta se při dědění kopíruje (a prodlužuje), u overridnutých virtuálních metod se změní odkaz na implementaci
+	- takže to, která implementace se reálně zavolá, závisí na třídě, jejíž instanci jsme vytvořili (nehledě na typ)
+- Nativní a interpretovaný běh, reprezentace programu, bytecode, interpret jazyka, just-in-time (JIT) a ahead-of-time (AOT) překlad
+	- nativní běh – zdrojový kód se přeloží a vznikne program, který lze přímo spustit
+	- interpretovaný běh – zdrojový kód je zpracováván interpretem jazyka
+	- C++
+		- zdrojáky .cpp, jeden po druhém je překládáme, vznikají object fily .obj (nebo .o), tam je přímo strojový kód
+			- ty se linkerem zpracují do jednoho .exe souboru
+		- strojový kód typicky cílí na konkrétní platformu
+		- kdybych chtěl, aby program běžel na jiné platformě, vezmu zdrojový kód a celý ho znova přeložím
+		- 64bitové Windows podporují 32bitové programy
+		- uživatelé musí vědět, jakou verzi programu si mají vybrat
+		- knihovny
+			- překladač programu používá hlavičkové soubory knihoven
+	- Apple
+		- Apple 6502 → Motorola 68000 (32bit) → IBM PowerPC (32bit) → Intel x86 (32bit) → Intel x64 (64bit) → Apple M1/M2 (ARM64, 64bit)
+		- vymysleli fat binary (universal executable) – jeden spustitelný soubor, v něm je více verzí programu najednou
+		- řeší to problém zpětné kompatibility, ne dopředné
+	- C\#
+		- soubory .cs
+		- .csproj, předává se build systému dotnetu, ten pustí C# compiler csc.exe (dnes css.dll)
+		- vypadne z toho executable, uvnitř je CIL kód (common intermediate language)
+		- ke spuštění programu potřebujeme CLR (common language runtime), obvykle je tam JIT (just-in-time) překladač, ten zajišťuje překlad a spuštění pro konkrétní platformu
+			- alternativou bylo vykonávat CIL instrukce pomocí běhové podpory, ale to je hrozně pomalé
+		- CLR … virtual machine (VM)
+		- CIL kód … managed/řízený kód
+		- dotnet executable soubor … assembly
+		- Java to má podobně
+			- Java intermediate language = Java bytecode
+		- všechny programovací jazyky dotnetu se překládají do CIL kódu
+		- optimalizace dělá až JIT
+			- ale má na to omezený čas, aby se program spustil dostatečně rychle
+		- JIT používá překlad po metodách
+		- ale dá se použít AOT (ahead of time) překlad – takže pak v .exe souboru je nejen assembly (ten se použije pro nepodporované platformy), ale taky přímo strojový kód, který tak může být efektivnější
+			- některé věci tam nefungují
+- Proces sestavení programu, oddělený překlad, linkování, staticky a dynamicky linkované knihovny
+	- sestavení programu
+		- preprocesor
+		- kompilátor (překladač)
+		- assembler
+		- linker
+	- knihovna – statická nebo dynamická sada binárek
+	- linking – spojení binárek do jedné
+	- loader – načte program do paměti
+	- knihovna se linkuje do souboru .lib (statická knihovna)
+		- lidi už pak používají přímo hlavičkový soubor a statickou zkompilovanou knihovnu
+		- pokud je knihovna statická, použije ji linker, pokud je dynamická, použije ji až loader
+	- v C# se o tohle všechno stará CLR (tedy .NET runtime), viz výše
+		- používají se dynamicky linkované knihovny (DLL)
 - Běhové prostředí procesu a vazba na operační systém
+	- program vs. proces (proces je spuštěný program, entita operačního systému)
+	- operační systém zajišťuje, aby měl proces k dispozici virtuální paměť, aby mohl přistupovat k souborům na disku, k periferiím apod.
+	- v C# je běhovým prostředím CLR
 
 ## 4. Architektura počítačů a operačních systémů
 

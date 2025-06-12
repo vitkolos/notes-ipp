@@ -67,7 +67,7 @@
 	- child class se definuje pomocí dvojtečky (`class child:parent`)
 	- virtuální metody
 		- zděděné metody v synovských třídách můžeme přepisovat, pokud použijeme v rodiči virtual a v synovi override
-			- alternativní (horší) přístup s klíčovým slovem new (schová rodičovskou metodu)
+			- alternativní přístup s klíčovým slovem new (schová rodičovskou metodu) – funguje na úplně jiném principu a hodí se k něčemu jinému
 		- virtuální metody jsou reprezentovány odkazy z VMT (virtual method table, tabulka virtuálních metod)
 		- VMT přísluší celé třídě (vytváří ji překladač)
 		- každý objekt má ukazatel na svou VMT (tudíž syn přetypovaný na otce může podle VMT poznat, že je syn) – umisťuje ho tam konstruktor

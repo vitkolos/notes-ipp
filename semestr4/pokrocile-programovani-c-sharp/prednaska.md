@@ -1127,6 +1127,7 @@
 		- vytvoříme si pomocnou proměnnou `object dataLock = new object();`
 		- to je ta „esence zámku“
 		- pak si s proměnnou `data` můžeme dělat, co chceme – třeba do ní přiřadit nový objekt
+
 ### Asynchronní metody
 
 - asynchronní metoda (vol. 1)
