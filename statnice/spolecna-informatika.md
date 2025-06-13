@@ -632,6 +632,7 @@
 		- `class Kachna : IPostovniZvire {…}`
 		- `IPostovniZvire zvire1 = new Kachna();`
 		- třída může implementovat víc interfaců
+		- rozhraní může dědit od jiného rozhraní
 	- v C++ můžeme rozhraní definovat pomocí dědičnosti (obvykle virtuální)
 	- v C++ můžu při dědění definovat viditelnost
 	- viditelnost v C# – některá klíčová slova
@@ -660,6 +661,7 @@
 	- statický polymorfismus se implementuje tak, že přetížíme metodu nebo operátor nebo že zakryjeme rodičovskou metodu
 	- dynamický polymorfismus funguje pomocí virtuálních metod
 	- při volání interfacové metody je důležité, která třída ji implementuje
+		- koncept virtuálních metod s interfacy přímo nesouvisí, ale požadavek interfacu můžeme uspokojit virtuální metodou
 		- poznámka: interfacová metoda se dá implementovat explicitně
 - Vícenásobná dědičnost a její problémy (vícenásobná a virtuální dědičnost v C++, interfaces v C#)
 	- diamantový problém – pokud mají moji rodiče společného rodiče a já volám jeho metodu, kterou oba implementují, jaká metoda se má volat?
@@ -846,7 +848,11 @@
 		- existuje syntaktická zkratka `lock(obj) { … }`, na začátku bloku se volá Enter, na konci se volá Exit
 		- zámek si v syncblocku ukládá referenci na vlákno, které ho vlastní (jinak je tam null)
 		- pokud ho zamkneme ze stejného vlákna několikrát, musíme ho několikrát odemknout (k tomu má počítadlo)
-	- syncblock má každá referenční proměnná, takže takto můžeme zamknout libovolnou takovou proměnnou – ale obvykle je praktické zamykat přímo tu, kterou chceme používat z více vláken (za určitých okolností nicméně dává smysl zamykat něco jiného, typicky se k tomu používá speciální proměnná typu object)
+	- syncblock má každá referenční proměnná
+		- co budeme zamykat?
+		- chceme mít jistotu, že nám to nezamkne nikdo jiný proti naší vůli
+		- tedy pokud zamykáme například nějakou naši vlastní implementaci seznamu, dává smysl, aby ta třída měla soukromý field typu object, který bude sloužit jenom jako zámek
+		- neměli bychom používat `lock (this)`
 	- součástí syncblocku je taky seznam čekajících vláken určený pro tzv. condition variable
 		- vlákna čekají na to, až se s objektem něco stane
 			- třeba až se ve frontě objeví nějaké položky
@@ -909,6 +915,28 @@
 	- program vs. proces (proces je spuštěný program, entita operačního systému)
 	- operační systém zajišťuje, aby měl proces k dispozici virtuální paměť, aby mohl přistupovat k souborům na disku, k periferiím apod.
 	- v C# je běhovým prostředím CLR
+- Návrhové vzory
+	- decorator
+		- chceme nějaký objekt obalit, přidat mu funkce
+		- dekorátor obvykle přijímá původní objekt v konstruktoru
+		- má stejné rozhraní jako původní objekt
+	- adapter
+		- převádí rozhraní jedné třídy na rozhraní jiné třídy
+		- abychom instanci jiné třídy mohli použít tam, kde bychom normálně potřebovali instanci té původní třídy
+	- factory
+		- vyrábí instance objektů (typicky podle zadaných parametrů může vyrábět instance různých objektů)
+		- nebo může mít factory těch vyráběcích metod více (objekty, které padají z různých metod, spolu typicky nějak souvisí)
+		- pokud jsou vyráběcí metody virtuální a můžeme definovat různé factory třídy, které vyrábějí různé typy objektů, tak se tomu říká abstract factory
+	- visitor
+		- uvažujeme potomky A, B, C třídy Base
+		- chceme pro každého potomka umět definovat speciální operaci, která se na něm má provést (a pak to chceme umět případně i nějak rozšiřovat)
+		- mohli bychom použít `switch (obj) { case Type t: something(t); }`, ale to není objektové ;)
+		- místo toho nadefinujeme rozhraní (nebo abstraktní typ) pro visitora, bude obsahovat metody VisitA, VisitB a VisitC (metody se nemusí lišit názvy, stačí, když se liší typem parametrů – jako parametr přijímají ten objekt typu A, B nebo C)
+		- třída Base pak bude mít abstraktní metodu `Accept(Visitor v)`, kterou musí implementovat každý potomek
+		- implementace v potomkovi A vypadá tak, že se volá `v.VisitA(this);`
+		- použití
+			- máme konkrétního visitora `vis1` a chceme ho použít na objekt `obj` (který je typu A, B nebo C)
+			- zavoláme `obj.Accept(vis1);`
 
 ## 4. Architektura počítačů a operačních systémů
 
