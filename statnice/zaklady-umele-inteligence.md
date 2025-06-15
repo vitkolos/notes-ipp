@@ -241,7 +241,7 @@
 			- pro každou kombinaci hodnot rodičů jsou v CPD tabulce pravděpodobnosti hodnot dané náhodné proměnné
 	- [![bayesovská síť](prilohy/bayesovska-sit.png)](prilohy/bayesovska-sit.png)
 		- autorem obrázku je [Roman Barták](https://ktiml.mff.cuni.cz/~bartak/ui_intro/)
-		- proměnné jsou binární, proto má tabulka vždy jen jeden sloupec (druhý sloupec by mohl obsahovat pravděpodobnost, že jev nenastane – lze ho dopočítat z prvního řádku)
+		- proměnné jsou binární, proto má tabulka vždy jen jeden sloupec (druhý sloupec by mohl obsahovat pravděpodobnost, že jev nenastane – lze ho dopočítat z prvního sloupce)
 	- konstrukce bayesovské sítě
 		- nějak si uspořádáme proměnné
 			- lepší je řadit je od příčin k důsledkům – budeme mít menší síť a CPD tabulky se nám budou vyplňovat snáze
