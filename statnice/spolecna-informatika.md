@@ -711,7 +711,8 @@
 			- adresa ukazuje na celý objekt
 			- explicitní alokace pomocí `new`
 			- tu adresu nelze zjistit (zčásti proto, že GC objekty na haldě někdy přesouvá, proto se adresa může měnit)
-	- vícerozměrná pole v C#
+- Pokročilé prvky syntaxe C#
+	- vícerozměrná pole
 		- zubatá (jagged)
 			- pole polí
 				- `int[][] a = new int[2][];`
@@ -728,6 +729,14 @@
 		- jagged jsou obecně rychlejší (cca 2×)
 			- ale pokud už s každou naindexovanou položkou pole budu provádět nějaký výpočet, tak tam nebude velký rozdíl v rychlosti
 		- obdélníková jsou paměťově úspornější (v určitých situacích), lépe se zapisují
+	- indexer je vlastně speciální property
+		- `public T this[int i] { get { return arr[i]; } set { arr[i] = value; } } }`
+	- nullable value types mají vlastnost `bool HasValue` a taky `T Value`
+	- přetěžování operátorů
+		- `public static Fraction operator *(Fraction left, Fraction right) => new Fraction(left.numerator * right.numerator, left.denominator * right.denominator);`
+	- přetížení konverze
+		- `public static implicit operator byte(Digit d) => d.digit;`
+		- `public static explicit operator Digit(byte b) => new Digit(b);`
 - Reference, imutabilní typy a boxing v C#
 	- boxing
 		- každý hodnotový typ je potomkem objectu
