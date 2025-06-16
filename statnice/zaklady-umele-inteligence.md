@@ -354,6 +354,7 @@
 		- předpokládejme, že stav procesu je popsán jedinou diskrétní náhodnou proměnnou $X_t$ (a máme jednu proměnnou $E_t$ odpovídající pozorování)
 		- pak můžeme všechny základní algoritmy (filtering, prediction, smoothing, …) implementovat maticově
 	- dynamická bayesovská síť
+		- umožňuje popsat víc náhodných proměnných
 		- reprezentuje časový pravděpodobnostní model
 		- zachycuje vztah mezi minulým a současným časovým okamžikem (minulou a současnou vrstvou)
 		- každá stavová proměnná má rodiče ve stejné vrstvě nebo v předchozí (podle Markovova předpokladu)
@@ -361,6 +362,7 @@
 		- skrytý Markovův model je speciální případ dynamické bayesovské sítě
 		- dynamická bayesovská síť může být kódovaná jako skrytý Markovův model
 			- jedna náhodná proměnná ve skrytém Markovově modelu je n-tice hodnot stavových proměnných v dynamické bayesovské síti
+			- v HMM vlastně celý stav světa komprimujeme do jedné náhodné proměnné – v DBN jich můžeme mít víc
 		- vztah mezi DBN a HMM je podobný jako vztah mezi běžnými bayesovskými sítěmi a tabulkou s *full joint probability distribution*
 			- DBN je úspornější
 
@@ -597,7 +599,7 @@
 		- pure exploitation – riskujeme, že bude agent pořád dokola opakovat zažité vzory
 		- základní myšlenka: na začátku preferujeme exploration, později lépe rozumíme světu, takže nepotřebujeme tolik prozkoumávat
 	- exploration policies
-		- agent si zvolí náhodnou akci s pravděpodobností $\frac1t$ (kde $t$ je čas), jinak se řídí hladovou strategií
+		- první možná exploration policy: agent si zvolí náhodnou akci s pravděpodobností $\frac1t$ (kde $t$ je čas), jinak se řídí hladovou strategií
 			- nakonec to konverguje k optimální strategii, ale může to být extrémně pomalé
 		- rozumnější přístup je přiřadit váhu akcím, které agent ještě nevyzkoušel
 		- existuje alternativní TD metoda, říká se jí Q-learning
@@ -605,11 +607,11 @@
 			- q-hodnoty jsou s utilitou ve vztahu $U(s)=\max_a Q(s,a)$
 			- můžeme napsat omezující podmínku $Q(s,a)=R(s)+\gamma\sum_{s'} P(s'\mid s,a)\cdot \max_{a'}Q(s',a')$
 				- tohle vyžaduje, aby se model naučil i $P(s'\mid s,a)$
-			- tenhle přístup nevyžaduje model přechodů – je to bezmodelová (model-free) metoda, potřebuje akorát q-hodnoty
+			- Q-learning ale nevyžaduje model přechodů – je to bezmodelová (model-free) metoda, potřebuje akorát q-hodnoty
 			- $Q(s,a)\leftarrow Q(s,a)+\alpha\cdot (R(s)+\gamma\cdot\max_{a'}Q(s',a')-Q(s,a))$
 				- počítá se, když je akce $a$ vykonána ve stavu $s$ a vede do stavu $s'$
 		- state-action-reward-state-action (SARSA)
-			- je to varianta Q-učení
+			- je to varianta Q-learningu
 			- $Q(s,a)\leftarrow Q(s,a)+\alpha\cdot (R(s)+\gamma\cdot Q(s',a')-Q(s,a))$
 				- pravidlo se aplikuje na konci pětice $s,a,r,s',a'$, tedy po aplikaci akce $a'$
 		- pro hladového agenta (který volí podle největšího $Q$) jsou algoritmy SARSA a základní Q-learning stejné
@@ -617,3 +619,6 @@
 		- u SARSA se bere v úvahu reálně zvolená akce
 			- SARSA je on-policy – jeho strategie se upravuje přímo za běhu algoritmu
 			- Q-learning je off-policy – algoritmus se učí optimální strategii, ale během učení se může používat úplně jiná strategie
+	- při aktivním učení je výhodnější učit se q-hodnoty než užitkovou funkci
+		- abychom našli nejvýhodnější akci v daném stavu pomocí utility, museli bychom při výpočtu použít pravděpodobnost, že danou akcí přejdeme do určitého stavu
+		- q-hodnota nám dá přímo řekne, jak je užitečné provést danou akci – k volbě nejlepší akce nepotřebujeme přechodový model
