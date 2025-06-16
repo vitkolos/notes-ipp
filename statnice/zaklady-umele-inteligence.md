@@ -579,6 +579,7 @@
 			- hledáme v prostoru hypotéz, který je výrazně větší, než by musel být (obsahuje spoustu funkcí, co porušují Bellmanovy rovnice) → algoritmus konverguje pomalu
 	- adaptivní dynamické programování (ADP)
 		- agent se učí přechodový model a odměny
+		- přechodový model odhaduje přímo z pozorovaných přechodů
 		- utilitu počítá z Bellmanových rovnic třeba pomocí value iteration
 			- využíváme toho, že užitky nejsou nezávislé
 		- ADP zajišťuje, že jsou odhady užitků konzistentní

@@ -40,7 +40,7 @@
 			- $F_1=\frac{2PR}{P+R}=\frac{tp+tp}{tp+fp+tp+fn}$
 			- je užitečné mít jednu hodnotu místo dvou ($P,R$)
 		- ROC (receiver operating characteristic) křivka
-			- zachycuje, jak se mění vlastnosti binárního klasifikátoru, když posouváme pár (threshold, tzn. hodnotu, od níž výsledek prohlásíme za pozitivní – typicky uvažujeme 0.5)
+			- zachycuje, jak se mění vlastnosti binárního klasifikátoru, když posouváme práh (threshold, tzn. hodnotu, od níž výsledek prohlásíme za pozitivní – typicky uvažujeme 0.5)
 			- na ose $x$ je false positive rate, $\mathrm{FPR}=\frac{fp}{fp+tn}$ (v čitateli jsou všechny negativní instance)
 			- na ose $y$ je true positive rate (recall), $\mathrm{TPR}=\frac{tp}{tp+fn}$
 			- každý bod na křivce odpovídá jinému thresholdu
@@ -437,7 +437,7 @@
 		- mějme matici $X\in\mathbb R^{m\times n}$ s hodností $r$
 		- $X=U\Sigma V^T$
 			- $U\in\mathbb R^{m\times m}$ ortonormální
-			- $\Sigma\in\mathbb R^{m\times n}$ diagonální matice s nezápornými hodnotami (tzv. singulárními hodnotami) zvolenými tak, aby byly uspořádány sestupně
+			- $\Sigma\in\mathbb R^{m\times n}$ diagonální matice s nezápornými hodnotami (tzv. singulárními čísly) zvolenými tak, aby byly uspořádány sestupně
 			- $V\in\mathbb R^{n\times n}$ ortonormální
 		- možný pohled na dekompozici
 			- $X=\sigma_1u_1v_1^T+\sigma_2u_2v_2^T+\dots+\sigma_ru_rv_r^T$
@@ -445,14 +445,14 @@
 			- $u_i$ … $i$-tý sloupec matice $U$
 			- $v_i^T$ … $i$-tý řádek matice $V^T$
 		- redukovaná verze SVD
-			- $\sigma$ označme vektor singulárních hodnot
+			- $\sigma$ označme vektor singulárních čísel
 			- pro matici $X$ s hodností $r$ bude v tom vektoru nejvýše $r$ nenulových hodnot
 			- tedy matici $\Sigma$ můžeme redukovat na rozměry $r\times r$, podobně $U$ můžeme redukovat na $m\times r$ a $V^T$ na $r\times n$, touto kompresí nepřijdeme o žádné informace
 		- dokonce můžeme $\Sigma$ zmenšit ještě víc
 			- zvolíme $k\lt r$
-			- necháme jenom $k$ největších singulárních hodnot, všechny ostatní zahodíme
+			- necháme jenom $k$ největších singulárních čísel, všechny ostatní zahodíme
 			- tím už se nějaké informace ztratí
-			- budeme mít aproximaci původní matice $X$, ta aproximace bude mít rank $k$
+			- budeme mít aproximaci původní matice $X$, ta aproximace bude mít hodnost $k$
 	- algoritmus určení PCA (principal component analysis) $M$-té dimenze na základě datové matice $X$
 		- spočteme SVD matice $(X-\bar x)$
 			- kde $\bar x$ je průměr řádků matice (vektor průměrných hodnot jednotlivých features)

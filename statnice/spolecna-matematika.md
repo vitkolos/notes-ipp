@@ -540,9 +540,9 @@
 		- $\forall A,B\in \mathcal S: A\neq B \implies A \cap B = \emptyset$
 		- $\bigcup_{A\in \mathcal S}A=X$
 	- věta (vztah mezi ekvivalencemi a rozklady)
-		- (1) $\forall x \in X: R[x]\neq \emptyset$
-		- (2) $\forall x,y \in X:$ buď $R[x]=R[y]$, nebo $R[x] \cap R[y]=\emptyset$
-		- (3) $\lbrace R[x] \mid x \in X\rbrace$ (množina všech ekvivalenčních tříd) určuje ekvivalenci R jednoznačně
+		1. $\forall x \in X: R[x]\neq \emptyset$
+		2. $\forall x,y \in X:$ buď $R[x]=R[y]$, nebo $R[x] \cap R[y]=\emptyset$
+		3. $\lbrace R[x] \mid x \in X\rbrace$ (množina všech ekvivalenčních tříd) určuje ekvivalenci R jednoznačně
 - Částečná uspořádání – základní pojmy (minimální a maximální prvky, nejmenší a největší prvky, řetězec, antiřetězec)
 	- relace $R$ na množině $X$ je (částečné) uspořádání $\equiv R$ je reflexivní & antisymetrická & tranzitivní
 	- (částečně) uspořádaná množina $(X,R)$
