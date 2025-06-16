@@ -778,7 +778,7 @@
 	- obálková aukce
 		- největší nabídka vítězí
 		- neexistuje jednoduchá dominantní strategie
-			- pokud věříš, že maximum ostatní nabídek je $b_0$, tak bys měl nabídnout $b_0+\varepsilon$, pokud je to menší částka než hodnota, kterou pro tebe věc má
+			- pokud věříš, že maximum ostatních nabídek je $b_0$, tak bys měl nabídnout $b_0+\varepsilon$, pokud je to menší částka než hodnota, kterou pro tebe věc má
 	- obálková second-price aukce (Vickrey)
 		- vyhraje ten první, platí druhou cenu
 		- dominantní strategie je tam dát svoji hodnotu

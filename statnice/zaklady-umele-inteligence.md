@@ -420,12 +420,14 @@
 	- akorát nevím, kterou akci provedu, tak vezmu všechny a maximum přes ně (násobím jejich užitek pravděpodobností)
 	- $U(s)=R(s)+\gamma\max_a\sum_{s'}P(s'\mid s,a)\cdot U(s')$
 - iterace hodnot, iterace strategií
+	- předpoklad: známe reward $R$ a transition model $P$
+		- chceme najít užitek $U$ nebo optimální strategii $\pi$
 	- soustava Bellmanových rovnic není lineární – obsahuje maximum
-		- můžu je řešit aproximací
-		- použiju iterativní přístup
-			- nastavím nějak užitky – třeba jim nastavím nuly
-			- provedu update – aplikuju Bellmanovu rovnici
-			- iteruju, dokud to nezkonverguje
+		- můžeme je řešit aproximací
+		- použijeme iterativní přístup
+			- nastavíme nějak užitky – třeba jako nuly
+			- provedeme update – aplikujeme Bellmanovu rovnici
+			- iterujeme, dokud to nezkonverguje
 		- → **value iteration**
 	- strategie se ustálí dřív než užitky
 		- policy loss … vzdálenost mezi optimálním užitkem a užitkem strategie
@@ -434,6 +436,7 @@
 		- z rovnic nám zmizí maximum → máme lineární rovnice
 			- policy evaluation = nalezení řešení těchto rovnic (tak najdeme utilities stavů)
 			- gaussovka je $O(n^3)$
+			- u velkých stavových prostorů dává smysl k policy evaluation použít value iteration
 		- algoritmus doběhne, protože policies je jenom konečně mnoho a vždycky hledáme tu lepší
 - POMDP (základní definice)
 	- máme přechodový model $P(s'\mid s,a)$, akce $A(s)$ i odměny $R(s)$
@@ -499,7 +502,7 @@
 	- obálková aukce
 		- největší nabídka vítězí
 		- neexistuje dominantní strategie
-			- pokud věříš, že maximum ostatní nabídek je $b_0$, tak bys měl nabídnout $b_0+\varepsilon$, pokud je to menší částka než hodnota, kterou pro tebe věc má
+			- pokud věříš, že maximum ostatních nabídek je $b_0$, tak bys měl nabídnout $b_0+\varepsilon$, pokud je to menší částka než hodnota, kterou pro tebe věc má
 	- obálková second-price aukce (Vickrey)
 		- vyhraje ten, kdo nabídne nejvyšší cenu, platí druhou nejvyšší nabídnutou cenu
 		- dominantní strategie je tam dát svoji hodnotu
