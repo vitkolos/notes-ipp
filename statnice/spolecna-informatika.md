@@ -711,6 +711,23 @@
 			- adresa ukazuje na celý objekt
 			- explicitní alokace pomocí `new`
 			- tu adresu nelze zjistit (zčásti proto, že GC objekty na haldě někdy přesouvá, proto se adresa může měnit)
+	- vícerozměrná pole v C#
+		- zubatá (jagged)
+			- pole polí
+				- `int[][] a = new int[2][];`
+				- `a[0] = new int[3];`
+				- `a[1] = new int[4];`
+				- `int x = a[0][1];`
+			- jako v Javě
+			- nevýhoda: každé pole má svůj vlastní overhead
+		- obdélníková (rectangular)
+			- mezi hranaté závorky napíšu jednu nebo více čárek
+			- `int[,] a = new int[2, 3];`
+			- `int x = a[0, 1];`
+			- jako v C/C++
+		- jagged jsou obecně rychlejší (cca 2×)
+			- ale pokud už s každou naindexovanou položkou pole budu provádět nějaký výpočet, tak tam nebude velký rozdíl v rychlosti
+		- obdélníková jsou paměťově úspornější (v určitých situacích), lépe se zapisují
 - Reference, imutabilní typy a boxing v C#
 	- boxing
 		- každý hodnotový typ je potomkem objectu
