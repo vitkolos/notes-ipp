@@ -195,7 +195,7 @@
 		- náhodně inicializujeme $w$ (nebo nastavíme na nulu)
 		- opakujeme, dokud to nezkonverguje nebo nám nedojde trpělivost
 			- samplujeme minibatch řádků s indexy $\mathbb B$
-			- $w\leftarrow w-\alpha\frac1{|\mathbb B|}\sum_{i\in \mathbb B}\left((\text{softmax}(x^TW)-1_t)x^T\right)^T-\alpha\lambda w$
+			- $W\leftarrow W-\alpha\frac1{|\mathbb B|}\sum_{i\in \mathbb B}\left((\text{softmax}(x_i^TW)-1_{t_i})x_i^T\right)^T-\alpha\lambda W$
 				- jako $E$ se používá NLL (s $L^2$ regularizací)
 				- srovnání gradientu logistické regrese
 					- binary: $(y(x)-t)x$

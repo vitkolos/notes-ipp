@@ -386,7 +386,7 @@
 	- trojúhelníková nerovnost: $\|u+v\|\leq\|u\|+\|v\|$
 - Ortonormální systémy vektorů, Fourierovy koeficienty, Gramova-Schmidtova ortogonalizace
 	- ortonormální báze
-		- bázi $Z=\lbrace v_1,\dots,v_n \rbrace$ prostoru $V$ se skalárním součinem nazveme ortonormální, pokud platí $v_i\perp v_j$ pro každé $i\neq j$ a také $||v_i||=1$ pro každé $v_i\in Z$
+		- bázi $Z=\lbrace v_1,\dots,v_n \rbrace$ prostoru $V$ se skalárním součinem nazveme ortonormální, pokud platí $v_i\perp v_j$ pro každé $i\neq j$ a také $\|v_i\|=1$ pro každé $v_i\in Z$
 		- pozorování: matice, jejichž sloupce tvoří vektory ortonormální báze $\mathbb C^n$ vzhledem ke std. skal. součinu, splňují $A^HA=I_n\implies$ jsou unitární
 	- Fourierovy koeficienty
 		- nechť $Z=\lbrace v_1,\dots,v_n\rbrace$ je ortonormální báze prostoru $V$
@@ -396,7 +396,7 @@
 		- převede libovolnou bázi $(u_1,\dots,u_n)$ prostoru $V$ se skalárním součinem na ortonormální bázi $(v_1,\dots,v_n)$
 		- for $i=1,\dots,n$ do
 			- $w_i\leftarrow u_i-\sum^{i-1}_{j=1}\langle u_i|v_j\rangle v_j$
-			- $v_i\leftarrow \frac1{||w_i||}w_i$
+			- $v_i\leftarrow \frac1{\|w_i\|}w_i$
 		- end
 - Ortogonální doplněk, ortogonální projekce, projekce jako lineární zobrazení
 	- ortogonální doplněk
@@ -407,8 +407,9 @@
 	- pozorování: ortogonální projekce je lineární zobrazení
 - Ortogonální matice a jejich vlastnosti
 	- matice $Q\in\mathbb R^{n\times n}$ je ortogonální, pokud $Q^TQ=I_n$
+		- pro ortogonální matici $Q$ platí $Q^T=Q^{-1}$
 	- věta: $Q$ je ortogonální, právě když sloupce tvoří ortogonální bázi $\mathbb R^n$
-	- tvrzení: je-li $Q$ ortogonální, pak…
+	- zjevně: je-li $Q$ ortogonální, pak…
 		- $Q^T$ je rovněž ortogonální
 		- $Q^{-1}$ existuje a je ortogonální
 	- součin ortogonálních matic je ortogonální matice
@@ -445,7 +446,7 @@
 		- vlastní číslo odpovídá škálování v tomto invariantním směru
 	- základní vlastnosti
 		- determinant matice je roven součinu vlastních čísel
-		- stopa matice (součet diagonály) je roven součtu vlastních čísel
+		- stopa matice (součet diagonály) je rovna součtu vlastních čísel
 		- matice je regulární, právě když nula není její vlastní číslo
 		- $A^T$ má stejná vlastní čísla jako $A$, ale vlastní vektory obecně jiné
 		- uvažujeme matici $A\in\mathbb C^{n\times n}$ s vlastními čísly $\lambda_1,\dots,\lambda_n$ a jim odpovídajícími vlastními vektory $x_1,\dots,x_n$
