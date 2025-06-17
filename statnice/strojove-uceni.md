@@ -55,6 +55,10 @@
 				- = true negative / (true negative + false positive)
 			- false negative rate = false negative / sick
 				- = false negative / (false negative + true positive)
+		- senzitivita … true positive rate (recall)
+			- pravděpodobnost pozitivního výsledku u pozitivního (nemocného) jedince
+		- specificita … true negative rate
+			- pravděpodobnost negativního výsledku u negativního (zdravého) jedince
 - ohodnocení modelu (testovací data, křížová validace, maximální věrohodnost)
 	- testovací data slouží k ověření toho, jak dobře náš model generalizuje
 		- snažíme se zjistit, jak dobré výsledky model vrací pro data, která dosud neviděl
@@ -100,6 +104,7 @@
 			- $L^1$ regularizace … $\lambda(|w_1|+|w_2|+\dots+|w_n|)$
 			- $L^2$ regularizace … $\lambda(w_1^2+w_2^2+\dots+w_n^2)$
 				- nebo také $\lambda\lVert w\rVert^2$, případně $\frac\lambda2\lVert w\rVert^2$, aby nám vyšla hezká derivace
+		- pozor, při regularizaci obvykle vynecháváme váhu, která odpovídá biasu
 	- jak bojovat s overfittingem
 		- $L^2$ regularizací
 		- early stoppingem (s trénováním přestaneme, když začne validační chyba růst)
@@ -147,6 +152,7 @@
 			- $X^T(Xw-t)=0$
 			- $X^TXw=X^Tt$
 	- je-li $X^TX$ invertibilní, pak lze určit explicitní řešení jako $w=(X^TX)^{-1}X^Tt$
+		- přičemž bias reprezentujeme jako součást vah, takže matici $X$ musíme rozšířit o sloupec jedniček
 - trénování pomocí stochastic gradient descent
 	- gradient descent
 		- snažíme se minimalizovat hodnotu chybové funkce $E(w)$ pro dané váhy $w$ volbou lepších vah
@@ -434,6 +440,10 @@
 			- na začátku jsou všechny body v jednom clusteru
 			- v něm najdeme bod, který se nejvíc liší od všech ostatních a oddělíme ho do samostatného clusteru
 			- do téhož (nového) clusteru po jednom přidáváme i další body z původního clusteru, pokud se více hodí do nového clusteru (jsou mu blíže než původnímu)
+			- v každé fázi algoritmu se jeden cluster rozdělí na dva (ty jsou jakoby vnořené do původního clusteru)
+			- algoritmus končí, jakmile je každý bod ve vlastním clusteru
+			- můžeme získat dendrogram – graf, jak se clustery postupně dělily
+				- když ho vhodně zařízneme, tak získáme použitelné dělení (aby clusterů nebylo ani málo, ani moc)
 		- principal directions divisive partitioning (PDDP)
 			- používá princip PCA – dělí clustery pomocí projekce na hlavní komponenty
 	- většinou se jedná o hladové algoritmy → nelze zaručit, že je řešení optimální
