@@ -42,7 +42,7 @@
 		- ROC (receiver operating characteristic) křivka
 			- zachycuje, jak se mění vlastnosti binárního klasifikátoru, když posouváme práh (threshold, tzn. hodnotu, od níž výsledek prohlásíme za pozitivní – typicky uvažujeme 0.5)
 			- na ose $x$ je false positive rate, $\mathrm{FPR}=\frac{fp}{fp+tn}$ (v čitateli jsou všechny negativní instance)
-			- na ose $y$ je true positive rate (recall), $\mathrm{TPR}=\frac{tp}{tp+fn}$
+			- na ose $y$ je true positive rate (recall), $\mathrm{TPR}=\frac{tp}{tp+fn}$ (v čitateli jsou všechny pozitivní instance)
 			- každý bod na křivce odpovídá jinému thresholdu
 			- pro náhodný „klasifikátor“ bude ROC křivka diagonála
 			- pro dokonalý klasifikátor bude ROC křivka jeden bod vlevo nahoře
@@ -50,6 +50,11 @@
 		- AUC (area under curve)
 			- plocha pod ROC křivkou
 			- pro náhodný „klasifikátor“ je AUC = 0.5, pro dokonalý klasifikátor to bude AUC = 1
+		- hodnoty metrik typu true positive rate, false negative rate, … se vždycky určují tak, že v čitateli jsou všechny instance odpovídající názvu a ve jmenovateli jsou všechny instance, co sdílejí „realitu“ s čitatelem
+			- např. true negative rate = true negative / healthy
+				- = true negative / (true negative + false positive)
+			- false negative rate = false negative / sick
+				- = false negative / (false negative + true positive)
 - ohodnocení modelu (testovací data, křížová validace, maximální věrohodnost)
 	- testovací data slouží k ověření toho, jak dobře náš model generalizuje
 		- snažíme se zjistit, jak dobré výsledky model vrací pro data, která dosud neviděl

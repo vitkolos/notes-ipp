@@ -249,7 +249,7 @@
 			- ve vektoru $\overline x_i$ bude typicky jednička na místě odpovídající volné proměnné a nuly u všech ostatních volných proměnných (protože je to vlastně složka, která se stará o konkrétní volnou proměnnou)
 - Operace s maticemi a základní typy matic, hodnost matice
 	- hodnost matice
-		- hodnost matice A, značená jako rank(A), je počet pivotů v libovolné A' v REF takové, že $A\sim\sim A'$
+		- hodnost matice $A$, značená jako $\mathrm{rank}(A)$, je počet pivotů v libovolné $A'$ v REF takové, že $A\sim\sim A'$
 	- jednotková matice
 		- pro $n \in \mathbb{N}$ je jednotková matice $I_n \in \mathbb{R}^{n×n}$ definovaná tak, že $(I_n)_{i,j} = 1 \iff i=j$, ostatní prvky jsou nulové 
 	- transponovaná matice
