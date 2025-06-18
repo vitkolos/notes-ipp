@@ -1285,6 +1285,7 @@
 	- neekvivalentních výroků nad $\mathbb P$ je $2^{2^n}$
 		- každý výrok odpovídá jedné podmnožině množiny modelů (všech modelů je $2^n$)
 	- neekvivalentních výroků nad $\mathbb P$ pravdivých/lživých v $T$ je $2^{2^n-m}$
+		- u pravdivých musí množina modelů obsahovat všech $m$ modelů, takže je zafixujeme (u lživých naopak nesmí obsahovat žádný z nich)
 	- neekv. výroků nad $\mathbb P$ nezávislých v $T$ je $2^{2^n}-2\cdot 2^{2^n-m}$
 		- vezmeme všechny a odečteme pravdivé a lživé
 	- neekv. jednoduchých extenzí teorie $T$ je $2^m$, z toho sporná je jedna
@@ -1354,7 +1355,7 @@
 			- vezmeme standardní model přirozených čísel (jeho teorii)
 			- přidáme nový konstantní symbol
 			- přidáme k teorii výrok, že je ta konstanta ostře větší než každý $n$-tý numerál
-			- každá konečná část této nové teorie má model, takže i celá ta nová teorie má 
+			- každá konečná část této nové teorie má model, takže i celá ta nová teorie má model
 	- První věta o neúplnosti: Pro každou bezespornou rekurzivně axiomatizovanou extenzi $T$ Robinsonovy aritmetiky existuje sentence, která je pravdivá v $\underline{\mathbb N}$, ale není dokazatelná v $T$.
 		- Robinsonova aritmetika je teorie jazyka aritmetiky $L=\braket{S,+,\cdot,0,\leq}$ s rovností
 			- má osm (tradičně spíše sedm) axiomů, některé z nich:
