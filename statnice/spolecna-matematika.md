@@ -101,8 +101,8 @@
 	- pro pravidla derivací viz libovolnou vhodnou tabulku, některá složitější jsou [v přípravě na zápočtový test](../semestr2/matematicka-analyza1/zapoctovy-test.md)
 - L'Hospitalovo pravidlo
 	- nechť $a\in\mathbb R^*$, nechť funkce $f,g:P(a,\delta)\to\mathbb R$ mají na $P(a,\delta)$ vlastní derivaci a nechť $g'(x)\neq 0$ na $P(a,\delta)$
-	- pokud $\lim_{x\to a}f(x)=\lim_{x\to a}g(x)=0$ a $\lim_{x\to a}f'(x)/g'(x)=A\in\mathbb R^*$, pak i $\lim_{x\to a}f(x)/g(x)=A$
-	- pokud $\lim_{x\to a} |g(x)|=+\infty$ a $\lim_{x\to a}f'(x)/g'(x)=A\in\mathbb R^*$, pak i $\lim_{x\to a}f(x)/g(x)=A$
+	- pokud $\lim_{x\to a}f(x)=\lim_{x\to a}g(x)=0$ a $\lim_{x\to a}\frac{f'(x)}{g'(x)}=A\in\mathbb R^*$, pak i $\lim_{x\to a}\frac{f(x)}{g(x)}=A$
+	- pokud $\lim_{x\to a} |g(x)|=+\infty$ a $\lim_{x\to a}\frac{f'(x)}{g'(x)}=A\in\mathbb R^*$, pak i $\lim_{x\to a}\frac{f(x)}{g(x)}=A$
 - Vyšetření průběhu funkcí: extrémy, monotonie a konvexita/konkavita
 	- extrémy
 		- pokud má funkce $f$ v bodě $a$ nenulovou derivaci $f'(a)\neq 0$, pak $f$ v $a$ nenabývá lokální extrém
@@ -148,7 +148,7 @@
 		- $\overline{\int_a^bf}$
 	- funkce má Riemannův integrál, pokud se horní a dolní R. integrály rovnají (pak tuhle společnou hodnotu nazveme Riemannovým integrálem)
 		- $\int_a^b f$
-	- 2. základní věta analýzy: pokud Riemannův a Newtonův integrál existují, pak jsou si rovny
+	- 2\. základní věta analýzy: pokud Riemannův a Newtonův integrál existují, pak jsou si rovny
 - Aplikace integrálů: odhady součtu řad (konečných i nekonečných)
 	- pro přirozené $n$ a neklesající funkci $f$ na intervalu $[1,n]$ platí $$\sum_{k=1}^{n-1}f(k)\leq\int_1^n f\leq\sum_{k=2}^n f(k)$$
 	- integrální kritérium konvergence
@@ -400,7 +400,7 @@
 		- end
 - Ortogonální doplněk, ortogonální projekce, projekce jako lineární zobrazení
 	- ortogonální doplněk
-		- ortogonální doplněk podmnožiny $V$ prostoru se skalárním součinem $W$ je $V^\perp=\lbrace u\in W\mid\forall v\in V: u\perp v\rbrace$
+		- ortogonální doplněk podmnožiny $V$ prostoru se skalárním součinem $W$ je $V^\perp=\lbrace u\in W:(\forall v\in V)(u\perp v)\rbrace$
 	- ortogonální projekce
 		- nechť $W$ je prostor se skalárním součinem a $V$ je jeho podprostor s ortonormální bází $Z=(v_1,\dots,v_n)$
 		- zobrazení $p_Z:W\to V$ definované $p_Z(u)=\sum^n_{i=1}\langle u|v_i \rangle v_i$ je ortogonální (kolmá) projekce $W$ na $V$
@@ -535,7 +535,7 @@
 - Ekvivalence a rozkladové třídy
 	- relace $R$ na $X$ je ekvivalence $\equiv R$ je reflexivní & symetrická & tranzitivní
 		- např. rovnost čísel, rovnost mod $K$, geometrická podobnost
-	- ekvivalenční třída prvku $x \in X:R[x]=\lbrace y \in X \mid xRy\rbrace$
+	- ekvivalenční třída prvku $x \in X:R[x]=\lbrace y \in X : xRy\rbrace$
 	- množinový systém $\mathcal S\subseteq 2^X$ je rozklad množiny $X \equiv$
 		- $\forall A \in \mathcal S: A \neq \emptyset$
 		- $\forall A,B\in \mathcal S: A\neq B \implies A \cap B = \emptyset$
@@ -543,7 +543,7 @@
 	- věta (vztah mezi ekvivalencemi a rozklady)
 		1. $\forall x \in X: R[x]\neq \emptyset$
 		2. $\forall x,y \in X:$ buď $R[x]=R[y]$, nebo $R[x] \cap R[y]=\emptyset$
-		3. $\lbrace R[x] \mid x \in X\rbrace$ (množina všech ekvivalenčních tříd) určuje ekvivalenci R jednoznačně
+		3. $\lbrace R[x] \mid x \in X\rbrace$ (množina všech ekvivalenčních tříd) určuje ekvivalenci $R$ jednoznačně
 - Částečná uspořádání – základní pojmy (minimální a maximální prvky, nejmenší a největší prvky, řetězec, antiřetězec)
 	- relace $R$ na množině $X$ je (částečné) uspořádání $\equiv R$ je reflexivní & antisymetrická & tranzitivní
 	- (částečně) uspořádaná množina $(X,R)$
@@ -635,7 +635,7 @@
 			- $š(n)$ … počet permutací bez pevného bodu
 			- pravděpodobnost je rovna $š(n)/n!$
 		- $S_n$ … množina všech permutací
-		- $A_i=\lbrace \pi \in S_n \mid \pi(i)=i\rbrace$
+		- $A_i=\lbrace \pi \in S_n : \pi(i)=i\rbrace$
 			- množina permutací s pevným bodem v $i$-tém prvku (jedna permutace může patřit do více takových množin)
 		- $A=\bigcup_{i=1}^n A_i$ … (množina všech „špatných“ permutací)
 		- musíme vyjádřit velikosti průniků
@@ -1017,7 +1017,7 @@
 			- $F_X$ je zprava spojitá
 		- náhodná veličina $X$ se nazývá spojitá, pokud existuje nezáporná reálná funkce $f_X$ tak, že $F_X(x)=P(X\leq x)=\int_{-\infty}^x f_X(t)\text dt$
 		- hustota $f_X$ … „limita histogramů“
-		- zjevně $\int_{-\infty}^\infty f=1$
+		- zjevně $\int_{-\infty}^\infty f_X=1$
 - Střední hodnota – linearita střední hodnoty, střední hodnota součinu nezávislých veličin, Markovova nerovnost
 	- $\mathbb E(X)=\sum_{x\in\text{Im}(X)}x\cdot P(X=x)$
 		- nebo $\mathbb E(X)=\int_{-\infty}^{\infty} x f_X(x)\text dx$
