@@ -139,9 +139,9 @@
 		- tzn. $a=a_0\lt a_1\lt a_2\lt \dots\lt a_k=b$
 	- definujeme dolní Riemannovu sumu $s(f,D)=\sum_{i=0}^{k-1} |I_i|m_i$
 		- $I_i=[a_i,a_{i+1}]$
-		- $m_i$ je supremum funkce $f$ v intervalu $I_i$
+		- $m_i$ je infimum funkce $f$ v intervalu $I_i$
 	- také definujeme horní Riemannovu sumu $S(f,D)=\sum_{i=0}^{k-1}|I_i|M_i$
-		- $M_i$ … infimum
+		- $M_i$ … supremum
 	- dolní Riemannův integrál na intervalu $[a,b]$ definujeme jako supremum z $s(f,D)$ pro všechna dělení $D$ intervalu $[a,b]$
 		- značí se $\underline{\int_a^b f}$
 	- horní Riemannův integrál je infimum z $S(f,D)$
