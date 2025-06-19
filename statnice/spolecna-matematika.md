@@ -69,7 +69,7 @@
 - Limita funkce v bodě: vztah s uspořádáním
 	- nechť $c\in\mathbb R^*$ a funkce $f,g,h$ jsou definované na prstencovém okolí bodu $c$
 	- mají-li $f,g$ v bodě $c$ limitu a $\lim_{x\to c}f(x)\gt\lim_{x\to c}g(x)$, pak existuje $\delta\gt 0$ takové, že $f(x)\gt g(x)$ pro každé $x\in P(c,\delta)$
-	- existuje-li $\delta\gt 0$ takové, že $f(x)\geq g(x)$ pro každé $x\in P(c,\delta)$, a mají-li funkce $f,g$ limitu v bodě $c$, potom $\lim_{x\to c}f(x)\geq g(x)$
+	- existuje-li $\delta\gt 0$ takové, že $f(x)\geq g(x)$ pro každé $x\in P(c,\delta)$, a mají-li funkce $f,g$ limitu v bodě $c$, potom $\lim_{x\to c}f(x)\geq \lim_{x\to c}g(x)$
 	- existuje-li $\delta\gt 0$ takové, že $f(x)\leq h(x)\leq g(x)$ pro každé $x\in P(c,\delta)$ a $\lim_{x\to c}f(x)=\lim_{x\to c}g(x)=A\in\mathbb R^*$ potom i $\lim_{x\to c}h(x)=A$
 		- v podstatě dva policajti
 - Limita funkce v bodě: limita složené funkce
@@ -1116,6 +1116,7 @@
 	- CLV se hodí k aproximaci distribuce součtu nebo průměru velkého počtu náhodných veličin normálním rozdělením
 		- takže můžeme provádět bodové a intervalové odhady i tam, kde data nejsou normálně rozdělená, ale známe rozptyl
 - Bodové odhady – alespoň jedna metoda pro jejich tvorbu, vlastnosti
+	- poznámka: neodhadujeme přímo $\theta$, nýbrž $g(\theta)$, aby to bylo obecnější
 	- pro náhodný výběr $X_1,\dots,X_n\sim F_\theta$ a libovolnou funkci $g$ nazveme bodový odhad $\hat\theta_n$…
 		- nevychýlený/nestranný, pokud $\mathbb E(\hat\theta_n)=g(\theta)$
 		- asymptoticky nevychýlený, pokud $\lim_{n\to\infty}\mathbb E(\hat\theta_n)=g(\theta)$
@@ -1125,7 +1126,7 @@
 		- střední kvadratickou chybu … $\text{MSE}(\hat\theta_n)=\mathbb E((\hat\theta_n-\theta)^2)$
 	- věta: $\text{MSE}(\hat\theta_n)=\text{bias}(\hat\theta_n)^2+\text{var}(\hat\theta_n)$
 	- metoda momentů
-		- $r$-tý moment $X$ … $\mathbb EX^r=m_r(\theta)$
+		- $r$-tý moment $X$ … $\mathbb E(X^r)=m_r(\theta)$
 		- $r$-tý výběrový moment … $\frac1n\sum_{i=1}^n X_i^r=\widehat{m_r}$
 			- konzistentní nevychýlený odhad pro $r$-tý moment
 		- nalezneme $\theta$ takové, že $m_r(\theta)=\widehat{m_r}$
@@ -1155,6 +1156,7 @@
 			- $z_{\alpha/2}:=\Phi^{-1}(1-\alpha/2)$
 			- $\text{se}:=\sigma(\hat\theta)$
 - Testování hypotéz – základní přístup, chyby 1. a 2. druhu, hladina významnosti
+	- zvolíme testovou statistiku $T$
 	- nulová hypotéza … defaultní, konzervativní model
 	- alternativní hypotéza … alternativní model, „zajímavost“
 	- nulovou hypotézu buď zamítneme, nebo nezamítneme
@@ -1168,6 +1170,8 @@
 	- síla testu … $1-\beta$
 		- chceme co největší
 	- $p$-hodnota … nejmenší $\alpha$ taková, že na hladině $\alpha$ zamítáme $H_0$
+		- takže zamítáme, pokud $p$-hodnota vyjde menší rovna naší zvolené $\alpha$
+		- $p$-hodnota je vlastně pravděpodobnost, že při platnosti $H_0$ nabývá zvolená testová statistika $T$ naměřené hodnoty nebo hodnot ještě extrémnějších
 
 ## 6. Logika
 
@@ -1177,11 +1181,14 @@
 		- množina $\mathbb P$ může být konečná nebo i nekonečná (ale obvykle bude spočetná) a bude mít dané uspořádání
 	- predikátová logika
 		- signatura je dvojice $\braket{\mathcal {R,F}}$, kde $\mathcal{R,F}$ jsou disjunktní množiny symbolů (relační a funkční, ty zahrnují konstantní) spolu s danými aritami a neobsahují symbol $=$
+			- signaturu ale často uvádíme jako prostý výčet symbolů
 		- do jazyka patří…
 			- spočetně mnoho proměnných
 			- relační, funkční a konstantní symboly ze signatury a symbol $=$, jde-li o jazyk s rovností
 			- univerzální a existenční kvantifikátory pro každou proměnnou
 			- symboly pro logické spojky a závorky
+		- např. jazyk uspořádání zapíšeme jako „$L=\braket{\leq}$ s rovností“
+			- tzn. napíšeme signaturu a také uvedeme, zda jde o jazyk s rovností
 		- struktura v signatuře $\braket{\mathcal{R,F}}$ je trojice $\mathcal A=\braket{A,\mathcal{R^A,F^A}}$, kde…
 			- $A$ je neprázdná množina, říkáme jí doména (také universum)
 			- $\mathcal {R^A}$ je množina interpretací jednotlivých relačních symbolů (kde interpretace $n$-árního relačního symbolu je množina uspořádaných $n$-tic prvků z $A$)
