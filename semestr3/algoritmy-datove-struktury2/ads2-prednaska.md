@@ -591,7 +591,7 @@
 	- $L\in \text P\equiv\exists A$ algoritmus $\exists p$ polynom takový, že $\forall x$ vstup platí, že $A(x)$ doběhne do $p(|x|)$ kroků $\land\;A(x)=L(x)$
 - pozorování: $K\to L,\; L\in P\implies K\in P$
 - df: třída problémů NP
-	- $L\in \text{NP}\equiv\exists V\in P$ (verifikátor) $\exists g$ polynom (omezení délky certifikátů) $\forall x:L(x)=1\iff$ $\exists y$ (certifikát) $|y|\leq g(|x|)$ (krátký) $\land\;V(x,y)=1$ (schválený)
+	- $L\in \text{NP}\equiv\exists V\in \text P$ (verifikátor) $\exists g$ polynom (omezení délky certifikátů) $\forall x:L(x)=1\iff$ $\exists y$ (certifikát) $|y|\leq g(|x|)$ (krátký) $\land\;V(x,y)=1$ (schválený)
 - $\text P\subseteq\text{NP}$ (rovnost se neví)
 - df: $L$ je NP-těžký $\equiv\forall K\in\text{NP}:K\to L$
 - df: $L$ je NP-úplný $\equiv L$ je NP-těžký $\land\;L\in\text{NP}$

@@ -296,7 +296,7 @@
 				- sjednocení … $F=(F_1\times Q_2)\cup(Q_1\times F_2)$
 				- rozdíl … $F=F_1\times (Q_2-F_2)$
 		- bezkontextové jazyky jsou uzavřené na sjednocení, konkatenaci, iteraci, reverzi, naopak neuzavřené na průnik (ale jsou uzavřené na průnik s regulárním jazykem)
-		- uzavřenost můžeme použít k důkaz regularity nebo bezkontextovosti
+		- uzavřenost můžeme použít k důkazu regularity nebo bezkontextovosti
 		- ale můžeme ji použít i k důkazu neregularity jazyka $L$ – kdybychom aplikací uzavřených operací na jazyk $L$ a regulární jazyky dostali jazyk $L'$, který zjevně není regulární (např. $0^i1^i$)
 - Příklad kontextového jazyka
 	- lemma: jazyk $L=\set{a^ib^jc^k\mid1\leq i\leq j\leq k}$ je kontextový jazyk, není bezkontextový
@@ -347,7 +347,7 @@
 	- $\Theta(g):= O(g)\cap \Omega(g)$
 - Třídy P a NP
 	- problém $L\in \text P\equiv\exists A$ algoritmus $\exists p$ polynom takový, že $\forall x$ vstup platí, že $A(x)$ doběhne do $p(|x|)$ kroků $\land\;A(x)=L(x)$
-	- problém $L\in \text{NP}\equiv\exists V\in P$ (verifikátor) $\exists g$ polynom (omezení délky certifikátů) $\forall x:L(x)=1\iff$ $\exists y$ certifikát $|y|\leq g(|x|)$ (krátký) $\land\;V(x,y)=1$ (schválený)
+	- problém $L\in \text{NP}\equiv\exists V\in \text P$ (verifikátor) $\exists g$ polynom (omezení délky certifikátů) $\forall x:L(x)=1\iff$ $\exists y$ certifikát $|y|\leq g(|x|)$ (krátký) $\land\;V(x,y)=1$ (schválený)
 	- $\text P\subseteq\text{NP}$ (rovnost se neví)
 - Převoditelnost problémů, NP-těžkost a NP-úplnost
 	- rozhodovací problém $\equiv$ funkce $f:\set{0,1}^*\to\set{0,1}$
@@ -830,9 +830,10 @@
 		- opravdu to funguje jako zásobník (FIFO)
 		- velikost alokované paměti je známá během kompilace
 	- dynamickou alokaci na haldě použijeme v situacích, kdy nám první dva přístupy nestačí
-		- potřebujeme sdílet objekty nějak napříč / potřebujeme polymorfismus a nestačí nám reference (v C++)
+		- potřebujeme sdílet objekty nějak napříč
+		- potřebujeme polymorfismus a nestačí nám reference (v C++)
 		- potřebujeme alokovat hodně paměti
-		- alokovanou paměť je nutné ručně dealokovat (smart pointers tohle řeší)
+	- v C++ je nutné dynamicky alokovanou paměť ručně dealokovat (smart pointers tohle řeší)
 	- v C# jsou všechny instance referenčních typů (a jejich fieldy) na haldě
 - Inicializace (konstruktory, volání zděděných konstruktorů)
 	- v C# je konstruktor označen viditelností a názvem třídy, volá se s new
@@ -908,7 +909,7 @@
 		- řeší to problém zpětné kompatibility, ne dopředné
 	- C\#
 		- soubory .cs
-		- .csproj, předává se build systému dotnetu, ten pustí C# compiler csc.exe (dnes css.dll)
+		- .csproj, předává se build systému dotnetu, ten pustí C# compiler csc.exe (dnes csc.dll)
 		- vypadne z toho executable, uvnitř je CIL kód (common intermediate language)
 		- ke spuštění programu potřebujeme CLR (common language runtime), obvykle je tam JIT (just-in-time) překladač, ten zajišťuje překlad a spuštění pro konkrétní platformu
 			- alternativou bylo vykonávat CIL instrukce pomocí běhové podpory, ale to je hrozně pomalé

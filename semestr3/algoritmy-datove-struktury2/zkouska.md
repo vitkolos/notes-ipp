@@ -785,7 +785,7 @@
 
 - Definice: Třídy složitosti P a NP
 	- problém $L\in \text P\equiv\exists A$ algoritmus $\exists p$ polynom takový, že $\forall x$ vstup platí, že $A(x)$ doběhne do $p(|x|)$ kroků $\land\;A(x)=L(x)$
-	- problém $L\in \text{NP}\equiv\exists V\in P$ (verifikátor) $\exists g$ polynom (omezení délky certifikátů) $\forall x:L(x)=1\iff$ $\exists y$ certifikát $|y|\leq g(|x|)$ (krátký) $\land\;V(x,y)=1$ (schválený)
+	- problém $L\in \text{NP}\equiv\exists V\in \text P$ (verifikátor) $\exists g$ polynom (omezení délky certifikátů) $\forall x:L(x)=1\iff$ $\exists y$ certifikát $|y|\leq g(|x|)$ (krátký) $\land\;V(x,y)=1$ (schválený)
 	- $\text P\subseteq\text{NP}$ (rovnost se neví)
 - Definice: NP-těžké a NP-úplné problémy
 	- $L$ je NP-těžký $\equiv\forall K\in\text{NP}:K\to L$

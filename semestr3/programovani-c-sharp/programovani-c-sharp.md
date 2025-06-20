@@ -149,7 +149,7 @@
 	- řeší to problém zpětné kompatibility, ne dopředné
 - C\#
 	- soubory .cs
-	- .csproj, předává se build systému dotnetu, ten pustí C# compiler csc.exe (dnes css.dll)
+	- .csproj, předává se build systému dotnetu, ten pustí C# compiler csc.exe (dnes csc.dll)
 	- vypadne z toho executable, uvnitř je CIL kód (common intermediate language)
 	- ke spuštění programu potřebujeme CLR (common language runtime), obvykle je tam JIT (just-in-time) překladač, ten zajišťuje překlad a spuštění pro konkrétní platformu
 	- CLR … virtual machine (VM)
