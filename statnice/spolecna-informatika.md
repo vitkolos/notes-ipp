@@ -205,7 +205,7 @@
 				- $Y\in\Gamma$ … symbol pro zapsání do aktuální buňky, přepíše aktuální obsah
 				- $D\in\set{L,R}$ … směr pohybu hlavy (doleva, doprava)
 		- $q_0\in Q$ … počáteční stav
-		- $B\in\Gamma\setminus\Sigma$ … blank = symbol pro prázdné buňky, na začátku všude kromě konečného počtu buněk se vstupem
+		- $B\in\Gamma-\Sigma$ … blank = symbol pro prázdné buňky, na začátku všude kromě konečného počtu buněk se vstupem
 		- $F\subseteq Q$ … množina koncových neboli přijímajících stavů
 		- poznámka: někdy se nerozlišuje $\Gamma$ a $\Sigma$ a neuvádí se $B$, pak je TM pětice
 	- turingův stroj $M=(Q,\Sigma,\Gamma,\delta,q_0,B,F)$ přijímá jazyk $L(M)=\set{w\in\Sigma^*:(\exists p\in F)(\exists \alpha,\beta\in\Gamma^*)(q_0w\vdash_M^*\alpha p\beta)}$
