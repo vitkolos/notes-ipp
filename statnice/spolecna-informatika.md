@@ -154,7 +154,7 @@
 			- $P$ přijímá prázdným zásobníkem
 		- idea
 			- stavy nás nezajímají – stačí nám jeden
-			- na zásobníku nedeterministicky generujeme všechny možné posloupnosti terminálů
+			- na zásobníku nedeterministicky generujeme všechny možné posloupnosti terminálů (přičemž ale postupně zpracováváme vstup)
 - Pumping lemma pro bezkontextové jazyky
 	- lemma o vkládání (pumping) pro bezkontextové jazyky
 		- nechť $L$ je bezkontextový jazyk
@@ -162,11 +162,10 @@
 			- $u_2u_4\neq\epsilon$
 			- $|u_2u_3u_4|\leq n$
 			- $\forall k\geq 0:u_1u_2^ku_3u_4^ku_5\in L$
-		- poznámka: v prezentaci je ostrá nerovnost $|w|\gt n$, v jiných zdrojích neostrá
 	- idea důkazu
 		- vezmeme derivační strom pro $w$
 		- nejdeme nejdelší cestu, na ní dva stejné neterminály
-		- tyto neterminály určí dva postromy, které definují rozklad slova
+		- tyto neterminály určí dva podstromy, které definují rozklad slova
 		- větší podstrom můžeme posunout ($k\gt 1$) nebo nahradit menším podstromem ($k=0$)
 	- příklad: $L_{012}=\set{0^i1^i2^i\mid i\geq 1}$ není bezkontextový
 		- důkaz sporem – předpokládejme bezkontextovost
@@ -304,7 +303,9 @@
 		- $S\to aSBC|aBC$ … generování symbolů $a$
 		- $B\to BBC$ … množení symbolů $B$
 		- $C\to CC$ … množení symbolů $C$
-		- $CB\to BC$ … uspořádání symbolů $B$ a $C$ (pravidlo není kontextové, je potřeba ho upravit nadtrháváním)
+		- $CB\to BC$ … uspořádání symbolů $B$ a $C$
+			- pravidlo není kontextové, je potřeba ho upravit nadtrháváním
+			- tzn. písmenka měníme po jednom (střídavě), např. takto: $CB\to\bar CB\to \bar C\bar B\to B\bar B\to BC$
 		- $aB\to ab$ … začátek přepisu $B$ na $b$
 		- $bB\to bb$ … pokračování přepisu $B$ na $b$
 		- $bC\to bc$ … začátek přepisu $C$ na $c$
@@ -422,7 +423,7 @@
 		- chceme nezávislou množinu velikosti $k$, takže musíme vrcholy v množině spočítat
 			- pořídíme si tabulku (pomocí jiných proměnných $y_{ij}$)
 			- vynutíme, aby v každém sloupci byla maximálně jedna jednička a v každém řádku právě jedna jednička
-		- propojíme proměnné $x_j$ a $y_{ij}$ pomocí implikace $x_{ij}\to x_j$
+		- propojíme proměnné $x_j$ a $y_{ij}$ pomocí implikace $y_{ij}\to x_j$
 - Metoda rozděl a panuj: princip rekurzivního dělení problému na podproblémy
 	- problém rekurzivně dělíme na menší a menší podproblémy, dokud nedojdeme k problému konstantní velikosti, který umíme vyřešit triviálně
 	- problémy v jedné úrovni dělení na sobě musí být nezávislé
@@ -1170,7 +1171,7 @@
 		- operace se soubory – vyčištění cache, změna atributů, vytvoření, smazání
 		- file handle – číslo specifické pro proces, odkazuje na konkrétní soubor (stdin, stdout, stderr mají handles 0, 1, 2)
 	- buffering
-		- cachování sektorů disku (když disk čtu po bajtech, první se načítá z cache, všechny ostatní v daném sektoru už se pak načítají z cache)
+		- cachování sektorů disku (když disk čtu po bajtech, první se načítá přímo z disku, všechny ostatní v daném sektoru už se pak načítají z cache)
 		- existuje několik úrovní cache (systémová, runtime)
 		- sekvenční vs. náhodný přístup
 	- alternativy – memory mapping, asynchronní přístup souborům

@@ -392,7 +392,7 @@
 	- operace se soubory – vyčištění cache, změna atributů, vytvoření, smazání
 	- file handle – číslo specifické pro proces, odkazuje na konkrétní soubor (stdin, stdout, stderr mají handles 0, 1, 2)
 	- buffering
-		- cachování sektorů disku (když disk čtu po bajtech, první se načítá z cache, všechny ostatní v daném sektoru už se pak načítají z cache)
+		- cachování sektorů disku (když disk čtu po bajtech, první se načítá přímo z disku, všechny ostatní v daném sektoru už se pak načítají z cache)
 		- existuje několik úrovní cache (systémová, language runtime)
 		- sekvenční vs. náhodný přístup
 	- alternativy – memory mapping, asynchronní přístup souborům

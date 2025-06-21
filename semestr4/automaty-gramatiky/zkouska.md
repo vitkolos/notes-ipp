@@ -529,7 +529,7 @@
 	- idea důkazu
 		- vezmeme derivační strom pro $w$
 		- nejdeme nejdelší cestu, na ní dva stejné neterminály
-		- tyto neterminály určí dva postromy, které definují rozklad slova
+		- tyto neterminály určí dva podstromy, které definují rozklad slova
 		- větší podstrom můžeme posunout ($k\gt 1$) nebo nahradit menším podstromem ($k=0$)
 	- důkaz
 		- vezmeme gramatiku v Chomského normální formě (pro $L=\set{\epsilon}$ a $\emptyset$ zvol $n=1$)
@@ -649,7 +649,7 @@
 				- kde $s\in\Sigma\cup\set{\epsilon}$
 				- $\forall p_1,\dots,p_{k}\in Q$ vytvoříme pravidlo $[qXp_k]\to s[pY_1p_1][p_1Y_2p_2]\dots[p_{k-1}Y_kp_k]$
 				- levá strana – jsme ve stavu $q$, z vrchu zásobníku vezmeme $X$, pak se (možná) něco stane, nakonec budeme v nějakém stavu $p_k$
-				- pravá strana – přešli jsme ze stavu $q$ do konkrétního stavu $p$, přitom jsme přečetli písmeno $s$ ze vstupu a na zásobníku přibyly symobly $Y_1\dots Y_k$, které je potřeba zpracovat (při zpracování prvního symbolu budeme vycházet z konkrétního stavu $p$, po zpracování posledního symbolu se dostaneme do nějakého stavu $p_k$)
+				- pravá strana – přešli jsme ze stavu $q$ do konkrétního stavu $p$, přitom jsme přečetli písmeno $s$ ze vstupu a na zásobníku přibyly symboly $Y_1\dots Y_k$, které je potřeba zpracovat (při zpracování prvního symbolu budeme vycházet z konkrétního stavu $p$, po zpracování posledního symbolu se dostaneme do nějakého stavu $p_k$)
 				- takže vlastně začátek každé strany pravidla vždycky vychází z přechodu, konec je „náhodný“
 			- speciálně pro $(p,\epsilon)\in\delta(q,a,A)$ vytvoříme pravidlo $[qAp]\to a$
 - Algoritmus: Konstrukce PDA z CFG
@@ -660,7 +660,7 @@
 		- $P$ přijímá prázdným zásobníkem
 	- idea
 		- stavy nás nezajímají – stačí nám jeden
-		- na zásobníku nedeterministicky generujeme všechny možné posloupnosti terminálů
+		- na zásobníku nedeterministicky generujeme všechny možné posloupnosti terminálů (přičemž ale postupně zpracováváme vstup)
 - Definice: Deterministický zásobníkový automat (DPDA)
 	- zásobníkový automat $P=(Q,\Sigma,\Gamma,\delta,q_0,Z_0,F)$ je deterministický PDA, právě když platí zároveň
 		- $\delta(q,a,X)$ je nejvýše jednoprvková pro libovolnou trojici $q,a,X$
