@@ -350,6 +350,7 @@
 		- $\text{ker}(f)=\lbrace w \in U:f(w)=o\rbrace$
 		- vektory v prostoru $U$, které se zobrazí na nulový vektor v prostoru $V$
 	- obraz $f(U)$ podprostoru $U$ je podprostorem $V$
+		- pokud máme matici zobrazení, tak obraz získáme jako lineární obal těch sloupců, které odpovídají bázickým proměnným (při Gaussovce nám tam vyjdou pivoty)
 - Isomorfismus prostorů
 	- vektorové prostory jsou isomorfní, pokud mezi nimi existuje isomorfismus, tedy bijektivní (vzájemně jednoznačné) lineární zobrazení
 	- pro isomorfismus $f$ platí, že existuje $f^{-1}$ a je také isomorfismem
@@ -408,7 +409,7 @@
 - Ortogonální matice a jejich vlastnosti
 	- matice $Q\in\mathbb R^{n\times n}$ je ortogonální, pokud $Q^TQ=I_n$
 		- pro ortogonální matici $Q$ platí $Q^T=Q^{-1}$
-	- věta: $Q$ je ortogonální, právě když sloupce tvoří ortogonální bázi $\mathbb R^n$
+	- věta: $Q$ je ortogonální, právě když sloupce tvoří ortonormální bázi $\mathbb R^n$
 	- zjevně: je-li $Q$ ortogonální, pak…
 		- $Q^T$ je rovněž ortogonální
 		- $Q^{-1}$ existuje a je ortogonální

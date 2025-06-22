@@ -387,8 +387,10 @@
 		- můžeme testovat třeba to, jestli se rovnají střední hodnoty parametru $\theta$ u dvou různých populací (samplujeme nezávisle, vzorků může být různý počet)
 		- např. $H_0$ … $\mu_X=\mu_Y$
 		- opět uvažujeme testovou statistiku $T$ s t-rozdělením
-			- $T=\frac{\overline{X_n}-\overline{Y_m}}{\mathrm{SE}}$
-			- přičemž $\mathrm{SE}$ je směrodatná chyba (vzorec je komplikovaný)
+			- $T=\frac{\overline{X_n}-\overline{Y_m}}{\mathrm{se}}$
+			- přičemž $\mathrm{se}$ je směrodatná chyba
+			- $\mathrm{se}=\sqrt{\frac{\sigma_X^2}{n}+\frac{\sigma_Y^2}{m}}$
+		- případně opět $\delta=\mathrm{se}\cdot \Phi^{-1}(1-\alpha/2)$
 	- bonus: párový test
 		- data jsou ve dvojicích, dvojice dat spolu nějak souvisí
 		- např. $H_0$ … $\mu_X=\mu_Y$
