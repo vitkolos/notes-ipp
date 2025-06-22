@@ -310,17 +310,20 @@
 - Markovské modely – filtrace, predikce, vyhlazování, nejpravděpodobnější průchod
 	- každý stav světa je popsán množinou náhodných proměnných
 		- skryté náhodné proměnné $X_t$ – popisují reálný stav
-		- pozorovatelné náhodné proměnné $E_t$ – popisují, co pozorujeme
+		- pozorovatelné náhodné proměnné $e_t$ – popisují, co pozorujeme
 		- uvažujeme diskrétní čas, takže $t$ označuje konkrétní okamžik
 		- množinu proměnných od $X_a$ do $X_b$ budeme značit jako $X_{a:b}$
 	- formální model
+		- skrytý Markovův model (HMM) je dvojice $(X_n,e_n)$
+			- $X_n$ a $e_n$ jsou náhodné (stochastické) procesy, takže vlastně posloupnosti náhodných proměnných
+			- $X_n$ je markovský proces, který nemůžeme přímo pozorovat
 		- transition model
 			- určuje pravděpodobnostní rozložení proměnných posledního stavu, když známe jejich předchozí hodnoty … $P(X_t\mid X_{0:t-1})$
 			- zjednodušující předpoklady
 				- další stav závisí jen na předchozím stavu … *Markov assumption*
 				- všechny přechodové tabulky $P(X_t\mid X_{t-1})$ jsou identické přes všechna $t$ … *stationary process*
 		- sensor (observation) model
-			- popisuje, jak pozorované proměnné závisí na ostatních proměnných … $P(E_t\mid X_{0:t},E_{1:t-1})$
+			- popisuje, jak pozorované proměnné závisí na ostatních proměnných … $P(e_t\mid X_{0:t},e_{1:t-1})$
 			- zjednodušující předpoklad: pozorování záleží jen na aktuálním stavu … *sensor Markov assumption*
 	- základní inferenční úlohy
 		- filtrování – znám minulá pozorování, zajímá mě přítomný stav

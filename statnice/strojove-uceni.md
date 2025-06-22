@@ -12,7 +12,7 @@
 			- $y_i$ … predikce funkční hodnoty pro $x_i$
 			- $t_i$ … reálná funkční hodnota pro $x_i$ (v trénovacích/testovacích datech)
 	- klasifikace
-		- negative log likelihood, $\mathrm{NLL}=-\sum_{i=1}^N p_i(t_i)$
+		- negative log likelihood, $\mathrm{NLL}=-\sum_{i=1}^N \log p_i(t_i)$
 			- $t_i$ … reálná třída $x_i$
 			- $p_i$ … pravděpodobnostní rozdělení, které model vrací pro $x_i$ (pravděpodobnosti, že $x_i$ náleží jednotlivým třídám)
 			- místo $p_i(t_i)$ lze také zapsat $p(t_i\mid x_i)$
