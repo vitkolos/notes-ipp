@@ -1,0 +1,25 @@
+# Lecture
+
+- best channel to convey information = vision
+	- highest bandwidth of all the senses
+	- extends memory and cognition – we use drawings to “think more clearly”
+	- people think visually
+- pre-attentive perception
+	- the time to find the blue dot is constant – no matter the total number of dots
+		- assuming we can distinguish the colors
+- Anscombe's Quartet – four datasets with the same statistical properties
+- when computing average, we assume that it represents the underlying distribution well
+- information visualization = use of computer-supported, interactive visual representations of data to amplify cognition
+- scientific visualization – the datasets have a given spatialisation (the coordinates already exist), continuous
+- data visualization – web-based, communication
+- challenges: diversity, scale
+- visual information-seeking mantra
+	- overview first
+	- zoom and filter
+	- details on demand
+- visual perception is a two stage process
+	- parallel extraction of low-level properties
+	- sequential goal-directed processing
+- retina performs parallel processing of different attributes
+- brain performs sequential processing (object segmentation, identification)
+- readings: [Graphs in Statistical Analysis](http://iihm.imag.fr/blanch/teaching/infovis/readings/1973-Anscombe-Graphs_in_Stats.pdf) & [The Eyes Have It](http://iihm.imag.fr/blanch/teaching/infovis/readings/1996-Shneiderman-Mantra.pdf); viewing: [Hans Rosling’s TED talks](https://www.ted.com/speakers/hans_rosling)

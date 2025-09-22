@@ -1,0 +1,23 @@
+# Lecture
+
+- robot = mechatronic system with perception, decision and action capabilities, that can perform in an autonomous way different tasks in the real world
+	- multi-purpose
+	- autonomous
+- sensor = device that measures a physical property and returns a signal of varying complexity
+	- exteroception – information from the outside world
+	- interoception – information from within the body of a robot
+	- proprioception – information from within related to the movement of the body parts
+- actuator = device generating a movement, that controls one degree of freedom (rotation, translation)
+	- LED is not an actuator :(
+	- effector … more complex for manipulation or mobility
+- the three Ds: dull, dirty, dangerous (tasks)
+- odometric drift – actuators and sensors are not precise, the error accumulates
+	- how to solve it
+		- use a map (purposes of a map: localization, computing the route to a given goal)
+- motion planning
+	- feasible plan = takes the capabilities of the robot into account
+	- motion strategies can have different forms – it can be a path, a set of procedural instructions
+	- for a walking humanoid robot, the plan would be quite complex
+- motion planning vs. navigation (obstacle avoidance etc.)
+	- motion planning – global map, strategic level
+	- obstacle avoidance – local map, tactical level
