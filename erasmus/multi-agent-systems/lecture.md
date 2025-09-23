@@ -1,0 +1,50 @@
+# Lecture
+
+- challenges in AI (or computer science in general): scale, autonomy, delegation, cooperation
+- MAS … field of AI interested in designing systems of autonomous interacting entities
+- course overview
+	- general introduction
+	- agent interactions: communication, game theory
+	- distributed problem solving
+	- agent-based modelling and simulation (course, case study, tutorials)
+	- human factors in MAS
+	- collective decisions in MAS: theory of social choice
+- agent … perceiving and acting
+- autonomy (but autonomous agent still could decide randomly)
+- rational agent
+- another definition: agent
+	- physical or virtual entity, has its own resources, possibly a representation of its environment
+	- acts autonomously to satisfy some tendencies (goals) … proactive
+	- while taking into account its limited resources, perceptions etc. … reactive
+- physical vs. communicative actions
+- agent architectures
+	- simple reactive agent
+	- agent with an internal state
+	- goal-based agent
+	- utility-based agent
+		- in case of conflicting goals or uncertain effects
+- performance vs. utility
+- properties of environments
+	- accessibility
+		- are all the relevant aspects of the environment instantly available to the agent? → we don't need to maintain an internal state
+	- determinism
+		- is the next state completely determined by the current state and the actions selected by the agents?
+	- accessible + deterministic → no uncertainty
+	- episodic vs. sequential environment
+		- do future states depend on past actions? → sequential environment
+		- episodic environments are simpler, agents can make reactive decisions and do not need to remember the history (example: old chatbots)
+	- static vs. dynamic environment
+		- dynamic environment can change during deliberation → we need to think fast (example: autonomous car)
+		- semi-dynamic environment does not change during deliberation but the passage of time is important (e.g. performance score)
+		- static environment does not change during deliberation, time does not matter
+	- discrete vs. continuous
+		- discrete environment – limited number of distinct, clearly defined percepts and actions
+- examples
+	- chess: accessible, deterministic, sequential, static or semi-dynamic (with a clock), discrete
+	- poker: inaccessible, indeterministic, sequential
+	- taxi driving: inaccessible, indeterministic, sequential, dynamic, continuous
+- finding a balance between reactivity and proactivity (so that we don't get distracted)
+- applications
+	- distributed problem solving
+	- agent-based modelling and simulation
+- Gama, Netlogo
