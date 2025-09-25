@@ -35,5 +35,6 @@
 	- consistent cut … the global state could have existed
 		- cut $C$ is consistent iff $e'\in C\land e\to e'\implies e\in C$
 - Chandy-Lamport
-	- read the lecture notes
-	- solve the exercise
+	- to save a snapshot, we need an initiator process which is the first to broadcast the message SNAPSHOT
+	- when process $p_i$ receives the SNAPSHOT message, it saves its state and also broadcasts SNAPSHOT (there are no other events in between)
+	- the state of channel $c_{ji}$ corresponds to the messages that the process $p_i$ received from $p_j$ between broadcasting SNAPSHOT and receiving SNAPSHOT from $c_j$
