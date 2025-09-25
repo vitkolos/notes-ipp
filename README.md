@@ -1,6 +1,6 @@
 # Bc. Informatika: poznámky
 
-Bachelor of Computer science, [scroll down for notes in English](#20242025)
+Bachelor of Computer Science, [scroll down for notes in English](#20242025)
 
 - zpracoval [Vít Kološ](https://www.vitkolos.cz/)
 - [https://www.vitkolos.cz/node/**view**/notes-ipp/main/](https://www.vitkolos.cz/node/view/notes-ipp/main/)
