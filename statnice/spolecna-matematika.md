@@ -76,7 +76,7 @@
 	- nechť $A,B,C\in\mathbb R^*$, nechť $g(x)$ je funkce splňující $\lim_{x\to A}g(x)=B$ a nechť $f(x)$ je funkce splňující $\lim_{x\to B}f(x)=C$
 	- navíc nechť je splněna aspoň jedna z následujících podmínek
 		- $f(x)$ je spojitá v $B$
-		- na nějakém prstencovém okolí bodu $A$ funkce $g(x)$ nenabývá hodnotu $B$
+		- na nějakém prstencovém okolí bodu $A$ funkce $g(x)$ nikde nenabývá hodnotu $B$
 	- potom $\lim_{x\to A}f(g(x))=C$
 - Spojitost a spojitost na intervalu
 	- řekneme, že funkce $f$ je v bodě $a\in\mathbb R$ spojitá, pokud $\lim_{x\to a}f(x)=f(a)$
