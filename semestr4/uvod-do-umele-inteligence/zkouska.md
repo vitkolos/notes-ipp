@@ -788,6 +788,7 @@
 		- „tragedy of commons“
 			- když nikdo nemusí platit za sdílený zdroj, může to vést k jeho využívání tím způsobem, že se snižuje utilita pro všechny agenty
 			- podobné vězňovu dilematu
+			- řešení: internalizace externalit (typicky zpoplatnění sdíleného zdroje)
 		- mechanismus Vickrey-Clarke-Groves
 			- zdanění společného zboží
 			- problém – je nezbytné mít centrální autoritu
